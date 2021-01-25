@@ -152,7 +152,7 @@ registerEndpoint('genes/{gene}/probes?offset={offset}&limit={limit}',
                  validators = alist(gene = validateSingleID,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger),
-                 preprocessor = quote(processGeneProbes))
+                 preprocessor = quote(processElements))
 
 registerSimpleEndpoint('gene', 'goTerms',
                        'getGeneGO',

@@ -1,23 +1,3 @@
-as.gemma.factor <- function(d) {
-    data.table(name = d$value,
-               URL = d$valueUri,
-               description = d$description,
-               category.Name = d$category,
-               category.URL = d$categoryUri,
-               measurement = d$measurement,
-               type = d$type)
-}
-
-as.gemma.array <- function(d) {
-    data.table(array.ShortName = d$shortName,
-               array.Name = d$name,
-               array.Taxon = d$taxon,
-               array.TaxonID = d$taxonID,
-               array.Type = d$technologyType,
-               array.Description = d$description,
-               array.Troubled = d$troubled)
-}
-
 encode <- function(url) {
     if(is.na(url) || !is.character(url)) url
     else {
@@ -37,8 +17,10 @@ registerEndpoint <- function(endpoint,
     
     if(missing(endpoint) || missing(fname) || missing(preprocessor))
         stop('Please specify an endpoint, function name and preprocessor.')
-    if(exists(fname, envir = where))
-        stop(glue('{fname} already exists.'))
+    if(exists(fname, envir = where)) {
+        warning(glue('{fname} already exists. Skipping.'))
+        return(NULL)
+    }
     
     # Make sure arguments are URL encoded
     endpoint <- gsub('\\{([^\\}]+)\\}', '\\{encode\\(\\1\\)\\}', endpoint)
