@@ -1,3 +1,22 @@
+#' URL encode a string safely
+#'
+#' @param url The string to URL encode. Vectors are delimited by a comma.
+#'
+#' @return A URL encoding of url
+encode <- function(url) {
+    if(is.na(url) || !is.character(url)) url
+    else {
+        if(length(url) > 1)
+            url <- paste0(url, collapse = ',')
+        URLencode(url, T)
+    }
+}
+
+#' Processes JSON as a factor
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGemmaFactor <- function(d) {
     data.table(name = d[['value']],
                URL = d[['valueUri']],
@@ -8,6 +27,11 @@ processGemmaFactor <- function(d) {
                type = d[['type']])
 }
 
+#' Processes JSON as an array
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGemmaArray <- function(d) {
     data.table(array.ShortName = d[['shortName']],
                array.Name = d[['name']],
@@ -18,6 +42,11 @@ processGemmaArray <- function(d) {
                array.Troubled = d[['troubled']])
 }
 
+#' Processes JSON as a vector of datasets
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processDatasets <- function(d) {
     data.table(experiment.ShortName = d[['shortName']],
                experiment.Name = d[['name']],
@@ -38,8 +67,12 @@ processDatasets <- function(d) {
                technology.Type = d[['technologyType']])
 }
 
+#' Processes JSON as a differential expression analysis
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processDEA <- function(d) {
-    tmp <<- d
     data.table(subset.Enabled = d[['subset']],
                subset.Factor = d[['subsetFactor']],
                subset.FactorValue = d[['subsetFactorValue']],
@@ -65,10 +98,15 @@ processDEA <- function(d) {
                }))
 }
 
+#' Processes JSON as expression data
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processExpression <- function(d) {
     expr <- lapply(d[['geneExpressionLevels']], function(x) {
         n.reps <- unlist(lapply(x[['vectors']], nrow))
-        
+
         data.table(gene.ID = rep(x[['geneNcbiId']], n.reps),
                    gene.Symbol = rep(x[['geneOfficialSymbol']], n.reps),
                    probe = unlist(lapply(x[['vectors']], '[[', 'designElementName')),
@@ -80,11 +118,21 @@ processExpression <- function(d) {
         expr
 }
 
+#' Processes JSON as an experiment's SVD
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processSVD <- function(d) {
     list(variance = d$variances,
          VMatrix = d$vMatrix$rawMatrix %>% `colnames<-`(d$vMatrix$colNames) %>% `rownames<-`(d$vMatrix$rowNames))
 }
 
+#' Processes JSON as annotations
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processAnnotations <- function(d) {
     data.table(class.Type = d[['objectClass']],
                class.Name = d[['className']],
@@ -94,6 +142,11 @@ processAnnotations <- function(d) {
                term.URL = d[['termUri']])
 }
 
+#' Processes JSON as a vector of samples
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processSamples <- function(d) {
     data.table(sample.Name = d[['sample']][['name']],
                sample.ID = d[['sample']][['id']],
@@ -107,6 +160,11 @@ processSamples <- function(d) {
                processGemmaArray(d[['arrayDesign']]))
 }
 
+#' Processes JSON as a vector of platforms
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processPlatforms <- function(d) {
     data.table(platform.ShortName = d[['shortName']],
                platform.Name = d[['name']],
@@ -119,6 +177,11 @@ processPlatforms <- function(d) {
                technology.Color = d[['color']])
 }
 
+#' Processes JSON as a vector of elements
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processElements <- function(d) {
     data.table(mapping.Name = d[['name']],
                mapping.Summary = lapply(d[['geneMappingSummaries']], function(x) {
@@ -138,6 +201,11 @@ processElements <- function(d) {
                processGemmaArray(d[['arrayDesign']]))
 }
 
+#' Processes JSON as a vector of genes
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGenes <- function(d) {
     data.table(gene.Symbol = d[['officialSymbol']],
                gene.Ensembl = d[['ensemblId']],
@@ -154,6 +222,11 @@ processGenes <- function(d) {
                phenotypes = d[['phenotypes']])
 }
 
+#' Processes JSON as a vector of gene evidence (which also contains genes)
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGeneEvidence <- function(d) {
     data.table(evidence = lapply(d[['evidence']], function(x) {
         data.table(gene.ID = x[['geneId']],
@@ -177,6 +250,11 @@ processGeneEvidence <- function(d) {
     }), processGenes(d))
 }
 
+#' Processes JSON as a vector of gene locations
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGeneLocation <- function(d) {
     data.table(chromosome = d[['chromosome']],
                strand = d[['strand']],
@@ -191,12 +269,22 @@ processGeneLocation <- function(d) {
                taxon.Database.ID = d[['taxon']][['externalDatabase.ID']])
 }
 
+#' Processes JSON as GO terms
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processGO <- function(d) {
     data.table(term.Name = d[['term']],
                term.ID = d[['goId']],
                term.URL = d[['uri']])
 }
 
+#' Processes JSON as coexpression data
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processCoexpression <- function(d) {
     data.table(query.Degree = d[['queryGeneNodeDegree']],
                query.Rank = d[['queryGeneNodeDegreeRank']],
@@ -211,6 +299,11 @@ processCoexpression <- function(d) {
                processGenes(d[['foundGene']]) %>% setnames(paste0('found.', colnames(.))))
 }
 
+#' Processes JSON as a vector of phenotypes
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
 processPhenotypes <- function(d) {
     data.table(value.Name = d[['value']],
                value.URL = d[['valueUri']],
