@@ -11,7 +11,7 @@ memgetDatasetDE(
   threshold = 100,
   limit = 100L,
   consolidate = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

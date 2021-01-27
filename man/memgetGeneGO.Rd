@@ -4,7 +4,12 @@
 \alias{memgetGeneGO}
 \title{Memoise getGeneGO}
 \usage{
-memgetGeneGO(gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+memgetGeneGO(
+  gene = NA_character_,
+  raw = FALSE,
+  async = FALSE,
+  memoised = FALSE
+)
 }
 \description{
 Memoise getGeneGO

@@ -50,6 +50,7 @@ processGemmaArray <- function(d) {
 processDatasets <- function(d) {
     data.table(experiment.ShortName = d[['shortName']],
                experiment.Name = d[['name']],
+               experiment.ID = d[['id']],
                experiment.Description = d[['description']],
                experiment.Public = d[['isPublic']],
                experiment.Troubled = d[['troubled']],
@@ -73,7 +74,8 @@ processDatasets <- function(d) {
 #'
 #' @return A processed data.table
 processDEA <- function(d) {
-    data.table(subset.Enabled = d[['subset']],
+    data.table(analysis.ID = d[['id']],
+               subset.Enabled = d[['subset']],
                subset.Factor = d[['subsetFactor']],
                subset.FactorValue = d[['subsetFactorValue']],
                factors = list(lapply(d[['factorValuesUsed']], function(x) {
@@ -166,11 +168,17 @@ processSamples <- function(d) {
 #'
 #' @return A processed data.table
 processPlatforms <- function(d) {
-    data.table(platform.ShortName = d[['shortName']],
+    data.table(platform.ID = d[['id']],
+               platform.ShortName = d[['shortName']],
                platform.Name = d[['name']],
                platform.Description = d[['description']],
                platform.Troubled = d[['troubled']],
                platform.ExperimentCount = d[['expressionExperimentCount']],
+               platform.GeneCount = d[['numGenes']],
+               platform.ProbeSequenceCount = d[['numProbeSequences']],
+               platform.ProbeAlignmentCount = d[['numProbeAlignments']],
+               platform.ProbeGeneCount = d[['numProbesToGenes']],
+               platform.ElementCount = d[['designElementCount']],
                taxon.Name = d[['taxon']],
                taxon.ID = d[['taxonID']],
                technology.Type = d[['technologyType']],

@@ -4,7 +4,7 @@
 \alias{memgetGenes}
 \title{Memoise getGenes}
 \usage{
-memgetGenes(gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+memgetGenes(gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 }
 \description{
 Memoise getGenes

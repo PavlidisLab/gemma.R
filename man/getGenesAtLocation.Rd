@@ -10,7 +10,7 @@ getGenesAtLocation(
   strand = "+",
   start = NA_integer_,
   size = NA_integer_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

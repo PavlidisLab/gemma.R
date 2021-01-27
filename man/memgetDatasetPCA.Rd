@@ -10,7 +10,7 @@ memgetDatasetPCA(
   limit = 100L,
   keepNonSpecific = FALSE,
   consolidate = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

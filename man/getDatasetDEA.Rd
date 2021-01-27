@@ -8,7 +8,7 @@ getDatasetDEA(
   dataset = NA_character_,
   offset = 0L,
   limit = 20L,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

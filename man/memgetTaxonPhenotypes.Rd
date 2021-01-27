@@ -8,7 +8,7 @@ memgetTaxonPhenotypes(
   taxon = NA_character_,
   editableOnly = FALSE,
   tree = FALSE,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

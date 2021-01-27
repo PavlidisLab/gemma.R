@@ -7,7 +7,7 @@
 memgetGeneOnTaxon(
   taxon = NA_character_,
   gene = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

@@ -6,7 +6,7 @@
 \usage{
 memgetGeneLocation(
   gene = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

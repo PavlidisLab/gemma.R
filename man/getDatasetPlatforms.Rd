@@ -6,7 +6,7 @@
 \usage{
 getDatasetPlatforms(
   dataset = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

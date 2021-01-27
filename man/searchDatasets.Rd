@@ -11,7 +11,7 @@ searchDatasets(
   offset = 0L,
   limit = 0L,
   sort = "+id",
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

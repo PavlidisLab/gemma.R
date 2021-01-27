@@ -9,7 +9,7 @@ getGeneCoexpression(
   with = NA_character_,
   limit = 20L,
   stringency = 1L,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

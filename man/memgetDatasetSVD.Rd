@@ -6,7 +6,7 @@
 \usage{
 memgetDatasetSVD(
   dataset = NA_character_,
-  raw = TRUE,
+  raw = FALSE,
   async = FALSE,
   memoised = FALSE
 )

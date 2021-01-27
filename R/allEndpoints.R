@@ -1,7 +1,7 @@
 #' getDatasets
 #' @export
 getDatasets <- function (datasets = NA_character_, filter = NA_character_, offset = 0L,
-    limit = 20L, sort = "+id", raw = TRUE, async = FALSE, memoised = FALSE)
+    limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getDatasets"
     preprocessor <- processDatasets
@@ -40,7 +40,7 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' searchDatasets
 #' @export
 searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 0L, sort = "+id", raw = TRUE, async = FALSE,
+    offset = 0L, limit = 0L, sort = "+id", raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "searchDatasets"
@@ -80,7 +80,7 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' getDatasetDEA
 #' @export
 getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getDatasetDEA"
     preprocessor <- processDEA
@@ -118,7 +118,7 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' getDatasetPCA
 #' @export
 getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100L,
-    keepNonSpecific = FALSE, consolidate = NA_character_, raw = TRUE,
+    keepNonSpecific = FALSE, consolidate = NA_character_, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getDatasetPCA"
@@ -159,7 +159,7 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @export
 getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
     diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getDatasetDE"
     preprocessor <- processExpression
@@ -197,11 +197,11 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 
 #' getDatasetSamples
 #' @export
-getDatasetSamples <- function (dataset = NA_character_, raw = TRUE, async = FALSE,
+getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "getDatasetSamples"
-    preprocessor <- preprocessor
+    preprocessor <- processSamples
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
     if (memoised) {
@@ -234,11 +234,11 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
 #' getDatasetSVD
 #' @export
-getDatasetSVD <- function (dataset = NA_character_, raw = TRUE, async = FALSE,
+getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "getDatasetSVD"
-    preprocessor <- preprocessor
+    preprocessor <- processSVD
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/svd"
     if (memoised) {
@@ -271,11 +271,11 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 
 #' getDatasetPlatforms
 #' @export
-getDatasetPlatforms <- function (dataset = NA_character_, raw = TRUE, async = FALSE,
+getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "getDatasetPlatforms"
-    preprocessor <- preprocessor
+    preprocessor <- processPlatforms
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
     if (memoised) {
@@ -308,11 +308,11 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 
 #' getDatasetAnnotations
 #' @export
-getDatasetAnnotations <- function (dataset = NA_character_, raw = TRUE, async = FALSE,
+getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "getDatasetAnnotations"
-    preprocessor <- preprocessor
+    preprocessor <- processAnnotations
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
     if (memoised) {
@@ -346,7 +346,7 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' getPlatforms
 #' @export
 getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", raw = TRUE, async = FALSE,
+    offset = 0L, limit = 20L, sort = "+id", raw = FALSE, async = FALSE,
     memoised = FALSE)
 {
     fname <- "getPlatforms"
@@ -385,7 +385,7 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' getPlatformDatasets
 #' @export
 getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 20L,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
@@ -423,7 +423,7 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' getPlatformElements
 #' @export
 getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 20L,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getPlatformElements"
     preprocessor <- processElements
@@ -461,7 +461,7 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' getPlatformElementGenes
 #' @export
 getPlatformElementGenes <- function (platform = NA_character_, element = NA_character_,
-    offset = 0L, limit = 20L, raw = TRUE, async = FALSE, memoised = FALSE)
+    offset = 0L, limit = 20L, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
@@ -498,10 +498,10 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
 #' getGenes
 #' @export
-getGenes <- function (gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getGenes"
-    preprocessor <- preprocessor
+    preprocessor <- processGenes
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/"
     if (memoised) {
@@ -534,10 +534,10 @@ memgetGenes <- memoise::memoise(getGenes)
 
 #' getGeneEvidence
 #' @export
-getGeneEvidence <- function (gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneEvidence"
-    preprocessor <- preprocessor
+    preprocessor <- processGeneEvidence
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/evidence"
     if (memoised) {
@@ -570,10 +570,10 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 
 #' getGeneLocation
 #' @export
-getGeneLocation <- function (gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneLocation"
-    preprocessor <- preprocessor
+    preprocessor <- processGeneLocation
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
     if (memoised) {
@@ -606,7 +606,7 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 
 #' getGeneProbes
 #' @export
-getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = TRUE,
+getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneProbes"
@@ -644,10 +644,10 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 
 #' getGeneGO
 #' @export
-getGeneGO <- function (gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneGO"
-    preprocessor <- preprocessor
+    preprocessor <- processGO
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
     if (memoised) {
@@ -681,7 +681,7 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' getGeneCoexpression
 #' @export
 getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, limit = 20L,
-    stringency = 1L, raw = TRUE, async = FALSE, memoised = FALSE)
+    stringency = 1L, raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneCoexpression"
     preprocessor <- processCoexpression
@@ -719,7 +719,7 @@ memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 #' getTaxonDatasets
 #' @export
 getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, offset = 0L,
-    limit = 20L, sort = "+id", raw = TRUE, async = FALSE, memoised = FALSE)
+    limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
@@ -758,7 +758,7 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' getTaxonPhenotypes
 #' @export
 getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tree = FALSE,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
@@ -796,7 +796,7 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' getTaxonPhenotypeCandidates
 #' @export
 getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_,
-    raw = TRUE, async = FALSE, memoised = FALSE)
+    raw = FALSE, async = FALSE, memoised = FALSE)
 {
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
@@ -833,7 +833,7 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 
 #' getGeneOnTaxon
 #' @export
-getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = TRUE,
+getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneOnTaxon"
@@ -870,7 +870,7 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 
 #' getEvidenceOnTaxon
 #' @export
-getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = TRUE,
+getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getEvidenceOnTaxon"
@@ -907,7 +907,7 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 
 #' getGeneLocationOnTaxon
 #' @export
-getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = TRUE,
+getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getGeneLocationOnTaxon"
@@ -945,7 +945,7 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' getGenesAtLocation
 #' @export
 getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character_,
-    strand = "+", start = NA_integer_, size = NA_integer_, raw = TRUE,
+    strand = "+", start = NA_integer_, size = NA_integer_, raw = FALSE,
     async = FALSE, memoised = FALSE)
 {
     fname <- "getGenesAtLocation"
@@ -982,31 +982,179 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
 #'
 memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 
-forgetGemmaMemoised <- {
-    memoise::forget(memgetDatasets)
-    memoise::forget(memsearchDatasets)
-    memoise::forget(memgetDatasetDEA)
-    memoise::forget(memgetDatasetPCA)
-    memoise::forget(memgetDatasetDE)
-    memoise::forget(memgetDatasetSamples)
-    memoise::forget(memgetDatasetSVD)
-    memoise::forget(memgetDatasetPlatforms)
-    memoise::forget(memgetDatasetAnnotations)
-    memoise::forget(memgetPlatforms)
-    memoise::forget(memgetPlatformDatasets)
-    memoise::forget(memgetPlatformElements)
-    memoise::forget(memgetPlatformElementGenes)
-    memoise::forget(memgetGenes)
-    memoise::forget(memgetGeneEvidence)
-    memoise::forget(memgetGeneLocation)
-    memoise::forget(memgetGeneProbes)
-    memoise::forget(memgetGeneGO)
-    memoise::forget(memgetGeneCoexpression)
-    memoise::forget(memgetTaxonDatasets)
-    memoise::forget(memgetTaxonPhenotypes)
-    memoise::forget(memgetTaxonPhenotypeCandidates)
-    memoise::forget(memgetGeneOnTaxon)
-    memoise::forget(memgetEvidenceOnTaxon)
-    memoise::forget(memgetGeneLocationOnTaxon)
-    memoise::forget(memgetGenesAtLocation)
+#' getDiffExpr
+#' @export
+getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific = FALSE,
+    threshold = 100, limit = 100L, consolidate = NA_character_,
+    raw = FALSE, async = FALSE, memoised = FALSE)
+{
+    fname <- "getDiffExpr"
+    preprocessors <- list(A = processDEA, B = processExpression)
+    validators <- list(dataset = validateSingleID, offset = validatePositiveInteger,
+        keepNonSpecific = validateBoolean, threshold = validatePositiveReal,
+        limit = validatePositiveInteger, consolidate = validateConsolidate)
+    endpoints <- list(A = list(endpoint = "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}",
+        activates = 2, variables = c(diffExSet = "resultSets.resultSetId")),
+        B = list(endpoint = "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"))
+    if (memoised) {
+        newArgs <- as.list(match.call())[-1]
+        newArgs$memoised <- F
+        return(do.call(glue("mem{fname}"), newArgs))
+    }
+    if (!is.null(validators)) {
+        for (v in names(validators)) {
+            assign(v, eval(validators[[v]])(get(v), name = v))
+        }
+    }
+    endpointURLs <- lapply(endpoints, "[[", "endpoint")
+    endpointMap <- lapply(endpoints, "[[", "activates")
+    endpointExtract <- lapply(endpoints, "[[", "variables")
+    makeRequest <- async(function(index, URL) {
+        http_get(URL)$then(function(response) {
+            if (response$status_code == 200) {
+                mData <- fromJSON(rawToChar(response$content))$data
+                if (raw)
+                  pData <- mData
+                else pData <- eval(preprocessors[[index]])(mData)
+                if (!is.null(endpointMap[[index]])) {
+                  if (!is.null(endpointExtract[[index]])) {
+                    e <- as.environment(do.call(data.frame, mData))
+                    for (var in names(endpointExtract[[index]])) {
+                      assign(var, get(endpointExtract[[index]][var],
+                        envir = e))
+                    }
+                  }
+                  newIndex <- endpointMap[[index]]
+                  newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
+                    gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA",
+                      "\\?", gsub("&[^=]+=NA", "", glue(endpointURLs[[newIndex]])))))
+                  synchronise(makeRequest(newIndex, newURL)$then(function(x) {
+                    list(pData, x)
+                  }))
+                }
+                else pData
+            }
+            else response
+        })
+    })
+    request <- async(function() {
+        lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))),
+            function(x) {
+                synchronise(makeRequest(x, paste0(getOption("gemma.API",
+                  "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)",
+                  "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
+                    "", glue(endpointURLs[[x]])))))))
+            }) %>% unlist(F)
+    })
+    if (!async)
+        synchronise(when_all(request()))
+    else request()
+}
+
+#' Memoise getDiffExpr
+#'
+memgetDiffExpr <- memoise::memoise(getDiffExpr)
+
+#' getDiffExpr
+#' @export
+getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific = FALSE,
+    threshold = 100, limit = 100L, consolidate = NA_character_,
+    raw = FALSE, async = FALSE, memoised = FALSE)
+{
+    fname <- "getDiffExpr"
+    preprocessors <- list(A = processDEA, B = processExpression)
+    validators <- list(dataset = validateSingleID, offset = validatePositiveInteger,
+        keepNonSpecific = validateBoolean, threshold = validatePositiveReal,
+        limit = validatePositiveInteger, consolidate = validateConsolidate)
+    endpoints <- list(A = list(endpoint = "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}",
+        activates = 2, variables = c(diffExSet = "resultSets.resultSetId")),
+        B = list(endpoint = "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"))
+    if (memoised) {
+        newArgs <- as.list(match.call())[-1]
+        newArgs$memoised <- F
+        return(do.call(glue("mem{fname}"), newArgs))
+    }
+    if (!is.null(validators)) {
+        for (v in names(validators)) {
+            assign(v, eval(validators[[v]])(get(v), name = v))
+        }
+    }
+    endpointURLs <- lapply(endpoints, "[[", "endpoint")
+    endpointMap <- lapply(endpoints, "[[", "activates")
+    endpointExtract <- lapply(endpoints, "[[", "variables")
+    makeRequest <- async(function(index, URL) {
+        http_get(URL)$then(function(response) {
+            if (response$status_code == 200) {
+                mData <- fromJSON(rawToChar(response$content))$data
+                if (raw)
+                  pData <- mData
+                else pData <- eval(preprocessors[[index]])(mData)
+                if (!is.null(endpointMap[[index]])) {
+                  if (!is.null(endpointExtract[[index]])) {
+                    e <- as.environment(do.call(data.frame, mData))
+                    for (var in names(endpointExtract[[index]])) {
+                      assign(var, get(endpointExtract[[index]][var],
+                        envir = e))
+                    }
+                  }
+                  newIndex <- endpointMap[[index]]
+                  newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
+                    gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA",
+                      "\\?", gsub("&[^=]+=NA", "", glue(endpointURLs[[newIndex]])))))
+                  synchronise(makeRequest(newIndex, newURL)$then(function(x) {
+                    list(pData, x)
+                  }))
+                }
+                else pData
+            }
+            else response
+        })
+    })
+    request <- async(function() {
+        lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))),
+            function(x) {
+                synchronise(makeRequest(x, paste0(getOption("gemma.API",
+                  "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)",
+                  "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
+                    "", glue(endpointURLs[[x]])))))))
+            }) %>% unlist(F)
+    })
+    if (!async)
+        synchronise(when_all(request()))
+    else request()
+}
+
+#' Memoise getDiffExpr
+#'
+memgetDiffExpr <- memoise::memoise(getDiffExpr)
+
+forgetGemmaMemoised <- function ()
+{
+    forget(memgetDatasets)
+    forget(memsearchDatasets)
+    forget(memgetDatasetDEA)
+    forget(memgetDatasetPCA)
+    forget(memgetDatasetDE)
+    forget(memgetDatasetSamples)
+    forget(memgetDatasetSVD)
+    forget(memgetDatasetPlatforms)
+    forget(memgetDatasetAnnotations)
+    forget(memgetPlatforms)
+    forget(memgetPlatformDatasets)
+    forget(memgetPlatformElements)
+    forget(memgetPlatformElementGenes)
+    forget(memgetGenes)
+    forget(memgetGeneEvidence)
+    forget(memgetGeneLocation)
+    forget(memgetGeneProbes)
+    forget(memgetGeneGO)
+    forget(memgetGeneCoexpression)
+    forget(memgetTaxonDatasets)
+    forget(memgetTaxonPhenotypes)
+    forget(memgetTaxonPhenotypeCandidates)
+    forget(memgetGeneOnTaxon)
+    forget(memgetEvidenceOnTaxon)
+    forget(memgetGeneLocationOnTaxon)
+    forget(memgetGenesAtLocation)
+    forget(memgetDiffExpr)
 }

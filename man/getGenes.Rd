@@ -4,7 +4,7 @@
 \alias{getGenes}
 \title{getGenes}
 \usage{
-getGenes(gene = NA_character_, raw = TRUE, async = FALSE, memoised = FALSE)
+getGenes(gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
 }
 \description{
 getGenes
