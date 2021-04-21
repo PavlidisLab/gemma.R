@@ -22,14 +22,23 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -62,14 +71,23 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -100,14 +118,23 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -140,14 +167,23 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -180,14 +216,23 @@ getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -217,14 +262,23 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -254,14 +308,23 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -291,14 +354,23 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -328,14 +400,23 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -367,14 +448,23 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -405,14 +495,23 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -443,14 +542,23 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -481,14 +589,23 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -517,14 +634,23 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -553,14 +679,23 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -589,14 +724,23 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -627,14 +771,23 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -663,14 +816,23 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -701,14 +863,23 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -740,14 +911,23 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -778,14 +958,23 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -816,14 +1005,23 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -853,14 +1051,23 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -890,14 +1097,23 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -927,14 +1143,23 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -967,14 +1192,23 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
             "", glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
         if (response$status_code == 200) {
-            mData <- fromJSON(rawToChar(response$content))$data
-            if (raw) mData else eval(preprocessor)(mData)
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mData else eval(preprocessor,
+                envir = envWhere)(mData)
         } else response
     }))
     if (!async)
-        synchronise(eval(request))
+        synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1012,8 +1246,15 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
     makeRequest <- async(function(index, URL) {
         http_get(URL)$then(function(response) {
             if (response$status_code == 200) {
-                mData <- fromJSON(rawToChar(response$content))$data
-                if (raw)
+                mData <- tryCatch({
+                  fromJSON(rawToChar(response$content))$data
+                }, error = function(e) {
+                  message(paste0("Failed to parse ", response$type,
+                    " from ", response$url))
+                  warning(e$message)
+                  NULL
+                })
+                if (raw || length(mData) == 0)
                   pData <- mData
                 else pData <- eval(preprocessors[[index]])(mData)
                 if (!is.null(endpointMap[[index]])) {
@@ -1055,81 +1296,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
 #'
 memgetDiffExpr <- memoise::memoise(getDiffExpr)
 
-#' getDiffExpr
-#' @export
-getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific = FALSE,
-    threshold = 100, limit = 100L, consolidate = NA_character_,
-    raw = FALSE, async = FALSE, memoised = FALSE)
-{
-    fname <- "getDiffExpr"
-    preprocessors <- list(A = processDEA, B = processExpression)
-    validators <- list(dataset = validateSingleID, offset = validatePositiveInteger,
-        keepNonSpecific = validateBoolean, threshold = validatePositiveReal,
-        limit = validatePositiveInteger, consolidate = validateConsolidate)
-    endpoints <- list(A = list(endpoint = "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}",
-        activates = 2, variables = c(diffExSet = "resultSets.resultSetId")),
-        B = list(endpoint = "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"))
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpointURLs <- lapply(endpoints, "[[", "endpoint")
-    endpointMap <- lapply(endpoints, "[[", "activates")
-    endpointExtract <- lapply(endpoints, "[[", "variables")
-    makeRequest <- async(function(index, URL) {
-        http_get(URL)$then(function(response) {
-            if (response$status_code == 200) {
-                mData <- fromJSON(rawToChar(response$content))$data
-                if (raw)
-                  pData <- mData
-                else pData <- eval(preprocessors[[index]])(mData)
-                if (!is.null(endpointMap[[index]])) {
-                  if (!is.null(endpointExtract[[index]])) {
-                    e <- as.environment(do.call(data.frame, mData))
-                    for (var in names(endpointExtract[[index]])) {
-                      assign(var, get(endpointExtract[[index]][var],
-                        envir = e))
-                    }
-                  }
-                  newIndex <- endpointMap[[index]]
-                  newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
-                    gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA",
-                      "\\?", gsub("&[^=]+=NA", "", glue(endpointURLs[[newIndex]])))))
-                  synchronise(makeRequest(newIndex, newURL)$then(function(x) {
-                    list(pData, x)
-                  }))
-                }
-                else pData
-            }
-            else response
-        })
-    })
-    request <- async(function() {
-        lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))),
-            function(x) {
-                synchronise(makeRequest(x, paste0(getOption("gemma.API",
-                  "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)",
-                  "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
-                    "", glue(endpointURLs[[x]])))))))
-            }) %>% unlist(F)
-    })
-    if (!async)
-        synchronise(when_all(request()))
-    else request()
-}
-
-#' Memoise getDiffExpr
-#'
-memgetDiffExpr <- memoise::memoise(getDiffExpr)
-
-forgetGemmaMemoised <- function ()
-{
+forgetGemmaMemoised <- function() {
     forget(memgetDatasets)
     forget(memsearchDatasets)
     forget(memgetDatasetDEA)

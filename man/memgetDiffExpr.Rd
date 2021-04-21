@@ -15,21 +15,7 @@ memgetDiffExpr(
   async = FALSE,
   memoised = FALSE
 )
-
-memgetDiffExpr(
-  dataset = NA_character_,
-  offset = 0L,
-  keepNonSpecific = FALSE,
-  threshold = 100,
-  limit = 100L,
-  consolidate = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE
-)
 }
 \description{
-Memoise getDiffExpr
-
 Memoise getDiffExpr
 }

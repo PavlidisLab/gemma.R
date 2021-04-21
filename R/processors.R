@@ -18,7 +18,12 @@ encode <- function(url) {
 #'
 #' @return A processed data.table
 processGemmaFactor <- function(d) {
-    data.table(name = d[['value']],
+  if(all(is.na(d)))
+    data.table(name = NA_character_, URL = NA_character_,
+               description = NA_character_, category.Name = NA_character_,
+               category.URL = NA_character_, measurement = F, type = NA_character_)
+  else
+    data.table(name = switch(is.null(d[['factorValue']]) + 1, d[['factorValue']], d[['value']]),
                URL = d[['valueUri']],
                description = d[['description']],
                category.Name = d[['category']],
@@ -48,18 +53,18 @@ processGemmaArray <- function(d) {
 #'
 #' @return A processed data.table
 processDatasets <- function(d) {
-    data.table(experiment.ShortName = d[['shortName']],
-               experiment.Name = d[['name']],
-               experiment.ID = d[['id']],
-               experiment.Description = d[['description']],
-               experiment.Public = d[['isPublic']],
-               experiment.Troubled = d[['troubled']],
-               experiment.Accession = d[['accession']],
-               experiment.Database = d[['externalDatabase']],
-               experiment.URL = d[['externalUri']],
-               experiment.Samples = d[['bioAssayCount']],
-               experiment.Batch.P = suppressWarnings(as.numeric(gsub('.*p=(\\d+\\.?\\d+).*', '\\1', d[['batchEffect']]))),
-               experiment.Batch.PC = suppressWarnings(as.numeric(gsub('.*PC (\\d+).*', '\\1', d[['batchEffect']]))),
+    data.table(ee.ShortName = d[['shortName']],
+               ee.Name = d[['name']],
+               ee.ID = d[['id']],
+               ee.Description = d[['description']],
+               ee.Public = d[['isPublic']],
+               ee.Troubled = d[['troubled']],
+               ee.Accession = d[['accession']],
+               ee.Database = d[['externalDatabase']],
+               ee.URL = d[['externalUri']],
+               ee.Samples = d[['bioAssayCount']],
+               ee.Batch.P = suppressWarnings(as.numeric(gsub('.*p=(\\d+\\.?\\d+).*', '\\1', d[['batchEffect']]))),
+               ee.Batch.PC = suppressWarnings(as.numeric(gsub('.*PC (\\d+).*', '\\1', d[['batchEffect']]))),
                geeq.batchCorrected = d[['geeq']][['batchCorrected']],
                geeq.qScore = d[['geeq']][['publicQualityScore']],
                geeq.sScore = d[['geeq']][['publicSuitabilityScore']],
@@ -74,30 +79,53 @@ processDatasets <- function(d) {
 #'
 #' @return A processed data.table
 processDEA <- function(d) {
-    data.table(analysis.ID = d[['id']],
-               subset.Enabled = d[['subset']],
-               subset.Factor = d[['subsetFactor']],
-               subset.FactorValue = d[['subsetFactorValue']],
-               factors = list(lapply(d[['factorValuesUsed']], function(x) {
-                   rbindlist(lapply(x, processGemmaFactor))
-               })),
-               results = lapply(d[['resultSets']], function(x) {
-                   data.table(ID = x[['resultSetId']],
-                              threshold = x[['threshold']],
-                              qValue = x[['qvalue']],
-                              upregulated = x[['upregulatedCount']],
-                              downregulated = x[['downregulatedCount']],
-                              probes.DE = x[['numberOfDiffExpressedProbes']],
-                              probes.Analyzed = x[['numberOfProbesAnalyzed']],
-                              genes.Analyzed = x[['numberOfGenesAnalyzed']],
-                              factors = lapply(x[['experimentalFactors']], function(y) {
-                                  data.table(processGemmaFactor(y),
-                                             values = lapply(y[['values']], processGemmaFactor))
-                              }),
-                              baseline = list(
-                                  processGemmaFactor(x[['baselineGroup']])
-                              ))
-               }))
+  divides <- data.table(analysis.ID = d[['id']],
+                        ee.ID = d[['sourceExperiment']],
+                        sf.Enabled = d[['subset']],
+                        sf = processGemmaFactor(d[['subsetFactorValue']]),
+                        resultIds = lapply(d[['resultSets']], '[[', 'resultSetId')) %>%
+    .[, .(result.ID = unlist(resultIds)), setdiff(names(.), 'resultIds')]
+
+    rs <- lapply(d[['resultSets']], function(r) {
+      data.table(analysis.Threshold = r[['threshold']],
+                 analysis.ID = r[['analysisId']],
+                 result.ID = r[['resultSetId']],
+                 stats.DE = r[['numberOfDiffExpressedProbes']],
+                 stats.Down = r[['downregulatedCount']],
+                 stats.Up = r[['upregulatedCount']],
+                 probes.Analyzed = r[['numberOfProbesAnalyzed']],
+                 genes.Analyzed = r[['numberOfGenesAnalyzed']],
+                 factor.ID = r[['factorIds']],
+                 r[['baselineGroup']] %>% {
+                   data.table(cf.Cat = .[['category']],
+                              cf.CatLongUri = .[['categoryUri']],
+                              cf.Baseline = .[['factorValue']],
+                              cf.BaseLongUri = .[['valueUri']])
+                 }) %>%
+        .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), 'factor.ID')]
+    }) %>% rbindlist %>% .[!is.na(cf.Baseline)]
+
+    rsd <- merge(rs, divides, by = c('result.ID', 'analysis.ID'))
+    lapply(unique(rsd[, factor.ID]), function(fid) {
+      lapply(d$factorValuesUsed[[as.character(fid)]], function(fv) {
+        if(!is.null(fv) && nrow(fv) > 0) {
+          as.data.table(fv)[!(factorValue %in% rsd[factor.ID == fid, unique(cf.Baseline)]),
+             .(cf.Val = factorValue,
+               cf.ValLongUri = valueUri,
+               factor.ID = factorId,
+               id)]
+        }
+      }) %>% .[lengths(.) > 0] %>% rbindlist
+    }) %>% rbindlist %>% unique %>% merge(rsd, by = 'factor.ID', allow.cartesian = T) %>%
+      merge(data.table(analysis.ID = d[['id']],
+                       ad.ID = d[['arrayDesignsUsed']]), by = 'analysis.ID') %>%
+      .[, .(rsc.ID = paste('RSCID', result.ID, id, sep = '.'),
+            ee.ID, cf.Cat, cf.CatLongUri, cf.Baseline, cf.BaseLongUri,
+            cf.Val, cf.ValLongUri, sf.Subset = sf.Enabled,
+            sf.Cat = sf.category.Name, sf.CatLongUri = sf.category.URL,
+            sf.Val = sf.name, sf.ValLongUri = sf.URL,
+            stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
+            genes.Analyzed, ad.ID), .(result.ID, id)]
 }
 
 #' Processes JSON as expression data
@@ -115,7 +143,7 @@ processExpression <- function(d) {
                    rbindlist(lapply(x[['vectors']], '[[', 'bioAssayExpressionLevels')))
     })
     if(length(d[['datasetId']]) > 0)
-        data.table(experiment.ID = d[['datasetId']], expr)
+        data.table(ee.ID = d[['datasetId']], expr)
     else
         expr
 }
@@ -150,7 +178,8 @@ processAnnotations <- function(d) {
 #'
 #' @return A processed data.table
 processSamples <- function(d) {
-    data.table(sample.Name = d[['sample']][['name']],
+    data.table(bioMaterial.Name = d[['sample']][['name']],
+               sample.Name = d[['name']],
                sample.ID = d[['sample']][['id']],
                sample.Description = d[['sample']][['description']],
                sample.Outlier = d[['outlier']],
@@ -313,7 +342,7 @@ processCoexpression <- function(d) {
 #'
 #' @return A processed data.table
 processPhenotypes <- function(d) {
-    data.table(value.Name = d[['value']],
+    data.table(value.Name = d[['factorValue']],
                value.URL = d[['valueUri']],
                value.GeneCount = d[['publicGeneCount']],
                parents = lapply(d[['_parent']], function(x) paste0('http://purl.obolibrary.org/obo/', unlist(strsplit(x, '<', T)))),

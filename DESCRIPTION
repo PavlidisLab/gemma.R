@@ -18,3 +18,5 @@ Imports:
     glue,
     memoise,
     jsonlite
+Depends:
+    data.table

@@ -7,6 +7,12 @@
 # 3. Build the package as normal
 # -------------------------------
 
+library(data.table)
+library(glue)
+library(async)
+library(dplyr)
+library(jsonlite)
+
 #' Register an API endpoint (internal use)
 #'
 #' @param endpoint The API endpoint URL with parameters in glue formatting
@@ -61,19 +67,26 @@ registerEndpoint <- function(endpoint,
 
     # Generate request
     endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue(endpoint)))))
+    envWhere <- environment()
     request <- quote(http_get(endpoint)$then(function(response) {
       if(response$status_code == 200) {
-        mData <- fromJSON(rawToChar(response$content))$data
-        if(raw)
+        mData <- tryCatch({
+          fromJSON(rawToChar(response$content))$data
+        }, error = function(e) {
+          message(paste0('Failed to parse ', response$type, ' from ', response$url))
+          warning(e$message)
+          NULL
+        })
+        if(raw || length(mData) == 0)
           mData
         else
-          eval(preprocessor)(mData)
+          eval(preprocessor, envir = envWhere)(mData)
       } else
         response
     }))
 
     if(!async)
-      synchronise(eval(request))
+      synchronise(eval(request, envir = envWhere))
     else
       eval(request)
   })
@@ -199,8 +212,14 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
       # Make a request
       http_get(URL)$then(function(response) {
         if(response$status_code == 200) {
-          mData <- fromJSON(rawToChar(response$content))$data
-          if(raw)
+          mData <- tryCatch({
+            fromJSON(rawToChar(response$content))$data
+          }, error = function(e) {
+            message(paste0('Failed to parse ', response$type, ' from ', response$url))
+            warning(e$message)
+            NULL
+          })
+          if(raw || length(mData) == 0)
             pData <- mData
           else
             pData <- eval(preprocessors[[index]])(mData)
@@ -557,3 +576,6 @@ registerCompoundEndpoint(endpoints = list(
                      limit = validatePositiveInteger,
                      consolidate = validateConsolidate),
   preprocessors = alist(A = processDEA, B = processExpression), document = 'R/allEndpoints.R')
+
+# Clean up
+rm(list = ls(pattern = 'get|search|register'))
