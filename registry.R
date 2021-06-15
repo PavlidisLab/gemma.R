@@ -12,6 +12,7 @@ library(glue)
 library(async)
 library(dplyr)
 library(jsonlite)
+library(memoise)
 
 #' Register an API endpoint (internal use)
 #'
@@ -20,6 +21,7 @@ library(jsonlite)
 #' @param preprocessor The preprocessing function to run on the output
 #' @param defaults Default values for the endpoint
 #' @param validators Validators for the inputs
+#' @param lognname The activating phrase in the category endpoint
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 registerEndpoint <- function(endpoint,
@@ -27,6 +29,7 @@ registerEndpoint <- function(endpoint,
                              preprocessor,
                              defaults = NULL,
                              validators = NULL,
+                             logname = fname,
                              where = parent.env(environment()),
                              document = NULL) {
   if(missing(endpoint) || missing(fname) || missing(preprocessor))
@@ -35,6 +38,8 @@ registerEndpoint <- function(endpoint,
     warning(glue('{fname} already exists. Skipping.'))
     return(NULL)
   }
+
+  logEndpoint(fname, logname)
 
   # Make sure arguments are URL encoded
   endpoint <- gsub('\\{([^\\}]+)\\}', '\\{encode\\(\\1\\)\\}', endpoint)
@@ -48,6 +53,8 @@ registerEndpoint <- function(endpoint,
   fargs$raw <- getOption('gemma.raw', F)
   fargs$async <- getOption('gemma.async', F)
   fargs$memoised <- getOption('gemma.memoise', F)
+  fargs$file <- getOption('gemma.file', NA_character_)
+  fargs$overwrite <- getOption('gemma.overwrite', F)
 
   formals(f) <- fargs
   body(f) <- quote({
@@ -68,7 +75,10 @@ registerEndpoint <- function(endpoint,
     # Generate request
     endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint)$then(function(response) {
+
+    request <- quote(http_get(endpoint, options = switch(is.null(getOption('gemma.password', NULL)) + 1,
+                                                         list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))),
+                                                         list()))$then(function(response) {
       if(response$status_code == 200) {
         mData <- tryCatch({
           fromJSON(rawToChar(response$content))$data
@@ -77,10 +87,24 @@ registerEndpoint <- function(endpoint,
           warning(e$message)
           NULL
         })
+
         if(raw || length(mData) == 0)
-          mData
+          mOut <- mData
         else
-          eval(preprocessor, envir = envWhere)(mData)
+          mOut <- eval(preprocessor, envir = envWhere)(mData)
+
+        if(!is.null(file) && !is.na(file) && file.exists(file)) {
+          if(!overwrite)
+            warning(paste0(file, ' exists. Not overwriting.'))
+          else {
+            if(raw)
+              write(mOut, paste0(tools::file_path_sans_ext(file), '.json'))
+            else
+              saveRDS(mOut, paste0(tools::file_path_sans_ext(file), '.rds'))
+          }
+        }
+
+        mOut
       } else
         response
     }))
@@ -140,36 +164,45 @@ registerEndpoint <- function(endpoint,
 #' @param query The last part of the endpoint URL
 #' @param fname The name of the function to create
 #' @param preprocessor The preprocessing function to run on the output
+#' @param validator The validator to run on the input. Defaults to validateSingleID
+#' @param lognname The activating phrase in the category endpoint
 #' @param where The environment to add the new function to
+#' @param plural If equal to `root` (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form
 #' @param document A file to print information for pasting generating the package
-registerSimpleEndpoint <- function(root, query, fname, preprocessor, where = parent.env(environment()), document = NULL) {
-  registerEndpoint(glue('{paste0(root, "s")}/{{{root}}}/{query}'),
+registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
+                                   logname = fname, where = parent.env(environment()),
+                                   plural = root, document = NULL) {
+  registerEndpoint(ifelse(plural, glue('{paste0(root, "s")}/{{{root}}}/{query}'), glue('{root}/{{{plural}}}')),
                    fname,
-                   defaults = setNames(NA_character_, root),
-                   validators = alist(validateSingleID) %>% `names<-`(root),
+                   defaults = setNames(NA_character_, plural),
+                   validators = switch(is.null(validator) + 1, validator, alist(validator) %>% `names<-`(plural)),
+                   logname = logname,
                    preprocessor = preprocessor,
                    where = where,
                    document = document)
 }
 
-#' A compound endpoint is one that makes multiple API calls and composes the response
+#' A compound endpoint is one that makes multiple API calls and composes the response (internal use)
 #'
 #' @param endpoints A list of endpoints, indices of other endpoints they activate and which variables they send forwards (of the form list(list(endpoint = "", activates = 1, variables = c(bound_name = 'access name'))))
 #' @param fname The name of the function to create
 #' @param preprocessors The preprocessing functions to run on the output (same order as endpoints)
 #' @param defaults Default values for the endpoint
 #' @param validators Validators for the inputs
+#' @param lognname The activating phrase in the category endpoint
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults = list(NULL),
-                                     validators = alist(NULL), where = parent.env(environment()),
-                                     document = NULL) {
+                                     validators = alist(NULL), logname = fname,
+                                     where = parent.env(environment()), document = NULL) {
   if(missing(endpoints) || missing(fname) || missing(preprocessors))
     stop('Please specify endpoints, function name and preprocessors.')
   if(exists(fname, envir = where, inherits = F)) {
     warning(glue('{fname} already exists. Skipping.'))
     return(NULL)
   }
+
+  logEndpoint(fname, logname)
 
   # Make sure arguments are URL encoded
   endpoints <- lapply(endpoints, function(endpoint) {
@@ -299,7 +332,6 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
 
   assign('forgetGemmaMemoised', forgetMe, envir = where)
 
-  print(document)
   if(!is.null(document)) {
     cat(glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
     cat(glue('{fname} <- '), file = document, append = T)
@@ -311,31 +343,91 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   }
 }
 
+#' Log an endpoint for the currently active category endpoint (@seealso registerCategoryEndpoint)
+#'
+#' @param fname The function name to call
+#' @param logname The activating phrase
+logEndpoint <- function(fname, logname) {
+  options(gemmaAPI.logged = c(getOption('gemmaAPI.logged'), setNames(fname, logname)))
+}
+
+#' Register a category of endpoints that will expose multiple endpoint calls through a single function (internal use)
+#'
+#' @param fname The name of the category endpoint, or `NULL` to finish logging
+#' @param characteristic The characteristic required parameter for this category
+#' @param where The environment to add the new function to
+#' @param document A file to print information for pasting generating the package
+registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
+                                     where = parent.env(environment()),
+                                     document = NULL) {
+  if(is.null(fname)) {
+    if(is.null(getOption('gemmaAPI.logging', NULL)))
+      stop('No categories were being logged')
+
+    fname <- getOption('gemmaAPI.logging')
+    options(gemmaAPI.logging = NULL)
+
+    f <- function() {}
+
+    # Default behavior is to call the first registration if no request is passed
+    fargs <- alist()
+    fargs[[characteristic]] <- NA_character_
+    fargs$request <- NA_character_
+    fargs$`...` <- alist(... = )$...
+
+    fargs$raw <- getOption('gemma.raw', F)
+    fargs$async <- getOption('gemma.async', F)
+    fargs$memoised <- getOption('gemma.memoise', F)
+    fargs$file <- getOption('gemma.file', NA_character_)
+    fargs$overwrite <- getOption('gemma.overwrite', F)
+
+    formals(f) <- fargs
+    body(f) <- quote({
+      if(!is.na(request) && !(request %in% names(argMap)))
+        stop(paste0('Invalid request parameter. Options include: ', paste0(names(argMap), collapse = ', ')))
+
+      if(is.na(request)) request <- 1
+
+      mCallable <- call(argMap[[request]], raw = raw, async = async, memoised = memoised, file = file, overwrite = overwrite)
+      mCallable[[characteristicValue]] <- get(characteristicValue)
+      for(i in names(list(...))) {
+        mCallable[[i]] <- list(...)[[i]]
+      }
+
+      eval(mCallable, envir = parent.env(environment()))
+    })
+
+    argMap <- getOption('gemmaAPI.logged') %>% { paste0('c(', paste0(names(.), ' = "', ., '"', collapse = ', '), ')') }
+
+    # Add the argument map
+    body(f) <- body(f) %>% as.list %>%
+      append(str2expression(glue('argMap <- {argMap}')), 1) %>%
+      append(str2expression(glue('characteristicValue <- "{characteristic}"')), 1) %>%
+      as.call
+
+    environment(f) <- where
+
+    if(!is.null(document)) {
+      cat(glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
+      cat(glue('{fname} <- '), file = document, append = T)
+      cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
+      cat('\n\n', file = document, append = T)
+    }
+  } else
+    options(gemmaAPI.logging = fname, gemmaAPI.logged = NULL)
+}
+
 # Dataset endpoints ----
-registerEndpoint('datasets/{datasets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
-                 'getDatasets',
-                 defaults = list(datasets = NA_character_,
+registerCategoryEndpoint('datasetInfo')
+
+registerEndpoint('datasets/{dataset}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
+                 'getDatasets', logname = 'datasets',
+                 defaults = list(dataset = NA_character_,
                                  filter = NA_character_,
                                  offset = 0L,
                                  limit = 20L,
                                  sort = '+id'),
-                 validators = alist(datasets = validateID,
-                                    filter = validateFilter,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger,
-                                    sort = validateSort),
-                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
-
-registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
-                 'searchDatasets',
-                 defaults = list(taxon = '',
-                                 query = NA_character_,
-                                 filter = NA_character_,
-                                 offset = 0L,
-                                 limit = 0L,
-                                 sort = '+id'),
-                 validators = alist(taxon = validateTaxon,
-                                    query = validateQuery,
+                 validators = alist(dataset = validateID,
                                     filter = validateFilter,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger,
@@ -343,7 +435,7 @@ registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&of
                  preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
 
 registerEndpoint('datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
-                 'getDatasetDEA',
+                 'getDatasetDEA', logname = 'differential',
                  defaults = list(dataset = NA_character_,
                                  offset = 0L,
                                  limit = 20L),
@@ -352,29 +444,29 @@ registerEndpoint('datasets/{dataset}/analyses/differential?offset={offset}&limit
                                     limit = validatePositiveInteger),
                  preprocessor = quote(processDEA), document = 'R/allEndpoints.R')
 
-registerEndpoint('datasets/{datasets}/expressions/pca?component={component}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'getDatasetPCA',
-                 defaults = list(datasets = NA_character_,
+registerEndpoint('datasets/{dataset}/expressions/pca?component={component}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
+                 'getDatasetPCA', logname = 'PCA',
+                 defaults = list(dataset = NA_character_,
                                  component = 1L,
                                  limit = 100L,
                                  keepNonSpecific = F,
                                  consolidate = NA_character_),
-                 validators = alist(datasets = validateID,
+                 validators = alist(dataset = validateID,
                                     component = validatePositiveInteger,
                                     limit = validatePositiveInteger,
                                     keepNonSpecific = validateBoolean,
                                     consolidate = validateConsolidate),
                  preprocessor = quote(processExpression), document = 'R/allEndpoints.R')
 
-registerEndpoint('datasets/{datasets}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}',
-                 'getDatasetDE',
-                 defaults = list(datasets = NA_character_,
+registerEndpoint('datasets/{dataset}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}',
+                 'getDatasetDE', logname = 'diffEx',
+                 defaults = list(dataset = NA_character_,
                                  keepNonSpecific = F,
                                  diffExSet = NA_integer_,
                                  threshold = 100.0,
                                  limit = 100L,
                                  consolidate = NA_character_),
-                 validators = alist(datasets = validateID,
+                 validators = alist(dataset = validateID,
                                     keepNonSpecific = validateBoolean,
                                     diffExSet = validatePositiveInteger,
                                     threshold = validatePositiveReal,
@@ -382,187 +474,28 @@ registerEndpoint('datasets/{datasets}/expressions/differential?keepNonSpecific={
                                     consolidate = validateConsolidate),
                  preprocessor = quote(processExpression), document = 'R/allEndpoints.R')
 
-registerSimpleEndpoint('dataset', 'samples',
+registerSimpleEndpoint('dataset', 'samples', logname = 'samples',
                        'getDatasetSamples',
                        preprocessor = quote(processSamples), document = 'R/allEndpoints.R')
 
-registerSimpleEndpoint('dataset', 'svd',
+registerSimpleEndpoint('dataset', 'svd', logname = 'SVD',
                        'getDatasetSVD',
                        preprocessor = quote(processSVD), document = 'R/allEndpoints.R')
 
-registerSimpleEndpoint('dataset', 'platforms',
+registerSimpleEndpoint('dataset', 'platforms', logname = 'platforms',
                        'getDatasetPlatforms',
                        preprocessor = quote(processPlatforms), document = 'R/allEndpoints.R')
 
-registerSimpleEndpoint('dataset', 'annotations',
+registerSimpleEndpoint('dataset', 'annotations', logname = 'annotations',
                        'getDatasetAnnotations',
                        preprocessor = quote(processAnnotations), document = 'R/allEndpoints.R')
 
-# Platform endpoints ----
-registerEndpoint('platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
-                 'getPlatforms',
-                 defaults = list(platforms = NA_character_,
-                                 filter = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L,
-                                 sort = '+id'),
-                 validators = alist(filter = validateFilter,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger,
-                                    sort = validateSort),
-                 preprocessor = quote(processPlatforms), document = 'R/allEndpoints.R')
-
-registerEndpoint('platforms/{platform}/datasets?offset={offset}&limit={limit}',
-                 'getPlatformDatasets',
-                 defaults = list(platform = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L),
-                 validators = alist(platform = validateSingleID,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger),
-                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
-
-registerEndpoint('platforms/{platform}/elements?offset={offset}&limit={limit}',
-                 'getPlatformElements',
-                 defaults = list(platform = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L),
-                 validators = alist(platform = validateSingleID,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger),
-                 preprocessor = quote(processElements), document = 'R/allEndpoints.R')
-
-registerEndpoint('platforms/{platform}/elements/{element}/genes?offset={offset}&limit={limit}',
-                 'getPlatformElementGenes',
-                 defaults = list(platform = NA_character_,
-                                 element = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L),
-                 validators = alist(platform = validateSingleID,
-                                    element = validateSingleID,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger),
-                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
-
-# Gene endpoints ----
-registerSimpleEndpoint('gene', '',
-                       'getGenes',
-                       preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
-
-registerSimpleEndpoint('gene', 'evidence',
-                       'getGeneEvidence',
-                       preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
-
-registerSimpleEndpoint('gene', 'locations',
-                       'getGeneLocation',
-                       preprocessor = quote(processGeneLocation), document = 'R/allEndpoints.R')
-
-registerEndpoint('genes/{gene}/probes?offset={offset}&limit={limit}',
-                 'getGeneProbes',
-                 defaults = list(gene = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L),
-                 validators = alist(gene = validateSingleID,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger),
-                 preprocessor = quote(processElements), document = 'R/allEndpoints.R')
-
-registerSimpleEndpoint('gene', 'goTerms',
-                       'getGeneGO',
-                       preprocessor = quote(processGO), document = 'R/allEndpoints.R')
-
-registerEndpoint('genes/{gene}/coexpression?with={with}&limit={limit}&stringency={stringency}',
-                 'getGeneCoexpression',
-                 defaults = list(gene = NA_character_,
-                                 with = NA_character_,
-                                 limit = 20L,
-                                 stringency = 1L),
-                 validators = alist(gene = validateSingleID,
-                                    with = validateSingleID,
-                                    limit = validatePositiveInteger,
-                                    stringency = validatePositiveInteger),
-                 preprocessor = quote(processCoexpression), document = 'R/allEndpoints.R')
-
-# Taxon endpoints ----
-registerEndpoint('taxa/{taxon}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
-                 'getTaxonDatasets',
-                 defaults = list(taxon = NA_character_,
-                                 filter = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L,
-                                 sort = '+id'),
-                 validators = alist(taxon = validateSingleID,
-                                    filter = validateFilter,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger,
-                                    sort = validateSort),
-                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree}',
-                 'getTaxonPhenotypes',
-                 defaults = list(taxon = NA_character_,
-                                 editableOnly = F,
-                                 tree = F),
-                 validators = alist(taxon = validateSingleID,
-                                    editableOnly = validateBoolean,
-                                    tree = validateBoolean),
-                 preprocessor = quote(processPhenotypes), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}&phenotypes={phenotypes}',
-                 'getTaxonPhenotypeCandidates',
-                 defaults = list(taxon = NA_character_,
-                                 editableOnly = F,
-                                 phenotypes = NA_character_),
-                 validators = alist(taxon = validateSingleID,
-                                    editableOnly = validateBoolean,
-                                    phenotypes = validateSingleID),
-                 preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/genes/{gene}',
-                 'getGeneOnTaxon',
-                 defaults = list(taxon = NA_character_,
-                                 gene = NA_character_),
-                 validators = alist(taxon = validateSingleID,
-                                    gene = validateSingleID),
-                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/genes/{gene}/evidence',
-                 'getEvidenceOnTaxon',
-                 defaults = list(taxon = NA_character_,
-                                 gene = NA_character_),
-                 validators = alist(taxon = validateSingleID,
-                                    gene = validateSingleID),
-                 preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/genes/{gene}/locations',
-                 'getGeneLocationOnTaxon',
-                 defaults = list(taxon = NA_character_,
-                                 gene = NA_character_),
-                 validators = alist(taxon = validateSingleID,
-                                    gene = validateSingleID),
-                 preprocessor = quote(processGeneLocation), document = 'R/allEndpoints.R')
-
-registerEndpoint('taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&start={start}&size={size}',
-                 'getGenesAtLocation',
-                 defaults = list(taxon = NA_character_,
-                                 chromosome = NA_character_,
-                                 strand = '+',
-                                 start = NA_integer_,
-                                 size = NA_integer_),
-                 validators = alist(taxon = validateSingleID,
-                                    chromosome = validateSingleID,
-                                    strand = validateStrand,
-                                    start = validatePositiveInteger,
-                                    size = validatePositiveInteger),
-                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
-
-# Compound endpoints ----
 registerCompoundEndpoint(endpoints = list(
   A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
            activates = 2,
            variables = c(diffExSet = 'resultSets.resultSetId')),
   B = list(endpoint = 'datasets/{dataset}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}')),
-  'getDiffExpr',
+  'getDiffExpr', logname = 'diffExData',
   defaults = list(dataset = NA_character_,
                   offset = 0L,
                   keepNonSpecific = F,
@@ -577,5 +510,196 @@ registerCompoundEndpoint(endpoints = list(
                      consolidate = validateConsolidate),
   preprocessors = alist(A = processDEA, B = processExpression), document = 'R/allEndpoints.R')
 
+registerCategoryEndpoint(characteristic = 'dataset', document = 'R/allEndpoints.R')
+# Platform endpoints ----
+registerCategoryEndpoint('platformInfo')
+
+registerEndpoint('platforms/{platform}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
+                 'getPlatforms', logname = 'platforms',
+                 defaults = list(platform = NA_character_,
+                                 filter = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L,
+                                 sort = '+id'),
+                 validators = alist(filter = validateFilter,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger,
+                                    sort = validateSort),
+                 preprocessor = quote(processPlatforms), document = 'R/allEndpoints.R')
+
+registerEndpoint('platforms/{platform}/datasets?offset={offset}&limit={limit}',
+                 'getPlatformDatasets', logname = 'datasets',
+                 defaults = list(platform = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L),
+                 validators = alist(platform = validateSingleID,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger),
+                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
+
+registerEndpoint('platforms/{platform}/elements?offset={offset}&limit={limit}',
+                 'getPlatformElements', logname = 'elements',
+                 defaults = list(platform = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L),
+                 validators = alist(platform = validateSingleID,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger),
+                 preprocessor = quote(processElements), document = 'R/allEndpoints.R')
+
+registerEndpoint('platforms/{platform}/elements/{element}/genes?offset={offset}&limit={limit}',
+                 'getPlatformElementGenes', logname = 'genes',
+                 defaults = list(platform = NA_character_,
+                                 element = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L),
+                 validators = alist(platform = validateSingleID,
+                                    element = validateSingleID,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger),
+                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
+
+registerCategoryEndpoint(characteristic = 'platform', document = 'R/allEndpoints.R')
+# Gene endpoints ----
+registerCategoryEndpoint('geneInfo')
+
+registerSimpleEndpoint('gene', '', logname = 'genes',
+                       'getGenes',
+                       preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
+
+registerSimpleEndpoint('gene', 'evidence', logname = 'evidence',
+                       'getGeneEvidence',
+                       preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
+
+registerSimpleEndpoint('gene', 'locations', logname = 'locations',
+                       'getGeneLocation',
+                       preprocessor = quote(processGeneLocation), document = 'R/allEndpoints.R')
+
+registerEndpoint('gene/{gene}/probes?offset={offset}&limit={limit}',
+                 'getGeneProbes', logname = 'probes',
+                 defaults = list(gene = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L),
+                 validators = alist(gene = validateSingleID,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger),
+                 preprocessor = quote(processElements), document = 'R/allEndpoints.R')
+
+registerSimpleEndpoint('gene', 'goTerms', logname = 'goTerms',
+                       'getGeneGO',
+                       preprocessor = quote(processGO), document = 'R/allEndpoints.R')
+
+registerEndpoint('genes/{gene}/coexpression?with={with}&limit={limit}&stringency={stringency}',
+                 'getGeneCoexpression', logname = 'coexpression',
+                 defaults = list(gene = NA_character_,
+                                 with = NA_character_,
+                                 limit = 20L,
+                                 stringency = 1L),
+                 validators = alist(gene = validateSingleID,
+                                    with = validateSingleID,
+                                    limit = validatePositiveInteger,
+                                    stringency = validatePositiveInteger),
+                 preprocessor = quote(processCoexpression), document = 'R/allEndpoints.R')
+
+registerCategoryEndpoint(characteristic = 'gene', document = 'R/allEndpoints.R')
+# Taxon endpoints ----
+registerCategoryEndpoint('taxonInfo')
+
+registerSimpleEndpoint('taxa', '', logname = 'taxa',
+                       'getTaxa',
+                       plural = 'taxon', # Misleading plural but oh well
+                       validator = alist(taxon = validateOptionalTaxon),
+                       preprocessor = quote(processTaxon), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
+                 'getTaxonDatasets', logname = 'datasets',
+                 defaults = list(taxon = NA_character_,
+                                 filter = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L,
+                                 sort = '+id'),
+                 validators = alist(taxon = validateSingleID,
+                                    filter = validateFilter,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger,
+                                    sort = validateSort),
+                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree}',
+                 'getTaxonPhenotypes', logname = 'phenotypes',
+                 defaults = list(taxon = NA_character_,
+                                 editableOnly = F,
+                                 tree = F),
+                 validators = alist(taxon = validateSingleID,
+                                    editableOnly = validateBoolean,
+                                    tree = validateBoolean),
+                 preprocessor = quote(processPhenotypes), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}&phenotypes={phenotypes}',
+                 'getTaxonPhenotypeCandidates', logname = 'phenoCandidateGenes',
+                 defaults = list(taxon = NA_character_,
+                                 editableOnly = F,
+                                 phenotypes = NA_character_),
+                 validators = alist(taxon = validateSingleID,
+                                    editableOnly = validateBoolean,
+                                    phenotypes = validateSingleID),
+                 preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/genes/{gene}',
+                 'getGeneOnTaxon', logname = 'gene',
+                 defaults = list(taxon = NA_character_,
+                                 gene = NA_character_),
+                 validators = alist(taxon = validateSingleID,
+                                    gene = validateSingleID),
+                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/genes/{gene}/evidence',
+                 'getEvidenceOnTaxon', logname = 'geneEvidence',
+                 defaults = list(taxon = NA_character_,
+                                 gene = NA_character_),
+                 validators = alist(taxon = validateSingleID,
+                                    gene = validateSingleID),
+                 preprocessor = quote(processGeneEvidence), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/genes/{gene}/locations',
+                 'getGeneLocationOnTaxon', logname = 'geneLocation',
+                 defaults = list(taxon = NA_character_,
+                                 gene = NA_character_),
+                 validators = alist(taxon = validateSingleID,
+                                    gene = validateSingleID),
+                 preprocessor = quote(processGeneLocation), document = 'R/allEndpoints.R')
+
+registerEndpoint('taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&start={start}&size={size}',
+                 'getGenesAtLocation', logname = 'genesAtLocation',
+                 defaults = list(taxon = NA_character_,
+                                 chromosome = NA_character_,
+                                 strand = '+',
+                                 start = NA_integer_,
+                                 size = NA_integer_),
+                 validators = alist(taxon = validateSingleID,
+                                    chromosome = validateSingleID,
+                                    strand = validateStrand,
+                                    start = validatePositiveInteger,
+                                    size = validatePositiveInteger),
+                 preprocessor = quote(processGenes), document = 'R/allEndpoints.R')
+
+registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
+                 'searchDatasets', logname = 'datasets',
+                 defaults = list(taxon = '',
+                                 query = NA_character_,
+                                 filter = NA_character_,
+                                 offset = 0L,
+                                 limit = 0L,
+                                 sort = '+id'),
+                 validators = alist(taxon = validateTaxon,
+                                    query = validateQuery,
+                                    filter = validateFilter,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger,
+                                    sort = validateSort),
+                 preprocessor = quote(processDatasets), document = 'R/allEndpoints.R')
+
+registerCategoryEndpoint(characteristic = 'taxon', document = 'R/allEndpoints.R')
+
 # Clean up
-rm(list = ls(pattern = 'get|search|register'))
+rm(list = ls(pattern = '^(mem)?get|search|register|logEndpoint'))

@@ -10,7 +10,9 @@ memgetTaxonPhenotypes(
   tree = FALSE,
   raw = FALSE,
   async = FALSE,
-  memoised = FALSE
+  memoised = FALSE,
+  file = NA_character_,
+  overwrite = FALSE
 )
 }
 \description{

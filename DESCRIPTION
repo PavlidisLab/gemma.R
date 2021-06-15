@@ -1,4 +1,4 @@
-Package: gemmaAPI
+Package: gemmaAPI2
 Title: A wrapper for Gemma's restful API
 Version: 0.0.0.9000
 Authors@R: 

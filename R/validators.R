@@ -28,6 +28,11 @@ validateSingleID <- function(name, ...) {
     ID
 }
 
+validateOptionalTaxon <- function(name, ...) {
+    if(all(is.na(as.character(unlist(list(...)))))) ''
+    else validateTaxon(name, ...)
+}
+
 #' Validate a taxon using the acceptable taxa entries
 #'
 #' @param name The variable name

@@ -288,6 +288,20 @@ processGeneEvidence <- function(d) {
     }), processGenes(d))
 }
 
+#' Processes JSON as a vector of taxa
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
+processTaxon <- function(d) {
+  data.table(taxon.Name = d[['commonName']],
+             taxon.Scientific = d[['scientificName']],
+             taxon.ID = d[['id']],
+             taxon.NCBI = d[['ncbiId']],
+             taxon.Database.Name = d[['externalDatabase']][['name']],
+             taxon.Database.ID = d[['externalDatabase.ID']])
+}
+
 #' Processes JSON as a vector of gene locations
 #'
 #' @param d The JSON to process
@@ -299,12 +313,7 @@ processGeneLocation <- function(d) {
                bin = d[['bin']],
                nucleotide = d[['nucleotide']],
                length = d[['nucleotideLength']],
-               taxon.Name = d[['taxon']][['commonName']],
-               taxon.Scientific = d[['taxon']][['scientificName']],
-               taxon.ID = d[['taxon']][['id']],
-               taxon.NCBI = d[['taxon']][['ncbiId']],
-               taxon.Database.Name = d[['taxon']][['externalDatabase']][['name']],
-               taxon.Database.ID = d[['taxon']][['externalDatabase.ID']])
+               processTaxon(d[['taxon']]))
 }
 
 #' Processes JSON as GO terms

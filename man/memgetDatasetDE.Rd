@@ -5,7 +5,7 @@
 \title{Memoise getDatasetDE}
 \usage{
 memgetDatasetDE(
-  datasets = NA_character_,
+  dataset = NA_character_,
   keepNonSpecific = FALSE,
   diffExSet = NA_integer_,
   threshold = 100,
@@ -13,7 +13,9 @@ memgetDatasetDE(
   consolidate = NA_character_,
   raw = FALSE,
   async = FALSE,
-  memoised = FALSE
+  memoised = FALSE,
+  file = NA_character_,
+  overwrite = FALSE
 )
 }
 \description{

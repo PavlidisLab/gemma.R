@@ -4,7 +4,14 @@
 \alias{getGeneGO}
 \title{getGeneGO}
 \usage{
-getGeneGO(gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE)
+getGeneGO(
+  gene = NA_character_,
+  raw = FALSE,
+  async = FALSE,
+  memoised = FALSE,
+  file = NA_character_,
+  overwrite = FALSE
+)
 }
 \description{
 getGeneGO

@@ -5,14 +5,16 @@
 \title{Memoise getDatasets}
 \usage{
 memgetDatasets(
-  datasets = NA_character_,
+  dataset = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
   raw = FALSE,
   async = FALSE,
-  memoised = FALSE
+  memoised = FALSE,
+  file = NA_character_,
+  overwrite = FALSE
 )
 }
 \description{
