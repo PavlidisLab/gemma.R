@@ -241,8 +241,8 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
 {
     fname <- "getDatasetSamples"
     preprocessor <- processSamples
-    validators <- list(dataset = validator)
-    endpoint <- "NA"
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/samples"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -297,8 +297,8 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
 {
     fname <- "getDatasetSVD"
     preprocessor <- processSVD
-    validators <- list(dataset = validator)
-    endpoint <- "NA"
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/svd"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -353,8 +353,8 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
 {
     fname <- "getDatasetPlatforms"
     preprocessor <- processPlatforms
-    validators <- list(dataset = validator)
-    endpoint <- "NA"
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/platforms"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -409,8 +409,8 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
 {
     fname <- "getDatasetAnnotations"
     preprocessor <- processAnnotations
-    validators <- list(dataset = validator)
-    endpoint <- "NA"
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/annotations"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -825,8 +825,8 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
 {
     fname <- "getGenes"
     preprocessor <- processGenes
-    validators <- list(gene = validator)
-    endpoint <- "NA"
+    validators <- list(gene = validateSingleID)
+    endpoint <- "genes/{encode(gene)}/"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -881,8 +881,8 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
 {
     fname <- "getGeneEvidence"
     preprocessor <- processGeneEvidence
-    validators <- list(gene = validator)
-    endpoint <- "NA"
+    validators <- list(gene = validateSingleID)
+    endpoint <- "genes/{encode(gene)}/evidence"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -937,8 +937,8 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
 {
     fname <- "getGeneLocation"
     preprocessor <- processGeneLocation
-    validators <- list(gene = validator)
-    endpoint <- "NA"
+    validators <- list(gene = validateSingleID)
+    endpoint <- "genes/{encode(gene)}/locations"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -1050,8 +1050,8 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
 {
     fname <- "getGeneGO"
     preprocessor <- processGO
-    validators <- list(gene = validator)
-    endpoint <- "NA"
+    validators <- list(gene = validateSingleID)
+    endpoint <- "genes/{encode(gene)}/goTerms"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
@@ -1189,7 +1189,7 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
     fname <- "getTaxa"
     preprocessor <- processTaxon
     validators <- list(taxon = validateOptionalTaxon)
-    endpoint <- "NA"
+    endpoint <- "taxa/{encode(taxon)}"
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
