@@ -2,8 +2,10 @@
 % Please edit documentation in R/processors.R
 \name{processAnnotations}
 \alias{processAnnotations}
-\title{Processes JSON as annotations}
+\title{Processes JSON as an annotation}
 \usage{
+processAnnotations(d)
+
 processAnnotations(d)
 }
 \arguments{
@@ -11,7 +13,11 @@ processAnnotations(d)
 }
 \value{
 A processed data.table
+
+A processed data.table
 }
 \description{
+Processes JSON as an annotation
+
 Processes JSON as annotations
 }

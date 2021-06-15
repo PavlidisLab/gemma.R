@@ -74,6 +74,18 @@ processDatasets <- function(d) {
                technology.Type = d[['technologyType']])
 }
 
+#' Processes JSON as an annotation
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
+processAnnotations <- function(d) {
+  data.table(category.Name = d[['category']],
+             category.URL = d[['categoryUri']],
+             value.Name = d[['value']],
+             value.URL = d[['valueUri']])
+}
+
 #' Processes JSON as a differential expression analysis
 #'
 #' @param d The JSON to process

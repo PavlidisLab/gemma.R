@@ -1724,6 +1724,62 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
     eval(mCallable, envir = parent.env(environment()))
 }
 
+#' searchAnnotations
+#' @export
+searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE,
+    memoised = FALSE, file = NA_character_, overwrite = FALSE)
+{
+    fname <- "searchAnnotations"
+    preprocessor <- processAnnotations
+    validators <- list(query = validateQuery)
+    endpoint <- "annotations/search/{encode(query)}"
+    if (memoised) {
+        newArgs <- as.list(match.call())[-1]
+        newArgs$memoised <- F
+        return(do.call(glue("mem{fname}"), newArgs))
+    }
+    if (!is.null(validators)) {
+        for (v in names(validators)) {
+            assign(v, eval(validators[[v]])(get(v), name = v))
+        }
+    }
+    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"),
+        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA",
+            "", glue(endpoint)))))
+    envWhere <- environment()
+    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password",
+        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"),
+        ":", getOption("gemma.password"))), list()))$then(function(response) {
+        if (response$status_code == 200) {
+            mData <- tryCatch({
+                fromJSON(rawToChar(response$content))$data
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type,
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor,
+                envir = envWhere)(mData)
+            if (!is.null(file) && !is.na(file) && file.exists(file)) {
+                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
+                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file),
+                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file),
+                    ".rds"))
+                }
+            }
+            mOut
+        } else response
+    }))
+    if (!async)
+        synchronise(eval(request, envir = envWhere))
+    else eval(request)
+}
+
+#' Memoise searchAnnotations
+#'
+memsearchAnnotations <- memoise::memoise(searchAnnotations)
+
 forgetGemmaMemoised <- function() {
     forget(memgetDatasets)
     forget(memgetDatasetDEA)
@@ -1753,4 +1809,5 @@ forgetGemmaMemoised <- function() {
     forget(memgetGeneLocationOnTaxon)
     forget(memgetGenesAtLocation)
     forget(memsearchDatasets)
+    forget(memsearchAnnotations)
 }

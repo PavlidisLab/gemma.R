@@ -701,5 +701,11 @@ registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&of
 
 registerCategoryEndpoint(characteristic = 'taxon', document = 'R/allEndpoints.R')
 
+registerEndpoint('annotations/search/{query}',
+                 'searchAnnotations',
+                 defaults = list(query = NA_character_),
+                 validators = alist(query = validateQuery),
+                 preprocessor = quote(processAnnotations), document = 'R/allEndpoints.R')
+
 # Clean up
 rm(list = ls(pattern = '^(mem)?get|search|register|logEndpoint'))
