@@ -144,15 +144,15 @@ registerEndpoint <- function(endpoint,
   memF <- glue('mem', fname)
   assign(memF, memoise(f), where)
 
-  if(!exists('forgetGemmaMemoised', envir = where))
+  if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
     assign('forgetGemmaMemoised', function() {}, envir = where)
 
-  forgetMe <- get('forgetGemmaMemoised', envir = where)
+  forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
     append(str2expression(glue('forget({memF})'))) %>% as.call
 
-  assign('forgetGemmaMemoised', forgetMe, envir = where)
+  assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
   if(!is.null(document)) {
     cat(glue("#' {fname}\n"), file = document, append = T)
@@ -337,15 +337,15 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   memF <- glue('mem', fname)
   assign(memF, memoise(f), where)
 
-  if(!exists('forgetGemmaMemoised', envir = where))
-    assign('forgetGemmaMemoised', function() {}, envir = where)
+  if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
+    assign('forgetGemmaMemoised', function() {}, envir = where, inherits = F)
 
-  forgetMe <- get('forgetGemmaMemoised', envir = where)
+  forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
     append(str2expression(glue('forget({memF})'))) %>% as.call
 
-  assign('forgetGemmaMemoised', forgetMe, envir = where)
+  assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
   if(!is.null(document)) {
     cat(glue("#' {fname}\n"), file = document, append = T)
@@ -807,7 +807,7 @@ doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints
   cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = T)
   cat("#' @export\n", file = document, append = T)
   cat('forgetGemmaMemoised <- ', file = document, append = T)
-  cat(deparse(forgetGemmaMemoised) %>% paste0(collapse = '\n'), file = document, append = T)
+  cat(deparse(get('forgetGemmaMemoised', envir = globalenv(), inherits = F)) %>% paste0(collapse = '\n'), file = document, append = T)
 
   rm(list = ls(envir = globalenv()), envir = globalenv())
 
