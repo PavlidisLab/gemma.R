@@ -63,7 +63,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -133,7 +133,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -206,7 +206,7 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -281,7 +281,7 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -347,7 +347,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -413,7 +413,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -479,7 +479,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -545,7 +545,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -606,7 +606,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
                   newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
                     gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", 
                       "\\?", gsub("&[^=]+=NA", "", glue::glue(endpointURLs[[newIndex]])))))
-                  synchronise(makeRequest(newIndex, newURL)$then(function(x) {
+                  async::synchronise(makeRequest(newIndex, newURL)$then(function(x) {
                     list(pData, x)
                   }))
                 }
@@ -618,14 +618,14 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
     request <- async(function() {
         lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))), 
             function(x) {
-                synchronise(makeRequest(x, paste0(getOption("gemma.API", 
+                async::synchronise(makeRequest(x, paste0(getOption("gemma.API", 
                   "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)", 
                   "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
                     "", glue::glue(endpointURLs[[x]])))))))
             }) %>% unlist(F)
     })
     if (!async) 
-        synchronise(when_all(request()))
+        async::synchronise(when_all(request()))
     else request()
 }
 
@@ -722,7 +722,7 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -792,7 +792,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -862,7 +862,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -933,7 +933,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1022,7 +1022,7 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1088,7 +1088,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1154,7 +1154,7 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1223,7 +1223,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1289,7 +1289,7 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1360,7 +1360,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1450,7 +1450,7 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1523,7 +1523,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1593,7 +1593,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1663,7 +1663,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1730,7 +1730,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1797,7 +1797,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1864,7 +1864,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -1937,7 +1937,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -2011,7 +2011,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 
@@ -2103,7 +2103,7 @@ searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE
         } else response
     }))
     if (!async) 
-        synchronise(eval(request, envir = envWhere))
+        async::synchronise(eval(request, envir = envWhere))
     else eval(request)
 }
 

@@ -117,7 +117,7 @@ registerEndpoint <- function(endpoint,
     }))
 
     if(!async)
-      synchronise(eval(request, envir = envWhere))
+      async::synchronise(eval(request, envir = envWhere))
     else
       eval(request)
   })
@@ -289,7 +289,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
                                   gsub('\\?[^=]+=NA', '\\?',
                                        gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[newIndex]])))))
 
-            synchronise(makeRequest(newIndex, newURL)$then(function(x) {
+            async::synchronise(makeRequest(newIndex, newURL)$then(function(x) {
               list(pData, x)
             }))
           } else
@@ -302,7 +302,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     # Start by sending requests that aren't activated by other endpoints
     request <- async(function() {
       lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))), function(x) {
-        synchronise(makeRequest(x, paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
+        async::synchronise(makeRequest(x, paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
                                           gsub('/(NA|/)', '/',
                                                gsub('\\?[^=]+=NA', '\\?',
                                                     gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[x]])))))))
@@ -310,7 +310,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     })
 
     if(!async)
-      synchronise(when_all(request()))
+      async::synchronise(when_all(request()))
     else
       request()
   })
@@ -443,7 +443,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 }
 
 # Load in descriptions from the JS
-eval(synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
+eval(async::synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
        rawToChar %>% {
          gsub('\\/\\*[\\s\\S]*?\\*\\/', '', ., perl = T)
        } %>% {
@@ -455,7 +455,7 @@ eval(synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue
 rm(`+`)
 
 # And endpoints from the HTML
-endpoints <- synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
+endpoints <- async::synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
   rawToChar %>%
   read_html() %>%
   xml_find_all('.//endpoint')
