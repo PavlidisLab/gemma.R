@@ -27,7 +27,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -36,7 +36,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -97,7 +97,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -106,7 +106,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -170,7 +170,7 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -179,7 +179,7 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -245,7 +245,7 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -254,7 +254,7 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -311,7 +311,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -320,7 +320,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -377,7 +377,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -386,7 +386,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -443,7 +443,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -452,7 +452,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -509,7 +509,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -518,7 +518,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -570,7 +570,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -605,7 +605,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
                   newIndex <- endpointMap[[index]]
                   newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
                     gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", 
-                      "\\?", gsub("&[^=]+=NA", "", glue(endpointURLs[[newIndex]])))))
+                      "\\?", gsub("&[^=]+=NA", "", glue::glue(endpointURLs[[newIndex]])))))
                   synchronise(makeRequest(newIndex, newURL)$then(function(x) {
                     list(pData, x)
                   }))
@@ -621,7 +621,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
                 synchronise(makeRequest(x, paste0(getOption("gemma.API", 
                   "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)", 
                   "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-                    "", glue(endpointURLs[[x]])))))))
+                    "", glue::glue(endpointURLs[[x]])))))))
             }) %>% unlist(F)
     })
     if (!async) 
@@ -686,7 +686,7 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -695,7 +695,7 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -756,7 +756,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -765,7 +765,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -826,7 +826,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -835,7 +835,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -897,7 +897,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -906,7 +906,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -986,7 +986,7 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -995,7 +995,7 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1052,7 +1052,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1061,7 +1061,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1118,7 +1118,7 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1127,7 +1127,7 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1187,7 +1187,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1196,7 +1196,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1253,7 +1253,7 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1262,7 +1262,7 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1324,7 +1324,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1333,7 +1333,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1414,7 +1414,7 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1423,7 +1423,7 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1487,7 +1487,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1496,7 +1496,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1557,7 +1557,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1566,7 +1566,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1627,7 +1627,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1636,7 +1636,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1694,7 +1694,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1703,7 +1703,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1761,7 +1761,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1770,7 +1770,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1828,7 +1828,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1837,7 +1837,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1901,7 +1901,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1910,7 +1910,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -1975,7 +1975,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -1984,7 +1984,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -2067,7 +2067,7 @@ searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE
     if (memoised) {
         newArgs <- as.list(match.call())[-1]
         newArgs$memoised <- F
-        return(do.call(glue("mem{fname}"), newArgs))
+        return(do.call(glue::glue("mem{fname}"), newArgs))
     }
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -2076,7 +2076,7 @@ searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE
     }
     endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue(endpoint)))))
+            "", glue::glue(endpoint)))))
     envWhere <- environment()
     request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
@@ -2119,35 +2119,6 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' @export
 forgetGemmaMemoised <- function () 
 {
-    forget(memgetDatasets)
-    forget(memgetDatasetDEA)
-    forget(memgetDatasetPCA)
-    forget(memgetDatasetDE)
-    forget(memgetDatasetSamples)
-    forget(memgetDatasetSVD)
-    forget(memgetDatasetPlatforms)
-    forget(memgetDatasetAnnotations)
-    forget(memgetDiffExpr)
-    forget(memgetPlatforms)
-    forget(memgetPlatformDatasets)
-    forget(memgetPlatformElements)
-    forget(memgetPlatformElementGenes)
-    forget(memgetGenes)
-    forget(memgetGeneEvidence)
-    forget(memgetGeneLocation)
-    forget(memgetGeneProbes)
-    forget(memgetGeneGO)
-    forget(memgetGeneCoexpression)
-    forget(memgetTaxa)
-    forget(memgetTaxonDatasets)
-    forget(memgetTaxonPhenotypes)
-    forget(memgetTaxonPhenotypeCandidates)
-    forget(memgetGeneOnTaxon)
-    forget(memgetEvidenceOnTaxon)
-    forget(memgetGeneLocationOnTaxon)
-    forget(memgetGenesAtLocation)
-    forget(memsearchDatasets)
-    forget(memsearchAnnotations)
     forget(memgetDatasets)
     forget(memgetDatasetDEA)
     forget(memgetDatasetPCA)
