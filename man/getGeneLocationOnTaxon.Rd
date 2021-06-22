@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneLocationOnTaxon}
 \alias{getGeneLocationOnTaxon}
-\title{getGeneLocationOnTaxon}
+\title{getGeneLocationOnTaxon
+Retrieves gene evidence for the gene on the given taxon.}
 \usage{
 getGeneLocationOnTaxon(
   taxon = NA_character_,
@@ -14,6 +15,25 @@ getGeneLocationOnTaxon(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{taxon}{<p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>}
+
+\item{gene}{<p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p> An array of locations (physical location value objects) of the given gene on the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+}
 \description{
 getGeneLocationOnTaxon
+Retrieves gene evidence for the gene on the given taxon.
 }

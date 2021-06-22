@@ -31,7 +31,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' synchronise(getDiffExData(1, 59016))
 #'
 #' #' @export
-getDiffExData <- async(function(eeID, rsID) {
+getDiffExData <- async::async(function(eeID, rsID) {
   # Make the initial request
   http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ExpressionExperimentDataFetchController.getDiffExpressionDataFile.dwr'),
             glue('callCount=1
@@ -55,7 +55,7 @@ batchId=4
   } %>% strsplit(',') %>% .[[1]] %>% { gsub('\'|"', '', .) } %>% .[3]
   countN <- 5
 
-  requery <- async(function(taskID, countN) {
+  requery <- async::async(function(taskID, countN) {
     # Poll for completion
     http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ProgressStatusService.getSubmittedTask.dwr'),
               glue('callCount=1

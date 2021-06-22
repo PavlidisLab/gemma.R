@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{getDatasetDE}
+\title{getDatasetDE
+Retrieves differential expression levels for given datasets}
 \usage{
 getDatasetDE(
   dataset = NA_character_,
@@ -18,6 +19,33 @@ getDatasetDE(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+
+\item{keepNonSpecific}{<p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>   If set to <code>false</code>, the response will only include elements that map exclusively to each queried gene</p><p>   If set to <code>true</code>, the response will include all elements that map to each queried gene, even if they   also map to other genes.</p>}
+
+\item{diffExSet}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The ID of the differential expression set to retrieve the data from.</p><p>   This value can be obtained through the 'Dataset differential analysis' endpoint in the 'Dataset endpoints' category.    See the <code>resultSetId</code> in one of the response objects in said endpoint.</p>}
+
+\item{threshold}{<p class='description-frow'>Optional, defaults to <code>100.0</code>.</p><p>The threshold that the differential expression has to meet to be included in the response.</p>}
+
+\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+
+\item{consolidate}{<p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   What action to take when there is more than one element per gene in a dataset.</p><p>   The choices are:   <ul>       <li><code>[empty]</code> - will list all vectors separately</li>       <li><code>pickmax</code> - only return the vector that has the highest expression (mean over all its bioAssays)</li>       <li><code>pickvar</code> - only return the vector with highest variance of expression across its bioAssays</li>       <li><code>average</code> - create a new vector that will average the bioAssay values from all vectors</li>   </ul></p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p>   The differential expression levels for each given experiment (experiment expression levels value object) in the   given differential expression set.</p><p>   If the experiment is not in the given diff. exp. set, an empty array is returned.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+}
 \description{
 getDatasetDE
+Retrieves differential expression levels for given datasets
 }

@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDEA}
 \alias{getDatasetDEA}
-\title{getDatasetDEA}
+\title{getDatasetDEA
+Retrieves the differential analysis results for the given dataset}
 \usage{
 getDatasetDEA(
   dataset = NA_character_,
@@ -15,6 +16,27 @@ getDatasetDEA(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+
+\item{offset}{<p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>}
+
+\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p>   An array of analyses (differential expression value objects) in the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p></p>
+}
 \description{
 getDatasetDEA
+Retrieves the differential analysis results for the given dataset
 }

@@ -428,7 +428,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 
     if(!is.null(document)) {
       # TODO comment these
-      cat(glue("#' {fname}\n#' @export\n"), file = document, append = T)
+      cat(glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
       cat(glue('{fname} <- '), file = document, append = T)
       cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
       cat('\n\n', file = document, append = T)

@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxonDatasets}
 \alias{getTaxonDatasets}
-\title{getTaxonDatasets}
+\title{getTaxonDatasets
+Retrieves datasets for the given taxon.}
 \usage{
 getTaxonDatasets(
   taxon = NA_character_,
@@ -17,6 +18,31 @@ getTaxonDatasets(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{taxon}{<p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>}
+
+\item{filter}{<p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by \% signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>}
+
+\item{offset}{<p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>}
+
+\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+
+\item{sort}{<p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p> An array of datasets (expression experiment value objects) associated with the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+}
 \description{
 getTaxonDatasets
+Retrieves datasets for the given taxon.
 }

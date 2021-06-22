@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetSVD}
 \alias{getDatasetSVD}
-\title{getDatasetSVD}
+\title{getDatasetSVD
+Retrieves the SVD information for the given dataset}
 \usage{
 getDatasetSVD(
   dataset = NA_character_,
@@ -13,6 +14,23 @@ getDatasetSVD(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p>   A simple SVD value object for the given dataset, containing information about SVD of expression data <p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>   Properties of the returned object are:   <ul>       <li><b>bioMaterialIds</b> - Array of Bio Material IDs, in same order as the rows of the v matrix</li>       <li><b>variances</b> - An array of values representing the fraction of the variance each component accounts for</li>       <li><b>vMatrix</b> - the V Matrix (DoubleMatrix object)</li>   </ul></p></p>
+}
 \description{
 getDatasetSVD
+Retrieves the SVD information for the given dataset
 }

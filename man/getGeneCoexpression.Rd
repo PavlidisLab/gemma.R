@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneCoexpression}
 \alias{getGeneCoexpression}
-\title{getGeneCoexpression}
+\title{getGeneCoexpression
+Retrieves the coexpression of two given genes}
 \usage{
 getGeneCoexpression(
   gene = NA_character_,
@@ -16,6 +17,29 @@ getGeneCoexpression(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{gene}{<p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>}
+
+\item{with}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>}
+
+\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+
+\item{stringency}{<p class='description-frow'>Optional, defaults to <code>1</code>.</p><p>Sets the stringency of coexpression search.</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p>    An array of gene coexpression data (coexpression meta value objects) representing the coexpression of the   two given genes.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+}
 \description{
 getGeneCoexpression
+Retrieves the coexpression of two given genes
 }

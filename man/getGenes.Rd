@@ -2,7 +2,8 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGenes}
 \alias{getGenes}
-\title{getGenes}
+\title{getGenes
+Retrieves all genes matching the identifiers}
 \usage{
 getGenes(
   gene = NA_character_,
@@ -13,6 +14,23 @@ getGenes(
   overwrite = FALSE
 )
 }
+\arguments{
+\item{gene}{<p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>}
+
+\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+
+\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+
+\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+
+\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+
+\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+}
+\value{
+<p>   An array of value objects representing the objects that matched the query. </p><p>   Empty array if no objects matched.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+}
 \description{
 getGenes
+Retrieves all genes matching the identifiers
 }

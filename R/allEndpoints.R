@@ -634,7 +634,8 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
 memgetDiffExpr <- memoise::memoise(getDiffExpr)
 
 #' datasetInfo
-#' @exportdatasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
+#' @export
+datasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
@@ -941,7 +942,8 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
 #' platformInfo
-#' @exportplatformInfo <- function (platform = NA_character_, request = NA_character_, 
+#' @export
+platformInfo <- function (platform = NA_character_, request = NA_character_, 
     ..., raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
@@ -1367,7 +1369,8 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
 memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 
 #' geneInfo
-#' @exportgeneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
+#' @export
+geneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
@@ -2017,7 +2020,8 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
 memsearchDatasets <- memoise::memoise(searchDatasets)
 
 #' taxonInfo
-#' @exporttaxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
+#' @export
+taxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
