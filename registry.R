@@ -40,7 +40,7 @@ registerEndpoint <- function(endpoint,
   if(missing(endpoint) || missing(fname) || missing(preprocessor))
     stop('Please specify an endpoint, function name and preprocessor.')
   if(exists(fname, envir = where, inherits = F)) {
-    warning(glue('{fname} already exists. Skipping.'))
+    warning(glue::glue('{fname} already exists. Skipping.'))
     return(NULL)
   }
 
@@ -69,7 +69,7 @@ registerEndpoint <- function(endpoint,
     if(memoised) {
       newArgs <- as.list(match.call())[-1]
       newArgs$memoised <- F
-      return(do.call(glue('mem{fname}'), newArgs))
+      return(do.call(glue::glue('mem{fname}'), newArgs))
     }
 
     # Validate arguments
@@ -80,7 +80,7 @@ registerEndpoint <- function(endpoint,
     }
 
     # Generate request
-    endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue(endpoint)))))
+    endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue::glue(endpoint)))))
     envWhere <- environment()
 
     request <- quote(http_get(endpoint, options = switch(is.null(getOption('gemma.password', NULL)) + 1,
@@ -125,14 +125,14 @@ registerEndpoint <- function(endpoint,
   # Add our variables
   for(i in c('endpoint', 'validators', 'preprocessor', 'fname')) {
     if(is.character(get(i)))
-      v <- glue('"{get(i)}"')
+      v <- glue::glue('"{get(i)}"')
     else if(is.list(get(i)))
       v <- get(i) %>% { paste0('list(', paste0(names(.), ' = ', ., collapse = ', '), ')') }
     else
       v <- get(i)
 
     body(f) <- body(f) %>% as.list %>%
-      append(str2expression(glue('{i} <- {v}')), 1) %>%
+      append(str2expression(glue::glue('{i} <- {v}')), 1) %>%
       as.call
   }
 
@@ -141,7 +141,7 @@ registerEndpoint <- function(endpoint,
 
   # Make this function available in the parent environment...
   assign(fname, f, env = where)
-  memF <- glue('mem', fname)
+  memF <- glue::glue('mem', fname)
   assign(memF, memoise(f), where)
 
   if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
@@ -150,19 +150,19 @@ registerEndpoint <- function(endpoint,
   forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
-    append(str2expression(glue('forget({memF})'))) %>% as.call
+    append(str2expression(glue::glue('forget({memF})'))) %>% as.call
 
   assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
   if(!is.null(document)) {
-    cat(glue("#' {fname}\n"), file = document, append = T)
+    cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(roxygen, names(fargs), document)
     cat("#' @export\n", file = document, append = T)
-    cat(glue('{fname} <- '), file = document, append = T)
+    cat(glue::glue('{fname} <- '), file = document, append = T)
     cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
     cat('\n\n', file = document, append = T)
-    cat(glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
-    cat(glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
+    cat(glue::glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
+    cat(glue::glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
     cat('\n\n', file = document, append = T)
   }
 }
@@ -182,7 +182,7 @@ registerEndpoint <- function(endpoint,
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, where = parent.env(environment()),
                                    plural = root, document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
-  registerEndpoint(ifelse(plural == root, glue('{paste0(root, "s")}/{{{root}}}/{query}'), glue('{root}/{{{plural}}}')),
+  registerEndpoint(ifelse(plural == root, glue::glue('{paste0(root, "s")}/{{{root}}}/{query}'), glue::glue('{root}/{{{plural}}}')),
                    fname,
                    defaults = setNames(NA_character_, plural),
                    validators = switch(is.null(validator) + 1, validator, alist(validateSingleID) %>% `names<-`(plural)),
@@ -211,7 +211,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   if(missing(endpoints) || missing(fname) || missing(preprocessors))
     stop('Please specify endpoints, function name and preprocessors.')
   if(exists(fname, envir = where, inherits = F)) {
-    warning(glue('{fname} already exists. Skipping.'))
+    warning(glue::glue('{fname} already exists. Skipping.'))
     return(NULL)
   }
 
@@ -241,7 +241,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     if(memoised) {
       newArgs <- as.list(match.call())[-1]
       newArgs$memoised <- F
-      return(do.call(glue('mem{fname}'), newArgs))
+      return(do.call(glue::glue('mem{fname}'), newArgs))
     }
 
     # Validate arguments
@@ -287,7 +287,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
             newURL <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
                              gsub('/(NA|/)', '/',
                                   gsub('\\?[^=]+=NA', '\\?',
-                                       gsub('&[^=]+=NA', '', glue(endpointURLs[[newIndex]])))))
+                                       gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[newIndex]])))))
 
             synchronise(makeRequest(newIndex, newURL)$then(function(x) {
               list(pData, x)
@@ -305,7 +305,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
         synchronise(makeRequest(x, paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
                                           gsub('/(NA|/)', '/',
                                                gsub('\\?[^=]+=NA', '\\?',
-                                                    gsub('&[^=]+=NA', '', glue(endpointURLs[[x]])))))))
+                                                    gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[x]])))))))
       }) %>% unlist(F)
     })
 
@@ -318,14 +318,14 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   # Add our variables
   for(i in c('endpoints', 'validators', 'preprocessors', 'fname')) {
     if(is.character(get(i)))
-      v <- glue('"{get(i)}"')
+      v <- glue::glue('"{get(i)}"')
     else if(is.list(get(i)))
       v <- get(i) %>% { paste0('list(', paste0(names(.), ' = ', ., collapse = ', '), ')') }
     else
       v <- get(i)
 
     body(f) <- body(f) %>% as.list %>%
-      append(str2expression(glue('{i} <- {v}')), 1) %>%
+      append(str2expression(glue::glue('{i} <- {v}')), 1) %>%
       as.call
   }
 
@@ -334,7 +334,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
 
   # Make this function available in the parent environment...
   assign(fname, f, env = where)
-  memF <- glue('mem', fname)
+  memF <- glue::glue('mem', fname)
   assign(memF, memoise(f), where)
 
   if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
@@ -343,19 +343,19 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
-    append(str2expression(glue('forget({memF})'))) %>% as.call
+    append(str2expression(glue::glue('forget({memF})'))) %>% as.call
 
   assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
   if(!is.null(document)) {
-    cat(glue("#' {fname}\n"), file = document, append = T)
+    cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(roxygen, names(fargs), document)
     cat("#' @export\n", file = document, append = T)
-    cat(glue('{fname} <- '), file = document, append = T)
+    cat(glue::glue('{fname} <- '), file = document, append = T)
     cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
     cat('\n\n', file = document, append = T)
-    cat(glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
-    cat(glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
+    cat(glue::glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
+    cat(glue::glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
     cat('\n\n', file = document, append = T)
   }
 }
@@ -420,16 +420,16 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 
     # Add the argument map
     body(f) <- body(f) %>% as.list %>%
-      append(str2expression(glue('argMap <- {argMap}')), 1) %>%
-      append(str2expression(glue('characteristicValue <- "{characteristic}"')), 1) %>%
+      append(str2expression(glue::glue('argMap <- {argMap}')), 1) %>%
+      append(str2expression(glue::glue('characteristicValue <- "{characteristic}"')), 1) %>%
       as.call
 
     environment(f) <- where
 
     if(!is.null(document)) {
       # TODO comment these
-      cat(glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
-      cat(glue('{fname} <- '), file = document, append = T)
+      cat(glue::glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
+      cat(glue::glue('{fname} <- '), file = document, append = T)
       cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
       cat('\n\n', file = document, append = T)
     }
@@ -475,7 +475,7 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
     xml_attr(elem, ':name') == paste0("'", src, "'")
   }, endpoints)
 
-  cat(glue("\n\n#' {xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) }}\n#'\n\n"), file = document, append = T)
+  cat(glue::glue("\n\n#' {xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) }}\n#'\n\n"), file = document, append = T)
 
   for(arg in parameters) {
     if(arg == 'raw') {
@@ -503,10 +503,10 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
       mAdd <- get(paste0(mArg, 'Description'))
     }
 
-    cat(glue("#' @param {arg} {mAdd}\n\n"), file = document, append = T)
+    cat(glue::glue("#' @param {arg} {mAdd}\n\n"), file = document, append = T)
   }
 
-  cat(glue("#'\n#' @return {get(xml_attr(node, ':response-description'))}\n\n"), file = document, append = T)
+  cat(glue::glue("#'\n#' @return {get(xml_attr(node, ':response-description'))}\n\n"), file = document, append = T)
 }
 
 # Dataset endpoints ----
@@ -802,7 +802,7 @@ registerEndpoint('annotations/search/{query}',
 # Clean up
 doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
   cat('\n', file = document, append = T)
-  cat(glue("#' forgetGemmaMemoised\n\n"), file = document, append = T)
+  cat(glue::glue("#' forgetGemmaMemoised\n\n"), file = document, append = T)
   cat("#'\n", file = document, append = T)
   cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = T)
   cat("#' @export\n", file = document, append = T)
