@@ -18,6 +18,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
     limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
     validators <- list(dataset = validateID, filter = validateFilter, 
@@ -38,12 +39,16 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -89,6 +94,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetDEA"
     preprocessor <- processDEA
     validators <- list(dataset = validateSingleID, offset = validatePositiveInteger, 
@@ -108,12 +114,16 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -161,6 +171,7 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
     keepNonSpecific = FALSE, consolidate = NA_character_, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetPCA"
     preprocessor <- processExpression
     validators <- list(dataset = validateID, component = validatePositiveInteger, 
@@ -181,12 +192,16 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -236,6 +251,7 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetDE"
     preprocessor <- processExpression
     validators <- list(dataset = validateID, keepNonSpecific = validateBoolean, 
@@ -256,12 +272,16 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -304,6 +324,7 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetSamples"
     preprocessor <- processSamples
     validators <- list(dataset = validateSingleID)
@@ -322,12 +343,16 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -370,6 +395,7 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetSVD"
     preprocessor <- processSVD
     validators <- list(dataset = validateSingleID)
@@ -388,12 +414,16 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -436,6 +466,7 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetPlatforms"
     preprocessor <- processPlatforms
     validators <- list(dataset = validateSingleID)
@@ -454,12 +485,16 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -502,6 +537,7 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getDatasetAnnotations"
     preprocessor <- processAnnotations
     validators <- list(dataset = validateSingleID)
@@ -520,12 +556,16 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -552,6 +592,77 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
 #' Memoise getDatasetAnnotations
 #'
 memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
+
+#' getDatasetData
+#' Retrieves the data for the given dataset
+#'
+#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
+#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
+#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
+#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
+#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
+#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#'
+#' @return <p>   The data file for the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @export
+getDatasetData <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
+    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+{
+    isFile <- TRUE
+    fname <- "getDatasetData"
+    preprocessor <- processData
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/data"
+    if (memoised) {
+        newArgs <- as.list(match.call())[-1]
+        newArgs$memoised <- F
+        return(do.call(glue::glue("mem{fname}"), newArgs))
+    }
+    if (!is.null(validators)) {
+        for (v in names(validators)) {
+            assign(v, eval(validators[[v]])(get(v), name = v))
+        }
+    }
+    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
+        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
+            "", glue::glue(endpoint)))))
+    envWhere <- environment()
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
+        ":", getOption("gemma.password"))), list()))$then(function(response) {
+        if (response$status_code == 200) {
+            mData <- tryCatch({
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type, 
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
+                envir = envWhere)(mData)
+            if (!is.null(file) && !is.na(file) && file.exists(file)) {
+                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
+                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
+                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
+                    ".rds"))
+                }
+            }
+            mOut
+        } else response
+    }))
+    if (!async) 
+        async::synchronise(eval(request, envir = envWhere))
+    else eval(request)
+}
+
+#' Memoise getDatasetData
+#'
+memgetDatasetData <- memoise::memoise(getDatasetData)
 
 #' getDiffExpr
 #' @export
@@ -581,7 +692,7 @@ getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific =
     endpointMap <- lapply(endpoints, "[[", "activates")
     endpointExtract <- lapply(endpoints, "[[", "variables")
     makeRequest <- async(function(index, URL) {
-        http_get(URL)$then(function(response) {
+        async::http_get(URL)$then(function(response) {
             if (response$status_code == 200) {
                 mData <- tryCatch({
                   fromJSON(rawToChar(response$content))$data
@@ -643,7 +754,8 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
     argMap <- c(datasets = "getDatasets", differential = "getDatasetDEA", 
         PCA = "getDatasetPCA", diffEx = "getDatasetDE", samples = "getDatasetSamples", 
         SVD = "getDatasetSVD", platforms = "getDatasetPlatforms", 
-        annotations = "getDatasetAnnotations", diffExData = "getDiffExpr")
+        annotations = "getDatasetAnnotations", data = "getDatasetData", 
+        diffExData = "getDiffExpr")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
             paste0(names(argMap), collapse = ", ")))
@@ -678,6 +790,7 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
     limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
     validators <- list(filter = validateFilter, offset = validatePositiveInteger, 
@@ -697,12 +810,16 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -748,6 +865,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
     validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
@@ -767,12 +885,16 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -818,6 +940,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
     validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
@@ -837,12 +960,16 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -889,6 +1016,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
     offset = 0L, limit = 20L, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
     validators <- list(platform = validateSingleID, element = validateSingleID, 
@@ -908,12 +1036,16 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -979,6 +1111,7 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
     validators <- list(gene = validateSingleID)
@@ -997,12 +1130,16 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1045,6 +1182,7 @@ memgetGenes <- memoise::memoise(getGenes)
 getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneEvidence"
     preprocessor <- processGeneEvidence
     validators <- list(gene = validateSingleID)
@@ -1063,12 +1201,16 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1111,6 +1253,7 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneLocation"
     preprocessor <- processGeneLocation
     validators <- list(gene = validateSingleID)
@@ -1129,12 +1272,16 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1179,6 +1326,7 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneProbes"
     preprocessor <- processElements
     validators <- list(gene = validateSingleID, offset = validatePositiveInteger, 
@@ -1198,12 +1346,16 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1246,6 +1398,7 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneGO"
     preprocessor <- processGO
     validators <- list(gene = validateSingleID)
@@ -1264,12 +1417,16 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1316,6 +1473,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
     stringency = 1L, raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneCoexpression"
     preprocessor <- processCoexpression
     validators <- list(gene = validateSingleID, with = validateSingleID, 
@@ -1335,12 +1493,16 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1407,6 +1569,7 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getTaxa"
     preprocessor <- processTaxon
     validators <- list(taxon = validateOptionalTaxon)
@@ -1425,12 +1588,16 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1478,6 +1645,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
     limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
     file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
     validators <- list(taxon = validateSingleID, filter = validateFilter, 
@@ -1498,12 +1666,16 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1549,6 +1721,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
     validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
@@ -1568,12 +1741,16 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1619,6 +1796,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
     overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
     validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
@@ -1638,12 +1816,16 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1687,6 +1869,7 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneOnTaxon"
     preprocessor <- processGenes
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
@@ -1705,12 +1888,16 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1754,6 +1941,7 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
     preprocessor <- processGeneEvidence
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
@@ -1772,12 +1960,16 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1821,6 +2013,7 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
     preprocessor <- processGeneLocation
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
@@ -1839,12 +2032,16 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1892,6 +2089,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
     strand = "+", start = NA_integer_, size = NA_integer_, raw = FALSE, 
     async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "getGenesAtLocation"
     preprocessor <- processGenes
     validators <- list(taxon = validateSingleID, chromosome = validateSingleID, 
@@ -1912,12 +2110,16 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -1966,6 +2168,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
     offset = 0L, limit = 0L, sort = "+id", raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
     validators <- list(taxon = validateTaxon, query = validateQuery, 
@@ -1986,12 +2189,16 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -2060,6 +2267,7 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE, 
     memoised = FALSE, file = NA_character_, overwrite = FALSE) 
 {
+    isFile <- FALSE
     fname <- "searchAnnotations"
     preprocessor <- processAnnotations
     validators <- list(query = validateQuery)
@@ -2078,12 +2286,16 @@ searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE
         gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
             "", glue::glue(endpoint)))))
     envWhere <- environment()
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
         NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
         ":", getOption("gemma.password"))), list()))$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch({
-                fromJSON(rawToChar(response$content))$data
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
             }, error = function(e) {
                 message(paste0("Failed to parse ", response$type, 
                   " from ", response$url))
@@ -2127,6 +2339,7 @@ forgetGemmaMemoised <- function ()
     forget(memgetDatasetSVD)
     forget(memgetDatasetPlatforms)
     forget(memgetDatasetAnnotations)
+    forget(memgetDatasetData)
     forget(memgetDiffExpr)
     forget(memgetPlatforms)
     forget(memgetPlatformDatasets)

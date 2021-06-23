@@ -185,6 +185,21 @@ processAnnotations <- function(d) {
                term.URL = d[['termUri']])
 }
 
+#' Processes gzip file with expression data
+#'
+#' @param d The file to process
+#'
+#' @return A processed data.table
+processData <- function(response) {
+  tmp <- tempfile() # Make a temp file
+  writeBin(response$content, tmp) # Save to that file
+  ret <- gzfile(tmp) %>% # Some weird .gz stuff, who knows
+    read.table(header = T, sep = '\t') %>% # read.table seems to work with gzfile
+    as.data.table
+  unlink(tmp) # Delete the temp file
+  ret
+}
+
 #' Processes JSON as a vector of samples
 #'
 #' @param d The JSON to process

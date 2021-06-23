@@ -36,7 +36,8 @@ registerEndpoint <- function(endpoint,
                              logname = fname,
                              roxygen = NULL,
                              where = parent.env(environment()),
-                             document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+                             document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
+                             isFile = F) {
   if(missing(endpoint) || missing(fname) || missing(preprocessor))
     stop('Please specify an endpoint, function name and preprocessor.')
   if(exists(fname, envir = where, inherits = F)) {
@@ -87,8 +88,14 @@ registerEndpoint <- function(endpoint,
                                                          list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))),
                                                          list()))$then(function(response) {
       if(response$status_code == 200) {
+
         mData <- tryCatch({
+          if (isFile){
+          response
+          }
+          else{
           fromJSON(rawToChar(response$content))$data
+            }
         }, error = function(e) {
           message(paste0('Failed to parse ', response$type, ' from ', response$url))
           warning(e$message)
@@ -123,7 +130,7 @@ registerEndpoint <- function(endpoint,
   })
 
   # Add our variables
-  for(i in c('endpoint', 'validators', 'preprocessor', 'fname')) {
+  for(i in c('endpoint', 'validators', 'preprocessor', 'fname', 'isFile')) {
     if(is.character(get(i)))
       v <- glue::glue('"{get(i)}"')
     else if(is.list(get(i)))
@@ -181,7 +188,8 @@ registerEndpoint <- function(endpoint,
 #' @param document A file to print information for pasting generating the package
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, where = parent.env(environment()),
-                                   plural = root, document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+                                   plural = root, document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
+                                   isFile = F) {
   registerEndpoint(ifelse(plural == root, glue::glue('{paste0(root, "s")}/{{{root}}}/{query}'), glue::glue('{root}/{{{plural}}}')),
                    fname,
                    defaults = setNames(NA_character_, plural),
@@ -190,7 +198,8 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
                    roxygen = roxygen,
                    preprocessor = preprocessor,
                    where = where,
-                   document = document)
+                   document = document,
+                   isFile = isFile)
 }
 
 #' A compound endpoint is one that makes multiple API calls and composes the response (internal use)
@@ -581,6 +590,10 @@ registerSimpleEndpoint('dataset', 'platforms', logname = 'platforms', roxygen = 
 registerSimpleEndpoint('dataset', 'annotations', logname = 'annotations', roxygen = 'Dataset annotations',
                        'getDatasetAnnotations',
                        preprocessor = quote(processAnnotations))
+
+registerSimpleEndpoint('dataset', 'data', logname = 'data', roxygen = 'Dataset data',
+                       'getDatasetData', isFile = T,
+                       preprocessor = quote(processData))
 
 registerCompoundEndpoint(endpoints = list(
   A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
