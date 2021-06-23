@@ -83,7 +83,7 @@ registerEndpoint <- function(endpoint,
     endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue::glue(endpoint)))))
     envWhere <- environment()
 
-    request <- quote(http_get(endpoint, options = switch(is.null(getOption('gemma.password', NULL)) + 1,
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption('gemma.password', NULL)) + 1,
                                                          list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))),
                                                          list()))$then(function(response) {
       if(response$status_code == 200) {
@@ -258,7 +258,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
 
     makeRequest <- async(function(index, URL) {
       # Make a request
-      http_get(URL)$then(function(response) {
+      async::http_get(URL)$then(function(response) {
         if(response$status_code == 200) {
           mData <- tryCatch({
             fromJSON(rawToChar(response$content))$data
@@ -443,7 +443,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 }
 
 # Load in descriptions from the JS
-eval(async::synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
+eval(async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
        rawToChar %>% {
          gsub('\\/\\*[\\s\\S]*?\\*\\/', '', ., perl = T)
        } %>% {
@@ -455,7 +455,7 @@ eval(async::synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs
 rm(`+`)
 
 # And endpoints from the HTML
-endpoints <- async::synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
+endpoints <- async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
   rawToChar %>%
   read_html() %>%
   xml_find_all('.//endpoint')
