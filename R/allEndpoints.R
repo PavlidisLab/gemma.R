@@ -21,7 +21,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
     isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
-    validators <- list(dataset = validateID, filter = validateFilter, 
+    validators <- list(dataset = validateOptionalID, filter = validateFilter, 
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
     endpoint <- "datasets/{encode(dataset)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"

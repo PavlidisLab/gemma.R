@@ -467,7 +467,7 @@ registerEndpoint('datasets/{dataset}?filter={filter}&offset={offset}&limit={limi
                                  offset = 0L,
                                  limit = 20L,
                                  sort = '+id'),
-                 validators = alist(dataset = validateID,
+                 validators = alist(dataset = validateOptionalID,
                                     filter = validateFilter,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger,
