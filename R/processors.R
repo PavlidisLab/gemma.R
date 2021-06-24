@@ -162,8 +162,6 @@ processAnnotations <- function(d) {
 #'
 #' @return A processed data.table
 processDEA <- function(d) {
-  `%>%` <- magrittr::`%>%` # Lol I don't want to rewrite these
-
   divides <- data.table(analysis.ID = d[['id']],
                         ee.ID = d[['sourceExperiment']],
                         sf.Enabled = d[['subset']],
