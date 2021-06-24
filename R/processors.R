@@ -266,7 +266,11 @@ processAnnotations <- function(d) {
 processFile <- function(response) {
   tmp <- tempfile() # Make a temp file
   writeBin(response$content, tmp) # Save to that file
-  ret <- as.data.table(read.table(gzfile(tmp), header = T, sep = '\t'))
+  ret <- gzfile(tmp) %>% readLines %>%
+    .[which(!startsWith(., '#'))[1]:length(.)] %>% # Strip comments
+    paste0(collapse = '\n') %>% {
+    fread(text = ., )
+  }
   unlink(tmp) # Delete the temp file
   ret
 }
