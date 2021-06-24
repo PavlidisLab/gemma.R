@@ -4,13 +4,7 @@
 # To package the wrapper, just source this file after you're done making changes. Functions will be written to allEndpoints.R
 # -------------------------------
 
-library(data.table)
-library(glue)
-library(async)
-library(dplyr)
-library(jsonlite)
-library(memoise)
-library(xml2)
+library(magrittr)
 
 if(file.exists(getOption('gemmaAPI.document', 'R/allEndpoints.R')))
   file.remove(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
@@ -28,6 +22,7 @@ file.create(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
 #' @param roxygen The name to pull roxygen information from
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
+#' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerEndpoint <- function(endpoint,
                              fname,
                              preprocessor,
@@ -66,67 +61,7 @@ registerEndpoint <- function(endpoint,
 
   formals(f) <- fargs
   body(f) <- quote({
-    # Call a memoised version if applicable
-    if(memoised) {
-      newArgs <- as.list(match.call())[-1]
-      newArgs$memoised <- F
-      return(do.call(glue::glue('mem{fname}'), newArgs))
-    }
-
-    # Validate arguments
-    if(!is.null(validators)) {
-      for(v in names(validators)) {
-        assign(v, eval(validators[[v]])(get(v), name = v))
-      }
-    }
-
-    # Generate request
-    endpoint <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue::glue(endpoint)))))
-    envWhere <- environment()
-
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption('gemma.password', NULL)) + 1,
-                                                         list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))),
-                                                         list()))$then(function(response) {
-      if(response$status_code == 200) {
-
-        mData <- tryCatch({
-          if (isFile){
-          response
-          }
-          else{
-          fromJSON(rawToChar(response$content))$data
-            }
-        }, error = function(e) {
-          message(paste0('Failed to parse ', response$type, ' from ', response$url))
-          warning(e$message)
-          NULL
-        })
-
-        if(raw || length(mData) == 0)
-          mOut <- mData
-        else
-          mOut <- eval(preprocessor, envir = envWhere)(mData)
-
-        if(!is.null(file) && !is.na(file) && file.exists(file)) {
-          if(!overwrite)
-            warning(paste0(file, ' exists. Not overwriting.'))
-          else {
-            if(raw)
-              write(mOut, paste0(tools::file_path_sans_ext(file), '.json'))
-            else
-              saveRDS(mOut, paste0(tools::file_path_sans_ext(file), '.rds'))
-          }
-        }
-
-        mOut
-      } else
-        response
-    }))
-
-    if(!async)
-      async::synchronise(eval(request, envir = envWhere))
-    else
-      eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async)
   })
 
   # Add our variables
@@ -149,7 +84,7 @@ registerEndpoint <- function(endpoint,
   # Make this function available in the parent environment...
   assign(fname, f, env = where)
   memF <- glue::glue('mem', fname)
-  assign(memF, memoise(f), where)
+  assign(memF, memoise::memoise(f), where)
 
   if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
     assign('forgetGemmaMemoised', function() {}, envir = where)
@@ -186,6 +121,7 @@ registerEndpoint <- function(endpoint,
 #' @param where The environment to add the new function to
 #' @param plural If equal to `root` (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form
 #' @param document A file to print information for pasting generating the package
+#' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, where = parent.env(environment()),
                                    plural = root, document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
@@ -213,10 +149,12 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
 #' @param roxygen The name to pull roxygen information from
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
+#' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults = list(NULL),
                                      validators = alist(NULL), logname = fname,
                                      roxygen = NULL,
-                                     where = parent.env(environment()), document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+                                     where = parent.env(environment()), document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
+                                     isFile = F) {
   if(missing(endpoints) || missing(fname) || missing(preprocessors))
     stop('Please specify endpoints, function name and preprocessors.')
   if(exists(fname, envir = where, inherits = F)) {
@@ -265,12 +203,13 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     endpointMap <- lapply(endpoints, '[[', 'activates')
     endpointExtract <- lapply(endpoints, '[[', 'variables')
 
-    makeRequest <- async(function(index, URL) {
+    makeRequest <- async::async(function(index, URL) {
       # Make a request
       async::http_get(URL)$then(function(response) {
         if(response$status_code == 200) {
           mData <- tryCatch({
-            fromJSON(rawToChar(response$content))$data
+            if(isFile) response
+            else jsonlite::fromJSON(rawToChar(response$content))$data
           }, error = function(e) {
             message(paste0('Failed to parse ', response$type, ' from ', response$url))
             warning(e$message)
@@ -309,7 +248,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     })
 
     # Start by sending requests that aren't activated by other endpoints
-    request <- async(function() {
+    request <- async::async(function() {
       lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))), function(x) {
         async::synchronise(makeRequest(x, paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
                                           gsub('/(NA|/)', '/',
@@ -325,7 +264,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   })
 
   # Add our variables
-  for(i in c('endpoints', 'validators', 'preprocessors', 'fname')) {
+  for(i in c('endpoints', 'validators', 'preprocessors', 'fname', 'isFile')) {
     if(is.character(get(i)))
       v <- glue::glue('"{get(i)}"')
     else if(is.list(get(i)))
@@ -344,7 +283,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   # Make this function available in the parent environment...
   assign(fname, f, env = where)
   memF <- glue::glue('mem', fname)
-  assign(memF, memoise(f), where)
+  assign(memF, memoise::memoise(f), where)
 
   if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
     assign('forgetGemmaMemoised', function() {}, envir = where, inherits = F)
@@ -466,8 +405,8 @@ rm(`+`)
 # And endpoints from the HTML
 endpoints <- async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
   rawToChar %>%
-  read_html() %>%
-  xml_find_all('.//endpoint')
+  xml2::read_html() %>%
+  xml2::xml_find_all('.//endpoint')
 
 #' Comment a function
 #'
@@ -481,23 +420,23 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
   }
 
   node <- Filter(function(elem) {
-    xml_attr(elem, ':name') == paste0("'", src, "'")
+    xml2::xml_attr(elem, ':name') == paste0("'", src, "'")
   }, endpoints)
 
-  cat(glue::glue("\n\n#' {xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) }}\n#'\n\n"), file = document, append = T)
+  cat(glue::glue("\n\n#' {xml2::xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) }}\n#'\n\n"), file = document, append = T)
 
   for(arg in parameters) {
-    if(arg == 'raw') {
+    if(arg == 'raw')
       mAdd <- '<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>'
-    } else if(arg == 'async') {
+    else if(arg == 'async')
       mAdd <- '<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>'
-    } else if(arg == 'memoised') {
+    else if(arg == 'memoised')
       mAdd <- '<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>'
-    } else if(arg == 'file') {
+    else if(arg == 'file')
       mAdd <- '<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>'
-    } else if(arg == 'overwrite') {
+    else if(arg == 'overwrite')
       mAdd <- '<p>Whether or not to overwrite if a file exists at the specified filename.</p>'
-    } else {
+    else {
       mArg <- arg
       if(arg == 'component') mArg <- 'pcaComponent'
       else if(arg == 'threshold') mArg <- 'diffExThreshold'
@@ -515,7 +454,7 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
     cat(glue::glue("#' @param {arg} {mAdd}\n\n"), file = document, append = T)
   }
 
-  cat(glue::glue("#'\n#' @return {get(xml_attr(node, ':response-description'))}\n\n"), file = document, append = T)
+  cat(glue::glue("#'\n#' @return {get(xml2::xml_attr(node, ':response-description'))}\n\n"), file = document, append = T)
 }
 
 # Dataset endpoints ----
@@ -599,25 +538,26 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
                        'getDatasetDesign', isFile = T,
                        preprocessor = quote(processFile))
 
-registerCompoundEndpoint(endpoints = list(
-  A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
-           activates = 2,
-           variables = c(diffExSet = 'resultSets.resultSetId')),
-  B = list(endpoint = 'datasets/{dataset}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}')),
-  'getDiffExpr', logname = 'diffExData',
-  defaults = list(dataset = NA_character_,
-                  offset = 0L,
-                  keepNonSpecific = F,
-                  threshold = 100.0,
-                  limit = 100L,
-                  consolidate = NA_character_),
-  validators = alist(dataset = validateSingleID,
-                     offset = validatePositiveInteger,
-                     keepNonSpecific = validateBoolean,
-                     threshold = validatePositiveReal,
-                     limit = validatePositiveInteger,
-                     consolidate = validateConsolidate),
-  preprocessors = alist(A = processDEA, B = processExpression))
+# TODO Consider whether this belongs in the API or not...
+#registerCompoundEndpoint(endpoints = list(
+#  A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
+#           activates = 2,
+#           variables = c(diffExSet = 'resultSets.resultSetId')),
+#  B = list(endpoint = 'datasets/{dataset}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}')),
+#  'getDiffExpr', logname = 'diffExData',
+#  defaults = list(dataset = NA_character_,
+#                  offset = 0L,
+#                  keepNonSpecific = F,
+#                  threshold = 100.0,
+#                  limit = 100L,
+#                  consolidate = NA_character_),
+#  validators = alist(dataset = validateSingleID,
+#                     offset = validatePositiveInteger,
+#                     keepNonSpecific = validateBoolean,
+#                     threshold = validatePositiveReal,
+#                     limit = validatePositiveInteger,
+#                     consolidate = validateConsolidate),
+#  preprocessors = alist(A = processDEA, B = processExpression))
 
 registerCategoryEndpoint(characteristic = 'dataset')
 # Platform endpoints ----
@@ -826,7 +766,7 @@ doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints
   cat('forgetGemmaMemoised <- ', file = document, append = T)
   cat(deparse(get('forgetGemmaMemoised', envir = globalenv(), inherits = F)) %>% paste0(collapse = '\n'), file = document, append = T)
 
-  rm(list = ls(envir = globalenv()), envir = globalenv())
+  rm(list = ls(envir = globalenv(), all.names = T), envir = globalenv())
 
   devtools::document()
   devtools::build()

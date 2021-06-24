@@ -4,12 +4,12 @@
 \alias{getDiffExData}
 \title{Get differential expression data}
 \usage{
-getDiffExData(eeID, rsID)
+getDiffExData(dataset, diffExSet)
 }
 \arguments{
-\item{eeID}{The experiment ID (integer)}
+\item{dataset}{The experiment ID (integer)}
 
-\item{rsID}{The result set ID for the differential expression analysis we want (integer) @seealso getDatasetDEA}
+\item{diffExSet}{The result set ID for the differential expression analysis we want (integer) @seealso getDatasetDEA}
 }
 \value{
 A list of \code{data.table}s that were read in, typically the first one is analysis results (elements, p-values) and the second is full data (elements, FC, t- and p-values)
