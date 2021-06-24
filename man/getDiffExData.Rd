@@ -19,7 +19,6 @@ This occurs asynchronously as data will not always be available upon request. If
 the function will continue to run and poll for updates every 3 seconds until it becomes available.
 }
 \examples{
-synchronise(getDiffExData(1, 59016))
+async::synchronise(getDiffExData(1, 59016))
 
-#' @export
 }
