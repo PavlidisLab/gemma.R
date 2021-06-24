@@ -16,11 +16,34 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(gemmaAPI)
+library(dplyr)
 ```
 
 # Basic usage
 
 The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/).
+
+## Downloading basic information for a dataset
+
+The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as [GSE2018](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1). We can do this in one of two ways using the API:
+
+1.  Using the dataset's shortname (GSE2018), or
+2.  Using the dataset's identifier (1, as you can see in the URL)
+
+Each case is functionally identical in the API wrapper.
+
+```{r}
+glimpse(getDatasets(dataset = 1))
+
+
+glimpse(getDatasets(dataset = 'GSE2018'))
+```
+
+Most endpoints also allow you to query multiple objects at the same time, for example:
+
+```{r}
+glimpse(getDatasets(dataset = c('GSE2018', 'GSE25136')))
+```
 
 # Asynchronous requests
 

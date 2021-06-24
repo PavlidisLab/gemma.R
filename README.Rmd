@@ -17,7 +17,6 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/gemmaAPI)](https://CRAN.R-project.org/package=gemmaAPI)
-[![BioC status](http://www.bioconductor.org/shields/build/release/bioc/gemmaAPI.svg)](https://bioconductor.org/checkResults/release/bioc-LATEST/gemmaAPI)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
@@ -43,4 +42,4 @@ devtools::install_github("jsicherman/GemmAPI")
 
 ## Usage
 
-For help on using the Gemma API wrapper, please see [the REST API docs](https://gemma.msl.ubc.ca/resources/restapidocs/) or the [vignette](vignettes/Usage.md).
+For help on using the Gemma API wrapper, please see [the REST API docs](https://gemma.msl.ubc.ca/resources/restapidocs/) or the [vignette](vignettes/Usage.html).

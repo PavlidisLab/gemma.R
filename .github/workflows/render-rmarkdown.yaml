@@ -33,8 +33,9 @@ jobs:
           R -e 'install.packages("renv")'
           R -e 'install.packages("remotes")'
           R -e 'remotes::install_cran("rmarkdown")'
+          R -e 'remotes::install_cran("dplyr")'
           R -e 'remotes::install_github("gaborcsardi/async")'
-          R -e 'remotes::install_github("jsicherman/GemmAPI")'
+          R -e 'remotes::install_local(".")'
           R -e 'renv::restore()'
 
       - name: Render Rmarkdown files
