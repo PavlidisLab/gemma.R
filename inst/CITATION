@@ -5,10 +5,10 @@ citEntry(
   title    = "Curation of over 10 000 transcriptomic studies to enable data reuse",
   author   = "Nathaniel Lim, Stepan Tesar, Manuel Belmadani, Guillaume Poirier-Morency, Burak Ogan Mancarci, Jordan Sicherman, Matthew Jacobson, Justin Leong, Patrick Tan, Paul Pavlidis",
   journal  = "Database",
-  year     = "2021"",
-  volume   = "2021",
-  number   = "",
-  pages    = "",
+  year     = 2021,
+  volume   = 2021,
+  number   = NA_integer_,
+  pages    = NA_character_,
   url      = "https://doi.org/10.1093/database/baab006",
   textVersion = paste(
 
