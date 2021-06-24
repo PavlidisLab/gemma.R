@@ -7,7 +7,7 @@
 processFile(response)
 }
 \arguments{
-\item{response}{The response from an \code{http_get} requeste}
+\item{response}{The response from an \code{http_get} request}
 }
 \value{
 A processed data.table
