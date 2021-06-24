@@ -70,9 +70,7 @@ batchId={countN + 1}
     }
 
     # Receive a task ID to track
-    taskID <- response$content %>% rawToChar %>% {
-      gsub('.*remoteHandleCallback\\(([^\\)]+)\\).*', '\\1', .)
-    } %>% strsplit(',') %>% .[[1]] %>% { gsub('\'|"', '', .) } %>% .[3]
+    taskID <- gsub('\'|"', '', strsplit(gsub('.*remoteHandleCallback\\(([^\\)]+)\\).*', '\\1', rawToChar(response$content)), ',')[[1]])[3]
     countN <- 5
 
     requery <- async::async(function(taskID, countN) {
@@ -84,9 +82,7 @@ batchId={countN + 1}
         }
 
         # Detect completion
-        if(response$content %>% rawToChar %>% {
-          grepl('done:true', ., fixed = T)
-        }) {
+        if(grepl('done:true', rawToChar(response$content), fixed = T)) {
           # Query where to find the result
           async::http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/TaskCompletionController.checkResult.dwr'), glue::glue(REQ3))$then(function(response) {
             if(response$status != 200) {
@@ -95,22 +91,21 @@ batchId={countN + 1}
             }
 
             # Extract the file location
-            response$content %>% rawToChar %>% {
-              gsub('.*remoteHandleCallback\\(([^\\)]+)\\).*', '\\1', .)
-            } %>% strsplit(',') %>% .[[1]] %>% { gsub('\'|"', '', .) } %>% .[3] %>% {
-              # Make a temp file to unzip to
-              tmp <- tempfile()
-              async::http_get(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/') %>% substring(1, nchar(.) - 1), .), file = tmp)$then(function(...) {
-                filenames <- unzip(tmp, list = TRUE)$Name
+            fileLoc <- gsub('\'|"', '', strsplit(gsub('.*remoteHandleCallback\\(([^\\)]+)\\).*', '\\1', rawToChar(response$content)), ',')[[1]])[3]
 
-                # Unzip results and fread in
-                ret <- lapply(filenames, function(x) data.table::fread(cmd = glue('unzip -p {tmp} {x}'),
-                                                                       colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character'))) %>%
-                  setNames(filenames)
-                unlink(tmp)
-                ret
-              })
-            }
+            # Make a temp file to unzip to
+            tmp <- tempfile()
+            base <- getOption('gemma.base', 'https://gemma.msl.ubc.ca/')
+            async::http_get(paste0(substring(base, 1, nchar(base) - 1), fileLoc), file = tmp)$then(function(...) {
+              filenames <- unzip(tmp, list = TRUE)$Name
+
+              # Unzip results and fread in
+              ret <- setNames(lapply(filenames, function(x) data.table::fread(cmd = glue('unzip -p {tmp} {x}'),
+                                                                              colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character'))),
+                              filenames)
+              unlink(tmp)
+              ret
+            })
           })
         } else {
           # Fail to detect completion, try again in 3 seconds

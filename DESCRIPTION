@@ -1,6 +1,6 @@
-Package: gemmaAPI2
-Title: A wrapper for Gemma's restful API
-Version: 0.0.0.9000
+Package: gemmaAPI
+Title: A Wrapper For Gemma's Restful API
+Version: 2.0.0.0
 Authors@R: 
     c(person(given = "Jordan", family = "Sicherman", role = c("aut", "cre"), email = "jordan.sicherman@msl.ubc.ca"),
       person(given = "Ogan", family = "Mancarci", role = c("aut"), email = "ogan.mancarci@gmail.com"))
@@ -13,10 +13,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
     magrittr,
-    data.table,
-    async,
     glue,
     memoise,
     jsonlite
+Remotes:
+    gaborcsardi/async
 Depends:
     data.table
