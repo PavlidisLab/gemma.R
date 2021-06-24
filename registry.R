@@ -593,7 +593,11 @@ registerSimpleEndpoint('dataset', 'annotations', logname = 'annotations', roxyge
 
 registerSimpleEndpoint('dataset', 'data', logname = 'data', roxygen = 'Dataset data',
                        'getDatasetData', isFile = T,
-                       preprocessor = quote(processData))
+                       preprocessor = quote(processFile))
+
+registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Dataset design',
+                       'getDatasetDesign', isFile = T,
+                       preprocessor = quote(processFile))
 
 registerCompoundEndpoint(endpoints = list(
   A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',

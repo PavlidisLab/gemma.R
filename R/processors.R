@@ -190,7 +190,7 @@ processAnnotations <- function(d) {
 #' @param d The file to process
 #'
 #' @return A processed data.table
-processData <- function(response) {
+processFile <- function(response) {
   tmp <- tempfile() # Make a temp file
   writeBin(response$content, tmp) # Save to that file
   ret <- gzfile(tmp) %>% # Some weird .gz stuff, who knows

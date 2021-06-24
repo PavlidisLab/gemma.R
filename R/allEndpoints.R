@@ -610,7 +610,7 @@ getDatasetData <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
 {
     isFile <- TRUE
     fname <- "getDatasetData"
-    preprocessor <- processData
+    preprocessor <- processFile
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/data"
     if (memoised) {
@@ -663,6 +663,77 @@ getDatasetData <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
 #' Memoise getDatasetData
 #'
 memgetDatasetData <- memoise::memoise(getDatasetData)
+
+#' getDatasetDesign
+#' Retrieves the design for the given dataset
+#'
+#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
+#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
+#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
+#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
+#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
+#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#'
+#' @return <p>   The design file for the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @export
+getDatasetDesign <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
+    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+{
+    isFile <- TRUE
+    fname <- "getDatasetDesign"
+    preprocessor <- processFile
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/design"
+    if (memoised) {
+        newArgs <- as.list(match.call())[-1]
+        newArgs$memoised <- F
+        return(do.call(glue::glue("mem{fname}"), newArgs))
+    }
+    if (!is.null(validators)) {
+        for (v in names(validators)) {
+            assign(v, eval(validators[[v]])(get(v), name = v))
+        }
+    }
+    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
+        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
+            "", glue::glue(endpoint)))))
+    envWhere <- environment()
+    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
+        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
+        ":", getOption("gemma.password"))), list()))$then(function(response) {
+        if (response$status_code == 200) {
+            mData <- tryCatch({
+                if (isFile) {
+                  response
+                } else {
+                  fromJSON(rawToChar(response$content))$data
+                }
+            }, error = function(e) {
+                message(paste0("Failed to parse ", response$type, 
+                  " from ", response$url))
+                warning(e$message)
+                NULL
+            })
+            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
+                envir = envWhere)(mData)
+            if (!is.null(file) && !is.na(file) && file.exists(file)) {
+                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
+                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
+                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
+                    ".rds"))
+                }
+            }
+            mOut
+        } else response
+    }))
+    if (!async) 
+        async::synchronise(eval(request, envir = envWhere))
+    else eval(request)
+}
+
+#' Memoise getDatasetDesign
+#'
+memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
 #' getDiffExpr
 #' @export
@@ -755,7 +826,7 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         PCA = "getDatasetPCA", diffEx = "getDatasetDE", samples = "getDatasetSamples", 
         SVD = "getDatasetSVD", platforms = "getDatasetPlatforms", 
         annotations = "getDatasetAnnotations", data = "getDatasetData", 
-        diffExData = "getDiffExpr")
+        design = "getDatasetDesign", diffExData = "getDiffExpr")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
             paste0(names(argMap), collapse = ", ")))
@@ -2340,6 +2411,7 @@ forgetGemmaMemoised <- function ()
     forget(memgetDatasetPlatforms)
     forget(memgetDatasetAnnotations)
     forget(memgetDatasetData)
+    forget(memgetDatasetDesign)
     forget(memgetDiffExpr)
     forget(memgetPlatforms)
     forget(memgetPlatformDatasets)
