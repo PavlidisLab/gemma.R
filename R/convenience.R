@@ -30,7 +30,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @examples
 #' async::synchronise(getDiffExData(1, 59016))
 #'
-#' #' @export
+#' @export
 getDiffExData <- async::async(function(dataset, diffExSet) {
   REQ1 <- 'callCount=1
 page=/expressionExperiment/showExpressionExperiment.html?id={dataset}
