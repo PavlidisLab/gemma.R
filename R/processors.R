@@ -1,3 +1,73 @@
+#' Prototype function body
+#'
+#' This should not be called directly, but is called from the API functions.
+#'
+#' @param memoised Whether or not to memoise results
+#' @param fname The function name
+#' @param validators Validators for parameters
+#' @param endpoint Formatted endpoint URL
+#' @param envWhere Environment to evaluate in
+#' @param isFile Whether or not the endpoint is expect to return a file
+#' @param raw Whether to return JSON (`TRUE`) or data.table (`FALSE`)
+#' @param overwrite Whether or not to overwrite the file if @param file is specified
+#' @param file A filename to save results to
+#' @param async Whether or not to run asynchronously
+.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, raw, overwrite, file, async) {
+  # Call a memoised version if applicable
+  if(memoised) {
+    newArgs <- as.list(match.call())[-1]
+    newArgs$memoised <- F
+    return(do.call(glue::glue('mem{fname}'), newArgs))
+  }
+
+  # Validate arguments
+  if(!is.null(validators)) {
+    for(v in names(validators)) {
+      assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = F), name = v))
+    }
+  }
+
+  # Generate request
+  request <- quote(async::http_get(
+    paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/(NA|/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue::glue(endpoint))))),
+    options = switch(is.null(getOption('gemma.password', NULL)) + 1, list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))), list()))$then(function(response) {
+      if(response$status_code == 200) {
+        mData <- tryCatch({
+          if(isFile) response
+          else jsonlite::fromJSON(rawToChar(response$content))$data
+        }, error = function(e) {
+          message(paste0('Failed to parse ', response$type, ' from ', response$url))
+          warning(e$message)
+          NULL
+        })
+
+        if(raw || length(mData) == 0)
+          mOut <- mData
+        else
+          mOut <- eval(preprocessor)(mData)
+
+        if(!is.null(file) && !is.na(file) && file.exists(file)) {
+          if(!overwrite)
+            warning(paste0(file, ' exists. Not overwriting.'))
+          else {
+            if(raw)
+              write(mOut, paste0(tools::file_path_sans_ext(file), '.json'))
+            else
+              saveRDS(mOut, paste0(tools::file_path_sans_ext(file), '.rds'))
+          }
+        }
+
+        mOut
+      } else
+        response
+    }))
+
+  if(!async)
+    async::synchronise(eval(request, envir = envWhere))
+  else
+    eval(request, envir = envWhere)
+}
+
 #' URL encode a string safely
 #'
 #' @param url The string to URL encode. Vectors are delimited by a comma.
@@ -185,9 +255,9 @@ processAnnotations <- function(d) {
                term.URL = d[['termUri']])
 }
 
-#' Processes gzip file with expression data
+#' Processes a response as a gzip file
 #'
-#' @param d The file to process
+#' @param response The response from an `http_get` requeste
 #'
 #' @return A processed data.table
 processFile <- function(response) {

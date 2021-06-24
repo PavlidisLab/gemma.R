@@ -2,16 +2,16 @@
 % Please edit documentation in R/processors.R
 \name{processFile}
 \alias{processFile}
-\title{Processes gzip file with expression data}
+\title{Processes a response as a gzip file}
 \usage{
 processFile(response)
 }
 \arguments{
-\item{d}{The file to process}
+\item{response}{The response from an \code{http_get} requeste}
 }
 \value{
 A processed data.table
 }
 \description{
-Processes gzip file with expression data
+Processes a response as a gzip file
 }

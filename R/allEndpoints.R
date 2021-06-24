@@ -25,51 +25,8 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
     endpoint <- "datasets/{encode(dataset)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasets
@@ -100,51 +57,8 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
     validators <- list(dataset = validateSingleID, offset = validatePositiveInteger, 
         limit = validatePositiveInteger)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetDEA
@@ -178,51 +92,8 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
         limit = validatePositiveInteger, keepNonSpecific = validateBoolean, 
         consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(dataset)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetPCA
@@ -258,51 +129,8 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
         diffExSet = validatePositiveInteger, threshold = validatePositiveReal, 
         limit = validatePositiveInteger, consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetDE
@@ -329,51 +157,8 @@ getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FAL
     preprocessor <- processSamples
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetSamples
@@ -400,51 +185,8 @@ getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     preprocessor <- processSVD
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/svd"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetSVD
@@ -471,51 +213,8 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = F
     preprocessor <- processPlatforms
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetPlatforms
@@ -542,51 +241,8 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async =
     preprocessor <- processAnnotations
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetAnnotations
@@ -613,51 +269,8 @@ getDatasetData <- function (dataset = NA_character_, raw = FALSE, async = FALSE,
     preprocessor <- processFile
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/data"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetData
@@ -684,136 +297,13 @@ getDatasetDesign <- function (dataset = NA_character_, raw = FALSE, async = FALS
     preprocessor <- processFile
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/design"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getDatasetDesign
 #'
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
-
-#' getDiffExpr
-#' @export
-getDiffExpr <- function (dataset = NA_character_, offset = 0L, keepNonSpecific = FALSE, 
-    threshold = 100, limit = 100L, consolidate = NA_character_, 
-    raw = FALSE, async = FALSE, memoised = FALSE) 
-{
-    fname <- "getDiffExpr"
-    preprocessors <- list(A = processDEA, B = processExpression)
-    validators <- list(dataset = validateSingleID, offset = validatePositiveInteger, 
-        keepNonSpecific = validateBoolean, threshold = validatePositiveReal, 
-        limit = validatePositiveInteger, consolidate = validateConsolidate)
-    endpoints <- list(A = list(endpoint = "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}", 
-        activates = 2, variables = c(diffExSet = "resultSets.resultSetId")), 
-        B = list(endpoint = "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"))
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpointURLs <- lapply(endpoints, "[[", "endpoint")
-    endpointMap <- lapply(endpoints, "[[", "activates")
-    endpointExtract <- lapply(endpoints, "[[", "variables")
-    makeRequest <- async(function(index, URL) {
-        async::http_get(URL)$then(function(response) {
-            if (response$status_code == 200) {
-                mData <- tryCatch({
-                  fromJSON(rawToChar(response$content))$data
-                }, error = function(e) {
-                  message(paste0("Failed to parse ", response$type, 
-                    " from ", response$url))
-                  warning(e$message)
-                  NULL
-                })
-                if (raw || length(mData) == 0) 
-                  pData <- mData
-                else pData <- eval(preprocessors[[index]])(mData)
-                if (!is.null(endpointMap[[index]])) {
-                  if (!is.null(endpointExtract[[index]])) {
-                    e <- as.environment(do.call(data.frame, mData))
-                    for (var in names(endpointExtract[[index]])) {
-                      assign(var, get(endpointExtract[[index]][var], 
-                        envir = e))
-                    }
-                  }
-                  newIndex <- endpointMap[[index]]
-                  newURL <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-                    gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", 
-                      "\\?", gsub("&[^=]+=NA", "", glue::glue(endpointURLs[[newIndex]])))))
-                  async::synchronise(makeRequest(newIndex, newURL)$then(function(x) {
-                    list(pData, x)
-                  }))
-                }
-                else pData
-            }
-            else response
-        })
-    })
-    request <- async(function() {
-        lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))), 
-            function(x) {
-                async::synchronise(makeRequest(x, paste0(getOption("gemma.API", 
-                  "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/(NA|/)", 
-                  "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-                    "", glue::glue(endpointURLs[[x]])))))))
-            }) %>% unlist(F)
-    })
-    if (!async) 
-        async::synchronise(when_all(request()))
-    else request()
-}
-
-#' Memoise getDiffExpr
-#'
-memgetDiffExpr <- memoise::memoise(getDiffExpr)
 
 #' datasetInfo
 #' @export
@@ -826,7 +316,7 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         PCA = "getDatasetPCA", diffEx = "getDatasetDE", samples = "getDatasetSamples", 
         SVD = "getDatasetSVD", platforms = "getDatasetPlatforms", 
         annotations = "getDatasetAnnotations", data = "getDatasetData", 
-        design = "getDatasetDesign", diffExData = "getDiffExpr")
+        design = "getDatasetDesign")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
             paste0(names(argMap), collapse = ", ")))
@@ -867,51 +357,8 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
     validators <- list(filter = validateFilter, offset = validatePositiveInteger, 
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "platforms/{encode(platform)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getPlatforms
@@ -942,51 +389,8 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
     validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getPlatformDatasets
@@ -1017,51 +421,8 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
     validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements?offset={encode(offset)}&limit={encode(limit)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getPlatformElements
@@ -1093,51 +454,8 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
     validators <- list(platform = validateSingleID, element = validateSingleID, 
         offset = validatePositiveInteger, limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getPlatformElementGenes
@@ -1187,51 +505,8 @@ getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised
     preprocessor <- processGenes
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGenes
@@ -1258,51 +533,8 @@ getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     preprocessor <- processGeneEvidence
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/evidence"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneEvidence
@@ -1329,51 +561,8 @@ getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, m
     preprocessor <- processGeneLocation
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneLocation
@@ -1403,51 +592,8 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
     validators <- list(gene = validateSingleID, offset = validatePositiveInteger, 
         limit = validatePositiveInteger)
     endpoint <- "gene/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneProbes
@@ -1474,51 +620,8 @@ getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoise
     preprocessor <- processGO
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneGO
@@ -1550,51 +653,8 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
     validators <- list(gene = validateSingleID, with = validateSingleID, 
         limit = validatePositiveInteger, stringency = validatePositiveInteger)
     endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneCoexpression
@@ -1645,51 +705,8 @@ getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE,
     preprocessor <- processTaxon
     validators <- list(taxon = validateOptionalTaxon)
     endpoint <- "taxa/{encode(taxon)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getTaxa
@@ -1723,51 +740,8 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getTaxonDatasets
@@ -1798,51 +772,8 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
         tree = validateBoolean)
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getTaxonPhenotypes
@@ -1873,51 +804,8 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
         phenotypes = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getTaxonPhenotypeCandidates
@@ -1945,51 +833,8 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = F
     preprocessor <- processGenes
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneOnTaxon
@@ -2017,51 +862,8 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     preprocessor <- processGeneEvidence
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getEvidenceOnTaxon
@@ -2089,51 +891,8 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     preprocessor <- processGeneLocation
     validators <- list(taxon = validateSingleID, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGeneLocationOnTaxon
@@ -2167,51 +926,8 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
         strand = validateStrand, start = validatePositiveInteger, 
         size = validatePositiveInteger)
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise getGenesAtLocation
@@ -2246,51 +962,8 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
         filter = validateFilter, offset = validatePositiveInteger, 
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise searchDatasets
@@ -2343,51 +1016,8 @@ searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE
     preprocessor <- processAnnotations
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
-    if (memoised) {
-        newArgs <- as.list(match.call())[-1]
-        newArgs$memoised <- F
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
-    if (!is.null(validators)) {
-        for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v), name = v))
-        }
-    }
-    endpoint <- paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), 
-        gsub("/(NA|/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", 
-            "", glue::glue(endpoint)))))
-    envWhere <- environment()
-    request <- quote(async::http_get(endpoint, options = switch(is.null(getOption("gemma.password", 
-        NULL)) + 1, list(userpwd = paste0(getOption("gemma.username"), 
-        ":", getOption("gemma.password"))), list()))$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch({
-                if (isFile) {
-                  response
-                } else {
-                  fromJSON(rawToChar(response$content))$data
-                }
-            }, error = function(e) {
-                message(paste0("Failed to parse ", response$type, 
-                  " from ", response$url))
-                warning(e$message)
-                NULL
-            })
-            if (raw || length(mData) == 0) mOut <- mData else mOut <- eval(preprocessor, 
-                envir = envWhere)(mData)
-            if (!is.null(file) && !is.na(file) && file.exists(file)) {
-                if (!overwrite) warning(paste0(file, " exists. Not overwriting.")) else {
-                  if (raw) write(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".json")) else saveRDS(mOut, paste0(tools::file_path_sans_ext(file), 
-                    ".rds"))
-                }
-            }
-            mOut
-        } else response
-    }))
-    if (!async) 
-        async::synchronise(eval(request, envir = envWhere))
-    else eval(request)
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
 }
 
 #' Memoise searchAnnotations
@@ -2412,7 +1042,6 @@ forgetGemmaMemoised <- function ()
     forget(memgetDatasetAnnotations)
     forget(memgetDatasetData)
     forget(memgetDatasetDesign)
-    forget(memgetDiffExpr)
     forget(memgetPlatforms)
     forget(memgetPlatformDatasets)
     forget(memgetPlatformElements)
