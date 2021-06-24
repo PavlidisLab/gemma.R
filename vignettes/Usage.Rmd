@@ -17,3 +17,13 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(gemmaAPI)
 ```
+
+# Basic usage
+
+# Asynchronous requests
+
+# Memoised results
+
+# File outputs
+
+# Raw data
