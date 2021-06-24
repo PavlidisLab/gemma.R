@@ -9,7 +9,7 @@ validateID <- function(name, ...) {
     isID <- grepl('^\\d+$', ID)
 
     if(any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID == ''))
-        stop(glue('Please specify valid identifiers for {name} and do not combine different types of identifiers.'), call. = F)
+        stop(glue::glue('Please specify valid identifiers for {name} and do not combine different types of identifiers.'), call. = F)
     ID
 }
 
@@ -24,7 +24,7 @@ validateSingleID <- function(name, ...) {
     isID <- grepl('^\\d+$', ID)
 
     if(length(ID) > 1 || is.na(ID) || any(ID == ''))
-        stop(glue('Please specify one valid identifier for {name}.'), call. = F)
+        stop(glue::glue('Please specify one valid identifier for {name}.'), call. = F)
     ID
 }
 
@@ -51,7 +51,7 @@ validateTaxon <- function(name, ...) {
 
     if(!all(taxa %in% c('', unlist(LOOKUP_TABLE)))) {
         print(LOOKUP_TABLE)
-        stop(glue('You must specify a valid taxon for {name}.'), call. = F)
+        stop(glue::glue('You must specify a valid taxon for {name}.'), call. = F)
     }
     taxa
 }
@@ -89,7 +89,7 @@ validateFilter <- function(name, ...) {
 validatePositiveInteger <- function(name, ...) {
     args <- list(...)
     if(any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, '%%', 1) != 0) || any(sapply(args, sign) < 0))
-        stop(glue('Please only specify positive integer values for {name}.'), call. = F)
+        stop(glue::glue('Please only specify positive integer values for {name}.'), call. = F)
     unlist(args)
 }
 
@@ -102,7 +102,7 @@ validatePositiveInteger <- function(name, ...) {
 validatePositiveReal <- function(name, ...) {
     args <- list(...)
     if(!is.numeric(unlist(args)) || any(sapply(args, sign) < 0))
-        stop(glue('Please only specify positive values for {name}.'), call. = F)
+        stop(glue::glue('Please only specify positive values for {name}.'), call. = F)
     unlist(args)
 }
 
@@ -115,7 +115,7 @@ validatePositiveReal <- function(name, ...) {
 validateBoolean <- function(name, ...) {
     args <- unlist(list(...))
     if(!is.logical(args))
-        stop(glue('Please only specify boolean values for {name}.'), call. = F)
+        stop(glue::glue('Please only specify boolean values for {name}.'), call. = F)
     tolower(as.character(args))
 }
 
@@ -128,7 +128,7 @@ validateBoolean <- function(name, ...) {
 validateStrand <- function(name, ...) {
     strand <- unlist(list(...))
     if(length(strand) != 1 || !(strand %in% c('+', '-')))
-        stop(glue('Please specify + or - for {name}.'), call. = F)
+        stop(glue::glue('Please specify + or - for {name}.'), call. = F)
     strand
 }
 
@@ -141,7 +141,7 @@ validateStrand <- function(name, ...) {
 validateConsolidate <- function(name, ...) {
     consolidate <- unlist(list(...))
     if(!all(is.na(consolidate) | consolidate %in% c('', 'pickmax', 'pickvar', 'average')))
-        stop(glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
+        stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
     consolidate
 }
 
