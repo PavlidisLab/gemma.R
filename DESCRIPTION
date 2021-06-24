@@ -23,6 +23,7 @@ Remotes:
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
-    knitr
+    knitr,
+    dplyr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
