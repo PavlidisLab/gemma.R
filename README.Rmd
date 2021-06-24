@@ -29,14 +29,15 @@ To cite Gemma, please use: [Lim, N. et al., Curation of over 10 000 transcriptom
 
 You can install the released version of gemmaAPI from [CRAN](https://CRAN.R-project.org) with:
 
-``` r
+```{r, eval = FALSE}
 install.packages("gemmaAPI")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
 
-``` r
+```{r, eval = FALSE}
 # install.packages("devtools")
+devtools::install_github("gaborcsardi/async")
 devtools::install_github("jsicherman/GemmAPI")
 ```
 

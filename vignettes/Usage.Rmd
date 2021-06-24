@@ -20,9 +20,13 @@ library(gemmaAPI)
 
 # Basic usage
 
+The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/).
+
 # Asynchronous requests
 
 # Memoised results
+
+## Clearing cache
 
 # File outputs
 
