@@ -16,7 +16,8 @@ Imports:
     glue,
     memoise,
     jsonlite,
-    data.table
+    data.table,
+    async
 Remotes:
     gaborcsardi/async
 Suggests: 

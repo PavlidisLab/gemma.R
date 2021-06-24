@@ -771,6 +771,10 @@ doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints
   devtools::document()
   devtools::build()
   devtools::install()
+
+  # TODO There are workflows for this but they not working >:(
+  rmarkdown::render('vignettes/Usage.Rmd')
+  knitr::knit('README.Rmd')
 }
 
 doFinalize()
