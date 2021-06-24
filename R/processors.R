@@ -260,17 +260,19 @@ processAnnotations <- function(d) {
 
 #' Processes a response as a gzip file
 #'
-#' @param response The response from an `http_get` requeste
+#' @param response The response from an `http_get` request
 #'
 #' @return A processed data.table
 processFile <- function(response) {
   tmp <- tempfile() # Make a temp file
   writeBin(response$content, tmp) # Save to that file
-  ret <- gzfile(tmp) %>% readLines %>%
+  tmp2 <- gzfile(tmp)
+  ret <- tmp2 %>% readLines %>%
     .[which(!startsWith(., '#'))[1]:length(.)] %>% # Strip comments
     paste0(collapse = '\n') %>% {
-    fread(text = ., )
-  }
+    fread(text = .)
+    }
+  close(tmp2)
   unlink(tmp) # Delete the temp file
   ret
 }
