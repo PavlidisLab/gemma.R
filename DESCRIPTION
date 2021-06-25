@@ -1,6 +1,6 @@
 Package: gemmaAPI
 Title: A Wrapper for Gemma's Restful API
-Version: 2.0.0.0
+Version: 2.0
 Authors@R: 
     c(person(given = "Jordan", family = "Sicherman", role = c("aut"), email = "jordan.sicherman@msl.ubc.ca"),
       person(given = "Ogan", family = "Mancarci", role = c("aut"), email = "ogan.mancarci@gmail.com"),
