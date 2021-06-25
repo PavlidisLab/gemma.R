@@ -38,6 +38,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -141,7 +142,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gemmaAPI)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;dplyr&#39;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:stats&#39;:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     filter, lag</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following objects are masked from &#39;package:base&#39;:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span></code></pre></div>
 <div id="basic-usage" class="section level1">
 <h1>Basic usage</h1>
 <p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>.</p>
@@ -159,14 +168,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Name             &lt;chr&gt; &quot;Human Lung Transplant - BAL&quot;</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID               &lt;int&gt; 1</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary …</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lun…</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Accession        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
 <span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Database         &lt;chr&gt; &quot;GEO&quot;</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 00:30:26</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE</span></span>
@@ -176,44 +185,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;</span></span>
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasets</span>(<span class="at">dataset =</span> <span class="st">&#39;GSE2018&#39;</span>))</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 19</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Name             &lt;chr&gt; &quot;Human Lung Transplant - BAL&quot;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID               &lt;int&gt; 1</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary …</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Accession        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Database         &lt;chr&gt; &quot;GEO&quot;</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 00:30:26</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.qScore         &lt;dbl&gt; 0.5657485</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.Name          &lt;chr&gt; &quot;human&quot;</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;</span></span></code></pre></div>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasets</span>(<span class="at">dataset =</span> <span class="st">&#39;GSE2018&#39;</span>))</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 19</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Name             &lt;chr&gt; &quot;Human Lung Transplant - BAL&quot;</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID               &lt;int&gt; 1</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lun…</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Accession        &lt;chr&gt; &quot;GSE2018&quot;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Database         &lt;chr&gt; &quot;GEO&quot;</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.qScore         &lt;dbl&gt; 0.5657485</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.Name          &lt;chr&gt; &quot;human&quot;</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;</span></span></code></pre></div>
 <p>Most endpoints also allow you to query multiple objects at the same time, for example:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasets</span>(<span class="at">dataset =</span> <span class="fu">c</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="st">&#39;GSE25136&#39;</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 19</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; &quot;GSE2018&quot;, &quot;GSE25136&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Name             &lt;chr&gt; &quot;Human Lung Transplant - BAL&quot;, &quot;Optimizing molecular signatures for prostate cancer recurrence&quot;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Name             &lt;chr&gt; &quot;Human Lung Transplant - BAL&quot;, &quot;Optimizing molecul…</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID               &lt;int&gt; 1, 3236</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary …</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Description      &lt;chr&gt; &quot;Bronchoalveolar lavage samples collected from lun…</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE, TRUE</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE, FALSE</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Accession        &lt;chr&gt; &quot;GSE2018&quot;, &quot;GSE25136&quot;</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Database         &lt;chr&gt; &quot;GEO&quot;, &quot;GEO&quot;</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;, &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;, &quot;http://www.nc…</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34, 79</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 00:30:26, 2020-03-28 00:50:22</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26, 2020-03-28 07:50:22</span></span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605, 0.0001848</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2, 3</span></span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE, FALSE</span></span>
