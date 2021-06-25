@@ -321,84 +321,84 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">34096381942</td>
+<td align="left">asyncBenchmark()</td>
+<td align="right">6124494440</td>
 </tr>
 <tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6023675824</td>
+<td align="left">syncBenchmark()</td>
+<td align="right">34422542818</td>
 </tr>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">6373692944</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">32354620684</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6295108200</td>
+<td align="right">6107704480</td>
 </tr>
 <tr class="even">
 <td align="left">asyncBenchmark()</td>
-<td align="right">6638013453</td>
+<td align="right">5754023969</td>
 </tr>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">5771205136</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">33242360930</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5917682671</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">32287219253</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">32465351012</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">31976842016</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6014450605</td>
+<td align="right">5696780966</td>
 </tr>
 <tr class="even">
 <td align="left">asyncBenchmark()</td>
-<td align="right">5911016156</td>
+<td align="right">5731168928</td>
 </tr>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">6050325040</td>
+<td align="right">5883041450</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">31807739609</td>
+<td align="right">33220109138</td>
 </tr>
 <tr class="odd">
 <td align="left">syncBenchmark()</td>
-<td align="right">32072776920</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">32859843742</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">33080811603</td>
+<td align="right">32900529113</td>
 </tr>
 <tr class="even">
 <td align="left">asyncBenchmark()</td>
-<td align="right">6030406444</td>
+<td align="right">5602481979</td>
+</tr>
+<tr class="odd">
+<td align="left">syncBenchmark()</td>
+<td align="right">33045839042</td>
+</tr>
+<tr class="even">
+<td align="left">syncBenchmark()</td>
+<td align="right">34266575241</td>
+</tr>
+<tr class="odd">
+<td align="left">syncBenchmark()</td>
+<td align="right">32868501873</td>
+</tr>
+<tr class="even">
+<td align="left">asyncBenchmark()</td>
+<td align="right">5797830487</td>
+</tr>
+<tr class="odd">
+<td align="left">syncBenchmark()</td>
+<td align="right">55571405309</td>
+</tr>
+<tr class="even">
+<td align="left">syncBenchmark()</td>
+<td align="right">33461494026</td>
+</tr>
+<tr class="odd">
+<td align="left">syncBenchmark()</td>
+<td align="right">33980329690</td>
+</tr>
+<tr class="even">
+<td align="left">asyncBenchmark()</td>
+<td align="right">6212997026</td>
+</tr>
+<tr class="odd">
+<td align="left">asyncBenchmark()</td>
+<td align="right">5808931378</td>
+</tr>
+<tr class="even">
+<td align="left">syncBenchmark()</td>
+<td align="right">32696528525</td>
 </tr>
 </tbody>
 </table>
@@ -411,10 +411,10 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.185   0.099   7.588</span>
+<span class="co">#&gt;   3.027   0.086   7.274</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.001   0.000   0.001</span></code></pre></div>
+<span class="co">#&gt;       0       0       0</span></code></pre></div>
 <div id="clearing-cache" class="section level2">
 <h2 class="hasAnchor">
 <a href="#clearing-cache" class="anchor"></a>Clearing cache</h2>
