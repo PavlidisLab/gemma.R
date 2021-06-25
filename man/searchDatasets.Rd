@@ -3,7 +3,8 @@
 \name{searchDatasets}
 \alias{searchDatasets}
 \title{searchDatasets
-Does a search for datasets containing annotations, short name or full name matching the given string}
+Does a search for datasets containing annotations, short name or full
+name matching the given string}
 \usage{
 searchDatasets(
   taxon = "",
@@ -12,40 +13,134 @@ searchDatasets(
   offset = 0L,
   limit = 0L,
   sort = "+id",
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{taxon}{<p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>}
+\item{taxon}{Not required, part of the URL path.
+can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+scientific name, common name
+It is recommended to use Taxon ID for efficiency.
+Please note, that not all taxa have all the possible identifiers
+available.
+Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+convenience, below is a list of officially supported taxa:
+ID   Comm.name   Scient.name                NcbiID
 
-\item{query}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>   The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048').    Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.</p><p>   Can be multiple identifiers separated by commas.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode any forward slashes in the phenotype value URIs (see the compiled URL below).</p>}
+1    human       Homo sapiens               9606
+2    mouse       Mus musculus               10090
+3    rat         Rattus norvegicus          10116
+11   yeast       Saccharomyces cerevisiae   4932
+12   zebrafish   Danio rerio                7955
+13   fly         Drosophila melanogaster    7227
+14   worm        Caenorhabditis elegans     6239}
 
-\item{filter}{<p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by \% signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>}
+\item{query}{Required, defaults to \code{empty}.
+The search query. Either plain text (\'traumatic\'), or an ontology term
+URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+contain the given string in their short of full name will also be
+matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+Can be multiple identifiers separated by commas.
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+using in scripts, remember to URL-encode any forward slashes in the
+phenotype value URIs (see the compiled URL below).}
 
-\item{offset}{<p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>}
+\item{filter}{Optional, defaults to \code{empty}.
+Filtering can be done on any\* property or nested property that the
+appropriate object class defines or inherits (and that is mapped by
+hibernate). [These do not correspond to the properties of the objects
+returned by the API calls.]{.description-imp}
+Class definitions:
+\itemize{
+\item Datasets:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{[gitHub]}
+\item Platforms:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{[gitHub]}
+E.g: \code{curationDetails} or \code{curationDetails.lastTroubledEvent.date}.
+\* Any property of a supported type. Currently supported types are:
+\item String - property of String type, required value can be any String.
+\item Number - any Number implementation. Required value must be a string
+parseable to the specific Number type.
+\item Boolean - required value will be parsed to true only if the string
+matches \'true\', ignoring case.
+Accepted operator keywords are:
+\item \'=\' - equality
+\item \'!=\' - non-equality
+\item \'\<\' - smaller than
+\item \'\>\' - larger than
+\item \'\<=\' - smaller or equal
+\item \'=\>\' - larger or equal
+\item \'like\' - similar string, effectively means \'contains\',
+translates to the sql \'LIKE\' operator (given value will be
+surrounded by \% signs)
+Multiple filters can be chained using \code{AND} and \code{OR} keywords.\
+Leave space between the keywords and the previous/next word!\
+E.g: \verb{?filter=property1 < value1 AND property2 like value2}
+If chained filters are mixed conjunctions and disjunctions, the query
+must be in conjunctive normal form (CNF). Parentheses are not necessary
+\item every AND keyword separates blocks of disjunctions.
+Example:\
+\verb{?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4}\
+Above query will translate to:\
+\verb{(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)}
+Breaking the CNF results in an error.
+Filter \code{curationDetails.troubled} will be ignored if user is not an
+administrator.
+}}
 
-\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+\item{offset}{Optional, defaults to \code{0}.
+Skips the specified amount of objects when retrieving them from the
+database.}
 
-\item{sort}{<p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>}
+\item{limit}{Optional, defaults to \code{20}.
+Limits the result to specified amount of objects. Use 0 for no limit.}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{sort}{Optional, defaults to \code{+id}.
+Sets the ordering property and direction.
+Format is \verb{[+,-][property name]}. E.g. \code{-accession} will translate to
+descending ordering by the \'Accession\' property.
+Note that this does [not guarantee the order of the returned
+entities!]{.description-imp} This is merely a signal to how the data
+should be pre-sorted before the limit and offset are applied.
+Nested properties are also supported (recursively).\
+E.g: \code{+curationDetails.lastTroubledEvent.date}
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+using in scripts, remember to URL-encode the \'+\' plus character (see
+the compiled URL below).}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p>    An array of datasets (expression experiment value objects) that are annotated with the given ontology terms,   or, in case of plaintext query, experiments that contain the given words (name, short name, accession, tags)</p><p>    If an ontology term URI is given, the results will also include datasets that are associated with the   descendants of the term.</p><p>   The search only only checks the annotations value, not the category (which is also an   ontology term).</p>
+An array of datasets (expression experiment value objects) that are
+annotated with the given ontology terms, or, in case of plaintext query,
+experiments that contain the given words (name, short name, accession,
+tags)
+If an ontology term URI is given, the results will also include datasets
+that are associated with the descendants of the term.
+The search only only checks the annotations value, not the category
+(which is also an ontology term).
 }
 \description{
 searchDatasets
-Does a search for datasets containing annotations, short name or full name matching the given string
+Does a search for datasets containing annotations, short name or full
+name matching the given string
 }

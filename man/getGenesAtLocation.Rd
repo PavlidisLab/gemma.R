@@ -11,36 +11,69 @@ getGenesAtLocation(
   strand = "+",
   start = NA_integer_,
   size = NA_integer_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{taxon}{<p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>}
+\item{taxon}{Not required, part of the URL path.
+can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+scientific name, common name
+It is recommended to use Taxon ID for efficiency.
+Please note, that not all taxa have all the possible identifiers
+available.
+Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+convenience, below is a list of officially supported taxa:
+ID   Comm.name   Scient.name                NcbiID
 
-\item{chromosome}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The chromosome of the query location. Eg: <code>3</code>, <code>21</code>, <code>X</code></p>}
+1    human       Homo sapiens               9606
+2    mouse       Mus musculus               10090
+3    rat         Rattus norvegicus          10116
+11   yeast       Saccharomyces cerevisiae   4932
+12   zebrafish   Danio rerio                7955
+13   fly         Drosophila melanogaster    7227
+14   worm        Caenorhabditis elegans     6239}
 
-\item{strand}{<p class='description-frow'>Optional, defaults to <code>+</code>.</p><p>Can either be <code>+</code> or <code>-</code>.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   This is a WIP parameter and does currently not do anything</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>}
+\item{chromosome}{Required, defaults to \code{empty}.
+The chromosome of the query location. Eg: \code{3}, \code{21}, \code{X}}
 
-\item{start}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>Number of the start nucleotide of the desired region.</p>}
+\item{strand}{Optional, defaults to \code{+}.
+Can either be \code{+} or \code{-}.
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} This is a
+WIP parameter and does currently not do anything
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+using in scripts, remember to URL-encode the \'+\' plus character (see
+the compiled URL below).}
 
-\item{size}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>Amount of nucleotides in the desired region (i.e. the length of the region).</p>}
+\item{start}{Required, defaults to \code{empty}.
+Number of the start nucleotide of the desired region.}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{size}{Required, defaults to \code{empty}.
+Amount of nucleotides in the desired region (i.e. the length of the
+region).}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p> An array of genes (gene value objects) that overlap the given region.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+An array of genes (gene value objects) that overlap the given region.
+A \verb{404 error} if the given identifier does not map to any object.
+A \verb{400 error} if required parameters are missing.
 }
 \description{
 getGenesAtLocation
