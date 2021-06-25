@@ -51,13 +51,12 @@ registerEndpoint <- function(endpoint,
   for(d in names(defaults)) {
     fargs[[d]] <- defaults[[d]]
   }
-  # TODO consider enquoting these so that they would show up for users as getOption still rather than the evaluated version
-  # Like this, we can change the defaults easily per-package but not easy for users to change their own defaults
-  fargs$raw <- getOption('gemma.raw', F)
-  fargs$async <- getOption('gemma.async', F)
-  fargs$memoised <- getOption('gemma.memoise', F)
-  fargs$file <- getOption('gemma.file', NA_character_)
-  fargs$overwrite <- getOption('gemma.overwrite', F)
+
+  fargs$raw <- quote(getOption('gemma.raw', F))
+  fargs$async <- quote(getOption('gemma.async', F))
+  fargs$memoised <- quote(getOption('gemma.memoise', F))
+  fargs$file <- quote(getOption('gemma.file', NA_character_))
+  fargs$overwrite <- quote(getOption('gemma.overwrite', F))
 
   formals(f) <- fargs
   body(f) <- quote({
@@ -176,11 +175,10 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   for(d in names(defaults)) {
     fargs[[d]] <- defaults[[d]]
   }
-  # TODO consider enquoting these so that they would show up for users as getOption still rather than the evaluated version
-  # Like this, we can change the defaults easily per-package but not easy for users to change their own defaults
-  fargs$raw <- getOption('gemma.raw', F)
-  fargs$async <- getOption('gemma.async', F)
-  fargs$memoised <- getOption('gemma.memoise', F)
+
+  fargs$raw <- quote(getOption('gemma.raw', F))
+  fargs$async <- quote(getOption('gemma.async', F))
+  fargs$memoised <- quote(getOption('gemma.memoise', F))
 
   formals(f) <- fargs
   body(f) <- quote({
@@ -340,13 +338,11 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
     fargs$request <- NA_character_
     fargs$`...` <- alist(... = )$...
 
-    # TODO consider enquoting these so that they would show up for users as getOption still rather than the evaluated version
-    # Like this, we can change the defaults easily per-package but not easy for users to change their own defaults
-    fargs$raw <- getOption('gemma.raw', F)
-    fargs$async <- getOption('gemma.async', F)
-    fargs$memoised <- getOption('gemma.memoise', F)
-    fargs$file <- getOption('gemma.file', NA_character_)
-    fargs$overwrite <- getOption('gemma.overwrite', F)
+    fargs$raw <- quote(getOption('gemma.raw', F))
+    fargs$async <- quote(getOption('gemma.async', F))
+    fargs$memoised <- quote(getOption('gemma.memoise', F))
+    fargs$file <- quote(getOption('gemma.file', NA_character_))
+    fargs$overwrite <- quote(getOption('gemma.overwrite', F))
 
     formals(f) <- fargs
     body(f) <- quote({
@@ -414,6 +410,14 @@ endpoints <- async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resour
 #' @param parameters The parameters that the function accepts
 #' @param document A file to print information for pasting generating the package
 comment <- function(src, parameters, document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+  pandoc <- function(text) {
+    tmp <- tempfile()
+    write(text, tmp)
+    ret <- system2(paste0(Sys.getenv('RSTUDIO_PANDOC'), '/pandoc'), c('-f html', '-t markdown', tmp), stdout = T)
+    unlink(tmp)
+    gsub("\n#' \n#' ", "\n#' ", gsub('\n', "\n#' ", paste0(ret, collapse = '\n'), fixed = T), fixed = T)
+  }
+
   if(is.null(src)) {
     cat('\n', file = document, append = T)
     return(NULL)
@@ -423,7 +427,7 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
     xml2::xml_attr(elem, ':name') == paste0("'", src, "'")
   }, endpoints)
 
-  cat(glue::glue("\n\n#' {xml2::xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) }}\n#'\n\n"), file = document, append = T)
+  cat(glue::glue("\n\n#' {pandoc(xml2::xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = T)
 
   for(arg in parameters) {
     if(arg == 'raw')
@@ -451,10 +455,10 @@ comment <- function(src, parameters, document = getOption('gemmaAPI.document', '
       mAdd <- get(paste0(mArg, 'Description'))
     }
 
-    cat(glue::glue("#' @param {arg} {mAdd}\n\n"), file = document, append = T)
+    cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = T)
   }
 
-  cat(glue::glue("#'\n#' @return {get(xml2::xml_attr(node, ':response-description'))}\n\n"), file = document, append = T)
+  cat(glue::glue("#'\n#' @return {pandoc(get(xml2::xml_attr(node, ':response-description')))}\n\n"), file = document, append = T)
 }
 
 # Dataset endpoints ----
@@ -539,6 +543,7 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
                        preprocessor = quote(processFile))
 
 # TODO Consider whether this belongs in the API or not...
+
 #registerCompoundEndpoint(endpoints = list(
 #  A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
 #           activates = 2,

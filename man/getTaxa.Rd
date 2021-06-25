@@ -7,28 +7,51 @@ List taxa filtered by given parameters}
 \usage{
 getTaxa(
   taxon = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{taxon}{<p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>}
+\item{taxon}{Not required, part of the URL path.
+can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+scientific name, common name
+It is recommended to use Taxon ID for efficiency.
+Please note, that not all taxa have all the possible identifiers
+available.
+Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+convenience, below is a list of officially supported taxa:
+ID   Comm.name   Scient.name                NcbiID
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+1    human       Homo sapiens               9606
+2    mouse       Mus musculus               10090
+3    rat         Rattus norvegicus          10116
+11   yeast       Saccharomyces cerevisiae   4932
+12   zebrafish   Danio rerio                7955
+13   fly         Drosophila melanogaster    7227
+14   worm        Caenorhabditis elegans     6239}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p> An array of taxa (taxon value objects) matching the given identifiers. </p><p> A <code>400 error</code> if all identifiers are invalid.</p><p> An array of all available taxa, if no identifiers were provided.</p>
+An array of taxa (taxon value objects) matching the given identifiers.
+A \verb{400 error} if all identifiers are invalid.
+An array of all available taxa, if no identifiers were provided.
 }
 \description{
 getTaxa

@@ -1,22 +1,94 @@
 #' getDatasets
 #' Lists datasets filtered and organized by given parameters
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param filter <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by % signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param sort <p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any\* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' \* Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches \'true\', ignoring case.
+#' Accepted operator keywords are:
+#' -   \'=\' - equality
+#' -   \'!=\' - non-equality
+#' -   \'\<\' - smaller than
+#' -   \'\>\' - larger than
+#' -   \'\<=\' - smaller or equal
+#' -   \'=\>\' - larger or equal
+#' -   \'like\' - similar string, effectively means \'contains\',
+#'     translates to the sql \'LIKE\' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.\
+#' Leave space between the keywords and the previous/next word!\
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:\
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
+#' Above query will translate to:\
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the \'Accession\' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).\
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of value objects representing the objects that matched the query. </p><p>   Empty array if no objects matched.</p><p>   A successful response may contain a sub-element with 'Geeq' information, which aims to provide a    unified metric to measure experiments by the quality of their data, and their suitability for use in Gemma.   You can <a href='https://pavlidislab.github.io/Gemma/geeq.html' target='_blank'>read more about the geeq properties here</a>. </p>
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
+#' A successful response may contain a sub-element with \'Geeq\'
+#' information, which aims to provide a unified metric to measure
+#' experiments by the quality of their data, and their suitability for use
+#' in Gemma. You can [read more about the geeq properties
+#' here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
 getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
+    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getDatasets"
@@ -36,20 +108,36 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' getDatasetDEA
 #' Retrieves the differential analysis results for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of analyses (differential expression value objects) in the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p></p>
+#' @return An array of analyses (differential expression value objects) in the
+#' given dataset.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
 #' @export
 getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetDEA"
@@ -66,24 +154,54 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
 memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
 #' getDatasetPCA
-#' Retrieves the expression levels most correlated with the given principal component
+#' Retrieves the expression levels most correlated with the given principal
+#' component
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param component <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The pca component to limit the results to.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param keepNonSpecific <p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>   If set to <code>false</code>, the response will only include elements that map exclusively to each queried gene</p><p>   If set to <code>true</code>, the response will include all elements that map to each queried gene, even if they   also map to other genes.</p>
-#' @param consolidate <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   What action to take when there is more than one element per gene in a dataset.</p><p>   The choices are:   <ul>       <li><code>[empty]</code> - will list all vectors separately</li>       <li><code>pickmax</code> - only return the vector that has the highest expression (mean over all its bioAssays)</li>       <li><code>pickvar</code> - only return the vector with highest variance of expression across its bioAssays</li>       <li><code>average</code> - create a new vector that will average the bioAssay values from all vectors</li>   </ul></p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param component Required, defaults to `empty`.
+#' The pca component to limit the results to.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param keepNonSpecific Optional, defaults to `false`.
+#' If set to `false`, the response will only include elements that map
+#' exclusively to each queried gene
+#' If set to `true`, the response will include all elements that map to
+#' each queried gene, even if they also map to other genes.
+#' @param consolidate Optional, defaults to `empty`.
+#' What action to take when there is more than one element per gene in a
+#' dataset.
+#' The choices are:
+#' -   `[empty]` - will list all vectors separately
+#' -   `pickmax` - only return the vector that has the highest expression
+#'     (mean over all its bioAssays)
+#' -   `pickvar` - only return the vector with highest variance of
+#'     expression across its bioAssays
+#' -   `average` - create a new vector that will average the bioAssay
+#'     values from all vectors
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   The expression levels for each given experiment (experiment expression levels value object) of genes that are   most correlated with the given principal component.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return The expression levels for each given experiment (experiment expression
+#' levels value object) of genes that are most correlated with the given
+#' principal component.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L, 
-    keepNonSpecific = FALSE, consolidate = NA_character_, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+    keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption("gemma.raw", 
+        F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetPCA"
@@ -103,24 +221,60 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' getDatasetDE
 #' Retrieves differential expression levels for given datasets
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param keepNonSpecific <p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>   If set to <code>false</code>, the response will only include elements that map exclusively to each queried gene</p><p>   If set to <code>true</code>, the response will include all elements that map to each queried gene, even if they   also map to other genes.</p>
-#' @param diffExSet <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The ID of the differential expression set to retrieve the data from.</p><p>   This value can be obtained through the 'Dataset differential analysis' endpoint in the 'Dataset endpoints' category.    See the <code>resultSetId</code> in one of the response objects in said endpoint.</p>
-#' @param threshold <p class='description-frow'>Optional, defaults to <code>100.0</code>.</p><p>The threshold that the differential expression has to meet to be included in the response.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param consolidate <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   What action to take when there is more than one element per gene in a dataset.</p><p>   The choices are:   <ul>       <li><code>[empty]</code> - will list all vectors separately</li>       <li><code>pickmax</code> - only return the vector that has the highest expression (mean over all its bioAssays)</li>       <li><code>pickvar</code> - only return the vector with highest variance of expression across its bioAssays</li>       <li><code>average</code> - create a new vector that will average the bioAssay values from all vectors</li>   </ul></p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param keepNonSpecific Optional, defaults to `false`.
+#' If set to `false`, the response will only include elements that map
+#' exclusively to each queried gene
+#' If set to `true`, the response will include all elements that map to
+#' each queried gene, even if they also map to other genes.
+#' @param diffExSet Required, defaults to `empty`.
+#' The ID of the differential expression set to retrieve the data from.
+#' This value can be obtained through the \'Dataset differential analysis\'
+#' endpoint in the \'Dataset endpoints\' category. See the `resultSetId` in
+#' one of the response objects in said endpoint.
+#' @param threshold Optional, defaults to `100.0`.
+#' The threshold that the differential expression has to meet to be
+#' included in the response.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param consolidate Optional, defaults to `empty`.
+#' What action to take when there is more than one element per gene in a
+#' dataset.
+#' The choices are:
+#' -   `[empty]` - will list all vectors separately
+#' -   `pickmax` - only return the vector that has the highest expression
+#'     (mean over all its bioAssays)
+#' -   `pickvar` - only return the vector with highest variance of
+#'     expression across its bioAssays
+#' -   `average` - create a new vector that will average the bioAssay
+#'     values from all vectors
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   The differential expression levels for each given experiment (experiment expression levels value object) in the   given differential expression set.</p><p>   If the experiment is not in the given diff. exp. set, an empty array is returned.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return The differential expression levels for each given experiment (experiment
+#' expression levels value object) in the given differential expression
+#' set.
+#' If the experiment is not in the given diff. exp. set, an empty array is
+#' returned.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diffExSet = NA_integer_, 
     threshold = 100, limit = 100L, consolidate = NA_character_, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetDE"
@@ -140,17 +294,28 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' getDatasetSamples
 #' Retrieves samples for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of samples (bio assay value objects) in the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of samples (bio assay value objects) in the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetSamples <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetSamples"
@@ -168,17 +333,35 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' getDatasetSVD
 #' Retrieves the SVD information for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   A simple SVD value object for the given dataset, containing information about SVD of expression data <p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>   Properties of the returned object are:   <ul>       <li><b>bioMaterialIds</b> - Array of Bio Material IDs, in same order as the rows of the v matrix</li>       <li><b>variances</b> - An array of values representing the fraction of the variance each component accounts for</li>       <li><b>vMatrix</b> - the V Matrix (DoubleMatrix object)</li>   </ul></p></p>
+#' @return A simple SVD value object for the given dataset, containing information
+#' about SVD of expression data
+#' A `404 error` if the given identifier does not map to any object.
+#' Properties of the returned object are:
+#' -   **bioMaterialIds** - Array of Bio Material IDs, in same order as the
+#'     rows of the v matrix
+#' -   **variances** - An array of values representing the fraction of the
+#'     variance each component accounts for
+#' -   **vMatrix** - the V Matrix (DoubleMatrix object)
 #' @export
-getDatasetSVD <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetSVD"
@@ -196,17 +379,29 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 #' getDatasetPlatforms
 #' Retrieves platforms for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of platforms (array design value objects) containing the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of platforms (array design value objects) containing the given
+#' dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetPlatforms <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetPlatforms"
@@ -224,17 +419,29 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' getDatasetAnnotations
 #' Retrieves the annotations for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of annotations (annotation value objects) attached to the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of annotations (annotation value objects) attached to the given
+#' dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetAnnotations <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getDatasetAnnotations"
@@ -252,17 +459,28 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' getDatasetData
 #' Retrieves the data for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   The data file for the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return The data file for the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetData <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetData <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- TRUE
     fname <- "getDatasetData"
@@ -280,17 +498,28 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' getDatasetDesign
 #' Retrieves the design for the given dataset
 #'
-#' @param dataset <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   The design file for the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return The design file for the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetDesign <- function (dataset = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- TRUE
     fname <- "getDatasetDesign"
@@ -308,8 +537,10 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' datasetInfo
 #' @export
 datasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     characteristicValue <- "dataset"
     argMap <- c(datasets = "getDatasets", differential = "getDatasetDEA", 
@@ -334,22 +565,89 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' getPlatforms
 #' List platforms filtered and organized by given parameters
 #'
-#' @param platform <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)</p><p>Retrieval by ID is more efficient. </p><p>Only platforms that user has access to will be available.</p>
-#' @param filter <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by % signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param sort <p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param platform Required, part of the URL path.
+#' Can either be the platform ID or its short name (e.g: `GPL1355`)
+#' Retrieval by ID is more efficient.
+#' Only platforms that user has access to will be available.
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any\* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' \* Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches \'true\', ignoring case.
+#' Accepted operator keywords are:
+#' -   \'=\' - equality
+#' -   \'!=\' - non-equality
+#' -   \'\<\' - smaller than
+#' -   \'\>\' - larger than
+#' -   \'\<=\' - smaller or equal
+#' -   \'=\>\' - larger or equal
+#' -   \'like\' - similar string, effectively means \'contains\',
+#'     translates to the sql \'LIKE\' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.\
+#' Leave space between the keywords and the previous/next word!\
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:\
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
+#' Above query will translate to:\
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the \'Accession\' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).\
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of value objects representing the objects that matched the query. </p><p>   Empty array if no objects matched.</p>
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
 #' @export
 getPlatforms <- function (platform = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
+    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getPlatforms"
@@ -368,20 +666,35 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' getPlatformDatasets
 #' Retrieves experiments in the given platform
 #'
-#' @param platform <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)</p><p>Retrieval by ID is more efficient. </p><p>Only platforms that user has access to will be available.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param platform Required, part of the URL path.
+#' Can either be the platform ID or its short name (e.g: `GPL1355`)
+#' Retrieval by ID is more efficient.
+#' Only platforms that user has access to will be available.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of datasets (expression experiment value objects) that are on the given platform.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of datasets (expression experiment value objects) that are on
+#' the given platform.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 20L, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getPlatformDatasets"
@@ -400,20 +713,36 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' getPlatformElements
 #' Retrieves the composite sequences (elements) for the given platform
 #'
-#' @param platform <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)</p><p>Retrieval by ID is more efficient. </p><p>Only platforms that user has access to will be available.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param platform Required, part of the URL path.
+#' Can either be the platform ID or its short name (e.g: `GPL1355`)
+#' Retrieval by ID is more efficient.
+#' Only platforms that user has access to will be available.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of elements (composite sequence value objects) of the given platform.</p><p>   Empty collection, if no elements matched the <code>elements</code> parameter.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of elements (composite sequence value objects) of the given
+#' platform.
+#' Empty collection, if no elements matched the `elements` parameter.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 20L, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getPlatformElements"
@@ -432,21 +761,45 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' getPlatformElementGenes
 #' Retrieves the genes on the given platform element
 #'
-#' @param platform <p class='description-frow'>Required, part of the URL path.</p><p>Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)</p><p>Retrieval by ID is more efficient. </p><p>Only platforms that user has access to will be available.</p>
-#' @param element <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>Limits the result to entities with given identifiers.</p><p>A list of identifiers, separated by commas (e.g: <code>AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at</code>).</p><p>Can either be probes name or IDs. <br/><p>Do not combine different identifiers in one query.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode any forward slashes in the probe name (see the compiled URL below).</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param platform Required, part of the URL path.
+#' Can either be the platform ID or its short name (e.g: `GPL1355`)
+#' Retrieval by ID is more efficient.
+#' Only platforms that user has access to will be available.
+#' @param element Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at`).
+#' Can either be probes name or IDs.\
+#' Do not combine different identifiers in one query.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' probe name (see the compiled URL below).
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of genes (gene value objects) aligned with the the given platform element.</p><p> All identifiers must be valid. </p><p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+#' @return An array of genes (gene value objects) aligned with the the given
+#' platform element.
+#' All identifiers must be valid.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getPlatformElementGenes <- function (platform = NA_character_, element = NA_character_, 
-    offset = 0L, limit = 20L, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+    offset = 0L, limit = 20L, raw = getOption("gemma.raw", F), 
+    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getPlatformElementGenes"
@@ -465,8 +818,10 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' platformInfo
 #' @export
 platformInfo <- function (platform = NA_character_, request = NA_character_, 
-    ..., raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    ..., raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     characteristicValue <- "platform"
     argMap <- c(platforms = "getPlatforms", datasets = "getPlatformDatasets", 
@@ -488,17 +843,33 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 #' getGenes
 #' Retrieves all genes matching the identifiers
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>   An array of value objects representing the objects that matched the query. </p><p>   Empty array if no objects matched.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
+#' A `400 error` if required parameters are missing.
 #' @export
-getGenes <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+getGenes <- function (gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGenes"
@@ -516,17 +887,32 @@ memgetGenes <- memoise::memoise(getGenes)
 #' getGeneEvidence
 #' Retrieves gene evidence for the given gene
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of gene evidence value objects for the given gene or gene homologues.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of gene evidence value objects for the given gene or gene
+#' homologues.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneEvidence <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneEvidence"
@@ -544,17 +930,32 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' getGeneLocation
 #' Retrieves the physical location of the given gene
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of locations (physical location value objects) of the given gene or gene homologues.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of locations (physical location value objects) of the given
+#' gene or gene homologues.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneLocation <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneLocation"
@@ -572,19 +973,38 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' getGeneProbes
 #' Retrieves the probes (composite sequences) with this gene
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>    An array of probes (composite sequence value objects) that are mapped to this gene. Note, that it is   possible for probes to map to multiple genes.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of probes (composite sequence value objects) that are mapped to
+#' this gene. Note, that it is possible for probes to map to multiple
+#' genes.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneProbes"
@@ -603,17 +1023,32 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' getGeneGO
 #' Retrieves the GO terms of the given gene
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of GO terms (gene ontology term value objects) associated with the given gene.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of GO terms (gene ontology term value objects) associated with
+#' the given gene.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneGO <- function (gene = NA_character_, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneGO"
@@ -631,21 +1066,45 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' getGeneCoexpression
 #' Retrieves the coexpression of two given genes
 #'
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param with <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param stringency <p class='description-frow'>Optional, defaults to <code>1</code>.</p><p>Sets the stringency of coexpression search.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param with Required, defaults to `empty`.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param stringency Optional, defaults to `1`.
+#' Sets the stringency of coexpression search.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>    An array of gene coexpression data (coexpression meta value objects) representing the coexpression of the   two given genes.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+#' @return An array of gene coexpression data (coexpression meta value objects)
+#' representing the coexpression of the two given genes.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
 #' @export
 getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, limit = 20L, 
-    stringency = 1L, raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+    stringency = 1L, raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getGeneCoexpression"
@@ -664,8 +1123,10 @@ memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 #' geneInfo
 #' @export
 geneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     characteristicValue <- "gene"
     argMap <- c(genes = "getGenes", evidence = "getGeneEvidence", 
@@ -688,17 +1149,42 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 #' getTaxa
 #' List taxa filtered by given parameters
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of taxa (taxon value objects) matching the given identifiers. </p><p> A <code>400 error</code> if all identifiers are invalid.</p><p> An array of all available taxa, if no identifiers were provided.</p>
+#' @return An array of taxa (taxon value objects) matching the given identifiers.
+#' A `400 error` if all identifiers are invalid.
+#' An array of all available taxa, if no identifiers were provided.
 #' @export
-getTaxa <- function (taxon = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getTaxa <- function (taxon = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getTaxa"
@@ -716,22 +1202,102 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' getTaxonDatasets
 #' Retrieves datasets for the given taxon.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param filter <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by % signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param sort <p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any\* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' \* Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches \'true\', ignoring case.
+#' Accepted operator keywords are:
+#' -   \'=\' - equality
+#' -   \'!=\' - non-equality
+#' -   \'\<\' - smaller than
+#' -   \'\>\' - larger than
+#' -   \'\<=\' - smaller or equal
+#' -   \'=\>\' - larger or equal
+#' -   \'like\' - similar string, effectively means \'contains\',
+#'     translates to the sql \'LIKE\' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.\
+#' Leave space between the keywords and the previous/next word!\
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:\
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
+#' Above query will translate to:\
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the \'Accession\' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).\
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of datasets (expression experiment value objects) associated with the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of datasets (expression experiment value objects) associated
+#' with the given taxon.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = FALSE, async = FALSE, memoised = FALSE, 
-    file = NA_character_, overwrite = FALSE) 
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
+    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getTaxonDatasets"
@@ -751,20 +1317,55 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' getTaxonPhenotypes
 #' Loads all phenotypes for the given taxon.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param editableOnly <p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>Whether to only list editable objects.</p>
-#' @param tree <p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>Whether the returned structure should be an actual tree (nested JSON objects).</p> <p>   Default is false - the tree is flattened and the tree structure information is stored as   the values of the returned object.</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param editableOnly Optional, defaults to `false`.
+#' Whether to only list editable objects.
+#' @param tree Optional, defaults to `false`.
+#' Whether the returned structure should be an actual tree (nested JSON
+#' objects).
+#' Default is false - the tree is flattened and the tree structure
+#' information is stored as the values of the returned object.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>If <code>tree = false</code>, an array of simple tree value objects.</p><p>   If <code>tree = true</code>, an array of tree characteristic value objects, that will represent root nodes of   a phenotype tree. Each node has its child nodes in the <code>children</code> array property. There will be    exactly 3 root nodes - for a disease ontology tree, human phenotype ontology tree and a mammalian phenotype ontology tree.   If there are no terms for the given taxon in any of the ontologies, the relevant root node will be null.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return If `tree = false`, an array of simple tree value objects.
+#' If `tree = true`, an array of tree characteristic value objects, that
+#' will represent root nodes of a phenotype tree. Each node has its child
+#' nodes in the `children` array property. There will be exactly 3 root
+#' nodes - for a disease ontology tree, human phenotype ontology tree and a
+#' mammalian phenotype ontology tree. If there are no terms for the given
+#' taxon in any of the ontologies, the relevant root node will be null.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tree = FALSE, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getTaxonPhenotypes"
@@ -783,20 +1384,51 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' getTaxonPhenotypeCandidates
 #' Given a set of phenotypes, return all genes associated with them.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param editableOnly <p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>Whether to only list editable objects.</p>
-#' @param phenotypes <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>Phenotype value URIs separated by commas.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode any forward slashes in the phenotype value URIs (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param editableOnly Optional, defaults to `false`.
+#' Whether to only list editable objects.
+#' @param phenotypes Required, defaults to `empty`.
+#' Phenotype value URIs separated by commas.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' phenotype value URIs (see the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of gene evidence value objects for genes associated with the given phenotypes on the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+#' @return An array of gene evidence value objects for genes associated with the
+#' given phenotypes on the given taxon.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
 #' @export
 getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_, 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
@@ -815,18 +1447,49 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' getGeneOnTaxon
 #' Retrieves genes matching the identifier on the given taxon.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of genes (gene value objects) on the given taxon, matching the given identifier.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of genes (gene value objects) on the given taxon, matching the
+#' given identifier.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneOnTaxon"
@@ -844,18 +1507,49 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' getEvidenceOnTaxon
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of gene evidence value objects for the given gene on the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of gene evidence value objects for the given gene on the given
+#' taxon.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
@@ -873,18 +1567,49 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' getGeneLocationOnTaxon
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param gene <p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of locations (physical location value objects) of the given gene on the given taxon.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+#' @return An array of locations (physical location value objects) of the given
+#' gene on the given taxon.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
-getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
@@ -902,22 +1627,57 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' getGenesAtLocation
 #' Finds genes overlapping a given region.
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param chromosome <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The chromosome of the query location. Eg: <code>3</code>, <code>21</code>, <code>X</code></p>
-#' @param strand <p class='description-frow'>Optional, defaults to <code>+</code>.</p><p>Can either be <code>+</code> or <code>-</code>.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   This is a WIP parameter and does currently not do anything</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>
-#' @param start <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>Number of the start nucleotide of the desired region.</p>
-#' @param size <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>Amount of nucleotides in the desired region (i.e. the length of the region).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param chromosome Required, defaults to `empty`.
+#' The chromosome of the query location. Eg: `3`, `21`, `X`
+#' @param strand Optional, defaults to `+`.
+#' Can either be `+` or `-`.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} This is a
+#' WIP parameter and does currently not do anything
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' the compiled URL below).
+#' @param start Required, defaults to `empty`.
+#' Number of the start nucleotide of the desired region.
+#' @param size Required, defaults to `empty`.
+#' Amount of nucleotides in the desired region (i.e. the length of the
+#' region).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of genes (gene value objects) that overlap the given region.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+#' @return An array of genes (gene value objects) that overlap the given region.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
 #' @export
 getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character_, 
-    strand = "+", start = NA_integer_, size = NA_integer_, raw = FALSE, 
-    async = FALSE, memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+    strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption("gemma.raw", 
+        F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "getGenesAtLocation"
@@ -935,25 +1695,119 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
 memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 
 #' searchDatasets
-#' Does a search for datasets containing annotations, short name or full name matching the given string
+#' Does a search for datasets containing annotations, short name or full
+#' name matching the given string
 #'
-#' @param taxon <p class='description-frow'>Not required, part of the URL path.</p><p>   can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:   scientific name, common name</p><p>It is recommended to use Taxon ID for efficiency.</p><p>Please note, that not all taxa have all the possible identifiers available.</p><p>Use the 'All Taxa' endpoint to retrieve the necessary information. For convenience, below is a list of officially supported taxa: </p><table><tr><th> ID </th><th>Comm.name</th><th>Scient.name</th><th>NcbiID</th></tr><tr><td>  1 </td><td> human           </td><td> Homo sapiens              </td><td>    9606 </td></tr><tr><td>  2 </td><td> mouse           </td><td> Mus musculus              </td><td>   10090 </td></tr><tr><td>  3 </td><td> rat             </td><td> Rattus norvegicus         </td><td>   10116 </td></tr><tr><td> 11 </td><td> yeast           </td><td> Saccharomyces cerevisiae  </td><td>    4932 </td></tr><tr><td> 12 </td><td> zebrafish       </td><td> Danio rerio               </td><td>    7955 </td></tr><tr><td> 13 </td><td> fly             </td><td> Drosophila melanogaster   </td><td>    7227 </td></tr><tr><td> 14 </td><td> worm            </td><td> Caenorhabditis elegans    </td><td>    6239 </td></tr></table>
-#' @param query <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>   The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048').    Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.</p><p>   Can be multiple identifiers separated by commas.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode any forward slashes in the phenotype value URIs (see the compiled URL below).</p>
-#' @param filter <p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by % signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>
-#' @param offset <p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>
-#' @param limit <p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>
-#' @param sort <p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param query Required, defaults to `empty`.
+#' The search query. Either plain text (\'traumatic\'), or an ontology term
+#' URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+#' contain the given string in their short of full name will also be
+#' matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+#' Can be multiple identifiers separated by commas.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' phenotype value URIs (see the compiled URL below).
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any\* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' \* Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches \'true\', ignoring case.
+#' Accepted operator keywords are:
+#' -   \'=\' - equality
+#' -   \'!=\' - non-equality
+#' -   \'\<\' - smaller than
+#' -   \'\>\' - larger than
+#' -   \'\<=\' - smaller or equal
+#' -   \'=\>\' - larger or equal
+#' -   \'like\' - similar string, effectively means \'contains\',
+#'     translates to the sql \'LIKE\' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.\
+#' Leave space between the keywords and the previous/next word!\
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:\
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
+#' Above query will translate to:\
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the \'Accession\' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).\
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p>    An array of datasets (expression experiment value objects) that are annotated with the given ontology terms,   or, in case of plaintext query, experiments that contain the given words (name, short name, accession, tags)</p><p>    If an ontology term URI is given, the results will also include datasets that are associated with the   descendants of the term.</p><p>   The search only only checks the annotations value, not the category (which is also an   ontology term).</p>
+#' @return An array of datasets (expression experiment value objects) that are
+#' annotated with the given ontology terms, or, in case of plaintext query,
+#' experiments that contain the given words (name, short name, accession,
+#' tags)
+#' If an ontology term URI is given, the results will also include datasets
+#' that are associated with the descendants of the term.
+#' The search only only checks the annotations value, not the category
+#' (which is also an ontology term).
 #' @export
 searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_character_, 
-    offset = 0L, limit = 0L, sort = "+id", raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+    offset = 0L, limit = 0L, sort = "+id", raw = getOption("gemma.raw", 
+        F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     isFile <- FALSE
     fname <- "searchDatasets"
@@ -973,8 +1827,10 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' taxonInfo
 #' @export
 taxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
-    raw = FALSE, async = FALSE, memoised = FALSE, file = NA_character_, 
-    overwrite = FALSE) 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
 {
     characteristicValue <- "taxon"
     argMap <- c(taxa = "getTaxa", datasets = "getTaxonDatasets", 
@@ -999,17 +1855,34 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 #' searchAnnotations
 #' Does a search for annotations based on the given string
 #'
-#' @param query <p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>   The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048').    Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.</p><p>   Can be multiple identifiers separated by commas.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode any forward slashes in the phenotype value URIs (see the compiled URL below).</p>
-#' @param raw <p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>
-#' @param async <p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>
-#' @param memoised <p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>
-#' @param file <p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>
-#' @param overwrite <p>Whether or not to overwrite if a file exists at the specified filename.</p>
+#' @param query Required, defaults to `empty`.
+#' The search query. Either plain text (\'traumatic\'), or an ontology term
+#' URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+#' contain the given string in their short of full name will also be
+#' matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+#' Can be multiple identifiers separated by commas.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' phenotype value URIs (see the compiled URL below).
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return <p> An array of annotations (annotation search result value objects) matching the given identifiers.</p><p>A <code>400 error</code> if required parameters are missing.</p>
+#' @return An array of annotations (annotation search result value objects)
+#' matching the given identifiers.
+#' A `400 error` if required parameters are missing.
 #' @export
-searchAnnotations <- function (query = NA_character_, raw = FALSE, async = FALSE, 
-    memoised = FALSE, file = NA_character_, overwrite = FALSE) 
+searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     isFile <- FALSE
     fname <- "searchAnnotations"

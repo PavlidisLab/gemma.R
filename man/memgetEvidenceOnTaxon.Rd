@@ -7,11 +7,11 @@
 memgetEvidenceOnTaxon(
   taxon = NA_character_,
   gene = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \description{
