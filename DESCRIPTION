@@ -5,7 +5,7 @@ Authors@R:
     c(person(given = "Jordan", family = "Sicherman", role = c("aut"), email = "jordan.sicherman@msl.ubc.ca"),
       person(given = "Ogan", family = "Mancarci", role = c("aut"), email = "ogan.mancarci@gmail.com"),
       person(given = "Javier", family = "Castillo-Arnemann", role = c("aut", "cre"), email = "yavyx@msl.ubc.ca"))
-Description: This package provides low and high level wrappers for Gemma's restful API.
+Description: Low and high level wrappers for Gemma's restful API.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

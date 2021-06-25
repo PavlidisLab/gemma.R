@@ -23,7 +23,7 @@
   # Validate arguments
   if(!is.null(validators)) {
     for(v in names(validators)) {
-      assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = F), name = v))
+      assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = F), name = v), envir = envWhere)
     }
   }
 
