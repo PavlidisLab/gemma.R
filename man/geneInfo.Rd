@@ -18,3 +18,4 @@ geneInfo(
 \description{
 geneInfo
 }
+\keyword{gene}

@@ -16,3 +16,4 @@ memgetGeneGO(
 \description{
 Memoise getGeneGO
 }
+\keyword{internal}

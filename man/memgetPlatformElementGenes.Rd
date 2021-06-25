@@ -19,3 +19,4 @@ memgetPlatformElementGenes(
 \description{
 Memoise getPlatformElementGenes
 }
+\keyword{internal}

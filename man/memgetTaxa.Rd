@@ -16,3 +16,4 @@ memgetTaxa(
 \description{
 Memoise getTaxa
 }
+\keyword{internal}

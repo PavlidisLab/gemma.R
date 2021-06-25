@@ -19,3 +19,4 @@ memgetGeneCoexpression(
 \description{
 Memoise getGeneCoexpression
 }
+\keyword{internal}

@@ -17,3 +17,4 @@ The validated identifiers, or stop with an error message
 \description{
 Validate identifiers (ie. gene ID, platform ID, etc.) that are homogeneous (either all numerics or all not)
 }
+\keyword{internal}

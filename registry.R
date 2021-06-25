@@ -98,11 +98,11 @@ registerEndpoint <- function(endpoint,
   if(!is.null(document)) {
     #cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat("#' @export\n", file = document, append = T)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = T)
     cat(glue::glue('{fname} <- '), file = document, append = T)
     cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
     cat('\n\n', file = document, append = T)
-    cat(glue::glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
+    cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = T)
     cat(glue::glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
     cat('\n\n', file = document, append = T)
   }
@@ -296,11 +296,11 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   if(!is.null(document)) {
     #cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat("#' @export\n", file = document, append = T)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = T)
     cat(glue::glue('{fname} <- '), file = document, append = T)
     cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
     cat('\n\n', file = document, append = T)
-    cat(glue::glue("#' Memoise {fname}\n#'\n\n"), file = document, append = T)
+    cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = T)
     cat(glue::glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
     cat('\n\n', file = document, append = T)
   }
@@ -328,7 +328,8 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
       stop('No categories were being logged')
 
     fname <- getOption('gemmaAPI.logging')
-    options(gemmaAPI.logging = NULL)
+    characteristic <- getOption('gemmaAPI.loggingCharacter')
+    options(gemmaAPI.logging = NULL, gemmaAPI.loggingCharacter = NULL)
 
     f <- function() {}
 
@@ -378,13 +379,13 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 
     if(!is.null(document)) {
       # TODO comment these
-      cat(glue::glue("#' {fname}\n#' @export\n\n"), file = document, append = T)
+      cat(glue::glue("#' {fname}\n#' @export\n\n#' @keywords {characteristic}\n\n"), file = document, append = T)
       cat(glue::glue('{fname} <- '), file = document, append = T)
       cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
       cat('\n\n', file = document, append = T)
     }
   } else
-    options(gemmaAPI.logging = fname, gemmaAPI.logged = NULL)
+    options(gemmaAPI.logging = fname, gemmaAPI.loggingCharacter = characteristic, gemmaAPI.logged = NULL)
 }
 
 # Documentation ----
@@ -471,7 +472,7 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
 }
 
 # Dataset endpoints ----
-registerCategoryEndpoint('datasetInfo')
+registerCategoryEndpoint('datasetInfo', 'dataset')
 
 registerEndpoint('datasets/{datasets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
                  'getDatasets', logname = 'datasets', roxygen = 'Datasets',
@@ -578,9 +579,9 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
 #                     consolidate = validateConsolidate),
 #  preprocessors = alist(A = processDEA, B = processExpression))
 
-registerCategoryEndpoint(characteristic = 'dataset')
+registerCategoryEndpoint()
 # Platform endpoints ----
-registerCategoryEndpoint('platformInfo')
+registerCategoryEndpoint('platformInfo', 'platform')
 
 registerEndpoint('platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
                  'getPlatforms', logname = 'platforms', roxygen = 'Platforms',
@@ -628,9 +629,9 @@ registerEndpoint('platforms/{platform}/elements/{element}/genes?offset={offset}&
                                     limit = validatePositiveInteger),
                  preprocessor = quote(processGenes))
 
-registerCategoryEndpoint(characteristic = 'platform')
+registerCategoryEndpoint()
 # Gene endpoints ----
-registerCategoryEndpoint('geneInfo')
+registerCategoryEndpoint('geneInfo', 'gene')
 
 registerSimpleEndpoint('genes', '', logname = 'genes', roxygen = 'Genes',
                        'getGenes',
@@ -670,9 +671,9 @@ registerEndpoint('genes/{gene}/coexpression?with={with}&limit={limit}&stringency
                                     stringency = validatePositiveInteger),
                  preprocessor = quote(processCoexpression))
 
-registerCategoryEndpoint(characteristic = 'gene')
+registerCategoryEndpoint()
 # Taxon endpoints ----
-registerCategoryEndpoint('taxonInfo')
+registerCategoryEndpoint('taxonInfo', 'taxon')
 
 registerSimpleEndpoint('taxa', '', logname = 'taxa', roxygen = 'Taxa',
                        'getTaxa',
@@ -767,7 +768,7 @@ registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&of
                                     sort = validateSort),
                  preprocessor = quote(processDatasets))
 
-registerCategoryEndpoint(characteristic = 'taxon')
+registerCategoryEndpoint()
 
 registerEndpoint('annotations/search/{query}',
                  'searchAnnotations', roxygen = 'Annotation search',
@@ -781,7 +782,7 @@ doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints
   cat(glue::glue("#' forgetGemmaMemoised\n\n"), file = document, append = T)
   cat("#'\n", file = document, append = T)
   cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = T)
-  cat("#' @export\n", file = document, append = T)
+  cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = T)
   cat('forgetGemmaMemoised <- ', file = document, append = T)
   cat(deparse(get('forgetGemmaMemoised', envir = globalenv(), inherits = F)) %>% paste0(collapse = '\n'), file = document, append = T)
 

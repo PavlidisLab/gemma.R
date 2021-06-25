@@ -20,3 +20,4 @@ memgetDatasetPCA(
 \description{
 Memoise getDatasetPCA
 }
+\keyword{internal}

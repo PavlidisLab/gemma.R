@@ -17,3 +17,4 @@ memgetGeneOnTaxon(
 \description{
 Memoise getGeneOnTaxon
 }
+\keyword{internal}

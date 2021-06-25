@@ -61,3 +61,4 @@ An array of all available taxa, if no identifiers were provided.
 Taxa
 List taxa filtered by given parameters
 }
+\keyword{taxon}

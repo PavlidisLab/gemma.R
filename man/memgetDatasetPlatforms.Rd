@@ -16,3 +16,4 @@ memgetDatasetPlatforms(
 \description{
 Memoise getDatasetPlatforms
 }
+\keyword{internal}

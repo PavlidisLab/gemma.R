@@ -66,3 +66,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Gene evidence on specific taxon
 Retrieves gene evidence for the gene on the given taxon.
 }
+\keyword{taxon}

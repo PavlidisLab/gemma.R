@@ -17,3 +17,4 @@ The validated taxon, or stop with an error message
 \description{
 Validate a taxon using the acceptable taxa entries
 }
+\keyword{internal}

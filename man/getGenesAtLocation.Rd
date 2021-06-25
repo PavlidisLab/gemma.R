@@ -79,3 +79,4 @@ A \verb{400 error} if required parameters are missing.
 Genes at location
 Finds genes overlapping a given region.
 }
+\keyword{taxon}

@@ -16,3 +16,4 @@ memgetDatasetSVD(
 \description{
 Memoise getDatasetSVD
 }
+\keyword{internal}

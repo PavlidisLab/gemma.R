@@ -20,3 +20,4 @@ memgetDatasets(
 \description{
 Memoise getDatasets
 }
+\keyword{internal}

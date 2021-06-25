@@ -65,3 +65,4 @@ A \verb{400 error} if required parameters are missing.
 Gene coexpression
 Retrieves the coexpression of two given genes
 }
+\keyword{gene}

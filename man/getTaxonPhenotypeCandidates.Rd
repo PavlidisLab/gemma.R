@@ -69,3 +69,4 @@ A \verb{400 error} if required parameters are missing.
 Taxon phenotypes candidate genes
 Given a set of phenotypes, return all genes associated with them.
 }
+\keyword{taxon}

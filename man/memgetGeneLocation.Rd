@@ -16,3 +16,4 @@ memgetGeneLocation(
 \description{
 Memoise getGeneLocation
 }
+\keyword{internal}

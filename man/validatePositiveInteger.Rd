@@ -17,3 +17,4 @@ The validated integers, or stop with an error message
 \description{
 Validate a non-negative integer value
 }
+\keyword{internal}

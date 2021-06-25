@@ -21,3 +21,4 @@ memsearchDatasets(
 \description{
 Memoise searchDatasets
 }
+\keyword{internal}

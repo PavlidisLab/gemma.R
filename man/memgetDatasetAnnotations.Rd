@@ -16,3 +16,4 @@ memgetDatasetAnnotations(
 \description{
 Memoise getDatasetAnnotations
 }
+\keyword{internal}

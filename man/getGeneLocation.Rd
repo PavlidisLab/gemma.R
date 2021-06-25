@@ -47,3 +47,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Gene locations
 Retrieves the physical location of the given gene
 }
+\keyword{gene}

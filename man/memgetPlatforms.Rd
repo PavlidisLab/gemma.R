@@ -20,3 +20,4 @@ memgetPlatforms(
 \description{
 Memoise getPlatforms
 }
+\keyword{internal}

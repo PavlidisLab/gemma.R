@@ -17,3 +17,4 @@ The validated consolidate entries, or stop with an error message
 \description{
 Validate a consolidate entry (one of pickmax, pickvar, average or missing)
 }
+\keyword{internal}

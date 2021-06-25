@@ -65,3 +65,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Platform element genes
 Retrieves the genes on the given platform element
 }
+\keyword{platform}

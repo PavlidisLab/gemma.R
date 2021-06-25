@@ -47,3 +47,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Gene goTerms
 Retrieves the GO terms of the given gene
 }
+\keyword{gene}
