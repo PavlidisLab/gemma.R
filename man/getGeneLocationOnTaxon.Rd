@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneLocationOnTaxon}
 \alias{getGeneLocationOnTaxon}
-\title{getGeneLocationOnTaxon
+\title{Gene location on specific taxon
 Retrieves gene evidence for the gene on the given taxon.}
 \usage{
 getGeneLocationOnTaxon(
@@ -63,6 +63,6 @@ gene on the given taxon.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getGeneLocationOnTaxon
+Gene location on specific taxon
 Retrieves gene evidence for the gene on the given taxon.
 }

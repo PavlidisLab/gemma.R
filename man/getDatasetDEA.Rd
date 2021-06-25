@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDEA}
 \alias{getDatasetDEA}
-\title{getDatasetDEA
+\title{Dataset differential analysis
 Retrieves the differential analysis results for the given dataset}
 \usage{
 getDatasetDEA(
@@ -51,6 +51,6 @@ A \verb{404 error} if the given identifier does not map to any object.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-getDatasetDEA
+Dataset differential analysis
 Retrieves the differential analysis results for the given dataset
 }

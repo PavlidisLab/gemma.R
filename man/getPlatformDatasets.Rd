@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatformDatasets}
 \alias{getPlatformDatasets}
-\title{getPlatformDatasets
+\title{Platform datasets
 Retrieves experiments in the given platform}
 \usage{
 getPlatformDatasets(
@@ -50,6 +50,6 @@ the given platform.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getPlatformDatasets
+Platform datasets
 Retrieves experiments in the given platform
 }

@@ -2,11 +2,11 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxa}
 \alias{getTaxa}
-\title{getTaxa
+\title{Taxa
 List taxa filtered by given parameters}
 \usage{
 getTaxa(
-  taxon = NA_character_,
+  taxa = NA_character_,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
@@ -15,15 +15,19 @@ getTaxa(
 )
 }
 \arguments{
-\item{taxon}{Not required, part of the URL path.
-can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
-scientific name, common name
-It is recommended to use Taxon ID for efficiency.
-Please note, that not all taxa have all the possible identifiers
-available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
-convenience, below is a list of officially supported taxa:
+\item{taxa}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g: \verb{human, mouse, fly}).
+Identifiers can be the any of the following:
+\itemize{
+\item taxon ID
+\item scientific name
+\item common name
+Retrieval by ID is more efficient.
+Do not combine different identifiers in one query.
+For convenience, below is a list of officially supported taxa
 ID   Comm.name   Scient.name                NcbiID
+}
 
 1    human       Homo sapiens               9606
 2    mouse       Mus musculus               10090
@@ -54,6 +58,6 @@ A \verb{400 error} if all identifiers are invalid.
 An array of all available taxa, if no identifiers were provided.
 }
 \description{
-getTaxa
+Taxa
 List taxa filtered by given parameters
 }

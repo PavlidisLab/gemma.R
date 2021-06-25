@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetSamples}
 \alias{getDatasetSamples}
-\title{getDatasetSamples
+\title{Dataset samples
 Retrieves samples for the given dataset}
 \usage{
 getDatasetSamples(
@@ -40,6 +40,6 @@ An array of samples (bio assay value objects) in the given dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetSamples
+Dataset samples
 Retrieves samples for the given dataset
 }

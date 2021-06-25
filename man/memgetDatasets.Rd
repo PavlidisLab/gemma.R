@@ -5,7 +5,7 @@
 \title{Memoise getDatasets}
 \usage{
 memgetDatasets(
-  dataset = NA_character_,
+  datasets = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,

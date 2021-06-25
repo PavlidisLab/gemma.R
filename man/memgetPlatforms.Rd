@@ -5,7 +5,7 @@
 \title{Memoise getPlatforms}
 \usage{
 memgetPlatforms(
-  platform = NA_character_,
+  platforms = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetSVD}
 \alias{getDatasetSVD}
-\title{getDatasetSVD
+\title{Dataset SVD information
 Retrieves the SVD information for the given dataset}
 \usage{
 getDatasetSVD(
@@ -49,6 +49,6 @@ variance each component accounts for
 }
 }
 \description{
-getDatasetSVD
+Dataset SVD information
 Retrieves the SVD information for the given dataset
 }

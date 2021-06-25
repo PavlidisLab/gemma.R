@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDesign}
 \alias{getDatasetDesign}
-\title{getDatasetDesign
+\title{Dataset design
 Retrieves the design for the given dataset}
 \usage{
 getDatasetDesign(
@@ -40,6 +40,6 @@ The design file for the given dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetDesign
+Dataset design
 Retrieves the design for the given dataset
 }

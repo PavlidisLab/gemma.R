@@ -5,7 +5,7 @@
 \title{Memoise getDatasetPCA}
 \usage{
 memgetDatasetPCA(
-  dataset = NA_character_,
+  datasets = NA_character_,
   component = 1L,
   limit = 100L,
   keepNonSpecific = FALSE,

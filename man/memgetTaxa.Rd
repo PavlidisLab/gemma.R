@@ -5,7 +5,7 @@
 \title{Memoise getTaxa}
 \usage{
 memgetTaxa(
-  taxon = NA_character_,
+  taxa = NA_character_,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),

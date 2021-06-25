@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGenesAtLocation}
 \alias{getGenesAtLocation}
-\title{getGenesAtLocation
+\title{Genes at location
 Finds genes overlapping a given region.}
 \usage{
 getGenesAtLocation(
@@ -76,6 +76,6 @@ A \verb{404 error} if the given identifier does not map to any object.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-getGenesAtLocation
+Genes at location
 Finds genes overlapping a given region.
 }

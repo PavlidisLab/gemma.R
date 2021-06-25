@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetPlatforms}
 \alias{getDatasetPlatforms}
-\title{getDatasetPlatforms
+\title{Dataset platforms
 Retrieves platforms for the given dataset}
 \usage{
 getDatasetPlatforms(
@@ -41,6 +41,6 @@ dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetPlatforms
+Dataset platforms
 Retrieves platforms for the given dataset
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetAnnotations}
 \alias{getDatasetAnnotations}
-\title{getDatasetAnnotations
+\title{Dataset annotations
 Retrieves the annotations for the given dataset}
 \usage{
 getDatasetAnnotations(
@@ -41,6 +41,6 @@ dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetAnnotations
+Dataset annotations
 Retrieves the annotations for the given dataset
 }
