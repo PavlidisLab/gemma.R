@@ -243,8 +243,8 @@ lapply(response[, unique(ee.ID)], function(dataset) {
 A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
 ```{r}
-system.time(getDatasetData('GSE2018', memoised = T))
-system.time(getDatasetData('GSE2018', memoised = T))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1)))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1)))
 ```
 
 ## Clearing cache

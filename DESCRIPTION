@@ -25,6 +25,7 @@ Suggests:
     rmarkdown,
     knitr,
     dplyr,
-    microbenchmark
+    microbenchmark,
+    covr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
