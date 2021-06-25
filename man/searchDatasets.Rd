@@ -2,9 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{searchDatasets}
 \alias{searchDatasets}
-\title{Dataset search
-Does a search for datasets containing annotations, short name or full
-name matching the given string}
+\title{Dataset search}
 \usage{
 searchDatasets(
   taxon = "",
@@ -140,7 +138,6 @@ The search only only checks the annotations value, not the category
 (which is also an ontology term).
 }
 \description{
-Dataset search
 Does a search for datasets containing annotations, short name or full
 name matching the given string
 }

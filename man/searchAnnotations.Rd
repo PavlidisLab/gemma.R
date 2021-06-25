@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{searchAnnotations}
 \alias{searchAnnotations}
-\title{Annotation search
-Does a search for annotations based on the given string}
+\title{Annotation search}
 \usage{
 searchAnnotations(
   query = NA_character_,
@@ -46,7 +45,6 @@ matching the given identifiers.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-Annotation search
 Does a search for annotations based on the given string
 }
 \keyword{misc}

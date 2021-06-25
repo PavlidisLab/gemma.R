@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneGO}
 \alias{getGeneGO}
-\title{Gene goTerms
-Retrieves the GO terms of the given gene}
+\title{Gene goTerms}
 \usage{
 getGeneGO(
   gene = NA_character_,
@@ -44,7 +43,6 @@ the given gene.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Gene goTerms
 Retrieves the GO terms of the given gene
 }
 \keyword{gene}

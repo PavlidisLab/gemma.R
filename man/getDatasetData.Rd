@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetData}
 \alias{getDatasetData}
-\title{Dataset data
-Retrieves the data for the given dataset}
+\title{Dataset data}
 \usage{
 getDatasetData(
   dataset = NA_character_,
@@ -86,7 +85,6 @@ The data file for the given dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Dataset data
 Retrieves the data for the given dataset
 }
 \keyword{dataset}

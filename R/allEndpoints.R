@@ -1,4 +1,5 @@
 #' Datasets
+#'
 #' Lists datasets filtered and organized by given parameters
 #'
 #' @param datasets Optional, defaults to `empty`.
@@ -112,6 +113,7 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
 memgetDatasets <- memoise::memoise(getDatasets)
 
 #' Dataset differential analysis
+#'
 #' Retrieves the differential analysis results for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -163,6 +165,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
 memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
 #' Datasets pca component expression levels
+#'
 #' Retrieves the expression levels most correlated with the given principal
 #' component
 #'
@@ -234,6 +237,7 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
 memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 
 #' Datasets differential expression levels
+#'
 #' Retrieves differential expression levels for given datasets
 #'
 #' @param datasets Optional, defaults to `empty`.
@@ -313,6 +317,7 @@ getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
 memgetDatasetDE <- memoise::memoise(getDatasetDE)
 
 #' Dataset data
+#'
 #' Retrieves the data for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -397,6 +402,7 @@ getDatasetData <- function (dataset = NA_character_, filter = "false", raw = get
 memgetDatasetData <- memoise::memoise(getDatasetData)
 
 #' Dataset samples
+#'
 #' Retrieves samples for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -439,6 +445,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
 #' Dataset SVD information
+#'
 #' Retrieves the SVD information for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -488,6 +495,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw",
 memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 
 #' Dataset platforms
+#'
 #' Retrieves platforms for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -531,6 +539,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma
 memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 
 #' Dataset annotations
+#'
 #' Retrieves the annotations for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -574,6 +583,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gem
 memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 
 #' Dataset design
+#'
 #' Retrieves the design for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -656,6 +666,7 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 }
 
 #' Platforms
+#'
 #' List platforms filtered and organized by given parameters
 #'
 #' @param platforms Optional, defaults to `empty`.
@@ -764,6 +775,7 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
 memgetPlatforms <- memoise::memoise(getPlatforms)
 
 #' Platform datasets
+#'
 #' Retrieves experiments in the given platform
 #'
 #' @param platform Required, part of the URL path.
@@ -814,6 +826,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
 memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 
 #' Platform elements
+#'
 #' Retrieves the composite sequences (elements) for the given platform
 #'
 #' @param platform Required, part of the URL path.
@@ -865,6 +878,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
 memgetPlatformElements <- memoise::memoise(getPlatformElements)
 
 #' Platform element genes
+#'
 #' Retrieves the genes on the given platform element
 #'
 #' @param platform Required, part of the URL path.
@@ -962,6 +976,7 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 }
 
 #' Genes
+#'
 #' Retrieves all genes matching the identifiers
 #'
 #' @param genes Required, part of the URL path.
@@ -1011,6 +1026,7 @@ getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw",
 memgetGenes <- memoise::memoise(getGenes)
 
 #' Gene evidence
+#'
 #' Retrieves gene evidence for the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1057,6 +1073,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw",
 memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 
 #' Gene locations
+#'
 #' Retrieves the physical location of the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1103,6 +1120,7 @@ getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw",
 memgetGeneLocation <- memoise::memoise(getGeneLocation)
 
 #' Gene probes
+#'
 #' Retrieves the probes (composite sequences) with this gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1156,6 +1174,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
 memgetGeneProbes <- memoise::memoise(getGeneProbes)
 
 #' Gene goTerms
+#'
 #' Retrieves the GO terms of the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1202,6 +1221,7 @@ getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw",
 memgetGeneGO <- memoise::memoise(getGeneGO)
 
 #' Gene coexpression
+#'
 #' Retrieves the coexpression of two given genes
 #'
 #' @param gene Required, part of the URL path.
@@ -1300,6 +1320,7 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 }
 
 #' Taxa
+#'
 #' List taxa filtered by given parameters
 #'
 #' @param taxa Optional, defaults to `empty`.
@@ -1358,6 +1379,7 @@ getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw",
 memgetTaxa <- memoise::memoise(getTaxa)
 
 #' Taxon datasets
+#'
 #' Retrieves datasets for the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1476,6 +1498,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
 memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 
 #' Taxon phenotypes
+#'
 #' Loads all phenotypes for the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1546,6 +1569,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
 memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 
 #' Taxon phenotypes candidate genes
+#'
 #' Given a set of phenotypes, return all genes associated with them.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1612,6 +1636,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
 memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 
 #' Gene on specific taxon
+#'
 #' Retrieves genes matching the identifier on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1675,6 +1700,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
 memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 
 #' Gene evidence on specific taxon
+#'
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1738,6 +1764,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
 memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 
 #' Gene location on specific taxon
+#'
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1801,6 +1828,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
 memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 
 #' Genes at location
+#'
 #' Finds genes overlapping a given region.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1874,6 +1902,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
 memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 
 #' Dataset search
+#'
 #' Does a search for datasets containing annotations, short name or full
 #' name matching the given string
 #'
@@ -2047,6 +2076,7 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 }
 
 #' Annotation search
+#'
 #' Does a search for annotations based on the given string
 #'
 #' @param query Required, defaults to `empty`.

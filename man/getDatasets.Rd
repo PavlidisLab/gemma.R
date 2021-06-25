@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasets}
 \alias{getDatasets}
-\title{Datasets
-Lists datasets filtered and organized by given parameters}
+\title{Datasets}
 \usage{
 getDatasets(
   datasets = NA_character_,
@@ -117,7 +116,6 @@ experiments by the quality of their data, and their suitability for use
 in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}.
 }
 \description{
-Datasets
 Lists datasets filtered and organized by given parameters
 }
 \keyword{dataset}

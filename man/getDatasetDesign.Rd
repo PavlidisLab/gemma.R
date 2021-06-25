@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDesign}
 \alias{getDatasetDesign}
-\title{Dataset design
-Retrieves the design for the given dataset}
+\title{Dataset design}
 \usage{
 getDatasetDesign(
   dataset = NA_character_,
@@ -40,7 +39,6 @@ The design file for the given dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Dataset design
 Retrieves the design for the given dataset
 }
 \keyword{dataset}

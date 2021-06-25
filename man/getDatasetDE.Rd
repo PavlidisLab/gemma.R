@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{Datasets differential expression levels
-Retrieves differential expression levels for given datasets}
+\title{Datasets differential expression levels}
 \usage{
 getDatasetDE(
   datasets = NA_character_,
@@ -85,7 +84,6 @@ returned.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Datasets differential expression levels
 Retrieves differential expression levels for given datasets
 }
 \keyword{dataset}

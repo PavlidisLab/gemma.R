@@ -2,9 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetPCA}
 \alias{getDatasetPCA}
-\title{Datasets pca component expression levels
-Retrieves the expression levels most correlated with the given principal
-component}
+\title{Datasets pca component expression levels}
 \usage{
 getDatasetPCA(
   datasets = NA_character_,
@@ -76,7 +74,6 @@ principal component.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Datasets pca component expression levels
 Retrieves the expression levels most correlated with the given principal
 component
 }

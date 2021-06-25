@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatformElements}
 \alias{getPlatformElements}
-\title{Platform elements
-Retrieves the composite sequences (elements) for the given platform}
+\title{Platform elements}
 \usage{
 getPlatformElements(
   platform = NA_character_,
@@ -51,7 +50,6 @@ Empty collection, if no elements matched the \code{elements} parameter.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Platform elements
 Retrieves the composite sequences (elements) for the given platform
 }
 \keyword{platform}
