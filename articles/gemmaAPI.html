@@ -271,7 +271,7 @@
 <div id="benchmark" class="section level2">
 <h2 class="hasAnchor">
 <a href="#benchmark" class="anchor"></a>Benchmark</h2>
-<p>For completeness, we’ll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning.</p>
+<p>For completeness, we’ll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue</span>
 <span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">'numberOfSamples &gt; 100'</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
@@ -313,113 +313,98 @@
   <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
 <span class="op">}</span>
 
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">expr</th>
-<th align="right">time</th>
+<th align="right">min</th>
+<th align="right">lq</th>
+<th align="right">mean</th>
+<th align="right">median</th>
+<th align="right">uq</th>
+<th align="right">max</th>
+<th align="right">neval</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">6124494440</td>
+<td align="right">5.847826</td>
+<td align="right">6.026159</td>
+<td align="right">6.460412</td>
+<td align="right">6.199965</td>
+<td align="right">6.583778</td>
+<td align="right">8.560006</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">34422542818</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6107704480</td>
-</tr>
-<tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5754023969</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5696780966</td>
-</tr>
-<tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5731168928</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5883041450</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">33220109138</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">32900529113</td>
-</tr>
-<tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5602481979</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">33045839042</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">34266575241</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">32868501873</td>
-</tr>
-<tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5797830487</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">55571405309</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">33461494026</td>
-</tr>
-<tr class="odd">
-<td align="left">syncBenchmark()</td>
-<td align="right">33980329690</td>
-</tr>
-<tr class="even">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6212997026</td>
-</tr>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">5808931378</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">32696528525</td>
+<td align="right">31.720305</td>
+<td align="right">32.083313</td>
+<td align="right">33.213802</td>
+<td align="right">32.569157</td>
+<td align="right">33.749515</td>
+<td align="right">35.661425</td>
+<td align="right">10</td>
 </tr>
 </tbody>
 </table>
+<p>As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we’re querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># For simplicity, we'll assume there are no experiment IDs larger than 20,000.</span>
+
+<span class="fu"><a href="https://rdrr.io/pkg/async/man/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="co"># First send a request to an endpoint that accepts multiple datasets to narrow down our search space</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/async/man/async_map.html">async_map</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/split.html">split</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/pkg/async/man/async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">chunk</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="va">chunk</span>, limit <span class="op">=</span> <span class="fl">0</span>, async <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Asynchronously request annotations for each experiment that was found</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/async/man/async_map.html">async_map</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">response</span>, fill <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">ee.ID</span><span class="op">)</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/pkg/async/man/async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+      <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span> <span class="op">{</span>
+        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">is.data.table</a></span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span><span class="op">)</span> <span class="va">annotations</span><span class="op">[</span>, <span class="va">ee.ID</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
+        <span class="kw">else</span> <span class="cn">NULL</span>
+      <span class="op">}</span><span class="op">)</span>
+    <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="co"># Only allow 200 active requests at a time to not flood the server</span>
+  <span class="op">}</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
+<span class="co">#&gt; Rows: 60,108</span>
+<span class="co">#&gt; Columns: 7</span>
+<span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
+<span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
+<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000635", "http://www.ebi.…</span>
+<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IC", "", "IC", "", "IC", "IC", "IC", "IC", "IC", …</span>
+<span class="co">#&gt; $ term.Name     &lt;chr&gt; "lung", "respiratory epithelial cell", "Transplanted Org…</span>
+<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/UBERON_0002048", "http:/…</span>
+<span class="co">#&gt; $ ee.ID         &lt;int&gt; 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5,…</span></code></pre></div>
+<p>This can (conceivably) be done synchronously, but in practice it would take far too long.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Not evaluated</span>
+<span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/split.html">split</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">chunk</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="va">chunk</span>, limit <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">response</span><span class="op">[</span>, <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">ee.ID</span><span class="op">)</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">annotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
+  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">is.data.table</a></span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span><span class="op">)</span> <span class="va">annotations</span><span class="op">[</span>, <span class="va">ee.ID</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
+  <span class="kw">else</span> <span class="cn">NULL</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span></code></pre></div>
 </div>
 </div>
 <div id="memoised-results" class="section level1">
 <h1 class="hasAnchor">
 <a href="#memoised-results" class="anchor"></a>Memoised results</h1>
 <p>A different way to “speed up” requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.027   0.086   7.274</span>
+<span class="co">#&gt;   3.025   0.109   7.520</span>
 <span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;       0       0       0</span></code></pre></div>
+<span class="co">#&gt;   0.001   0.000   0.000</span></code></pre></div>
 <div id="clearing-cache" class="section level2">
 <h2 class="hasAnchor">
 <a href="#clearing-cache" class="anchor"></a>Clearing cache</h2>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
@@ -437,7 +422,7 @@
 <h1 class="hasAnchor">
 <a href="#changing-defaults" class="anchor"></a>Changing defaults</h1>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="authentication" class="section level1">
