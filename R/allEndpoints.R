@@ -2068,7 +2068,7 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @export
 #'
 #' @keywords taxon
-searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_character_, 
+searchDatasets <- function (taxon = NA_character_, query = NA_character_, filter = NA_character_, 
     offset = 0L, limit = 0L, sort = "+id", raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
         F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -2077,7 +2077,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
-    validators <- list(taxon = validateTaxon, query = validateQuery, 
+    validators <- list(taxon = validateOptionalTaxon, query = validateQuery, 
         filter = validateFilter, offset = validatePositiveInteger, 
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"

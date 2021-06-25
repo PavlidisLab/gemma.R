@@ -777,13 +777,13 @@ registerEndpoint('taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&st
 
 registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
                  'searchDatasets', logname = 'datasets', roxygen = 'Dataset search',
-                 defaults = list(taxon = '',
+                 defaults = list(taxon = NA_character_,
                                  query = NA_character_,
                                  filter = NA_character_,
                                  offset = 0L,
                                  limit = 0L,
                                  sort = '+id'),
-                 validators = alist(taxon = validateTaxon,
+                 validators = alist(taxon = validateOptionalTaxon,
                                     query = validateQuery,
                                     filter = validateFilter,
                                     offset = validatePositiveInteger,
@@ -812,7 +812,7 @@ doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints
   rm(list = ls(envir = globalenv(), all.names = T), envir = globalenv())
 
   devtools::document()
-  devtools::build()
+  devtools::build(vignettes = F)
   devtools::install()
 }
 
