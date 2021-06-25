@@ -91,7 +91,7 @@ registerEndpoint <- function(endpoint,
   forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
-    append(str2expression(glue::glue('forget({memF})'))) %>% as.call
+    append(str2expression(glue::glue('memoise::forget({memF})'))) %>% as.call
 
   assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
@@ -289,7 +289,7 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
 
   body(forgetMe) <- body(forgetMe) %>% as.list %>%
-    append(str2expression(glue::glue('forget({memF})'))) %>% as.call
+    append(str2expression(glue::glue('memoise::forget({memF})'))) %>% as.call
 
   assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
