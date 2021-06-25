@@ -221,6 +221,8 @@ forgetGemmaMemoised()
 
 # Raw data
 
+By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
+
 # File outputs
 
 # Changing defaults
