@@ -22,7 +22,7 @@ scientific name, common name
 It is recommended to use Taxon ID for efficiency.
 Please note, that not all taxa have all the possible identifiers
 available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+Use the 'All Taxa' endpoint to retrieve the necessary information. For
 convenience, below is a list of officially supported taxa:
 ID   Comm.name   Scient.name                NcbiID
 
@@ -39,11 +39,11 @@ Whether to only list editable objects.}
 
 \item{phenotypes}{Required, defaults to \code{empty}.
 Phenotype value URIs separated by commas.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+When
 using in scripts, remember to URL-encode any forward slashes in the
 phenotype value URIs (see the compiled URL below).}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

@@ -24,7 +24,7 @@ scientific name, common name
 It is recommended to use Taxon ID for efficiency.
 Please note, that not all taxa have all the possible identifiers
 available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+Use the 'All Taxa' endpoint to retrieve the necessary information. For
 convenience, below is a list of officially supported taxa:
 ID   Comm.name   Scient.name                NcbiID
 
@@ -41,10 +41,10 @@ The chromosome of the query location. Eg: \code{3}, \code{21}, \code{X}}
 
 \item{strand}{Optional, defaults to \code{+}.
 Can either be \code{+} or \code{-}.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} This is a
+This is a
 WIP parameter and does currently not do anything
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-using in scripts, remember to URL-encode the \'+\' plus character (see
+When
+using in scripts, remember to URL-encode the '+' plus character (see
 the compiled URL below).}
 
 \item{start}{Required, defaults to \code{empty}.
@@ -54,7 +54,7 @@ Number of the start nucleotide of the desired region.}
 Amount of nucleotides in the desired region (i.e. the length of the
 region).}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
