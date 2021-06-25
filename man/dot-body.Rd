@@ -14,7 +14,8 @@
   raw,
   overwrite,
   file,
-  async
+  async,
+  .call
 )
 }
 \arguments{
@@ -37,6 +38,8 @@
 \item{file}{A filename to save results to}
 
 \item{async}{Whether or not to run asynchronously}
+
+\item{.call}{The original function call}
 }
 \description{
 This should not be called directly, but is called from the API functions.

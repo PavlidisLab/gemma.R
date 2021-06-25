@@ -16,11 +16,9 @@
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
 #' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
@@ -85,8 +83,7 @@
 #' A successful response may contain a sub-element with 'Geeq'
 #' information, which aims to provide a unified metric to measure
 #' experiments by the quality of their data, and their suitability for use
-#' in Gemma. You can [read more about the geeq properties
-#' here](https://pavlidislab.github.io/Gemma/geeq.html).
+#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
 #'
 #' @keywords dataset
@@ -104,7 +101,7 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
         sort = validateSort)
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasets
@@ -156,7 +153,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
         limit = validatePositiveInteger)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDEA
@@ -228,7 +225,7 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
         consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetPCA
@@ -308,7 +305,7 @@ getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
         limit = validatePositiveInteger, consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDE
@@ -331,11 +328,9 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
 #' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
@@ -382,7 +377,7 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @export
 #'
 #' @keywords dataset
-getDatasetData <- function (dataset = NA_character_, filter = "false", raw = getOption("gemma.raw", 
+getDatasetData <- function (dataset = NA_character_, filter = FALSE, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
     F)) 
@@ -393,7 +388,7 @@ getDatasetData <- function (dataset = NA_character_, filter = "false", raw = get
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetData
@@ -436,7 +431,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetSamples
@@ -486,7 +481,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw",
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/svd"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetSVD
@@ -530,7 +525,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetPlatforms
@@ -574,7 +569,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gem
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetAnnotations
@@ -617,7 +612,7 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/design"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDesign
@@ -704,11 +699,9 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
 #' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
@@ -787,7 +780,7 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
         sort = validateSort)
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatforms
@@ -838,7 +831,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformDatasets
@@ -890,7 +883,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformElements
@@ -951,7 +944,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
         offset = validatePositiveInteger, limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformElementGenes
@@ -1056,10 +1049,10 @@ getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw",
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
-    validators <- list(genes = validateSingleID)
+    validators <- validateID
     endpoint <- "genes/{encode(genes)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGenes
@@ -1106,7 +1099,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/evidence"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneEvidence
@@ -1153,7 +1146,7 @@ getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneLocation
@@ -1207,7 +1200,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
         limit = validatePositiveInteger)
     endpoint <- "gene/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneProbes
@@ -1254,7 +1247,7 @@ getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneGO
@@ -1315,7 +1308,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
         limit = validatePositiveInteger, stringency = validatePositiveInteger)
     endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneCoexpression
@@ -1436,7 +1429,7 @@ getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw",
     validators <- list(taxa = validateOptionalTaxon)
     endpoint <- "taxas/{encode(taxa)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxa
@@ -1472,11 +1465,9 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
 #' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
@@ -1555,7 +1546,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
         sort = validateSort)
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonDatasets
@@ -1626,7 +1617,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
         tree = validateBoolean)
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonPhenotypes
@@ -1693,7 +1684,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
         phenotypes = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonPhenotypeCandidates
@@ -1757,7 +1748,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneOnTaxon
@@ -1821,7 +1812,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getEvidenceOnTaxon
@@ -1885,7 +1876,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneLocationOnTaxon
@@ -1959,7 +1950,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
         size = validatePositiveInteger)
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGenesAtLocation
@@ -2005,11 +1996,9 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [[javaDoc]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [[gitHub]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
 #' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
@@ -2093,7 +2082,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise searchDatasets
@@ -2216,7 +2205,7 @@ searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise searchAnnotations
