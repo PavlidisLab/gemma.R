@@ -5,18 +5,19 @@
 \title{Memoise getPlatforms}
 \usage{
 memgetPlatforms(
-  platform = NA_character_,
+  platforms = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \description{
 Memoise getPlatforms
 }
+\keyword{internal}

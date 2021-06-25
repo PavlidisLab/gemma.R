@@ -2,7 +2,7 @@
 % Please edit documentation in R/validators.R
 \name{validateSort}
 \alias{validateSort}
-\title{Validate a sort argument (^\link{+-}.*)}
+\title{Validate a sort argument}
 \usage{
 validateSort(name, ...)
 }
@@ -15,5 +15,6 @@ validateSort(name, ...)
 The validated sort arguments, or stop with an error message
 }
 \description{
-Validate a sort argument (^\link{+-}.*)
+Validate a sort argument
 }
+\keyword{internal}

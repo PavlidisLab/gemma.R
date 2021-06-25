@@ -9,3 +9,4 @@ forgetGemmaMemoised()
 \description{
 Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = \code{TRUE})
 }
+\keyword{misc}

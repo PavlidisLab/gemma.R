@@ -9,13 +9,14 @@ memgetGeneCoexpression(
   with = NA_character_,
   limit = 20L,
   stringency = 1L,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \description{
 Memoise getGeneCoexpression
 }
+\keyword{internal}

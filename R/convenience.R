@@ -2,10 +2,14 @@
 #'
 #' Allows the user to access information that requires logging in to Gemma. To log out, run `setGemmaUser` without specifying the username or password.
 #'
+#' @param username Your username (or empty, if logging out)
+#' @param password Your password (or empty, if logging out)
+#'
 #' @examples
 #' setGemmaUser('username','password') # login
 #' setGemmaUser() # logout
 #'
+#' @keywords misc
 #' @export
 setGemmaUser <- function(username = NULL, password = NULL) {
   options(gemma.username = username)
@@ -27,9 +31,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #'
 #' @return A list of `data.table`s that were read in, typically the first one is analysis results (elements, p-values) and the second is full data (elements, FC, t- and p-values)
 #'
-#' @examples
-#' async::synchronise(getDiffExData(1, 59016))
-#'
+#' @keywords dataset
 #' @export
 getDiffExData <- async::async(function(dataset, diffExSet) {
   REQ1 <- 'callCount=1
@@ -97,12 +99,14 @@ batchId={countN + 1}
             tmp <- tempfile()
             base <- getOption('gemma.base', 'https://gemma.msl.ubc.ca/')
             async::http_get(paste0(substring(base, 1, nchar(base) - 1), fileLoc), file = tmp)$then(function(...) {
-              filenames <- unzip(tmp, list = TRUE)$Name
+              filenames <- utils::unzip(tmp, list = TRUE)$Name
 
               # Unzip results and fread in
-              ret <- setNames(lapply(filenames, function(x) data.table::fread(cmd = glue::glue('unzip -p {tmp} {x}'),
-                                                                              colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character'))),
-                              filenames)
+              ret <- lapply(filenames, function(x) data.table::fread(cmd = glue::glue('unzip -p {tmp} {x}'),
+                                                                     colClasses = c(Element_Name = 'character',
+                                                                                    Gene_Symbol = 'character',
+                                                                                    Gene_Name = 'character')))
+              names(ret) <- filenames
               unlink(tmp)
               ret
             })

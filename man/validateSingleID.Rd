@@ -17,3 +17,4 @@ The validated identifier, or stop with an error message
 \description{
 Validate a single identifier(ie. gene ID, platform ID, etc.)
 }
+\keyword{internal}
