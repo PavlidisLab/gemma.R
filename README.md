@@ -7,6 +7,8 @@
 status](https://www.r-pkg.org/badges/version/gemmaAPI)](https://CRAN.R-project.org/package=gemmaAPI)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![Codecov test
+coverage](https://codecov.io/gh/jsicherman/GemmAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/jsicherman/GemmAPI?branch=master)
 <!-- badges: end -->
 
 This is an R wrapper for [Gemma](http://gemma.msl.ubc.ca)’s restful
@@ -34,6 +36,7 @@ devtools::install_github("jsicherman/GemmAPI")
 
 ## Usage
 
-For help on using the Gemma API wrapper, please see [the REST API
+For help on using the Gemma API wrapper, please see the REST [API
 docs](https://gemma.msl.ubc.ca/resources/restapidocs/) or the
-[vignette](vignettes/Usage.html).
+[quickstart
+vignette](https://jsicherman.github.io/GemmAPI/articles/gemmaAPI.html).
