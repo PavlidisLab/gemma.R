@@ -2,11 +2,11 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGenes}
 \alias{getGenes}
-\title{getGenes
+\title{Genes
 Retrieves all genes matching the identifiers}
 \usage{
 getGenes(
-  gene = NA_character_,
+  genes = NA_character_,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
@@ -15,13 +15,15 @@ getGenes(
 )
 }
 \arguments{
-\item{gene}{Required, part of the URL path.
+\item{genes}{Required, part of the URL path.
+A list of identifiers, separated by commas (e.g: \verb{1859, 5728}).
 Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
 official symbol (\code{DYRK1A}) of the gene.
 NCBI ID is the most efficient (and guaranteed to be unique) identifier.
 []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
 symbol represents a gene homologue for a random taxon, unless used in a
-specific taxon (see Taxon Endpoints).}
+specific taxon (see Taxon Endpoints).
+Do not combine different identifiers in one query.}
 
 \item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
 parsing.}
@@ -45,6 +47,6 @@ Empty array if no objects matched.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-getGenes
+Genes
 Retrieves all genes matching the identifiers
 }

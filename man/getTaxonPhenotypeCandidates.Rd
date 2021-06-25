@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxonPhenotypeCandidates}
 \alias{getTaxonPhenotypeCandidates}
-\title{getTaxonPhenotypeCandidates
+\title{Taxon phenotypes candidate genes
 Given a set of phenotypes, return all genes associated with them.}
 \usage{
 getTaxonPhenotypeCandidates(
@@ -66,6 +66,6 @@ A \verb{404 error} if the given identifier does not map to any object.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-getTaxonPhenotypeCandidates
+Taxon phenotypes candidate genes
 Given a set of phenotypes, return all genes associated with them.
 }

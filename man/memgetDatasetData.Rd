@@ -6,6 +6,7 @@
 \usage{
 memgetDatasetData(
   dataset = NA_character_,
+  filter = "false",
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),

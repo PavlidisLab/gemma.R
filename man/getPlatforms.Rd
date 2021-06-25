@@ -2,11 +2,11 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatforms}
 \alias{getPlatforms}
-\title{getPlatforms
+\title{Platforms
 List platforms filtered and organized by given parameters}
 \usage{
 getPlatforms(
-  platform = NA_character_,
+  platforms = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
@@ -19,10 +19,13 @@ getPlatforms(
 )
 }
 \arguments{
-\item{platform}{Required, part of the URL path.
-Can either be the platform ID or its short name (e.g: \code{GPL1355})
-Retrieval by ID is more efficient.
-Only platforms that user has access to will be available.}
+\item{platforms}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GPL96,GPL1355,GPL1261}). Identifiers can either be the Platform ID or
+its short name. Retrieval by ID is more efficient.
+Only platforms that user has access to will be available.
+Do not combine different identifiers in one query.}
 
 \item{filter}{Optional, defaults to \code{empty}.
 Filtering can be done on any\* property or nested property that the
@@ -110,6 +113,6 @@ query.
 Empty array if no objects matched.
 }
 \description{
-getPlatforms
+Platforms
 List platforms filtered and organized by given parameters
 }

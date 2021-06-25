@@ -2,11 +2,11 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasets}
 \alias{getDatasets}
-\title{getDatasets
+\title{Datasets
 Lists datasets filtered and organized by given parameters}
 \usage{
 getDatasets(
-  dataset = NA_character_,
+  datasets = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
@@ -19,10 +19,13 @@ getDatasets(
 )
 }
 \arguments{
-\item{dataset}{Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available}
+\item{datasets}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GSE2871,GSE2869,GSE2868}). Identifiers can either be the Dataset ID or
+its short name. Retrieval by ID is more efficient.
+Only datasets that user has access to will be available.
+Do not combine different identifiers in one query.}
 
 \item{filter}{Optional, defaults to \code{empty}.
 Filtering can be done on any\* property or nested property that the
@@ -114,6 +117,6 @@ experiments by the quality of their data, and their suitability for use
 in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}.
 }
 \description{
-getDatasets
+Datasets
 Lists datasets filtered and organized by given parameters
 }

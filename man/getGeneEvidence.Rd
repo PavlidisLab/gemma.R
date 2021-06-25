@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneEvidence}
 \alias{getGeneEvidence}
-\title{getGeneEvidence
+\title{Gene evidence
 Retrieves gene evidence for the given gene}
 \usage{
 getGeneEvidence(
@@ -44,6 +44,6 @@ homologues.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getGeneEvidence
+Gene evidence
 Retrieves gene evidence for the given gene
 }

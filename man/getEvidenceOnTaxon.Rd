@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getEvidenceOnTaxon}
 \alias{getEvidenceOnTaxon}
-\title{getEvidenceOnTaxon
+\title{Gene evidence on specific taxon
 Retrieves gene evidence for the gene on the given taxon.}
 \usage{
 getEvidenceOnTaxon(
@@ -63,6 +63,6 @@ taxon.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getEvidenceOnTaxon
+Gene evidence on specific taxon
 Retrieves gene evidence for the gene on the given taxon.
 }

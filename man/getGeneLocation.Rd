@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneLocation}
 \alias{getGeneLocation}
-\title{getGeneLocation
+\title{Gene locations
 Retrieves the physical location of the given gene}
 \usage{
 getGeneLocation(
@@ -44,6 +44,6 @@ gene or gene homologues.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getGeneLocation
+Gene locations
 Retrieves the physical location of the given gene
 }

@@ -5,12 +5,12 @@
 #'
 #' @return The validated identifiers, or stop with an error message
 validateID <- function(name, ...) {
-  ID <- unlist(list(...))
-  isID <- grepl('^\\d+$', ID)
+    ID <- unlist(list(...))
+    isID <- grepl('^\\d+$', ID)
 
-  if(any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID == ''))
-    stop(glue::glue('Please specify valid identifiers for {name} and do not combine different types of identifiers.'), call. = F)
-  ID
+    if(any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID == ''))
+        stop(glue::glue('Please specify valid identifiers for {name} and do not combine different types of identifiers.'), call. = F)
+    paste0(ID, collapse = ',')
 }
 
 #' Validate identifiers (ie. gene ID, platform ID, etc.) that are homogeneous (either all numerics or all not)
@@ -20,8 +20,8 @@ validateID <- function(name, ...) {
 #'
 #' @return The validated identifiers, or stop with an error message
 validateOptionalID <- function(name, ...) {
-  if(all(is.na(as.character(unlist(list(...)))))) ''
-  else validateID(name, ...)
+    if(all(is.na(as.character(unlist(list(...)))))) ''
+    else validateID(name, ...)
 }
 
 #' Validate a single identifier(ie. gene ID, platform ID, etc.)
@@ -31,12 +31,11 @@ validateOptionalID <- function(name, ...) {
 #'
 #' @return The validated identifier, or stop with an error message
 validateSingleID <- function(name, ...) {
-  ID <- unlist(list(...))
-  isID <- grepl('^\\d+$', ID)
+    ID <- unlist(list(...))
 
-  if(length(ID) > 1 || is.na(ID) || any(ID == ''))
-    stop(glue::glue('Please specify one valid identifier for {name}.'), call. = F)
-  ID
+    if(length(ID) > 1)
+        stop(glue::glue('Please specify one valid identifier for {name}.'), call. = F)
+    validateID(name, ...)
 }
 
 #' Validate a taxon using the acceptable taxa entries
@@ -46,8 +45,8 @@ validateSingleID <- function(name, ...) {
 #'
 #' @return The validated taxon, or stop with an error message
 validateOptionalTaxon <- function(name, ...) {
-  if(all(is.na(as.character(unlist(list(...)))))) ''
-  else validateTaxon(name, ...)
+    if(all(is.na(as.character(unlist(list(...)))))) ''
+    else validateTaxon(name, ...)
 }
 
 #' Validate a taxon using the acceptable taxa entries
@@ -57,20 +56,37 @@ validateOptionalTaxon <- function(name, ...) {
 #'
 #' @return The validated taxon, or stop with an error message
 validateTaxon <- function(name, ...) {
-  taxa <- as.character(unlist(list(...)))
+    # TODO LOOKUP_TABLE is insufficient so
+    return(validateID(name, ...))
 
-  LOOKUP_TABLE <- data.table(id = c(1, 2, 3, 11, 12, 13, 14),
-                             name = c('human', 'mouse', 'rat', 'yeast', 'zebrafish', 'fly', 'worm'),
-                             scientific = c('Homo sapiens', 'Mus musculus', 'Rattus norvegicus',
-                                            'Saccharomyces cerevisiae', 'Danio rerio', 'Drosophila melanogaster',
-                                            'Caenorhabditis elegans'),
-                             ncbi = c(9606, 10090, 10116, 4932, 7955, 7227, 6239))
+    taxa <- as.character(unlist(list(...)))
 
-  if(!all(taxa %in% c('', unlist(LOOKUP_TABLE)))) {
-    print(LOOKUP_TABLE)
-    stop(glue::glue('You must specify a valid taxon for {name}.'), call. = F)
-  }
-  taxa
+    LOOKUP_TABLE <- data.table(id = c(1, 2, 3, 11, 12, 13, 14),
+                               name = c('human', 'mouse', 'rat', 'yeast', 'zebrafish', 'fly', 'worm'),
+                               scientific = c('Homo sapiens', 'Mus musculus', 'Rattus norvegicus',
+                                              'Saccharomyces cerevisiae', 'Danio rerio', 'Drosophila melanogaster',
+                                              'Caenorhabditis elegans'),
+                               ncbi = c(9606, 10090, 10116, 4932, 7955, 7227, 6239))
+
+    if(!all(taxa %in% c('', unlist(LOOKUP_TABLE)))) {
+        print(LOOKUP_TABLE)
+        stop(glue::glue('You must specify a valid taxon for {name}.'), call. = F)
+    }
+    paste0(taxa, collapse = ',')
+}
+
+#' Validate a taxon using the acceptable taxa entries
+#'
+#' @param name The variable name
+#' @param ... Any taxa to validate
+#'
+#' @return The validated taxon, or stop with an error message
+validateSingleTaxon <- function(name, ...) {
+    taxon <- unlist(list(...))
+
+    if(length(taxon) > 1)
+        stop(glue::glue('Please specify one taxon for {name}.'), call. = F)
+    validateTaxon(name, ...)
 }
 
 #' Validate a query
@@ -80,9 +96,9 @@ validateTaxon <- function(name, ...) {
 #'
 #' @return The validated queries, or stop with an error message
 validateQuery <- function(name, ...) {
-  query <- unlist(list(...))
-  # TODO Stub
-  query
+    query <- unlist(list(...))
+    # TODO Stub
+    paste0(query, collapse = ',')
 }
 
 #' Validate a filter
@@ -92,9 +108,9 @@ validateQuery <- function(name, ...) {
 #'
 #' @return The validated filters, or stop with an error message
 validateFilter <- function(name, ...) {
-  filters <- unlist(list(...))
-  # TODO stub
-  filters
+    filters <- unlist(list(...))
+    # TODO stub
+    paste0(filters, collapse = ' AND ')
 }
 
 #' Validate a non-negative integer value
@@ -104,10 +120,10 @@ validateFilter <- function(name, ...) {
 #'
 #' @return The validated integers, or stop with an error message
 validatePositiveInteger <- function(name, ...) {
-  args <- list(...)
-  if(any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, '%%', 1) != 0) || any(sapply(args, sign) < 0))
-    stop(glue::glue('Please only specify positive integer values for {name}.'), call. = F)
-  unlist(args)
+    args <- list(...)
+    if(length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, '%%', 1) != 0) || any(sapply(args, sign) < 0))
+        stop(glue::glue('Please only specify positive integer values for {name}.'), call. = F)
+    unlist(args)
 }
 
 #' Validate a non-negative number
@@ -117,10 +133,10 @@ validatePositiveInteger <- function(name, ...) {
 #'
 #' @return The validated numbers, or stop with an error message
 validatePositiveReal <- function(name, ...) {
-  args <- list(...)
-  if(!is.numeric(unlist(args)) || any(sapply(args, sign) < 0))
-    stop(glue::glue('Please only specify positive values for {name}.'), call. = F)
-  unlist(args)
+    args <- list(...)
+    if(length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(sapply(args, sign) < 0))
+        stop(glue::glue('Please only specify positive values for {name}.'), call. = F)
+    unlist(args)
 }
 
 #' Validate a boolean value
@@ -130,10 +146,10 @@ validatePositiveReal <- function(name, ...) {
 #'
 #' @return The validated boolean as a character string (true or false), or stop with an error message
 validateBoolean <- function(name, ...) {
-  args <- unlist(list(...))
-  if(!is.logical(args))
-    stop(glue::glue('Please only specify boolean values for {name}.'), call. = F)
-  tolower(as.character(args))
+    args <- unlist(list(...))
+    if(length(args) != 1 || !is.logical(args))
+        stop(glue::glue('Please only specify boolean values for {name}.'), call. = F)
+    tolower(as.character(args))
 }
 
 #' Validate a strand (ie. + or -)
@@ -143,10 +159,10 @@ validateBoolean <- function(name, ...) {
 #'
 #' @return The validated strands, or stop with an error message
 validateStrand <- function(name, ...) {
-  strand <- unlist(list(...))
-  if(length(strand) != 1 || !(strand %in% c('+', '-')))
-    stop(glue::glue('Please specify + or - for {name}.'), call. = F)
-  strand
+    strand <- unlist(list(...))
+    if(length(strand) != 1 || !(strand %in% c('+', '-')))
+        stop(glue::glue('Please specify + or - for {name}.'), call. = F)
+    strand
 }
 
 #' Validate a consolidate entry (one of pickmax, pickvar, average or missing)
@@ -156,10 +172,10 @@ validateStrand <- function(name, ...) {
 #'
 #' @return The validated consolidate entries, or stop with an error message
 validateConsolidate <- function(name, ...) {
-  consolidate <- unlist(list(...))
-  if(!all(is.na(consolidate) | consolidate %in% c('', 'pickmax', 'pickvar', 'average')))
-    stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
-  consolidate
+    consolidate <- unlist(list(...))
+    if(length(consolidate) != 1 || !all(is.na(consolidate) | consolidate %in% c('', 'pickmax', 'pickvar', 'average')))
+        stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
+    consolidate
 }
 
 #' Validate a sort argument (^[+-].*)
@@ -169,8 +185,8 @@ validateConsolidate <- function(name, ...) {
 #'
 #' @return The validated sort arguments, or stop with an error message
 validateSort <- function(name, ...) {
-  sort <- unlist(list(...))
-  if(!all(grepl('^[+-].+', sort)))
-    stop('Sort must match [+,-][property name].', call. = F)
-  sort
+    sort <- unlist(list(...))
+    if(length(sort) != 1 || !all(grepl('^[+-].+', sort)))
+        stop('Sort must match [+,-][property name].', call. = F)
+    sort
 }

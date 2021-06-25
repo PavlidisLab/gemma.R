@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxonDatasets}
 \alias{getTaxonDatasets}
-\title{getTaxonDatasets
+\title{Taxon datasets
 Retrieves datasets for the given taxon.}
 \usage{
 getTaxonDatasets(
@@ -123,6 +123,6 @@ with the given taxon.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getTaxonDatasets
+Taxon datasets
 Retrieves datasets for the given taxon.
 }

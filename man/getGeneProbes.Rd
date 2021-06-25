@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneProbes}
 \alias{getGeneProbes}
-\title{getGeneProbes
+\title{Gene probes
 Retrieves the probes (composite sequences) with this gene}
 \usage{
 getGeneProbes(
@@ -54,6 +54,6 @@ genes.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getGeneProbes
+Gene probes
 Retrieves the probes (composite sequences) with this gene
 }

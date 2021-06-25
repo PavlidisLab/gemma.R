@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatformElements}
 \alias{getPlatformElements}
-\title{getPlatformElements
+\title{Platform elements
 Retrieves the composite sequences (elements) for the given platform}
 \usage{
 getPlatformElements(
@@ -51,6 +51,6 @@ Empty collection, if no elements matched the \code{elements} parameter.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getPlatformElements
+Platform elements
 Retrieves the composite sequences (elements) for the given platform
 }

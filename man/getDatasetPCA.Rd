@@ -2,12 +2,12 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetPCA}
 \alias{getDatasetPCA}
-\title{getDatasetPCA
+\title{Datasets pca component expression levels
 Retrieves the expression levels most correlated with the given principal
 component}
 \usage{
 getDatasetPCA(
-  dataset = NA_character_,
+  datasets = NA_character_,
   component = 1L,
   limit = 100L,
   keepNonSpecific = FALSE,
@@ -20,10 +20,13 @@ getDatasetPCA(
 )
 }
 \arguments{
-\item{dataset}{Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available}
+\item{datasets}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GSE2871,GSE2869,GSE2868}). Identifiers can either be the Dataset ID or
+its short name. Retrieval by ID is more efficient.
+Only datasets that user has access to will be available.
+Do not combine different identifiers in one query.}
 
 \item{component}{Required, defaults to \code{empty}.
 The pca component to limit the results to.}
@@ -73,7 +76,7 @@ principal component.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetPCA
+Datasets pca component expression levels
 Retrieves the expression levels most correlated with the given principal
 component
 }

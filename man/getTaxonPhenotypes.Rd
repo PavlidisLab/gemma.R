@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxonPhenotypes}
 \alias{getTaxonPhenotypes}
-\title{getTaxonPhenotypes
+\title{Taxon phenotypes
 Loads all phenotypes for the given taxon.}
 \usage{
 getTaxonPhenotypes(
@@ -70,6 +70,6 @@ taxon in any of the ontologies, the relevant root node will be null.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getTaxonPhenotypes
+Taxon phenotypes
 Loads all phenotypes for the given taxon.
 }

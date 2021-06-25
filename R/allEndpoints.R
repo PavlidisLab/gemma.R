@@ -1,10 +1,13 @@
-#' getDatasets
+#' Datasets
 #' Lists datasets filtered and organized by given parameters
 #'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
+#' @param datasets Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `GSE2871,GSE2869,GSE2868`). Identifiers can either be the Dataset ID or
+#' its short name. Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available.
+#' Do not combine different identifiers in one query.
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any\* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
@@ -84,7 +87,7 @@
 #' in Gemma. You can [read more about the geeq properties
 #' here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
-getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset = 0L, 
+getDatasets <- function (datasets = NA_character_, filter = NA_character_, offset = 0L, 
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
     async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
         F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -93,10 +96,10 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
     isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
-    validators <- list(dataset = validateOptionalID, filter = validateFilter, 
+    validators <- list(datasets = validateOptionalID, filter = validateFilter, 
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
-    endpoint <- "datasets/{encode(dataset)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -105,7 +108,7 @@ getDatasets <- function (dataset = NA_character_, filter = NA_character_, offset
 #'
 memgetDatasets <- memoise::memoise(getDatasets)
 
-#' getDatasetDEA
+#' Dataset differential analysis
 #' Retrieves the differential analysis results for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -153,14 +156,17 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
 #'
 memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
-#' getDatasetPCA
+#' Datasets pca component expression levels
 #' Retrieves the expression levels most correlated with the given principal
 #' component
 #'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
+#' @param datasets Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `GSE2871,GSE2869,GSE2868`). Identifiers can either be the Dataset ID or
+#' its short name. Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available.
+#' Do not combine different identifiers in one query.
 #' @param component Required, defaults to `empty`.
 #' The pca component to limit the results to.
 #' @param limit Optional, defaults to `20`.
@@ -197,7 +203,7 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' principal component.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L, 
+getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100L, 
     keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
         F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -206,10 +212,10 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
     isFile <- FALSE
     fname <- "getDatasetPCA"
     preprocessor <- processExpression
-    validators <- list(dataset = validateID, component = validatePositiveInteger, 
+    validators <- list(datasets = validateID, component = validatePositiveInteger, 
         limit = validatePositiveInteger, keepNonSpecific = validateBoolean, 
         consolidate = validateConsolidate)
-    endpoint <- "datasets/{encode(dataset)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
+    endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -218,13 +224,16 @@ getDatasetPCA <- function (dataset = NA_character_, component = 1L, limit = 100L
 #'
 memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 
-#' getDatasetDE
+#' Datasets differential expression levels
 #' Retrieves differential expression levels for given datasets
 #'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
+#' @param datasets Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `GSE2871,GSE2869,GSE2868`). Identifiers can either be the Dataset ID or
+#' its short name. Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available.
+#' Do not combine different identifiers in one query.
 #' @param keepNonSpecific Optional, defaults to `false`.
 #' If set to `false`, the response will only include elements that map
 #' exclusively to each queried gene
@@ -269,8 +278,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' returned.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
-getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diffExSet = NA_integer_, 
-    threshold = 100, limit = 100L, consolidate = NA_character_, 
+getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE, 
+    diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
         NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -279,10 +288,10 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
     isFile <- FALSE
     fname <- "getDatasetDE"
     preprocessor <- processExpression
-    validators <- list(dataset = validateID, keepNonSpecific = validateBoolean, 
+    validators <- list(datasets = validateID, keepNonSpecific = validateBoolean, 
         diffExSet = validatePositiveInteger, threshold = validatePositiveReal, 
         limit = validatePositiveInteger, consolidate = validateConsolidate)
-    endpoint <- "datasets/{encode(dataset)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
+    endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -291,7 +300,88 @@ getDatasetDE <- function (dataset = NA_character_, keepNonSpecific = FALSE, diff
 #'
 memgetDatasetDE <- memoise::memoise(getDatasetDE)
 
-#' getDatasetSamples
+#' Dataset data
+#' Retrieves the data for the given dataset
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any\* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
+#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' \* Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches \'true\', ignoring case.
+#' Accepted operator keywords are:
+#' -   \'=\' - equality
+#' -   \'!=\' - non-equality
+#' -   \'\<\' - smaller than
+#' -   \'\>\' - larger than
+#' -   \'\<=\' - smaller or equal
+#' -   \'=\>\' - larger or equal
+#' -   \'like\' - similar string, effectively means \'contains\',
+#'     translates to the sql \'LIKE\' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.\
+#' Leave space between the keywords and the previous/next word!\
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:\
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
+#' Above query will translate to:\
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return The data file for the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
+#' @export
+getDatasetData <- function (dataset = NA_character_, filter = "false", raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
+{
+    isFile <- TRUE
+    fname <- "getDatasetData"
+    preprocessor <- processFile
+    validators <- list(dataset = validateID, filter = validateBoolean)
+    endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async)
+}
+
+#' Memoise getDatasetData
+#'
+memgetDatasetData <- memoise::memoise(getDatasetData)
+
+#' Dataset samples
 #' Retrieves samples for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -330,7 +420,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
 #'
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
-#' getDatasetSVD
+#' Dataset SVD information
 #' Retrieves the SVD information for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -376,7 +466,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 
-#' getDatasetPlatforms
+#' Dataset platforms
 #' Retrieves platforms for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -416,7 +506,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma
 #'
 memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 
-#' getDatasetAnnotations
+#' Dataset annotations
 #' Retrieves the annotations for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -456,46 +546,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gem
 #'
 memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 
-#' getDatasetData
-#' Retrieves the data for the given dataset
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return The data file for the given dataset.
-#' A `404 error` if the given identifier does not map to any object.
-#' @export
-getDatasetData <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
-    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    F)) 
-{
-    isFile <- TRUE
-    fname <- "getDatasetData"
-    preprocessor <- processFile
-    validators <- list(dataset = validateSingleID)
-    endpoint <- "datasets/{encode(dataset)}/data"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
-}
-
-#' Memoise getDatasetData
-#'
-memgetDatasetData <- memoise::memoise(getDatasetData)
-
-#' getDatasetDesign
+#' Dataset design
 #' Retrieves the design for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
@@ -544,9 +595,9 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 {
     characteristicValue <- "dataset"
     argMap <- c(datasets = "getDatasets", differential = "getDatasetDEA", 
-        PCA = "getDatasetPCA", diffEx = "getDatasetDE", samples = "getDatasetSamples", 
-        SVD = "getDatasetSVD", platforms = "getDatasetPlatforms", 
-        annotations = "getDatasetAnnotations", data = "getDatasetData", 
+        PCA = "getDatasetPCA", diffEx = "getDatasetDE", data = "getDatasetData", 
+        samples = "getDatasetSamples", SVD = "getDatasetSVD", 
+        platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
         design = "getDatasetDesign")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
@@ -555,20 +606,33 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         request <- 1
     mCallable <- call(argMap[[request]], raw = raw, async = async, 
         memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- get(characteristicValue)
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
+        inherits = F)) {
+        get(characteristicValue)
+    }
+    else if (exists(paste0(characteristicValue, "s"), inherits = F)) {
+        get(paste0(characteristicValue, "s"))
+    }
+    else if (characteristicValue == "taxon" && exists("taxa", 
+        inherits = F)) {
+        get("taxa", inherits = F)
+    }
     for (i in names(list(...))) {
         mCallable[[i]] <- list(...)[[i]]
     }
     eval(mCallable, envir = parent.env(environment()))
 }
 
-#' getPlatforms
+#' Platforms
 #' List platforms filtered and organized by given parameters
 #'
-#' @param platform Required, part of the URL path.
-#' Can either be the platform ID or its short name (e.g: `GPL1355`)
-#' Retrieval by ID is more efficient.
+#' @param platforms Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `GPL96,GPL1355,GPL1261`). Identifiers can either be the Platform ID or
+#' its short name. Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
+#' Do not combine different identifiers in one query.
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any\* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
@@ -643,18 +707,19 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' query.
 #' Empty array if no objects matched.
 #' @export
-getPlatforms <- function (platform = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
-    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+getPlatforms <- function (platforms = NA_character_, filter = NA_character_, 
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption("gemma.raw", 
+        F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
         F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
         F)) 
 {
     isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
-    validators <- list(filter = validateFilter, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger, sort = validateSort)
-    endpoint <- "platforms/{encode(platform)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    validators <- list(platforms = validateID, filter = validateFilter, 
+        offset = validatePositiveInteger, limit = validatePositiveInteger, 
+        sort = validateSort)
+    endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -663,7 +728,7 @@ getPlatforms <- function (platform = NA_character_, filter = NA_character_, offs
 #'
 memgetPlatforms <- memoise::memoise(getPlatforms)
 
-#' getPlatformDatasets
+#' Platform datasets
 #' Retrieves experiments in the given platform
 #'
 #' @param platform Required, part of the URL path.
@@ -710,7 +775,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
 #'
 memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 
-#' getPlatformElements
+#' Platform elements
 #' Retrieves the composite sequences (elements) for the given platform
 #'
 #' @param platform Required, part of the URL path.
@@ -758,7 +823,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
 #'
 memgetPlatformElements <- memoise::memoise(getPlatformElements)
 
-#' getPlatformElementGenes
+#' Platform element genes
 #' Retrieves the genes on the given platform element
 #'
 #' @param platform Required, part of the URL path.
@@ -833,23 +898,35 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
         request <- 1
     mCallable <- call(argMap[[request]], raw = raw, async = async, 
         memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- get(characteristicValue)
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
+        inherits = F)) {
+        get(characteristicValue)
+    }
+    else if (exists(paste0(characteristicValue, "s"), inherits = F)) {
+        get(paste0(characteristicValue, "s"))
+    }
+    else if (characteristicValue == "taxon" && exists("taxa", 
+        inherits = F)) {
+        get("taxa", inherits = F)
+    }
     for (i in names(list(...))) {
         mCallable[[i]] <- list(...)[[i]]
     }
     eval(mCallable, envir = parent.env(environment()))
 }
 
-#' getGenes
+#' Genes
 #' Retrieves all genes matching the identifiers
 #'
-#' @param gene Required, part of the URL path.
+#' @param genes Required, part of the URL path.
+#' A list of identifiers, separated by commas (e.g: `1859, 5728`).
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
 #' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
+#' Do not combine different identifiers in one query.
 #' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
@@ -866,7 +943,7 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 #' Empty array if no objects matched.
 #' A `400 error` if required parameters are missing.
 #' @export
-getGenes <- function (gene = NA_character_, raw = getOption("gemma.raw", 
+getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
     F)) 
@@ -874,8 +951,8 @@ getGenes <- function (gene = NA_character_, raw = getOption("gemma.raw",
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
-    validators <- list(gene = validateSingleID)
-    endpoint <- "genes/{encode(gene)}/"
+    validators <- list(genes = validateSingleID)
+    endpoint <- "genes/{encode(genes)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -884,7 +961,7 @@ getGenes <- function (gene = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetGenes <- memoise::memoise(getGenes)
 
-#' getGeneEvidence
+#' Gene evidence
 #' Retrieves gene evidence for the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -927,7 +1004,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 
-#' getGeneLocation
+#' Gene locations
 #' Retrieves the physical location of the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -970,7 +1047,7 @@ getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetGeneLocation <- memoise::memoise(getGeneLocation)
 
-#' getGeneProbes
+#' Gene probes
 #' Retrieves the probes (composite sequences) with this gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1020,7 +1097,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
 #'
 memgetGeneProbes <- memoise::memoise(getGeneProbes)
 
-#' getGeneGO
+#' Gene goTerms
 #' Retrieves the GO terms of the given gene
 #'
 #' @param gene Required, part of the URL path.
@@ -1063,7 +1140,7 @@ getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetGeneGO <- memoise::memoise(getGeneGO)
 
-#' getGeneCoexpression
+#' Gene coexpression
 #' Retrieves the coexpression of two given genes
 #'
 #' @param gene Required, part of the URL path.
@@ -1139,24 +1216,36 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
         request <- 1
     mCallable <- call(argMap[[request]], raw = raw, async = async, 
         memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- get(characteristicValue)
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
+        inherits = F)) {
+        get(characteristicValue)
+    }
+    else if (exists(paste0(characteristicValue, "s"), inherits = F)) {
+        get(paste0(characteristicValue, "s"))
+    }
+    else if (characteristicValue == "taxon" && exists("taxa", 
+        inherits = F)) {
+        get("taxa", inherits = F)
+    }
     for (i in names(list(...))) {
         mCallable[[i]] <- list(...)[[i]]
     }
     eval(mCallable, envir = parent.env(environment()))
 }
 
-#' getTaxa
+#' Taxa
 #' List taxa filtered by given parameters
 #'
-#' @param taxon Not required, part of the URL path.
-#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
-#' scientific name, common name
-#' It is recommended to use Taxon ID for efficiency.
-#' Please note, that not all taxa have all the possible identifiers
-#' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
-#' convenience, below is a list of officially supported taxa:
+#' @param taxa Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g: `human, mouse, fly`).
+#' Identifiers can be the any of the following:
+#' -   taxon ID
+#' -   scientific name
+#' -   common name
+#' Retrieval by ID is more efficient.
+#' Do not combine different identifiers in one query.
+#' For convenience, below is a list of officially supported taxa
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
 #'   1    human       Homo sapiens               9606
@@ -1181,7 +1270,7 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 #' A `400 error` if all identifiers are invalid.
 #' An array of all available taxa, if no identifiers were provided.
 #' @export
-getTaxa <- function (taxon = NA_character_, raw = getOption("gemma.raw", 
+getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
     F)) 
@@ -1189,8 +1278,8 @@ getTaxa <- function (taxon = NA_character_, raw = getOption("gemma.raw",
     isFile <- FALSE
     fname <- "getTaxa"
     preprocessor <- processTaxon
-    validators <- list(taxon = validateOptionalTaxon)
-    endpoint <- "taxa/{encode(taxon)}"
+    validators <- list(taxa = validateOptionalTaxon)
+    endpoint <- "taxas/{encode(taxa)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
 }
@@ -1199,7 +1288,7 @@ getTaxa <- function (taxon = NA_character_, raw = getOption("gemma.raw",
 #'
 memgetTaxa <- memoise::memoise(getTaxa)
 
-#' getTaxonDatasets
+#' Taxon datasets
 #' Retrieves datasets for the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1302,7 +1391,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
     isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
-    validators <- list(taxon = validateSingleID, filter = validateFilter, 
+    validators <- list(taxon = validateSingleTaxon, filter = validateFilter, 
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
@@ -1314,7 +1403,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
 #'
 memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 
-#' getTaxonPhenotypes
+#' Taxon phenotypes
 #' Loads all phenotypes for the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1370,7 +1459,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
     isFile <- FALSE
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
-    validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
+    validators <- list(taxon = validateSingleTaxon, editableOnly = validateBoolean, 
         tree = validateBoolean)
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
     .body(memoised, fname, validators, endpoint, environment(), 
@@ -1381,7 +1470,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
 #'
 memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 
-#' getTaxonPhenotypeCandidates
+#' Taxon phenotypes candidate genes
 #' Given a set of phenotypes, return all genes associated with them.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1433,7 +1522,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
     isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
-    validators <- list(taxon = validateSingleID, editableOnly = validateBoolean, 
+    validators <- list(taxon = validateSingleTaxon, editableOnly = validateBoolean, 
         phenotypes = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
     .body(memoised, fname, validators, endpoint, environment(), 
@@ -1444,7 +1533,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
 #'
 memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 
-#' getGeneOnTaxon
+#' Gene on specific taxon
 #' Retrieves genes matching the identifier on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1494,7 +1583,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
     isFile <- FALSE
     fname <- "getGeneOnTaxon"
     preprocessor <- processGenes
-    validators <- list(taxon = validateSingleID, gene = validateSingleID)
+    validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
@@ -1504,7 +1593,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
 #'
 memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 
-#' getEvidenceOnTaxon
+#' Gene evidence on specific taxon
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1554,7 +1643,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
     preprocessor <- processGeneEvidence
-    validators <- list(taxon = validateSingleID, gene = validateSingleID)
+    validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
@@ -1564,7 +1653,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
 #'
 memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 
-#' getGeneLocationOnTaxon
+#' Gene location on specific taxon
 #' Retrieves gene evidence for the gene on the given taxon.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1614,7 +1703,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
     preprocessor <- processGeneLocation
-    validators <- list(taxon = validateSingleID, gene = validateSingleID)
+    validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async)
@@ -1624,7 +1713,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
 #'
 memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 
-#' getGenesAtLocation
+#' Genes at location
 #' Finds genes overlapping a given region.
 #'
 #' @param taxon Not required, part of the URL path.
@@ -1682,7 +1771,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
     isFile <- FALSE
     fname <- "getGenesAtLocation"
     preprocessor <- processGenes
-    validators <- list(taxon = validateSingleID, chromosome = validateSingleID, 
+    validators <- list(taxon = validateSingleTaxon, chromosome = validateSingleID, 
         strand = validateStrand, start = validatePositiveInteger, 
         size = validatePositiveInteger)
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
@@ -1694,7 +1783,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
 #'
 memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 
-#' searchDatasets
+#' Dataset search
 #' Does a search for datasets containing annotations, short name or full
 #' name matching the given string
 #'
@@ -1845,14 +1934,24 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
         request <- 1
     mCallable <- call(argMap[[request]], raw = raw, async = async, 
         memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- get(characteristicValue)
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
+        inherits = F)) {
+        get(characteristicValue)
+    }
+    else if (exists(paste0(characteristicValue, "s"), inherits = F)) {
+        get(paste0(characteristicValue, "s"))
+    }
+    else if (characteristicValue == "taxon" && exists("taxa", 
+        inherits = F)) {
+        get("taxa", inherits = F)
+    }
     for (i in names(list(...))) {
         mCallable[[i]] <- list(...)[[i]]
     }
     eval(mCallable, envir = parent.env(environment()))
 }
 
-#' searchAnnotations
+#' Annotation search
 #' Does a search for annotations based on the given string
 #'
 #' @param query Required, defaults to `empty`.
@@ -1909,11 +2008,11 @@ forgetGemmaMemoised <- function ()
     forget(memgetDatasetDEA)
     forget(memgetDatasetPCA)
     forget(memgetDatasetDE)
+    forget(memgetDatasetData)
     forget(memgetDatasetSamples)
     forget(memgetDatasetSVD)
     forget(memgetDatasetPlatforms)
     forget(memgetDatasetAnnotations)
-    forget(memgetDatasetData)
     forget(memgetDatasetDesign)
     forget(memgetPlatforms)
     forget(memgetPlatformDatasets)

@@ -2,11 +2,11 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{getDatasetDE
+\title{Datasets differential expression levels
 Retrieves differential expression levels for given datasets}
 \usage{
 getDatasetDE(
-  dataset = NA_character_,
+  datasets = NA_character_,
   keepNonSpecific = FALSE,
   diffExSet = NA_integer_,
   threshold = 100,
@@ -20,10 +20,13 @@ getDatasetDE(
 )
 }
 \arguments{
-\item{dataset}{Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available}
+\item{datasets}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GSE2871,GSE2869,GSE2868}). Identifiers can either be the Dataset ID or
+its short name. Retrieval by ID is more efficient.
+Only datasets that user has access to will be available.
+Do not combine different identifiers in one query.}
 
 \item{keepNonSpecific}{Optional, defaults to \code{false}.
 If set to \code{false}, the response will only include elements that map
@@ -82,6 +85,6 @@ returned.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetDE
+Datasets differential expression levels
 Retrieves differential expression levels for given datasets
 }

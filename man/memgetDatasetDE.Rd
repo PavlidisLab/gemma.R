@@ -5,7 +5,7 @@
 \title{Memoise getDatasetDE}
 \usage{
 memgetDatasetDE(
-  dataset = NA_character_,
+  datasets = NA_character_,
   keepNonSpecific = FALSE,
   diffExSet = NA_integer_,
   threshold = 100,

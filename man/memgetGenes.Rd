@@ -5,7 +5,7 @@
 \title{Memoise getGenes}
 \usage{
 memgetGenes(
-  gene = NA_character_,
+  genes = NA_character_,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),

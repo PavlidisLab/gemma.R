@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{searchAnnotations}
 \alias{searchAnnotations}
-\title{searchAnnotations
+\title{Annotation search
 Does a search for annotations based on the given string}
 \usage{
 searchAnnotations(
@@ -46,6 +46,6 @@ matching the given identifiers.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-searchAnnotations
+Annotation search
 Does a search for annotations based on the given string
 }
