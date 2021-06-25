@@ -27,9 +27,6 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #'
 #' @return A list of `data.table`s that were read in, typically the first one is analysis results (elements, p-values) and the second is full data (elements, FC, t- and p-values)
 #'
-#' @examples
-#' async::synchronise(getDiffExData(1, 59016))
-#'
 #' @export
 getDiffExData <- async::async(function(dataset, diffExSet) {
   REQ1 <- 'callCount=1
