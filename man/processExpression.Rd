@@ -15,3 +15,4 @@ A processed data.table
 \description{
 Processes JSON as expression data
 }
+\keyword{internal}

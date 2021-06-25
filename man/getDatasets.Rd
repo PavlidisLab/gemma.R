@@ -2,47 +2,120 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasets}
 \alias{getDatasets}
-\title{getDatasets
-Lists datasets filtered and organized by given parameters}
+\title{Datasets}
 \usage{
 getDatasets(
-  dataset = NA_character_,
+  datasets = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+\item{datasets}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GSE2871,GSE2869,GSE2868}). Identifiers can either be the Dataset ID or
+its short name. Retrieval by ID is more efficient.
+Only datasets that user has access to will be available.
+Do not combine different identifiers in one query.}
 
-\item{filter}{<p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   Filtering can be done on any* property or nested property that the appropriate object class defines   or inherits (and that is mapped by hibernate). <span class='description-imp'>These do not correspond to the properties of the    objects returned by the API calls.</span> </p><p>Class definitions:    <ul>       <li>Datasets:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java'>           [gitHub]</a>       </li>       <li>Platforms:            <a href='http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html'>           [javaDoc]</a>            <a href='https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java'>           [gitHub]</a>       </li>   </ul></p><p>   E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p><p>   * Any property of a supported type. Currently supported types are:   <ul>       <li>String - property of String type, required value can be any String.</li>       <li>Number - any Number implementation. Required value must be a string parseable to the specific Number type.</li>       <li>Boolean - required value will be parsed to true only if the string matches 'true', ignoring case.</li>   </ul></p><p>Accepted operator keywords are:   <ul>       <li> '=' - equality</li>       <li> '!=' - non-equality</li>       <li> '<' - smaller than</li>       <li> '>' - larger than</li>       <li> '<=' - smaller or equal</li>       <li> '=>' - larger or equal</li>       <li> 'like' - similar string, effectively means 'contains', translates to the sql 'LIKE' operator (given value will be surrounded by \% signs)</li>   </ul>   Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.<br/>   Leave space between the keywords and the previous/next word! <br/>   E.g: <code>?filter=property1 < value1 AND property2 like value2</code></p><p>   If chained filters are mixed conjunctions and disjunctions, the query must be in conjunctive normal   form (CNF). Parentheses are not necessary - every AND keyword separates blocks of disjunctions.</p><p>Example:<br/><code>?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4</code><br/>Above query will translate to: <br/><code>(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)</code></p><p>Breaking the CNF results in an error.</p><p>Filter <code>curationDetails.troubled</code> will be ignored if user is not an administrator.</p>}
+\item{filter}{Optional, defaults to \code{empty}.
+Filtering can be done on any\* property or nested property that the
+appropriate object class defines or inherits (and that is mapped by
+hibernate). [These do not correspond to the properties of the objects
+returned by the API calls.]{.description-imp}
+Class definitions:
+\itemize{
+\item Datasets:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{[gitHub]}
+\item Platforms:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{[gitHub]}
+E.g: \code{curationDetails} or \code{curationDetails.lastTroubledEvent.date}.
+\* Any property of a supported type. Currently supported types are:
+\item String - property of String type, required value can be any String.
+\item Number - any Number implementation. Required value must be a string
+parseable to the specific Number type.
+\item Boolean - required value will be parsed to true only if the string
+matches \'true\', ignoring case.
+Accepted operator keywords are:
+\item \'=\' - equality
+\item \'!=\' - non-equality
+\item \'\<\' - smaller than
+\item \'\>\' - larger than
+\item \'\<=\' - smaller or equal
+\item \'=\>\' - larger or equal
+\item \'like\' - similar string, effectively means \'contains\',
+translates to the sql \'LIKE\' operator (given value will be
+surrounded by \% signs)
+Multiple filters can be chained using \code{AND} and \code{OR} keywords.\
+Leave space between the keywords and the previous/next word!\
+E.g: \verb{?filter=property1 < value1 AND property2 like value2}
+If chained filters are mixed conjunctions and disjunctions, the query
+must be in conjunctive normal form (CNF). Parentheses are not necessary
+\item every AND keyword separates blocks of disjunctions.
+Example:\
+\verb{?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4}\
+Above query will translate to:\
+\verb{(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)}
+Breaking the CNF results in an error.
+Filter \code{curationDetails.troubled} will be ignored if user is not an
+administrator.
+}}
 
-\item{offset}{<p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>}
+\item{offset}{Optional, defaults to \code{0}.
+Skips the specified amount of objects when retrieving them from the
+database.}
 
-\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+\item{limit}{Optional, defaults to \code{20}.
+Limits the result to specified amount of objects. Use 0 for no limit.}
 
-\item{sort}{<p class='description-frow'>Optional, defaults to <code>+id</code>.</p><p>Sets the ordering property and direction.</p><p>   Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to descending ordering by the   'Accession' property.</p><p>   Note that this does <span class='description-imp'>not guarantee the order of the returned entities!</span> This is merely a signal to how the data should be pre-sorted before   the limit and offset are applied.</p><p>   Nested properties are also supported (recursively).<br/>   E.g: <code>+curationDetails.lastTroubledEvent.date</code></p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   When using in scripts, remember to URL-encode the '+' plus character (see the compiled URL below).</p>}
+\item{sort}{Optional, defaults to \code{+id}.
+Sets the ordering property and direction.
+Format is \verb{[+,-][property name]}. E.g. \code{-accession} will translate to
+descending ordering by the \'Accession\' property.
+Note that this does [not guarantee the order of the returned
+entities!]{.description-imp} This is merely a signal to how the data
+should be pre-sorted before the limit and offset are applied.
+Nested properties are also supported (recursively).\
+E.g: \code{+curationDetails.lastTroubledEvent.date}
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+using in scripts, remember to URL-encode the \'+\' plus character (see
+the compiled URL below).}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p>   An array of value objects representing the objects that matched the query. </p><p>   Empty array if no objects matched.</p><p>   A successful response may contain a sub-element with 'Geeq' information, which aims to provide a    unified metric to measure experiments by the quality of their data, and their suitability for use in Gemma.   You can <a href='https://pavlidislab.github.io/Gemma/geeq.html' target='_blank'>read more about the geeq properties here</a>. </p>
+An array of value objects representing the objects that matched the
+query.
+Empty array if no objects matched.
+A successful response may contain a sub-element with \'Geeq\'
+information, which aims to provide a unified metric to measure
+experiments by the quality of their data, and their suitability for use
+in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}.
 }
 \description{
-getDatasets
 Lists datasets filtered and organized by given parameters
 }
+\keyword{dataset}

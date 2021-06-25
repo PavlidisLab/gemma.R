@@ -15,3 +15,4 @@ A URL encoding of url
 \description{
 URL encode a string safely
 }
+\keyword{internal}

@@ -15,3 +15,4 @@ A processed data.table
 \description{
 Processes a response as a gzip file
 }
+\keyword{internal}

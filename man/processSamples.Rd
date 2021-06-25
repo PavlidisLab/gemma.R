@@ -15,3 +15,4 @@ A processed data.table
 \description{
 Processes JSON as a vector of samples
 }
+\keyword{internal}

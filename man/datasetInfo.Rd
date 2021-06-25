@@ -2,19 +2,48 @@
 % Please edit documentation in R/allEndpoints.R
 \name{datasetInfo}
 \alias{datasetInfo}
-\title{datasetInfo}
+\title{atasetInf}
 \usage{
 datasetInfo(
   dataset = NA_character_,
   request = NA_character_,
   ...,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
-\description{
-datasetInfo
+\arguments{
+\item{dataset}{Required, part of the URL path.
+Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
+Retrieval by ID is more efficient.
+Only datasets that user has access to will be available}
+
+\item{request}{Which specific endpoint to request.}
+
+\item{...}{Parameters to forward to the endpoint selected in \code{request}.}
+
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
+
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
+\value{
+Varies
+}
+\description{
+common entrypoint to the various dataset endpoints
+}
+\keyword{dataset}

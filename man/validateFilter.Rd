@@ -17,3 +17,4 @@ The validated filters, or stop with an error message
 \description{
 Validate a filter
 }
+\keyword{internal}

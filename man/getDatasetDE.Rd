@@ -2,50 +2,88 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{getDatasetDE
-Retrieves differential expression levels for given datasets}
+\title{Datasets differential expression levels}
 \usage{
 getDatasetDE(
-  dataset = NA_character_,
+  datasets = NA_character_,
   keepNonSpecific = FALSE,
   diffExSet = NA_integer_,
   threshold = 100,
   limit = 100L,
   consolidate = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+\item{datasets}{Optional, defaults to \code{empty}.
+Limits the result to entities with given identifiers.
+A list of identifiers, separated by commas (e.g:
+\verb{GSE2871,GSE2869,GSE2868}). Identifiers can either be the Dataset ID or
+its short name. Retrieval by ID is more efficient.
+Only datasets that user has access to will be available.
+Do not combine different identifiers in one query.}
 
-\item{keepNonSpecific}{<p class='description-frow'>Optional, defaults to <code>false</code>.</p><p>   If set to <code>false</code>, the response will only include elements that map exclusively to each queried gene</p><p>   If set to <code>true</code>, the response will include all elements that map to each queried gene, even if they   also map to other genes.</p>}
+\item{keepNonSpecific}{Optional, defaults to \code{false}.
+If set to \code{false}, the response will only include elements that map
+exclusively to each queried gene
+If set to \code{true}, the response will include all elements that map to
+each queried gene, even if they also map to other genes.}
 
-\item{diffExSet}{<p class='description-frow'>Required, defaults to <code>empty</code>.</p><p>The ID of the differential expression set to retrieve the data from.</p><p>   This value can be obtained through the 'Dataset differential analysis' endpoint in the 'Dataset endpoints' category.    See the <code>resultSetId</code> in one of the response objects in said endpoint.</p>}
+\item{diffExSet}{Required, defaults to \code{empty}.
+The ID of the differential expression set to retrieve the data from.
+This value can be obtained through the \'Dataset differential analysis\'
+endpoint in the \'Dataset endpoints\' category. See the \code{resultSetId} in
+one of the response objects in said endpoint.}
 
-\item{threshold}{<p class='description-frow'>Optional, defaults to <code>100.0</code>.</p><p>The threshold that the differential expression has to meet to be included in the response.</p>}
+\item{threshold}{Optional, defaults to \code{100.0}.
+The threshold that the differential expression has to meet to be
+included in the response.}
 
-\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+\item{limit}{Optional, defaults to \code{20}.
+Limits the result to specified amount of objects. Use 0 for no limit.}
 
-\item{consolidate}{<p class='description-frow'>Optional, defaults to <code>empty</code>.</p><p>   What action to take when there is more than one element per gene in a dataset.</p><p>   The choices are:   <ul>       <li><code>[empty]</code> - will list all vectors separately</li>       <li><code>pickmax</code> - only return the vector that has the highest expression (mean over all its bioAssays)</li>       <li><code>pickvar</code> - only return the vector with highest variance of expression across its bioAssays</li>       <li><code>average</code> - create a new vector that will average the bioAssay values from all vectors</li>   </ul></p>}
+\item{consolidate}{Optional, defaults to \code{empty}.
+What action to take when there is more than one element per gene in a
+dataset.
+The choices are:
+\itemize{
+\item \verb{[empty]} - will list all vectors separately
+\item \code{pickmax} - only return the vector that has the highest expression
+(mean over all its bioAssays)
+\item \code{pickvar} - only return the vector with highest variance of
+expression across its bioAssays
+\item \code{average} - create a new vector that will average the bioAssay
+values from all vectors
+}}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p>   The differential expression levels for each given experiment (experiment expression levels value object) in the   given differential expression set.</p><p>   If the experiment is not in the given diff. exp. set, an empty array is returned.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+The differential expression levels for each given experiment (experiment
+expression levels value object) in the given differential expression
+set.
+If the experiment is not in the given diff. exp. set, an empty array is
+returned.
+A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetDE
 Retrieves differential expression levels for given datasets
 }
+\keyword{dataset}

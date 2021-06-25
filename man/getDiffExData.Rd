@@ -18,7 +18,4 @@ A list of \code{data.table}s that were read in, typically the first one is analy
 This occurs asynchronously as data will not always be available upon request. If the data is not available,
 the function will continue to run and poll for updates every 3 seconds until it becomes available.
 }
-\examples{
-async::synchronise(getDiffExData(1, 59016))
-
-}
+\keyword{dataset}

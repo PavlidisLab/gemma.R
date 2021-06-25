@@ -17,3 +17,4 @@ The validated boolean as a character string (true or false), or stop with an err
 \description{
 Validate a boolean value
 }
+\keyword{internal}

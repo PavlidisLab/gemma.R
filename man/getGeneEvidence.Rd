@@ -2,35 +2,47 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneEvidence}
 \alias{getGeneEvidence}
-\title{getGeneEvidence
-Retrieves gene evidence for the given gene}
+\title{Gene evidence}
 \usage{
 getGeneEvidence(
   gene = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{gene}{<p class='description-frow'>Required, part of the URL path.</p><p>   Can either be the NCBI ID (<code>1859</code>), Ensembl ID (<code>ENSG00000157540</code>)    or official symbol (<code>DYRK1A</code>) of the gene.</p><p>NCBI ID is the most efficient (and guaranteed to be unique) identifier.</p><p class='description-imp'>   <span class='glyphicon glyphicon-th-large glyphicon-exclamation-sign'></span>   Official symbol represents a gene homologue for a random taxon, unless used in a specific taxon (see Taxon Endpoints).</p>}
+\item{gene}{Required, part of the URL path.
+Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
+official symbol (\code{DYRK1A}) of the gene.
+NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+symbol represents a gene homologue for a random taxon, unless used in a
+specific taxon (see Taxon Endpoints).}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p> An array of gene evidence value objects for the given gene or gene homologues.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p>
+An array of gene evidence value objects for the given gene or gene
+homologues.
+A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getGeneEvidence
 Retrieves gene evidence for the given gene
 }
+\keyword{gene}

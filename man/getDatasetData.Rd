@@ -2,35 +2,89 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetData}
 \alias{getDatasetData}
-\title{getDatasetData
-Retrieves the data for the given dataset}
+\title{Dataset data}
 \usage{
 getDatasetData(
   dataset = NA_character_,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  filter = "false",
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{dataset}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).</p><p>Retrieval by ID is more efficient.</p><p>Only datasets that user has access to will be available</p>}
+\item{dataset}{Required, part of the URL path.
+Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
+Retrieval by ID is more efficient.
+Only datasets that user has access to will be available}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{filter}{Optional, defaults to \code{empty}.
+Filtering can be done on any\* property or nested property that the
+appropriate object class defines or inherits (and that is mapped by
+hibernate). [These do not correspond to the properties of the objects
+returned by the API calls.]{.description-imp}
+Class definitions:
+\itemize{
+\item Datasets:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{[gitHub]}
+\item Platforms:
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{[javaDoc]}
+\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{[gitHub]}
+E.g: \code{curationDetails} or \code{curationDetails.lastTroubledEvent.date}.
+\* Any property of a supported type. Currently supported types are:
+\item String - property of String type, required value can be any String.
+\item Number - any Number implementation. Required value must be a string
+parseable to the specific Number type.
+\item Boolean - required value will be parsed to true only if the string
+matches \'true\', ignoring case.
+Accepted operator keywords are:
+\item \'=\' - equality
+\item \'!=\' - non-equality
+\item \'\<\' - smaller than
+\item \'\>\' - larger than
+\item \'\<=\' - smaller or equal
+\item \'=\>\' - larger or equal
+\item \'like\' - similar string, effectively means \'contains\',
+translates to the sql \'LIKE\' operator (given value will be
+surrounded by \% signs)
+Multiple filters can be chained using \code{AND} and \code{OR} keywords.\
+Leave space between the keywords and the previous/next word!\
+E.g: \verb{?filter=property1 < value1 AND property2 like value2}
+If chained filters are mixed conjunctions and disjunctions, the query
+must be in conjunctive normal form (CNF). Parentheses are not necessary
+\item every AND keyword separates blocks of disjunctions.
+Example:\
+\verb{?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4}\
+Above query will translate to:\
+\verb{(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)}
+Breaking the CNF results in an error.
+Filter \code{curationDetails.troubled} will be ignored if user is not an
+administrator.
+}}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p>   The data file for the given dataset.<p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+The data file for the given dataset.
+A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getDatasetData
 Retrieves the data for the given dataset
 }
+\keyword{dataset}

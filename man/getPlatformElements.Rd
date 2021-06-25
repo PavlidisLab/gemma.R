@@ -2,41 +2,54 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatformElements}
 \alias{getPlatformElements}
-\title{getPlatformElements
-Retrieves the composite sequences (elements) for the given platform}
+\title{Platform elements}
 \usage{
 getPlatformElements(
   platform = NA_character_,
   offset = 0L,
   limit = 20L,
-  raw = FALSE,
-  async = FALSE,
-  memoised = FALSE,
-  file = NA_character_,
-  overwrite = FALSE
+  raw = getOption("gemma.raw", F),
+  async = getOption("gemma.async", F),
+  memoised = getOption("gemma.memoise", F),
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", F)
 )
 }
 \arguments{
-\item{platform}{<p class='description-frow'>Required, part of the URL path.</p><p>Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)</p><p>Retrieval by ID is more efficient. </p><p>Only platforms that user has access to will be available.</p>}
+\item{platform}{Required, part of the URL path.
+Can either be the platform ID or its short name (e.g: \code{GPL1355})
+Retrieval by ID is more efficient.
+Only platforms that user has access to will be available.}
 
-\item{offset}{<p class='description-frow'>Optional, defaults to <code>0</code>.</p><p>Skips the specified amount of objects when retrieving them from the database.</p>}
+\item{offset}{Optional, defaults to \code{0}.
+Skips the specified amount of objects when retrieving them from the
+database.}
 
-\item{limit}{<p class='description-frow'>Optional, defaults to <code>20</code>.</p><p>Limits the result to specified amount of objects. Use 0 for no limit.</p>}
+\item{limit}{Optional, defaults to \code{20}.
+Limits the result to specified amount of objects. Use 0 for no limit.}
 
-\item{raw}{<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>}
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
 
-\item{async}{<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>}
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
 
-\item{memoised}{<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>}
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
-\item{file}{<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
 
-\item{overwrite}{<p>Whether or not to overwrite if a file exists at the specified filename.</p>}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-<p> An array of elements (composite sequence value objects) of the given platform.</p><p>   Empty collection, if no elements matched the <code>elements</code> parameter.</p><p>A <code>404 error</code> if the given identifier does not map to any object.</p></p>
+An array of elements (composite sequence value objects) of the given
+platform.
+Empty collection, if no elements matched the \code{elements} parameter.
+A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-getPlatformElements
 Retrieves the composite sequences (elements) for the given platform
 }
+\keyword{platform}
