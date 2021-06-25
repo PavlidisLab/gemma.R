@@ -12,12 +12,13 @@
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
 #' @param async Whether or not to run asynchronously
+#' @param .call The original function call
 #'
 #' @keywords internal
-.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, raw, overwrite, file, async) {
+.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, raw, overwrite, file, async, .call) {
   # Call a memoised version if applicable
   if(memoised) {
-    newArgs <- as.list(match.call())[-1]
+    newArgs <- as.list(.call)[-1]
     newArgs$memoised <- F
     return(do.call(glue::glue('mem{fname}'), newArgs))
   }

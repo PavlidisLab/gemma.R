@@ -19,7 +19,7 @@ Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
 Retrieval by ID is more efficient.
 Only datasets that user has access to will be available}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

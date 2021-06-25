@@ -34,6 +34,7 @@ jobs:
           R -e 'install.packages("remotes")'
           R -e 'remotes::install_cran("rmarkdown")'
           R -e 'remotes::install_cran("dplyr")'
+          R -e 'remotes::install_cran("microbenchmark")'
           R -e 'remotes::install_github("gaborcsardi/async")'
           R -e 'remotes::install_local(".")'
           R -e 'renv::restore()'

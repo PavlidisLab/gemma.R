@@ -26,9 +26,9 @@ Only platforms that user has access to will be available.}
 Limits the result to entities with given identifiers.
 A list of identifiers, separated by commas (e.g:
 \verb{AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at}).
-Can either be probes name or IDs.\
+Can either be probes name or IDs.
 Do not combine different identifiers in one query.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+When
 using in scripts, remember to URL-encode any forward slashes in the
 probe name (see the compiled URL below).}
 
@@ -39,7 +39,7 @@ database.}
 \item{limit}{Optional, defaults to \code{20}.
 Limits the result to specified amount of objects. Use 0 for no limit.}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

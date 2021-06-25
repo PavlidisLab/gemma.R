@@ -6,7 +6,7 @@
 \usage{
 getDatasetData(
   dataset = NA_character_,
-  filter = "false",
+  filter = FALSE,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
@@ -21,51 +21,53 @@ Retrieval by ID is more efficient.
 Only datasets that user has access to will be available}
 
 \item{filter}{Optional, defaults to \code{empty}.
-Filtering can be done on any\* property or nested property that the
+Filtering can be done on any* property or nested property that the
 appropriate object class defines or inherits (and that is mapped by
 hibernate). [These do not correspond to the properties of the objects
 returned by the API calls.]{.description-imp}
 Class definitions:
 \itemize{
 \item Datasets:
-\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{[javaDoc]}
-\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{[gitHub]}
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{javaDoc}     \href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{gitHub}
 \item Platforms:
-\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{[javaDoc]}
-\href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{[gitHub]}
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{javaDoc}     \href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{gitHub}
 E.g: \code{curationDetails} or \code{curationDetails.lastTroubledEvent.date}.
-\* Any property of a supported type. Currently supported types are:
+}
+\itemize{
+\item Any property of a supported type. Currently supported types are:
+}
+\itemize{
 \item String - property of String type, required value can be any String.
 \item Number - any Number implementation. Required value must be a string
 parseable to the specific Number type.
 \item Boolean - required value will be parsed to true only if the string
-matches \'true\', ignoring case.
+matches 'true', ignoring case.
 Accepted operator keywords are:
-\item \'=\' - equality
-\item \'!=\' - non-equality
-\item \'\<\' - smaller than
-\item \'\>\' - larger than
-\item \'\<=\' - smaller or equal
-\item \'=\>\' - larger or equal
-\item \'like\' - similar string, effectively means \'contains\',
-translates to the sql \'LIKE\' operator (given value will be
+\item '=' - equality
+\item '!=' - non-equality
+\item '<' - smaller than
+\item '>' - larger than
+\item '<=' - smaller or equal
+\item '=>' - larger or equal
+\item 'like' - similar string, effectively means 'contains',
+translates to the sql 'LIKE' operator (given value will be
 surrounded by \% signs)
-Multiple filters can be chained using \code{AND} and \code{OR} keywords.\
-Leave space between the keywords and the previous/next word!\
+Multiple filters can be chained using \code{AND} and \code{OR} keywords.
+Leave space between the keywords and the previous/next word!
 E.g: \verb{?filter=property1 < value1 AND property2 like value2}
 If chained filters are mixed conjunctions and disjunctions, the query
 must be in conjunctive normal form (CNF). Parentheses are not necessary
 \item every AND keyword separates blocks of disjunctions.
-Example:\
-\verb{?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4}\
-Above query will translate to:\
+Example:
+\verb{?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4}
+Above query will translate to:
 \verb{(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)}
 Breaking the CNF results in an error.
 Filter \code{curationDetails.troubled} will be ignored if user is not an
 administrator.
 }}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

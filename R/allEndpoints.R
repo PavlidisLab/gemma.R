@@ -10,43 +10,41 @@
 #' Only datasets that user has access to will be available.
 #' Do not combine different identifiers in one query.
 #' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any\* property or nested property that the
+#' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
 #' hibernate). [These do not correspond to the properties of the objects
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' \* Any property of a supported type. Currently supported types are:
+#' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
 #' -   Number - any Number implementation. Required value must be a string
 #'     parseable to the specific Number type.
 #' -   Boolean - required value will be parsed to true only if the string
-#'     matches \'true\', ignoring case.
+#'     matches 'true', ignoring case.
 #' Accepted operator keywords are:
-#' -   \'=\' - equality
-#' -   \'!=\' - non-equality
-#' -   \'\<\' - smaller than
-#' -   \'\>\' - larger than
-#' -   \'\<=\' - smaller or equal
-#' -   \'=\>\' - larger or equal
-#' -   \'like\' - similar string, effectively means \'contains\',
-#'     translates to the sql \'LIKE\' operator (given value will be
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
 #'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.\
-#' Leave space between the keywords and the previous/next word!\
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
 #' E.g: `?filter=property1 < value1 AND property2 like value2`
 #' If chained filters are mixed conjunctions and disjunctions, the query
 #' must be in conjunctive normal form (CNF). Parentheses are not necessary
 #' - every AND keyword separates blocks of disjunctions.
-#' Example:\
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
-#' Above query will translate to:\
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
 #' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
 #' Breaking the CNF results in an error.
 #' Filter `curationDetails.troubled` will be ignored if user is not an
@@ -59,16 +57,16 @@
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
-#' descending ordering by the \'Accession\' property.
+#' descending ordering by the 'Accession' property.
 #' Note that this does [not guarantee the order of the returned
 #' entities!]{.description-imp} This is merely a signal to how the data
 #' should be pre-sorted before the limit and offset are applied.
-#' Nested properties are also supported (recursively).\
+#' Nested properties are also supported (recursively).
 #' E.g: `+curationDetails.lastTroubledEvent.date`
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -82,11 +80,10 @@
 #' @return An array of value objects representing the objects that matched the
 #' query.
 #' Empty array if no objects matched.
-#' A successful response may contain a sub-element with \'Geeq\'
+#' A successful response may contain a sub-element with 'Geeq'
 #' information, which aims to provide a unified metric to measure
 #' experiments by the quality of their data, and their suitability for use
-#' in Gemma. You can [read more about the geeq properties
-#' here](https://pavlidislab.github.io/Gemma/geeq.html).
+#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
 #'
 #' @keywords dataset
@@ -104,7 +101,7 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
         sort = validateSort)
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasets
@@ -125,7 +122,7 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' database.
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -156,7 +153,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
         limit = validatePositiveInteger)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDEA
@@ -196,7 +193,7 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #'     expression across its bioAssays
 #' -   `average` - create a new vector that will average the bioAssay
 #'     values from all vectors
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -228,7 +225,7 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
         consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetPCA
@@ -254,8 +251,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' each queried gene, even if they also map to other genes.
 #' @param diffExSet Required, defaults to `empty`.
 #' The ID of the differential expression set to retrieve the data from.
-#' This value can be obtained through the \'Dataset differential analysis\'
-#' endpoint in the \'Dataset endpoints\' category. See the `resultSetId` in
+#' This value can be obtained through the 'Dataset differential analysis'
+#' endpoint in the 'Dataset endpoints' category. See the `resultSetId` in
 #' one of the response objects in said endpoint.
 #' @param threshold Optional, defaults to `100.0`.
 #' The threshold that the differential expression has to meet to be
@@ -273,7 +270,7 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #'     expression across its bioAssays
 #' -   `average` - create a new vector that will average the bioAssay
 #'     values from all vectors
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -308,7 +305,7 @@ getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
         limit = validatePositiveInteger, consolidate = validateConsolidate)
     endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDE
@@ -325,48 +322,46 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any\* property or nested property that the
+#' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
 #' hibernate). [These do not correspond to the properties of the objects
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' \* Any property of a supported type. Currently supported types are:
+#' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
 #' -   Number - any Number implementation. Required value must be a string
 #'     parseable to the specific Number type.
 #' -   Boolean - required value will be parsed to true only if the string
-#'     matches \'true\', ignoring case.
+#'     matches 'true', ignoring case.
 #' Accepted operator keywords are:
-#' -   \'=\' - equality
-#' -   \'!=\' - non-equality
-#' -   \'\<\' - smaller than
-#' -   \'\>\' - larger than
-#' -   \'\<=\' - smaller or equal
-#' -   \'=\>\' - larger or equal
-#' -   \'like\' - similar string, effectively means \'contains\',
-#'     translates to the sql \'LIKE\' operator (given value will be
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
 #'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.\
-#' Leave space between the keywords and the previous/next word!\
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
 #' E.g: `?filter=property1 < value1 AND property2 like value2`
 #' If chained filters are mixed conjunctions and disjunctions, the query
 #' must be in conjunctive normal form (CNF). Parentheses are not necessary
 #' - every AND keyword separates blocks of disjunctions.
-#' Example:\
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
-#' Above query will translate to:\
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
 #' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
 #' Breaking the CNF results in an error.
 #' Filter `curationDetails.troubled` will be ignored if user is not an
 #' administrator.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -382,7 +377,7 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @export
 #'
 #' @keywords dataset
-getDatasetData <- function (dataset = NA_character_, filter = "false", raw = getOption("gemma.raw", 
+getDatasetData <- function (dataset = NA_character_, filter = FALSE, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
     F)) 
@@ -393,7 +388,7 @@ getDatasetData <- function (dataset = NA_character_, filter = "false", raw = get
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetData
@@ -409,7 +404,7 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -436,7 +431,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetSamples
@@ -452,7 +447,7 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -486,7 +481,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw",
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/svd"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetSVD
@@ -502,7 +497,7 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -530,7 +525,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetPlatforms
@@ -546,7 +541,7 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -574,7 +569,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gem
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetAnnotations
@@ -590,7 +585,7 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -617,7 +612,7 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/design"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getDatasetDesign
@@ -625,9 +620,9 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
-#' atasetInf
+#' datasetInfo
 #'
-#' common entrypoint to the various dataset endpoints
+#' A common entrypoint to the various dataset endpoints.
 #'
 #' @param dataset Required, part of the URL path.
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
@@ -635,7 +630,7 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' Only datasets that user has access to will be available
 #' @param request Which specific endpoint to request.
 #' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -698,43 +693,41 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' Only platforms that user has access to will be available.
 #' Do not combine different identifiers in one query.
 #' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any\* property or nested property that the
+#' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
 #' hibernate). [These do not correspond to the properties of the objects
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' \* Any property of a supported type. Currently supported types are:
+#' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
 #' -   Number - any Number implementation. Required value must be a string
 #'     parseable to the specific Number type.
 #' -   Boolean - required value will be parsed to true only if the string
-#'     matches \'true\', ignoring case.
+#'     matches 'true', ignoring case.
 #' Accepted operator keywords are:
-#' -   \'=\' - equality
-#' -   \'!=\' - non-equality
-#' -   \'\<\' - smaller than
-#' -   \'\>\' - larger than
-#' -   \'\<=\' - smaller or equal
-#' -   \'=\>\' - larger or equal
-#' -   \'like\' - similar string, effectively means \'contains\',
-#'     translates to the sql \'LIKE\' operator (given value will be
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
 #'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.\
-#' Leave space between the keywords and the previous/next word!\
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
 #' E.g: `?filter=property1 < value1 AND property2 like value2`
 #' If chained filters are mixed conjunctions and disjunctions, the query
 #' must be in conjunctive normal form (CNF). Parentheses are not necessary
 #' - every AND keyword separates blocks of disjunctions.
-#' Example:\
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
-#' Above query will translate to:\
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
 #' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
 #' Breaking the CNF results in an error.
 #' Filter `curationDetails.troubled` will be ignored if user is not an
@@ -747,16 +740,16 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
-#' descending ordering by the \'Accession\' property.
+#' descending ordering by the 'Accession' property.
 #' Note that this does [not guarantee the order of the returned
 #' entities!]{.description-imp} This is merely a signal to how the data
 #' should be pre-sorted before the limit and offset are applied.
-#' Nested properties are also supported (recursively).\
+#' Nested properties are also supported (recursively).
 #' E.g: `+curationDetails.lastTroubledEvent.date`
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -787,7 +780,7 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
         sort = validateSort)
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatforms
@@ -808,7 +801,7 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' database.
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -838,7 +831,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformDatasets
@@ -859,7 +852,7 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' database.
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -890,7 +883,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
         limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformElements
@@ -910,9 +903,9 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' Limits the result to entities with given identifiers.
 #' A list of identifiers, separated by commas (e.g:
 #' `AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at`).
-#' Can either be probes name or IDs.\
+#' Can either be probes name or IDs.
 #' Do not combine different identifiers in one query.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' probe name (see the compiled URL below).
 #' @param offset Optional, defaults to `0`.
@@ -920,7 +913,7 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' database.
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -951,7 +944,7 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
         offset = validatePositiveInteger, limit = validatePositiveInteger)
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getPlatformElementGenes
@@ -959,9 +952,9 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
 #' @keywords internal
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
-#' latformInf
+#' platformInfo
 #'
-#' common entrypoint to the various platform endpoints
+#' A common entrypoint to the various platform endpoints.
 #'
 #' @param platform Required, part of the URL path.
 #' Can either be the platform ID or its short name (e.g: `GPL1355`)
@@ -969,7 +962,7 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' Only platforms that user has access to will be available.
 #' @param request Which specific endpoint to request.
 #' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1026,11 +1019,11 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' Do not combine different identifiers in one query.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1056,10 +1049,10 @@ getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw",
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
-    validators <- list(genes = validateSingleID)
+    validators <- validateID
     endpoint <- "genes/{encode(genes)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGenes
@@ -1075,10 +1068,10 @@ memgetGenes <- memoise::memoise(getGenes)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1106,7 +1099,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/evidence"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneEvidence
@@ -1122,10 +1115,10 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1153,7 +1146,7 @@ getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneLocation
@@ -1169,7 +1162,7 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param offset Optional, defaults to `0`.
@@ -1177,7 +1170,7 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' database.
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1207,7 +1200,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
         limit = validatePositiveInteger)
     endpoint <- "gene/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneProbes
@@ -1223,10 +1216,10 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1254,7 +1247,7 @@ getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw",
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneGO
@@ -1270,21 +1263,21 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param with Required, defaults to `empty`.
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param limit Optional, defaults to `20`.
 #' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param stringency Optional, defaults to `1`.
 #' Sets the stringency of coexpression search.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1315,7 +1308,7 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
         limit = validatePositiveInteger, stringency = validatePositiveInteger)
     endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneCoexpression
@@ -1323,20 +1316,20 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
 #' @keywords internal
 memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 
-#' eneInf
+#' geneInfo
 #'
-#' common entrypoint to the various gene endpoints
+#' A common entrypoint to the various gene endpoints.
 #'
 #' @param gene Required, part of the URL path.
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param request Which specific endpoint to request.
 #' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1408,7 +1401,7 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 #'   12   zebrafish   Danio rerio                7955
 #'   13   fly         Drosophila melanogaster    7227
 #'   14   worm        Caenorhabditis elegans     6239
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1436,7 +1429,7 @@ getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw",
     validators <- list(taxa = validateOptionalTaxon)
     endpoint <- "taxas/{encode(taxa)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxa
@@ -1454,7 +1447,7 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1466,43 +1459,41 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #'   13   fly         Drosophila melanogaster    7227
 #'   14   worm        Caenorhabditis elegans     6239
 #' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any\* property or nested property that the
+#' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
 #' hibernate). [These do not correspond to the properties of the objects
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' \* Any property of a supported type. Currently supported types are:
+#' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
 #' -   Number - any Number implementation. Required value must be a string
 #'     parseable to the specific Number type.
 #' -   Boolean - required value will be parsed to true only if the string
-#'     matches \'true\', ignoring case.
+#'     matches 'true', ignoring case.
 #' Accepted operator keywords are:
-#' -   \'=\' - equality
-#' -   \'!=\' - non-equality
-#' -   \'\<\' - smaller than
-#' -   \'\>\' - larger than
-#' -   \'\<=\' - smaller or equal
-#' -   \'=\>\' - larger or equal
-#' -   \'like\' - similar string, effectively means \'contains\',
-#'     translates to the sql \'LIKE\' operator (given value will be
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
 #'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.\
-#' Leave space between the keywords and the previous/next word!\
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
 #' E.g: `?filter=property1 < value1 AND property2 like value2`
 #' If chained filters are mixed conjunctions and disjunctions, the query
 #' must be in conjunctive normal form (CNF). Parentheses are not necessary
 #' - every AND keyword separates blocks of disjunctions.
-#' Example:\
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
-#' Above query will translate to:\
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
 #' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
 #' Breaking the CNF results in an error.
 #' Filter `curationDetails.troubled` will be ignored if user is not an
@@ -1515,16 +1506,16 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
-#' descending ordering by the \'Accession\' property.
+#' descending ordering by the 'Accession' property.
 #' Note that this does [not guarantee the order of the returned
 #' entities!]{.description-imp} This is merely a signal to how the data
 #' should be pre-sorted before the limit and offset are applied.
-#' Nested properties are also supported (recursively).\
+#' Nested properties are also supported (recursively).
 #' E.g: `+curationDetails.lastTroubledEvent.date`
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1555,7 +1546,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
         sort = validateSort)
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonDatasets
@@ -1573,7 +1564,7 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1591,7 +1582,7 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' objects).
 #' Default is false - the tree is flattened and the tree structure
 #' information is stored as the values of the returned object.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1626,7 +1617,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
         tree = validateBoolean)
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonPhenotypes
@@ -1644,7 +1635,7 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1659,10 +1650,10 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' Whether to only list editable objects.
 #' @param phenotypes Required, defaults to `empty`.
 #' Phenotype value URIs separated by commas.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1693,7 +1684,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
         phenotypes = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getTaxonPhenotypeCandidates
@@ -1711,7 +1702,7 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1726,10 +1717,10 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1757,7 +1748,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneOnTaxon
@@ -1775,7 +1766,7 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1790,10 +1781,10 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1821,7 +1812,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getEvidenceOnTaxon
@@ -1839,7 +1830,7 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1854,10 +1845,10 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
 #' official symbol (`DYRK1A`) of the gene.
 #' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1885,7 +1876,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGeneLocationOnTaxon
@@ -1903,7 +1894,7 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1918,17 +1909,17 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' The chromosome of the query location. Eg: `3`, `21`, `X`
 #' @param strand Optional, defaults to `+`.
 #' Can either be `+` or `-`.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} This is a
+#' This is a
 #' WIP parameter and does currently not do anything
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param start Required, defaults to `empty`.
 #' Number of the start nucleotide of the desired region.
 #' @param size Required, defaults to `empty`.
 #' Amount of nucleotides in the desired region (i.e. the length of the
 #' region).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -1959,7 +1950,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
         size = validatePositiveInteger)
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise getGenesAtLocation
@@ -1978,7 +1969,7 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -1990,52 +1981,50 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #'   13   fly         Drosophila melanogaster    7227
 #'   14   worm        Caenorhabditis elegans     6239
 #' @param query Required, defaults to `empty`.
-#' The search query. Either plain text (\'traumatic\'), or an ontology term
-#' URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+#' The search query. Either plain text ('traumatic'), or an ontology term
+#' URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 #' contain the given string in their short of full name will also be
-#' matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+#' matched ('GSE201', 'Bronchoalveolar lavage samples'.
 #' Can be multiple identifiers separated by commas.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
 #' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any\* property or nested property that the
+#' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
 #' hibernate). [These do not correspond to the properties of the objects
 #' returned by the API calls.]{.description-imp}
 #' Class definitions:
 #' -   Datasets:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
 #' -   Platforms:
-#'     [\[javaDoc\]](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-#'     [\[gitHub\]](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
 #' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' \* Any property of a supported type. Currently supported types are:
+#' * Any property of a supported type. Currently supported types are:
 #' -   String - property of String type, required value can be any String.
 #' -   Number - any Number implementation. Required value must be a string
 #'     parseable to the specific Number type.
 #' -   Boolean - required value will be parsed to true only if the string
-#'     matches \'true\', ignoring case.
+#'     matches 'true', ignoring case.
 #' Accepted operator keywords are:
-#' -   \'=\' - equality
-#' -   \'!=\' - non-equality
-#' -   \'\<\' - smaller than
-#' -   \'\>\' - larger than
-#' -   \'\<=\' - smaller or equal
-#' -   \'=\>\' - larger or equal
-#' -   \'like\' - similar string, effectively means \'contains\',
-#'     translates to the sql \'LIKE\' operator (given value will be
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
 #'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.\
-#' Leave space between the keywords and the previous/next word!\
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
 #' E.g: `?filter=property1 < value1 AND property2 like value2`
 #' If chained filters are mixed conjunctions and disjunctions, the query
 #' must be in conjunctive normal form (CNF). Parentheses are not necessary
 #' - every AND keyword separates blocks of disjunctions.
-#' Example:\
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`\
-#' Above query will translate to:\
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
 #' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
 #' Breaking the CNF results in an error.
 #' Filter `curationDetails.troubled` will be ignored if user is not an
@@ -2048,16 +2037,16 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
-#' descending ordering by the \'Accession\' property.
+#' descending ordering by the 'Accession' property.
 #' Note that this does [not guarantee the order of the returned
 #' entities!]{.description-imp} This is merely a signal to how the data
 #' should be pre-sorted before the limit and offset are applied.
-#' Nested properties are also supported (recursively).\
+#' Nested properties are also supported (recursively).
 #' E.g: `+curationDetails.lastTroubledEvent.date`
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
-#' using in scripts, remember to URL-encode the \'+\' plus character (see
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -2093,7 +2082,7 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise searchDatasets
@@ -2101,9 +2090,9 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
 #' @keywords internal
 memsearchDatasets <- memoise::memoise(searchDatasets)
 
-#' axonInf
+#' taxonInfo
 #'
-#' common entrypoint to the various taxon endpoints
+#' A common entrypoint to the various taxon endpoints.
 #'
 #' @param taxon Not required, part of the URL path.
 #' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
@@ -2111,7 +2100,7 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers
 #' available.
-#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
 #' convenience, below is a list of officially supported taxa:
 #'   ID   Comm.name   Scient.name                NcbiID
 #'   ---- ----------- -------------------------- --------
@@ -2124,7 +2113,7 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #'   14   worm        Caenorhabditis elegans     6239
 #' @param request Which specific endpoint to request.
 #' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -2180,15 +2169,15 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 #' Does a search for annotations based on the given string
 #'
 #' @param query Required, defaults to `empty`.
-#' The search query. Either plain text (\'traumatic\'), or an ontology term
-#' URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+#' The search query. Either plain text ('traumatic'), or an ontology term
+#' URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 #' contain the given string in their short of full name will also be
-#' matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+#' matched ('GSE201', 'Bronchoalveolar lavage samples'.
 #' Can be multiple identifiers separated by commas.
-#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+#' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
-#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
 #' synchronously. See the `async` package for details.
@@ -2216,7 +2205,7 @@ searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
     .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async)
+        isFile, raw, overwrite, file, async, match.call())
 }
 
 #' Memoise searchAnnotations
@@ -2225,7 +2214,7 @@ searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw
 memsearchAnnotations <- memoise::memoise(searchAnnotations)
 
 
-#' forgetGemmaMemoised
+#' Clear Gemma API cache
 #'
 #' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)
 #'
