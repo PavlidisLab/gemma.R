@@ -21,7 +21,7 @@ scientific name, common name
 It is recommended to use Taxon ID for efficiency.
 Please note, that not all taxa have all the possible identifiers
 available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+Use the 'All Taxa' endpoint to retrieve the necessary information. For
 convenience, below is a list of officially supported taxa:
 ID   Comm.name   Scient.name                NcbiID
 
@@ -37,11 +37,11 @@ ID   Comm.name   Scient.name                NcbiID
 Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
 official symbol (\code{DYRK1A}) of the gene.
 NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+Official
 symbol represents a gene homologue for a random taxon, unless used in a
 specific taxon (see Taxon Endpoints).}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

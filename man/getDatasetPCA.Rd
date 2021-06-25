@@ -52,7 +52,7 @@ expression across its bioAssays
 values from all vectors
 }}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

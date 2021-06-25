@@ -60,7 +60,7 @@ registerEndpoint <- function(endpoint,
 
   formals(f) <- fargs
   body(f) <- quote({
-    .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async)
+    .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async, match.call())
   })
 
   # Add our variables
@@ -355,7 +355,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
       if(is.na(request)) request <- 1
 
       mCallable <- call(argMap[[request]], raw = raw, async = async, memoised = memoised, file = file, overwrite = overwrite)
-      mCallable[[characteristicValue]] <- if(exists(characteristicValue, inherits = F)) {
+      mCallable[[characteristicValue]] <- if(exists(characteristicValue, inherits = F)) { # TODO maybe this inserts the name incorrectly
         get(characteristicValue)
       } else if(exists(paste0(characteristicValue, 's'), inherits = F)) {
         get(paste0(characteristicValue, 's'))
@@ -425,7 +425,13 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
     write(text, tmp)
     ret <- system2(paste0(Sys.getenv('RSTUDIO_PANDOC'), '/pandoc'), c('-f html', '-t markdown', tmp), stdout = T)
     unlink(tmp)
-    gsub("\n#' \n#' ", "\n#' ", gsub('\n', "\n#' ", paste0(ret, collapse = '\n'), fixed = T), fixed = T)
+    gsub("\n#' \n#' ", "\n#' ", gsub('\n', "\n#' ", paste0(ret, collapse = '\n'), fixed = T), fixed = T) %>% {
+      # Fix badly formatted URLs (from unescaping []), remove unsupported glyphicons and unescape
+      gsub('\\[\\[([^\\]]+)\\]\\]', '\\[\\1\\]', gsub('\\[\\]\\{\\.glyphicon[^\\}]+\\} ', '', gsub('\\', '', ., fixed = T)), perl = T)
+    } %>% {
+      # Fix multiline URLs
+      gsub('\\[(.*)\n#\' ([^\\]]+)\\]\\(([^\\)]+)\\)', '[\\1 \\2](\\3)', ., perl = T)
+    }
   }
 
   if(is.null(src)) {
@@ -439,8 +445,8 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
   }, endpoints)
 
   if(length(node) == 0) {
-    mName <- fname
-    mDesc <- src
+    mName <- paste0("'", fname, "'")
+    mDesc <- paste0("'", src, "'")
     mResp <- 'Varies'
   } else {
     mName <- xml2::xml_attr(node, ':name')
@@ -453,7 +459,7 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
 
   for(arg in parameters) {
     if(arg == 'raw')
-      mAdd <- '<p><code>FALSE</code> to receive results as-is from Gemma, or <code>TRUE</code> to enable parsing.</p>'
+      mAdd <- '<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing.</p>'
     else if(arg == 'async')
       mAdd <- '<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>'
     else if(arg == 'memoised')
@@ -548,7 +554,7 @@ registerEndpoint('datasets/{dataset}/data?filter={filter}',
                  'getDatasetData', logname = 'data', roxygen = 'Dataset data',
                  isFile = T,
                  defaults = list(dataset = NA_character_,
-                                 filter = 'false'),
+                                 filter = F),
                  validators = alist(dataset = validateID,
                                     filter = validateBoolean),
                  preprocessor = quote(processFile))
@@ -651,6 +657,7 @@ registerCategoryEndpoint('geneInfo', 'gene')
 
 registerSimpleEndpoint('genes', '', logname = 'genes', roxygen = 'Genes',
                        'getGenes',
+                       validator = quote(validateID),
                        preprocessor = quote(processGenes))
 
 registerSimpleEndpoint('gene', 'evidence', logname = 'evidence', roxygen = 'Gene evidence',
@@ -795,7 +802,7 @@ registerEndpoint('annotations/search/{query}',
 # Clean up
 doFinalize <- function(document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
   cat('\n', file = document, append = T)
-  cat(glue::glue("#' forgetGemmaMemoised\n\n"), file = document, append = T)
+  cat(glue::glue("#' Clear Gemma API cache\n\n"), file = document, append = T)
   cat("#'\n", file = document, append = T)
   cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = T)
   cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = T)

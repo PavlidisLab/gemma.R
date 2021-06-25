@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{platformInfo}
 \alias{platformInfo}
-\title{latformInf}
+\title{platformInfo}
 \usage{
 platformInfo(
   platform = NA_character_,
@@ -25,7 +25,7 @@ Only platforms that user has access to will be available.}
 
 \item{...}{Parameters to forward to the endpoint selected in \code{request}.}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
@@ -44,6 +44,6 @@ Otherwise, it will be a RDS file.}
 Varies
 }
 \description{
-common entrypoint to the various platform endpoints
+A common entrypoint to the various platform endpoints.
 }
 \keyword{platform}
