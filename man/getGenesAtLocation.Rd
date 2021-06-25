@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGenesAtLocation}
 \alias{getGenesAtLocation}
-\title{Genes at location
-Finds genes overlapping a given region.}
+\title{Genes at location}
 \usage{
 getGenesAtLocation(
   taxon = NA_character_,
@@ -76,7 +75,6 @@ A \verb{404 error} if the given identifier does not map to any object.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-Genes at location
 Finds genes overlapping a given region.
 }
 \keyword{taxon}

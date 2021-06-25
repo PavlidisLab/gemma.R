@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatformElementGenes}
 \alias{getPlatformElementGenes}
-\title{Platform element genes
-Retrieves the genes on the given platform element}
+\title{Platform element genes}
 \usage{
 getPlatformElementGenes(
   platform = NA_character_,
@@ -62,7 +61,6 @@ All identifiers must be valid.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Platform element genes
 Retrieves the genes on the given platform element
 }
 \keyword{platform}

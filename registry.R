@@ -436,7 +436,7 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
     xml2::xml_attr(elem, ':name') == paste0("'", src, "'")
   }, endpoints)
 
-  cat(glue::glue("#' {pandoc(xml2::xml_attr(node, ':name') %>% { substring(., 2, nchar(.) - 1) })}\n"), file = document, append = T)
+  cat(glue::glue("#' {pandoc(xml2::xml_attr(node, ':name') %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = T)
   cat(glue::glue("\n\n#' {pandoc(xml2::xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = T)
 
   for(arg in parameters) {

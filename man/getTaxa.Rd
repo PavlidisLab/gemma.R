@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxa}
 \alias{getTaxa}
-\title{Taxa
-List taxa filtered by given parameters}
+\title{Taxa}
 \usage{
 getTaxa(
   taxa = NA_character_,
@@ -58,7 +57,6 @@ A \verb{400 error} if all identifiers are invalid.
 An array of all available taxa, if no identifiers were provided.
 }
 \description{
-Taxa
 List taxa filtered by given parameters
 }
 \keyword{taxon}

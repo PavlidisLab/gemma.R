@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getTaxonDatasets}
 \alias{getTaxonDatasets}
-\title{Taxon datasets
-Retrieves datasets for the given taxon.}
+\title{Taxon datasets}
 \usage{
 getTaxonDatasets(
   taxon = NA_character_,
@@ -123,7 +122,6 @@ with the given taxon.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Taxon datasets
 Retrieves datasets for the given taxon.
 }
 \keyword{taxon}

@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneCoexpression}
 \alias{getGeneCoexpression}
-\title{Gene coexpression
-Retrieves the coexpression of two given genes}
+\title{Gene coexpression}
 \usage{
 getGeneCoexpression(
   gene = NA_character_,
@@ -62,7 +61,6 @@ A \verb{404 error} if the given identifier does not map to any object.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-Gene coexpression
 Retrieves the coexpression of two given genes
 }
 \keyword{gene}

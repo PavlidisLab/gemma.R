@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getDatasetSamples}
 \alias{getDatasetSamples}
-\title{Dataset samples
-Retrieves samples for the given dataset}
+\title{Dataset samples}
 \usage{
 getDatasetSamples(
   dataset = NA_character_,
@@ -40,7 +39,6 @@ An array of samples (bio assay value objects) in the given dataset.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Dataset samples
 Retrieves samples for the given dataset
 }
 \keyword{dataset}

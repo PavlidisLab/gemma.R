@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGeneOnTaxon}
 \alias{getGeneOnTaxon}
-\title{Gene on specific taxon
-Retrieves genes matching the identifier on the given taxon.}
+\title{Gene on specific taxon}
 \usage{
 getGeneOnTaxon(
   taxon = NA_character_,
@@ -63,7 +62,6 @@ given identifier.
 A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
-Gene on specific taxon
 Retrieves genes matching the identifier on the given taxon.
 }
 \keyword{taxon}

@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getGenes}
 \alias{getGenes}
-\title{Genes
-Retrieves all genes matching the identifiers}
+\title{Genes}
 \usage{
 getGenes(
   genes = NA_character_,
@@ -47,7 +46,6 @@ Empty array if no objects matched.
 A \verb{400 error} if required parameters are missing.
 }
 \description{
-Genes
 Retrieves all genes matching the identifiers
 }
 \keyword{gene}

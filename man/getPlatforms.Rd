@@ -2,8 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{getPlatforms}
 \alias{getPlatforms}
-\title{Platforms
-List platforms filtered and organized by given parameters}
+\title{Platforms}
 \usage{
 getPlatforms(
   platforms = NA_character_,
@@ -113,7 +112,6 @@ query.
 Empty array if no objects matched.
 }
 \description{
-Platforms
 List platforms filtered and organized by given parameters
 }
 \keyword{platform}
