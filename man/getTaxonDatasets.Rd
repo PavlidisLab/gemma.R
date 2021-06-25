@@ -126,3 +126,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Taxon datasets
 Retrieves datasets for the given taxon.
 }
+\keyword{taxon}

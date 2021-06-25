@@ -18,3 +18,4 @@ memgetGeneProbes(
 \description{
 Memoise getGeneProbes
 }
+\keyword{internal}

@@ -18,3 +18,4 @@ platformInfo(
 \description{
 platformInfo
 }
+\keyword{platform}

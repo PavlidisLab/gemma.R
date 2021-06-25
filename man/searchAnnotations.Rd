@@ -49,3 +49,4 @@ A \verb{400 error} if required parameters are missing.
 Annotation search
 Does a search for annotations based on the given string
 }
+\keyword{misc}

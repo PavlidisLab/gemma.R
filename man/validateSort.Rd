@@ -17,3 +17,4 @@ The validated sort arguments, or stop with an error message
 \description{
 Validate a sort argument (^\link{+-}.*)
 }
+\keyword{internal}

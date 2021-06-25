@@ -18,3 +18,4 @@ memgetTaxonPhenotypes(
 \description{
 Memoise getTaxonPhenotypes
 }
+\keyword{internal}

@@ -6,6 +6,7 @@
 #' setGemmaUser('username','password') # login
 #' setGemmaUser() # logout
 #'
+#' @keywords misc
 #' @export
 setGemmaUser <- function(username = NULL, password = NULL) {
   options(gemma.username = username)
@@ -27,6 +28,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #'
 #' @return A list of `data.table`s that were read in, typically the first one is analysis results (elements, p-values) and the second is full data (elements, FC, t- and p-values)
 #'
+#' @keywords dataset
 #' @export
 getDiffExData <- async::async(function(dataset, diffExSet) {
   REQ1 <- 'callCount=1

@@ -1,0 +1,25 @@
+template:
+  params:
+    ganalytics: TODO
+
+reference:
+- title: Dataset endpoints
+  desc: Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files
+- contents:
+  - starts_with("dataset")
+- title: Platform endpoints
+  desc: Endpoints accessing platforms, and their associated properties and files
+  contents:
+  - starts_with("platform")
+- title: Gene endpoints
+  desc: Endpoints accessing genes (non taxon-specific). Most endpoints also have a taxon-specific counterpart in the Taxon endpoints.
+  contents:
+  - starts_with("gene")
+- title: Taxon endpoints
+  desc: Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets
+  contents:
+  - starts_with("taxon")
+- title: Other functions
+  desc: Remaining endpoints and helper functions
+  contents:
+  - starts_with("misc")

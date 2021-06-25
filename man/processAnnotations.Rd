@@ -21,3 +21,4 @@ Processes JSON as an annotation
 
 Processes JSON as annotations
 }
+\keyword{internal}

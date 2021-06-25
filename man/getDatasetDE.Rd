@@ -88,3 +88,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Datasets differential expression levels
 Retrieves differential expression levels for given datasets
 }
+\keyword{dataset}

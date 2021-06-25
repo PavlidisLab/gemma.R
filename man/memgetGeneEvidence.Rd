@@ -16,3 +16,4 @@ memgetGeneEvidence(
 \description{
 Memoise getGeneEvidence
 }
+\keyword{internal}

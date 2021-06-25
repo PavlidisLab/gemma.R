@@ -4,6 +4,8 @@
 #' @param ... Any identifiers
 #'
 #' @return The validated identifiers, or stop with an error message
+#'
+#' @keywords internal
 validateID <- function(name, ...) {
     ID <- unlist(list(...))
     isID <- grepl('^\\d+$', ID)
@@ -19,6 +21,8 @@ validateID <- function(name, ...) {
 #' @param ... Any identifiers
 #'
 #' @return The validated identifiers, or stop with an error message
+#'
+#' @keywords internal
 validateOptionalID <- function(name, ...) {
     if(all(is.na(as.character(unlist(list(...)))))) ''
     else validateID(name, ...)
@@ -30,6 +34,8 @@ validateOptionalID <- function(name, ...) {
 #' @param ... An identifier
 #'
 #' @return The validated identifier, or stop with an error message
+#'
+#' @keywords internal
 validateSingleID <- function(name, ...) {
     ID <- unlist(list(...))
 
@@ -44,6 +50,8 @@ validateSingleID <- function(name, ...) {
 #' @param ... Any taxa to validate
 #'
 #' @return The validated taxon, or stop with an error message
+#'
+#' @keywords internal
 validateOptionalTaxon <- function(name, ...) {
     if(all(is.na(as.character(unlist(list(...)))))) ''
     else validateTaxon(name, ...)
@@ -55,6 +63,8 @@ validateOptionalTaxon <- function(name, ...) {
 #' @param ... Any taxa to validate
 #'
 #' @return The validated taxon, or stop with an error message
+#'
+#' @keywords internal
 validateTaxon <- function(name, ...) {
     # TODO LOOKUP_TABLE is insufficient so
     return(validateID(name, ...))
@@ -81,6 +91,8 @@ validateTaxon <- function(name, ...) {
 #' @param ... Any taxa to validate
 #'
 #' @return The validated taxon, or stop with an error message
+#'
+#' @keywords internal
 validateSingleTaxon <- function(name, ...) {
     taxon <- unlist(list(...))
 
@@ -95,6 +107,8 @@ validateSingleTaxon <- function(name, ...) {
 #' @param ... Any queries
 #'
 #' @return The validated queries, or stop with an error message
+#'
+#' @keywords internal
 validateQuery <- function(name, ...) {
     query <- unlist(list(...))
     # TODO Stub
@@ -107,6 +121,8 @@ validateQuery <- function(name, ...) {
 #' @param ... Any filters
 #'
 #' @return The validated filters, or stop with an error message
+#'
+#' @keywords internal
 validateFilter <- function(name, ...) {
     filters <- unlist(list(...))
     # TODO stub
@@ -119,6 +135,8 @@ validateFilter <- function(name, ...) {
 #' @param ... Any possible integers
 #'
 #' @return The validated integers, or stop with an error message
+#'
+#' @keywords internal
 validatePositiveInteger <- function(name, ...) {
     args <- list(...)
     if(length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, '%%', 1) != 0) || any(sapply(args, sign) < 0))
@@ -132,6 +150,8 @@ validatePositiveInteger <- function(name, ...) {
 #' @param ... Any possible numbers
 #'
 #' @return The validated numbers, or stop with an error message
+#'
+#' @keywords internal
 validatePositiveReal <- function(name, ...) {
     args <- list(...)
     if(length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(sapply(args, sign) < 0))
@@ -145,6 +165,8 @@ validatePositiveReal <- function(name, ...) {
 #' @param ... Any boolean types
 #'
 #' @return The validated boolean as a character string (true or false), or stop with an error message
+#'
+#' @keywords internal
 validateBoolean <- function(name, ...) {
     args <- unlist(list(...))
     if(length(args) != 1 || !is.logical(args))
@@ -158,6 +180,8 @@ validateBoolean <- function(name, ...) {
 #' @param ... Any strands
 #'
 #' @return The validated strands, or stop with an error message
+#'
+#' @keywords internal
 validateStrand <- function(name, ...) {
     strand <- unlist(list(...))
     if(length(strand) != 1 || !(strand %in% c('+', '-')))
@@ -171,6 +195,8 @@ validateStrand <- function(name, ...) {
 #' @param ... Any consolidate entries
 #'
 #' @return The validated consolidate entries, or stop with an error message
+#'
+#' @keywords internal
 validateConsolidate <- function(name, ...) {
     consolidate <- unlist(list(...))
     if(length(consolidate) != 1 || !all(is.na(consolidate) | consolidate %in% c('', 'pickmax', 'pickvar', 'average')))
@@ -184,6 +210,8 @@ validateConsolidate <- function(name, ...) {
 #' @param ... Any sort arguments
 #'
 #' @return The validated sort arguments, or stop with an error message
+#'
+#' @keywords internal
 validateSort <- function(name, ...) {
     sort <- unlist(list(...))
     if(length(sort) != 1 || !all(grepl('^[+-].+', sort)))

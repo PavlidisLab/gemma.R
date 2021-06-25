@@ -73,3 +73,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Taxon phenotypes
 Loads all phenotypes for the given taxon.
 }
+\keyword{taxon}

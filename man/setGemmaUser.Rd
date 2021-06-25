@@ -14,3 +14,4 @@ setGemmaUser('username','password') # login
 setGemmaUser() # logout
 
 }
+\keyword{misc}

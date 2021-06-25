@@ -17,3 +17,4 @@ memgetDatasetData(
 \description{
 Memoise getDatasetData
 }
+\keyword{internal}

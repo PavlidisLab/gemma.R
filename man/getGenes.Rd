@@ -50,3 +50,4 @@ A \verb{400 error} if required parameters are missing.
 Genes
 Retrieves all genes matching the identifiers
 }
+\keyword{gene}

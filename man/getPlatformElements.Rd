@@ -54,3 +54,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Platform elements
 Retrieves the composite sequences (elements) for the given platform
 }
+\keyword{platform}

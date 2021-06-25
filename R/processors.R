@@ -12,6 +12,8 @@
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
 #' @param async Whether or not to run asynchronously
+#'
+#' @keywords internal
 .body <- function(memoised, fname, validators, endpoint, envWhere, isFile, raw, overwrite, file, async) {
   # Call a memoised version if applicable
   if(memoised) {
@@ -73,6 +75,8 @@
 #' @param url The string to URL encode. Vectors are delimited by a comma.
 #'
 #' @return A URL encoding of url
+#'
+#' @keywords internal
 encode <- function(url) {
   if(is.na(url) || !is.character(url)) url
   else {
@@ -87,6 +91,8 @@ encode <- function(url) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGemmaFactor <- function(d) {
   if(all(is.na(d)))
     data.table(name = NA_character_, URL = NA_character_,
@@ -107,6 +113,8 @@ processGemmaFactor <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGemmaArray <- function(d) {
   data.table(array.ShortName = d[['shortName']],
              array.Name = d[['name']],
@@ -122,6 +130,8 @@ processGemmaArray <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processDatasets <- function(d) {
   data.table(ee.ShortName = d[['shortName']],
              ee.Name = d[['name']],
@@ -149,6 +159,8 @@ processDatasets <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processAnnotations <- function(d) {
   data.table(category.Name = d[['category']],
              category.URL = d[['categoryUri']],
@@ -161,6 +173,8 @@ processAnnotations <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processDEA <- function(d) {
   divides <- data.table(analysis.ID = d[['id']],
                         ee.ID = d[['sourceExperiment']],
@@ -216,6 +230,8 @@ processDEA <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processExpression <- function(d) {
   expr <- lapply(d[['geneExpressionLevels']], function(x) {
     n.reps <- unlist(lapply(x[['vectors']], nrow))
@@ -236,6 +252,8 @@ processExpression <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processSVD <- function(d) {
   vM <- d$vMatrix$rawMatrix
   colnames(vM) <- d$vMatrix$colNames
@@ -249,6 +267,8 @@ processSVD <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processAnnotations <- function(d) {
   data.table(class.Type = d[['objectClass']],
              class.Name = d[['className']],
@@ -263,6 +283,8 @@ processAnnotations <- function(d) {
 #' @param response The response from an `http_get` request
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processFile <- function(response) {
   tmp <- tempfile() # Make a temp file
   writeBin(response$content, tmp) # Save to that file
@@ -282,6 +304,8 @@ processFile <- function(response) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processSamples <- function(d) {
   data.table(bioMaterial.Name = d[['sample']][['name']],
              sample.Name = d[['name']],
@@ -301,6 +325,8 @@ processSamples <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processPlatforms <- function(d) {
   data.table(platform.ID = d[['id']],
              platform.ShortName = d[['shortName']],
@@ -324,6 +350,8 @@ processPlatforms <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processElements <- function(d) {
   data.table(mapping.Name = d[['name']],
              mapping.Summary = lapply(d[['geneMappingSummaries']], function(x) {
@@ -348,6 +376,8 @@ processElements <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGenes <- function(d) {
   data.table(gene.Symbol = d[['officialSymbol']],
              gene.Ensembl = d[['ensemblId']],
@@ -369,6 +399,8 @@ processGenes <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGeneEvidence <- function(d) {
   data.table(evidence = lapply(d[['evidence']], function(x) {
     data.table(gene.ID = x[['geneId']],
@@ -397,6 +429,8 @@ processGeneEvidence <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processTaxon <- function(d) {
   data.table(taxon.Name = d[['commonName']],
              taxon.Scientific = d[['scientificName']],
@@ -411,6 +445,8 @@ processTaxon <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGeneLocation <- function(d) {
   data.table(chromosome = d[['chromosome']],
              strand = d[['strand']],
@@ -425,6 +461,8 @@ processGeneLocation <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processGO <- function(d) {
   data.table(term.Name = d[['term']],
              term.ID = d[['goId']],
@@ -436,6 +474,8 @@ processGO <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processCoexpression <- function(d) {
   data.table(query.Degree = d[['queryGeneNodeDegree']],
              query.Rank = d[['queryGeneNodeDegreeRank']],
@@ -455,6 +495,8 @@ processCoexpression <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#'
+#' @keywords internal
 processPhenotypes <- function(d) {
   data.table(value.Name = d[['factorValue']],
              value.URL = d[['valueUri']],

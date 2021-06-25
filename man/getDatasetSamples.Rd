@@ -43,3 +43,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Dataset samples
 Retrieves samples for the given dataset
 }
+\keyword{dataset}

@@ -17,3 +17,4 @@ The validated queries, or stop with an error message
 \description{
 Validate a query
 }
+\keyword{internal}

@@ -16,3 +16,4 @@ memsearchAnnotations(
 \description{
 Memoise searchAnnotations
 }
+\keyword{internal}

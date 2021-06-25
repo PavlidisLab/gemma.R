@@ -16,3 +16,4 @@ memgetDatasetDesign(
 \description{
 Memoise getDatasetDesign
 }
+\keyword{internal}

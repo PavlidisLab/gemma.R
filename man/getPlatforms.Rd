@@ -116,3 +116,4 @@ Empty array if no objects matched.
 Platforms
 List platforms filtered and organized by given parameters
 }
+\keyword{platform}

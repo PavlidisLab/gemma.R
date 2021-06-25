@@ -52,3 +52,4 @@ variance each component accounts for
 Dataset SVD information
 Retrieves the SVD information for the given dataset
 }
+\keyword{dataset}

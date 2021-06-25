@@ -54,3 +54,4 @@ A \verb{400 error} if required parameters are missing.
 Dataset differential analysis
 Retrieves the differential analysis results for the given dataset
 }
+\keyword{dataset}

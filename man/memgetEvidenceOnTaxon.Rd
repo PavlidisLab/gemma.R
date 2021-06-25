@@ -17,3 +17,4 @@ memgetEvidenceOnTaxon(
 \description{
 Memoise getEvidenceOnTaxon
 }
+\keyword{internal}

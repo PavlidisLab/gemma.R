@@ -17,3 +17,4 @@ The validated strands, or stop with an error message
 \description{
 Validate a strand (ie. + or -)
 }
+\keyword{internal}

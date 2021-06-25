@@ -57,3 +57,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Gene probes
 Retrieves the probes (composite sequences) with this gene
 }
+\keyword{gene}

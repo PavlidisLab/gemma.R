@@ -20,3 +20,4 @@ memgetGenesAtLocation(
 \description{
 Memoise getGenesAtLocation
 }
+\keyword{internal}

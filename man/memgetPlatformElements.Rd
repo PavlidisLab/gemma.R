@@ -18,3 +18,4 @@ memgetPlatformElements(
 \description{
 Memoise getPlatformElements
 }
+\keyword{internal}

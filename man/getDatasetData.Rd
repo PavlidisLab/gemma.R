@@ -89,3 +89,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Dataset data
 Retrieves the data for the given dataset
 }
+\keyword{dataset}

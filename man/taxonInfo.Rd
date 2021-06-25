@@ -18,3 +18,4 @@ taxonInfo(
 \description{
 taxonInfo
 }
+\keyword{taxon}

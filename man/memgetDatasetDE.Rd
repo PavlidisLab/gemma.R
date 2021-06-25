@@ -21,3 +21,4 @@ memgetDatasetDE(
 \description{
 Memoise getDatasetDE
 }
+\keyword{internal}

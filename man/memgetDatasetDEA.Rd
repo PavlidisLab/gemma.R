@@ -18,3 +18,4 @@ memgetDatasetDEA(
 \description{
 Memoise getDatasetDEA
 }
+\keyword{internal}

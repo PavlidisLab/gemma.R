@@ -17,3 +17,4 @@ memgetGeneLocationOnTaxon(
 \description{
 Memoise getGeneLocationOnTaxon
 }
+\keyword{internal}

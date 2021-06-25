@@ -44,3 +44,4 @@ A \verb{404 error} if the given identifier does not map to any object.
 Dataset annotations
 Retrieves the annotations for the given dataset
 }
+\keyword{dataset}

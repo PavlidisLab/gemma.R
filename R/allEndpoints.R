@@ -87,6 +87,8 @@
 #' in Gemma. You can [read more about the geeq properties
 #' here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
+#'
+#' @keywords dataset
 getDatasets <- function (datasets = NA_character_, filter = NA_character_, offset = 0L, 
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
     async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -106,6 +108,7 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
 
 #' Memoise getDatasets
 #'
+#' @keywords internal
 memgetDatasets <- memoise::memoise(getDatasets)
 
 #' Dataset differential analysis
@@ -136,6 +139,8 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords dataset
 getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -154,6 +159,7 @@ getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L,
 
 #' Memoise getDatasetDEA
 #'
+#' @keywords internal
 memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
 #' Datasets pca component expression levels
@@ -203,6 +209,8 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' principal component.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100L, 
     keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -222,6 +230,7 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
 
 #' Memoise getDatasetPCA
 #'
+#' @keywords internal
 memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 
 #' Datasets differential expression levels
@@ -278,6 +287,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' returned.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE, 
     diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
@@ -298,6 +309,7 @@ getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE,
 
 #' Memoise getDatasetDE
 #'
+#' @keywords internal
 memgetDatasetDE <- memoise::memoise(getDatasetDE)
 
 #' Dataset data
@@ -363,6 +375,8 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @return The data file for the given dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetData <- function (dataset = NA_character_, filter = "false", raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -379,6 +393,7 @@ getDatasetData <- function (dataset = NA_character_, filter = "false", raw = get
 
 #' Memoise getDatasetData
 #'
+#' @keywords internal
 memgetDatasetData <- memoise::memoise(getDatasetData)
 
 #' Dataset samples
@@ -402,6 +417,8 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' @return An array of samples (bio assay value objects) in the given dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -418,6 +435,7 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
 
 #' Memoise getDatasetSamples
 #'
+#' @keywords internal
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
 #' Dataset SVD information
@@ -448,6 +466,8 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #'     variance each component accounts for
 #' -   **vMatrix** - the V Matrix (DoubleMatrix object)
 #' @export
+#'
+#' @keywords dataset
 getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -464,6 +484,7 @@ getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getDatasetSVD
 #'
+#' @keywords internal
 memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 
 #' Dataset platforms
@@ -488,6 +509,8 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 #' dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -504,6 +527,7 @@ getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma
 
 #' Memoise getDatasetPlatforms
 #'
+#' @keywords internal
 memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 
 #' Dataset annotations
@@ -528,6 +552,8 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -544,6 +570,7 @@ getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gem
 
 #' Memoise getDatasetAnnotations
 #'
+#' @keywords internal
 memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 
 #' Dataset design
@@ -567,6 +594,8 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' @return The design file for the given dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords dataset
 getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -583,10 +612,13 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 
 #' Memoise getDatasetDesign
 #'
+#' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
 #' datasetInfo
 #' @export
+
+#' @keywords dataset
 datasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -707,6 +739,8 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' query.
 #' Empty array if no objects matched.
 #' @export
+#'
+#' @keywords platform
 getPlatforms <- function (platforms = NA_character_, filter = NA_character_, 
     offset = 0L, limit = 20L, sort = "+id", raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -726,6 +760,7 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
 
 #' Memoise getPlatforms
 #'
+#' @keywords internal
 memgetPlatforms <- memoise::memoise(getPlatforms)
 
 #' Platform datasets
@@ -755,6 +790,8 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' the given platform.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords platform
 getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 20L, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -773,6 +810,7 @@ getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 
 
 #' Memoise getPlatformDatasets
 #'
+#' @keywords internal
 memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 
 #' Platform elements
@@ -803,6 +841,8 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' Empty collection, if no elements matched the `elements` parameter.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords platform
 getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 20L, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -821,6 +861,7 @@ getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 
 
 #' Memoise getPlatformElements
 #'
+#' @keywords internal
 memgetPlatformElements <- memoise::memoise(getPlatformElements)
 
 #' Platform element genes
@@ -860,6 +901,8 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' All identifiers must be valid.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords platform
 getPlatformElementGenes <- function (platform = NA_character_, element = NA_character_, 
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", F), 
     async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -878,10 +921,13 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
 
 #' Memoise getPlatformElementGenes
 #'
+#' @keywords internal
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
 #' platformInfo
 #' @export
+
+#' @keywords platform
 platformInfo <- function (platform = NA_character_, request = NA_character_, 
     ..., raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -943,6 +989,8 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 #' Empty array if no objects matched.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords gene
 getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -959,6 +1007,7 @@ getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getGenes
 #'
+#' @keywords internal
 memgetGenes <- memoise::memoise(getGenes)
 
 #' Gene evidence
@@ -986,6 +1035,8 @@ memgetGenes <- memoise::memoise(getGenes)
 #' homologues.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords gene
 getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1002,6 +1053,7 @@ getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getGeneEvidence
 #'
+#' @keywords internal
 memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 
 #' Gene locations
@@ -1029,6 +1081,8 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' gene or gene homologues.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords gene
 getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1045,6 +1099,7 @@ getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getGeneLocation
 #'
+#' @keywords internal
 memgetGeneLocation <- memoise::memoise(getGeneLocation)
 
 #' Gene probes
@@ -1078,6 +1133,8 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' genes.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords gene
 getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1095,6 +1152,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
 
 #' Memoise getGeneProbes
 #'
+#' @keywords internal
 memgetGeneProbes <- memoise::memoise(getGeneProbes)
 
 #' Gene goTerms
@@ -1122,6 +1180,8 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' the given gene.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords gene
 getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1138,6 +1198,7 @@ getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getGeneGO
 #'
+#' @keywords internal
 memgetGeneGO <- memoise::memoise(getGeneGO)
 
 #' Gene coexpression
@@ -1177,6 +1238,8 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords gene
 getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, limit = 20L, 
     stringency = 1L, raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -1195,10 +1258,13 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
 
 #' Memoise getGeneCoexpression
 #'
+#' @keywords internal
 memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 
 #' geneInfo
 #' @export
+
+#' @keywords gene
 geneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -1270,6 +1336,8 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 #' A `400 error` if all identifiers are invalid.
 #' An array of all available taxa, if no identifiers were provided.
 #' @export
+#'
+#' @keywords taxon
 getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1286,6 +1354,7 @@ getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw",
 
 #' Memoise getTaxa
 #'
+#' @keywords internal
 memgetTaxa <- memoise::memoise(getTaxa)
 
 #' Taxon datasets
@@ -1382,6 +1451,8 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' with the given taxon.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords taxon
 getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, offset = 0L, 
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", F), 
     async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -1401,6 +1472,7 @@ getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, off
 
 #' Memoise getTaxonDatasets
 #'
+#' @keywords internal
 memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 
 #' Taxon phenotypes
@@ -1450,6 +1522,8 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' taxon in any of the ontologies, the relevant root node will be null.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords taxon
 getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tree = FALSE, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -1468,6 +1542,7 @@ getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tre
 
 #' Memoise getTaxonPhenotypes
 #'
+#' @keywords internal
 memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 
 #' Taxon phenotypes candidate genes
@@ -1513,6 +1588,8 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords taxon
 getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_, 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -1531,6 +1608,7 @@ getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = F
 
 #' Memoise getTaxonPhenotypeCandidates
 #'
+#' @keywords internal
 memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 
 #' Gene on specific taxon
@@ -1575,6 +1653,8 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' given identifier.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords taxon
 getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1591,6 +1671,7 @@ getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = g
 
 #' Memoise getGeneOnTaxon
 #'
+#' @keywords internal
 memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 
 #' Gene evidence on specific taxon
@@ -1635,6 +1716,8 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' taxon.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords taxon
 getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1651,6 +1734,7 @@ getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw
 
 #' Memoise getEvidenceOnTaxon
 #'
+#' @keywords internal
 memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 
 #' Gene location on specific taxon
@@ -1695,6 +1779,8 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' gene on the given taxon.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
+#'
+#' @keywords taxon
 getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1711,6 +1797,7 @@ getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_,
 
 #' Memoise getGeneLocationOnTaxon
 #'
+#' @keywords internal
 memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 
 #' Genes at location
@@ -1762,6 +1849,8 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords taxon
 getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character_, 
     strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -1781,6 +1870,7 @@ getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character
 
 #' Memoise getGenesAtLocation
 #'
+#' @keywords internal
 memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 
 #' Dataset search
@@ -1892,6 +1982,8 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' The search only only checks the annotations value, not the category
 #' (which is also an ontology term).
 #' @export
+#'
+#' @keywords taxon
 searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_character_, 
     offset = 0L, limit = 0L, sort = "+id", raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
@@ -1911,10 +2003,13 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
 
 #' Memoise searchDatasets
 #'
+#' @keywords internal
 memsearchDatasets <- memoise::memoise(searchDatasets)
 
 #' taxonInfo
 #' @export
+
+#' @keywords taxon
 taxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
         F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
@@ -1978,6 +2073,8 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 #' matching the given identifiers.
 #' A `400 error` if required parameters are missing.
 #' @export
+#'
+#' @keywords misc
 searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw", 
     F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
     F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -1994,6 +2091,7 @@ searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw
 
 #' Memoise searchAnnotations
 #'
+#' @keywords internal
 memsearchAnnotations <- memoise::memoise(searchAnnotations)
 
 
@@ -2002,6 +2100,8 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)
 #'
 #' @export
+#'
+#' @keywords misc
 forgetGemmaMemoised <- function () 
 {
     memoise::forget(memgetDatasets)
