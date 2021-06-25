@@ -1,5 +1,6 @@
 library(testthat)
 library(gemmaAPI)
+library(dplyr)
 
 # Prevent certificate issues for GitHub actions
 custom_curl_options <- function(options) {
