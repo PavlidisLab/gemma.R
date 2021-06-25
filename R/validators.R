@@ -111,7 +111,10 @@ validateSingleTaxon <- function(name, ...) {
 #' @keywords internal
 validateQuery <- function(name, ...) {
     query <- unlist(list(...))
-    # TODO Stub
+
+    if(all(is.na(query)) || length(query) == 0)
+        stop(glue::glue('Please specify a query for {name}.'), call. = F)
+
     paste0(query, collapse = ',')
 }
 

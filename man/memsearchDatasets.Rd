@@ -5,7 +5,7 @@
 \title{Memoise searchDatasets}
 \usage{
 memsearchDatasets(
-  taxon = "",
+  taxon = NA_character_,
   query = NA_character_,
   filter = NA_character_,
   offset = 0L,
