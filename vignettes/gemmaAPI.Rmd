@@ -8,6 +8,12 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+# Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
+if(Sys.getenv('RMD_BUILD') != 1)
+  knitr::knit_exit()
+```
+
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -199,7 +205,7 @@ syncBenchmark <- function() {
   }) %>% rbindlist
 }
 
-knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 10)))
+knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 10), unit = 's'))
 ```
 
 As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we're querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.
@@ -243,8 +249,8 @@ lapply(response[, unique(ee.ID)], function(dataset) {
 A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
 ```{r}
-knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1)))
-knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1)))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1), unit = 'ms'))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1), unit = 'ms'))
 ```
 
 ## Clearing cache
