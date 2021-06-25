@@ -78,7 +78,7 @@ encode <- function(url) {
   else {
     if(length(url) > 1)
       url <- paste0(url, collapse = ',')
-    URLencode(url, T)
+    utils::URLencode(url, T)
   }
 }
 

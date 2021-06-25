@@ -94,12 +94,12 @@ batchId={countN + 1}
             tmp <- tempfile()
             base <- getOption('gemma.base', 'https://gemma.msl.ubc.ca/')
             async::http_get(paste0(substring(base, 1, nchar(base) - 1), fileLoc), file = tmp)$then(function(...) {
-              filenames <- unzip(tmp, list = TRUE)$Name
+              filenames <- utils::unzip(tmp, list = TRUE)$Name
 
               # Unzip results and fread in
-              ret <- setNames(lapply(filenames, function(x) data.table::fread(cmd = glue('unzip -p {tmp} {x}'),
-                                                                              colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character'))),
-                              filenames)
+              ret <- lapply(filenames, function(x) data.table::fread(cmd = glue::glue('unzip -p {tmp} {x}'),
+                                                                     colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character')))
+              names(ret) <- filenames
               unlink(tmp)
               ret
             })
