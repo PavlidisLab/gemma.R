@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{taxonInfo}
 \alias{taxonInfo}
-\title{taxonInfo}
+\title{axonInf}
 \usage{
 taxonInfo(
   taxon = NA_character_,
@@ -15,7 +15,48 @@ taxonInfo(
   overwrite = getOption("gemma.overwrite", F)
 )
 }
+\arguments{
+\item{taxon}{Not required, part of the URL path.
+can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+scientific name, common name
+It is recommended to use Taxon ID for efficiency.
+Please note, that not all taxa have all the possible identifiers
+available.
+Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+convenience, below is a list of officially supported taxa:
+ID   Comm.name   Scient.name                NcbiID
+
+1    human       Homo sapiens               9606
+2    mouse       Mus musculus               10090
+3    rat         Rattus norvegicus          10116
+11   yeast       Saccharomyces cerevisiae   4932
+12   zebrafish   Danio rerio                7955
+13   fly         Drosophila melanogaster    7227
+14   worm        Caenorhabditis elegans     6239}
+
+\item{request}{Which specific endpoint to request.}
+
+\item{...}{Parameters to forward to the endpoint selected in \code{request}.}
+
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
+
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
+}
+\value{
+Varies
+}
 \description{
-taxonInfo
+common entrypoint to the various taxon endpoints
 }
 \keyword{taxon}
