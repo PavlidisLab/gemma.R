@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{geneInfo}
 \alias{geneInfo}
-\title{geneInfo}
+\title{eneInf}
 \usage{
 geneInfo(
   gene = NA_character_,
@@ -15,7 +15,38 @@ geneInfo(
   overwrite = getOption("gemma.overwrite", F)
 )
 }
+\arguments{
+\item{gene}{Required, part of the URL path.
+Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
+official symbol (\code{DYRK1A}) of the gene.
+NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+symbol represents a gene homologue for a random taxon, unless used in a
+specific taxon (see Taxon Endpoints).}
+
+\item{request}{Which specific endpoint to request.}
+
+\item{...}{Parameters to forward to the endpoint selected in \code{request}.}
+
+\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+parsing.}
+
+\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
+synchronously. See the \code{async} package for details.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file.
+Otherwise, it will be a RDS file.}
+
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
+}
+\value{
+Varies
+}
 \description{
-geneInfo
+common entrypoint to the various gene endpoints
 }
 \keyword{gene}

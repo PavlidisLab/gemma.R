@@ -6,6 +6,11 @@
 \usage{
 setGemmaUser(username = NULL, password = NULL)
 }
+\arguments{
+\item{username}{Your username (or empty, if logging out)}
+
+\item{password}{Your password (or empty, if logging out)}
+}
 \description{
 Allows the user to access information that requires logging in to Gemma. To log out, run \code{setGemmaUser} without specifying the username or password.
 }

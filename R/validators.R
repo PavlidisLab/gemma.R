@@ -204,7 +204,7 @@ validateConsolidate <- function(name, ...) {
     consolidate
 }
 
-#' Validate a sort argument (^[+-].*)
+#' Validate a sort argument
 #'
 #' @param name The variable name
 #' @param ... Any sort arguments

@@ -625,9 +625,30 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
-#' datasetInfo
+#' atasetInf
+#'
+#' common entrypoint to the various dataset endpoints
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param request Which specific endpoint to request.
+#' @param ... Parameters to forward to the endpoint selected in `request`.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
 #' @export
-
+#'
 #' @keywords dataset
 datasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
@@ -938,9 +959,30 @@ getPlatformElementGenes <- function (platform = NA_character_, element = NA_char
 #' @keywords internal
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
-#' platformInfo
+#' latformInf
+#'
+#' common entrypoint to the various platform endpoints
+#'
+#' @param platform Required, part of the URL path.
+#' Can either be the platform ID or its short name (e.g: `GPL1355`)
+#' Retrieval by ID is more efficient.
+#' Only platforms that user has access to will be available.
+#' @param request Which specific endpoint to request.
+#' @param ... Parameters to forward to the endpoint selected in `request`.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
 #' @export
-
+#'
 #' @keywords platform
 platformInfo <- function (platform = NA_character_, request = NA_character_, 
     ..., raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
@@ -1281,9 +1323,33 @@ getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, lim
 #' @keywords internal
 memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 
-#' geneInfo
+#' eneInf
+#'
+#' common entrypoint to the various gene endpoints
+#'
+#' @param gene Required, part of the URL path.
+#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
+#' official symbol (`DYRK1A`) of the gene.
+#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
+#' []{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+#' symbol represents a gene homologue for a random taxon, unless used in a
+#' specific taxon (see Taxon Endpoints).
+#' @param request Which specific endpoint to request.
+#' @param ... Parameters to forward to the endpoint selected in `request`.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
 #' @export
-
+#'
 #' @keywords gene
 geneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
@@ -2035,9 +2101,43 @@ searchDatasets <- function (taxon = "", query = NA_character_, filter = NA_chara
 #' @keywords internal
 memsearchDatasets <- memoise::memoise(searchDatasets)
 
-#' taxonInfo
+#' axonInf
+#'
+#' common entrypoint to the various taxon endpoints
+#'
+#' @param taxon Not required, part of the URL path.
+#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
+#' scientific name, common name
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers
+#' available.
+#' Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+#' convenience, below is a list of officially supported taxa:
+#'   ID   Comm.name   Scient.name                NcbiID
+#'   ---- ----------- -------------------------- --------
+#'   1    human       Homo sapiens               9606
+#'   2    mouse       Mus musculus               10090
+#'   3    rat         Rattus norvegicus          10116
+#'   11   yeast       Saccharomyces cerevisiae   4932
+#'   12   zebrafish   Danio rerio                7955
+#'   13   fly         Drosophila melanogaster    7227
+#'   14   worm        Caenorhabditis elegans     6239
+#' @param request Which specific endpoint to request.
+#' @param ... Parameters to forward to the endpoint selected in `request`.
+#' @param raw `FALSE` to receive results as-is from Gemma, or `TRUE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
 #' @export
-
+#'
 #' @keywords taxon
 taxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
     raw = getOption("gemma.raw", F), async = getOption("gemma.async", 

@@ -320,9 +320,11 @@ logEndpoint <- function(fname, logname) {
 #' @param characteristic The characteristic required parameter for this category
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
+#' @param roxygen A description to use for the function
 registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
                                      where = parent.env(environment()),
-                                     document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+                                     document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
+                                     roxygen = NULL) {
   if(is.null(fname)) {
     if(is.null(getOption('gemmaAPI.logging', NULL)))
       stop('No categories were being logged')
@@ -378,8 +380,8 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
     environment(f) <- where
 
     if(!is.null(document)) {
-      # TODO comment these
-      cat(glue::glue("#' {fname}\n#' @export\n\n#' @keywords {characteristic}\n\n"), file = document, append = T)
+      comment(fname, roxygen, names(fargs), document)
+      cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n\n"), file = document, append = T)
       cat(glue::glue('{fname} <- '), file = document, append = T)
       cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
       cat('\n\n', file = document, append = T)
@@ -436,8 +438,18 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
     xml2::xml_attr(elem, ':name') == paste0("'", src, "'")
   }, endpoints)
 
-  cat(glue::glue("#' {pandoc(xml2::xml_attr(node, ':name') %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = T)
-  cat(glue::glue("\n\n#' {pandoc(xml2::xml_attr(node, ':description') %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = T)
+  if(length(node) == 0) {
+    mName <- fname
+    mDesc <- src
+    mResp <- 'Varies'
+  } else {
+    mName <- xml2::xml_attr(node, ':name')
+    mDesc <- xml2::xml_attr(node, ':description')
+    mResp <- get(xml2::xml_attr(node, ':response-description'))
+  }
+
+  cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = T)
+  cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = T)
 
   for(arg in parameters) {
     if(arg == 'raw')
@@ -450,6 +462,10 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
       mAdd <- '<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>'
     else if(arg == 'overwrite')
       mAdd <- '<p>Whether or not to overwrite if a file exists at the specified filename.</p>'
+    else if(arg == 'request')
+      mAdd <- '<p>Which specific endpoint to request.</p>'
+    else if(arg == '...')
+      mAdd <- '<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>'
     else {
       mArg <- arg
       if(arg == 'component') mArg <- 'pcaComponent'
@@ -468,7 +484,7 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
     cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = T)
   }
 
-  cat(glue::glue("#'\n#' @return {pandoc(get(xml2::xml_attr(node, ':response-description')))}\n\n"), file = document, append = T)
+  cat(glue::glue("#'\n#' @return {pandoc(mResp)}\n\n"), file = document, append = T)
 }
 
 # Dataset endpoints ----
@@ -579,7 +595,7 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
 #                     consolidate = validateConsolidate),
 #  preprocessors = alist(A = processDEA, B = processExpression))
 
-registerCategoryEndpoint()
+registerCategoryEndpoint(roxygen = 'A common entrypoint to the various dataset endpoints.')
 # Platform endpoints ----
 registerCategoryEndpoint('platformInfo', 'platform')
 
@@ -629,7 +645,7 @@ registerEndpoint('platforms/{platform}/elements/{element}/genes?offset={offset}&
                                     limit = validatePositiveInteger),
                  preprocessor = quote(processGenes))
 
-registerCategoryEndpoint()
+registerCategoryEndpoint(roxygen = 'A common entrypoint to the various platform endpoints.')
 # Gene endpoints ----
 registerCategoryEndpoint('geneInfo', 'gene')
 
@@ -671,7 +687,7 @@ registerEndpoint('genes/{gene}/coexpression?with={with}&limit={limit}&stringency
                                     stringency = validatePositiveInteger),
                  preprocessor = quote(processCoexpression))
 
-registerCategoryEndpoint()
+registerCategoryEndpoint(roxygen = 'A common entrypoint to the various gene endpoints.')
 # Taxon endpoints ----
 registerCategoryEndpoint('taxonInfo', 'taxon')
 
@@ -768,7 +784,7 @@ registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&of
                                     sort = validateSort),
                  preprocessor = quote(processDatasets))
 
-registerCategoryEndpoint()
+registerCategoryEndpoint(roxygen = 'A common entrypoint to the various taxon endpoints.')
 
 registerEndpoint('annotations/search/{query}',
                  'searchAnnotations', roxygen = 'Annotation search',
