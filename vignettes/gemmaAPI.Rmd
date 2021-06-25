@@ -156,7 +156,7 @@ Although this may look intimidating at first, it's a very powerful way to rapidl
 
 ## Benchmark
 
-For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning.
+For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).
 
 ```{r}
 # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
@@ -199,7 +199,43 @@ syncBenchmark <- function() {
   }) %>% rbindlist
 }
 
-knitr::kable(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 10))
+knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 10)))
+```
+
+As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we're querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.
+
+```{r}
+# For simplicity, we'll assume there are no experiment IDs larger than 20,000.
+
+synchronise({
+  # First send a request to an endpoint that accepts multiple datasets to narrow down our search space
+  async_map(split(1:20000, ceiling(seq_along(1:20000) / 1000)), async(function(chunk) {
+    getDatasets(chunk, limit = 0, async = T)
+  }))$then(function(response) {
+    # Asynchronously request annotations for each experiment that was found
+    async_map(rbindlist(response, fill = T)[, unique(ee.ID)], async(function(dataset) {
+      getDatasetAnnotations(dataset, async = T)$then(function(annotations) {
+        if(is.data.table(annotations)) annotations[, ee.ID := dataset]
+        else NULL
+      })
+    }), .limit = 200) # Only allow 200 active requests at a time to not flood the server
+  })
+}) %>% rbindlist %>% glimpse
+```
+
+This can (conceivably) be done synchronously, but in practice it would take far too long.
+
+```{r eval=FALSE}
+# Not evaluated
+response <- lapply(split(1:20000, ceiling(seq_along(1:20000) / 1000)), function(chunk) {
+  getDatasets(chunk, limit = 0)
+}) %>% rbindlist(fill = T)
+
+lapply(response[, unique(ee.ID)], function(dataset) {
+  annotations <- getDatasetAnnotations(dataset)
+  if(is.data.table(annotations)) annotations[, ee.ID := dataset]
+  else NULL
+}) %>% rbindlist %>% glimpse
 ```
 
 # Memoised results
