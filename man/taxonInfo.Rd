@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{taxonInfo}
 \alias{taxonInfo}
-\title{axonInf}
+\title{taxonInfo}
 \usage{
 taxonInfo(
   taxon = NA_character_,
@@ -22,7 +22,7 @@ scientific name, common name
 It is recommended to use Taxon ID for efficiency.
 Please note, that not all taxa have all the possible identifiers
 available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+Use the 'All Taxa' endpoint to retrieve the necessary information. For
 convenience, below is a list of officially supported taxa:
 ID   Comm.name   Scient.name                NcbiID
 
@@ -38,7 +38,7 @@ ID   Comm.name   Scient.name                NcbiID
 
 \item{...}{Parameters to forward to the endpoint selected in \code{request}.}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
@@ -57,6 +57,6 @@ Otherwise, it will be a RDS file.}
 Varies
 }
 \description{
-common entrypoint to the various taxon endpoints
+A common entrypoint to the various taxon endpoints.
 }
 \keyword{taxon}

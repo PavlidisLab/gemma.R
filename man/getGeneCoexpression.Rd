@@ -21,7 +21,7 @@ getGeneCoexpression(
 Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
 official symbol (\code{DYRK1A}) of the gene.
 NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+Official
 symbol represents a gene homologue for a random taxon, unless used in a
 specific taxon (see Taxon Endpoints).}
 
@@ -29,7 +29,7 @@ specific taxon (see Taxon Endpoints).}
 Can either be the NCBI ID (\code{1859}), Ensembl ID (\code{ENSG00000157540}) or
 official symbol (\code{DYRK1A}) of the gene.
 NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} Official
+Official
 symbol represents a gene homologue for a random taxon, unless used in a
 specific taxon (see Taxon Endpoints).}
 
@@ -39,7 +39,7 @@ Limits the result to specified amount of objects. Use 0 for no limit.}
 \item{stringency}{Optional, defaults to \code{1}.
 Sets the stringency of coexpression search.}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

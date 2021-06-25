@@ -1,4 +1,4 @@
-#' Set Gemma User
+#' Authentication
 #'
 #' Allows the user to access information that requires logging in to Gemma. To log out, run `setGemmaUser` without specifying the username or password.
 #'

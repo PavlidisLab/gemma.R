@@ -35,8 +35,8 @@ each queried gene, even if they also map to other genes.}
 
 \item{diffExSet}{Required, defaults to \code{empty}.
 The ID of the differential expression set to retrieve the data from.
-This value can be obtained through the \'Dataset differential analysis\'
-endpoint in the \'Dataset endpoints\' category. See the \code{resultSetId} in
+This value can be obtained through the 'Dataset differential analysis'
+endpoint in the 'Dataset endpoints' category. See the \code{resultSetId} in
 one of the response objects in said endpoint.}
 
 \item{threshold}{Optional, defaults to \code{100.0}.
@@ -60,7 +60,7 @@ expression across its bioAssays
 values from all vectors
 }}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

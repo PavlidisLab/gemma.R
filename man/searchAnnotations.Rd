@@ -15,16 +15,16 @@ searchAnnotations(
 }
 \arguments{
 \item{query}{Required, defaults to \code{empty}.
-The search query. Either plain text (\'traumatic\'), or an ontology term
-URI (\'http://purl.obolibrary.org/obo/UBERON_0002048\'). Datasets that
+The search query. Either plain text ('traumatic'), or an ontology term
+URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 contain the given string in their short of full name will also be
-matched (\'GSE201\', \'Bronchoalveolar lavage samples\'.
+matched ('GSE201', 'Bronchoalveolar lavage samples'.
 Can be multiple identifiers separated by commas.
-[]{.glyphicon .glyphicon-th-large .glyphicon-exclamation-sign} When
+When
 using in scripts, remember to URL-encode any forward slashes in the
 phenotype value URIs (see the compiled URL below).}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run

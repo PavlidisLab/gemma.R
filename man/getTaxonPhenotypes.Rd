@@ -22,7 +22,7 @@ scientific name, common name
 It is recommended to use Taxon ID for efficiency.
 Please note, that not all taxa have all the possible identifiers
 available.
-Use the \'All Taxa\' endpoint to retrieve the necessary information. For
+Use the 'All Taxa' endpoint to retrieve the necessary information. For
 convenience, below is a list of officially supported taxa:
 ID   Comm.name   Scient.name                NcbiID
 
@@ -43,7 +43,7 @@ objects).
 Default is false - the tree is flattened and the tree structure
 information is stored as the values of the returned object.}
 
-\item{raw}{\code{FALSE} to receive results as-is from Gemma, or \code{TRUE} to enable
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
 
 \item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
