@@ -100,7 +100,7 @@ batchId={countN + 1}
               filenames <- unzip(tmp, list = TRUE)$Name
 
               # Unzip results and fread in
-              ret <- setNames(lapply(filenames, function(x) data.table::fread(cmd = glue('unzip -p {tmp} {x}'),
+              ret <- setNames(lapply(filenames, function(x) data.table::fread(cmd = glue::glue('unzip -p {tmp} {x}'),
                                                                               colClasses = c(Element_Name = 'character', Gene_Symbol = 'character', Gene_Name = 'character'))),
                               filenames)
               unlink(tmp)
