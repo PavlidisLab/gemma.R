@@ -328,22 +328,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">5.847826</td>
-<td align="right">6.026159</td>
-<td align="right">6.460412</td>
-<td align="right">6.199965</td>
-<td align="right">6.583778</td>
-<td align="right">8.560006</td>
+<td align="right">5.961643</td>
+<td align="right">6.104857</td>
+<td align="right">6.262259</td>
+<td align="right">6.192895</td>
+<td align="right">6.456747</td>
+<td align="right">6.692615</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">31.720305</td>
-<td align="right">32.083313</td>
-<td align="right">33.213802</td>
-<td align="right">32.569157</td>
-<td align="right">33.749515</td>
-<td align="right">35.661425</td>
+<td align="right">33.304529</td>
+<td align="right">33.594880</td>
+<td align="right">34.165500</td>
+<td align="right">33.804299</td>
+<td align="right">34.363086</td>
+<td align="right">36.239289</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -394,17 +394,78 @@
 <a href="#memoised-results" class="anchor"></a>Memoised results</h1>
 <p>A different way to “speed up” requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   3.025   0.109   7.520</span>
-<span class="fu"><a href="https://rdrr.io/r/base/system.time.html">system.time</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt;    user  system elapsed </span>
-<span class="co">#&gt;   0.001   0.000   0.000</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="40%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">expr</th>
+<th align="right">min</th>
+<th align="right">lq</th>
+<th align="right">mean</th>
+<th align="right">median</th>
+<th align="right">uq</th>
+<th align="right">max</th>
+<th align="right">neval</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
+<td align="right">8.491329</td>
+<td align="right">8.491329</td>
+<td align="right">8.491329</td>
+<td align="right">8.491329</td>
+<td align="right">8.491329</td>
+<td align="right">8.491329</td>
+<td align="right">1</td>
+</tr></tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="42%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">expr</th>
+<th align="right">min</th>
+<th align="right">lq</th>
+<th align="right">mean</th>
+<th align="right">median</th>
+<th align="right">uq</th>
+<th align="right">max</th>
+<th align="right">neval</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
+<td align="right">647.817</td>
+<td align="right">647.817</td>
+<td align="right">647.817</td>
+<td align="right">647.817</td>
+<td align="right">647.817</td>
+<td align="right">647.817</td>
+<td align="right">1</td>
+</tr></tbody>
+</table>
 <div id="clearing-cache" class="section level2">
 <h2 class="hasAnchor">
 <a href="#clearing-cache" class="anchor"></a>Clearing cache</h2>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; [1] TRUE</span></code></pre></div>
 </div>
@@ -422,7 +483,7 @@
 <h1 class="hasAnchor">
 <a href="#changing-defaults" class="anchor"></a>Changing defaults</h1>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="authentication" class="section level1">
