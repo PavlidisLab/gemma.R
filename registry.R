@@ -60,7 +60,7 @@ registerEndpoint <- function(endpoint,
 
   formals(f) <- fargs
   body(f) <- quote({
-    .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async)
+    .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async, match.call())
   })
 
   # Add our variables
@@ -426,7 +426,11 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
     ret <- system2(paste0(Sys.getenv('RSTUDIO_PANDOC'), '/pandoc'), c('-f html', '-t markdown', tmp), stdout = T)
     unlink(tmp)
     gsub("\n#' \n#' ", "\n#' ", gsub('\n', "\n#' ", paste0(ret, collapse = '\n'), fixed = T), fixed = T) %>% {
-      gsub('\\[\\]\\{\\.glyphicon[^\\}]+\\} ', '', gsub('\\', '', ., fixed = T))
+      # Fix badly formatted URLs (from unescaping []), remove unsupported glyphicons and unescape
+      gsub('\\[\\[([^\\]]+)\\]\\]', '\\[\\1\\]', gsub('\\[\\]\\{\\.glyphicon[^\\}]+\\} ', '', gsub('\\', '', ., fixed = T)), perl = T)
+    } %>% {
+      # Fix multiline URLs
+      gsub('\\[(.*)\n#\' ([^\\]]+)\\]\\(([^\\)]+)\\)', '[\\1 \\2](\\3)', ., perl = T)
     }
   }
 
@@ -550,7 +554,7 @@ registerEndpoint('datasets/{dataset}/data?filter={filter}',
                  'getDatasetData', logname = 'data', roxygen = 'Dataset data',
                  isFile = T,
                  defaults = list(dataset = NA_character_,
-                                 filter = 'false'),
+                                 filter = F),
                  validators = alist(dataset = validateID,
                                     filter = validateBoolean),
                  preprocessor = quote(processFile))
@@ -653,6 +657,7 @@ registerCategoryEndpoint('geneInfo', 'gene')
 
 registerSimpleEndpoint('genes', '', logname = 'genes', roxygen = 'Genes',
                        'getGenes',
+                       validator = quote(validateID),
                        preprocessor = quote(processGenes))
 
 registerSimpleEndpoint('gene', 'evidence', logname = 'evidence', roxygen = 'Gene evidence',

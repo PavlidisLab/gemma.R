@@ -6,7 +6,7 @@
 \usage{
 getDatasetData(
   dataset = NA_character_,
-  filter = "false",
+  filter = FALSE,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
@@ -28,11 +28,9 @@ returned by the API calls.]{.description-imp}
 Class definitions:
 \itemize{
 \item Datasets:
-[\link{javaDoc}](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)
-[\link{gitHub}](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html}{javaDoc}     \href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java}{gitHub}
 \item Platforms:
-[\link{javaDoc}](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)
-[\link{gitHub}](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+\href{http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html}{javaDoc}     \href{https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java}{gitHub}
 E.g: \code{curationDetails} or \code{curationDetails.lastTroubledEvent.date}.
 }
 \itemize{
