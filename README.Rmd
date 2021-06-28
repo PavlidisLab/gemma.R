@@ -15,9 +15,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R build status](https://github.com/jsicherman/GemmAPI/workflows/R-CMD-check/badge.svg)](https://github.com/jsicherman/GemmAPI/actions)
-[![CRAN status](https://www.r-pkg.org/badges/version/gemmaAPI)](https://CRAN.R-project.org/package=gemmaAPI)
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/gemmaAPI)](https://CRAN.R-project.org/package=gemmaAPI)
 [![CRAN downloads](http://cranlogs.r-pkg.org/badges/grand-total/gemmaAPI?color=blue)](https://cran.r-project.org/package=badger)
-<!-- [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) -->
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable) -->
 [![Codecov test coverage](https://codecov.io/gh/jsicherman/GemmAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/jsicherman/GemmAPI?branch=master)
 [![DOI](https://img.shields.io/badge/doi-10.1093/database/baab006-yellow.svg)](https://doi.org/10.1093/database/baab006)
 <!-- badges: end -->

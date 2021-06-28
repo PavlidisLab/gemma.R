@@ -620,6 +620,54 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
+#' getDiffExpr
+#' @export
+#'
+#' @keywords dataset
+getDiffExpr <- function (dataset = NA_character_, offset = 0L, limit = 20L, 
+    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
+        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
+        NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
+{
+    fname <- "getDiffExpr"
+    passthrough <- list(getDatasetDEA = c(diffExSet = "analysis.ID"), 
+        getDiffExData = c(NULL))
+    depends <- list(getDatasetDEA = c(NA), getDiffExData = c(1))
+    endpoints <- c("getDatasetDEA", "getDiffExData")
+    env <- environment()
+    makeCall <- async(function(i) {
+        .fargs <- formals(get(endpoints[i]))
+        mCallable <- call(endpoints[i])
+        for (f in names(.fargs)) {
+            mCallable[[f]] <- .fargs[[f]]
+        }
+        for (f in intersect(names(.fargs), ls(envir = env))) {
+            mCallable[[f]] <- get(f, envir = env, inherits = F)
+        }
+        mCallable[c("raw", "async")] <- c(F, T)
+        mCallable[setdiff(names(mCallable), names(.fargs))] <- NULL
+        if (isTRUE(any(depends == i))) {
+            eval(mCallable, env)$then(function(response) {
+                for (p in names(passthrough[[i]])) {
+                  assign(p, response[[passthrough[[i]][p]]], 
+                    envir = env)
+                }
+                async::async_map(which(depends == i), makeCall)
+            })
+        }
+        else eval(mCallable, env)
+    })
+    request <- async::async(function() {
+        async::async_map(which(is.na(depends)), function(i) {
+            makeCall(i)
+        })
+    })
+    if (!async) 
+        async::synchronise(when_all(request()))
+    else request()
+}
+
 #' datasetInfo
 #'
 #' A common entrypoint to the various dataset endpoints.
@@ -656,7 +704,7 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         PCA = "getDatasetPCA", diffEx = "getDatasetDE", data = "getDatasetData", 
         samples = "getDatasetSamples", SVD = "getDatasetSVD", 
         platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
-        design = "getDatasetDesign")
+        design = "getDatasetDesign", diffExData = "getDiffExpr")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
             paste0(names(argMap), collapse = ", ")))
