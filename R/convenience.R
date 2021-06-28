@@ -27,7 +27,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' the function will continue to run and poll for updates every 3 seconds until it becomes available.
 #'
 #' @param dataset The experiment ID (integer)
-#' @param diffExSet The result set ID for the differential expression analysis we want (integer) @seealso getDatasetDEA
+#' @param diffExSet The analysis ID for the differential expression analysis we want (integer) @seealso getDatasetDEA for analysis.ID
 #'
 #' @return A list of `data.table`s that were read in, typically the first one is analysis results (elements, p-values) and the second is full data (elements, FC, t- and p-values)
 #'
@@ -83,8 +83,12 @@ batchId={countN + 1}
           return(NULL)
         }
 
+        mContent <- rawToChar(response$content)
         # Detect completion
-        if(grepl('done:true', rawToChar(response$content), fixed = T)) {
+        if(grepl('taskStatus:"FAILED"', mContent, fixed = T)) {
+          warning(paste0('Unable to get task data: ', gsub('.*lastLogMessage:"([^"]+)".*', '\\1', mContent)))
+          return(NULL)
+        } else if(grepl('done:true', mContent, fixed = T)) {
           # Query where to find the result
           async::http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/TaskCompletionController.checkResult.dwr'), glue::glue(REQ3))$then(function(response) {
             if(response$status != 200) {

@@ -203,7 +203,7 @@ processDEA <- function(d) {
       .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), 'factor.ID')]
   }) %>% rbindlist %>% .[!is.na(cf.Baseline)]
 
-  rsd <- merge(rs, divides, by = c('result.ID', 'analysis.ID'))
+  rsd <- merge(rs, divides, by = c('result.ID', 'analysis.ID'), all = T)
   lapply(unique(rsd[, factor.ID]), function(fid) {
     lapply(d$factorValuesUsed[[as.character(fid)]], function(fv) {
       if(!is.null(fv) && nrow(fv) > 0) {
@@ -214,16 +214,17 @@ processDEA <- function(d) {
                             id)]
       }
     }) %>% .[lengths(.) > 0] %>% rbindlist
-  }) %>% rbindlist %>% unique %>% merge(rsd, by = 'factor.ID', allow.cartesian = T) %>%
+  }) %>% rbindlist %>% unique %>% merge(rsd, by = 'factor.ID', allow.cartesian = T, all = T) %>%
     merge(data.table(analysis.ID = d[['id']],
-                     ad.ID = d[['arrayDesignsUsed']]), by = 'analysis.ID') %>%
+                     ad.ID = d[['arrayDesignsUsed']]), by = 'analysis.ID', all = T) %>%
     .[, .(rsc.ID = paste('RSCID', result.ID, id, sep = '.'),
+          analysis.ID,
           ee.ID, cf.Cat, cf.CatLongUri, cf.Baseline, cf.BaseLongUri,
           cf.Val, cf.ValLongUri, sf.Subset = sf.Enabled,
           sf.Cat = sf.category.Name, sf.CatLongUri = sf.category.URL,
           sf.Val = sf.name, sf.ValLongUri = sf.URL,
           stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
-          genes.Analyzed, ad.ID), .(result.ID, id)]
+          genes.Analyzed, ad.ID), .(result.ID, id)] %>% .[, !c('result.ID', 'id')]
 }
 
 #' Processes JSON as expression data

@@ -10,6 +10,7 @@ if(file.exists(getOption('gemmaAPI.document', 'R/allEndpoints.R')))
   file.remove(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
 
 file.create(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
+source('R/convenience.R')
 
 #' Register an API endpoint (internal use)
 #'
@@ -139,7 +140,9 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
 
 #' A compound endpoint is one that makes multiple API calls and composes the response (internal use)
 #'
-#' @param endpoints A list of endpoints, indices of other endpoints they activate and which variables they send forwards (of the form list(list(endpoint = "", activates = 1, variables = c(bound_name = 'access name'))))
+#' @param endpoints A list of endpoints (function names from @seealso registerSimpleEndpoint or @seealso registerEndpoint)
+#' @param depends A list of indices (corresponding to entries in @param endpoints) which this endpoint depends on
+#' @param passthrough A list of variable names to take and passthrough (names = new name, value = fetched value)
 #' @param fname The name of the function to create
 #' @param preprocessors The preprocessing functions to run on the output (same order as endpoints)
 #' @param defaults Default values for the endpoint
@@ -149,13 +152,12 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
-registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults = list(NULL),
-                                     validators = alist(NULL), logname = fname,
+registerCompoundEndpoint <- function(endpoints, depends, passthrough,
+                                     fname, logname = fname,
                                      roxygen = NULL,
-                                     where = parent.env(environment()), document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
-                                     isFile = F) {
-  if(missing(endpoints) || missing(fname) || missing(preprocessors))
-    stop('Please specify endpoints, function name and preprocessors.')
+                                     where = parent.env(environment()), document = getOption('gemmaAPI.document', 'R/allEndpoints.R')) {
+  if(missing(endpoints) || missing(fname) || missing(depends) || missing(passthrough))
+    stop('Please specify endpoints, depends, passthrough and a function name.')
   if(exists(fname, envir = where, inherits = F)) {
     warning(glue::glue('{fname} already exists. Skipping.'))
     return(NULL)
@@ -163,96 +165,59 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
 
   logEndpoint(fname, logname)
 
-  # Make sure arguments are URL encoded
-  endpoints <- lapply(endpoints, function(endpoint) {
-    endpoint$endpoint <- gsub('\\{([^\\}]+)\\}', '\\{encode\\(\\1\\)\\}', endpoint$endpoint)
-    endpoint
-  })
-
   f <- function() {}
 
   fargs <- alist()
-  for(d in names(defaults)) {
-    fargs[[d]] <- defaults[[d]]
+  for(d in endpoints) {
+    fargs <- append(fargs, formals(get(d, envir = where, inherits = F))) %>% .[!duplicated(names(.))]
   }
 
+  # Remove any arguments that are listed as passthroughs
+  fargs[lapply(passthrough, names) %>% unlist %>% unname %>% unique] <- NULL
+
+  # Make sure these are the last arguments
+  fargs[c('raw', 'async', 'memoised', 'file', 'overwrite')] <- NULL
   fargs$raw <- quote(getOption('gemma.raw', F))
   fargs$async <- quote(getOption('gemma.async', F))
   fargs$memoised <- quote(getOption('gemma.memoise', F))
+  fargs$file <- quote(getOption('gemma.file', NA_character_))
+  fargs$overwrite <- quote(getOption('gemma.overwrite', F))
 
   formals(f) <- fargs
   body(f) <- quote({
-    # Call a memoised version if applicable
-    if(memoised) {
-      newArgs <- as.list(match.call())[-1]
-      newArgs$memoised <- F
-      return(do.call(glue::glue('mem{fname}'), newArgs))
-    }
+    env <- environment()
 
-    # Validate arguments
-    if(!is.null(validators)) {
-      for(v in names(validators)) {
-        assign(v, eval(validators[[v]])(get(v), name = v))
+    makeCall <- async(function(i) {
+      .fargs <- formals(get(endpoints[i]))
+      mCallable <- call(endpoints[i])
+
+      for(f in names(.fargs)) {
+        mCallable[[f]] <- .fargs[[f]]
       }
-    }
+      for(f in intersect(names(.fargs), ls(envir = env))) {
+        mCallable[[f]] <- get(f, envir = env, inherits = F)
+      }
+      mCallable[c('raw', 'async')] <- c(F, T)
+      mCallable[setdiff(names(mCallable), names(.fargs))] <- NULL
 
-    # Generate request
-    endpointURLs <- lapply(endpoints, '[[', 'endpoint')
-    endpointMap <- lapply(endpoints, '[[', 'activates')
-    endpointExtract <- lapply(endpoints, '[[', 'variables')
+      if(isTRUE(any(depends == i))) {
+        eval(mCallable, env)$then(function(response) {
+          # Assign passthroughs
+          for(p in names(passthrough[[i]])) {
+            assign(p, response[[passthrough[[i]][p]]], envir = env)
+          }
 
-    makeRequest <- async::async(function(index, URL) {
-      # Make a request
-      async::http_get(URL)$then(function(response) {
-        if(response$status_code == 200) {
-          mData <- tryCatch({
-            if(isFile) response
-            else jsonlite::fromJSON(rawToChar(response$content))$data
-          }, error = function(e) {
-            message(paste0('Failed to parse ', response$type, ' from ', response$url))
-            warning(e$message)
-            NULL
-          })
-          if(raw || length(mData) == 0)
-            pData <- mData
-          else
-            pData <- eval(preprocessors[[index]])(mData)
-
-          # If we activate another endpoint...
-          if(!is.null(endpointMap[[index]])) {
-            # Extract any passthrough variables and pass them on
-            if(!is.null(endpointExtract[[index]])) {
-              e <- as.environment(do.call(data.frame, mData))
-              for(var in names(endpointExtract[[index]])) {
-                assign(var, get(endpointExtract[[index]][var], envir = e))
-              }
-            }
-
-            # Make the new request
-            newIndex <- endpointMap[[index]]
-            newURL <- paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
-                             gsub('/(NA|/)', '/',
-                                  gsub('\\?[^=]+=NA', '\\?',
-                                       gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[newIndex]])))))
-
-            async::synchronise(makeRequest(newIndex, newURL)$then(function(x) {
-              list(pData, x)
-            }))
-          } else
-            pData
-        } else
-          response
-      })
+          async::async_map(which(depends == i), makeCall)
+        })
+      } else
+        eval(mCallable, env)
     })
 
-    # Start by sending requests that aren't activated by other endpoints
+    # Start by sending requests that don't depend on other endpoints
     request <- async::async(function() {
-      lapply(setdiff(1:length(endpoints), unique(unlist(endpointMap))), function(x) {
-        async::synchronise(makeRequest(x, paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'),
-                                          gsub('/(NA|/)', '/',
-                                               gsub('\\?[^=]+=NA', '\\?',
-                                                    gsub('&[^=]+=NA', '', glue::glue(endpointURLs[[x]])))))))
-      }) %>% unlist(F)
+      async::async_map(which(is.na(depends)), function(i) {
+        makeCall(i)
+      })
     })
 
     if(!async)
@@ -262,12 +227,35 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
   })
 
   # Add our variables
-  for(i in c('endpoints', 'validators', 'preprocessors', 'fname', 'isFile')) {
-    if(is.character(get(i)))
-      v <- glue::glue('"{get(i)}"')
-    else if(is.list(get(i)))
-      v <- get(i) %>% { paste0('list(', paste0(names(.), ' = ', ., collapse = ', '), ')') }
-    else
+  for(i in c('endpoints', 'depends', 'passthrough', 'fname')) {
+    if(is.character(get(i))) {
+      if(length(get(i)) > 1)
+        v <- get(i) %>% { paste0('c(', paste0(paste0('"', ., '"'), collapse = ', '), ')') }
+      else
+        v <- glue::glue('"{get(i)}"')
+    } else if(is.list(get(i))) {
+      if(!is.null(names(get(i)))) {
+        if(any(lapply(get(i), names) %>% lapply(is.null) %>% unlist))
+          listContents <- paste0(names(get(i)), ' = ', paste0('c(', lapply(get(i), names) %>% {
+            mapply(function(x, y) {
+              if(is.null(y))
+                y <- 'NULL'
+              else if(is.na(y))
+                y <- 'NA'
+              else if(is.character(y))
+                y <- paste0('"', y, '"')
+
+              if(!is.null(x))
+                paste0(x, ' = ', y, collapse = ', ')
+              else
+                paste0(y, collapse = ', ')
+            }, ., get(i))
+          }, ')'), collapse = ', ')
+        else
+          listContents <- paste0(names(.), ' = ', ., collapse = ', ')
+      }
+      v <- get(i) %>% { paste0('list(', listContents, ')') }
+    } else
       v <- get(i)
 
     body(f) <- body(f) %>% as.list %>%
@@ -280,18 +268,6 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
 
   # Make this function available in the parent environment...
   assign(fname, f, env = where)
-  memF <- glue::glue('mem', fname)
-  assign(memF, memoise::memoise(f), where)
-
-  if(!exists('forgetGemmaMemoised', envir = where, inherits = F))
-    assign('forgetGemmaMemoised', function() {}, envir = where, inherits = F)
-
-  forgetMe <- get('forgetGemmaMemoised', envir = where, inherits = F)
-
-  body(forgetMe) <- body(forgetMe) %>% as.list %>%
-    append(str2expression(glue::glue('memoise::forget({memF})'))) %>% as.call
-
-  assign('forgetGemmaMemoised', forgetMe, envir = where, inherits = F)
 
   if(!is.null(document)) {
     #cat(glue::glue("#' {fname}\n"), file = document, append = T)
@@ -299,9 +275,6 @@ registerCompoundEndpoint <- function(endpoints, fname, preprocessors, defaults =
     cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = T)
     cat(glue::glue('{fname} <- '), file = document, append = T)
     cat(deparse(f) %>% paste0(collapse = '\n'), file = document, append = T)
-    cat('\n\n', file = document, append = T)
-    cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = T)
-    cat(glue::glue('mem{fname} <- memoise::memoise({fname})'), file = document, append = T)
     cat('\n\n', file = document, append = T)
   }
 }
@@ -581,25 +554,10 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
 
 # TODO Consider whether this belongs in the API or not...
 
-#registerCompoundEndpoint(endpoints = list(
-#  A = list(endpoint = 'datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
-#           activates = 2,
-#           variables = c(diffExSet = 'resultSets.resultSetId')),
-#  B = list(endpoint = 'datasets/{dataset}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}')),
-#  'getDiffExpr', logname = 'diffExData',
-#  defaults = list(dataset = NA_character_,
-#                  offset = 0L,
-#                  keepNonSpecific = F,
-#                  threshold = 100.0,
-#                  limit = 100L,
-#                  consolidate = NA_character_),
-#  validators = alist(dataset = validateSingleID,
-#                     offset = validatePositiveInteger,
-#                     keepNonSpecific = validateBoolean,
-#                     threshold = validatePositiveReal,
-#                     limit = validatePositiveInteger,
-#                     consolidate = validateConsolidate),
-#  preprocessors = alist(A = processDEA, B = processExpression))
+registerCompoundEndpoint(endpoints = c('getDatasetDEA', 'getDiffExData'),
+                         depends = list(getDatasetDEA = NA, getDiffExData = 1),
+                         passthrough = list(getDatasetDEA = c(diffExSet = 'analysis.ID'), getDiffExData = NULL),
+                         'getDiffExpr', logname = 'diffExData')
 
 registerCategoryEndpoint(roxygen = 'A common entrypoint to the various dataset endpoints.')
 # Platform endpoints ----
