@@ -262,11 +262,8 @@
   <span class="co"># Only complete this synchronise block when all queries are finished</span>
   <span class="fu"><a href="https://rdrr.io/pkg/async/man/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 24</span>
-<span class="co">#&gt; Columns: 3</span>
-<span class="co">#&gt; $ ee.ID     &lt;int&gt; 24, 126, 157, 157, 166, 204, 219, 219, 219, 219, 219, 219, 2…</span>
-<span class="co">#&gt; $ expr      &lt;list&gt; [&lt;data.table[87 x 164]&gt;], [&lt;data.table[88 x 176]&gt;], [&lt;data.…</span>
-<span class="co">#&gt; $ diffExSet &lt;int&gt; 484136, 443192, 481902, 481901, 459902, 443428, 482743, 4827…</span></code></pre></div>
+<span class="co">#&gt; Rows: 0</span>
+<span class="co">#&gt; Columns: 0</span></code></pre></div>
 <p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
 <div id="benchmark" class="section level2">
 <h2 class="hasAnchor">
@@ -328,22 +325,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">5.685556</td>
-<td align="right">6.296724</td>
-<td align="right">6.398697</td>
-<td align="right">6.352657</td>
-<td align="right">6.685571</td>
-<td align="right">6.918253</td>
+<td align="right">0.7677602</td>
+<td align="right">0.7781515</td>
+<td align="right">0.8917318</td>
+<td align="right">0.7897544</td>
+<td align="right">0.8275639</td>
+<td align="right">1.63342</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">25.807862</td>
-<td align="right">26.153931</td>
-<td align="right">26.943699</td>
-<td align="right">26.866238</td>
-<td align="right">27.599494</td>
-<td align="right">28.478374</td>
+<td align="right">2.7231588</td>
+<td align="right">2.9115661</td>
+<td align="right">2.9542130</td>
+<td align="right">2.9882360</td>
+<td align="right">3.0405413</td>
+<td align="right">3.05035</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -418,12 +415,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">7184.289</td>
-<td align="right">7184.289</td>
-<td align="right">7184.289</td>
-<td align="right">7184.289</td>
-<td align="right">7184.289</td>
-<td align="right">7184.289</td>
+<td align="right">6878.924</td>
+<td align="right">6878.924</td>
+<td align="right">6878.924</td>
+<td align="right">6878.924</td>
+<td align="right">6878.924</td>
+<td align="right">6878.924</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -452,12 +449,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.564113</td>
-<td align="right">0.564113</td>
-<td align="right">0.564113</td>
-<td align="right">0.564113</td>
-<td align="right">0.564113</td>
-<td align="right">0.564113</td>
+<td align="right">0.522903</td>
+<td align="right">0.522903</td>
+<td align="right">0.522903</td>
+<td align="right">0.522903</td>
+<td align="right">0.522903</td>
+<td align="right">0.522903</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
