@@ -20,7 +20,7 @@ test_that('datasetSearch queries work', {
   #               as.data.frame() %>% dplyr::mutate(term_found = ee.Name | ee.Description) %>%
   #               .$term_found %>% all)
 
-  expect_equal(searchDatasets(taxon = 'human', query = 'bipolar', limit = 10) %>% nrow, 10)
+  expect_equal(searchDatasets(taxon = 'human', query = 'bipolar', limit = 5) %>% nrow, 5)
 })
 
 test_that('datasetPlatforms queries work', {
