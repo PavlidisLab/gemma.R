@@ -621,6 +621,31 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
 #' getDiffExpr
+#'
+#' Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the
+#' differential expression results for a given dataset
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
 #' @export
 #'
 #' @keywords dataset
