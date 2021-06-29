@@ -557,7 +557,7 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
 registerCompoundEndpoint(endpoints = c('getDatasetDEA', 'getDiffExData'),
                          depends = list(getDatasetDEA = NA, getDiffExData = 1),
                          passthrough = list(getDatasetDEA = c(diffExSet = 'analysis.ID'), getDiffExData = NULL),
-                         'getDiffExpr', logname = 'diffExData')
+                         'getDiffExpr', logname = 'diffExData', roxygen = 'Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the differential expression results for a given dataset')
 
 registerCategoryEndpoint(roxygen = 'A common entrypoint to the various dataset endpoints.')
 # Platform endpoints ----
