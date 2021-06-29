@@ -154,7 +154,9 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
   is.tmp <- is.na(file)
 
   if(is.na(file))
-    file <- tempfile()
+    file <- tempfile(fileext = '.gz')
+  else
+    file <- paste0(tools::file_path_sans_ext(file), '.gz')
 
   doReadFile <- function(file) {
     tmp <- gzfile(file)
@@ -171,7 +173,7 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
     ret
   }
 
-  if(file.exists(file) & !overwrite) {
+  if(file.exists(file) && !overwrite) {
     warning(paste0(file, ' exists. Not overwriting.'))
     doReadFile(file)
   } else {
