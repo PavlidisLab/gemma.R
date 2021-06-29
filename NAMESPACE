@@ -3,6 +3,7 @@
 export(datasetInfo)
 export(forgetGemmaMemoised)
 export(geneInfo)
+export(getAnnotation)
 export(getDatasetAnnotations)
 export(getDatasetDE)
 export(getDatasetDEA)
