@@ -130,18 +130,21 @@ batchId={countN + 1}
 
 #' Get Gemma annotations
 #'
-#' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+#' Gets Gemma's gene annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
 #'
 #' @param platform A platform identifier @seealso getPlatforms
 #' @param annotType Which GO terms should the output include
 #' @param file Where to save the annotation file to, or empty to just load into memory
 #' @param overwrite Whether or not to overwrite an existing file
+#' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
-#' @keywords platform
+#' @keywords gene
 #' @export
 getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'allParents'),
-                          file = getOption('gemma.file', NA_character_), overwrite = getOption('gemma.overwrite', F)) {
+                          file = getOption('gemma.file', NA_character_),
+                          overwrite = getOption('gemma.overwrite', F),
+                          unzip = F) {
   if(!is.numeric(platform)) {
     platforms <- getPlatforms(platform)
     if(!isTRUE(nrow(platforms) == 1))
@@ -159,22 +162,28 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
     file <- paste0(tools::file_path_sans_ext(file), '.gz')
 
   doReadFile <- function(file) {
-    tmp <- gzfile(file)
-    ret <- tmp %>% readLines %>%
-      .[which(!startsWith(., '#'))[1]:length(.)] %>% # Strip comments
-      paste0(collapse = '\n') %>% {
-        fread(text = .)
-      }
-    close(tmp)
+    if(file.exists(file)) {
+      tmp <- gzfile(file)
+      ret <- tmp %>% readLines %>%
+        .[which(!startsWith(., '#'))[1]:length(.)] %>% # Strip comments
+        paste0(collapse = '\n') %>% {
+          fread(text = .)
+        }
+      close(tmp)
 
-    if(is.tmp)
-      unlink(file)
+      if(!is.tmp && unzip)
+        write.table(ret, tools::file_path_sans_ext(file), sep = '\t', quote = F, row.names = F)
 
-    ret
+      if(is.tmp || !unzip)
+        unlink(file)
+
+      ret
+    } else
+      fread(tools::file_path_sans_ext(file))
   }
 
-  if(file.exists(file) && !overwrite) {
-    warning(paste0(file, ' exists. Not overwriting.'))
+  if((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite) {
+    warning(paste0(tools::file_path_sans_ext(file), ' exists. Not overwriting.'))
     doReadFile(file)
   } else {
     synchronise({
