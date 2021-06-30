@@ -306,11 +306,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only complete this synchronise block when all queries are finished</span></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">when_all</span>(<span class="at">.list =</span> res)</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 24</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 3</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID     &lt;int&gt; 24, 126, 157, 157, 166, 204, 219, 219, 219, 219, 219, 219, 2…</span></span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ expr      &lt;list&gt; [&lt;data.table[87 x 164]&gt;], [&lt;data.table[88 x 176]&gt;], [&lt;data.…</span></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ diffExSet &lt;int&gt; 484136, 443192, 481902, 481901, 459902, 443428, 482743, 4827…</span></span></code></pre></div>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 0</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 0</span></span></code></pre></div>
 <p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
 <div id="benchmark" class="section level2">
 <h2>Benchmark</h2>
@@ -355,7 +352,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">%&gt;%</span> rbindlist</span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">asyncBenchmark</span>(), <span class="fu">syncBenchmark</span>(), <span class="at">times =</span> <span class="dv">10</span>)))</span></code></pre></div>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">asyncBenchmark</span>(), <span class="fu">syncBenchmark</span>(), <span class="at">times =</span> <span class="dv">10</span>), <span class="at">unit =</span> <span class="st">&#39;s&#39;</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -372,22 +369,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">5.929395</td>
-<td align="right">6.017593</td>
-<td align="right">6.174009</td>
-<td align="right">6.127633</td>
-<td align="right">6.394097</td>
-<td align="right">6.548348</td>
+<td align="right">0.7696538</td>
+<td align="right">0.7802871</td>
+<td align="right">0.832705</td>
+<td align="right">0.7998711</td>
+<td align="right">0.8393287</td>
+<td align="right">1.086118</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">32.335373</td>
-<td align="right">32.919003</td>
-<td align="right">35.855450</td>
-<td align="right">34.032877</td>
-<td align="right">36.247519</td>
-<td align="right">52.372171</td>
+<td align="right">2.4973586</td>
+<td align="right">2.6124790</td>
+<td align="right">2.846186</td>
+<td align="right">2.7356453</td>
+<td align="right">2.9222532</td>
+<td align="right">3.663293</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -409,7 +406,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    }), <span class="at">.limit =</span> <span class="dv">200</span>) <span class="co"># Only allow 200 active requests at a time to not flood the server</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 60,108</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 60,133</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 7</span></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Type    &lt;chr&gt; &quot;ExperimentTag&quot;, &quot;ExperimentTag&quot;, &quot;FactorValue&quot;, &quot;Factor…</span></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Name    &lt;chr&gt; &quot;organism part&quot;, &quot;cell type&quot;, &quot;disease&quot;, &quot;treatment&quot;, NA…</span></span>
@@ -434,7 +431,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="memoised-results" class="section level1">
 <h1>Memoised results</h1>
 <p>A different way to “speed up” requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>)))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
 <col width="40%" />
@@ -461,26 +458,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">12.12276</td>
-<td align="right">12.12276</td>
-<td align="right">12.12276</td>
-<td align="right">12.12276</td>
-<td align="right">12.12276</td>
-<td align="right">12.12276</td>
+<td align="right">7284.949</td>
+<td align="right">7284.949</td>
+<td align="right">7284.949</td>
+<td align="right">7284.949</td>
+<td align="right">7284.949</td>
+<td align="right">7284.949</td>
 <td align="right">1</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>)))</span></code></pre></div>
-<table>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
+<table style="width:100%;">
 <colgroup>
-<col width="42%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
-<col width="8%" />
+<col width="40%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
+<col width="9%" />
 <col width="6%" />
 </colgroup>
 <thead>
@@ -498,12 +495,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">527.011</td>
-<td align="right">527.011</td>
-<td align="right">527.011</td>
-<td align="right">527.011</td>
-<td align="right">527.011</td>
-<td align="right">527.011</td>
+<td align="right">0.540332</td>
+<td align="right">0.540332</td>
+<td align="right">0.540332</td>
+<td align="right">0.540332</td>
+<td align="right">0.540332</td>
+<td align="right">0.540332</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -521,11 +518,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="file-outputs" class="section level1">
 <h1>File outputs</h1>
+<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
+<ol style="list-style-type: decimal">
+<li><code>.json</code>, if you requested results with <code>raw = TRUE</code></li>
+<li><code>.csv</code> if the results have no nested <code>data.table</code>s</li>
+<li><code>.rds</code> otherwise</li>
+</ol>
+<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
+<p>To illustrate these…</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> T, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># raw = T, saves SVD.json</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 3</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ bioMaterialIds: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ variances     : num [1:34] 0.1475 0.0888 0.0716 0.0563 0.0541 ...</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ vMatrix       :List of 4</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rawMatrix         : num [1:34, 1:5] 0.256542 -0.054118 -0.094021 0.000271 0.286761 ...</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rowNames          : int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rowNameMapIterator: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetPlatforms</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">file =</span> <span class="st">&#39;platforms&#39;</span>)) <span class="co"># No nested data.tables, saves platforms.csv</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 15</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ID                  &lt;int&gt; 1</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ShortName           &lt;chr&gt; &quot;GPL96&quot;</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Name                &lt;chr&gt; &quot;Affymetrix GeneChip Human Genome U133 Ar…</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Description         &lt;chr&gt; &quot; The U133 set includes 2 arrays with a t…</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 411</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.GeneCount           &lt;lgl&gt; NA</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ProbeGeneCount      &lt;lgl&gt; NA</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ElementCount        &lt;lgl&gt; NA</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.Name                   &lt;chr&gt; &quot;human&quot;</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID                     &lt;lgl&gt; NA</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type              &lt;chr&gt; &quot;ONECOLOR&quot;</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Color             &lt;chr&gt; &quot;ONECOLOR&quot;</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSamples</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">file =</span> <span class="st">&#39;samples&#39;</span>)) <span class="co"># Some nested data.tables, saves samples.rds</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 34</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 17</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ bioMaterial.Name       &lt;chr&gt; &quot;GSE2018_bioMaterial_4|GSM36426&quot;, &quot;GSE2018_bioM…</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Name            &lt;chr&gt; &quot;BAL_1_A0B0&quot;, &quot;BAL_27a_A0B0&quot;, &quot;BAL_43_A0B0&quot;, &quot;B…</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.ID              &lt;int&gt; 31, 20, 9, 29, 18, 7, 27, 16, 5, 25, 14, 3, 34,…</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Correspondence  &lt;chr&gt; &quot;Corresponding to Samples:  GSM36426&quot;, &quot;Corresp…</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Description     &lt;chr&gt; &quot; Bronchoalveolar lavage cells from a patient w…</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Outlier         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Accession       &lt;chr&gt; &quot;GSM36426&quot;, &quot;GSM36437&quot;, &quot;GSM36448&quot;, &quot;GSM36428&quot;,…</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Processed       &lt;dbl&gt; 1.036695e+12, 1.036693e+12, 1.035573e+12, 1.022…</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.Characteristics &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ sample.FactorValues    &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.ShortName        &lt;chr&gt; &quot;GPL96&quot;, &quot;GPL96&quot;, &quot;GPL96&quot;, &quot;GPL96&quot;, &quot;GPL96&quot;, &quot;G…</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Name             &lt;chr&gt; &quot;Affymetrix GeneChip Human Genome U133 Array Se…</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Taxon            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.TaxonID          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Type             &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span></span></code></pre></div>
+<p>If, for some reason, you absolutely don’t want to see the return value showing up in your R instance, you can suppress it using <code>invisible</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> T, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># Saves SVD.json like above, but suppresses output in R</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in fun(value): SVD.json exists. Not overwriting.</span></span></code></pre></div>
 </div>
 <div id="changing-defaults" class="section level1">
 <h1>Changing defaults</h1>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> T)</span></code></pre></div>
 </div>
 <div id="authentication" class="section level1">
 <h1>Authentication</h1>

@@ -49,14 +49,19 @@
         else
           mOut <- eval(preprocessor)(mData)
 
-        if(!is.null(file) && !is.na(file) && file.exists(file)) {
-          if(!overwrite)
+        if(!is.null(file) && !is.na(file)) {
+          extension <- ifelse(raw, '.json', ifelse(any(sapply(mOut, typeof) == 'list'), '.rds', '.csv'))
+          file <- paste0(tools::file_path_sans_ext(file), extension)
+
+          if(file.exists(file) && !overwrite && !file.info(file)$isdir)
             warning(paste0(file, ' exists. Not overwriting.'))
           else {
-            if(raw)
-              write(mOut, paste0(tools::file_path_sans_ext(file), '.json'))
+            if(extension == '.json')
+              write(jsonlite::toJSON(mOut, pretty = 2), file)
+            else if(extension == '.rds')
+              saveRDS(mOut, file)
             else
-              saveRDS(mOut, paste0(tools::file_path_sans_ext(file), '.rds'))
+              write.csv2(mOut, file, row.names = F)
           }
         }
 
