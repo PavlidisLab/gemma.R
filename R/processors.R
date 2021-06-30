@@ -57,7 +57,7 @@
             warning(paste0(file, ' exists. Not overwriting.'))
           else {
             if(extension == '.json')
-              write(mOut, file)
+              write(jsonlite::toJSON(mOut, pretty = 2), file)
             else if(extension == '.rds')
               saveRDS(mOut, file)
             else
