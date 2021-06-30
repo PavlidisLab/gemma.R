@@ -8,7 +8,8 @@ getAnnotation(
   platform,
   annotType = c("bioProcess", "noParents", "allParents"),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", F),
+  unzip = F
 )
 }
 \arguments{
@@ -19,11 +20,13 @@ getAnnotation(
 \item{file}{Where to save the annotation file to, or empty to just load into memory}
 
 \item{overwrite}{Whether or not to overwrite an existing file}
+
+\item{unzip}{Whether or not to unzip the file (if @param file is not empty)}
 }
 \value{
 A table of annotations
 }
 \description{
-Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+Gets Gemma's gene annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
 }
-\keyword{platform}
+\keyword{gene}
