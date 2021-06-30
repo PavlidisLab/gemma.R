@@ -93,15 +93,38 @@ test_that('datasetDesign queries work', {
   expect_type(getDatasetDesign('GSE2018', raw = TRUE), 'list')
 })
 
-test_that('datasetPCA queries work',{
+test_that('datasetPCA queries work', {
   dat <- getDatasetPCA(1)
   raw <- getDatasetPCA(1, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
   expect_equal(dat$ee.ID, raw$datasetId)
 
-  # datExpV <- dat$expr[[1]][1]
-  # rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]
-  # expect_equal(datExpV, )
+  # Check the expression vector for one gene
+  datExpV <- dat$expr[[1]][1] %>% select(-c(gene.ID, gene.Symbol, probe))
+  rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table
+  expect_equal(datExpV, rawExpV)
+
+  expect_gt(getDatasetPCA(1, limit = 100)$expr[[1]] %>% nrow,
+            getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow)
 })
 
+test_that('datasetDE queries work', {
+  dat <- getDatasetDE(1, diffExSet = 468329)
+  raw <- getDatasetDE(1, diffExSet = 468329, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat$ee.ID, raw$datasetId)
+
+  # Check the expression vector for one gene
+  datExpV <- dat$expr[[1]][1] %>% select(-c(gene.ID, gene.Symbol, probe))
+  rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table
+  expect_equal(datExpV, rawExpV)
+
+  expect_gt(getDatasetDE(1, diffExSet = 468329, limit = 100)$expr[[1]] %>% nrow,
+            getDatasetDE(1, diffExSet = 468329, limit = 50)$expr[[1]] %>% nrow)
+
+  # Threshold not working as expected in API
+  # expect_gt(getDatasetDE(1, diffExSet = 468329, threshold = 10)$expr[[1]] %>% nrow,
+  #           getDatasetDE(1, diffExSet = 468329, threshold = 200)$expr[[1]] %>% nrow)
+})
