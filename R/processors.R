@@ -49,8 +49,8 @@
         else
           mOut <- eval(preprocessor)(mData)
 
-        if(!is.null(file) && !is.na(file) && file.exists(file)) {
-          if(!overwrite)
+        if(!is.null(file) && !is.na(file)) {
+          if(file.exists(file) && !overwrite && !file.info(file)$isdir)
             warning(paste0(file, ' exists. Not overwriting.'))
           else {
             if(raw)
