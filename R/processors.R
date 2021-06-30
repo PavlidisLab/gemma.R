@@ -55,8 +55,10 @@
           else {
             if(raw)
               write(mOut, paste0(tools::file_path_sans_ext(file), '.json'))
-            else
+            else if(any(sapply(mOut, typeof) == 'list'))
               saveRDS(mOut, paste0(tools::file_path_sans_ext(file), '.rds'))
+            else
+              write.csv2(mOut, paste0(tools::file_path_sans_ext(file), '.csv'), row.names = F)
           }
         }
 
