@@ -325,22 +325,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">0.8204486</td>
-<td align="right">0.8576872</td>
-<td align="right">0.9962617</td>
-<td align="right">0.8815483</td>
-<td align="right">0.9180482</td>
-<td align="right">2.002823</td>
+<td align="right">1.019070</td>
+<td align="right">1.056502</td>
+<td align="right">1.154037</td>
+<td align="right">1.104396</td>
+<td align="right">1.207001</td>
+<td align="right">1.503060</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">3.2705607</td>
-<td align="right">3.5029765</td>
-<td align="right">3.7375250</td>
-<td align="right">3.6963898</td>
-<td align="right">3.9182307</td>
-<td align="right">4.434636</td>
+<td align="right">5.454656</td>
+<td align="right">5.803139</td>
+<td align="right">6.681474</td>
+<td align="right">7.049569</td>
+<td align="right">7.347539</td>
+<td align="right">7.408457</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -415,12 +415,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">6883.127</td>
-<td align="right">6883.127</td>
-<td align="right">6883.127</td>
-<td align="right">6883.127</td>
-<td align="right">6883.127</td>
-<td align="right">6883.127</td>
+<td align="right">8932.982</td>
+<td align="right">8932.982</td>
+<td align="right">8932.982</td>
+<td align="right">8932.982</td>
+<td align="right">8932.982</td>
+<td align="right">8932.982</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -449,12 +449,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.518588</td>
-<td align="right">0.518588</td>
-<td align="right">0.518588</td>
-<td align="right">0.518588</td>
-<td align="right">0.518588</td>
-<td align="right">0.518588</td>
+<td align="right">0.585962</td>
+<td align="right">0.585962</td>
+<td align="right">0.585962</td>
+<td align="right">0.585962</td>
+<td align="right">0.585962</td>
+<td align="right">0.585962</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -475,12 +475,76 @@
 <div id="file-outputs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#file-outputs" class="anchor"></a>File outputs</h1>
+<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
+<ol style="list-style-type: decimal">
+<li>
+<code>.json</code>, if you requested results with <code>raw = TRUE</code>
+</li>
+<li>
+<code>.csv</code> if the results have no nested <code>data.table</code>s</li>
+<li>
+<code>.rds</code> otherwise</li>
+</ol>
+<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
+<p>To illustrate these…</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, raw <span class="op">=</span> <span class="cn">T</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span>
+<span class="co">#&gt; List of 3</span>
+<span class="co">#&gt;  $ bioMaterialIds: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
+<span class="co">#&gt;  $ variances     : num [1:34] 0.1475 0.0888 0.0716 0.0563 0.0541 ...</span>
+<span class="co">#&gt;  $ vMatrix       :List of 4</span>
+<span class="co">#&gt;   ..$ rawMatrix         : num [1:34, 1:5] 0.256542 -0.054118 -0.094021 0.000271 0.286761 ...</span>
+<span class="co">#&gt;   ..$ rowNames          : int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
+<span class="co">#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4</span>
+<span class="co">#&gt;   ..$ rowNameMapIterator: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetPlatforms.html">getDatasetPlatforms</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, file <span class="op">=</span> <span class="st">'platforms'</span><span class="op">)</span><span class="op">)</span> <span class="co"># No nested data.tables, saves platforms.csv</span>
+<span class="co">#&gt; Rows: 1</span>
+<span class="co">#&gt; Columns: 15</span>
+<span class="co">#&gt; $ platform.ID                  &lt;int&gt; 1</span>
+<span class="co">#&gt; $ platform.ShortName           &lt;chr&gt; "GPL96"</span>
+<span class="co">#&gt; $ platform.Name                &lt;chr&gt; "Affymetrix GeneChip Human Genome U133 Ar…</span>
+<span class="co">#&gt; $ platform.Description         &lt;chr&gt; " The U133 set includes 2 arrays with a t…</span>
+<span class="co">#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE</span>
+<span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 411</span>
+<span class="co">#&gt; $ platform.GeneCount           &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ platform.ProbeGeneCount      &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ platform.ElementCount        &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ taxon.Name                   &lt;chr&gt; "human"</span>
+<span class="co">#&gt; $ taxon.ID                     &lt;lgl&gt; NA</span>
+<span class="co">#&gt; $ technology.Type              &lt;chr&gt; "ONECOLOR"</span>
+<span class="co">#&gt; $ technology.Color             &lt;chr&gt; "ONECOLOR"</span>
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSamples.html">getDatasetSamples</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, file <span class="op">=</span> <span class="st">'samples'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Some nested data.tables, saves samples.rds</span>
+<span class="co">#&gt; Rows: 34</span>
+<span class="co">#&gt; Columns: 17</span>
+<span class="co">#&gt; $ bioMaterial.Name       &lt;chr&gt; "GSE2018_bioMaterial_4|GSM36426", "GSE2018_bioM…</span>
+<span class="co">#&gt; $ sample.Name            &lt;chr&gt; "BAL_1_A0B0", "BAL_27a_A0B0", "BAL_43_A0B0", "B…</span>
+<span class="co">#&gt; $ sample.ID              &lt;int&gt; 31, 20, 9, 29, 18, 7, 27, 16, 5, 25, 14, 3, 34,…</span>
+<span class="co">#&gt; $ sample.Correspondence  &lt;chr&gt; "Corresponding to Samples:  GSM36426", "Corresp…</span>
+<span class="co">#&gt; $ sample.Description     &lt;chr&gt; " Bronchoalveolar lavage cells from a patient w…</span>
+<span class="co">#&gt; $ sample.Outlier         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span>
+<span class="co">#&gt; $ sample.Accession       &lt;chr&gt; "GSM36426", "GSM36437", "GSM36448", "GSM36428",…</span>
+<span class="co">#&gt; $ sample.Processed       &lt;dbl&gt; 1.036695e+12, 1.036693e+12, 1.035573e+12, 1.022…</span>
+<span class="co">#&gt; $ sample.Characteristics &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span>
+<span class="co">#&gt; $ sample.FactorValues    &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span>
+<span class="co">#&gt; $ array.ShortName        &lt;chr&gt; "GPL96", "GPL96", "GPL96", "GPL96", "GPL96", "G…</span>
+<span class="co">#&gt; $ array.Name             &lt;chr&gt; "Affymetrix GeneChip Human Genome U133 Array Se…</span>
+<span class="co">#&gt; $ array.Taxon            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
+<span class="co">#&gt; $ array.TaxonID          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
+<span class="co">#&gt; $ array.Type             &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
+<span class="co">#&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
+<span class="co">#&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span></code></pre></div>
+<p>If, for some reason, you absolutely don’t want to see the return value showing up in your R instance, you can suppress it using <code>invisible</code>.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, raw <span class="op">=</span> <span class="cn">T</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Saves SVD.json like above, but suppresses output in R</span>
+<span class="co">#&gt; Warning in fun(value): SVD.json exists. Not overwriting.</span></code></pre></div>
 </div>
 <div id="changing-defaults" class="section level1">
 <h1 class="hasAnchor">
 <a href="#changing-defaults" class="anchor"></a>Changing defaults</h1>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="authentication" class="section level1">
