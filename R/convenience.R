@@ -127,3 +127,60 @@ batchId={countN + 1}
     requery(taskID, countN)
   })
 })
+
+#' Get Gemma annotations
+#'
+#' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+#'
+#' @param platform A platform identifier @seealso getPlatforms
+#' @param annotType Which GO terms should the output include
+#' @param file Where to save the annotation file to, or empty to just load into memory
+#' @param overwrite Whether or not to overwrite an existing file
+#'
+#' @return A table of annotations
+#' @keywords platform
+#' @export
+getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'allParents'),
+                          file = getOption('gemma.file', NA_character_), overwrite = getOption('gemma.overwrite', F)) {
+  if(!is.numeric(platform)) {
+    platforms <- getPlatforms(platform)
+    if(!isTRUE(nrow(platforms) == 1))
+      stop(paste0(platform, ' is not a valid single platform.'))
+    platform <- platforms[, platform.ID]
+  }
+
+  annotType <- match.arg(annotType, c('bioProcess', 'noParents', 'allParents'))
+
+  is.tmp <- is.na(file)
+
+  if(is.na(file))
+    file <- tempfile(fileext = '.gz')
+  else
+    file <- paste0(tools::file_path_sans_ext(file), '.gz')
+
+  doReadFile <- function(file) {
+    tmp <- gzfile(file)
+    ret <- tmp %>% readLines %>%
+      .[which(!startsWith(., '#'))[1]:length(.)] %>% # Strip comments
+      paste0(collapse = '\n') %>% {
+        fread(text = .)
+      }
+    close(tmp)
+
+    if(is.tmp)
+      unlink(file)
+
+    ret
+  }
+
+  if(file.exists(file) && !overwrite) {
+    warning(paste0(file, ' exists. Not overwriting.'))
+    doReadFile(file)
+  } else {
+    synchronise({
+      async::http_get(glue::glue(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}')), file = file)$then(function(...) {
+        doReadFile(file)
+      })
+    })
+  }
+}
