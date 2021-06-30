@@ -101,9 +101,7 @@ For large requests, this is often insufficient and instead, we recommend using `
 
 Asynchronous API requests are enabled through the [{async}](https://github.com/gaborcsardi/async) library. The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a `synchronise` block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
 
-This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, `GSE2018` and `GSE25136`. If we want to run API queries asynchronously, we only need to:
-1.  Embed our requests inside a `synchronise` block
-2.  Set `async = TRUE` in our requests
+This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, `GSE2018` and `GSE25136`. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a `synchronise` block 2. Set `async = TRUE` in our requests
 
 We'll build back up to multiple queries, but starting with a single query, the difference is trivial to see.
 
@@ -266,6 +264,33 @@ forgetGemmaMemoised()
 By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
 
 # File outputs
+
+Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
+
+1.  `.json`, if you requested results with `raw = TRUE`
+2.  `.csv` if the results have no nested `data.table`s
+3.  `.rds` otherwise
+
+You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite` parameter.
+
+To illustrate these...
+
+```{r}
+glimpse(getDatasetSVD('GSE2018', raw = T, file = 'SVD')) # raw = T, saves SVD.json
+glimpse(getDatasetPlatforms('GSE2018', file = 'platforms')) # No nested data.tables, saves platforms.csv
+glimpse(getDatasetSamples('GSE2018', file = 'samples')) # Some nested data.tables, saves samples.rds
+```
+
+If, for some reason, you absolutely don't want to see the return value showing up in your R instance, you can suppress it using `invisible`.
+```{r}
+invisible(getDatasetSVD('GSE2018', raw = T, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
+```
+
+```{r include=FALSE}
+unlink('SVD.json')
+unlink('platforms.csv')
+unlink('samples.rds')
+```
 
 # Changing defaults
 
