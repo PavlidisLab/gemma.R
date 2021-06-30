@@ -3,7 +3,6 @@ test_that('getDatasets queries work', {
   raw <- getDatasets(1, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
-
   expect_equal(dat[, c(ee.ShortName, ee.ID, ee.Description)] %>% paste0(collapse = ''),
                raw[, c('shortName', 'id', 'description')] %>% paste0(collapse = ''))
 
@@ -24,7 +23,6 @@ test_that('datasetSearch queries work', {
                c(raw$shortName, raw$id, raw$description))
 
   expect_equal(searchDatasets(taxon = 'human', query = 'bipolar', limit = 5) %>% nrow, 5)
-
   expect_lt(searchDatasets(query = 'bipolar', taxon = 'human') %>% nrow(),
             searchDatasets(query = 'bipolar') %>% nrow())
 
@@ -54,32 +52,40 @@ test_that('datasetSamples queries work', {
 })
 
 test_that('datasetDEA queries work', {
-  expect_type(getDatasetDEA('GSE2018'), 'list')
-  expect_type(getDatasetDEA('GSE2018', raw = TRUE), 'list')
+  dat <- getDatasetDEA(1)
+  raw <- getDatasetDEA(1, raw = TRUE)
+  rs <- raw$resultSets[[1]]
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
+               c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
   # Offset and limit values do not seem to work in the API
   # expect_equal(getDatasetDEA(limit = 10) %>% nrow, 10)
   # expect_false(getDatasetDEA('GSE2018', offset = 3)[1,1] == getDatasetDEA('GSE2018', offset = 0)[1,1])
 })
 
 test_that('datasetSVD queries work', {
-  expect_type(getDatasetSVD('GSE2018'), 'list')
-  expect_type(getDatasetSVD('GSE2018', raw = TRUE), 'list')
-})
-
-test_that('datasetSVD queries work', {
-  expect_type(getDatasetSVD('GSE2018'), 'list')
-  expect_type(getDatasetSVD('GSE2018', raw = TRUE), 'list')
+  dat <- getDatasetSVD(1)
+  raw <- getDatasetSVD(1, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(c(dat$variance, dat$VMatrix),
+               c(raw$variances, raw$vMatrix$rawMatrix))
 })
 
 test_that('datasetAnnotations queries work', {
-  expect_type(getDatasetSVD('GSE2018'), 'list')
-  expect_type(getDatasetSVD('GSE2018', raw = TRUE), 'list')
+  dat <- getDatasetAnnotations(1)
+  raw <- getDatasetAnnotations(1, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(class.Type, class.Name, term.Name, term.URL)],
+               c(raw$objectClass, raw$className, raw$termName, raw$termUri))
 })
 
 test_that('getDatasetData queries work', {
-  expect_type(getDatasetData('GSE2018'), 'list')
-  expect_type(getDatasetData('GSE2018', raw = TRUE), 'list')
-  expect_gt(getDatasetData('GSE2018') %>% nrow, getDatasetData('GSE2018', filter = TRUE) %>% nrow)
+  expect_type(getDatasetData(1), 'list')
+  expect_type(getDatasetData(1, raw = TRUE), 'list')
+  expect_gt(getDatasetData(1) %>% nrow, getDatasetData(1, filter = TRUE) %>% nrow)
 })
 
 test_that('datasetDesign queries work', {
@@ -88,6 +94,14 @@ test_that('datasetDesign queries work', {
 })
 
 test_that('datasetPCA queries work',{
-  expect_type()
+  dat <- getDatasetPCA(1)
+  raw <- getDatasetPCA(1, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat$ee.ID, raw$datasetId)
+
+  # datExpV <- dat$expr[[1]][1]
+  # rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]
+  # expect_equal(datExpV, )
 })
 
