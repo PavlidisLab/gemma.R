@@ -21,7 +21,7 @@ test_that('datasetSearch queries work', {
   expect_type(raw, 'list')
   expect_equal(dat[, c(ee.ShortName, ee.ID, ee.Description)],
                c(raw$shortName, raw$id, raw$description))
-
+  # TODO: taxon is required here and not in API
   expect_equal(searchDatasets(taxon = 'human', query = 'bipolar', limit = 5) %>% nrow, 5)
   expect_lt(searchDatasets(query = 'bipolar', taxon = 'human') %>% nrow(),
             searchDatasets(query = 'bipolar') %>% nrow())
@@ -101,7 +101,7 @@ test_that('datasetPCA queries work', {
   expect_equal(dat$ee.ID, raw$datasetId)
 
   # Check the expression vector for one gene
-  datExpV <- dat$expr[[1]][1] %>% select(-c(gene.ID, gene.Symbol, probe))
+  datExpV <- dat$expr[[1]][1] %>% dplyr::select(-c(gene.ID, gene.Symbol, probe))
   rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table
   expect_equal(datExpV, rawExpV)
 
@@ -117,7 +117,7 @@ test_that('datasetDE queries work', {
   expect_equal(dat$ee.ID, raw$datasetId)
 
   # Check the expression vector for one gene
-  datExpV <- dat$expr[[1]][1] %>% select(-c(gene.ID, gene.Symbol, probe))
+  datExpV <- dat$expr[[1]][1] %>% dplyr::select(-c(gene.ID, gene.Symbol, probe))
   rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table
   expect_equal(datExpV, rawExpV)
 

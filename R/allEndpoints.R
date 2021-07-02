@@ -1271,7 +1271,7 @@ getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw =
     preprocessor <- processElements
     validators <- list(gene = validateSingleID, offset = validatePositiveInteger, 
         limit = validatePositiveInteger)
-    endpoint <- "gene/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
+    endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async, match.call())
 }

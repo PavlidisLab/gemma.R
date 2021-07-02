@@ -626,7 +626,7 @@ registerSimpleEndpoint('gene', 'locations', logname = 'locations', roxygen = 'Ge
                        'getGeneLocation',
                        preprocessor = quote(processGeneLocation))
 
-registerEndpoint('gene/{gene}/probes?offset={offset}&limit={limit}',
+registerEndpoint('genes/{gene}/probes?offset={offset}&limit={limit}',
                  'getGeneProbes', logname = 'probes', roxygen = 'Gene probes',
                  defaults = list(gene = NA_character_,
                                  offset = 0L,
