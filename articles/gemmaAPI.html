@@ -325,22 +325,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">0.8419754</td>
-<td align="right">0.9668888</td>
-<td align="right">1.142288</td>
-<td align="right">1.014358</td>
-<td align="right">1.115201</td>
-<td align="right">2.117310</td>
+<td align="right">0.830158</td>
+<td align="right">0.8494783</td>
+<td align="right">0.9720834</td>
+<td align="right">0.8891126</td>
+<td align="right">1.159111</td>
+<td align="right">1.311924</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">3.1200572</td>
-<td align="right">3.1875145</td>
-<td align="right">3.348398</td>
-<td align="right">3.359847</td>
-<td align="right">3.402223</td>
-<td align="right">3.803766</td>
+<td align="right">3.175586</td>
+<td align="right">3.2012940</td>
+<td align="right">3.2814475</td>
+<td align="right">3.3163131</td>
+<td align="right">3.347730</td>
+<td align="right">3.361592</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -363,7 +363,7 @@
     <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="co"># Only allow 200 active requests at a time to not flood the server</span>
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 60,133</span>
+<span class="co">#&gt; Rows: 60,154</span>
 <span class="co">#&gt; Columns: 7</span>
 <span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
 <span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
@@ -394,40 +394,6 @@
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="40%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="6%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">expr</th>
-<th align="right">min</th>
-<th align="right">lq</th>
-<th align="right">mean</th>
-<th align="right">median</th>
-<th align="right">uq</th>
-<th align="right">max</th>
-<th align="right">neval</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">7211.508</td>
-<td align="right">7211.508</td>
-<td align="right">7211.508</td>
-<td align="right">7211.508</td>
-<td align="right">7211.508</td>
-<td align="right">7211.508</td>
-<td align="right">1</td>
-</tr></tbody>
-</table>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<colgroup>
 <col width="42%">
 <col width="8%">
 <col width="8%">
@@ -449,12 +415,46 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.50261</td>
-<td align="right">0.50261</td>
-<td align="right">0.50261</td>
-<td align="right">0.50261</td>
-<td align="right">0.50261</td>
-<td align="right">0.50261</td>
+<td align="right">7119.12</td>
+<td align="right">7119.12</td>
+<td align="right">7119.12</td>
+<td align="right">7119.12</td>
+<td align="right">7119.12</td>
+<td align="right">7119.12</td>
+<td align="right">1</td>
+</tr></tbody>
+</table>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="40%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="6%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">expr</th>
+<th align="right">min</th>
+<th align="right">lq</th>
+<th align="right">mean</th>
+<th align="right">median</th>
+<th align="right">uq</th>
+<th align="right">max</th>
+<th align="right">neval</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
+<td align="right">0.624077</td>
+<td align="right">0.624077</td>
+<td align="right">0.624077</td>
+<td align="right">0.624077</td>
+<td align="right">0.624077</td>
+<td align="right">0.624077</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
