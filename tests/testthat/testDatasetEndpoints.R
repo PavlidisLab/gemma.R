@@ -27,7 +27,7 @@ test_that('datasetSearch queries work', {
             searchDatasets(query = 'bipolar') %>% nrow())
 
   # Checks that search term is present in every queried dataset's name or description
-  ### Search not not working as expected (issue in API not wrapper)
+  ### TODO: Search not not working as expected (issue in API not wrapper)
   # expect_true(lapply(searchDatasets(taxon = 'human', query = 'bipolar'), function(x){grepl('bipolar', x)}) %>%
   #               as.data.frame() %>% dplyr::mutate(term_found = ee.Name | ee.Description) %>%
   #               .$term_found %>% all)
@@ -59,7 +59,7 @@ test_that('datasetDEA queries work', {
   expect_type(raw, 'list')
   expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
                c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
-  # Offset and limit values do not seem to work in the API
+  # TODO: Offset and limit values do not seem to work in the API
   # expect_equal(getDatasetDEA(limit = 10) %>% nrow, 10)
   # expect_false(getDatasetDEA('GSE2018', offset = 3)[1,1] == getDatasetDEA('GSE2018', offset = 0)[1,1])
 })
@@ -124,7 +124,7 @@ test_that('datasetDE queries work', {
   expect_gt(getDatasetDE(1, diffExSet = 468329, limit = 100)$expr[[1]] %>% nrow,
             getDatasetDE(1, diffExSet = 468329, limit = 50)$expr[[1]] %>% nrow)
 
-  # Threshold not working as expected in API
+  # TODO: Threshold not working as expected in API
   # expect_gt(getDatasetDE(1, diffExSet = 468329, threshold = 10)$expr[[1]] %>% nrow,
   #           getDatasetDE(1, diffExSet = 468329, threshold = 200)$expr[[1]] %>% nrow)
 })
