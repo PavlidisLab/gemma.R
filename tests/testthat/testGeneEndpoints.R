@@ -1,7 +1,7 @@
 test_that('getGenes queries work', {
-  # TODO: Ensure you can enter numerical id's as numerical (not char)
-  dat <- getGenes(c('1859', '5728'))
-  raw <- getGenes(c('1859', '5728'), raw = TRUE)
+  # TODO: Ensure you can enter multiple numerical id's as numerical (not char), issues with char selection too
+  dat <- getGenes(1859)
+  raw <- getGenes(1859, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
   expect_equal(dat[, c(gene.Symbol, gene.Ensembl, gene.Name, taxon.Name)],
@@ -39,5 +39,6 @@ test_that('getGeneProbes queries work', {
   raw <- getGeneProbes(1859, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
-
+  expect_equal(dat[, c(mapping.Description, array.ShortName, array.Type)],
+               c(raw$description, raw$arrayDesign$shortName, raw$arrayDesign$technologyType))
 })

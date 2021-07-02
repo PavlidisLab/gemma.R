@@ -362,19 +362,21 @@ processPlatforms <- function(d) {
 #' @keywords internal
 processElements <- function(d) {
   data.table(mapping.Name = d[['name']],
-             mapping.Summary = lapply(d[['geneMappingSummaries']], function(x) {
-               data.table(score = x[['score']],
-                          products = lapply(x[['geneProducts']], function(y) {
-                            data.table(gene.Name = y[['name']],
-                                       gene.ID = y[['geneId']],
-                                       gene.NCBI = y[['ncbiId']],
-                                       chromosome = y[['chromosome']],
-                                       strand = y[['strand']],
-                                       nucleotide.Start = y[['nucleotideStart']],
-                                       nucleotide.End = y[['nucleotideEnd']])
-                          }),
-                          productMaps = lapply(x[['geneProductMap']], processGenes))
-             }),
+             mapping.Summary = ifelse(!is.na(d[['geneMappingSummaries']]),
+                                      lapply(d[['geneMappingSummaries']], function(x) {
+                                        data.table(score = x[['score']],
+                                                   products = lapply(x[['geneProducts']], function(y) {
+                                                     data.table(gene.Name = y[['name']],
+                                                     gene.ID = y[['geneId']],
+                                                     gene.NCBI = y[['ncbiId']],
+                                                     chromosome = y[['chromosome']],
+                                                     strand = y[['strand']],
+                                                     nucleotide.Start = y[['nucleotideStart']],
+                                                    nucleotide.End = y[['nucleotideEnd']])
+                                                     }),
+                                                   productMaps = lapply(x[['geneProductMap']], processGenes))
+                                        }),
+                                      NA),
              mapping.Description = d[['description']],
              processGemmaArray(d[['arrayDesign']]))
 }
