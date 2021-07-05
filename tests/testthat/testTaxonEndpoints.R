@@ -19,9 +19,60 @@ test_that('getTaxonDatasets queries work', {
   expect_false(getTaxonDatasets('human', sort = '-id')[1, 1] == getTaxonDatasets('human', sort = '+id')[1, 1])
 })
 
-# How useful is this endpoint?
+# TODO: How useful is this endpoint? Fetches a lot of data and is very hard to filter
 # test_that('getTaxonPhenotypes queries work', {
 #   dat <- getTaxonPhenotypes('human')
 #   raw <- getTaxonPhenotypes('human', raw = TRUE)
 #
 # })
+
+test_that('getTaxonPhenotypeCandidates queries work', {
+  dat <- getTaxonPhenotypeCandidates('human', phenotypes = 'http://purl.obolibrary.org/obo/DOID_11934')
+  raw <- getTaxonPhenotypeCandidates('human', phenotypes = 'http://purl.obolibrary.org/obo/DOID_11934', raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(gene.Name, gene.NCBI, taxon.Name)],
+               c(raw$officialName, raw$ncbiId, raw$taxonCommonName))
+  # TODO: Not sure what editableOnly does
+})
+
+test_that('getGeneOnTaxon queries work', {
+  dat <- getGeneOnTaxon('human', 1859)
+  raw <- getGeneOnTaxon('human', 1859, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(gene.NCBI, gene.Name, taxon.ID, taxon.Scientific)],
+               c(raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
+})
+
+# TODO: Throws warnings
+# test_that('getEvidenceOnTaxon queries work', {
+#   dat <- getEvidenceOnTaxon('human', 1859) # TODO: Thrpws warning
+#   datEv <- dat$evidence[[1]]
+#   raw <- getEvidenceOnTaxon('human', 1859, raw = TRUE)
+#   rawEv <- raw$evidence[[1]]
+#   expect_type(dat, 'list')
+#   expect_type(raw, 'list')
+#   expect_equal(dat[, c(gene.NCBI, gene.Name, taxon.ID, taxon.Scientific)],
+#                c(raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
+#
+# })
+
+# TODO: Wrong description in original API documentation
+test_that('getGeneLocationOnTaxon queries work', {
+  dat <- getGeneLocationOnTaxon('human', 1859)
+  raw <- getGeneLocationOnTaxon('human', 1859, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(chromosome, strand, nucleotide, taxon.Name, taxon.Database.Name)],
+               c(raw$chromosome, raw$strand, raw$nucleotide, raw$taxon$commonName, raw$taxon$externalDatabase$name))
+})
+
+test_that('getGenesAtLocation queries work', {
+  dat <- getGenesAtLocation('human', chromosome = 21, strand = '+', start = 37365790, 3000)
+  raw <- getGenesAtLocation('human', chromosome = 21, strand = '+', start = 37365790, 3000, raw = TRUE)
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(gene.Symbol, gene.NCBI, gene.Name, taxon.ID, taxon.Scientific)],
+               c(raw$officialSymbol, raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
+})
