@@ -8,7 +8,6 @@ test_that('getGenes queries work', {
                c(raw$officialSymbol, raw$ensemblId, raw$officialName, raw$taxonCommonName))
 })
 
-
 # Throws warnings
 # test_that('getGeneEvidence queries work', {
 #   # TODO: throws warnings
@@ -57,7 +56,7 @@ test_that('getGeneGO queries work', {
 # Takes very long to respond
 test_that('getGeneCoexpression queries work', {
   dat <- getGeneCoexpression(8291, 2218, limit = 50)
-  # API fetches 2 extra records
+  # TODO: API fetches 2 extra records
   # expect_equal(dat %>% nrow, 50)
   raw <- getGeneCoexpression(8291, 2218, limit = 50, raw = TRUE)
   expect_type(dat, 'list')
