@@ -1500,7 +1500,7 @@ getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw",
     fname <- "getTaxa"
     preprocessor <- processTaxon
     validators <- list(taxa = validateOptionalTaxon)
-    endpoint <- "taxas/{encode(taxa)}/"
+    endpoint <- "taxa/{encode(taxa)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async, match.call())
 }

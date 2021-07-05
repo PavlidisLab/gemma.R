@@ -119,17 +119,17 @@ registerEndpoint <- function(endpoint,
 #' @param logname The activating phrase in the category endpoint
 #' @param roxygen The name to pull roxygen information from
 #' @param where The environment to add the new function to
-#' @param plural If equal to `root` (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form
+#' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, where = parent.env(environment()),
-                                   plural = root, document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
+                                   plural = F, document = getOption('gemmaAPI.document', 'R/allEndpoints.R'),
                                    isFile = F) {
-  registerEndpoint(ifelse(plural == root, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'), glue::glue('{root}/{{{plural}}}')),
+  registerEndpoint(ifelse(plural == F, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'), glue::glue('{root}/{{{plural}}}')),
                    fname,
-                   defaults = setNames(NA_character_, plural),
-                   validators = switch(is.null(validator) + 1, validator, alist(validateSingleID) %>% `names<-`(plural)),
+                   defaults = setNames(NA_character_, root),
+                   validators = switch(is.null(validator) + 1, validator, alist(validateSingleID) %>% `names<-`(root)),
                    logname = logname,
                    roxygen = roxygen,
                    preprocessor = preprocessor,
@@ -657,7 +657,7 @@ registerCategoryEndpoint(roxygen = 'A common entrypoint to the various gene endp
 registerCategoryEndpoint('taxonInfo', 'taxon')
 
 registerSimpleEndpoint('taxa', '', logname = 'taxa', roxygen = 'Taxa',
-                       'getTaxa',
+                       'getTaxa', plural = 'taxa',
                        validator = alist(taxa = validateOptionalTaxon),
                        preprocessor = quote(processTaxon))
 
