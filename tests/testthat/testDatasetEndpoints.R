@@ -15,21 +15,27 @@ test_that('getDatasets queries work', {
 })
 
 test_that('datasetSearch queries work', {
-  dat <- searchDatasets(query = 'bipolar', limit = 10)
-  raw <- searchDatasets(query = 'bipolar', limit = 10, raw = TRUE)
+  dat <- searchDatasets('bipolar', limit = 50)
+  raw <- searchDatasets('bipolar', limit = 50, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
   expect_equal(dat[, c(ee.ShortName, ee.ID, ee.Description)],
                c(raw$shortName, raw$id, raw$description))
-  # TODO: taxon is required here and not in API
-  expect_equal(searchDatasets(taxon = 'human', query = 'bipolar', limit = 5) %>% nrow, 5)
-  expect_lt(searchDatasets(query = 'bipolar', taxon = 'human') %>% nrow(),
-            searchDatasets(query = 'bipolar') %>% nrow())
+  expect_equal(dat %>% nrow, 50)
+  expect_lt(searchDatasets('bipolar', taxon = 'human') %>% nrow(),
+            searchDatasets('bipolar') %>% nrow())
 
-  # Checks that search term is present in every queried dataset's name or description
-  ### TODO: Search not not working as expected (issue in API not wrapper)
-  # expect_true(lapply(searchDatasets(taxon = 'human', query = 'bipolar'), function(x){grepl('bipolar', x)}) %>%
-  #               as.data.frame() %>% dplyr::mutate(term_found = ee.Name | ee.Description) %>%
+  annots <- lapply(dat$ee.ID, function(x){ # Get annotations for queried datasets
+    getDatasetAnnotations(x) %>%
+      .$term.Name %>%
+      paste(collapse = ', ')
+  })
+  dat <- cbind(dat, annots)
+
+  # Checks that search term is present in every queried dataset's name, description or annotations
+  # TODO: This isn't passing, API seems to fetch some irrelevant datasets
+  # expect_true(lapply(dat, function(x){grepl('bipolar', x, ignore.case = TRUE)}) %>%
+  #               as.data.frame() %>% dplyr::mutate(term_found = ee.Name | ee.Description | annots) %>%
   #               .$term_found %>% all)
 })
 
@@ -59,7 +65,7 @@ test_that('datasetDEA queries work', {
   expect_type(raw, 'list')
   expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
                c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
-  # TODO: Offset and limit values do not seem to work in the API
+  # TODO: Offset and limit values are useless for this endpoint, offset will lose the data
   # expect_equal(getDatasetDEA(limit = 10) %>% nrow, 10)
   # expect_false(getDatasetDEA('GSE2018', offset = 3)[1,1] == getDatasetDEA('GSE2018', offset = 0)[1,1])
 })

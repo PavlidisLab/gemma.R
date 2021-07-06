@@ -483,16 +483,6 @@ registerEndpoint('datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
                                     sort = validateSort),
                  preprocessor = quote(processDatasets))
 
-registerEndpoint('datasets/{dataset}/analyses/differential?offset={offset}&limit={limit}',
-                 'getDatasetDEA', logname = 'differential', roxygen = 'Dataset differential analysis',
-                 defaults = list(dataset = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L),
-                 validators = alist(dataset = validateSingleID,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger),
-                 preprocessor = quote(processDEA))
-
 registerEndpoint('datasets/{datasets}/expressions/pca?component={component}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
                  'getDatasetPCA', logname = 'PCA', roxygen = 'Datasets pca component expression levels',
                  defaults = list(datasets = NA_character_,
@@ -535,6 +525,10 @@ registerEndpoint('datasets/{dataset}/data?filter={filter}',
 registerSimpleEndpoint('dataset', 'samples', logname = 'samples', roxygen = 'Dataset samples',
                        'getDatasetSamples',
                        preprocessor = quote(processSamples))
+
+registerSimpleEndpoint('dataset', 'analyses/differential', logname = 'differential', roxygen = 'Dataset differential analysis',
+                 'getDatasetDEA',
+                 preprocessor = quote(processDEA))
 
 registerSimpleEndpoint('dataset', 'svd', logname = 'SVD', roxygen = 'Dataset SVD information',
                        'getDatasetSVD',
@@ -735,14 +729,14 @@ registerEndpoint('taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&st
 
 registerEndpoint('annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
                  'searchDatasets', logname = 'datasets', roxygen = 'Dataset search',
-                 defaults = list(taxon = NA_character_,
-                                 query = NA_character_,
+                 defaults = list(query = NA_character_,
+                                 taxon = NA_character_,
                                  filter = NA_character_,
                                  offset = 0L,
                                  limit = 0L,
                                  sort = '+id'),
-                 validators = alist(taxon = validateOptionalTaxon,
-                                    query = validateQuery,
+                 validators = alist(query = validateQuery,
+                                    taxon = validateOptionalTaxon,
                                     filter = validateFilter,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger,

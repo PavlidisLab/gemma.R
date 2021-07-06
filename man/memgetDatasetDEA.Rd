@@ -6,8 +6,6 @@
 \usage{
 memgetDatasetDEA(
   dataset = NA_character_,
-  offset = 0L,
-  limit = 20L,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
