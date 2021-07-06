@@ -325,22 +325,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">1.042253</td>
-<td align="right">1.056344</td>
-<td align="right">1.092315</td>
-<td align="right">1.087384</td>
-<td align="right">1.123189</td>
-<td align="right">1.196920</td>
+<td align="right">1.018437</td>
+<td align="right">1.027414</td>
+<td align="right">1.133655</td>
+<td align="right">1.070431</td>
+<td align="right">1.109574</td>
+<td align="right">1.770440</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">5.576806</td>
-<td align="right">5.659731</td>
-<td align="right">6.139057</td>
-<td align="right">6.103165</td>
-<td align="right">6.324711</td>
-<td align="right">7.049235</td>
+<td align="right">5.286130</td>
+<td align="right">5.409586</td>
+<td align="right">5.610904</td>
+<td align="right">5.569645</td>
+<td align="right">5.823625</td>
+<td align="right">6.024248</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -363,7 +363,7 @@
     <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="co"># Only allow 200 active requests at a time to not flood the server</span>
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 60,369</span>
+<span class="co">#&gt; Rows: 60,376</span>
 <span class="co">#&gt; Columns: 7</span>
 <span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
 <span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
@@ -415,12 +415,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">11338.46</td>
-<td align="right">11338.46</td>
-<td align="right">11338.46</td>
-<td align="right">11338.46</td>
-<td align="right">11338.46</td>
-<td align="right">11338.46</td>
+<td align="right">11344.29</td>
+<td align="right">11344.29</td>
+<td align="right">11344.29</td>
+<td align="right">11344.29</td>
+<td align="right">11344.29</td>
+<td align="right">11344.29</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -428,13 +428,13 @@
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="40%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="9%">
+<col width="42%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
 <col width="6%">
 </colgroup>
 <thead><tr class="header">
@@ -449,12 +449,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.564144</td>
-<td align="right">0.564144</td>
-<td align="right">0.564144</td>
-<td align="right">0.564144</td>
-<td align="right">0.564144</td>
-<td align="right">0.564144</td>
+<td align="right">0.55471</td>
+<td align="right">0.55471</td>
+<td align="right">0.55471</td>
+<td align="right">0.55471</td>
+<td align="right">0.55471</td>
+<td align="right">0.55471</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
