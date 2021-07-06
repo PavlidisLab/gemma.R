@@ -5,8 +5,8 @@
 \title{Dataset search}
 \usage{
 searchDatasets(
-  taxon = NA_character_,
   query = NA_character_,
+  taxon = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 0L,
@@ -19,6 +19,16 @@ searchDatasets(
 )
 }
 \arguments{
+\item{query}{Required, defaults to \code{empty}.
+The search query. Either plain text ('traumatic'), or an ontology term
+URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
+contain the given string in their short of full name will also be
+matched ('GSE201', 'Bronchoalveolar lavage samples'.
+Can be multiple identifiers separated by commas.
+When
+using in scripts, remember to URL-encode any forward slashes in the
+phenotype value URIs (see the compiled URL below).}
+
 \item{taxon}{Not required, part of the URL path.
 can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
 scientific name, common name
@@ -36,16 +46,6 @@ ID   Comm.name   Scient.name                NcbiID
 12   zebrafish   Danio rerio                7955
 13   fly         Drosophila melanogaster    7227
 14   worm        Caenorhabditis elegans     6239}
-
-\item{query}{Required, defaults to \code{empty}.
-The search query. Either plain text ('traumatic'), or an ontology term
-URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-contain the given string in their short of full name will also be
-matched ('GSE201', 'Bronchoalveolar lavage samples'.
-Can be multiple identifiers separated by commas.
-When
-using in scripts, remember to URL-encode any forward slashes in the
-phenotype value URIs (see the compiled URL below).}
 
 \item{filter}{Optional, defaults to \code{empty}.
 Filtering can be done on any* property or nested property that the

@@ -109,58 +109,6 @@ getDatasets <- function (datasets = NA_character_, filter = NA_character_, offse
 #' @keywords internal
 memgetDatasets <- memoise::memoise(getDatasets)
 
-#' Dataset differential analysis
-#'
-#' Retrieves the differential analysis results for the given dataset
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param offset Optional, defaults to `0`.
-#' Skips the specified amount of objects when retrieving them from the
-#' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return An array of analyses (differential expression value objects) in the
-#' given dataset.
-#' A `404 error` if the given identifier does not map to any object.
-#' A `400 error` if required parameters are missing.
-#' @export
-#'
-#' @keywords dataset
-getDatasetDEA <- function (dataset = NA_character_, offset = 0L, limit = 20L, 
-    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
-        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
-        NA_character_), overwrite = getOption("gemma.overwrite", 
-        F)) 
-{
-    isFile <- FALSE
-    fname <- "getDatasetDEA"
-    preprocessor <- processDEA
-    validators <- list(dataset = validateSingleID, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger)
-    endpoint <- "datasets/{encode(dataset)}/analyses/differential?offset={encode(offset)}&limit={encode(limit)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
-}
-
-#' Memoise getDatasetDEA
-#'
-#' @keywords internal
-memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
-
 #' Datasets pca component expression levels
 #'
 #' Retrieves the expression levels most correlated with the given principal
@@ -439,6 +387,51 @@ getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.r
 #' @keywords internal
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
+#' Dataset differential analysis
+#'
+#' Retrieves the differential analysis results for the given dataset
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return An array of analyses (differential expression value objects) in the
+#' given dataset.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
+#' @export
+#'
+#' @keywords dataset
+getDatasetDEA <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
+{
+    isFile <- FALSE
+    fname <- "getDatasetDEA"
+    preprocessor <- processDEA
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/analyses/differential"
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async, match.call())
+}
+
+#' Memoise getDatasetDEA
+#'
+#' @keywords internal
+memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
+
 #' Dataset SVD information
 #'
 #' Retrieves the SVD information for the given dataset
@@ -629,11 +622,6 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param offset Optional, defaults to `0`.
-#' Skips the specified amount of objects when retrieving them from the
-#' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
 #' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
@@ -649,11 +637,10 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' @export
 #'
 #' @keywords dataset
-getDiffExpr <- function (dataset = NA_character_, offset = 0L, limit = 20L, 
-    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
-        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
-        NA_character_), overwrite = getOption("gemma.overwrite", 
-        F)) 
+getDiffExpr <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
+    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    F)) 
 {
     fname <- "getDiffExpr"
     passthrough <- list(getDatasetDEA = c(diffExSet = "analysis.ID"), 
@@ -725,9 +712,9 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         F)) 
 {
     characteristicValue <- "dataset"
-    argMap <- c(datasets = "getDatasets", differential = "getDatasetDEA", 
-        PCA = "getDatasetPCA", diffEx = "getDatasetDE", data = "getDatasetData", 
-        samples = "getDatasetSamples", SVD = "getDatasetSVD", 
+    argMap <- c(datasets = "getDatasets", PCA = "getDatasetPCA", 
+        diffEx = "getDatasetDE", data = "getDatasetData", samples = "getDatasetSamples", 
+        differential = "getDatasetDEA", SVD = "getDatasetSVD", 
         platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
         design = "getDatasetDesign", diffExData = "getDiffExpr")
     if (!is.na(request) && !(request %in% names(argMap))) 
@@ -2036,6 +2023,15 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' Does a search for datasets containing annotations, short name or full
 #' name matching the given string
 #'
+#' @param query Required, defaults to `empty`.
+#' The search query. Either plain text ('traumatic'), or an ontology term
+#' URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
+#' contain the given string in their short of full name will also be
+#' matched ('GSE201', 'Bronchoalveolar lavage samples'.
+#' Can be multiple identifiers separated by commas.
+#' When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' phenotype value URIs (see the compiled URL below).
 #' @param taxon Not required, part of the URL path.
 #' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
 #' scientific name, common name
@@ -2053,15 +2049,6 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #'   12   zebrafish   Danio rerio                7955
 #'   13   fly         Drosophila melanogaster    7227
 #'   14   worm        Caenorhabditis elegans     6239
-#' @param query Required, defaults to `empty`.
-#' The search query. Either plain text ('traumatic'), or an ontology term
-#' URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-#' contain the given string in their short of full name will also be
-#' matched ('GSE201', 'Bronchoalveolar lavage samples'.
-#' Can be multiple identifiers separated by commas.
-#' When
-#' using in scripts, remember to URL-encode any forward slashes in the
-#' phenotype value URIs (see the compiled URL below).
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
@@ -2141,7 +2128,7 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @export
 #'
 #' @keywords taxon
-searchDatasets <- function (taxon = NA_character_, query = NA_character_, filter = NA_character_, 
+searchDatasets <- function (query = NA_character_, taxon = NA_character_, filter = NA_character_, 
     offset = 0L, limit = 0L, sort = "+id", raw = getOption("gemma.raw", 
         F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
         F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
@@ -2150,7 +2137,7 @@ searchDatasets <- function (taxon = NA_character_, query = NA_character_, filter
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
-    validators <- list(taxon = validateOptionalTaxon, query = validateQuery, 
+    validators <- list(query = validateQuery, taxon = validateOptionalTaxon, 
         filter = validateFilter, offset = validatePositiveInteger, 
         limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
@@ -2297,11 +2284,11 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 forgetGemmaMemoised <- function () 
 {
     memoise::forget(memgetDatasets)
-    memoise::forget(memgetDatasetDEA)
     memoise::forget(memgetDatasetPCA)
     memoise::forget(memgetDatasetDE)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
+    memoise::forget(memgetDatasetDEA)
     memoise::forget(memgetDatasetSVD)
     memoise::forget(memgetDatasetPlatforms)
     memoise::forget(memgetDatasetAnnotations)

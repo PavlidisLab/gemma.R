@@ -6,8 +6,6 @@
 \usage{
 getDiffExpr(
   dataset = NA_character_,
-  offset = 0L,
-  limit = 20L,
   raw = getOption("gemma.raw", F),
   async = getOption("gemma.async", F),
   memoised = getOption("gemma.memoise", F),
@@ -20,13 +18,6 @@ getDiffExpr(
 Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
 Retrieval by ID is more efficient.
 Only datasets that user has access to will be available}
-
-\item{offset}{Optional, defaults to \code{0}.
-Skips the specified amount of objects when retrieving them from the
-database.}
-
-\item{limit}{Optional, defaults to \code{20}.
-Limits the result to specified amount of objects. Use 0 for no limit.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
