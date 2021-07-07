@@ -564,7 +564,7 @@ registerEndpoint('platforms/{platforms}?filter={filter}&offset={offset}&limit={l
                                  offset = 0L,
                                  limit = 20L,
                                  sort = '+id'),
-                 validators = alist(platforms = validateID,
+                 validators = alist(platforms = validateOptionalID,
                                     filter = validateFilter,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger,

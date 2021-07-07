@@ -7,11 +7,10 @@ test_that('getPlatforms queries work', {
                raw[, c('id', 'shortName', 'name', 'description', 'expressionExperimentCount')] %>% paste0(collapse = ''))
 
   expect_equal(getPlatforms(c(1, 2)) %>% nrow, 2)
-  # TODO: Platform parameter required
-  # expect_equal(getPlatforms(limit = 10) %>% nrow, 10)
-  # expect_false(getPlatforms(offset = 3)[1,1] == getDatasets(offset = 0)[1,1])
-  # expect_equal(getPlatforms(filter = 'technologyType = ONECOLOR')$technology.Type %>% all, 'ONECOLOR')
-  # expect_false(getDatasets(sort = '-id')[1, 1] == getDatasets(sort = '+id')[1, 1])
+  expect_equal(getPlatforms(limit = 10) %>% nrow, 10)
+  expect_false(getPlatforms(offset = 3)[1,1] == getDatasets(offset = 0)[1,1])
+  expect_true(getDatasets(filter = 'curationDetails.troubled = true')$ee.troubled %>% all)
+  expect_false(getDatasets(sort = '-id')[1, 1] == getDatasets(sort = '+id')[1, 1])
 })
 
 test_that('getPlatformDatasets queries work', {
@@ -22,7 +21,7 @@ test_that('getPlatformDatasets queries work', {
   expect_equal(dat[, c(ee.ShortName, ee.Name, ee.Description, ee.Samples, geeq.qScore)],
                c(raw$shortName, raw$name, raw$description, raw$bioAssayCount, raw$geeq$publicQualityScore))
   expect_equal(getPlatformDatasets(1, limit = 10) %>% nrow, 10)
-  # TODO: Offset not working as expected
+  # TODO: Offset not working as expected in API
   # expect_false(getPlatformDatasets(1, limit = 10, offset = 3)[1,1] == getPlatformDatasets(1, offset = 0)[1,1])
 })
 
