@@ -6,6 +6,7 @@
 \usage{
 memgetPlatformElements(
   platform = NA_character_,
+  element = NA_character_,
   offset = 0L,
   limit = 20L,
   raw = getOption("gemma.raw", F),

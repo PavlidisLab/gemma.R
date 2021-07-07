@@ -57,17 +57,15 @@ test_that('datasetSamples queries work', {
                c(raw$name, raw$id, raw$description))
 })
 
-
-# TODO: this endpoint is returning 500 at the moment
-# test_that('datasetDEA queries work', {
-#   dat <- getDatasetDEA(1)
-#   raw <- getDatasetDEA(1, raw = TRUE)
-#   rs <- raw$resultSets[[1]]
-#   expect_type(dat, 'list')
-#   expect_type(raw, 'list')
-#   expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
-#                c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
-# })
+test_that('datasetDEA queries work', {
+  dat <- getDatasetDEA(1)
+  raw <- getDatasetDEA(1, raw = TRUE)
+  rs <- raw$resultSets[[1]]
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
+               c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
+})
 
 test_that('datasetSVD queries work', {
   dat <- getDatasetSVD(1)

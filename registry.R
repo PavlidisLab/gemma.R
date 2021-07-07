@@ -527,8 +527,8 @@ registerSimpleEndpoint('dataset', 'samples', logname = 'samples', roxygen = 'Dat
                        preprocessor = quote(processSamples))
 
 registerSimpleEndpoint('dataset', 'analyses/differential', logname = 'differential', roxygen = 'Dataset differential analysis',
-                 'getDatasetDEA',
-                 preprocessor = quote(processDEA))
+                       'getDatasetDEA',
+                       preprocessor = quote(processDEA))
 
 registerSimpleEndpoint('dataset', 'svd', logname = 'SVD', roxygen = 'Dataset SVD information',
                        'getDatasetSVD',
@@ -581,12 +581,14 @@ registerEndpoint('platforms/{platform}/datasets?offset={offset}&limit={limit}',
                                     limit = validatePositiveInteger),
                  preprocessor = quote(processDatasets))
 
-registerEndpoint('platforms/{platform}/elements?offset={offset}&limit={limit}',
+registerEndpoint('platforms/{platform}/elements/{element}?offset={offset}&limit={limit}',
                  'getPlatformElements', logname = 'elements', roxygen = 'Platform elements',
                  defaults = list(platform = NA_character_,
+                                 element = NA_character_,
                                  offset = 0L,
                                  limit = 20L),
                  validators = alist(platform = validateSingleID,
+                                    element = validateOptionalID,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger),
                  preprocessor = quote(processElements))

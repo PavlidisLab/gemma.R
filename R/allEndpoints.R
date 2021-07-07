@@ -907,6 +907,15 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' Can either be the platform ID or its short name (e.g: `GPL1355`)
 #' Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
+#' @param element Optional, defaults to `empty`.
+#' Limits the result to entities with given identifiers.
+#' A list of identifiers, separated by commas (e.g:
+#' `AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at`).
+#' Can either be probes name or IDs.
+#' Do not combine different identifiers in one query.
+#' When
+#' using in scripts, remember to URL-encode any forward slashes in the
+#' probe name (see the compiled URL below).
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -930,18 +939,18 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' @export
 #'
 #' @keywords platform
-getPlatformElements <- function (platform = NA_character_, offset = 0L, limit = 20L, 
-    raw = getOption("gemma.raw", F), async = getOption("gemma.async", 
-        F), memoised = getOption("gemma.memoise", F), file = getOption("gemma.file", 
-        NA_character_), overwrite = getOption("gemma.overwrite", 
+getPlatformElements <- function (platform = NA_character_, element = NA_character_, 
+    offset = 0L, limit = 20L, raw = getOption("gemma.raw", F), 
+    async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
         F)) 
 {
     isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
-    validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger)
-    endpoint <- "platforms/{encode(platform)}/elements?offset={encode(offset)}&limit={encode(limit)}"
+    validators <- list(platform = validateSingleID, element = validateOptionalID, 
+        offset = validatePositiveInteger, limit = validatePositiveInteger)
+    endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async, match.call())
 }

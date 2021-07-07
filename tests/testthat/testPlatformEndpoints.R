@@ -30,10 +30,15 @@ test_that('getPlatformElements queries work', {
   raw <- getPlatformElements(1, raw = TRUE)
   expect_type(dat, 'list')
   expect_type(raw, 'list')
-  # TODO: Missing elements parameter
-  # TODO: Throws warning when using short name ids (ex. 'GPL1355')
+  # TODO: Throws warning when using short name ids (ex. 'GPL1355') or with large limits
   expect_equal(dat[, c(mapping.Name, array.ShortName, array.Name, array.Type)],
                c(raw$name, raw$arrayDesign$shortName, raw$arrayDesign$name, raw$arrayDesign$technologyType))
+
+  dat <- getPlatformElements('GPL1355', element = 'AFFX_Rat_beta-actin_M_at')
+  raw <- getPlatformElements('GPL1355', element = 'AFFX_Rat_beta-actin_M_at', raw = TRUE)
+  expect_equal(dat[, c(mapping.Name, array.ShortName, array.Name, array.Type)],
+               c(raw$name, raw$arrayDesign$shortName, raw$arrayDesign$name, raw$arrayDesign$technologyType))
+
   expect_equal(getPlatformElements(1, limit = 10) %>% nrow, 10)
   expect_false(getPlatformElements(1, offset = 3)[1,1] == getPlatformElements(1, offset = 0)[1,1])
 })
