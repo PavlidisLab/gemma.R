@@ -57,18 +57,17 @@ test_that('datasetSamples queries work', {
                c(raw$name, raw$id, raw$description))
 })
 
-test_that('datasetDEA queries work', {
-  dat <- getDatasetDEA(1)
-  raw <- getDatasetDEA(1, raw = TRUE)
-  rs <- raw$resultSets[[1]]
-  expect_type(dat, 'list')
-  expect_type(raw, 'list')
-  expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
-               c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
-  # TODO: Offset and limit values are useless for this endpoint, offset will lose the data
-  # expect_equal(getDatasetDEA(limit = 10) %>% nrow, 10)
-  # expect_false(getDatasetDEA('GSE2018', offset = 3)[1,1] == getDatasetDEA('GSE2018', offset = 0)[1,1])
-})
+
+# TODO: this endpoint is returning 500 at the moment
+# test_that('datasetDEA queries work', {
+#   dat <- getDatasetDEA(1)
+#   raw <- getDatasetDEA(1, raw = TRUE)
+#   rs <- raw$resultSets[[1]]
+#   expect_type(dat, 'list')
+#   expect_type(raw, 'list')
+#   expect_equal(dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
+#                c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount))
+# })
 
 test_that('datasetSVD queries work', {
   dat <- getDatasetSVD(1)
@@ -115,6 +114,7 @@ test_that('datasetPCA queries work', {
             getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow)
 })
 
+# TODO: how useful is this endpoint?
 test_that('datasetDE queries work', {
   dat <- getDatasetDE(1, diffExSet = 468329)
   raw <- getDatasetDE(1, diffExSet = 468329, raw = TRUE)

@@ -835,7 +835,7 @@ getPlatforms <- function (platforms = NA_character_, filter = NA_character_,
     isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
-    validators <- list(platforms = validateID, filter = validateFilter, 
+    validators <- list(platforms = validateOptionalID, filter = validateFilter, 
         offset = validatePositiveInteger, limit = validatePositiveInteger, 
         sort = validateSort)
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
