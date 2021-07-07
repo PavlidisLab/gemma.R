@@ -136,8 +136,8 @@ name matching the given string</p>
     </div>
 
     <pre class="usage"><span class='fu'>searchDatasets</span><span class='op'>(</span>
-  taxon <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   query <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  taxon <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   filter <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   offset <span class='op'>=</span> <span class='fl'>0L</span>,
   limit <span class='op'>=</span> <span class='fl'>0L</span>,
@@ -152,6 +152,18 @@ name matching the given string</p>
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>query</th>
+      <td><p>Required, defaults to <code>empty</code>.
+The search query. Either plain text ('traumatic'), or an ontology term
+URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
+contain the given string in their short of full name will also be
+matched ('GSE201', 'Bronchoalveolar lavage samples'.
+Can be multiple identifiers separated by commas.
+When
+using in scripts, remember to URL-encode any forward slashes in the
+phenotype value URIs (see the compiled URL below).</p></td>
+    </tr>
     <tr>
       <th>taxon</th>
       <td><p>Not required, part of the URL path.
@@ -170,18 +182,6 @@ ID   Comm.name   Scient.name                NcbiID</p>
 12   zebrafish   Danio rerio                7955
 13   fly         Drosophila melanogaster    7227
 14   worm        Caenorhabditis elegans     6239</p></td>
-    </tr>
-    <tr>
-      <th>query</th>
-      <td><p>Required, defaults to <code>empty</code>.
-The search query. Either plain text ('traumatic'), or an ontology term
-URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-contain the given string in their short of full name will also be
-matched ('GSE201', 'Bronchoalveolar lavage samples'.
-Can be multiple identifiers separated by commas.
-When
-using in scripts, remember to URL-encode any forward slashes in the
-phenotype value URIs (see the compiled URL below).</p></td>
     </tr>
     <tr>
       <th>filter</th>

@@ -135,8 +135,6 @@
 
     <pre class="usage"><span class='fu'>getDatasetDEA</span><span class='op'>(</span>
   dataset <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  offset <span class='op'>=</span> <span class='fl'>0L</span>,
-  limit <span class='op'>=</span> <span class='fl'>20L</span>,
   raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>F</span><span class='op'>)</span>,
   async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>F</span><span class='op'>)</span>,
   memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>F</span><span class='op'>)</span>,
@@ -153,17 +151,6 @@
 Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).
 Retrieval by ID is more efficient.
 Only datasets that user has access to will be available</p></td>
-    </tr>
-    <tr>
-      <th>offset</th>
-      <td><p>Optional, defaults to <code>0</code>.
-Skips the specified amount of objects when retrieving them from the
-database.</p></td>
-    </tr>
-    <tr>
-      <th>limit</th>
-      <td><p>Optional, defaults to <code>20</code>.
-Limits the result to specified amount of objects. Use 0 for no limit.</p></td>
     </tr>
     <tr>
       <th>raw</th>
