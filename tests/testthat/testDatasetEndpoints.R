@@ -24,19 +24,6 @@ test_that('datasetSearch queries work', {
   expect_equal(dat %>% nrow, 50)
   expect_lt(searchDatasets('bipolar', taxon = 'human') %>% nrow(),
             searchDatasets('bipolar') %>% nrow())
-
-  annots <- lapply(dat$ee.ID, function(x){ # Get annotations for queried datasets
-    getDatasetAnnotations(x) %>%
-      .$term.Name %>%
-      paste(collapse = ', ')
-  })
-  dat <- cbind(dat, annots)
-
-  # Checks that search term is present in every queried dataset's name, description or annotations
-  # TODO: This isn't passing, API seems to fetch some irrelevant datasets
-  # expect_true(lapply(dat, function(x){grepl('bipolar', x, ignore.case = TRUE)}) %>%
-  #               as.data.frame() %>% dplyr::mutate(term_found = ee.Name | ee.Description | annots) %>%
-  #               .$term_found %>% all)
 })
 
 test_that('datasetPlatforms queries work', {
@@ -112,7 +99,6 @@ test_that('datasetPCA queries work', {
             getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow)
 })
 
-# TODO: how useful is this endpoint?
 test_that('datasetDE queries work', {
   dat <- getDatasetDE(1, diffExSet = 468329)
   raw <- getDatasetDE(1, diffExSet = 468329, raw = TRUE)
@@ -128,7 +114,7 @@ test_that('datasetDE queries work', {
   expect_gt(getDatasetDE(1, diffExSet = 468329, limit = 100)$expr[[1]] %>% nrow,
             getDatasetDE(1, diffExSet = 468329, limit = 50)$expr[[1]] %>% nrow)
 
-  # TODO: Threshold not working as expected in API
-  # expect_gt(getDatasetDE(1, diffExSet = 468329, threshold = 10)$expr[[1]] %>% nrow,
-  #           getDatasetDE(1, diffExSet = 468329, threshold = 200)$expr[[1]] %>% nrow)
+  # Threshold not working as expected in API
+  # expect_false(all.equal(getDatasetDE(1, diffExSet = 468329, threshold = 10)[['expr']],
+  # getDatasetDE(1, diffExSet = 468329, threshold = 200)[['expr']]))
 })

@@ -445,6 +445,8 @@ comment <- function(fname, src, parameters, document = getOption('gemmaAPI.docum
       mAdd <- '<p>Which specific endpoint to request.</p>'
     else if(arg == '...')
       mAdd <- '<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>'
+    else if(arg == 'resultSet')
+      mAdd <- 'Optional, defaults to empty. A single resultSet identifier (ex. 423176). Only datasets that user has access to will be available.'
     else {
       mArg <- arg
       if(arg == 'component') mArg <- 'pcaComponent'
@@ -496,6 +498,20 @@ registerEndpoint('datasets/{datasets}/expressions/pca?component={component}&limi
                                     keepNonSpecific = validateBoolean,
                                     consolidate = validateConsolidate),
                  preprocessor = quote(processExpression))
+
+registerEndpoint('resultSets/{resultSets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}',
+                 'getResultSets', logname = 'resultSets', roxygen = 'Lists resultSets filtered and organized by given parameters',
+                 defaults = list(resultSet = NA_character_,
+                                 filter = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L,
+                                 sort = '+id'),
+                 validators = alist(resultSet = validateOptionalID,
+                                    filter = validateFilter,
+                                    offset =  validatePositiveInteger,
+                                    limit = validatePositiveInteger,
+                                    sort = validateSort),
+                 preprocessor = quote(processResultSets))
 
 registerEndpoint('datasets/{datasets}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}',
                  'getDatasetDE', logname = 'diffEx', roxygen = 'Datasets differential expression levels',
