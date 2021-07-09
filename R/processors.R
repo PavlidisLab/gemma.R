@@ -269,6 +269,18 @@ processSVD <- function(d) {
        VMatrix = vM)
 }
 
+#' Processes JSON as a result set
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
+#'
+#' @keywords internal
+# TODO: Finish implementation
+processResultSets <- function(d){
+  data.table(rs.ID = d[['id']])
+}
+
 #' Processes JSON as annotations
 #'
 #' @param d The JSON to process

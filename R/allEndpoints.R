@@ -181,6 +181,107 @@ getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100
 #' @keywords internal
 memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 
+#' getResultSets
+#'
+#' Lists resultSets filtered and organized by given parameters
+#'
+#' @param resultSet Optional, defaults to empty. Limits the result to entities with given
+#' identifiers. An identifier (ex. 423176). Only datasets that user has
+#' access to will be available.
+#' @param filter Optional, defaults to `empty`.
+#' Filtering can be done on any* property or nested property that the
+#' appropriate object class defines or inherits (and that is mapped by
+#' hibernate). [These do not correspond to the properties of the objects
+#' returned by the API calls.]{.description-imp}
+#' Class definitions:
+#' -   Datasets:
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
+#' -   Platforms:
+#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
+#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
+#' * Any property of a supported type. Currently supported types are:
+#' -   String - property of String type, required value can be any String.
+#' -   Number - any Number implementation. Required value must be a string
+#'     parseable to the specific Number type.
+#' -   Boolean - required value will be parsed to true only if the string
+#'     matches 'true', ignoring case.
+#' Accepted operator keywords are:
+#' -   '=' - equality
+#' -   '!=' - non-equality
+#' -   '<' - smaller than
+#' -   '>' - larger than
+#' -   '<=' - smaller or equal
+#' -   '=>' - larger or equal
+#' -   'like' - similar string, effectively means 'contains',
+#'     translates to the sql 'LIKE' operator (given value will be
+#'     surrounded by % signs)
+#' Multiple filters can be chained using `AND` and `OR` keywords.
+#' Leave space between the keywords and the previous/next word!
+#' E.g: `?filter=property1 < value1 AND property2 like value2`
+#' If chained filters are mixed conjunctions and disjunctions, the query
+#' must be in conjunctive normal form (CNF). Parentheses are not necessary
+#' - every AND keyword separates blocks of disjunctions.
+#' Example:
+#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
+#' Above query will translate to:
+#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
+#' Breaking the CNF results in an error.
+#' Filter `curationDetails.troubled` will be ignored if user is not an
+#' administrator.
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to `20`.
+#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the 'Accession' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
+#' the compiled URL below).
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
+#' @export
+#'
+#' @keywords dataset
+getResultSets <- function (resultSet = NA_character_, filter = NA_character_, 
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption("gemma.raw", 
+        F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
+        F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+        F)) 
+{
+    isFile <- FALSE
+    fname <- "getResultSets"
+    preprocessor <- processResultSets
+    validators <- list(resultSet = validateOptionalID, filter = validateFilter, 
+        offset = validatePositiveInteger, limit = validatePositiveInteger, 
+        sort = validateSort)
+    endpoint <- "resultSets/{encode(resultSets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    .body(memoised, fname, validators, endpoint, environment(), 
+        isFile, raw, overwrite, file, async, match.call())
+}
+
+#' Memoise getResultSets
+#'
+#' @keywords internal
+memgetResultSets <- memoise::memoise(getResultSets)
+
 #' Datasets differential expression levels
 #'
 #' Retrieves differential expression levels for given datasets
@@ -713,7 +814,8 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 {
     characteristicValue <- "dataset"
     argMap <- c(datasets = "getDatasets", PCA = "getDatasetPCA", 
-        diffEx = "getDatasetDE", data = "getDatasetData", samples = "getDatasetSamples", 
+        resultSets = "getResultSets", diffEx = "getDatasetDE", 
+        data = "getDatasetData", samples = "getDatasetSamples", 
         differential = "getDatasetDEA", SVD = "getDatasetSVD", 
         platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
         design = "getDatasetDesign", diffExData = "getDiffExpr")
@@ -2294,6 +2396,7 @@ forgetGemmaMemoised <- function ()
 {
     memoise::forget(memgetDatasets)
     memoise::forget(memgetDatasetPCA)
+    memoise::forget(memgetResultSets)
     memoise::forget(memgetDatasetDE)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
