@@ -17,7 +17,10 @@ Imports:
     memoise,
     jsonlite,
     data.table,
-    async
+    async,
+    stringr,
+    Biobase,
+    rlang
 Remotes:
     gaborcsardi/async
 Suggests: 

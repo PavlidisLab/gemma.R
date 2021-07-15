@@ -193,3 +193,43 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
     })
   }
 }
+
+#' Get ExpressionSet
+#'
+#' Combines various endpoint calls to return a Bioconductor ExpressionSet
+#'
+#' @param dataset A dataset identifier
+#' @param filter If true, call returns filtered expression data.
+#'
+#' @return An ExpressionSet instance with an expression matrix annotated with metadata
+#' @importFrom  rlang .data
+#' @export
+getExpressionSet <- function(dataset, filter){
+  validateID(dataset)
+
+  # Create expression matrix
+  expr <- getDatasetData(dataset, filter)
+  exprM <- expr[, 7:ncol(expr)] %>% data.matrix()
+  rownames(exprM) <- expr$Probe
+  colnames(exprM) <- stringr::str_extract(colnames(expr[, 7:ncol(expr)]), '(?<=Name=).*')
+
+  # Create metadata table
+  design <- getDatasetDesign(dataset) %>% as.data.frame()
+  rownames(design) <- stringr::str_extract(design$Bioassay, '(?<=Name=).*')
+  design <- design %>% dplyr::select(-c(.data$ExternalID, .data$Bioassay))
+  metadata <- data.frame(labelDescription = colnames(design),
+                         row.names = colnames(design))
+  phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = metadata)
+
+  exprM <- exprM[, match(rownames(design), colnames(exprM))] # Reorder expression matrix to match design
+
+  # Create experiment description
+  dat <- getDatasets(dataset)
+  expData <- Biobase::MIAME(title = dat$ee.Name,
+                            abstract = dat$ee.Description)
+
+  eset <- Biobase::ExpressionSet(assayData = exprM,
+                                 phenoData = phenoData,
+                                 experimentData = expData)
+  eset
+}
