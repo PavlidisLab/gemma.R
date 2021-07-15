@@ -38,9 +38,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          install.packages(c("remotes"))
+          install.packages(c("remotes", "BiocManager"))
           remotes::install_deps(dependencies = TRUE)
           remotes::install_cran("covr")
+          BiocManager::install(ask = FALSE, update = TRUE)
         shell: Rscript {0}
 
       - name: Test coverage
