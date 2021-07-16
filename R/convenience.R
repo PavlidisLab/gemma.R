@@ -196,12 +196,12 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
 
 #' Get ExpressionSet
 #'
-#' Combines various endpoint calls to return a Bioconductor ExpressionSet
+#' Combines various endpoint calls to return an annotated Bioconductor ExpressionSet
 #'
 #' @param dataset A dataset identifier
 #' @param filter If true, call returns filtered expression data.
 #'
-#' @return An ExpressionSet instance with an expression matrix annotated with metadata
+#' @return An ExpressionSet for the queried dataset.
 #' @importFrom  rlang .data
 #' @export
 getExpressionSet <- function(dataset, filter){
@@ -214,22 +214,34 @@ getExpressionSet <- function(dataset, filter){
   colnames(exprM) <- stringr::str_extract(colnames(expr[, 7:ncol(expr)]), '(?<=Name=).*')
 
   # Create metadata table
-  design <- getDatasetDesign(dataset) %>% as.data.frame()
-  rownames(design) <- stringr::str_extract(design$Bioassay, '(?<=Name=).*')
-  design <- design %>% dplyr::select(-c(.data$ExternalID, .data$Bioassay))
-  metadata <- data.frame(labelDescription = colnames(design),
-                         row.names = colnames(design))
-  phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = metadata)
+  d <- getDatasetDesign(dataset)
+  design <- data.frame(d, row.names = stringr::str_extract(d$Bioassay, '(?<=Name=).*')) %>%
+    dplyr::select(-c(.data$ExternalID, .data$Bioassay))
+  # This annotation table is required
+  annots <- data.frame(labelDescription = colnames(design),
+                       row.names = colnames(design))
+  phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = annots)
 
-  exprM <- exprM[, match(rownames(design), colnames(exprM))] # Reorder expression matrix to match design
+  # Reorder expression matrix to match design
+  exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
   # Create experiment description
   dat <- getDatasets(dataset)
-  expData <- Biobase::MIAME(title = dat$ee.Name,
-                            abstract = dat$ee.Description)
+  other <- list(database = dat$ee.Database,
+                accesion = dat$ee.Accession,
+                GemmaQualityScore = dat$geeq.qScore,
+                GemmaSuitabilityScore = dat$geeq.sScore,
+                taxon = dat$taxon.Name)
 
+  expData <- Biobase::MIAME(title = dat$ee.Name,
+                            abstract = dat$ee.Description,
+                            url = paste0('https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=', dat$ee.ID),
+                            other = other)
+
+  # Create ExpressionSet
   eset <- Biobase::ExpressionSet(assayData = exprM,
                                  phenoData = phenoData,
-                                 experimentData = expData)
+                                 experimentData = expData,
+                                 annotation = getDatasetPlatforms(dataset)$platform.ShortName)
   eset
 }
