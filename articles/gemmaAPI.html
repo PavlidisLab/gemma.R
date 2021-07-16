@@ -325,22 +325,22 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">1.044195</td>
-<td align="right">1.094102</td>
-<td align="right">1.183141</td>
-<td align="right">1.136640</td>
-<td align="right">1.185827</td>
-<td align="right">1.679025</td>
+<td align="right">0.7766033</td>
+<td align="right">0.8187595</td>
+<td align="right">0.9092909</td>
+<td align="right">0.8323627</td>
+<td align="right">0.9616723</td>
+<td align="right">1.272793</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">5.415243</td>
-<td align="right">5.490868</td>
-<td align="right">5.510051</td>
-<td align="right">5.513429</td>
-<td align="right">5.529201</td>
-<td align="right">5.648921</td>
+<td align="right">2.4649560</td>
+<td align="right">2.5317377</td>
+<td align="right">2.6490501</td>
+<td align="right">2.6338313</td>
+<td align="right">2.7827806</td>
+<td align="right">2.881568</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -363,7 +363,7 @@
     <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="co"># Only allow 200 active requests at a time to not flood the server</span>
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 60,503</span>
+<span class="co">#&gt; Rows: 60,505</span>
 <span class="co">#&gt; Columns: 7</span>
 <span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
 <span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
@@ -415,12 +415,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">10056.03</td>
-<td align="right">10056.03</td>
-<td align="right">10056.03</td>
-<td align="right">10056.03</td>
-<td align="right">10056.03</td>
-<td align="right">10056.03</td>
+<td align="right">10432.09</td>
+<td align="right">10432.09</td>
+<td align="right">10432.09</td>
+<td align="right">10432.09</td>
+<td align="right">10432.09</td>
+<td align="right">10432.09</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -449,12 +449,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.542646</td>
-<td align="right">0.542646</td>
-<td align="right">0.542646</td>
-<td align="right">0.542646</td>
-<td align="right">0.542646</td>
-<td align="right">0.542646</td>
+<td align="right">0.563049</td>
+<td align="right">0.563049</td>
+<td align="right">0.563049</td>
+<td align="right">0.563049</td>
+<td align="right">0.563049</td>
+<td align="right">0.563049</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
