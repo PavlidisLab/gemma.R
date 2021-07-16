@@ -28,8 +28,7 @@ Suggests:
     knitr,
     dplyr,
     microbenchmark,
-    covr
-Enhances:
+    covr,
     Biobase
 Config/testthat/edition: 2
 VignetteBuilder: knitr

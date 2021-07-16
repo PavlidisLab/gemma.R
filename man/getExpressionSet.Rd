@@ -12,8 +12,8 @@ getExpressionSet(dataset, filter)
 \item{filter}{If true, call returns filtered expression data.}
 }
 \value{
-An ExpressionSet instance with an expression matrix annotated with metadata
+An ExpressionSet for the queried dataset.
 }
 \description{
-Combines various endpoint calls to return a Bioconductor ExpressionSet
+Combines various endpoint calls to return an annotated Bioconductor ExpressionSet
 }
