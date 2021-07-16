@@ -19,7 +19,6 @@ Imports:
     data.table,
     async,
     stringr,
-    Biobase,
     rlang
 Remotes:
     gaborcsardi/async
@@ -30,5 +29,8 @@ Suggests:
     dplyr,
     microbenchmark,
     covr
+Enhances:
+    Biobase
+    
 Config/testthat/edition: 2
 VignetteBuilder: knitr
