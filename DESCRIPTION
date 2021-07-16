@@ -31,6 +31,5 @@ Suggests:
     covr
 Enhances:
     Biobase
-    
 Config/testthat/edition: 2
 VignetteBuilder: knitr
