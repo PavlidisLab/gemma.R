@@ -424,7 +424,7 @@ processGenes <- function(d) {
 #'
 #' @keywords internal
 processGeneEvidence <- function(d) {
-  data.table(evidence = lapply(d[['evidence']], function(x) {
+  suppressWarnings(data.table(evidence = lapply(d[['evidence']], function(x) {
     data.table(gene.ID = x[['geneId']],
                gene.NCBI = x[['geneNCBI']],
                gene.Symbol = x[['geneOfficialSymbol']],
@@ -443,7 +443,7 @@ processGeneEvidence <- function(d) {
                             citation = y[['citationValueObject']][['citation']],
                             retracted = y[['citationValueObject']][['retracted']])
                })))
-  }), processGenes(d))
+  }), processGenes(d)))
 }
 
 #' Processes JSON as a vector of taxa
