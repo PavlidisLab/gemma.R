@@ -627,7 +627,7 @@ registerCategoryEndpoint('geneInfo', 'gene')
 
 registerSimpleEndpoint('genes', '', logname = 'genes', roxygen = 'Genes',
                        'getGenes',
-                       validator = quote(validateID),
+                       validator = alist(genes = validateID),
                        preprocessor = quote(processGenes))
 
 registerSimpleEndpoint('gene', 'evidence', logname = 'evidence', roxygen = 'Gene evidence',

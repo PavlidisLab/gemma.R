@@ -185,9 +185,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #'
 #' Lists resultSets filtered and organized by given parameters
 #'
-#' @param resultSet Optional, defaults to empty. Limits the result to entities with given
-#' identifiers. An identifier (ex. 423176). Only datasets that user has
-#' access to will be available.
+#' @param resultSet Optional, defaults to empty. A single resultSet identifier (ex. 423176).
+#' Only datasets that user has access to will be available.
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
@@ -1220,7 +1219,7 @@ getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw",
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
-    validators <- validateID
+    validators <- list(genes = validateID)
     endpoint <- "genes/{encode(genes)}/"
     .body(memoised, fname, validators, endpoint, environment(), 
         isFile, raw, overwrite, file, async, match.call())
