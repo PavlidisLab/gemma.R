@@ -33,7 +33,6 @@ test_that('getTaxonPhenotypeCandidates queries work', {
   expect_type(raw, 'list')
   expect_equal(dat[, c(gene.Name, gene.NCBI, taxon.Name)],
                c(raw$officialName, raw$ncbiId, raw$taxonCommonName))
-  # TODO: Not sure what editableOnly does
 })
 
 test_that('getGeneOnTaxon queries work', {
@@ -45,20 +44,18 @@ test_that('getGeneOnTaxon queries work', {
                c(raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
 })
 
-# TODO: Throws warnings
-# test_that('getEvidenceOnTaxon queries work', {
-#   dat <- getEvidenceOnTaxon('human', 1859) # TODO: Thrpws warning
-#   datEv <- dat$evidence[[1]]
-#   raw <- getEvidenceOnTaxon('human', 1859, raw = TRUE)
-#   rawEv <- raw$evidence[[1]]
-#   expect_type(dat, 'list')
-#   expect_type(raw, 'list')
-#   expect_equal(dat[, c(gene.NCBI, gene.Name, taxon.ID, taxon.Scientific)],
-#                c(raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
-#
-# })
+test_that('getEvidenceOnTaxon queries work', {
+  dat <- getEvidenceOnTaxon('human', 1859)
+  datEv <- dat$evidence[[1]]
+  raw <- getEvidenceOnTaxon('human', 1859, raw = TRUE)
+  rawEv <- raw$evidence[[1]]
+  expect_type(dat, 'list')
+  expect_type(raw, 'list')
+  expect_equal(dat[, c(gene.NCBI, gene.Name, taxon.ID, taxon.Scientific)],
+               c(raw$ncbiId, raw$officialName, raw$taxonId, raw$taxonScientificName))
 
-# TODO: Wrong description in original API documentation
+})
+
 test_that('getGeneLocationOnTaxon queries work', {
   dat <- getGeneLocationOnTaxon('human', 1859)
   raw <- getGeneLocationOnTaxon('human', 1859, raw = TRUE)
