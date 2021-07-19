@@ -185,9 +185,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #'
 #' Lists resultSets filtered and organized by given parameters
 #'
-#' @param resultSet Optional, defaults to empty. Limits the result to entities with given
-#' identifiers. An identifier (ex. 423176). Only datasets that user has
-#' access to will be available.
+#' @param resultSet Optional, defaults to empty. A single resultSet identifier (ex. 423176).
+#' Only datasets that user has access to will be available.
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
