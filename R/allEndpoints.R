@@ -713,73 +713,6 @@ getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.ra
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
-#' getDiffExpr
-#'
-#' Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the
-#' differential expression results for a given dataset
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords dataset
-getDiffExpr <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    F), async = getOption("gemma.async", F), memoised = getOption("gemma.memoise", 
-    F), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    F)) 
-{
-    fname <- "getDiffExpr"
-    passthrough <- list(getDatasetDEA = c(diffExSet = "analysis.ID"), 
-        getDiffExData = c(NULL))
-    depends <- list(getDatasetDEA = c(NA), getDiffExData = c(1))
-    endpoints <- c("getDatasetDEA", "getDiffExData")
-    env <- environment()
-    makeCall <- async(function(i) {
-        .fargs <- formals(get(endpoints[i]))
-        mCallable <- call(endpoints[i])
-        for (f in names(.fargs)) {
-            mCallable[[f]] <- .fargs[[f]]
-        }
-        for (f in intersect(names(.fargs), ls(envir = env))) {
-            mCallable[[f]] <- get(f, envir = env, inherits = F)
-        }
-        mCallable[c("raw", "async")] <- c(F, T)
-        mCallable[setdiff(names(mCallable), names(.fargs))] <- NULL
-        if (isTRUE(any(depends == i))) {
-            eval(mCallable, env)$then(function(response) {
-                for (p in names(passthrough[[i]])) {
-                  assign(p, response[[passthrough[[i]][p]]], 
-                    envir = env)
-                }
-                async::async_map(which(depends == i), makeCall)
-            })
-        }
-        else eval(mCallable, env)
-    })
-    request <- async::async(function() {
-        async::async_map(which(is.na(depends)), function(i) {
-            makeCall(i)
-        })
-    })
-    if (!async) 
-        async::synchronise(when_all(request()))
-    else request()
-}
-
 #' datasetInfo
 #'
 #' A common entrypoint to the various dataset endpoints.
@@ -817,7 +750,7 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
         data = "getDatasetData", samples = "getDatasetSamples", 
         differential = "getDatasetDEA", SVD = "getDatasetSVD", 
         platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
-        design = "getDatasetDesign", diffExData = "getDiffExpr")
+        design = "getDatasetDesign")
     if (!is.na(request) && !(request %in% names(argMap))) 
         stop(paste0("Invalid request parameter. Options include: ", 
             paste0(names(argMap), collapse = ", ")))

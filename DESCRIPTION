@@ -6,6 +6,7 @@ Authors@R:
       person(given = "Ogan", family = "Mancarci", role = c("aut"), email = "ogan.mancarci@gmail.com"),
       person(given = "Javier", family = "Castillo-Arnemann", role = c("aut", "cre"), email = "yavyx@msl.ubc.ca"))
 Description: Low and high level wrappers for Gemma's restful API.
+Depends: R (>= 3.2.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,11 +18,16 @@ Imports:
     memoise,
     jsonlite,
     data.table,
-    async,
+    assertthat,
+    callr (>= 2.0.4.9000),
+    curl (>= 3.2),
+    processx (>= 3.3.0.9001),
+    R6,
+    rlang,
+    utils,
+    uuid,
     stringr,
     rlang
-Remotes:
-    gaborcsardi/async
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,

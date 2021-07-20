@@ -6,11 +6,16 @@
 
 library(magrittr)
 
+if(file.exists('R/aaa-async.R'))
+  file.remove('R/aaa-async.R')
+
+async::synchronise(async::http_get('https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R', file = 'R/aaa-async.R'))
+
 if(file.exists(getOption('gemmaAPI.document', 'R/allEndpoints.R')))
   file.remove(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
 
 file.create(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
-source('R/convenience.R')
+# source('R/convenience.R')
 
 #' Register an API endpoint (internal use)
 #'
@@ -564,10 +569,10 @@ registerSimpleEndpoint('dataset', 'design', logname = 'design', roxygen = 'Datas
 
 # TODO Consider whether this belongs in the API or not...
 
-registerCompoundEndpoint(endpoints = c('getDatasetDEA', 'getDiffExData'),
-                         depends = list(getDatasetDEA = NA, getDiffExData = 1),
-                         passthrough = list(getDatasetDEA = c(diffExSet = 'analysis.ID'), getDiffExData = NULL),
-                         'getDiffExpr', logname = 'diffExData', roxygen = 'Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the differential expression results for a given dataset')
+#registerCompoundEndpoint(endpoints = c('getDatasetDEA', 'getDiffExData'),
+#                         depends = list(getDatasetDEA = NA, getDiffExData = 1),
+#                         passthrough = list(getDatasetDEA = c(diffExSet = 'analysis.ID'), getDiffExData = NULL),
+#                         'getDiffExpr', logname = 'diffExData', roxygen = 'Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the differential expression results for a given dataset')
 
 registerCategoryEndpoint(roxygen = 'A common entrypoint to the various dataset endpoints.')
 # Platform endpoints ----

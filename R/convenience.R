@@ -33,7 +33,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #'
 #' @keywords dataset
 #' @export
-getDiffExData <- async::async(function(dataset, diffExSet) {
+getDiffExData <- async(function(dataset, diffExSet) {
   REQ1 <- 'callCount=1
 page=/expressionExperiment/showExpressionExperiment.html?id={dataset}
 httpSessionId=
@@ -65,7 +65,7 @@ batchId={countN + 1}
 '
 
   # Make the initial request
-  async::http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ExpressionExperimentDataFetchController.getDiffExpressionDataFile.dwr'), glue::glue(REQ1))$then(function(response) {
+  http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ExpressionExperimentDataFetchController.getDiffExpressionDataFile.dwr'), glue::glue(REQ1))$then(function(response) {
     if(response$status != 200) {
       warning(paste0('Unable to get differential expression data file: ', response$status))
       return(NULL)
@@ -75,9 +75,9 @@ batchId={countN + 1}
     taskID <- gsub('\'|"', '', strsplit(gsub('.*remoteHandleCallback\\(([^\\)]+)\\).*', '\\1', rawToChar(response$content)), ',')[[1]])[3]
     countN <- 5
 
-    requery <- async::async(function(taskID, countN) {
+    requery <- async(function(taskID, countN) {
       # Poll for completion
-      async::http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ProgressStatusService.getSubmittedTask.dwr'), glue::glue(REQ2))$then(function(response) {
+      http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/ProgressStatusService.getSubmittedTask.dwr'), glue::glue(REQ2))$then(function(response) {
         if(response$status != 200) {
           warning(paste0('Unable to get task data: ', response$status))
           return(NULL)
@@ -90,7 +90,7 @@ batchId={countN + 1}
           return(NULL)
         } else if(grepl('done:true', mContent, fixed = T)) {
           # Query where to find the result
-          async::http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/TaskCompletionController.checkResult.dwr'), glue::glue(REQ3))$then(function(response) {
+          http_post(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'dwr/call/plaincall/TaskCompletionController.checkResult.dwr'), glue::glue(REQ3))$then(function(response) {
             if(response$status != 200) {
               warning(paste0('Unable to get task result: ', response$status))
               return(NULL)
@@ -102,7 +102,7 @@ batchId={countN + 1}
             # Make a temp file to unzip to
             tmp <- tempfile()
             base <- getOption('gemma.base', 'https://gemma.msl.ubc.ca/')
-            async::http_get(paste0(substring(base, 1, nchar(base) - 1), fileLoc), file = tmp)$then(function(...) {
+            http_get(paste0(substring(base, 1, nchar(base) - 1), fileLoc), file = tmp)$then(function(...) {
               filenames <- utils::unzip(tmp, list = TRUE)$Name
 
               # Unzip results and fread in
@@ -117,7 +117,7 @@ batchId={countN + 1}
           })
         } else {
           # Fail to detect completion, try again in 3 seconds
-          async::delay(3)$then(function(...) {
+          delay(3)$then(function(...) {
             requery(taskID, countN + 1)
           })
         }
@@ -187,7 +187,7 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
     doReadFile(file)
   } else {
     synchronise({
-      async::http_get(glue::glue(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}')), file = file)$then(function(...) {
+      http_get(glue::glue(paste0(getOption('gemma.base', 'https://gemma.msl.ubc.ca/'), 'arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}')), file = file)$then(function(...) {
         doReadFile(file)
       })
     })
