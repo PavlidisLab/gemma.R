@@ -31,7 +31,7 @@
   }
 
   # Generate request
-  request <- quote(async::http_get(
+  request <- quote(http_get(
     paste0(getOption('gemma.API', 'https://gemma.msl.ubc.ca/rest/v2/'), gsub('/((NA)?/)', '/', gsub('\\?[^=]+=NA', '\\?', gsub('&[^=]+=NA', '', glue::glue(endpoint))))),
     options = switch(is.null(getOption('gemma.password', NULL)) + 1, list(userpwd = paste0(getOption('gemma.username'), ':', getOption('gemma.password'))), list()))$then(function(response) {
       if(response$status_code == 200) {
@@ -71,7 +71,7 @@
     }))
 
   if(!async)
-    async::synchronise(eval(request, envir = envWhere))
+    synchronise(eval(request, envir = envWhere))
   else
     eval(request, envir = envWhere)
 }
