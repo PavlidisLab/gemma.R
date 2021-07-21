@@ -22,8 +22,8 @@ custom_curl_options <- function(options) {
     )
   )
 }
-environment(custom_curl_options) <- asNamespace('async')
-assignInNamespace('get_default_curl_options', custom_curl_options, ns = 'async')
+# environment(custom_curl_options) <- asNamespace('async')
+# assignInNamespace('get_default_curl_options', custom_curl_options, ns = 'async')
 
 test_check("gemmaAPI")
 
