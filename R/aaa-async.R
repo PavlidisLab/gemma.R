@@ -3063,7 +3063,7 @@ async_map_limit <- function(.x, .f, ..., .args = list(), .limit = Inf) {
 
 ## nocov end
 
-#' @import rlang
+#' @importFrom rlang as_function
 NULL
 
 #' Asynchronous external process execution
