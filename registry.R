@@ -9,7 +9,7 @@ library(magrittr)
 if(file.exists('R/aaa-async.R'))
   file.remove('R/aaa-async.R')
 
-async::synchronise(async::http_get('https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R', file = 'R/aaa-async.R'))
+synchronise(http_get('https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R', file = 'R/aaa-async.R'))
 
 if(file.exists(getOption('gemmaAPI.document', 'R/allEndpoints.R')))
   file.remove(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
@@ -212,21 +212,21 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
             assign(p, response[[passthrough[[i]][p]]], envir = env)
           }
 
-          async::async_map(which(depends == i), makeCall)
+          async_map(which(depends == i), makeCall)
         })
       } else
         eval(mCallable, env)
     })
 
     # Start by sending requests that don't depend on other endpoints
-    request <- async::async(function() {
-      async::async_map(which(is.na(depends)), function(i) {
+    request <- async(function() {
+      async_map(which(is.na(depends)), function(i) {
         makeCall(i)
       })
     })
 
     if(!async)
-      async::synchronise(when_all(request()))
+      synchronise(when_all(request()))
     else
       request()
   })
@@ -374,7 +374,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 }
 
 # Load in descriptions from the JS
-eval(async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
+eval(synchronise(ttp_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
        rawToChar %>% {
          gsub('\\/\\*[\\s\\S]*?\\*\\/', '', ., perl = T)
        } %>% {
@@ -386,7 +386,7 @@ eval(async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/rest
 rm(`+`)
 
 # And endpoints from the HTML
-endpoints <- async::synchronise(async::http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
+endpoints <- synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/'))$content %>%
   rawToChar %>%
   xml2::read_html() %>%
   xml2::xml_find_all('.//endpoint')

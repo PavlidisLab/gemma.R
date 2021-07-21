@@ -3058,7 +3058,7 @@ async_map_limit <- function(.x, .f, ..., .args = list(), .limit = Inf) {
     ci = TRUE,
     cran = FALSE
   )
-  if (requireNamespace("debugme", quietly = TRUE)) debugme::debugme()
+  # if (requireNamespace("debugme", quietly = TRUE)) debugme::debugme()
 }
 
 ## nocov end
