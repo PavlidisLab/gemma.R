@@ -26,7 +26,8 @@ Imports:
     rlang,
     utils,
     uuid,
-    stringr
+    stringr,
+    cli
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
