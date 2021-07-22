@@ -5,17 +5,15 @@
 # -------------------------------
 
 library(magrittr)
+library(async)
 
-if(file.exists('R/aaa-async.R'))
-  file.remove('R/aaa-async.R')
-
-synchronise(http_get('https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R', file = 'R/aaa-async.R'))
+if(!file.exists('R/aaa-async.R'))
+  synchronise(http_get('https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R', file = 'R/aaa-async.R'))
 
 if(file.exists(getOption('gemmaAPI.document', 'R/allEndpoints.R')))
   file.remove(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
 
 file.create(getOption('gemmaAPI.document', 'R/allEndpoints.R'))
-# source('R/convenience.R')
 
 #' Register an API endpoint (internal use)
 #'
@@ -374,7 +372,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 }
 
 # Load in descriptions from the JS
-eval(synchronise(ttp_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
+eval(synchronise(http_get('https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js'))$content %>%
        rawToChar %>% {
          gsub('\\/\\*[\\s\\S]*?\\*\\/', '', ., perl = T)
        } %>% {

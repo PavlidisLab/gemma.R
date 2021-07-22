@@ -1,11 +1,15 @@
 Package: gemmaAPI
 Title: A Wrapper for Gemma's Restful API
-Version: 2.0
+Version: 0.99.0
 Authors@R: 
     c(person(given = "Jordan", family = "Sicherman", role = c("aut"), email = "jordan.sicherman@msl.ubc.ca"),
       person(given = "Ogan", family = "Mancarci", role = c("aut"), email = "ogan.mancarci@gmail.com"),
       person(given = "Javier", family = "Castillo-Arnemann", role = c("aut", "cre"), email = "yavyx@msl.ubc.ca"))
-Description: Low and high level wrappers for Gemma's restful API.
+Description: Low and high level wrappers for Gemma's RESTful API. Gemma is a web
+    site, database and a set of tools for the meta-analysis, re-use and sharing 
+    of genomics data, currently primarily targeted at the analysis of gene 
+    expression profiles. Gemma contains data from thousands of public studies, 
+    referencing thousands of published papers. 
 Depends: R (>= 3.2.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -38,3 +42,4 @@ Suggests:
     Biobase
 Config/testthat/edition: 2
 VignetteBuilder: knitr
+biocViews: ExpressionData, ReproducibleResearch, GEO
