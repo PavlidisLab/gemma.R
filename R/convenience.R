@@ -172,7 +172,7 @@ getAnnotation <- function(platform, annotType = c('bioProcess', 'noParents', 'al
       close(tmp)
 
       if(!is.tmp && unzip)
-        write.table(ret, tools::file_path_sans_ext(file), sep = '\t', quote = F, row.names = F)
+        utils::write.table(ret, tools::file_path_sans_ext(file), sep = '\t', quote = F, row.names = F)
 
       if(is.tmp || !unzip)
         unlink(file)
