@@ -3,7 +3,7 @@ library(gemmaAPI)
 library(dplyr)
 
 # Prevent certificate issues for GitHub actions
-default_curl_options <- function(options) {
+get_default_curl_options <- function(options) {
     getopt <- function(nm) {
         if (!is.null(v <- options[[nm]])) {
             return(v)
