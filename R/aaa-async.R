@@ -998,23 +998,23 @@ deferred <- R6Class(
     parents = NULL, parent_resolve = NULL,
     parent_reject = NULL, type = NULL,
     call = sys.call(-1)) {
-              async_def_init(
-                  self, private, action, on_progress, on_cancel,
-                  parents, parent_resolve, parent_reject, type, call
-              )
-          },
+            async_def_init(
+                self, private, action, on_progress, on_cancel,
+                parents, parent_resolve, parent_reject, type, call
+            )
+        },
         then = function(on_fulfilled) {
-              def_then(self, private, on_fulfilled)
-          },
+            def_then(self, private, on_fulfilled)
+        },
         catch = function(...) {
-              def_catch(self, private, ...)
-          },
+            def_catch(self, private, ...)
+        },
         finally = function(on_finally) {
-              def_finally(self, private, on_finally)
-          },
+            def_finally(self, private, on_finally)
+        },
         cancel = function(reason = "Cancelled") {
-              def_cancel(self, private, reason)
-          },
+            def_cancel(self, private, reason)
+        },
         share = function() {
             private$shared <<- TRUE
             invisible(self)
@@ -1039,35 +1039,35 @@ deferred <- R6Class(
         shared = FALSE,
         mycall = NULL,
         run_action = function() {
-              def__run_action(self, private)
-          },
+            def__run_action(self, private)
+        },
         null = function() {
-              def__null(self, private)
-          },
+            def__null(self, private)
+        },
         resolve = function(value) {
-              def__resolve(self, private, value)
-          },
+            def__resolve(self, private, value)
+        },
         reject = function(reason) {
-              def__reject(self, private, reason)
-          },
+            def__reject(self, private, reason)
+        },
         progress = function(data) {
-              def__progress(self, private, data)
-          },
+            def__progress(self, private, data)
+        },
         make_error_object = function(err) {
-              def__make_error_object(self, private, err)
-          },
+            def__make_error_object(self, private, err)
+        },
         maybe_cancel_parents = function(reason) {
-              def__maybe_cancel_parents(self, private, reason)
-          },
+            def__maybe_cancel_parents(self, private, reason)
+        },
         add_as_parent = function(child) {
-              def__add_as_parent(self, private, child)
-          },
+            def__add_as_parent(self, private, child)
+        },
         update_parent = function(old, new) {
-              def__update_parent(self, private, old, new)
-          },
+            def__update_parent(self, private, old, new)
+        },
         get_info = function() {
-              def__get_info(self, private)
-          }
+            def__get_info(self, private)
+        }
     )
 )
 
@@ -1639,71 +1639,71 @@ event_loop <- R6Class(
     "event_loop",
     public = list(
         initialize = function() {
-              el_init(self, private)
-          },
+            el_init(self, private)
+        },
         add_http = function(handle, callback, file = NULL, progress = NULL,
     data = NULL) {
-              el_add_http(self, private, handle, callback, file, progress, data)
-          },
+            el_add_http(self, private, handle, callback, file, progress, data)
+        },
         add_process = function(conns, callback, data) {
-              el_add_process(self, private, conns, callback, data)
-          },
+            el_add_process(self, private, conns, callback, data)
+        },
         add_r_process = function(conns, callback, data) {
-              el_add_r_process(self, private, conns, callback, data)
-          },
+            el_add_r_process(self, private, conns, callback, data)
+        },
         add_pool_task = function(callback, data) {
-              el_add_pool_task(self, private, callback, data)
-          },
+            el_add_pool_task(self, private, callback, data)
+        },
         add_delayed = function(delay, func, callback, rep = FALSE) {
-              el_add_delayed(self, private, delay, func, callback, rep)
-          },
+            el_add_delayed(self, private, delay, func, callback, rep)
+        },
         add_next_tick = function(func, callback, data = NULL) {
-              el_add_next_tick(self, private, func, callback, data)
-          },
+            el_add_next_tick(self, private, func, callback, data)
+        },
         cancel = function(id) {
-              el_cancel(self, private, id)
-          },
+            el_cancel(self, private, id)
+        },
         cancel_all = function() {
-              el_cancel_all(self, private)
-          },
+            el_cancel_all(self, private)
+        },
         run = function(mode = c("default", "nowait", "once")) {
-              el_run(self, private, mode = match.arg(mode))
-          },
+            el_run(self, private, mode = match.arg(mode))
+        },
         suspend = function() {
-              el_suspend(self, private)
-          },
+            el_suspend(self, private)
+        },
         wakeup = function() {
-              el_wakeup(self, private)
-          }
+            el_wakeup(self, private)
+        }
     ),
     private = list(
         create_task = function(callback, ..., id = NULL, type = "foobar") {
-              el__create_task(self, private, callback, ..., id = id, type = type)
-          },
+            el__create_task(self, private, callback, ..., id = id, type = type)
+        },
         ensure_pool = function(...) {
-              el__ensure_pool(self, private, ...)
-          },
+            el__ensure_pool(self, private, ...)
+        },
         get_poll_timeout = function() {
-              el__get_poll_timeout(self, private)
-          },
+            el__get_poll_timeout(self, private)
+        },
         run_pending = function() {
-              el__run_pending(self, private)
-          },
+            el__run_pending(self, private)
+        },
         run_timers = function() {
-              el__run_timers(self, private)
-          },
+            el__run_timers(self, private)
+        },
         is_alive = function() {
-              el__is_alive(self, private)
-          },
+            el__is_alive(self, private)
+        },
         update_time = function() {
-              el__update_time(self, private)
-          },
+            el__update_time(self, private)
+        },
         io_poll = function(timeout) {
-              el__io_poll(self, private, timeout)
-          },
+            el__io_poll(self, private, timeout)
+        },
         update_curl_data = function() {
-              el__update_curl_data(self, private)
-          },
+            el__update_curl_data(self, private)
+        },
         id = NULL,
         time = Sys.time(),
         stop_flag = FALSE,
@@ -2268,39 +2268,39 @@ event_emitter <- R6Class(
     "event_emitter",
     public = list(
         initialize = function(async = TRUE) {
-              ee_init(self, private, async)
-          },
+            ee_init(self, private, async)
+        },
         listen_on = function(event, callback) {
-              ee_listen_on(self, private, event, callback)
-          },
+            ee_listen_on(self, private, event, callback)
+        },
         listen_off = function(event, callback) {
-              ee_listen_off(self, private, event, callback)
-          },
+            ee_listen_off(self, private, event, callback)
+        },
         listen_once = function(event, callback) {
-              ee_listen_once(self, private, event, callback)
-          },
+            ee_listen_once(self, private, event, callback)
+        },
         emit = function(event, ...) {
-              ee_emit(self, private, event, ...)
-          },
+            ee_emit(self, private, event, ...)
+        },
         get_event_names = function() {
-              ee_get_event_names(self, private)
-          },
+            ee_get_event_names(self, private)
+        },
         get_listener_count = function(event) {
-              ee_get_listener_count(self, private, event)
-          },
+            ee_get_listener_count(self, private, event)
+        },
         remove_all_listeners = function(event) {
-              ee_remove_all_listeners(self, private, event)
-          }
+            ee_remove_all_listeners(self, private, event)
+        }
     ),
     private = list(
         lsts = NULL,
         async = NULL,
         cleanup_events = function() {
-              ee__cleanup_events(self, private)
-          },
+            ee__cleanup_events(self, private)
+        },
         error_callback = function(err, res) {
-              ee__error_callback(self, private, err, res)
-          }
+            ee__error_callback(self, private, err, res)
+        }
     )
 )
 
@@ -3970,11 +3970,11 @@ async_timer <- R6Class(
     inherit = event_emitter,
     public = list(
         initialize = function(delay, callback) {
-              async_timer_init(self, private, super, delay, callback)
-          },
+            async_timer_init(self, private, super, delay, callback)
+        },
         cancel = function() {
-              async_timer_cancel(self, private)
-          }
+            async_timer_cancel(self, private)
+        }
     ),
     private = list(
         id = NULL
@@ -4450,55 +4450,55 @@ NULL
 worker_pool <- R6Class(
     public = list(
         initialize = function() {
-              wp_init(self, private)
-          },
+            wp_init(self, private)
+        },
         add_task = function(func, args, id, event_loop) {
-              wp_add_task(self, private, func, args, id, event_loop)
-          },
+            wp_add_task(self, private, func, args, id, event_loop)
+        },
         get_fds = function() {
-              wp_get_fds(self, private)
-          },
+            wp_get_fds(self, private)
+        },
         get_pids = function() {
-              wp_get_pids(self, private)
-          },
+            wp_get_pids(self, private)
+        },
         get_poll_connections = function() {
-              wp_get_poll_connections(self, private)
-          },
+            wp_get_poll_connections(self, private)
+        },
         notify_event = function(pids, event_loop) {
-              wp_notify_event(self, private, pids, event_loop)
-          },
+            wp_notify_event(self, private, pids, event_loop)
+        },
         start_workers = function() {
-              wp_start_workers(self, private)
-          },
+            wp_start_workers(self, private)
+        },
         kill_workers = function() {
-              wp_kill_workers(self, private)
-          },
+            wp_kill_workers(self, private)
+        },
         cancel_task = function(id) {
-              wp_cancel_task(self, private, id)
-          },
+            wp_cancel_task(self, private, id)
+        },
         cancel_all_tasks = function() {
-              wp_cancel_all_tasks(self, private)
-          },
+            wp_cancel_all_tasks(self, private)
+        },
         get_result = function(id) {
-              wp_get_result(self, private, id)
-          },
+            wp_get_result(self, private, id)
+        },
         list_workers = function() {
-              wp_list_workers(self, private)
-          },
+            wp_list_workers(self, private)
+        },
         list_tasks = function(event_loop = NULL, status = NULL) {
-              wp_list_tasks(self, private, event_loop, status)
-          },
+            wp_list_tasks(self, private, event_loop, status)
+        },
         finalize = function() self$kill_workers()
     ),
     private = list(
         workers = list(),
         tasks = list(),
         try_start = function() {
-              wp__try_start(self, private)
-          },
+            wp__try_start(self, private)
+        },
         interrupt_worker = function(pid) {
-              wp__interrupt_worker(self, private, pid)
-          }
+            wp__interrupt_worker(self, private, pid)
+        }
     )
 )
 
