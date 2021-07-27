@@ -156,7 +156,7 @@ validateFilter <- function(name, ...) {
 #' @keywords internal
 validatePositiveInteger <- function(name, ...) {
     args <- list(...)
-    if (length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, "%%", 1) != 0) || any(sapply(args, sign) < 0)) {
+    if (length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(vapply(args, "%%", 1, FUN.VALUE = numeric(1)) != 0) || any(vapply(args, sign, FUN.VALUE = numeric(1)) < 0)) {
         stop(glue::glue("Please only specify positive integer values for {name}."), call. = FALSE)
     }
     unlist(args)
@@ -172,7 +172,7 @@ validatePositiveInteger <- function(name, ...) {
 #' @keywords internal
 validatePositiveReal <- function(name, ...) {
     args <- list(...)
-    if (length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(sapply(args, sign) < 0)) {
+    if (length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(vapply(args, sign, FUN.VALUE = numeric(1)) < 0)) {
         stop(glue::glue("Please only specify positive values for {name}."), call. = FALSE)
     }
     unlist(args)
