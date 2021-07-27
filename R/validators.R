@@ -11,8 +11,8 @@ validateID <- function(name, ...) {
     isID <- grepl("^\\d+$", ID)
 
     if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID == "")) {
-          stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."), call. = F)
-      }
+        stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."), call. = F)
+    }
     paste0(ID, collapse = ",")
 }
 
@@ -44,8 +44,8 @@ validateSingleID <- function(name, ...) {
     ID <- unlist(list(...))
 
     if (length(ID) > 1) {
-          stop(glue::glue("Please specify one valid identifier for {name}."), call. = F)
-      }
+        stop(glue::glue("Please specify one valid identifier for {name}."), call. = F)
+    }
     validateID(name, ...)
 }
 
@@ -109,8 +109,8 @@ validateSingleTaxon <- function(name, ...) {
     taxon <- unlist(list(...))
 
     if (length(taxon) > 1) {
-          stop(glue::glue("Please specify one taxon for {name}."), call. = F)
-      }
+        stop(glue::glue("Please specify one taxon for {name}."), call. = F)
+    }
     validateTaxon(name, ...)
 }
 
@@ -126,8 +126,8 @@ validateQuery <- function(name, ...) {
     query <- unlist(list(...))
 
     if (all(is.na(query)) || length(query) == 0) {
-          stop(glue::glue("Please specify a query for {name}."), call. = F)
-      }
+        stop(glue::glue("Please specify a query for {name}."), call. = F)
+    }
 
     paste0(query, collapse = ",")
 }
@@ -157,8 +157,8 @@ validateFilter <- function(name, ...) {
 validatePositiveInteger <- function(name, ...) {
     args <- list(...)
     if (length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(sapply(args, "%%", 1) != 0) || any(sapply(args, sign) < 0)) {
-          stop(glue::glue("Please only specify positive integer values for {name}."), call. = F)
-      }
+        stop(glue::glue("Please only specify positive integer values for {name}."), call. = F)
+    }
     unlist(args)
 }
 
@@ -173,8 +173,8 @@ validatePositiveInteger <- function(name, ...) {
 validatePositiveReal <- function(name, ...) {
     args <- list(...)
     if (length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(sapply(args, sign) < 0)) {
-          stop(glue::glue("Please only specify positive values for {name}."), call. = F)
-      }
+        stop(glue::glue("Please only specify positive values for {name}."), call. = F)
+    }
     unlist(args)
 }
 
@@ -189,8 +189,8 @@ validatePositiveReal <- function(name, ...) {
 validateBoolean <- function(name, ...) {
     args <- unlist(list(...))
     if (length(args) != 1 || !is.logical(args)) {
-          stop(glue::glue("Please only specify boolean values for {name}."), call. = F)
-      }
+        stop(glue::glue("Please only specify boolean values for {name}."), call. = F)
+    }
     tolower(as.character(args))
 }
 
@@ -205,8 +205,8 @@ validateBoolean <- function(name, ...) {
 validateStrand <- function(name, ...) {
     strand <- unlist(list(...))
     if (length(strand) != 1 || !(strand %in% c("+", "-"))) {
-          stop(glue::glue("Please specify + or - for {name}."), call. = F)
-      }
+        stop(glue::glue("Please specify + or - for {name}."), call. = F)
+    }
     strand
 }
 
@@ -221,8 +221,8 @@ validateStrand <- function(name, ...) {
 validateConsolidate <- function(name, ...) {
     consolidate <- unlist(list(...))
     if (length(consolidate) != 1 || !all(is.na(consolidate) | consolidate %in% c("", "pickmax", "pickvar", "average"))) {
-          stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
-      }
+        stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = F)
+    }
     consolidate
 }
 
@@ -237,7 +237,7 @@ validateConsolidate <- function(name, ...) {
 validateSort <- function(name, ...) {
     sort <- unlist(list(...))
     if (length(sort) != 1 || !all(grepl("^[+-].+", sort))) {
-          stop("Sort must match [+,-][property name].", call. = F)
-      }
+        stop("Sort must match [+,-][property name].", call. = F)
+    }
     sort
 }

@@ -153,8 +153,8 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
     if (!is.numeric(platform)) {
         platforms <- getPlatforms(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
-              stop(paste0(platform, " is not a valid single platform."))
-          }
+            stop(paste0(platform, " is not a valid single platform."))
+        }
         platform <- platforms[, platform.ID]
     }
 
@@ -163,10 +163,10 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
     is.tmp <- is.na(file)
 
     if (is.na(file)) {
-          file <- tempfile(fileext = ".gz")
-      } else {
-          file <- paste0(tools::file_path_sans_ext(file), ".gz")
-      }
+        file <- tempfile(fileext = ".gz")
+    } else {
+        file <- paste0(tools::file_path_sans_ext(file), ".gz")
+    }
 
     doReadFile <- function(file) {
         if (file.exists(file)) {
@@ -182,17 +182,17 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
             close(tmp)
 
             if (!is.tmp && unzip) {
-                  utils::write.table(ret, tools::file_path_sans_ext(file), sep = "\t", quote = F, row.names = F)
-              }
+                utils::write.table(ret, tools::file_path_sans_ext(file), sep = "\t", quote = F, row.names = F)
+            }
 
             if (is.tmp || !unzip) {
-                  unlink(file)
-              }
+                unlink(file)
+            }
 
             ret
         } else {
-              fread(tools::file_path_sans_ext(file))
-          }
+            fread(tools::file_path_sans_ext(file))
+        }
     }
 
     if ((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite) {

@@ -55,39 +55,39 @@
             )
 
             if (raw || length(mData) == 0) {
-                  mOut <- mData
-              } else {
-                  mOut <- eval(preprocessor)(mData)
-              }
+                mOut <- mData
+            } else {
+                mOut <- eval(preprocessor)(mData)
+            }
 
             if (!is.null(file) && !is.na(file)) {
                 extension <- ifelse(raw, ".json", ifelse(any(sapply(mOut, typeof) == "list"), ".rds", ".csv"))
                 file <- paste0(tools::file_path_sans_ext(file), extension)
 
                 if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
-                      warning(paste0(file, " exists. Not overwriting."))
-                  } else {
+                    warning(paste0(file, " exists. Not overwriting."))
+                } else {
                     if (extension == ".json") {
-                          write(jsonlite::toJSON(mOut, pretty = 2), file)
-                      } else if (extension == ".rds") {
-                          saveRDS(mOut, file)
-                      } else {
-                          write.csv2(mOut, file, row.names = F)
-                      }
+                        write(jsonlite::toJSON(mOut, pretty = 2), file)
+                    } else if (extension == ".rds") {
+                        saveRDS(mOut, file)
+                    } else {
+                        write.csv2(mOut, file, row.names = F)
+                    }
                 }
             }
 
             mOut
         } else {
-              response
-          }
+            response
+        }
     }))
 
     if (!async) {
-          synchronise(eval(request, envir = envWhere))
-      } else {
-          eval(request, envir = envWhere)
-      }
+        synchronise(eval(request, envir = envWhere))
+    } else {
+        eval(request, envir = envWhere)
+    }
 }
 
 #' URL encode a string safely
@@ -102,8 +102,8 @@ encode <- function(url) {
         url
     } else {
         if (length(url) > 1) {
-              url <- paste0(url, collapse = ",")
-          }
+            url <- paste0(url, collapse = ",")
+        }
         utils::URLencode(url, T)
     }
 }
@@ -117,25 +117,25 @@ encode <- function(url) {
 #' @keywords internal
 processGemmaFactor <- function(d) {
     if (all(is.na(d))) {
-          data.table(
-              name = NA_character_, URL = NA_character_,
-              description = NA_character_, category.Name = NA_character_,
-              category.URL = NA_character_, measurement = F, type = NA_character_
-          )
-      } else {
-          data.table(
-              name = switch(is.null(d[["factorValue"]]) + 1,
-                  d[["factorValue"]],
-                  d[["value"]]
-              ),
-              URL = d[["valueUri"]],
-              description = d[["description"]],
-              category.Name = d[["category"]],
-              category.URL = d[["categoryUri"]],
-              measurement = d[["measurement"]],
-              type = d[["type"]]
-          )
-      }
+        data.table(
+            name = NA_character_, URL = NA_character_,
+            description = NA_character_, category.Name = NA_character_,
+            category.URL = NA_character_, measurement = F, type = NA_character_
+        )
+    } else {
+        data.table(
+            name = switch(is.null(d[["factorValue"]]) + 1,
+                d[["factorValue"]],
+                d[["value"]]
+            ),
+            URL = d[["valueUri"]],
+            description = d[["description"]],
+            category.Name = d[["category"]],
+            category.URL = d[["categoryUri"]],
+            measurement = d[["measurement"]],
+            type = d[["type"]]
+        )
+    }
 }
 
 #' Processes JSON as an array
@@ -303,10 +303,10 @@ processExpression <- function(d) {
         )
     })
     if (length(d[["datasetId"]]) > 0) {
-          data.table(ee.ID = d[["datasetId"]], expr)
-      } else {
-          expr
-      }
+        data.table(ee.ID = d[["datasetId"]], expr)
+    } else {
+        expr
+    }
 }
 
 #' Processes JSON as an experiment's SVD
