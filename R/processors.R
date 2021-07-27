@@ -61,7 +61,7 @@
             }
 
             if (!is.null(file) && !is.na(file)) {
-                extension <- ifelse(raw, ".json", ifelse(any(sapply(mOut, typeof) == "list"), ".rds", ".csv"))
+                extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, logical(1)) == "list"), ".rds", ".csv"))
                 file <- paste0(tools::file_path_sans_ext(file), extension)
 
                 if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
