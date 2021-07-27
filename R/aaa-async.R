@@ -2689,9 +2689,12 @@ get_default_curl_options <- function(options) {
             return(v)
         }
     }
+    if(getOption
     modifyList(
         options,
         drop_nulls(list(
+            ssl_verifyhost = switch(is.null(getOption('gemma.SSL')) + 1, as.integer(getOption('gemma.SSL')), NULL),
+            ssl_verifypeer = switch(is.null(getOption('gemma.SSL')) + 1, as.integer(getOption('gemma.SSL')), NULL),
             timeout = as.integer(getopt("timeout") %||% 0),
             connecttimeout = as.integer(getopt("connecttimeout") %||% 300),
             low_speed_time = as.integer(getopt("low_speed_time") %||% 0),
