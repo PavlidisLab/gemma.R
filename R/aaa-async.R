@@ -2689,7 +2689,7 @@ get_default_curl_options <- function(options) {
             return(v)
         }
     }
-    if(getOption
+
     modifyList(
         options,
         drop_nulls(list(
