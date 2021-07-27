@@ -38,11 +38,11 @@ registerEndpoint <- function(endpoint,
     roxygen = NULL,
     where = parent.env(environment()),
     document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-    isFile = F) {
+    isFile = FALSE) {
     if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
           stop("Please specify an endpoint, function name and preprocessor.")
       }
-    if (exists(fname, envir = where, inherits = F)) {
+    if (exists(fname, envir = where, inherits = FALSE)) {
         warning(glue::glue("{fname} already exists. Skipping."))
         return(NULL)
     }
@@ -59,11 +59,11 @@ registerEndpoint <- function(endpoint,
         fargs[[d]] <- defaults[[d]]
     }
 
-    fargs$raw <- quote(getOption("gemma.raw", F))
-    fargs$async <- quote(getOption("gemma.async", F))
-    fargs$memoised <- quote(getOption("gemma.memoise", F))
+    fargs$raw <- quote(getOption("gemma.raw", FALSE))
+    fargs$async <- quote(getOption("gemma.async", FALSE))
+    fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
     fargs$file <- quote(getOption("gemma.file", NA_character_))
-    fargs$overwrite <- quote(getOption("gemma.overwrite", F))
+    fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
     formals(f) <- fargs
     body(f) <- quote({
@@ -96,29 +96,29 @@ registerEndpoint <- function(endpoint,
     memF <- glue::glue("mem", fname)
     assign(memF, memoise::memoise(f), where)
 
-    if (!exists("forgetGemmaMemoised", envir = where, inherits = F)) {
+    if (!exists("forgetGemmaMemoised", envir = where, inherits = FALSE)) {
           assign("forgetGemmaMemoised", function() {}, envir = where)
       }
 
-    forgetMe <- get("forgetGemmaMemoised", envir = where, inherits = F)
+    forgetMe <- get("forgetGemmaMemoised", envir = where, inherits = FALSE)
 
     body(forgetMe) <- body(forgetMe) %>%
         as.list() %>%
         append(str2expression(glue::glue("memoise::forget({memF})"))) %>%
         as.call()
 
-    assign("forgetGemmaMemoised", forgetMe, envir = where, inherits = F)
+    assign("forgetGemmaMemoised", forgetMe, envir = where, inherits = FALSE)
 
     if (!is.null(document)) {
         # cat(glue::glue("#' {fname}\n"), file = document, append = T)
         comment(fname, roxygen, names(fargs), document)
-        cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = T)
-        cat(glue::glue("{fname} <- "), file = document, append = T)
-        cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = T)
-        cat("\n\n", file = document, append = T)
-        cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = T)
-        cat(glue::glue("mem{fname} <- memoise::memoise({fname})"), file = document, append = T)
-        cat("\n\n", file = document, append = T)
+        cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = TRUE)
+        cat(glue::glue("{fname} <- "), file = document, append = TRUE)
+        cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
+        cat("\n\n", file = document, append = TRUE)
+        cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = TRUE)
+        cat(glue::glue("mem{fname} <- memoise::memoise({fname})"), file = document, append = TRUE)
+        cat("\n\n", file = document, append = TRUE)
     }
 }
 
@@ -137,9 +137,10 @@ registerEndpoint <- function(endpoint,
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
     logname = fname, roxygen = NULL, where = parent.env(environment()),
-    plural = F, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-    isFile = F) {
-    registerEndpoint(ifelse(plural == F, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'), glue::glue("{root}/{{{plural}}}")),
+    plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
+    isFile = FALSE) {
+    registerEndpoint(ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
+                            glue::glue("{root}/{{{plural}}}")),
         fname,
         defaults = setNames(NA_character_, root),
         validators = switch(is.null(validator) + 1,
@@ -176,7 +177,7 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
     if (missing(endpoints) || missing(fname) || missing(depends) || missing(passthrough)) {
           stop("Please specify endpoints, depends, passthrough and a function name.")
       }
-    if (exists(fname, envir = where, inherits = F)) {
+    if (exists(fname, envir = where, inherits = FALSE)) {
         warning(glue::glue("{fname} already exists. Skipping."))
         return(NULL)
     }
@@ -187,7 +188,7 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
 
     fargs <- alist()
     for (d in endpoints) {
-        fargs <- append(fargs, formals(get(d, envir = where, inherits = F))) %>% .[!duplicated(names(.))]
+        fargs <- append(fargs, formals(get(d, envir = where, inherits = FALSE))) %>% .[!duplicated(names(.))]
     }
 
     # Remove any arguments that are listed as passthroughs
@@ -198,11 +199,11 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
 
     # Make sure these are the last arguments
     fargs[c("raw", "async", "memoised", "file", "overwrite")] <- NULL
-    fargs$raw <- quote(getOption("gemma.raw", F))
-    fargs$async <- quote(getOption("gemma.async", F))
-    fargs$memoised <- quote(getOption("gemma.memoise", F))
+    fargs$raw <- quote(getOption("gemma.raw", FALSE))
+    fargs$async <- quote(getOption("gemma.async", FALSE))
+    fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
     fargs$file <- quote(getOption("gemma.file", NA_character_))
-    fargs$overwrite <- quote(getOption("gemma.overwrite", F))
+    fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
     formals(f) <- fargs
     body(f) <- quote({
@@ -216,9 +217,9 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
                 mCallable[[f]] <- .fargs[[f]]
             }
             for (f in intersect(names(.fargs), ls(envir = env))) {
-                mCallable[[f]] <- get(f, envir = env, inherits = F)
+                mCallable[[f]] <- get(f, envir = env, inherits = FALSE)
             }
-            mCallable[c("raw", "async")] <- c(F, T)
+            mCallable[c("raw", "async")] <- c(FALSE, TRUE)
             mCallable[setdiff(names(mCallable), names(.fargs))] <- NULL
 
             if (isTRUE(any(depends == i))) {
@@ -305,10 +306,10 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
     if (!is.null(document)) {
         # cat(glue::glue("#' {fname}\n"), file = document, append = T)
         comment(fname, roxygen, names(fargs), document)
-        cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = T)
-        cat(glue::glue("{fname} <- "), file = document, append = T)
-        cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = T)
-        cat("\n\n", file = document, append = T)
+        cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = TRUE)
+        cat(glue::glue("{fname} <- "), file = document, append = TRUE)
+        cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
+        cat("\n\n", file = document, append = TRUE)
     }
 }
 
@@ -348,11 +349,11 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
         fargs$request <- NA_character_
         fargs$`...` <- alist(... = )$...
 
-        fargs$raw <- quote(getOption("gemma.raw", F))
-        fargs$async <- quote(getOption("gemma.async", F))
-        fargs$memoised <- quote(getOption("gemma.memoise", F))
+        fargs$raw <- quote(getOption("gemma.raw", FALSE))
+        fargs$async <- quote(getOption("gemma.async", FALSE))
+        fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
         fargs$file <- quote(getOption("gemma.file", NA_character_))
-        fargs$overwrite <- quote(getOption("gemma.overwrite", F))
+        fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
         formals(f) <- fargs
         body(f) <- quote({
@@ -363,12 +364,12 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
             if (is.na(request)) request <- 1
 
             mCallable <- call(argMap[[request]], raw = raw, async = async, memoised = memoised, file = file, overwrite = overwrite)
-            mCallable[[characteristicValue]] <- if (exists(characteristicValue, inherits = F)) { # TODO maybe this inserts the name incorrectly
+            mCallable[[characteristicValue]] <- if (exists(characteristicValue, inherits = FALSE)) { # TODO maybe this inserts the name incorrectly
                 get(characteristicValue)
-            } else if (exists(paste0(characteristicValue, "s"), inherits = F)) {
+            } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
                 get(paste0(characteristicValue, "s"))
-            } else if (characteristicValue == "taxon" && exists("taxa", inherits = F)) {
-                get("taxa", inherits = F)
+            } else if (characteristicValue == "taxon" && exists("taxa", inherits = FALSE)) {
+                get("taxa", inherits = FALSE)
             }
             for (i in names(list(...))) {
                 mCallable[[i]] <- list(...)[[i]]
@@ -392,10 +393,10 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 
         if (!is.null(document)) {
             comment(fname, roxygen, names(fargs), document)
-            cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n\n"), file = document, append = T)
-            cat(glue::glue("{fname} <- "), file = document, append = T)
-            cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = T)
-            cat("\n\n", file = document, append = T)
+            cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n\n"), file = document, append = TRUE)
+            cat(glue::glue("{fname} <- "), file = document, append = TRUE)
+            cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
+            cat("\n\n", file = document, append = TRUE)
         }
     } else {
           options(gemmaAPI.logging = fname, gemmaAPI.loggingCharacter = characteristic, gemmaAPI.logged = NULL)
@@ -411,7 +412,7 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 eval(synchronise(http_get("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js"))$content %>%
     rawToChar() %>%
     {
-        gsub("\\/\\*[\\s\\S]*?\\*\\/", "", ., perl = T)
+        gsub("\\/\\*[\\s\\S]*?\\*\\/", "", ., perl = TRUE)
     } %>%
     {
         gsub("(\n(var )?)", "", .)
@@ -438,22 +439,22 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     pandoc <- function(text) {
         tmp <- tempfile()
         write(text, tmp)
-        ret <- system2(paste0(Sys.getenv("RSTUDIO_PANDOC"), "/pandoc"), c("-f html", "-t markdown", tmp), stdout = T)
+        ret <- system2(paste0(Sys.getenv("RSTUDIO_PANDOC"), "/pandoc"), c("-f html", "-t markdown", tmp), stdout = TRUE)
         unlink(tmp)
-        gsub("\n#' \n#' ", "\n#' ", gsub("\n", "\n#' ", paste0(ret, collapse = "\n"), fixed = T), fixed = T) %>%
+        gsub("\n#' \n#' ", "\n#' ", gsub("\n", "\n#' ", paste0(ret, collapse = "\n"), fixed = TRUE), fixed = TRUE) %>%
             {
                 # Fix badly formatted URLs (from unescaping []), remove unsupported glyphicons and unescape
-                gsub("\\[\\[([^\\]]+)\\]\\]", "\\[\\1\\]", gsub("\\[\\]\\{\\.glyphicon[^\\}]+\\} ", "", gsub("\\", "", ., fixed = T)), perl = T)
+                gsub("\\[\\[([^\\]]+)\\]\\]", "\\[\\1\\]", gsub("\\[\\]\\{\\.glyphicon[^\\}]+\\} ", "", gsub("\\", "", ., fixed = TRUE)), perl = TRUE)
             } %>%
             {
                 # Fix multiline URLs
-                gsub("\\[(.*)\n#' ([^\\]]+)\\]\\(([^\\)]+)\\)", "[\\1 \\2](\\3)", ., perl = T)
+                gsub("\\[(.*)\n#' ([^\\]]+)\\]\\(([^\\)]+)\\)", "[\\1 \\2](\\3)", ., perl = TRUE)
             }
     }
 
     if (is.null(src)) {
-        cat(glue::glue("#' {fname}\n"), file = document, append = T)
-        cat("\n", file = document, append = T)
+        cat(glue::glue("#' {fname}\n"), file = document, append = TRUE)
+        cat("\n", file = document, append = TRUE)
         return(NULL)
     }
 
@@ -471,8 +472,8 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         mResp <- get(xml2::xml_attr(node, ":response-description"))
     }
 
-    cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = T)
-    cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = T)
+    cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
+    cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
 
     for (arg in parameters) {
         if (arg == "raw") {
@@ -514,10 +515,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- get(paste0(mArg, "Description"))
         }
 
-        cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = T)
+        cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = TRUE)
     }
 
-    cat(glue::glue("#'\n#' @return {pandoc(mResp)}\n\n"), file = document, append = T)
+    cat(glue::glue("#'\n#' @return {pandoc(mResp)}\n\n"), file = document, append = TRUE)
 }
 
 # Dataset endpoints ----
@@ -550,7 +551,7 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
         datasets = NA_character_,
         component = 1L,
         limit = 100L,
-        keepNonSpecific = F,
+        keepNonSpecific = FALSE,
         consolidate = NA_character_
     ),
     validators = alist(
@@ -588,7 +589,7 @@ registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={
     logname = "diffEx", roxygen = "Datasets differential expression levels",
     defaults = list(
         datasets = NA_character_,
-        keepNonSpecific = F,
+        keepNonSpecific = FALSE,
         diffExSet = NA_integer_,
         threshold = 100.0,
         limit = 100L,
@@ -608,10 +609,10 @@ registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
     "getDatasetData",
     logname = "data", roxygen = "Dataset data",
-    isFile = T,
+    isFile = TRUE,
     defaults = list(
         dataset = NA_character_,
-        filter = F
+        filter = FALSE
     ),
     validators = alist(
         dataset = validateID,
@@ -652,7 +653,7 @@ registerSimpleEndpoint("dataset", "annotations",
 
 registerSimpleEndpoint("dataset", "design",
     logname = "design", roxygen = "Dataset design",
-    "getDatasetDesign", isFile = T,
+    "getDatasetDesign", isFile = TRUE,
     preprocessor = quote(processFile)
 )
 
@@ -838,8 +839,8 @@ registerEndpoint("taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree
     logname = "phenotypes", roxygen = "Taxon phenotypes",
     defaults = list(
         taxon = NA_character_,
-        editableOnly = F,
-        tree = F
+        editableOnly = FALSE,
+        tree = FALSE
     ),
     validators = alist(
         taxon = validateSingleTaxon,
@@ -854,7 +855,7 @@ registerEndpoint("taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}
     logname = "phenoCandidateGenes", roxygen = "Taxon phenotypes candidate genes",
     defaults = list(
         taxon = NA_character_,
-        editableOnly = F,
+        editableOnly = FALSE,
         phenotypes = NA_character_
     ),
     validators = alist(
@@ -964,16 +965,16 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     cat("\n", file = document, append = TRUE)
     cat(glue::glue("#' Clear Gemma API cache\n\n"), file = document, append = TRUE)
     cat("#'\n", file = document, append = TRUE)
-    cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = T)
-    cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = T)
-    cat("forgetGemmaMemoised <- ", file = document, append = T)
-    cat(deparse(get("forgetGemmaMemoised", envir = globalenv(), inherits = F)) %>% paste0(collapse = "\n"), file = document, append = T)
+    cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = TRUE)
+    cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = TRUE)
+    cat("forgetGemmaMemoised <- ", file = document, append = TRUE)
+    cat(deparse(get("forgetGemmaMemoised", envir = globalenv(), inherits = FALSE)) %>% paste0(collapse = "\n"), file = document, append = TRUE)
 
-    rm(list = ls(envir = globalenv(), all.names = T), envir = globalenv())
+    rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
 
     styler::style_file('./R/allEndpoints.R', transformers = biocthis::bioc_style())
     devtools::document()
-    devtools::build(vignettes = F)
+    devtools::build(vignettes = FALSE)
     devtools::install()
 }
 

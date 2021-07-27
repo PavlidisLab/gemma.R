@@ -19,14 +19,14 @@
     # Call a memoised version if applicable
     if (memoised) {
         newArgs <- as.list(.call)[-1]
-        newArgs$memoised <- F
+        newArgs$memoised <- FALSE
         return(do.call(glue::glue("mem{fname}"), newArgs))
     }
 
     # Validate arguments
     if (!is.null(validators)) {
         for (v in names(validators)) {
-            assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = F), name = v), envir = envWhere)
+            assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = FALSE), name = v), envir = envWhere)
         }
     }
 
@@ -72,7 +72,7 @@
                     } else if (extension == ".rds") {
                         saveRDS(mOut, file)
                     } else {
-                        write.csv2(mOut, file, row.names = F)
+                        write.csv2(mOut, file, row.names = FALSE)
                     }
                 }
             }
@@ -104,7 +104,7 @@ encode <- function(url) {
         if (length(url) > 1) {
             url <- paste0(url, collapse = ",")
         }
-        utils::URLencode(url, T)
+        utils::URLencode(url, TRUE)
     }
 }
 
@@ -120,7 +120,7 @@ processGemmaFactor <- function(d) {
         data.table(
             name = NA_character_, URL = NA_character_,
             description = NA_character_, category.Name = NA_character_,
-            category.URL = NA_character_, measurement = F, type = NA_character_
+            category.URL = NA_character_, measurement = FALSE, type = NA_character_
         )
     } else {
         data.table(
@@ -246,7 +246,7 @@ processDEA <- function(d) {
         rbindlist() %>%
         .[!is.na(cf.Baseline)]
 
-    rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = T)
+    rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = TRUE)
     lapply(unique(rsd[, factor.ID]), function(fid) {
         lapply(d$factorValuesUsed[[as.character(fid)]], function(fv) {
             if (!is.null(fv) && nrow(fv) > 0) {
@@ -266,11 +266,11 @@ processDEA <- function(d) {
     }) %>%
         rbindlist() %>%
         unique() %>%
-        merge(rsd, by = "factor.ID", allow.cartesian = T, all = T) %>%
+        merge(rsd, by = "factor.ID", allow.cartesian = TRUE, all = TRUE) %>%
         merge(data.table(
             analysis.ID = d[["id"]],
             ad.ID = d[["arrayDesignsUsed"]]
-        ), by = "analysis.ID", all = T) %>%
+        ), by = "analysis.ID", all = TRUE) %>%
         .[, .(
             rsc.ID = paste("RSCID", result.ID, id, sep = "."),
             analysis.ID,
@@ -611,7 +611,7 @@ processPhenotypes <- function(d) {
         value.Name = d[["factorValue"]],
         value.URL = d[["valueUri"]],
         value.GeneCount = d[["publicGeneCount"]],
-        parents = lapply(d[["_parent"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", T)))),
-        children = lapply(d[["children"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", T))))
+        parents = lapply(d[["_parent"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", TRUE)))),
+        children = lapply(d[["children"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", TRUE))))
     )
 }

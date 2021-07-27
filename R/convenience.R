@@ -84,10 +84,10 @@ batchId={countN + 1}
 
                 mContent <- rawToChar(response$content)
                 # Detect completion
-                if (grepl('taskStatus:"FAILED"', mContent, fixed = T)) {
+                if (grepl('taskStatus:"FAILED"', mContent, fixed = TRUE)) {
                     warning(paste0("Unable to get task data: ", gsub('.*lastLogMessage:"([^"]+)".*', "\\1", mContent)))
                     return(NULL)
-                } else if (grepl("done:true", mContent, fixed = T)) {
+                } else if (grepl("done:true", mContent, fixed = TRUE)) {
                     # Query where to find the result
                     http_post(paste0(getOption("gemma.base", "https://gemma.msl.ubc.ca/"), "dwr/call/plaincall/TaskCompletionController.checkResult.dwr"), glue::glue(REQ3))$then(function(response) {
                         if (response$status != 200) {
@@ -148,8 +148,8 @@ batchId={countN + 1}
 #' @export
 getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", F),
-    unzip = F) {
+    overwrite = getOption("gemma.overwrite", FALSE),
+    unzip = FALSE) {
     if (!is.numeric(platform)) {
         platforms <- getPlatforms(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
@@ -182,7 +182,7 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
             close(tmp)
 
             if (!is.tmp && unzip) {
-                utils::write.table(ret, tools::file_path_sans_ext(file), sep = "\t", quote = F, row.names = F)
+                utils::write.table(ret, tools::file_path_sans_ext(file), sep = "\t", quote = FALSE, row.names = FALSE)
             }
 
             if (is.tmp || !unzip) {

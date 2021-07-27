@@ -8,8 +8,8 @@ getAnnotation(
   platform,
   annotType = c("bioProcess", "noParents", "allParents"),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F),
-  unzip = F
+  overwrite = getOption("gemma.overwrite", FALSE),
+  unzip = FALSE
 )
 }
 \arguments{
