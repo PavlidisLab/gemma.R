@@ -107,7 +107,7 @@ We'll build back up to multiple queries, but starting with a single query, the d
 
 ```{r}
 synchronise({
-  getDatasetAnnotations('GSE2018', async = T)
+  getDatasetAnnotations('GSE2018', async = TRUE)
 }) %>% glimpse
 ```
 
@@ -119,7 +119,7 @@ With multiple queries, there's one additional thing we need to do and that is to
 synchronise({
   # Make the queries
   res <- lapply(c('GSE2018', 'GSE25136'), function(dataset) {
-    getDatasetAnnotations(dataset, async = T)
+    getDatasetAnnotations(dataset, async = TRUE)
   })
   
   # Only complete this synchronise block when all queries are finished
@@ -137,11 +137,11 @@ synchronise({
   # Loop over dataset identifiers that we fetched and get differential expression analyses.
   res <- lapply(datasets$ee.ID, function(dataset) {
     # Get the DEA asynchronously and when it becomes available, run a function on the result
-    getDatasetDEA(dataset, async = T)$then(function(response) {
+    getDatasetDEA(dataset, async = TRUE)$then(function(response) {
       # Now that we have a result ID, we can get differential expression results for these analyses
       diffEx <- lapply(unique(response$result.ID), function(diffExSet) {
         # Make all these requests asynchronously and add the diffExSet when we receive a response
-        getDatasetDE(dataset, diffExSet = diffExSet, async = T)$then(function(response) {
+        getDatasetDE(dataset, diffExSet = diffExSet, async = TRUE)$then(function(response) {
           response[, diffExSet := diffExSet]
         })
       })
@@ -171,11 +171,11 @@ asyncBenchmark <- function() {
     # Loop over dataset identifiers that we fetched and get differential expression analyses.
     res <- lapply(datasets$ee.ID, function(dataset) {
       # Get the DEA asynchronously and when it becomes available, run a function on the result
-      getDatasetDEA(dataset, async = T)$then(function(response) {
+      getDatasetDEA(dataset, async = TRUE)$then(function(response) {
         # Now that we have a result ID, we can get differential expression results for these analyses
         diffEx <- lapply(unique(response$result.ID), function(diffExSet) {
           # Make all these requests asynchronously and add the diffExSet when we receive a response
-          getDatasetDE(dataset, diffExSet = diffExSet, async = T)$then(function(response) {
+          getDatasetDE(dataset, diffExSet = diffExSet, async = TRUE)$then(function(response) {
             response[, diffExSet := diffExSet]
           })
         })
@@ -214,11 +214,11 @@ As you can see, the asynchronous method is faster by a factor of about 5 (the nu
 synchronise({
   # First send a request to an endpoint that accepts multiple datasets to narrow down our search space
   async_map(split(1:20000, ceiling(seq_along(1:20000) / 1000)), async(function(chunk) {
-    getDatasets(chunk, limit = 0, async = T)
+    getDatasets(chunk, limit = 0, async = TRUE)
   }))$then(function(response) {
     # Asynchronously request annotations for each experiment that was found
-    async_map(rbindlist(response, fill = T)[, unique(ee.ID)], async(function(dataset) {
-      getDatasetAnnotations(dataset, async = T)$then(function(annotations) {
+    async_map(rbindlist(response, fill = TRUE)[, unique(ee.ID)], async(function(dataset) {
+      getDatasetAnnotations(dataset, async = TRUE)$then(function(annotations) {
         if(is.data.table(annotations)) annotations[, ee.ID := dataset]
         else NULL
       })
@@ -233,7 +233,7 @@ This can (conceivably) be done synchronously, but in practice it would take far 
 # Not evaluated
 response <- lapply(split(1:20000, ceiling(seq_along(1:20000) / 1000)), function(chunk) {
   getDatasets(chunk, limit = 0)
-}) %>% rbindlist(fill = T)
+}) %>% rbindlist(fill = TRUE)
 
 lapply(response[, unique(ee.ID)], function(dataset) {
   annotations <- getDatasetAnnotations(dataset)
@@ -247,8 +247,8 @@ lapply(response[, unique(ee.ID)], function(dataset) {
 A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
 ```{r}
-knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1), unit = 'ms'))
-knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = T), times = 1), unit = 'ms'))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = TRUE), times = 1), unit = 'ms'))
+knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = TRUE), times = 1), unit = 'ms'))
 ```
 
 ## Clearing cache
@@ -276,14 +276,14 @@ You can also specify whether or not the new fetched results are allowed to overw
 To illustrate these...
 
 ```{r}
-glimpse(getDatasetSVD('GSE2018', raw = T, file = 'SVD')) # raw = T, saves SVD.json
+glimpse(getDatasetSVD('GSE2018', raw = TRUE, file = 'SVD')) # raw = T, saves SVD.json
 glimpse(getDatasetPlatforms('GSE2018', file = 'platforms')) # No nested data.tables, saves platforms.csv
 glimpse(getDatasetSamples('GSE2018', file = 'samples')) # Some nested data.tables, saves samples.rds
 ```
 
 If, for some reason, you absolutely don't want to see the return value showing up in your R instance, you can suppress it using `invisible`.
 ```{r}
-invisible(getDatasetSVD('GSE2018', raw = T, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
+invisible(getDatasetSVD('GSE2018', raw = TTRUE, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
 ```
 
 ```{r include=FALSE}
@@ -297,7 +297,7 @@ unlink('samples.rds')
 We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:
 
 ```{r}
-options(gemma.memoise = T)
+options(gemma.memoise = TRUE)
 ```
 
 # Authentication
