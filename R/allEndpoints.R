@@ -87,21 +87,26 @@
 #' @export
 #'
 #' @keywords dataset
-getDatasets <- function (datasets = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE), 
-    async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
+    async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
-    validators <- list(datasets = validateOptionalID, filter = validateFilter, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger, 
-        sort = validateSort)
+    validators <- list(
+        datasets = validateOptionalID, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        sort = validateSort
+    )
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasets
@@ -159,21 +164,28 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' @export
 #'
 #' @keywords dataset
-getDatasetPCA <- function (datasets = NA_character_, component = 1L, limit = 100L, 
-    keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption("gemma.raw", 
-        FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L,
+    keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getDatasetPCA"
     preprocessor <- processExpression
-    validators <- list(datasets = validateID, component = validatePositiveInteger, 
-        limit = validatePositiveInteger, keepNonSpecific = validateBoolean, 
-        consolidate = validateConsolidate)
+    validators <- list(
+        datasets = validateID, component = validatePositiveInteger,
+        limit = validatePositiveInteger, keepNonSpecific = validateBoolean,
+        consolidate = validateConsolidate
+    )
     endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetPCA
@@ -259,21 +271,28 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @export
 #'
 #' @keywords dataset
-getResultSets <- function (resultSet = NA_character_, filter = NA_character_, 
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption("gemma.raw", 
-        FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getResultSets"
     preprocessor <- processResultSets
-    validators <- list(resultSet = validateOptionalID, filter = validateFilter, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger, 
-        sort = validateSort)
+    validators <- list(
+        resultSet = validateOptionalID, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        sort = validateSort
+    )
     endpoint <- "resultSets/{encode(resultSets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getResultSets
@@ -338,22 +357,29 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @export
 #'
 #' @keywords dataset
-getDatasetDE <- function (datasets = NA_character_, keepNonSpecific = FALSE, 
-    diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_, 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
+    diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetDE"
     preprocessor <- processExpression
-    validators <- list(datasets = validateID, keepNonSpecific = validateBoolean, 
-        diffExSet = validatePositiveInteger, threshold = validatePositiveReal, 
-        limit = validatePositiveInteger, consolidate = validateConsolidate)
+    validators <- list(
+        datasets = validateID, keepNonSpecific = validateBoolean,
+        diffExSet = validatePositiveInteger, threshold = validatePositiveReal,
+        limit = validatePositiveInteger, consolidate = validateConsolidate
+    )
     endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetDE
@@ -425,18 +451,25 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @export
 #'
 #' @keywords dataset
-getDatasetData <- function (dataset = NA_character_, filter = FALSE, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- TRUE
     fname <- "getDatasetData"
     preprocessor <- processFile
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetData
@@ -468,18 +501,25 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' @export
 #'
 #' @keywords dataset
-getDatasetSamples <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetSamples"
     preprocessor <- processSamples
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetSamples
@@ -513,18 +553,25 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' @export
 #'
 #' @keywords dataset
-getDatasetDEA <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetDEA"
     preprocessor <- processDEA
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetDEA
@@ -563,18 +610,25 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @export
 #'
 #' @keywords dataset
-getDatasetSVD <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetSVD"
     preprocessor <- processSVD
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/svd"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetSVD
@@ -607,18 +661,25 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 #' @export
 #'
 #' @keywords dataset
-getDatasetPlatforms <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetPlatforms"
     preprocessor <- processPlatforms
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetPlatforms
@@ -651,18 +712,25 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' @export
 #'
 #' @keywords dataset
-getDatasetAnnotations <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getDatasetAnnotations"
     preprocessor <- processAnnotations
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetAnnotations
@@ -694,18 +762,25 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' @export
 #'
 #' @keywords dataset
-getDatasetDesign <- function (dataset = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- TRUE
     fname <- "getDatasetDesign"
     preprocessor <- processFile
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/design"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getDatasetDesign
@@ -738,36 +813,46 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' @export
 #'
 #' @keywords dataset
-datasetInfo <- function (dataset = NA_character_, request = NA_character_, ..., 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+datasetInfo <- function(dataset = NA_character_, request = NA_character_, ...,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     characteristicValue <- "dataset"
-    argMap <- c(datasets = "getDatasets", PCA = "getDatasetPCA", 
-        resultSets = "getResultSets", diffEx = "getDatasetDE", 
-        data = "getDatasetData", samples = "getDatasetSamples", 
-        differential = "getDatasetDEA", SVD = "getDatasetSVD", 
-        platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations", 
-        design = "getDatasetDesign")
+    argMap <- c(
+        datasets = "getDatasets", PCA = "getDatasetPCA",
+        resultSets = "getResultSets", diffEx = "getDatasetDE",
+        data = "getDatasetData", samples = "getDatasetSamples",
+        differential = "getDatasetDEA", SVD = "getDatasetSVD",
+        platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations",
+        design = "getDatasetDesign"
+    )
     if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0("Invalid request parameter. Options include: ", 
-            paste0(names(argMap), collapse = ", ")))
+        stop(paste0(
+            "Invalid request parameter. Options include: ",
+            paste0(names(argMap), collapse = ", ")
+        ))
     }
-    if (is.na(request)) 
+    if (is.na(request)) {
         request <- 1
-    mCallable <- call(argMap[[request]], raw = raw, async = async, 
-        memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
-        inherits = FALSE)) {
+    }
+    mCallable <- call(argMap[[request]],
+        raw = raw, async = async,
+        memoised = memoised, file = file, overwrite = overwrite
+    )
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
+        inherits = FALSE
+    )) {
         get(characteristicValue)
-    }
-    else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
+    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
         get(paste0(characteristicValue, "s"))
-    }
-    else if (characteristicValue == "taxon" && exists("taxa", 
-        inherits = FALSE)) {
+    } else if (characteristicValue == "taxon" && exists("taxa",
+        inherits = FALSE
+    )) {
         get("taxa", inherits = FALSE)
     }
     for (i in names(list(...))) {
@@ -861,21 +946,28 @@ datasetInfo <- function (dataset = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords platform
-getPlatforms <- function (platforms = NA_character_, filter = NA_character_, 
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption("gemma.raw", 
-        FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
-    validators <- list(platforms = validateOptionalID, filter = validateFilter, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger, 
-        sort = validateSort)
+    validators <- list(
+        platforms = validateOptionalID, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        sort = validateSort
+    )
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getPlatforms
@@ -913,20 +1005,27 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' @export
 #'
 #' @keywords platform
-getPlatformDatasets <- function (platform = NA_character_, offset = 0L, limit = 20L, 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 20L,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
-    validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger)
+    validators <- list(
+        platform = validateSingleID, offset = validatePositiveInteger,
+        limit = validatePositiveInteger
+    )
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getPlatformDatasets
@@ -974,20 +1073,25 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' @export
 #'
 #' @keywords platform
-getPlatformElements <- function (platform = NA_character_, element = NA_character_, 
-    offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE), 
-    async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getPlatformElements <- function(platform = NA_character_, element = NA_character_,
+    offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
+    async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
-    validators <- list(platform = validateSingleID, element = validateOptionalID, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger)
+    validators <- list(
+        platform = validateSingleID, element = validateOptionalID,
+        offset = validatePositiveInteger, limit = validatePositiveInteger
+    )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getPlatformElements
@@ -1035,20 +1139,25 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' @export
 #'
 #' @keywords platform
-getPlatformElementGenes <- function (platform = NA_character_, element = NA_character_, 
-    offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE), 
-    async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getPlatformElementGenes <- function(platform = NA_character_, element = NA_character_,
+    offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
+    async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
-    validators <- list(platform = validateSingleID, element = validateSingleID, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger)
+    validators <- list(
+        platform = validateSingleID, element = validateSingleID,
+        offset = validatePositiveInteger, limit = validatePositiveInteger
+    )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getPlatformElementGenes
@@ -1081,32 +1190,42 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' @export
 #'
 #' @keywords platform
-platformInfo <- function (platform = NA_character_, request = NA_character_, 
-    ..., raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+platformInfo <- function(platform = NA_character_, request = NA_character_,
+    ..., raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     characteristicValue <- "platform"
-    argMap <- c(platforms = "getPlatforms", datasets = "getPlatformDatasets", 
-        elements = "getPlatformElements", genes = "getPlatformElementGenes")
+    argMap <- c(
+        platforms = "getPlatforms", datasets = "getPlatformDatasets",
+        elements = "getPlatformElements", genes = "getPlatformElementGenes"
+    )
     if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0("Invalid request parameter. Options include: ", 
-            paste0(names(argMap), collapse = ", ")))
+        stop(paste0(
+            "Invalid request parameter. Options include: ",
+            paste0(names(argMap), collapse = ", ")
+        ))
     }
-    if (is.na(request)) 
+    if (is.na(request)) {
         request <- 1
-    mCallable <- call(argMap[[request]], raw = raw, async = async, 
-        memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
-        inherits = FALSE)) {
+    }
+    mCallable <- call(argMap[[request]],
+        raw = raw, async = async,
+        memoised = memoised, file = file, overwrite = overwrite
+    )
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
+        inherits = FALSE
+    )) {
         get(characteristicValue)
-    }
-    else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
+    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
         get(paste0(characteristicValue, "s"))
-    }
-    else if (characteristicValue == "taxon" && exists("taxa", 
-        inherits = FALSE)) {
+    } else if (characteristicValue == "taxon" && exists("taxa",
+        inherits = FALSE
+    )) {
         get("taxa", inherits = FALSE)
     }
     for (i in names(list(...))) {
@@ -1146,18 +1265,25 @@ platformInfo <- function (platform = NA_character_, request = NA_character_,
 #' @export
 #'
 #' @keywords gene
-getGenes <- function (genes = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGenes <- function(genes = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
     validators <- list(genes = validateID)
     endpoint <- "genes/{encode(genes)}/"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGenes
@@ -1193,18 +1319,25 @@ memgetGenes <- memoise::memoise(getGenes)
 #' @export
 #'
 #' @keywords gene
-getGeneEvidence <- function (gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneEvidence <- function(gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneEvidence"
     preprocessor <- processGeneEvidence
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/evidence"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneEvidence
@@ -1240,18 +1373,25 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' @export
 #'
 #' @keywords gene
-getGeneLocation <- function (gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneLocation <- function(gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneLocation"
     preprocessor <- processGeneLocation
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneLocation
@@ -1293,19 +1433,28 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' @export
 #'
 #' @keywords gene
-getGeneProbes <- function (gene = NA_character_, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneProbes"
     preprocessor <- processElements
-    validators <- list(gene = validateSingleID, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger)
+    validators <- list(
+        gene = validateSingleID, offset = validatePositiveInteger,
+        limit = validatePositiveInteger
+    )
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneProbes
@@ -1341,18 +1490,25 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' @export
 #'
 #' @keywords gene
-getGeneGO <- function (gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneGO <- function(gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneGO"
     preprocessor <- processGO
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneGO
@@ -1400,20 +1556,27 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' @export
 #'
 #' @keywords gene
-getGeneCoexpression <- function (gene = NA_character_, with = NA_character_, limit = 20L, 
-    stringency = 1L, raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limit = 20L,
+    stringency = 1L, raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneCoexpression"
     preprocessor <- processCoexpression
-    validators <- list(gene = validateSingleID, with = validateSingleID, 
-        limit = validatePositiveInteger, stringency = validatePositiveInteger)
+    validators <- list(
+        gene = validateSingleID, with = validateSingleID,
+        limit = validatePositiveInteger, stringency = validatePositiveInteger
+    )
     endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneCoexpression
@@ -1449,33 +1612,43 @@ memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 #' @export
 #'
 #' @keywords gene
-geneInfo <- function (gene = NA_character_, request = NA_character_, ..., 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+geneInfo <- function(gene = NA_character_, request = NA_character_, ...,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     characteristicValue <- "gene"
-    argMap <- c(genes = "getGenes", evidence = "getGeneEvidence", 
-        locations = "getGeneLocation", probes = "getGeneProbes", 
-        goTerms = "getGeneGO", coexpression = "getGeneCoexpression")
+    argMap <- c(
+        genes = "getGenes", evidence = "getGeneEvidence",
+        locations = "getGeneLocation", probes = "getGeneProbes",
+        goTerms = "getGeneGO", coexpression = "getGeneCoexpression"
+    )
     if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0("Invalid request parameter. Options include: ", 
-            paste0(names(argMap), collapse = ", ")))
+        stop(paste0(
+            "Invalid request parameter. Options include: ",
+            paste0(names(argMap), collapse = ", ")
+        ))
     }
-    if (is.na(request)) 
+    if (is.na(request)) {
         request <- 1
-    mCallable <- call(argMap[[request]], raw = raw, async = async, 
-        memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
-        inherits = FALSE)) {
+    }
+    mCallable <- call(argMap[[request]],
+        raw = raw, async = async,
+        memoised = memoised, file = file, overwrite = overwrite
+    )
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
+        inherits = FALSE
+    )) {
         get(characteristicValue)
-    }
-    else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
+    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
         get(paste0(characteristicValue, "s"))
-    }
-    else if (characteristicValue == "taxon" && exists("taxa", 
-        inherits = FALSE)) {
+    } else if (characteristicValue == "taxon" && exists("taxa",
+        inherits = FALSE
+    )) {
         get("taxa", inherits = FALSE)
     }
     for (i in names(list(...))) {
@@ -1524,18 +1697,25 @@ geneInfo <- function (gene = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords taxon
-getTaxa <- function (taxa = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getTaxa <- function(taxa = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getTaxa"
     preprocessor <- processTaxon
     validators <- list(taxa = validateOptionalTaxon)
     endpoint <- "taxa/{encode(taxa)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getTaxa
@@ -1638,21 +1818,26 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' @export
 #'
 #' @keywords taxon
-getTaxonDatasets <- function (taxon = NA_character_, filter = NA_character_, offset = 0L, 
-    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE), 
-    async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offset = 0L,
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
+    async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
-    validators <- list(taxon = validateSingleTaxon, filter = validateFilter, 
-        offset = validatePositiveInteger, limit = validatePositiveInteger, 
-        sort = validateSort)
+    validators <- list(
+        taxon = validateSingleTaxon, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        sort = validateSort
+    )
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getTaxonDatasets
@@ -1710,20 +1895,27 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' @export
 #'
 #' @keywords taxon
-getTaxonPhenotypes <- function (taxon = NA_character_, editableOnly = FALSE, tree = FALSE, 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree = FALSE,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
-    validators <- list(taxon = validateSingleTaxon, editableOnly = validateBoolean, 
-        tree = validateBoolean)
+    validators <- list(
+        taxon = validateSingleTaxon, editableOnly = validateBoolean,
+        tree = validateBoolean
+    )
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getTaxonPhenotypes
@@ -1777,20 +1969,27 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' @export
 #'
 #' @keywords taxon
-getTaxonPhenotypeCandidates <- function (taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_, 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
-    validators <- list(taxon = validateSingleTaxon, editableOnly = validateBoolean, 
-        phenotypes = validateSingleID)
+    validators <- list(
+        taxon = validateSingleTaxon, editableOnly = validateBoolean,
+        phenotypes = validateID
+    )
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getTaxonPhenotypeCandidates
@@ -1843,18 +2042,25 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' @export
 #'
 #' @keywords taxon
-getGeneOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneOnTaxon"
     preprocessor <- processGenes
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneOnTaxon
@@ -1907,18 +2113,25 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' @export
 #'
 #' @keywords taxon
-getEvidenceOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getEvidenceOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
     preprocessor <- processGeneEvidence
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getEvidenceOnTaxon
@@ -1971,18 +2184,25 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' @export
 #'
 #' @keywords taxon
-getGeneLocationOnTaxon <- function (taxon = NA_character_, gene = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+getGeneLocationOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
     preprocessor <- processGeneLocation
     validators <- list(taxon = validateSingleTaxon, gene = validateSingleID)
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGeneLocationOnTaxon
@@ -2042,21 +2262,28 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' @export
 #'
 #' @keywords taxon
-getGenesAtLocation <- function (taxon = NA_character_, chromosome = NA_character_, 
-    strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption("gemma.raw", 
-        FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_,
+    strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "getGenesAtLocation"
     preprocessor <- processGenes
-    validators <- list(taxon = validateSingleTaxon, chromosome = validateSingleID, 
-        strand = validateStrand, start = validatePositiveInteger, 
-        size = validatePositiveInteger)
+    validators <- list(
+        taxon = validateSingleTaxon, chromosome = validateSingleID,
+        strand = validateStrand, start = validatePositiveInteger,
+        size = validatePositiveInteger
+    )
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise getGenesAtLocation
@@ -2174,21 +2401,28 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @export
 #'
 #' @keywords taxon
-searchDatasets <- function (query = NA_character_, taxon = NA_character_, filter = NA_character_, 
-    offset = 0L, limit = 0L, sort = "+id", raw = getOption("gemma.raw", 
-        FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-        FALSE), file = getOption("gemma.file", NA_character_), 
-    overwrite = getOption("gemma.overwrite", FALSE)) 
-{
+searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter = NA_character_,
+    offset = 0L, limit = 0L, sort = "+id", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
-    validators <- list(query = validateQuery, taxon = validateOptionalTaxon, 
-        filter = validateFilter, offset = validatePositiveInteger, 
-        limit = validatePositiveInteger, sort = validateSort)
+    validators <- list(
+        query = validateQuery, taxon = validateOptionalTaxon,
+        filter = validateFilter, offset = validatePositiveInteger,
+        limit = validatePositiveInteger, sort = validateSort
+    )
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise searchDatasets
@@ -2234,35 +2468,45 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' @export
 #'
 #' @keywords taxon
-taxonInfo <- function (taxon = NA_character_, request = NA_character_, ..., 
-    raw = getOption("gemma.raw", FALSE), async = getOption("gemma.async", 
-        FALSE), memoised = getOption("gemma.memoise", FALSE), 
-    file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-        FALSE)) 
-{
+taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     characteristicValue <- "taxon"
-    argMap <- c(taxa = "getTaxa", datasets = "getTaxonDatasets", 
-        phenotypes = "getTaxonPhenotypes", phenoCandidateGenes = "getTaxonPhenotypeCandidates", 
-        gene = "getGeneOnTaxon", geneEvidence = "getEvidenceOnTaxon", 
-        geneLocation = "getGeneLocationOnTaxon", genesAtLocation = "getGenesAtLocation", 
-        datasets = "searchDatasets")
+    argMap <- c(
+        taxa = "getTaxa", datasets = "getTaxonDatasets",
+        phenotypes = "getTaxonPhenotypes", phenoCandidateGenes = "getTaxonPhenotypeCandidates",
+        gene = "getGeneOnTaxon", geneEvidence = "getEvidenceOnTaxon",
+        geneLocation = "getGeneLocationOnTaxon", genesAtLocation = "getGenesAtLocation",
+        datasets = "searchDatasets"
+    )
     if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0("Invalid request parameter. Options include: ", 
-            paste0(names(argMap), collapse = ", ")))
+        stop(paste0(
+            "Invalid request parameter. Options include: ",
+            paste0(names(argMap), collapse = ", ")
+        ))
     }
-    if (is.na(request)) 
+    if (is.na(request)) {
         request <- 1
-    mCallable <- call(argMap[[request]], raw = raw, async = async, 
-        memoised = memoised, file = file, overwrite = overwrite)
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue, 
-        inherits = FALSE)) {
+    }
+    mCallable <- call(argMap[[request]],
+        raw = raw, async = async,
+        memoised = memoised, file = file, overwrite = overwrite
+    )
+    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
+        inherits = FALSE
+    )) {
         get(characteristicValue)
-    }
-    else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
+    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
         get(paste0(characteristicValue, "s"))
-    }
-    else if (characteristicValue == "taxon" && exists("taxa", 
-        inherits = FALSE)) {
+    } else if (characteristicValue == "taxon" && exists("taxa",
+        inherits = FALSE
+    )) {
         get("taxa", inherits = FALSE)
     }
     for (i in names(list(...))) {
@@ -2301,18 +2545,25 @@ taxonInfo <- function (taxon = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords misc
-searchAnnotations <- function (query = NA_character_, raw = getOption("gemma.raw", 
-    FALSE), async = getOption("gemma.async", FALSE), memoised = getOption("gemma.memoise", 
-    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
-    FALSE)) 
-{
+searchAnnotations <- function(query = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     isFile <- FALSE
     fname <- "searchAnnotations"
     preprocessor <- processAnnotations
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
-    .body(memoised, fname, validators, endpoint, environment(), 
-        isFile, raw, overwrite, file, async, match.call())
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
 }
 
 #' Memoise searchAnnotations
@@ -2328,8 +2579,7 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' @export
 #'
 #' @keywords misc
-forgetGemmaMemoised <- function () 
-{
+forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
     memoise::forget(memgetDatasetPCA)
     memoise::forget(memgetResultSets)

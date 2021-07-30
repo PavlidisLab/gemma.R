@@ -48,7 +48,7 @@ test_that("getPlatformElements queries work", {
     )
 
     expect_equal(getPlatformElements(1, limit = 10) %>% nrow(), 10)
-    expect_false(getPlatformElements(1, offset = 3)[1, 1] == getPlatformElements(1, offset = 0)[1, 1])
+    expect_equal(getPlatformElements(1, offset = 2)[1, 1], getPlatformElements(1, offset = 0)[3, 1])
 })
 
 test_that("getPlatformElementsGenes queries work", {
