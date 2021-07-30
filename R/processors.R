@@ -320,7 +320,7 @@ processSVD <- function(d) {
     vM <- d$vMatrix$rawMatrix
     colnames(vM) <- d$vMatrix$colNames
     rownames(vM) <- d$vMatrix$rowNames
-    list(
+    data.table(
         variance = d$variances,
         VMatrix = vM
     )

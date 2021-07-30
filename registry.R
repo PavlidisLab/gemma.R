@@ -862,7 +862,7 @@ registerEndpoint("taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}
   validators = alist(
     taxon = validateSingleTaxon,
     editableOnly = validateBoolean,
-    phenotypes = validateSingleID
+    phenotypes = validateID
   ),
   preprocessor = quote(processGeneEvidence)
 )

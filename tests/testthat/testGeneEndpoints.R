@@ -1,5 +1,4 @@
 test_that("getGenes queries work", {
-    # TODO: Ensure you can enter multiple numerical id's as numerical (not char), issues with char selection too
     dat <- getGenes(1859)
     raw <- getGenes(1859, raw = TRUE)
     expect_type(dat, "list")
