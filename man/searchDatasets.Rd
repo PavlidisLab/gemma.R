@@ -143,4 +143,7 @@ The search only only checks the annotations value, not the category
 Does a search for datasets containing annotations, short name or full
 name matching the given string
 }
+\examples{
+searchDatasets("bipolar")
+}
 \keyword{taxon}

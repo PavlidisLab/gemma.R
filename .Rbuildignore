@@ -8,3 +8,5 @@
 ^docs$
 ^codecov\.yml$
 ^GemmaAPI\.pdf$
+^examples\.R$
+^registry\.R$

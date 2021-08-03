@@ -41,4 +41,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves samples for the given dataset
 }
+\examples{
+getDatasetSamples("GSE2018")
+}
 \keyword{dataset}

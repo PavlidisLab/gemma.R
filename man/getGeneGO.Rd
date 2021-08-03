@@ -45,4 +45,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the GO terms of the given gene
 }
+\examples{
+getGeneGO("DYRK1A")
+}
 \keyword{gene}

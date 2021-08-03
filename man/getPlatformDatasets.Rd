@@ -51,4 +51,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves experiments in the given platform
 }
+\examples{
+getPlatformDatasets("GPL1355")
+}
 \keyword{platform}

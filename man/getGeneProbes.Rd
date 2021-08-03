@@ -55,4 +55,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the probes (composite sequences) with this gene
 }
+\examples{
+getGeneProbes("DYRK1A")
+}
 \keyword{gene}

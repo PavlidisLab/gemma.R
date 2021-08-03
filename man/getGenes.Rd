@@ -48,4 +48,8 @@ A \verb{400 error} if required parameters are missing.
 \description{
 Retrieves all genes matching the identifiers
 }
+\examples{
+getGenes("DYRK1A")
+getGenes("DYRK1A", "PTEN")
+}
 \keyword{gene}

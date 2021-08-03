@@ -87,6 +87,10 @@
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasets("GSE2018")
+#' getDatasets(c("GSE2018", "GSE2872"))
 getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -164,6 +168,9 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetPCA("GSE2018")
 getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L,
     keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption(
         "gemma.raw",
@@ -271,6 +278,8 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
 getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
@@ -357,6 +366,9 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetDE("GSE2018", diffExSet = 468329)
 getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
     diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_,
     raw = getOption("gemma.raw", FALSE), async = getOption(
@@ -451,6 +463,9 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetData("GSE2018")
 getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
@@ -501,6 +516,9 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetSamples("GSE2018")
 getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -553,6 +571,9 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetDEA("GSE2018")
 getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -610,6 +631,9 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetSVD("GSE2018")
 getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -661,6 +685,9 @@ memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetPlatforms("GSE2018")
 getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -712,6 +739,9 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetAnnotations("GSE2018")
 getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -762,6 +792,9 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
+#' getDatasetDesign("GSE2018")
 getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -813,6 +846,8 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' @export
 #'
 #' @keywords dataset
+#'
+#' @examples
 datasetInfo <- function(dataset = NA_character_, request = NA_character_, ...,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -838,8 +873,8 @@ datasetInfo <- function(dataset = NA_character_, request = NA_character_, ...,
         ))
     }
     if (is.na(request)) {
-        request <- 1
-    }
+          request <- 1
+      }
     mCallable <- call(argMap[[request]],
         raw = raw, async = async,
         memoised = memoised, file = file, overwrite = overwrite
@@ -946,6 +981,10 @@ datasetInfo <- function(dataset = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords platform
+#'
+#' @examples
+#' getPlatforms("GPL1355")
+#' getPlatforms(c("GPL1355", "GPL96"))
 getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
@@ -1005,6 +1044,9 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' @export
 #'
 #' @keywords platform
+#'
+#' @examples
+#' getPlatformDatasets("GPL1355")
 getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1073,6 +1115,9 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' @export
 #'
 #' @keywords platform
+#'
+#' @examples
+#' getPlatformElements("GPL1355")
 getPlatformElements <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1139,6 +1184,9 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' @export
 #'
 #' @keywords platform
+#'
+#' @examples
+#' getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
 getPlatformElementGenes <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1190,6 +1238,8 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' @export
 #'
 #' @keywords platform
+#'
+#' @examples
 platformInfo <- function(platform = NA_character_, request = NA_character_,
     ..., raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1211,8 +1261,8 @@ platformInfo <- function(platform = NA_character_, request = NA_character_,
         ))
     }
     if (is.na(request)) {
-        request <- 1
-    }
+          request <- 1
+      }
     mCallable <- call(argMap[[request]],
         raw = raw, async = async,
         memoised = memoised, file = file, overwrite = overwrite
@@ -1265,6 +1315,10 @@ platformInfo <- function(platform = NA_character_, request = NA_character_,
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
+#' getGenes("DYRK1A")
+#' getGenes("DYRK1A", "PTEN")
 getGenes <- function(genes = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1319,6 +1373,9 @@ memgetGenes <- memoise::memoise(getGenes)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
+#' getGeneEvidence("DYRK1A")
 getGeneEvidence <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1373,6 +1430,9 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
+#' getGeneLocation("DYRK1A")
 getGeneLocation <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1433,6 +1493,9 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
+#' getGeneProbes("DYRK1A")
 getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1490,6 +1553,9 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
+#' getGeneGO("DYRK1A")
 getGeneGO <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1556,6 +1622,8 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
 getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limit = 20L,
     stringency = 1L, raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1612,6 +1680,8 @@ memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 #' @export
 #'
 #' @keywords gene
+#'
+#' @examples
 geneInfo <- function(gene = NA_character_, request = NA_character_, ...,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1634,8 +1704,8 @@ geneInfo <- function(gene = NA_character_, request = NA_character_, ...,
         ))
     }
     if (is.na(request)) {
-        request <- 1
-    }
+          request <- 1
+      }
     mCallable <- call(argMap[[request]],
         raw = raw, async = async,
         memoised = memoised, file = file, overwrite = overwrite
@@ -1697,6 +1767,10 @@ geneInfo <- function(gene = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' getTaxa("human")
+#' getTaxa(c("human", "rat"))
 getTaxa <- function(taxa = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1818,6 +1892,9 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' getTaxonDatasets("human")
 getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offset = 0L,
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1895,6 +1972,8 @@ memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
 getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree = FALSE,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1969,6 +2048,12 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' getTaxonPhenotypeCandidates("human", phenotypes = c(
+#'     "http://purl.obolibrary.org/obo/DOID_11934",
+#'     "http://purl.obolibrary.org/obo/DOID_3119"
+#' ))
 getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -2042,6 +2127,9 @@ memgetTaxonPhenotypeCandidates <- memoise::memoise(getTaxonPhenotypeCandidates)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' getGeneOnTaxon("human", "DYRK1A")
 getGeneOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -2113,6 +2201,8 @@ memgetGeneOnTaxon <- memoise::memoise(getGeneOnTaxon)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
 getEvidenceOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -2184,6 +2274,9 @@ memgetEvidenceOnTaxon <- memoise::memoise(getEvidenceOnTaxon)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' getGeneLocationOnTaxon("human", "DYRK1A")
 getGeneLocationOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -2262,6 +2355,8 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
 getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_,
     strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption(
         "gemma.raw",
@@ -2401,6 +2496,9 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
+#' searchDatasets("bipolar")
 searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter = NA_character_,
     offset = 0L, limit = 0L, sort = "+id", raw = getOption(
         "gemma.raw",
@@ -2468,6 +2566,8 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' @export
 #'
 #' @keywords taxon
+#'
+#' @examples
 taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -2492,8 +2592,8 @@ taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
         ))
     }
     if (is.na(request)) {
-        request <- 1
-    }
+          request <- 1
+      }
     mCallable <- call(argMap[[request]],
         raw = raw, async = async,
         memoised = memoised, file = file, overwrite = overwrite
@@ -2545,6 +2645,8 @@ taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
 #' @export
 #'
 #' @keywords misc
+#'
+#' @examples
 searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE

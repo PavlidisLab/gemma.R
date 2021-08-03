@@ -112,7 +112,8 @@ registerEndpoint <- function(endpoint,
   if (!is.null(document)) {
     # cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+    cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
     cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
     cat("\n\n", file = document, append = TRUE)
@@ -307,7 +308,8 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
   if (!is.null(document)) {
     # cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+    cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
     cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
     cat("\n\n", file = document, append = TRUE)
@@ -394,7 +396,8 @@ registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
 
     if (!is.null(document)) {
       comment(fname, roxygen, names(fargs), document)
-      cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n\n"), file = document, append = TRUE)
+      cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n#'\n#' @examples\n\n"), file = document, append = TRUE)
+      cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
       cat(glue::glue("{fname} <- "), file = document, append = TRUE)
       cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
       cat("\n\n", file = document, append = TRUE)
@@ -429,6 +432,24 @@ endpoints <- synchronise(http_get("https://gemma.msl.ubc.ca/resources/restapidoc
   rawToChar() %>%
   xml2::read_html() %>%
   xml2::xml_find_all(".//endpoint")
+
+examples <- readLines('examples.R') %>% { gsub('# ', '', .) }
+mExamples <- list(example = list(), value = list())
+n <- 1
+mTitle <- NULL
+for(i in examples) {
+  if(i == '')
+    mTitle <- NULL
+  else if(i %in% c('example', 'value'))
+    n <- i
+  else {
+    if(is.null(mTitle))
+      mTitle <- i
+    else {
+      mExamples[[n]][[mTitle]] <- c(mExamples[[n]][[mTitle]], i)
+    }
+  }
+}
 
 #' Comment a function
 #'

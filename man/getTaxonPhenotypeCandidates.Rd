@@ -67,4 +67,10 @@ A \verb{400 error} if required parameters are missing.
 \description{
 Given a set of phenotypes, return all genes associated with them.
 }
+\examples{
+getTaxonPhenotypeCandidates("human", phenotypes = c(
+    "http://purl.obolibrary.org/obo/DOID_11934",
+    "http://purl.obolibrary.org/obo/DOID_3119"
+))
+}
 \keyword{taxon}

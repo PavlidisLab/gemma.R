@@ -63,4 +63,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the composite sequences (elements) for the given platform
 }
+\examples{
+getPlatformElements("GPL1355")
+}
 \keyword{platform}

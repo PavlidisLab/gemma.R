@@ -43,4 +43,7 @@ A \verb{400 error} if required parameters are missing.
 \description{
 Retrieves the differential analysis results for the given dataset
 }
+\examples{
+getDatasetDEA("GSE2018")
+}
 \keyword{dataset}

@@ -45,4 +45,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves gene evidence for the given gene
 }
+\examples{
+getGeneEvidence("DYRK1A")
+}
 \keyword{gene}

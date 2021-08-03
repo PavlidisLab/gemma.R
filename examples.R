@@ -1,5 +1,5 @@
 # getDatasets
-# examples
+# example
 getDatasets("GSE2018")
 getDatasets(c("GSE2018", "GSE2872"))
 # value

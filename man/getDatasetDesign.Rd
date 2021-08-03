@@ -41,4 +41,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the design for the given dataset
 }
+\examples{
+getDatasetDesign("GSE2018")
+}
 \keyword{dataset}
