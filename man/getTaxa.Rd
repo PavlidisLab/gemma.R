@@ -59,4 +59,8 @@ An array of all available taxa, if no identifiers were provided.
 \description{
 List taxa filtered by given parameters
 }
+\examples{
+getTaxa("human")
+getTaxa(c("human", "rat"))
+}
 \keyword{taxon}

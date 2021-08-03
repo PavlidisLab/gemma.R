@@ -64,4 +64,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves genes matching the identifier on the given taxon.
 }
+\examples{
+getGeneOnTaxon("human", "DYRK1A")
+}
 \keyword{taxon}

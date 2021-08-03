@@ -45,4 +45,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the physical location of the given gene
 }
+\examples{
+getGeneLocation("DYRK1A")
+}
 \keyword{gene}

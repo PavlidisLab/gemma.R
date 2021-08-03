@@ -64,4 +64,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves gene evidence for the gene on the given taxon.
 }
+\examples{
+getGeneLocationOnTaxon("human", "DYRK1A")
+}
 \keyword{taxon}

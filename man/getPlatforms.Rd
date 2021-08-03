@@ -116,4 +116,8 @@ Empty array if no objects matched.
 \description{
 List platforms filtered and organized by given parameters
 }
+\examples{
+getPlatforms("GPL1355")
+getPlatforms(c("GPL1355", "GPL96"))
+}
 \keyword{platform}

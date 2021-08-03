@@ -86,4 +86,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves differential expression levels for given datasets
 }
+\examples{
+getDatasetDE("GSE2018", diffExSet = 468329)
+}
 \keyword{dataset}

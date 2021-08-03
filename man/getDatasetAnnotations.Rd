@@ -42,4 +42,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the annotations for the given dataset
 }
+\examples{
+getDatasetAnnotations("GSE2018")
+}
 \keyword{dataset}

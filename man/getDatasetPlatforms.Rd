@@ -42,4 +42,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves platforms for the given dataset
 }
+\examples{
+getDatasetPlatforms("GSE2018")
+}
 \keyword{dataset}

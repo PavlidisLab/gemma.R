@@ -50,4 +50,7 @@ variance each component accounts for
 \description{
 Retrieves the SVD information for the given dataset
 }
+\examples{
+getDatasetSVD("GSE2018")
+}
 \keyword{dataset}

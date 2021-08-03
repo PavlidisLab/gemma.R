@@ -63,4 +63,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 \description{
 Retrieves the genes on the given platform element
 }
+\examples{
+getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
+}
 \keyword{platform}

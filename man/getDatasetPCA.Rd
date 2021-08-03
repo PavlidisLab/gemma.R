@@ -77,4 +77,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves the expression levels most correlated with the given principal
 component
 }
+\examples{
+getDatasetPCA("GSE2018")
+}
 \keyword{dataset}

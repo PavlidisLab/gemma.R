@@ -120,4 +120,8 @@ in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more
 \description{
 Lists datasets filtered and organized by given parameters
 }
+\examples{
+getDatasets("GSE2018")
+getDatasets(c("GSE2018", "GSE2872"))
+}
 \keyword{dataset}
