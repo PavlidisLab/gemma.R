@@ -50,6 +50,6 @@ Retrieves all genes matching the identifiers
 }
 \examples{
 getGenes("DYRK1A")
-getGenes("DYRK1A", "PTEN")
+getGenes(c("DYRK1A", "PTEN"))
 }
 \keyword{gene}

@@ -108,7 +108,7 @@ If raw is TRUE, a list with the same information."
 # getGenes
 # example
 getGenes("DYRK1A")
-getGenes("DYRK1A", "PTEN")
+getGenes(c("DYRK1A", "PTEN"))
 # value
 "If raw is FALSE (default), a data table with information about the queried gene(s).
 If raw is TRUE, a list with the same information."
