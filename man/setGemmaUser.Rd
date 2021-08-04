@@ -15,8 +15,7 @@ setGemmaUser(username = NULL, password = NULL)
 Allows the user to access information that requires logging in to Gemma. To log out, run \code{setGemmaUser} without specifying the username or password.
 }
 \examples{
-setGemmaUser('username','password') # login
+setGemmaUser("username", "password") # login
 setGemmaUser() # logout
-
 }
 \keyword{misc}

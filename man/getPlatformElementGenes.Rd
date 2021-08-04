@@ -9,11 +9,11 @@ getPlatformElementGenes(
   element = NA_character_,
   offset = 0L,
   limit = 20L,
-  raw = getOption("gemma.raw", F),
-  async = getOption("gemma.async", F),
-  memoised = getOption("gemma.memoise", F),
+  raw = getOption("gemma.raw", FALSE),
+  async = getOption("gemma.async", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -62,5 +62,8 @@ A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the genes on the given platform element
+}
+\examples{
+getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
 }
 \keyword{platform}

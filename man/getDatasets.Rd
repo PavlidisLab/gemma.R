@@ -10,11 +10,11 @@ getDatasets(
   offset = 0L,
   limit = 20L,
   sort = "+id",
-  raw = getOption("gemma.raw", F),
-  async = getOption("gemma.async", F),
-  memoised = getOption("gemma.memoise", F),
+  raw = getOption("gemma.raw", FALSE),
+  async = getOption("gemma.async", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -119,5 +119,9 @@ in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more
 }
 \description{
 Lists datasets filtered and organized by given parameters
+}
+\examples{
+getDatasets("GSE2018")
+getDatasets(c("GSE2018", "GSE2872"))
 }
 \keyword{dataset}
