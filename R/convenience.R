@@ -216,6 +216,7 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
 #'
 #' @return An ExpressionSet for the queried dataset.
 #' @importFrom  rlang .data
+#' @keywords dataset
 #' @export
 getExpressionSet <- function(dataset, filter) {
     # Create expression matrix
