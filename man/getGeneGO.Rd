@@ -6,11 +6,11 @@
 \usage{
 getGeneGO(
   gene = NA_character_,
-  raw = getOption("gemma.raw", F),
-  async = getOption("gemma.async", F),
-  memoised = getOption("gemma.memoise", F),
+  raw = getOption("gemma.raw", FALSE),
+  async = getOption("gemma.async", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -44,5 +44,8 @@ A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the GO terms of the given gene
+}
+\examples{
+getGeneGO("DYRK1A")
 }
 \keyword{gene}

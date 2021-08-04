@@ -8,11 +8,11 @@ getTaxonPhenotypeCandidates(
   taxon = NA_character_,
   editableOnly = FALSE,
   phenotypes = NA_character_,
-  raw = getOption("gemma.raw", F),
-  async = getOption("gemma.async", F),
-  memoised = getOption("gemma.memoise", F),
+  raw = getOption("gemma.raw", FALSE),
+  async = getOption("gemma.async", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -66,5 +66,11 @@ A \verb{400 error} if required parameters are missing.
 }
 \description{
 Given a set of phenotypes, return all genes associated with them.
+}
+\examples{
+getTaxonPhenotypeCandidates("human", phenotypes = c(
+    "http://purl.obolibrary.org/obo/DOID_11934",
+    "http://purl.obolibrary.org/obo/DOID_3119"
+))
 }
 \keyword{taxon}

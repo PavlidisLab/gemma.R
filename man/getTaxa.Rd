@@ -6,11 +6,11 @@
 \usage{
 getTaxa(
   taxa = NA_character_,
-  raw = getOption("gemma.raw", F),
-  async = getOption("gemma.async", F),
-  memoised = getOption("gemma.memoise", F),
+  raw = getOption("gemma.raw", FALSE),
+  async = getOption("gemma.async", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", F)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -58,5 +58,9 @@ An array of all available taxa, if no identifiers were provided.
 }
 \description{
 List taxa filtered by given parameters
+}
+\examples{
+getTaxa("human")
+getTaxa(c("human", "rat"))
 }
 \keyword{taxon}
