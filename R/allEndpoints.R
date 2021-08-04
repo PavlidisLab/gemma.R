@@ -1318,7 +1318,7 @@ platformInfo <- function(platform = NA_character_, request = NA_character_,
 #'
 #' @examples
 #' getGenes("DYRK1A")
-#' getGenes("DYRK1A", "PTEN")
+#' getGenes(c("DYRK1A", "PTEN"))
 getGenes <- function(genes = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
