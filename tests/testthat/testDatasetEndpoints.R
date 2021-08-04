@@ -72,7 +72,7 @@ test_that("datasetSVD queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        c(dat$variance, dat$VMatrix),
+        c(dat$variance, dat[,2:6] %>% unname %>% as.matrix),
         c(raw$variances, raw$vMatrix$rawMatrix)
     )
 })
