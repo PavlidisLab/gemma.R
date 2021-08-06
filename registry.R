@@ -26,6 +26,7 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 #' @param validators Validators for the inputs
 #' @param logname The activating phrase in the category endpoint
 #' @param roxygen The name to pull roxygen information from
+#' @param keyword The category keyboard for use in documentation
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
@@ -36,6 +37,7 @@ registerEndpoint <- function(endpoint,
                              validators = NULL,
                              logname = fname,
                              roxygen = NULL,
+                             keyword = NULL,
                              where = parent.env(environment()),
                              document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
                              isFile = FALSE) {
@@ -71,7 +73,7 @@ registerEndpoint <- function(endpoint,
   })
 
   # Add our variables
-  for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile")) {
+  for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "keyword")) {
     if (is.character(get(i))) {
       v <- glue::glue('"{get(i)}"')
     } else if (is.list(get(i))) {
@@ -112,7 +114,7 @@ registerEndpoint <- function(endpoint,
   if (!is.null(document)) {
     # cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {keyword}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
     cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
     cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
@@ -132,12 +134,14 @@ registerEndpoint <- function(endpoint,
 #' @param validator The validator to run on the input. Defaults to validateSingleID
 #' @param logname The activating phrase in the category endpoint
 #' @param roxygen The name to pull roxygen information from
+#' @param keyword The category keyboard for use in documentation
 #' @param where The environment to add the new function to
 #' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
-                                   logname = fname, roxygen = NULL, where = parent.env(environment()),
+                                   logname = fname, roxygen = NULL, keyword = root,
+                                   where = parent.env(environment()),
                                    plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
                                    isFile = FALSE) {
   registerEndpoint(ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
@@ -151,6 +155,7 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
   ),
   logname = logname,
   roxygen = roxygen,
+  keyword = keyword,
   preprocessor = preprocessor,
   where = where,
   document = document,
@@ -308,7 +313,7 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
   if (!is.null(document)) {
     # cat(glue::glue("#' {fname}\n"), file = document, append = T)
     comment(fname, roxygen, names(fargs), document)
-    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter', 'misc')}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' @export\n#'\n#' @keywords {getOption('gemmaAPI.loggingCharacter')}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
     cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
     cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
@@ -316,95 +321,12 @@ registerCompoundEndpoint <- function(endpoints, depends, passthrough,
   }
 }
 
-#' Log an endpoint for the currently active category endpoint (@seealso registerCategoryEndpoint)
+#' Log an endpoint for the currently active category endpoint
 #'
 #' @param fname The function name to call
 #' @param logname The activating phrase
 logEndpoint <- function(fname, logname) {
   options(gemmaAPI.logged = c(getOption("gemmaAPI.logged"), setNames(fname, logname)))
-}
-
-#' Register a category of endpoints that will expose multiple endpoint calls through a single function (internal use)
-#'
-#' @param fname The name of the category endpoint, or `NULL` to finish logging
-#' @param characteristic The characteristic required parameter for this category
-#' @param where The environment to add the new function to
-#' @param document A file to print information for pasting generating the package
-#' @param roxygen A description to use for the function
-registerCategoryEndpoint <- function(fname = NULL, characteristic = NULL,
-                                     where = parent.env(environment()),
-                                     document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-                                     roxygen = NULL) {
-  if (is.null(fname)) {
-    if (is.null(getOption("gemmaAPI.logging", NULL))) {
-      stop("No categories were being logged")
-    }
-
-    fname <- getOption("gemmaAPI.logging")
-    characteristic <- getOption("gemmaAPI.loggingCharacter")
-    options(gemmaAPI.logging = NULL, gemmaAPI.loggingCharacter = NULL)
-
-    f <- function() {}
-
-    # Default behavior is to call the first registration if no request is passed
-    fargs <- alist()
-    fargs[[characteristic]] <- NA_character_
-    fargs$request <- NA_character_
-    fargs$`...` <- alist(... = )$...
-
-    fargs$raw <- quote(getOption("gemma.raw", FALSE))
-    fargs$async <- quote(getOption("gemma.async", FALSE))
-    fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
-    fargs$file <- quote(getOption("gemma.file", NA_character_))
-    fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
-
-    formals(f) <- fargs
-    body(f) <- quote({
-      if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0("Invalid request parameter. Options include: ", paste0(names(argMap), collapse = ", ")))
-      }
-
-      if (is.na(request)) request <- 1
-
-      mCallable <- call(argMap[[request]], raw = raw, async = async, memoised = memoised, file = file, overwrite = overwrite)
-      mCallable[[characteristicValue]] <- if (exists(characteristicValue, inherits = FALSE)) { # TODO maybe this inserts the name incorrectly
-        get(characteristicValue)
-      } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
-        get(paste0(characteristicValue, "s"))
-      } else if (characteristicValue == "taxon" && exists("taxa", inherits = FALSE)) {
-        get("taxa", inherits = FALSE)
-      }
-      for (i in names(list(...))) {
-        mCallable[[i]] <- list(...)[[i]]
-      }
-
-      eval(mCallable, envir = parent.env(environment()))
-    })
-
-    argMap <- getOption("gemmaAPI.logged") %>% {
-      paste0("c(", paste0(names(.), ' = "', ., '"', collapse = ", "), ")")
-    }
-
-    # Add the argument map
-    body(f) <- body(f) %>%
-      as.list() %>%
-      append(str2expression(glue::glue("argMap <- {argMap}")), 1) %>%
-      append(str2expression(glue::glue('characteristicValue <- "{characteristic}"')), 1) %>%
-      as.call()
-
-    environment(f) <- where
-
-    if (!is.null(document)) {
-      comment(fname, roxygen, names(fargs), document)
-      cat(glue::glue("#' @export\n#'\n#' @keywords {characteristic}\n#'\n#' @examples\n\n"), file = document, append = TRUE)
-      cat(paste0("#' ", mExamples$example[[fname]], '\n') %>% paste0(collapse = ''), file = document, append = TRUE)
-      cat(glue::glue("{fname} <- "), file = document, append = TRUE)
-      cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
-      cat("\n\n", file = document, append = TRUE)
-    }
-  } else {
-    options(gemmaAPI.logging = fname, gemmaAPI.loggingCharacter = characteristic, gemmaAPI.logged = NULL)
-  }
 }
 
 # Documentation ----
@@ -544,11 +466,9 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
 }
 
 # Dataset endpoints ----
-registerCategoryEndpoint("datasetInfo", "dataset")
-
 registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getDatasets",
-  logname = "datasets", roxygen = "Datasets",
+  logname = "datasets", roxygen = "Datasets", keyword = "dataset",
   defaults = list(
     datasets = NA_character_,
     filter = NA_character_,
@@ -569,6 +489,7 @@ registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
 registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
   "getDatasetPCA",
   logname = "PCA", roxygen = "Datasets pca component expression levels",
+  keyword = "dataset",
   defaults = list(
     datasets = NA_character_,
     component = 1L,
@@ -589,6 +510,7 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
 registerEndpoint("resultSets/{resultSets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getResultSets",
   logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters",
+  keyword = "resultSet",
   defaults = list(
     resultSet = NA_character_,
     filter = NA_character_,
@@ -609,6 +531,7 @@ registerEndpoint("resultSets/{resultSets}?filter={filter}&offset={offset}&limit=
 registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}",
   "getDatasetDE",
   logname = "diffEx", roxygen = "Datasets differential expression levels",
+  keyword = "dataset",
   defaults = list(
     datasets = NA_character_,
     keepNonSpecific = FALSE,
@@ -630,7 +553,7 @@ registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={
 
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
   "getDatasetData",
-  logname = "data", roxygen = "Dataset data",
+  logname = "data", roxygen = "Dataset data", keyword = "dataset",
   isFile = TRUE,
   defaults = list(
     dataset = NA_character_,
@@ -686,13 +609,10 @@ registerSimpleEndpoint("dataset", "design",
 #                         passthrough = list(getDatasetDEA = c(diffExSet = 'analysis.ID'), getDiffExData = NULL),
 #                         'getDiffExpr', logname = 'diffExData', roxygen = 'Calls @seealso getDatasetDEA and @seealso getDiffExprData to get the differential expression results for a given dataset')
 
-registerCategoryEndpoint(roxygen = "A common entrypoint to the various dataset endpoints.")
 # Platform endpoints ----
-registerCategoryEndpoint("platformInfo", "platform")
-
 registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getPlatforms",
-  logname = "platforms", roxygen = "Platforms",
+  logname = "platforms", roxygen = "Platforms", keyword = "platform",
   defaults = list(
     platforms = NA_character_,
     filter = NA_character_,
@@ -712,7 +632,7 @@ registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={l
 
 registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
   "getPlatformDatasets",
-  logname = "datasets", roxygen = "Platform datasets",
+  logname = "datasets", roxygen = "Platform datasets", keyword = "platform",
   defaults = list(
     platform = NA_character_,
     offset = 0L,
@@ -728,7 +648,7 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
 
 registerEndpoint("platforms/{platform}/elements/{element}?offset={offset}&limit={limit}",
   "getPlatformElements",
-  logname = "elements", roxygen = "Platform elements",
+  logname = "elements", roxygen = "Platform elements", keyword = "platform",
   defaults = list(
     platform = NA_character_,
     element = NA_character_,
@@ -746,7 +666,7 @@ registerEndpoint("platforms/{platform}/elements/{element}?offset={offset}&limit=
 
 registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&limit={limit}",
   "getPlatformElementGenes",
-  logname = "genes", roxygen = "Platform element genes",
+  logname = "genes", roxygen = "Platform element genes", keyword = "platform",
   defaults = list(
     platform = NA_character_,
     element = NA_character_,
@@ -762,12 +682,9 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
   preprocessor = quote(processGenes)
 )
 
-registerCategoryEndpoint(roxygen = "A common entrypoint to the various platform endpoints.")
 # Gene endpoints ----
-registerCategoryEndpoint("geneInfo", "gene")
-
 registerSimpleEndpoint("genes", "",
-  logname = "genes", roxygen = "Genes",
+  logname = "genes", roxygen = "Genes", keyword = "gene",
   "getGenes",
   validator = alist(genes = validateID),
   preprocessor = quote(processGenes)
@@ -787,7 +704,7 @@ registerSimpleEndpoint("gene", "locations",
 
 registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
   "getGeneProbes",
-  logname = "probes", roxygen = "Gene probes",
+  logname = "probes", roxygen = "Gene probes", keyword = "gene",
   defaults = list(
     gene = NA_character_,
     offset = 0L,
@@ -809,7 +726,7 @@ registerSimpleEndpoint("gene", "goTerms",
 
 registerEndpoint("genes/{gene}/coexpression?with={with}&limit={limit}&stringency={stringency}",
   "getGeneCoexpression",
-  logname = "coexpression", roxygen = "Gene coexpression",
+  logname = "coexpression", roxygen = "Gene coexpression", keyword = "gene",
   defaults = list(
     gene = NA_character_,
     with = NA_character_,
@@ -825,12 +742,9 @@ registerEndpoint("genes/{gene}/coexpression?with={with}&limit={limit}&stringency
   preprocessor = quote(processCoexpression)
 )
 
-registerCategoryEndpoint(roxygen = "A common entrypoint to the various gene endpoints.")
 # Taxon endpoints ----
-registerCategoryEndpoint("taxonInfo", "taxon")
-
 registerSimpleEndpoint("taxa", "",
-  logname = "taxa", roxygen = "Taxa",
+  logname = "taxa", roxygen = "Taxa", keyword = "taxon",
   "getTaxa", plural = "taxa",
   validator = alist(taxa = validateOptionalTaxon),
   preprocessor = quote(processTaxon)
@@ -838,7 +752,7 @@ registerSimpleEndpoint("taxa", "",
 
 registerEndpoint("taxa/{taxon}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getTaxonDatasets",
-  logname = "datasets", roxygen = "Taxon datasets",
+  logname = "datasets", roxygen = "Taxon datasets", keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     filter = NA_character_,
@@ -858,7 +772,7 @@ registerEndpoint("taxa/{taxon}/datasets?filter={filter}&offset={offset}&limit={l
 
 registerEndpoint("taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree}",
   "getTaxonPhenotypes",
-  logname = "phenotypes", roxygen = "Taxon phenotypes",
+  logname = "phenotypes", roxygen = "Taxon phenotypes", keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     editableOnly = FALSE,
@@ -875,6 +789,7 @@ registerEndpoint("taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree
 registerEndpoint("taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}&phenotypes={phenotypes}",
   "getTaxonPhenotypeCandidates",
   logname = "phenoCandidateGenes", roxygen = "Taxon phenotypes candidate genes",
+  keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     editableOnly = FALSE,
@@ -890,7 +805,7 @@ registerEndpoint("taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}
 
 registerEndpoint("taxa/{taxon}/genes/{gene}",
   "getGeneOnTaxon",
-  logname = "gene", roxygen = "Gene on specific taxon",
+  logname = "gene", roxygen = "Gene on specific taxon", keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     gene = NA_character_
@@ -905,6 +820,7 @@ registerEndpoint("taxa/{taxon}/genes/{gene}",
 registerEndpoint("taxa/{taxon}/genes/{gene}/evidence",
   "getEvidenceOnTaxon",
   logname = "geneEvidence", roxygen = "Gene evidence on specific taxon",
+  keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     gene = NA_character_
@@ -919,6 +835,7 @@ registerEndpoint("taxa/{taxon}/genes/{gene}/evidence",
 registerEndpoint("taxa/{taxon}/genes/{gene}/locations",
   "getGeneLocationOnTaxon",
   logname = "geneLocation", roxygen = "Gene location on specific taxon",
+  keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     gene = NA_character_
@@ -933,6 +850,7 @@ registerEndpoint("taxa/{taxon}/genes/{gene}/locations",
 registerEndpoint("taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&start={start}&size={size}",
   "getGenesAtLocation",
   logname = "genesAtLocation", roxygen = "Genes at location",
+  keyword = "taxon",
   defaults = list(
     taxon = NA_character_,
     chromosome = NA_character_,
@@ -952,7 +870,7 @@ registerEndpoint("taxa/{taxon}/chromosomes/{chromosome}/genes?strand={strand}&st
 
 registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "searchDatasets",
-  logname = "datasets", roxygen = "Dataset search",
+  logname = "datasets", roxygen = "Dataset search", keyword = "dataset",
   defaults = list(
     query = NA_character_,
     taxon = NA_character_,
@@ -972,11 +890,10 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&of
   preprocessor = quote(processDatasets)
 )
 
-registerCategoryEndpoint(roxygen = "A common entrypoint to the various taxon endpoints.")
-
 registerEndpoint("annotations/search/{query}",
   "searchAnnotations",
   roxygen = "Annotation search",
+  keyword = "annotation",
   defaults = list(query = NA_character_),
   validators = alist(query = validateQuery),
   preprocessor = quote(processAnnotations)

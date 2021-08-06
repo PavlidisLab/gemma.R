@@ -98,6 +98,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
@@ -180,6 +181,7 @@ getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetPCA"
     preprocessor <- processExpression
@@ -277,7 +279,7 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @return Varies
 #' @export
 #'
-#' @keywords dataset
+#' @keywords resultSet
 #'
 #' @examples
 getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
@@ -289,6 +291,7 @@ getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "resultSet"
     isFile <- FALSE
     fname <- "getResultSets"
     preprocessor <- processResultSets
@@ -379,6 +382,7 @@ getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetDE"
     preprocessor <- processExpression
@@ -476,6 +480,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- TRUE
     fname <- "getDatasetData"
     preprocessor <- processFile
@@ -529,6 +534,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetSamples"
     preprocessor <- processSamples
@@ -584,6 +590,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetDEA"
     preprocessor <- processDEA
@@ -644,6 +651,7 @@ getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetSVD"
     preprocessor <- processSVD
@@ -698,6 +706,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetPlatforms"
     preprocessor <- processPlatforms
@@ -752,6 +761,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getDatasetAnnotations"
     preprocessor <- processAnnotations
@@ -805,6 +815,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "dataset"
     isFile <- TRUE
     fname <- "getDatasetDesign"
     preprocessor <- processFile
@@ -820,81 +831,6 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
 #'
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
-
-#' datasetInfo
-#'
-#' A common entrypoint to the various dataset endpoints.
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param request Which specific endpoint to request.
-#' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-datasetInfo <- function(dataset = NA_character_, request = NA_character_, ...,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    characteristicValue <- "dataset"
-    argMap <- c(
-        datasets = "getDatasets", PCA = "getDatasetPCA",
-        resultSets = "getResultSets", diffEx = "getDatasetDE",
-        data = "getDatasetData", samples = "getDatasetSamples",
-        differential = "getDatasetDEA", SVD = "getDatasetSVD",
-        platforms = "getDatasetPlatforms", annotations = "getDatasetAnnotations",
-        design = "getDatasetDesign"
-    )
-    if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0(
-            "Invalid request parameter. Options include: ",
-            paste0(names(argMap), collapse = ", ")
-        ))
-    }
-    if (is.na(request)) {
-          request <- 1
-      }
-    mCallable <- call(argMap[[request]],
-        raw = raw, async = async,
-        memoised = memoised, file = file, overwrite = overwrite
-    )
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
-        inherits = FALSE
-    )) {
-        get(characteristicValue)
-    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
-        get(paste0(characteristicValue, "s"))
-    } else if (characteristicValue == "taxon" && exists("taxa",
-        inherits = FALSE
-    )) {
-        get("taxa", inherits = FALSE)
-    }
-    for (i in names(list(...))) {
-        mCallable[[i]] <- list(...)[[i]]
-    }
-    eval(mCallable, envir = parent.env(environment()))
-}
 
 #' Platforms
 #'
@@ -994,6 +930,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "platform"
     isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
@@ -1056,6 +993,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "platform"
     isFile <- FALSE
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
@@ -1125,6 +1063,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "platform"
     isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
@@ -1194,6 +1133,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "platform"
     isFile <- FALSE
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
@@ -1212,77 +1152,6 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
 #'
 #' @keywords internal
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
-
-#' platformInfo
-#'
-#' A common entrypoint to the various platform endpoints.
-#'
-#' @param platform Required, part of the URL path.
-#' Can either be the platform ID or its short name (e.g: `GPL1355`)
-#' Retrieval by ID is more efficient.
-#' Only platforms that user has access to will be available.
-#' @param request Which specific endpoint to request.
-#' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords platform
-#'
-#' @examples
-platformInfo <- function(platform = NA_character_, request = NA_character_,
-    ..., raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    characteristicValue <- "platform"
-    argMap <- c(
-        platforms = "getPlatforms", datasets = "getPlatformDatasets",
-        elements = "getPlatformElements", genes = "getPlatformElementGenes"
-    )
-    if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0(
-            "Invalid request parameter. Options include: ",
-            paste0(names(argMap), collapse = ", ")
-        ))
-    }
-    if (is.na(request)) {
-          request <- 1
-      }
-    mCallable <- call(argMap[[request]],
-        raw = raw, async = async,
-        memoised = memoised, file = file, overwrite = overwrite
-    )
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
-        inherits = FALSE
-    )) {
-        get(characteristicValue)
-    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
-        get(paste0(characteristicValue, "s"))
-    } else if (characteristicValue == "taxon" && exists("taxa",
-        inherits = FALSE
-    )) {
-        get("taxa", inherits = FALSE)
-    }
-    for (i in names(list(...))) {
-        mCallable[[i]] <- list(...)[[i]]
-    }
-    eval(mCallable, envir = parent.env(environment()))
-}
 
 #' Genes
 #'
@@ -1329,6 +1198,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
@@ -1386,6 +1256,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGeneEvidence"
     preprocessor <- processGeneEvidence
@@ -1443,6 +1314,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGeneLocation"
     preprocessor <- processGeneLocation
@@ -1506,6 +1378,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGeneProbes"
     preprocessor <- processElements
@@ -1566,6 +1439,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGeneGO"
     preprocessor <- processGO
@@ -1633,6 +1507,7 @@ getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limi
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "gene"
     isFile <- FALSE
     fname <- "getGeneCoexpression"
     preprocessor <- processCoexpression
@@ -1651,81 +1526,6 @@ getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limi
 #'
 #' @keywords internal
 memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
-
-#' geneInfo
-#'
-#' A common entrypoint to the various gene endpoints.
-#'
-#' @param gene Required, part of the URL path.
-#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
-#' official symbol (`DYRK1A`) of the gene.
-#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' Official
-#' symbol represents a gene homologue for a random taxon, unless used in a
-#' specific taxon (see Taxon Endpoints).
-#' @param request Which specific endpoint to request.
-#' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords gene
-#'
-#' @examples
-geneInfo <- function(gene = NA_character_, request = NA_character_, ...,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    characteristicValue <- "gene"
-    argMap <- c(
-        genes = "getGenes", evidence = "getGeneEvidence",
-        locations = "getGeneLocation", probes = "getGeneProbes",
-        goTerms = "getGeneGO", coexpression = "getGeneCoexpression"
-    )
-    if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0(
-            "Invalid request parameter. Options include: ",
-            paste0(names(argMap), collapse = ", ")
-        ))
-    }
-    if (is.na(request)) {
-          request <- 1
-      }
-    mCallable <- call(argMap[[request]],
-        raw = raw, async = async,
-        memoised = memoised, file = file, overwrite = overwrite
-    )
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
-        inherits = FALSE
-    )) {
-        get(characteristicValue)
-    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
-        get(paste0(characteristicValue, "s"))
-    } else if (characteristicValue == "taxon" && exists("taxa",
-        inherits = FALSE
-    )) {
-        get("taxa", inherits = FALSE)
-    }
-    for (i in names(list(...))) {
-        mCallable[[i]] <- list(...)[[i]]
-    }
-    eval(mCallable, envir = parent.env(environment()))
-}
 
 #' Taxa
 #'
@@ -1781,6 +1581,7 @@ getTaxa <- function(taxa = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getTaxa"
     preprocessor <- processTaxon
@@ -1902,6 +1703,7 @@ getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offs
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
@@ -1983,6 +1785,7 @@ getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
@@ -2063,6 +1866,7 @@ getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FA
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
@@ -2140,6 +1944,7 @@ getGeneOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = ge
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getGeneOnTaxon"
     preprocessor <- processGenes
@@ -2213,6 +2018,7 @@ getEvidenceOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw 
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
     preprocessor <- processGeneEvidence
@@ -2287,6 +2093,7 @@ getGeneLocationOnTaxon <- function(taxon = NA_character_, gene = NA_character_, 
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
     preprocessor <- processGeneLocation
@@ -2366,6 +2173,7 @@ getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "taxon"
     isFile <- FALSE
     fname <- "getGenesAtLocation"
     preprocessor <- processGenes
@@ -2495,7 +2303,7 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' (which is also an ontology term).
 #' @export
 #'
-#' @keywords taxon
+#' @keywords dataset
 #'
 #' @examples
 #' searchDatasets("bipolar")
@@ -2508,6 +2316,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
@@ -2527,93 +2336,6 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
 #'
 #' @keywords internal
 memsearchDatasets <- memoise::memoise(searchDatasets)
-
-#' taxonInfo
-#'
-#' A common entrypoint to the various taxon endpoints.
-#'
-#' @param taxon Not required, part of the URL path.
-#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
-#' scientific name, common name
-#' It is recommended to use Taxon ID for efficiency.
-#' Please note, that not all taxa have all the possible identifiers
-#' available.
-#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
-#' convenience, below is a list of officially supported taxa:
-#'   ID   Comm.name   Scient.name                NcbiID
-#'   ---- ----------- -------------------------- --------
-#'   1    human       Homo sapiens               9606
-#'   2    mouse       Mus musculus               10090
-#'   3    rat         Rattus norvegicus          10116
-#'   11   yeast       Saccharomyces cerevisiae   4932
-#'   12   zebrafish   Danio rerio                7955
-#'   13   fly         Drosophila melanogaster    7227
-#'   14   worm        Caenorhabditis elegans     6239
-#' @param request Which specific endpoint to request.
-#' @param ... Parameters to forward to the endpoint selected in `request`.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords taxon
-#'
-#' @examples
-taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    characteristicValue <- "taxon"
-    argMap <- c(
-        taxa = "getTaxa", datasets = "getTaxonDatasets",
-        phenotypes = "getTaxonPhenotypes", phenoCandidateGenes = "getTaxonPhenotypeCandidates",
-        gene = "getGeneOnTaxon", geneEvidence = "getEvidenceOnTaxon",
-        geneLocation = "getGeneLocationOnTaxon", genesAtLocation = "getGenesAtLocation",
-        datasets = "searchDatasets"
-    )
-    if (!is.na(request) && !(request %in% names(argMap))) {
-        stop(paste0(
-            "Invalid request parameter. Options include: ",
-            paste0(names(argMap), collapse = ", ")
-        ))
-    }
-    if (is.na(request)) {
-          request <- 1
-      }
-    mCallable <- call(argMap[[request]],
-        raw = raw, async = async,
-        memoised = memoised, file = file, overwrite = overwrite
-    )
-    mCallable[[characteristicValue]] <- if (exists(characteristicValue,
-        inherits = FALSE
-    )) {
-        get(characteristicValue)
-    } else if (exists(paste0(characteristicValue, "s"), inherits = FALSE)) {
-        get(paste0(characteristicValue, "s"))
-    } else if (characteristicValue == "taxon" && exists("taxa",
-        inherits = FALSE
-    )) {
-        get("taxa", inherits = FALSE)
-    }
-    for (i in names(list(...))) {
-        mCallable[[i]] <- list(...)[[i]]
-    }
-    eval(mCallable, envir = parent.env(environment()))
-}
 
 #' Annotation search
 #'
@@ -2644,7 +2366,7 @@ taxonInfo <- function(taxon = NA_character_, request = NA_character_, ...,
 #' A `400 error` if required parameters are missing.
 #' @export
 #'
-#' @keywords misc
+#' @keywords annotation
 #'
 #' @examples
 searchAnnotations <- function(query = NA_character_, raw = getOption(
@@ -2657,6 +2379,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    keyword <- "annotation"
     isFile <- FALSE
     fname <- "searchAnnotations"
     preprocessor <- processAnnotations
