@@ -214,7 +214,7 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
 #' @param dataset A dataset identifier
 #' @param filter If true, call returns filtered expression data.
 #'
-#' @return An ExpressionSet for the queried dataset.
+#' @return An annotated ExpressionSet for the queried dataset.
 #' @importFrom  rlang .data
 #' @keywords dataset
 #' @export
@@ -229,13 +229,13 @@ getExpressionSet <- function(dataset, filter) {
     d <- getDatasetDesign(dataset)
     design <- data.frame(d, row.names = stringr::str_extract(d$Bioassay, "(?<=Name=).*")) %>%
         dplyr::select(-c(.data$ExternalID, .data$Bioassay))
-    
+
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
         row.names = colnames(design)
     )
-    
+
     phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = annots)
 
     # Reorder expression matrix to match design

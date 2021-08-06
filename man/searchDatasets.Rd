@@ -146,4 +146,4 @@ name matching the given string
 \examples{
 searchDatasets("bipolar")
 }
-\keyword{taxon}
+\keyword{dataset}
