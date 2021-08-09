@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Validate a strand (ie. + or -) — validateStrand • gemmaAPI</title>
+<title>Call func and then call callback with the result — call_with_callback • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="Validate a strand (ie. + or -) — validateStrand" />
-<meta property="og:description" content="Validate a strand (ie. + or -)" />
+<meta property="og:title" content="Call func and then call callback with the result — call_with_callback" />
+<meta property="og:description" content="callback will be called with two arguments, the first one will the
+error object if func() threw an error, or NULL otherwise. The second
+argument is NULL on error, and the result of func() otherwise." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,33 +129,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Validate a strand (ie. + or -)</h1>
+    <h1>Call <code>func</code> and then call <code>callback</code> with the result</h1>
     
-    <div class="hidden name"><code>validateStrand.Rd</code></div>
+    <div class="hidden name"><code>call_with_callback.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Validate a strand (ie. + or -)</p>
+    <p><code>callback</code> will be called with two arguments, the first one will the
+error object if <code>func()</code> threw an error, or <code>NULL</code> otherwise. The second
+argument is <code>NULL</code> on error, and the result of <code>func()</code> otherwise.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>validateStrand</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>call_with_callback</span><span class='op'>(</span><span class='va'>func</span>, <span class='va'>callback</span>, info <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>The variable name</p></td>
+      <th>func</th>
+      <td><p>Function to call.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Any strands</p></td>
+      <th>callback</th>
+      <td><p>Callback to call with the result of <code>func()</code>,
+or the error thrown.</p></td>
+    </tr>
+    <tr>
+      <th>info</th>
+      <td><p>Extra info to add to the error object. Must be a named list.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>The validated strands, or stop with an error message</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

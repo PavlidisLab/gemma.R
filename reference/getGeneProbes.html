@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemmaAPI</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
 
@@ -107,6 +107,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -137,11 +140,11 @@
   gene <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   offset <span class='op'>=</span> <span class='fl'>0L</span>,
   limit <span class='op'>=</span> <span class='fl'>20L</span>,
-  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>F</span><span class='op'>)</span>,
+  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
   file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.file"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
-  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>F</span><span class='op'>)</span>
+  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -202,6 +205,113 @@ this gene. Note, that it is possible for probes to map to multiple
 genes.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>getGeneProbes</span><span class='op'>(</span><span class='st'>"DYRK1A"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          mapping.Name mapping.Summary mapping.Description array.ShortName
+#&gt;  1:             26311              NA              Dyrk1a        GPL14745
+#&gt;  2:             20686              NA              Dyrk1a        GPL14745
+#&gt;  3:              1646              NA              Dyrk1a        GPL14745
+#&gt;  4:             44226              NA              Dyrk1a        GPL14745
+#&gt;  5:             34715              NA              Dyrk1a        GPL14745
+#&gt;  6:             23687              NA              Dyrk1a        GPL14745
+#&gt;  7:             33197              NA              Dyrk1a        GPL14745
+#&gt;  8:             37065              NA              Dyrk1a        GPL14745
+#&gt;  9:             38256              NA              Dyrk1a        GPL14745
+#&gt; 10:             42251              NA              Dyrk1a        GPL14745
+#&gt; 11:           7087018              NA                &lt;NA&gt;         GPL6543
+#&gt; 12:          10750437              NA                            GPL11534
+#&gt; 13: TC1100000329.rn.1              NA                            GPL22388
+#&gt; 14:             23876              NA              Dyrk1a        GPL15011
+#&gt; 15:             41351              NA                            GPL15011
+#&gt; 16:              9388              NA                            GPL15011
+#&gt; 17:             15610              NA                            GPL15011
+#&gt; 18:             24083              NA                            GPL11280
+#&gt; 19:             26644              NA                            GPL11280
+#&gt; 20:              2949              NA                            GPL11280
+#&gt;                                                                           array.Name
+#&gt;  1:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  2:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  3:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  4:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  5:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  6:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  7:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  8:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt;  9:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt; 10:                              Agilent-028282 Whole Rat Genome Microarray 4x44K v3
+#&gt; 11:       [RaEx-1_0-st] Affymetrix Rat Exon 1.0 ST Array [transcript (gene) version]
+#&gt; 12:     [RaGene-1_1-st] Affymetrix Rat Gene 1.1 ST Array [transcript (gene) version]
+#&gt; 13: [RTA-1_0] Affymetrix Rat Transcriptome Array 1.0 [transcript (gene) CSV version]
+#&gt; 14:                                              Agilent-016475 Patkany genome 4x44K
+#&gt; 15:                                              Agilent-016475 Patkany genome 4x44K
+#&gt; 16:                                              Agilent-016475 Patkany genome 4x44K
+#&gt; 17:                                              Agilent-016475 Patkany genome 4x44K
+#&gt; 18:        Agilent-024196 Whole Rat Genome Microarray 4x44K (Feature Number version)
+#&gt; 19:        Agilent-024196 Whole Rat Genome Microarray 4x44K (Feature Number version)
+#&gt; 20:        Agilent-024196 Whole Rat Genome Microarray 4x44K (Feature Number version)
+#&gt;     array.Taxon array.TaxonID array.Type
+#&gt;  1:         rat             3   ONECOLOR
+#&gt;  2:         rat             3   ONECOLOR
+#&gt;  3:         rat             3   ONECOLOR
+#&gt;  4:         rat             3   ONECOLOR
+#&gt;  5:         rat             3   ONECOLOR
+#&gt;  6:         rat             3   ONECOLOR
+#&gt;  7:         rat             3   ONECOLOR
+#&gt;  8:         rat             3   ONECOLOR
+#&gt;  9:         rat             3   ONECOLOR
+#&gt; 10:         rat             3   ONECOLOR
+#&gt; 11:         rat             3   ONECOLOR
+#&gt; 12:         rat             3   ONECOLOR
+#&gt; 13:         rat             3   ONECOLOR
+#&gt; 14:         rat             3   ONECOLOR
+#&gt; 15:         rat             3   ONECOLOR
+#&gt; 16:         rat             3   ONECOLOR
+#&gt; 17:         rat             3   ONECOLOR
+#&gt; 18:         rat             3   ONECOLOR
+#&gt; 19:         rat             3   ONECOLOR
+#&gt; 20:         rat             3   ONECOLOR
+#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          array.Description
+#&gt;  1:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  2:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  3:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  4:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  5:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  6:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  7:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  8:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt;  9:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 10:   Whole Rat Genome Microarray 4x44K v3  Arrays of this design have barcodes that begin with 16028282 or 2528282.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 11:                                                                                                                                                                                                                    Affymetrix submissions are typically submitted to GEO using the GEOarchive method described at http://www.ncbi.nlm.nih.gov/projects/geo/info/geo_affy.html  #%create_date=Mon Mar 16 20:01:52 2009 PDT #%chip_type=RaEx-1_0-st-v1 #%lib_set_name=RaEx-1_0-st #%lib_set_version=v1 #%genome-species=Rattus norvegicus #%genome-version=rn4 #%genome-version-ucsc=rn4 #%genome-version-ncbi=HGSC v3.4 #%genome-version-create_date=2004-11 #%netaffx-annotation-date=2009-03-16 #%netaffx-annotation-netaffx-build=28
+#&gt; 12:                                      Affymetrix submissions are typically submitted to GEO using the GEOarchive method described at http://www.ncbi.nlm.nih.gov/projects/geo/info/geo_affy.html  RaGene-1_1-st-v1.na31.rn4.transcript.csv #%create_date=Fri Sep 17 11:36:51 2010 PDT #%chip_type=RaGene-1_1-st-v1 #%lib_set_name=RaGene-1_1-st #%lib_set_version=v1 #%genome-species=Rattus norvegicus #%genome-version=rn4 #%genome-version-ucsc=rn4 #%genome-version-ncbi=Rnor3.4 #%genome-version-create_date=2004-11-00 #%genome-lifted_from-species=Rattus norvegicus #%genome-lifted_from-version-ucsc=rn4 #%genome-lifted_from-version-ncbi=Rnor3.4 #%netaffx-annotation-date=2009-11-23 #%netaffx-annotation-netaffx-build=31 
+#&gt; 13:                                                                       Annotation was derived from the Affymetrix annotation file RTA-1_0.na36.rn6.transcript.csv:  #%create_date=Wed Jun  8 16:48:57 2016 PDT #%chip_type=RTA-1_0 #%lib_set_name=RTA-1_0 #%lib_set_version=r1 #%genome-species=Rattus norvegicus #%genome-version=rn6 #%genome-version-ucsc=rn6 #%genome-version-ncbi=Rnor_6.0 #%genome-version-create_date=2014-07-30 #%genome-lifted-method=psl-map.pl #%genome-lifted_from-species=Rattus norvegicus #%genome-lifted_from-version-ucsc=rn6 #%genome-lifted_from-version-ncbi=Rnor_6.0 #%netaffx-annotation-date=2016-03-15 #%netaffx-annotation-netaffx-build=36 #%netaffx-annotation-data-type=transcript_cluster 
+#&gt; 14:                                         Arrays of this design have barcodes that begin with 16016475 or 2516475.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 15:                                         Arrays of this design have barcodes that begin with 16016475 or 2516475.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 16:                                         Arrays of this design have barcodes that begin with 16016475 or 2516475.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 17:                                         Arrays of this design have barcodes that begin with 16016475 or 2516475.  Orientation: Features are numbered numbered Left-to-Right, Top-to-Bottom as scanned by an Agilent scanner (barcode on the left, DNA on the back surface, scanned through the glass), matching the FeatureNum output from Agilent's Feature Extraction software.  The ID column represents the Agilent Feature Extraction feature number.  Rows and columns are numbered as scanned by an Axon Scanner (barcode on the bottom, DNA on the front surface).  To match data scanned on an Axon scanner, use the RefNumber column contained in the Agilent-provided GAL file as the ID_REF column in sample submissions. 
+#&gt; 18:                                                                                                                                                                                                                                                                                             With a focus on well known rat genes and homologues to human and mouse genes with useful annotation, Agilent's Whole Rat Genome Oligo – 4X44K microarray provides researchers with a new tool for modeling human biology in the rat model organism. For researchers, this means they now have access to a microarray made up of relevant content that has been empirically validated by Agilent.\nFrom GPL11280\nLast Updated: Dec 06 2010
+#&gt; 19:                                                                                                                                                                                                                                                                                             With a focus on well known rat genes and homologues to human and mouse genes with useful annotation, Agilent's Whole Rat Genome Oligo – 4X44K microarray provides researchers with a new tool for modeling human biology in the rat model organism. For researchers, this means they now have access to a microarray made up of relevant content that has been empirically validated by Agilent.\nFrom GPL11280\nLast Updated: Dec 06 2010
+#&gt; 20:                                                                                                                                                                                                                                                                                             With a focus on well known rat genes and homologues to human and mouse genes with useful annotation, Agilent's Whole Rat Genome Oligo – 4X44K microarray provides researchers with a new tool for modeling human biology in the rat model organism. For researchers, this means they now have access to a microarray made up of relevant content that has been empirically validated by Agilent.\nFrom GPL11280\nLast Updated: Dec 06 2010
+#&gt;     array.Troubled
+#&gt;  1:          FALSE
+#&gt;  2:          FALSE
+#&gt;  3:          FALSE
+#&gt;  4:          FALSE
+#&gt;  5:          FALSE
+#&gt;  6:          FALSE
+#&gt;  7:          FALSE
+#&gt;  8:          FALSE
+#&gt;  9:          FALSE
+#&gt; 10:          FALSE
+#&gt; 11:          FALSE
+#&gt; 12:          FALSE
+#&gt; 13:          FALSE
+#&gt; 14:          FALSE
+#&gt; 15:          FALSE
+#&gt; 16:          FALSE
+#&gt; 17:          FALSE
+#&gt; 18:          FALSE
+#&gt; 19:          FALSE
+#&gt; 20:          FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

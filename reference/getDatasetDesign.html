@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemmaAPI</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
 
@@ -107,6 +107,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -135,11 +138,11 @@
 
     <pre class="usage"><span class='fu'>getDatasetDesign</span><span class='op'>(</span>
   dataset <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>F</span><span class='op'>)</span>,
+  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
   file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.file"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
-  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>F</span><span class='op'>)</span>
+  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -184,6 +187,80 @@ Otherwise, it will be a RDS file.</p></td>
     <p>The design file for the given dataset.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>getDatasetDesign</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                                                             Bioassay ExternalID
+#&gt;  1:  GSE2018_bioMaterial_34.GSM36456___BioAssayId=1Name=BAL_47c_A0B1   GSM36456
+#&gt;  2:  GSE2018_bioMaterial_33.GSM36455___BioAssayId=2Name=BAL_47b_A0B1   GSM36455
+#&gt;  3:  GSE2018_bioMaterial_32.GSM36454___BioAssayId=3Name=BAL_47a_A0B0   GSM36454
+#&gt;  4:   GSE2018_bioMaterial_31.GSM36453___BioAssayId=4Name=BAL_46_A2B0   GSM36453
+#&gt;  5:  GSE2018_bioMaterial_30.GSM36452___BioAssayId=5Name=BAL_45b_A2B0   GSM36452
+#&gt;  6:  GSE2018_bioMaterial_29.GSM36451___BioAssayId=6Name=BAL_45a_A1B0   GSM36451
+#&gt;  7:  GSE2018_bioMaterial_28.GSM36450___BioAssayId=7Name=BAL_44b_A0B0   GSM36450
+#&gt;  8:  GSE2018_bioMaterial_27.GSM36449___BioAssayId=8Name=BAL_44a_A0B0   GSM36449
+#&gt;  9:   GSE2018_bioMaterial_26.GSM36448___BioAssayId=9Name=BAL_43_A0B0   GSM36448
+#&gt; 10:  GSE2018_bioMaterial_25.GSM36447___BioAssayId=10Name=BAL_42_A0B0   GSM36447
+#&gt; 11:  GSE2018_bioMaterial_24.GSM36446___BioAssayId=11Name=BAL_41_A1B0   GSM36446
+#&gt; 12:  GSE2018_bioMaterial_23.GSM36445___BioAssayId=12Name=BAL_40_A0B0   GSM36445
+#&gt; 13:   GSE2018_bioMaterial_22.GSM36444___BioAssayId=13Name=BAL_4_A0B0   GSM36444
+#&gt; 14:  GSE2018_bioMaterial_21.GSM36443___BioAssayId=14Name=BAL_39_A0B1   GSM36443
+#&gt; 15:  GSE2018_bioMaterial_20.GSM36442___BioAssayId=15Name=BAL_33_A0B1   GSM36442
+#&gt; 16:  GSE2018_bioMaterial_19.GSM36441___BioAssayId=16Name=BAL_31_A0B1   GSM36441
+#&gt; 17:   GSE2018_bioMaterial_18.GSM36440___BioAssayId=17Name=BAL_3_A1B0   GSM36440
+#&gt; 18:  GSE2018_bioMaterial_17.GSM36439___BioAssayId=18Name=BAL_29_A1B0   GSM36439
+#&gt; 19: GSE2018_bioMaterial_16.GSM36438___BioAssayId=19Name=BAL_27b_A2B1   GSM36438
+#&gt; 20: GSE2018_bioMaterial_15.GSM36437___BioAssayId=20Name=BAL_27a_A0B0   GSM36437
+#&gt; 21:  GSE2018_bioMaterial_14.GSM36436___BioAssayId=21Name=BAL_26_A2B0   GSM36436
+#&gt; 22:  GSE2018_bioMaterial_13.GSM36435___BioAssayId=22Name=BAL_25_A0B0   GSM36435
+#&gt; 23:  GSE2018_bioMaterial_12.GSM36434___BioAssayId=23Name=BAL_21_A0B0   GSM36434
+#&gt; 24: GSE2018_bioMaterial_11.GSM36433___BioAssayId=24Name=BAL_20b_A1B1   GSM36433
+#&gt; 25: GSE2018_bioMaterial_10.GSM36432___BioAssayId=25Name=BAL_20a_A1B1   GSM36432
+#&gt; 26:   GSE2018_bioMaterial_9.GSM36431___BioAssayId=26Name=BAL_19_A0B0   GSM36431
+#&gt; 27:   GSE2018_bioMaterial_8.GSM36430___BioAssayId=27Name=BAL_18_A1B0   GSM36430
+#&gt; 28:   GSE2018_bioMaterial_7.GSM36429___BioAssayId=28Name=BAL_17_A0B0   GSM36429
+#&gt; 29:   GSE2018_bioMaterial_6.GSM36428___BioAssayId=29Name=BAL_13_A0B0   GSM36428
+#&gt; 30:   GSE2018_bioMaterial_5.GSM36427___BioAssayId=30Name=BAL_12_A1B0   GSM36427
+#&gt; 31:    GSE2018_bioMaterial_4.GSM36426___BioAssayId=31Name=BAL_1_A0B0   GSM36426
+#&gt; 32:  GSE2018_bioMaterial_3.GSM36425___BioAssayId=32Name=BAL_15b_A0B0   GSM36425
+#&gt; 33:  GSE2018_bioMaterial_2.GSM36424___BioAssayId=33Name=BAL_15a_A0B1   GSM36424
+#&gt; 34:   GSE2018_bioMaterial_1.GSM36423___BioAssayId=34Name=BAL_37_A1B1   GSM36423
+#&gt;                                                             Bioassay ExternalID
+#&gt;                                            diseaseState             batch
+#&gt;  1:                              reference_subject_role  Batch_06_7/24/02
+#&gt;  2:                              reference_subject_role  Batch_07_10/2/02
+#&gt;  3:                              reference_subject_role Batch_09_10/15/02
+#&gt;  4: Transplanted_Organ_Complication_|_Acute_rejection_|  Batch_01_1/31/02
+#&gt;  5: Transplanted_Organ_Complication_|_Acute_rejection_|  Batch_03_5/22/02
+#&gt;  6:                              reference_subject_role  Batch_06_7/24/02
+#&gt;  7:                              reference_subject_role   Batch_02_4/3/02
+#&gt;  8:                              reference_subject_role Batch_09_10/15/02
+#&gt;  9:                              reference_subject_role Batch_10_10/25/02
+#&gt; 10:                              reference_subject_role Batch_12_11/27/02
+#&gt; 11:                              reference_subject_role   Batch_02_4/3/02
+#&gt; 12:                              reference_subject_role  Batch_04_5/23/02
+#&gt; 13:                              reference_subject_role Batch_12_11/27/02
+#&gt; 14:                              reference_subject_role Batch_09_10/15/02
+#&gt; 15:                              reference_subject_role Batch_09_10/15/02
+#&gt; 16:                              reference_subject_role   Batch_02_4/3/02
+#&gt; 17:                              reference_subject_role Batch_12_11/27/02
+#&gt; 18:                              reference_subject_role  Batch_08_10/4/02
+#&gt; 19: Transplanted_Organ_Complication_|_Acute_rejection_|  Batch_01_1/31/02
+#&gt; 20:                              reference_subject_role  Batch_11_11/7/02
+#&gt; 21: Transplanted_Organ_Complication_|_Acute_rejection_|  Batch_04_5/23/02
+#&gt; 22:                              reference_subject_role  Batch_08_10/4/02
+#&gt; 23:                              reference_subject_role  Batch_01_1/31/02
+#&gt; 24: Transplanted_Organ_Complication_|_Acute_rejection_| Batch_09_10/15/02
+#&gt; 25: Transplanted_Organ_Complication_|_Acute_rejection_|  Batch_07_10/2/02
+#&gt; 26:                              reference_subject_role  Batch_01_1/31/02
+#&gt; 27:                              reference_subject_role Batch_12_11/27/02
+#&gt; 28:                              reference_subject_role Batch_12_11/27/02
+#&gt; 29:                              reference_subject_role  Batch_03_5/22/02
+#&gt; 30:                              reference_subject_role  Batch_05_5/31/02
+#&gt; 31:                              reference_subject_role  Batch_11_11/7/02
+#&gt; 32:                              reference_subject_role  Batch_05_5/31/02
+#&gt; 33:                              reference_subject_role  Batch_11_11/7/02
+#&gt; 34: Transplanted_Organ_Complication_|_Acute_rejection_| Batch_10_10/25/02
+#&gt;                                            diseaseState             batch</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

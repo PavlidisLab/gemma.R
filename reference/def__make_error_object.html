@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Validate a strand (ie. + or -) — validateStrand • gemmaAPI</title>
+<title>Create an error object for a rejected deferred computation — def__make_error_object • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,13 @@
 
 
 
-<meta property="og:title" content="Validate a strand (ie. + or -) — validateStrand" />
-<meta property="og:description" content="Validate a strand (ie. + or -)" />
+<meta property="og:title" content="Create an error object for a rejected deferred computation — def__make_error_object" />
+<meta property="og:description" content="
+
+Make sure that the error is an error object.
+Make sure that the error has the correct classes.
+
+" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,33 +132,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Validate a strand (ie. + or -)</h1>
+    <h1>Create an error object for a rejected deferred computation</h1>
     
-    <div class="hidden name"><code>validateStrand.Rd</code></div>
+    <div class="hidden name"><code>def__make_error_object.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Validate a strand (ie. + or -)</p>
+    
+<ul>
+<li><p>Make sure that the error is an error object.</p></li>
+<li><p>Make sure that the error has the correct classes.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>validateStrand</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>def__make_error_object</span><span class='op'>(</span><span class='va'>self</span>, <span class='va'>private</span>, <span class='va'>err</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>The variable name</p></td>
+      <th>self</th>
+      <td><p>self</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Any strands</p></td>
+      <th>private</th>
+      <td><p>private self</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The validated strands, or stop with an error message</p>
+    <p>error object</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

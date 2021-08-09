@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemmaAPI</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
 
@@ -107,6 +107,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -135,11 +138,11 @@
 
     <pre class="usage"><span class='fu'>getGeneGO</span><span class='op'>(</span>
   gene <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>F</span><span class='op'>)</span>,
-  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>F</span><span class='op'>)</span>,
+  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
   file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.file"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
-  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>F</span><span class='op'>)</span>
+  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -188,6 +191,32 @@ Otherwise, it will be a RDS file.</p></td>
 the given gene.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>getGeneGO</span><span class='op'>(</span><span class='st'>"DYRK1A"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                                                                  term.Name
+#&gt;   1:                           negative regulation of response to stimulus
+#&gt;   2:                                                             cytoplasm
+#&gt;   3:                                                    nucleotide binding
+#&gt;   4:                                    regulation of response to stimulus
+#&gt;   5:                                                          cytoskeleton
+#&gt;  ---                                                                      
+#&gt; 205:       transferase activity, transferring phosphorus-containing groups
+#&gt; 206: negative regulation of microtubule polymerization or depolymerization
+#&gt; 207:                                             ribonucleoprotein complex
+#&gt; 208:                phosphotransferase activity, alcohol group as acceptor
+#&gt; 209:          regulation of microtubule polymerization or depolymerization
+#&gt;         term.ID                                  term.URL
+#&gt;   1: GO:0048585 http://purl.obolibrary.org/obo/GO_0048585
+#&gt;   2: GO:0005737 http://purl.obolibrary.org/obo/GO_0005737
+#&gt;   3: GO:0000166 http://purl.obolibrary.org/obo/GO_0000166
+#&gt;   4: GO:0048583 http://purl.obolibrary.org/obo/GO_0048583
+#&gt;   5: GO:0005856 http://purl.obolibrary.org/obo/GO_0005856
+#&gt;  ---                                                     
+#&gt; 205: GO:0016772 http://purl.obolibrary.org/obo/GO_0016772
+#&gt; 206: GO:0031111 http://purl.obolibrary.org/obo/GO_0031111
+#&gt; 207: GO:1990904 http://purl.obolibrary.org/obo/GO_1990904
+#&gt; 208: GO:0016773 http://purl.obolibrary.org/obo/GO_0016773
+#&gt; 209: GO:0031110 http://purl.obolibrary.org/obo/GO_0031110</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
