@@ -221,7 +221,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @keywords dataset
 #' @export
 #' @examples
-#' getExpressionSet("GSE2018")
+#' getExpressionSet("GSE2018", filter = TRUE)
 getExpressionSet <- function(dataset, filter) {
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)
