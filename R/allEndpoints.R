@@ -2164,6 +2164,7 @@ memgetGeneLocationOnTaxon <- memoise::memoise(getGeneLocationOnTaxon)
 #' @keywords taxon
 #'
 #' @examples
+#' getGenesAtLocation("human", chromosome = 21, strand = "+", start = 2, size = 20000)
 getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_,
     strand = "+", start = NA_integer_, size = NA_integer_, raw = getOption(
         "gemma.raw",
@@ -2404,6 +2405,8 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' @export
 #'
 #' @keywords misc
+#' @example
+#' forgetGemmaMemoised()
 forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
     memoise::forget(memgetDatasetPCA)
