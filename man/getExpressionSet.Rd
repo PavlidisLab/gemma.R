@@ -18,6 +18,6 @@ An annotated ExpressionSet for the queried dataset.
 Combines various endpoint calls to return an annotated Bioconductor ExpressionSet
 }
 \examples{
-getExpressionSet("GSE2018")
+getExpressionSet("GSE2018", filter = TRUE)
 }
 \keyword{dataset}
