@@ -77,4 +77,7 @@ A \verb{400 error} if required parameters are missing.
 \description{
 Finds genes overlapping a given region.
 }
+\examples{
+getGenesAtLocation("human", chromosome = 21, strand = "+", start = 2, size = 20000)
+}
 \keyword{taxon}

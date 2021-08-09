@@ -507,7 +507,7 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
   preprocessor = quote(processExpression)
 )
 
-registerEndpoint("resultSets/{resultSets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint("resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getResultSets",
   logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters",
   keyword = "resultSet",

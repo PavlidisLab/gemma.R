@@ -133,9 +133,9 @@ batchId={countN + 1}
     })
 })
 
-#' Get Gemma annotations
+#' Get Gemma platform annotations
 #'
-#' Gets Gemma's gene annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+#' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
 #'
 #' @param platform A platform identifier @seealso getPlatforms
 #' @param annotType Which GO terms should the output include
@@ -146,7 +146,9 @@ batchId={countN + 1}
 #' @return A table of annotations
 #' @keywords gene
 #' @export
-getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "allParents"),
+#' @examples
+#' getPlatformAnnotation("GPL96")
+getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
     unzip = FALSE) {
@@ -218,6 +220,8 @@ getAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "al
 #' @importFrom  rlang .data
 #' @keywords dataset
 #' @export
+#' @examples
+#' getExpressionSet("GSE2018")
 getExpressionSet <- function(dataset, filter) {
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)

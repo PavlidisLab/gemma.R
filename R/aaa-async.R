@@ -4812,14 +4812,14 @@ external_process <- function(process_generator, error_on_status = TRUE,
             stdout <- px$get_output_file()
             stderr <- px$get_error_file()
             pipe <- px$get_poll_connection()
-            assign("id", get_default_event_loop()$add_process(
+            id <<- get_default_event_loop()$add_process(
                 list(pipe),
                 function(err, res) if (is.null(err)) resolve(res) else reject(err),
                 list(
                     process = px, stdout = stdout, stderr = stderr,
                     error_on_status = TRUE, encoding = args$encoding
                 )
-            ), inherits = TRUE)
+            )
         },
         on_cancel = function(reason) {
             if (!is.null(id)) get_default_event_loop()$cancel(id)
