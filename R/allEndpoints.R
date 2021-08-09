@@ -300,7 +300,7 @@ getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
         offset = validatePositiveInteger, limit = validatePositiveInteger,
         sort = validateSort
     )
-    endpoint <- "resultSets/{encode(resultSets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, raw, overwrite, file, async, match.call()

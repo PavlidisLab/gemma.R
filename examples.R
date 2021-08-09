@@ -184,3 +184,10 @@ getGenesAtLocation("human", chromosome = 21, strand = '+', start = 2, size = 200
 # value
 "If raw is FALSE (default), a data table with information about the location gene(s) overlapping the queried region in the queried taxon.
 If raw is TRUE, a list with the same information."
+
+# TODO: finish implementation
+# getResultSet
+# example
+getResultSets()
+# value
+"Incomplete"

@@ -17,4 +17,7 @@ An annotated ExpressionSet for the queried dataset.
 \description{
 Combines various endpoint calls to return an annotated Bioconductor ExpressionSet
 }
+\examples{
+getExpressionSet("GSE2018")
+}
 \keyword{dataset}

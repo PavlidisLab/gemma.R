@@ -10,7 +10,7 @@ Description: Low and high level wrappers for Gemma's RESTful API. Gemma is a web
     of genomics data, currently primarily targeted at the analysis of gene 
     expression profiles. Gemma contains data from thousands of public studies, 
     referencing thousands of published papers. 
-Depends: R (>= 3.2.0)
+Depends: R (>= 4.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
