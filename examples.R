@@ -178,7 +178,7 @@ getGeneLocationOnTaxon("human", "DYRK1A")
 "If raw is FALSE (default), a data table with information about the location of queried gene in the queried taxon.
 If raw is TRUE, a list with the same information."
 
-# getGeneAtLocation
+# getGenesAtLocation
 # example
 getGenesAtLocation("human", chromosome = 21, strand = '+', start = 2, size = 20000)
 # value
