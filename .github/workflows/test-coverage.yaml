@@ -44,5 +44,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
-        run: covr::codecov(function_exclusions = c(line_exclusions = "R/aaa-async.R")
+        run: covr::codecov(line_exclusions = "R/aaa-async.R")
         shell: Rscript {0}
