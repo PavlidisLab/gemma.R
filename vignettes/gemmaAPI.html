@@ -144,9 +144,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gemmaAPI)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(async)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(memoise)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span></code></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(memoise)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span></code></pre></div>
 <div id="getting-started" class="section level1">
 <h1>Getting started</h1>
 <p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>. We suggest you make some example queries on the interactive API docs to get a sense of the input and output.</p>
@@ -154,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2>Downloading basic information for a dataset</h2>
 <p>The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1">GSE2018</a>. We can do this in one of two ways using the API:</p>
 <ol style="list-style-type: decimal">
-<li>Using the dataset’s shortname (GSE2018), or</li>
+<li>Using the dataset’s short name (GSE2018), or</li>
 <li>Using the dataset’s identifier (<code>1</code>, as you can see in the URL above)</li>
 </ol>
 <p>Each case is functionally identical in the API wrapper.</p>
@@ -203,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.Name          &lt;chr&gt; &quot;human&quot;</span></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span></span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;</span></span></code></pre></div>
-<p>Most endpoints also allow you to query multiple objects at the same time, for example:</p>
+<p>Many endpoints also allow you to query multiple objects at the same time, for example:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasets</span>(<span class="at">datasets =</span> <span class="fu">c</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="st">&#39;GSE25136&#39;</span>)))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 2</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 19</span></span>
@@ -245,14 +244,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ShortName  &lt;chr&gt; &quot;GSE2018&quot;, &quot;GSE2018&quot;, &quot;GSE2018&quot;, &quot;GSE25136&quot;, &quot;GSE25136&quot;,…</span></span></code></pre></div>
 <p>For large requests, this is often insufficient and instead, we recommend using <code>async</code> requests.</p>
 </div>
-</div>
-<div id="asynchronous-requests" class="section level1">
-<h1>Asynchronous requests</h1>
-<p>Asynchronous API requests are enabled through the <a href="https://github.com/gaborcsardi/async">{async}</a> library. The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a <code>synchronise</code> block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.</p>
+<div id="asynchronous-requests" class="section level2">
+<h2>Asynchronous requests</h2>
+<p>The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a <code>synchronise</code> block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.</p>
 <p>This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, <code>GSE2018</code> and <code>GSE25136</code>. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a <code>synchronise</code> block 2. Set <code>async = TRUE</code> in our requests</p>
 <p>We’ll build back up to multiple queries, but starting with a single query, the difference is trivial to see.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">synchronise</span>({</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getDatasetAnnotations</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">async =</span> T)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getDatasetAnnotations</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">async =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> glimpse</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 3</span></span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 6</span></span>
@@ -267,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">synchronise</span>({</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make the queries</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">c</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="st">&#39;GSE25136&#39;</span>), <span class="cf">function</span>(dataset) {</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasetAnnotations</span>(dataset, <span class="at">async =</span> T)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasetAnnotations</span>(dataset, <span class="at">async =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only complete this synchronise block when all queries are finished</span></span>
@@ -289,11 +287,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> <span class="fu">lapply</span>(datasets<span class="sc">$</span>ee.ID, <span class="cf">function</span>(dataset) {</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasetDEA</span>(dataset, <span class="at">async =</span> T)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasetDEA</span>(dataset, <span class="at">async =</span> <span class="cn">TRUE</span>)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span></span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      diffEx <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">unique</span>(response<span class="sc">$</span>result.ID), <span class="cf">function</span>(diffExSet) {</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">getDatasetDE</span>(dataset, <span class="at">diffExSet =</span> diffExSet, <span class="at">async =</span> T)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">getDatasetDE</span>(dataset, <span class="at">diffExSet =</span> diffExSet, <span class="at">async =</span> <span class="cn">TRUE</span>)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>          response[, diffExSet <span class="sc">:</span><span class="er">=</span> diffExSet]</span>
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        })</span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>      })</span>
@@ -309,8 +307,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 0</span></span>
 <span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 0</span></span></code></pre></div>
 <p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
-<div id="benchmark" class="section level2">
-<h2>Benchmark</h2>
+<div id="benchmark" class="section level3">
+<h3>Benchmark</h3>
 <p>For completeness, we’ll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, get datasets with more than 100 samples. We&#39;ll do this synchronously since we need identifiers to continue</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>datasets <span class="ot">&lt;-</span> <span class="fu">getDatasets</span>(<span class="at">filter =</span> <span class="st">&#39;numberOfSamples &gt; 100&#39;</span>, <span class="at">limit =</span> <span class="dv">10</span>)</span>
@@ -320,11 +318,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    res <span class="ot">&lt;-</span> <span class="fu">lapply</span>(datasets<span class="sc">$</span>ee.ID, <span class="cf">function</span>(dataset) {</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">getDatasetDEA</span>(dataset, <span class="at">async =</span> T)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">getDatasetDEA</span>(dataset, <span class="at">async =</span> <span class="cn">TRUE</span>)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
 <span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span></span>
 <span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        diffEx <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">unique</span>(response<span class="sc">$</span>result.ID), <span class="cf">function</span>(diffExSet) {</span>
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>          <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">getDatasetDE</span>(dataset, <span class="at">diffExSet =</span> diffExSet, <span class="at">async =</span> T)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>          <span class="fu">getDatasetDE</span>(dataset, <span class="at">diffExSet =</span> diffExSet, <span class="at">async =</span> <span class="cn">TRUE</span>)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>            response[, diffExSet <span class="sc">:</span><span class="er">=</span> diffExSet]</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>          })</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        })</span>
@@ -369,22 +367,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">0.7696538</td>
-<td align="right">0.7802871</td>
-<td align="right">0.832705</td>
-<td align="right">0.7998711</td>
-<td align="right">0.8393287</td>
-<td align="right">1.086118</td>
+<td align="right">0.9985309</td>
+<td align="right">1.043786</td>
+<td align="right">1.202676</td>
+<td align="right">1.058775</td>
+<td align="right">1.090367</td>
+<td align="right">1.974744</td>
 <td align="right">10</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">2.4973586</td>
-<td align="right">2.6124790</td>
-<td align="right">2.846186</td>
-<td align="right">2.7356453</td>
-<td align="right">2.9222532</td>
-<td align="right">3.663293</td>
+<td align="right">5.3245308</td>
+<td align="right">5.369123</td>
+<td align="right">5.555839</td>
+<td align="right">5.438365</td>
+<td align="right">5.577277</td>
+<td align="right">6.511392</td>
 <td align="right">10</td>
 </tr>
 </tbody>
@@ -395,18 +393,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">synchronise</span>({</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># First send a request to an endpoint that accepts multiple datasets to narrow down our search space</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">async_map</span>(<span class="fu">split</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>, <span class="fu">ceiling</span>(<span class="fu">seq_along</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>) <span class="sc">/</span> <span class="dv">1000</span>)), <span class="fu">async</span>(<span class="cf">function</span>(chunk) {</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasets</span>(chunk, <span class="at">limit =</span> <span class="dv">0</span>, <span class="at">async =</span> T)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getDatasets</span>(chunk, <span class="at">limit =</span> <span class="dv">0</span>, <span class="at">async =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  }))<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(response) {</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Asynchronously request annotations for each experiment that was found</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">async_map</span>(<span class="fu">rbindlist</span>(response, <span class="at">fill =</span> T)[, <span class="fu">unique</span>(ee.ID)], <span class="fu">async</span>(<span class="cf">function</span>(dataset) {</span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">getDatasetAnnotations</span>(dataset, <span class="at">async =</span> T)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(annotations) {</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">async_map</span>(<span class="fu">rbindlist</span>(response, <span class="at">fill =</span> <span class="cn">TRUE</span>)[, <span class="fu">unique</span>(ee.ID)], <span class="fu">async</span>(<span class="cf">function</span>(dataset) {</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">getDatasetAnnotations</span>(dataset, <span class="at">async =</span> <span class="cn">TRUE</span>)<span class="sc">$</span><span class="fu">then</span>(<span class="cf">function</span>(annotations) {</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.data.table</span>(annotations)) annotations[, ee.ID <span class="sc">:</span><span class="er">=</span> dataset]</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cn">NULL</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>      })</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    }), <span class="at">.limit =</span> <span class="dv">200</span>) <span class="co"># Only allow 200 active requests at a time to not flood the server</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 60,133</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 62,197</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 7</span></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Type    &lt;chr&gt; &quot;ExperimentTag&quot;, &quot;ExperimentTag&quot;, &quot;FactorValue&quot;, &quot;Factor…</span></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Name    &lt;chr&gt; &quot;organism part&quot;, &quot;cell type&quot;, &quot;disease&quot;, &quot;treatment&quot;, NA…</span></span>
@@ -419,7 +417,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Not evaluated</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>response <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">split</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>, <span class="fu">ceiling</span>(<span class="fu">seq_along</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20000</span>) <span class="sc">/</span> <span class="dv">1000</span>)), <span class="cf">function</span>(chunk) {</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getDatasets</span>(chunk, <span class="at">limit =</span> <span class="dv">0</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">rbindlist</span>(<span class="at">fill =</span> T)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> <span class="fu">rbindlist</span>(<span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(response[, <span class="fu">unique</span>(ee.ID)], <span class="cf">function</span>(dataset) {</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  annotations <span class="ot">&lt;-</span> <span class="fu">getDatasetAnnotations</span>(dataset)</span>
@@ -428,20 +426,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span></code></pre></div>
 </div>
 </div>
-<div id="memoised-results" class="section level1">
-<h1>Memoised results</h1>
+<div id="memoised-results" class="section level2">
+<h2>Memoised results</h2>
 <p>A different way to “speed up” requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
-<col width="40%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="6%" />
+<col width="41%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -457,28 +455,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">7284.949</td>
-<td align="right">7284.949</td>
-<td align="right">7284.949</td>
-<td align="right">7284.949</td>
-<td align="right">7284.949</td>
-<td align="right">7284.949</td>
+<td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
+<td align="right">11288.57</td>
+<td align="right">11288.57</td>
+<td align="right">11288.57</td>
+<td align="right">11288.57</td>
+<td align="right">11288.57</td>
+<td align="right">11288.57</td>
 <td align="right">1</td>
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> T), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">memoised =</span> <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
 <table style="width:100%;">
 <colgroup>
-<col width="40%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="6%" />
+<col width="41%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="8%" />
+<col width="5%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -494,30 +492,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">getDatasetData(“GSE2018”, memoised = T)</td>
-<td align="right">0.540332</td>
-<td align="right">0.540332</td>
-<td align="right">0.540332</td>
-<td align="right">0.540332</td>
-<td align="right">0.540332</td>
-<td align="right">0.540332</td>
+<td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
+<td align="right">0.575525</td>
+<td align="right">0.575525</td>
+<td align="right">0.575525</td>
+<td align="right">0.575525</td>
+<td align="right">0.575525</td>
+<td align="right">0.575525</td>
 <td align="right">1</td>
 </tr>
 </tbody>
 </table>
-<div id="clearing-cache" class="section level2">
-<h2>Clearing cache</h2>
+<div id="clearing-cache" class="section level3">
+<h3>Clearing cache</h3>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forgetGemmaMemoised</span>()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
 </div>
 </div>
-<div id="raw-data" class="section level1">
-<h1>Raw data</h1>
+<div id="raw-data" class="section level2">
+<h2>Raw data</h2>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
 </div>
-<div id="file-outputs" class="section level1">
-<h1>File outputs</h1>
+<div id="file-outputs" class="section level2">
+<h2>File outputs</h2>
 <p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
 <ol style="list-style-type: decimal">
 <li><code>.json</code>, if you requested results with <code>raw = TRUE</code></li>
@@ -526,14 +524,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
 <p>To illustrate these…</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> T, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># raw = T, saves SVD.json</span></span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># raw = T, saves SVD.json</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 3</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ bioMaterialIds: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ variances     : num [1:34] 0.1475 0.0888 0.0716 0.0563 0.0541 ...</span></span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ vMatrix       :List of 4</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rawMatrix         : num [1:34, 1:5] 0.256542 -0.054118 -0.094021 0.000271 0.286761 ...</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4</span></span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rowNames          : int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rawMatrix         : num [1:34, 1:5] 0.256542 -0.054118 -0.094021 0.000271 0.286761 ...</span></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   ..$ rowNameMapIterator: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetPlatforms</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">file =</span> <span class="st">&#39;platforms&#39;</span>)) <span class="co"># No nested data.tables, saves platforms.csv</span></span>
 <span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1</span></span>
@@ -574,17 +572,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span></span>
 <span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span></span></code></pre></div>
 <p>If, for some reason, you absolutely don’t want to see the return value showing up in your R instance, you can suppress it using <code>invisible</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> T, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># Saves SVD.json like above, but suppresses output in R</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">invisible</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># Saves SVD.json like above, but suppresses output in R</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in fun(value): SVD.json exists. Not overwriting.</span></span></code></pre></div>
 </div>
-<div id="changing-defaults" class="section level1">
-<h1>Changing defaults</h1>
+<div id="changing-defaults" class="section level2">
+<h2>Changing defaults</h2>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> T)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
-<div id="authentication" class="section level1">
-<h1>Authentication</h1>
+<div id="authentication" class="section level2">
+<h2>Authentication</h2>
 <p>If you have an account at <a href="https://gemma.msl.ubc.ca">Gemma</a> and want to access data that is private, you can login using <code>setGemmaUser(&quot;USERNAME&quot;, &quot;PASSWORD&quot;)</code>, providing your actual username and password. These will be passed on to every API request you make until you log out (by calling <code>setGemmaUser()</code>).</p>
+</div>
 </div>
 
 
