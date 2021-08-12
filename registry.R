@@ -908,7 +908,7 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     cat("#'\n", file = document, append = TRUE)
     cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = TRUE)
     cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = TRUE)
-    cat("#' @example\n#' forgetGemmaMemoised()\n", file = document, append = TRUE)
+    cat("#' @examples\n#' forgetGemmaMemoised()\n", file = document, append = TRUE)
     cat("forgetGemmaMemoised <- ", file = document, append = TRUE)
     cat(deparse(get("forgetGemmaMemoised", envir = globalenv(), inherits = FALSE)) %>% paste0(collapse = "\n"), file = document, append = TRUE)
 
