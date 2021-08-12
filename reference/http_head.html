@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clear Gemma API cache — forgetGemmaMemoised • gemmaAPI</title>
+<title>Asynchronous HTTP HEAD request — http_head • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Clear Gemma API cache — forgetGemmaMemoised" />
-<meta property="og:description" content="Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = TRUE)" />
+<meta property="og:title" content="Asynchronous HTTP HEAD request — http_head" />
+<meta property="og:description" content="Asynchronous HTTP HEAD request" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,22 +127,82 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clear Gemma API cache</h1>
+    <h1>Asynchronous HTTP HEAD request</h1>
     
-    <div class="hidden name"><code>forgetGemmaMemoised.Rd</code></div>
+    <div class="hidden name"><code>http_head.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = <code>TRUE</code>)</p>
+    <p>Asynchronous HTTP HEAD request</p>
     </div>
 
-    <pre class="usage"><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>http_head</span><span class='op'>(</span>
+  <span class='va'>url</span>,
+  headers <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>character</a></span><span class='op'>(</span><span class='op'>)</span>,
+  file <span class='op'>=</span> <span class='cn'>NULL</span>,
+  options <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  on_progress <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>url</th>
+      <td><p>URL to connect to.</p></td>
+    </tr>
+    <tr>
+      <th>headers</th>
+      <td><p>HTTP headers to send.</p></td>
+    </tr>
+    <tr>
+      <th>file</th>
+      <td><p>If not <code>NULL</code>, it must be a string, specifying a file.
+The body of the response is written to this file.</p></td>
+    </tr>
+    <tr>
+      <th>options</th>
+      <td><p>Options to set on the handle. Passed to
+<code><a href='https://rdrr.io/pkg/curl/man/handle.html'>curl::handle_setopt()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>on_progress</th>
+      <td><p>Progress handler function. It is only used if the
+response body is written to a file. See details below.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Deferred object.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other asyncronous HTTP calls: 
+<code><a href='http_get.html'>http_get</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='op'>{</span>
+<span class='va'>afun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='async.html'>async</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>dx</span> <span class='op'>&lt;-</span> <span class='fu'>http_head</span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org/status/200"</span><span class='op'>)</span><span class='op'>$</span>
+        <span class='fu'>then</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>status_code</span><span class='op'>)</span>
+<span class='op'>}</span><span class='op'>)</span>
+<span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Check a list of URLs in parallel</span>
+<span class='va'>afun</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>urls</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='fu'><a href='when_all.html'>when_all</a></span><span class='op'>(</span>.list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>urls</span>, <span class='va'>http_head</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span>
+        <span class='fu'>then</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='st'>"[["</span>, <span class='st'>"status_code"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='va'>urls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"https://google.com"</span>, <span class='st'>"https://eu.httpbin.org"</span><span class='op'>)</span>
+<span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='va'>urls</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 200
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 200
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

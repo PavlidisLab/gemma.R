@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clear Gemma API cache — forgetGemmaMemoised • gemmaAPI</title>
+<title>Create an async function — async • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,10 @@
 
 
 
-<meta property="og:title" content="Clear Gemma API cache — forgetGemmaMemoised" />
-<meta property="og:description" content="Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = TRUE)" />
+<meta property="og:title" content="Create an async function — async" />
+<meta property="og:description" content="Create an async function, that returns a deferred value, from a
+regular function. If fun is already an async function, then it does
+nothing, just returns it." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,22 +129,79 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clear Gemma API cache</h1>
+    <h1>Create an async function</h1>
     
-    <div class="hidden name"><code>forgetGemmaMemoised.Rd</code></div>
+    <div class="hidden name"><code>async.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = <code>TRUE</code>)</p>
+    <p>Create an async function, that returns a deferred value, from a
+regular function. If <code>fun</code> is already an async function, then it does
+nothing, just returns it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>async</span><span class='op'>(</span><span class='va'>fun</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>fun</th>
+      <td><p>Original function.</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Async version of the original function.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The result function will have the same arguments, with the same default
+values, and the same environment as the original input function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>42</span>
+<span class='va'>af</span> <span class='op'>&lt;-</span> <span class='fu'>async</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
+<span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='va'>dx</span> <span class='op'>&lt;-</span> <span class='fu'>af</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='va'>dx</span>
+</div><div class='output co'>#&gt; &lt;deferred&gt;
+#&gt;   Public:
+#&gt;     cancel: function (reason = "Cancelled") 
+#&gt;     catch: function (...) 
+#&gt;     clone: function (deep = FALSE) 
+#&gt;     finally: function (on_finally) 
+#&gt;     initialize: function (action = NULL, on_progress = NULL, on_cancel = NULL, 
+#&gt;     share: function () 
+#&gt;     then: function (on_fulfilled) 
+#&gt;   Private:
+#&gt;     action: NULL
+#&gt;     add_as_parent: function (child) 
+#&gt;     cancel_callback: NULL
+#&gt;     cancelled: FALSE
+#&gt;     children: list
+#&gt;     dead_end: FALSE
+#&gt;     event_loop: event_loop, R6
+#&gt;     get_info: function () 
+#&gt;     id: 2
+#&gt;     make_error_object: function (err) 
+#&gt;     maybe_cancel_parents: function (reason) 
+#&gt;     mycall: call
+#&gt;     null: function () 
+#&gt;     parent_reject: function (value, resolve) 
+#&gt;     parent_resolve: function (value, resolve) 
+#&gt;     parents: NULL
+#&gt;     progress: function (data) 
+#&gt;     progress_callback: NULL
+#&gt;     reject: function (reason) 
+#&gt;     resolve: function (value) 
+#&gt;     run_action: function () 
+#&gt;     running: TRUE
+#&gt;     shared: FALSE
+#&gt;     state: fulfilled
+#&gt;     type: async
+#&gt;     update_parent: function (old, new) 
+#&gt;     value: 42</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

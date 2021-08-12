@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clear Gemma API cache — forgetGemmaMemoised • gemmaAPI</title>
+<title>Resolve a deferred as soon as some deferred from a list resolve — when_some • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Clear Gemma API cache — forgetGemmaMemoised" />
-<meta property="og:description" content="Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = TRUE)" />
+<meta property="og:title" content="Resolve a deferred as soon as some deferred from a list resolve — when_some" />
+<meta property="og:description" content="when_some creates a deferred value that is resolved as soon as the
+specified number of deferred values resolve." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,22 +128,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clear Gemma API cache</h1>
+    <h1>Resolve a deferred as soon as some deferred from a list resolve</h1>
     
-    <div class="hidden name"><code>forgetGemmaMemoised.Rd</code></div>
+    <div class="hidden name"><code>when_some.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = <code>TRUE</code>)</p>
+    <p><code>when_some</code> creates a deferred value that is resolved as soon as the
+specified number of deferred values resolve.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>when_some</span><span class='op'>(</span><span class='va'>count</span>, <span class='va'>...</span>, .list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
+<span class='fu'>when_any</span><span class='op'>(</span><span class='va'>...</span>, .list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>count</th>
+      <td><p>Number of deferred values that need to resolve.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Deferred values.</p></td>
+    </tr>
+    <tr>
+      <th>.list</th>
+      <td><p>More deferred values.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A deferred value, that is conditioned on all deferred values
+in <code>...</code> and <code>.list</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>when_any</code> is a special case for a single.</p>
+<p>If the specified number of deferred values cannot be resolved, then
+<code>when_any</code> throws an error.</p>
+<p>async has auto-cancellation, so if the required number of deferred values
+are resolved, or too many of them throw error, the rest of the are
+cancelled.</p>
+<p>If <code>when_any</code> throws an error, then all the underlying error objects
+are returned in the <code>errors</code> member of the error object thrown by
+<code>when_any</code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='when_all.html'>when_all()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>forgetGemmaMemoised</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div></pre>
+    <pre class="examples"><div class='input'><span class='op'>{</span>
+<span class='co'>## Use the URL that returns first</span>
+<span class='va'>afun</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>u1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org"</span><span class='op'>)</span>
+    <span class='va'>u2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org/get"</span><span class='op'>)</span>
+    <span class='fu'>when_any</span><span class='op'>(</span><span class='va'>u1</span>, <span class='va'>u2</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>then</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>url</span><span class='op'>)</span>
+<span class='op'>}</span>
+<span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; [1] "https://eu.httpbin.org"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
