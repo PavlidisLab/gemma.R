@@ -11,12 +11,10 @@
 #' @param fun Original function.
 #' @return Async version of the original function.
 #'
-#' @noRd
+#' @export
 #' @examples
 #' f <- function(x) 42
 #' af <- async(f)
-#' is_async(f)
-#' is_async(af)
 #' f()
 #' synchronise(dx <- af())
 #' dx
@@ -1496,9 +1494,9 @@ is_deferred <- function(x) {
 #'   to delay the execution. It can be a fraction of a second.
 #' @return A deferred object.
 #'
-#' @noRd
+#' @export
 #' @examples
-#' \donttest{
+#' {
 #' ## Two HEAD requests with 1/2 sec delay between them
 #' resp <- list()
 #' afun <- async(function() {
@@ -2517,10 +2515,10 @@ async_reject <- mark_as_async(async_reject)
 #' * `current`: already received bytes of the response.
 #'
 #' @family asyncronous HTTP calls
-#' @noRd
+#' @export
 #' @importFrom curl new_handle handle_setheaders
 #' @examples
-#' \donttest{
+#' {
 #' afun <- async(function() {
 #'     http_get("https://eu.httpbin.org/status/200")$
 #'         then(function(x) x$status_code)
@@ -2575,10 +2573,10 @@ http_get <- mark_as_async(http_get)
 #' @return Deferred object.
 #'
 #' @family asyncronous HTTP calls
-#' @noRd
+#' @export
 #' @importFrom curl handle_setopt
 #' @examples
-#' \donttest{
+#' {
 #' afun <- async(function() {
 #'     dx <- http_head("https://eu.httpbin.org/status/200")$
 #'         then(function(x) x$status_code)
@@ -3161,7 +3159,7 @@ lazyrmd <- local({
 #'   from the application of `.f` are resolved.
 #'
 #' @family async iterators
-#' @noRd
+#' @export
 #' @examples
 #' synchronise(async_map(
 #'     seq(10, 100, by = 10) / 100,
@@ -3630,9 +3628,9 @@ async_some <- mark_as_async(async_some)
 #' @param expr Async function call expression. If it does not evaluate
 #' to a deferred value, then it is just returned.
 #'
-#' @noRd
+#' @export
 #' @examples
-#' \donttest{
+#' {
 #' http_status <- function(url, ...) {
 #'     http_get(url, ...)$
 #'         then(function(x) x$status_code)
@@ -4258,9 +4256,9 @@ str_trim <- function(x) {
 #'   in `...` and `.list`.
 #'
 #' @seealso [when_any()], [when_some()]
-#' @noRd
+#' @export
 #' @examples
-#' \donttest{
+#' {
 #' ## Check that the contents of two URLs are the same
 #' afun <- async(function() {
 #'     u1 <- http_get("https://eu.httpbin.org")
@@ -4326,9 +4324,9 @@ when_all <- mark_as_async(when_all)
 #'   in `...` and `.list`.
 #'
 #' @seealso [when_all()]
-#' @noRd
+#' @export
 #' @examples
-#' \donttest{
+#' {
 #' ## Use the URL that returns first
 #' afun <- function() {
 #'     u1 <- http_get("https://eu.httpbin.org")
@@ -4381,7 +4379,7 @@ when_some <- function(count, ..., .list = list()) {
 
 when_some <- mark_as_async(when_some)
 
-#' @noRd
+#' @export
 #' @rdname when_some
 
 when_any <- function(..., .list = list()) {
