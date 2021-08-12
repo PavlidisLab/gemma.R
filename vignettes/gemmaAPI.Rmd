@@ -11,6 +11,9 @@ vignette: >
 # Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
 if(Sys.getenv('RMD_BUILD') != 1)
   knitr::knit_exit()
+
+# Prevent certificate issues for GitHub actions
+options(gemma.SSL = FALSE)
 ```
 
 ```{r, include = FALSE}
@@ -24,34 +27,8 @@ knitr::opts_chunk$set(
 library(gemmaAPI)
 library(dplyr)
 library(data.table)
-library(async)
 library(memoise)
 library(microbenchmark)
-```
-
-```{r, include = FALSE}
-# Prevent certificate issues for GitHub actions
-custom_curl_options <- function(options) {
-  getopt <- function(nm) {
-    if (!is.null(v <- options[[nm]])) return(v)
-    anm <- paste0("async_http_", nm)
-    if (!is.null(v <- getOption(anm))) return(v)
-    if (!is.na(v <- Sys.getenv(toupper(anm), NA_character_))) return (v)
-  }
-  modifyList(
-    options,
-    list(
-      ssl_verifyhost = 0,
-      ssl_verifypeer = 0,
-      timeout = as.integer(getopt("timeout") %||% 0),
-      connecttimeout = as.integer(getopt("connecttimeout") %||% 300),
-      low_speed_time = as.integer(getopt("low_speed_time") %||% 0),
-      low_speed_limit = as.integer(getopt("low_speed_limit") %||% 0)
-    )
-  )
-}
-environment(custom_curl_options) <- asNamespace('async')
-assignInNamespace('get_default_curl_options', custom_curl_options, ns = 'async')
 ```
 
 # Getting started
@@ -62,7 +39,7 @@ The Gemma API wrapper is very straightforward to use and contains a function for
 
 The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as [GSE2018](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1). We can do this in one of two ways using the API:
 
-1.  Using the dataset's shortname (GSE2018), or
+1.  Using the dataset's short name (GSE2018), or
 2.  Using the dataset's identifier (`1`, as you can see in the URL above)
 
 Each case is functionally identical in the API wrapper.
@@ -73,7 +50,7 @@ glimpse(getDatasets(datasets = 1))
 glimpse(getDatasets(datasets = 'GSE2018'))
 ```
 
-Most endpoints also allow you to query multiple objects at the same time, for example:
+Many endpoints also allow you to query multiple objects at the same time, for example:
 
 ```{r}
 glimpse(getDatasets(datasets = c('GSE2018', 'GSE25136')))
@@ -97,9 +74,9 @@ lapply(c('GSE2018', 'GSE25136'), function(dataset) {
 
 For large requests, this is often insufficient and instead, we recommend using `async` requests.
 
-# Asynchronous requests
+## Asynchronous requests
 
-Asynchronous API requests are enabled through the [{async}](https://github.com/gaborcsardi/async) library. The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a `synchronise` block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
+The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a `synchronise` block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
 
 This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, `GSE2018` and `GSE25136`. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a `synchronise` block 2. Set `async = TRUE` in our requests
 
@@ -158,7 +135,7 @@ synchronise({
 
 Although this may look intimidating at first, it's a very powerful way to rapidly make batch queries.
 
-## Benchmark
+### Benchmark
 
 For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).
 
@@ -242,7 +219,7 @@ lapply(response[, unique(ee.ID)], function(dataset) {
 }) %>% rbindlist %>% glimpse
 ```
 
-# Memoised results
+## Memoised results
 
 A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
@@ -251,7 +228,7 @@ knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = TRUE), 
 knitr::kable(summary(microbenchmark(getDatasetData('GSE2018', memoised = TRUE), times = 1), unit = 'ms'))
 ```
 
-## Clearing cache
+### Clearing cache
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
 
@@ -259,11 +236,11 @@ If you're done with your fetching and want to ensure no space is being used for 
 forgetGemmaMemoised()
 ```
 
-# Raw data
+## Raw data
 
 By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
 
-# File outputs
+## File outputs
 
 Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
 
@@ -283,7 +260,7 @@ glimpse(getDatasetSamples('GSE2018', file = 'samples')) # Some nested data.table
 
 If, for some reason, you absolutely don't want to see the return value showing up in your R instance, you can suppress it using `invisible`.
 ```{r}
-invisible(getDatasetSVD('GSE2018', raw = TTRUE, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
+invisible(getDatasetSVD('GSE2018', raw = TRUE, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
 ```
 
 ```{r include=FALSE}
@@ -292,7 +269,7 @@ unlink('platforms.csv')
 unlink('samples.rds')
 ```
 
-# Changing defaults
+## Changing defaults
 
 We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:
 
@@ -300,6 +277,6 @@ We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw =
 options(gemma.memoise = TRUE)
 ```
 
-# Authentication
+## Authentication
 
 If you have an account at [Gemma](https://gemma.msl.ubc.ca) and want to access data that is private, you can login using `setGemmaUser("USERNAME", "PASSWORD")`, providing your actual username and password. These will be passed on to every API request you make until you log out (by calling `setGemmaUser()`).
