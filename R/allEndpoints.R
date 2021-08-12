@@ -2370,6 +2370,7 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' @keywords annotation
 #'
 #' @examples
+#' searchAnnotations("traumatic")
 searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -2405,7 +2406,7 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' @export
 #'
 #' @keywords misc
-#' @example
+#' @examples
 #' forgetGemmaMemoised()
 forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)

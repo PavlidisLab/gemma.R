@@ -47,4 +47,7 @@ A \verb{400 error} if required parameters are missing.
 \description{
 Does a search for annotations based on the given string
 }
+\examples{
+searchAnnotations("traumatic")
+}
 \keyword{annotation}
