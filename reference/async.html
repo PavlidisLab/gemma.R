@@ -162,46 +162,10 @@ values, and the same environment as the original input function.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>42</span>
 <span class='va'>af</span> <span class='op'>&lt;-</span> <span class='fu'>async</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
-<span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in async(f): could not find function "async"</span></div><div class='input'><span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='va'>dx</span> <span class='op'>&lt;-</span> <span class='fu'>af</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='va'>dx</span>
-</div><div class='output co'>#&gt; &lt;deferred&gt;
-#&gt;   Public:
-#&gt;     cancel: function (reason = "Cancelled") 
-#&gt;     catch: function (...) 
-#&gt;     clone: function (deep = FALSE) 
-#&gt;     finally: function (on_finally) 
-#&gt;     initialize: function (action = NULL, on_progress = NULL, on_cancel = NULL, 
-#&gt;     share: function () 
-#&gt;     then: function (on_fulfilled) 
-#&gt;   Private:
-#&gt;     action: NULL
-#&gt;     add_as_parent: function (child) 
-#&gt;     cancel_callback: NULL
-#&gt;     cancelled: FALSE
-#&gt;     children: list
-#&gt;     dead_end: FALSE
-#&gt;     event_loop: event_loop, R6
-#&gt;     get_info: function () 
-#&gt;     id: 2
-#&gt;     make_error_object: function (err) 
-#&gt;     maybe_cancel_parents: function (reason) 
-#&gt;     mycall: call
-#&gt;     null: function () 
-#&gt;     parent_reject: function (value, resolve) 
-#&gt;     parent_resolve: function (value, resolve) 
-#&gt;     parents: NULL
-#&gt;     progress: function (data) 
-#&gt;     progress_callback: NULL
-#&gt;     reject: function (reason) 
-#&gt;     resolve: function (value) 
-#&gt;     run_action: function () 
-#&gt;     running: TRUE
-#&gt;     shared: FALSE
-#&gt;     state: fulfilled
-#&gt;     type: async
-#&gt;     update_parent: function (old, new) 
-#&gt;     value: 42</div></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in synchronise(dx &lt;- af()): could not find function "synchronise"</span></div><div class='input'><span class='va'>dx</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'dx' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

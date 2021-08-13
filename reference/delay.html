@@ -168,12 +168,7 @@ to delay the execution. It can be a fraction of a second.</p></td>
 <span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>resp</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; [1] 200
-#&gt; 
-#&gt; [[2]]
-#&gt; [1] 200
-#&gt; </div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in async(function() {    http_head("https://eu.httpbin.org?q=2")$then(function(value) resp[[1]] &lt;&lt;- value$status_code)$then(function(...) delay(1/2))$then(function(...) http_head("https://eu.httpbin.org?q=2"))$then(function(value) resp[[2]] &lt;&lt;- value$status_code)}): could not find function "async"</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,7 +1,7 @@
-pandoc: 2.7.3
+pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   gemmaAPI: gemmaAPI.html
-last_built: 2021-08-12T23:42Z
+last_built: 2021-08-13T20:54Z
 
