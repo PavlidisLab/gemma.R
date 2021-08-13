@@ -512,7 +512,7 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
 registerEndpoint("resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "getResultSets",
     logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters",
-    keyword = "resultSet",
+    keyword = "dataset",
     defaults = list(
         resultSet = NA_character_,
         filter = NA_character_,
@@ -895,7 +895,7 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&of
 registerEndpoint("annotations/search/{query}",
     "searchAnnotations",
     roxygen = "Annotation search",
-    keyword = "annotation",
+    keyword = "misc",
     defaults = list(query = NA_character_),
     validators = alist(query = validateQuery),
     preprocessor = quote(processAnnotations)

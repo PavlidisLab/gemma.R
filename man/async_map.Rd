@@ -31,3 +31,4 @@ synchronise(async_map(
 ))
 }
 \concept{async iterators}
+\keyword{async}

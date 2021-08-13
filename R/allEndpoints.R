@@ -279,7 +279,7 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @return Varies
 #' @export
 #'
-#' @keywords resultSet
+#' @keywords dataset
 #'
 #' @examples
 getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
@@ -291,7 +291,7 @@ getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
-    keyword <- "resultSet"
+    keyword <- "dataset"
     isFile <- FALSE
     fname <- "getResultSets"
     preprocessor <- processResultSets
@@ -2367,7 +2367,7 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' A `400 error` if required parameters are missing.
 #' @export
 #'
-#' @keywords annotation
+#' @keywords misc
 #'
 #' @examples
 #' searchAnnotations("traumatic")
@@ -2381,7 +2381,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
-    keyword <- "annotation"
+    keyword <- "misc"
     isFile <- FALSE
     fname <- "searchAnnotations"
     preprocessor <- processAnnotations

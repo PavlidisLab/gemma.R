@@ -144,7 +144,7 @@ batchId={countN + 1}
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
-#' @keywords gene
+#' @keywords platform
 #' @export
 #' @examples
 #' getPlatformAnnotation("GPL96")

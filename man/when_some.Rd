@@ -53,3 +53,4 @@ synchronise(afun())
 \seealso{
 \code{\link[=when_all]{when_all()}}
 }
+\keyword{async}
