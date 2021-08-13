@@ -50,4 +50,4 @@ Does a search for annotations based on the given string
 \examples{
 searchAnnotations("traumatic")
 }
-\keyword{annotation}
+\keyword{misc}

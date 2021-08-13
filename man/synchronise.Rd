@@ -34,3 +34,4 @@ synchronise(http_status("https://eu.httpbin.org/status/418"))
 }
 
 }
+\keyword{async}

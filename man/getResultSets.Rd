@@ -109,4 +109,4 @@ Varies
 \description{
 Lists resultSets filtered and organized by given parameters
 }
-\keyword{resultSet}
+\keyword{dataset}

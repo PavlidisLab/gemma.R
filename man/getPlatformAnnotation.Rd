@@ -32,4 +32,4 @@ Gets Gemma's platform annotation files that can be accessed from https://gemma.m
 \examples{
 getPlatformAnnotation("GPL96")
 }
-\keyword{gene}
+\keyword{platform}

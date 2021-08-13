@@ -28,3 +28,4 @@ f()
 synchronise(dx <- af())
 dx
 }
+\keyword{async}

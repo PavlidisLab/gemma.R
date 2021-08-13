@@ -11,6 +11,7 @@
 #' @param fun Original function.
 #' @return Async version of the original function.
 #'
+#' @keywords async
 #' @export
 #' @examples
 #' f <- function(x) 42
@@ -1495,6 +1496,7 @@ is_deferred <- function(x) {
 #' @return A deferred object.
 #'
 #' @export
+#' @keywords async
 #' @examples
 #' {
 #' ## Two HEAD requests with 1/2 sec delay between them
@@ -2515,6 +2517,7 @@ async_reject <- mark_as_async(async_reject)
 #' * `current`: already received bytes of the response.
 #'
 #' @family asyncronous HTTP calls
+#' @keywords async
 #' @export
 #' @importFrom curl new_handle handle_setheaders
 #' @examples
@@ -2573,6 +2576,7 @@ http_get <- mark_as_async(http_get)
 #' @return Deferred object.
 #'
 #' @family asyncronous HTTP calls
+#' @keywords async
 #' @export
 #' @importFrom curl handle_setopt
 #' @examples
@@ -3159,6 +3163,7 @@ lazyrmd <- local({
 #'   from the application of `.f` are resolved.
 #'
 #' @family async iterators
+#' @keywords async
 #' @export
 #' @examples
 #' synchronise(async_map(
@@ -3629,6 +3634,7 @@ async_some <- mark_as_async(async_some)
 #' to a deferred value, then it is just returned.
 #'
 #' @export
+#' @keywords async
 #' @examples
 #' {
 #' http_status <- function(url, ...) {
@@ -4256,6 +4262,7 @@ str_trim <- function(x) {
 #'   in `...` and `.list`.
 #'
 #' @seealso [when_any()], [when_some()]
+#' @keywords async
 #' @export
 #' @examples
 #' {
@@ -4325,6 +4332,7 @@ when_all <- mark_as_async(when_all)
 #'
 #' @seealso [when_all()]
 #' @export
+#' @keywords async
 #' @examples
 #' {
 #' ## Use the URL that returns first

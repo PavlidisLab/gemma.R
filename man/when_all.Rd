@@ -40,3 +40,4 @@ synchronise(afun())
 \seealso{
 \code{\link[=when_any]{when_any()}}, \code{\link[=when_some]{when_some()}}
 }
+\keyword{async}
