@@ -4,11 +4,11 @@ template:
 
 reference:
 - title: Dataset endpoints
-  desc: Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files
+  desc: Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files.
 - contents:
   - has_keyword("dataset")
 - title: Platform endpoints
-  desc: Endpoints accessing platforms, and their associated properties and files
+  desc: Endpoints accessing platforms, and their associated properties and files.
   contents:
   - has_keyword("platform")
 - title: Gene endpoints
@@ -16,14 +16,15 @@ reference:
   contents:
   - has_keyword("gene")
 - title: Taxon endpoints
-  desc: Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets
+  desc: Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets.
   contents:
   - has_keyword("taxon")
 - title: Other functions
-  desc: Remaining endpoints and helper functions
+  desc: Remaining endpoints and helper functions.
   contents:
   - has_keyword("misc")
-- title: Asynchronous
-  desc: Functions used for asynchronous requests
+- title: Asynchronous Requests
+  desc: Functions used for asynchronous requests.
   contents:
   - has_keyword("async")
+

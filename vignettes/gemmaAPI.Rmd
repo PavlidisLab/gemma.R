@@ -9,8 +9,8 @@ vignette: >
 
 ```{r, include = FALSE}
 # Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
-if(Sys.getenv('RMD_BUILD') != 1)
-  knitr::knit_exit()
+# if(Sys.getenv('RMD_BUILD') != 1)
+#   knitr::knit_exit()
 
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
@@ -40,7 +40,7 @@ The Gemma API wrapper is very straightforward to use and contains a function for
 The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as [GSE2018](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1). We can do this in one of two ways using the API:
 
 1.  Using the dataset's short name (GSE2018), or
-2.  Using the dataset's identifier (`1`, as you can see in the URL above)
+2.  Using the dataset's identifier in Gemma (e.g `1`, `2`, ...)
 
 Each case is functionally identical in the API wrapper.
 
@@ -56,7 +56,7 @@ Many endpoints also allow you to query multiple objects at the same time, for ex
 glimpse(getDatasets(datasets = c('GSE2018', 'GSE25136')))
 ```
 
-You'll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. `datasets`).
+You'll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. `datasets`, `platforms`).
 
 Some API endpoints only support a single identifier.
 
