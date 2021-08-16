@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dataset data</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasetData.Rd</code></div>
     </div>
 
@@ -238,7 +243,450 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>getDatasetData</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getDatasetData("GSE2018"): could not find function "getDatasetData"</span></div></pre>
+</div><div class='output co'>#&gt;                         Probe                         Sequence  GeneSymbol
+#&gt;     1:              1007_s_at              1007_s_at_collapsed        DDR1
+#&gt;     2:                1053_at                1053_at_collapsed        RFC2
+#&gt;     3:                 117_at                 117_at_collapsed HSPA6|HSPA7
+#&gt;     4:                 121_at                 121_at_collapsed        PAX8
+#&gt;     5:              1255_g_at              1255_g_at_collapsed      GUCA1A
+#&gt;    ---                                                                    
+#&gt; 22279: AFFX-r2-Hs28SrRNA-3_at AFFX-r2-Hs28SrRNA-3_at_collapsed            
+#&gt; 22280: AFFX-r2-Hs28SrRNA-5_at AFFX-r2-Hs28SrRNA-5_at_collapsed            
+#&gt; 22281: AFFX-r2-Hs28SrRNA-M_at AFFX-r2-Hs28SrRNA-M_at_collapsed            
+#&gt; 22282:    AFFX-r2-P1-cre-3_at    AFFX-r2-P1-cre-3_at_collapsed            
+#&gt; 22283:    AFFX-r2-P1-cre-5_at    AFFX-r2-P1-cre-5_at_collapsed            
+#&gt;                                                                                         GeneName
+#&gt;     1:                                               discoidin domain receptor tyrosine kinase 1
+#&gt;     2:                                                            replication factor C subunit 2
+#&gt;     3: heat shock protein family A (Hsp70) member 6|heat shock protein family A (Hsp70) member 7
+#&gt;     4:                                                                              paired box 8
+#&gt;     5:                                                            guanylate cyclase activator 1A
+#&gt;    ---                                                                                          
+#&gt; 22279:                                                                                          
+#&gt; 22280:                                                                                          
+#&gt; 22281:                                                                                          
+#&gt; 22282:                                                                                          
+#&gt; 22283:                                                                                          
+#&gt;            GemmaId    NCBIid
+#&gt;     1:       16908       780
+#&gt;     2:      139878      5982
+#&gt;     3: 73420|73442 3310|3311
+#&gt;     4:      173107      7849
+#&gt;     5:       58787      2978
+#&gt;    ---                      
+#&gt; 22279:                      
+#&gt; 22280:                      
+#&gt; 22281:                      
+#&gt; 22282:                      
+#&gt; 22283:                      
+#&gt;        GSE2018_bioMaterial_6.GSM36428___BioAssayId=29Name=BAL_13_A0B0
+#&gt;     1:                                                       7.664396
+#&gt;     2:                                                       6.818718
+#&gt;     3:                                                       7.702311
+#&gt;     4:                                                       8.872670
+#&gt;     5:                                                       4.023544
+#&gt;    ---                                                               
+#&gt; 22279:                                                       5.269825
+#&gt; 22280:                                                       4.032411
+#&gt; 22281:                                                       5.033840
+#&gt; 22282:                                                      12.634298
+#&gt; 22283:                                                      12.589158
+#&gt;        GSE2018_bioMaterial_28.GSM36450___BioAssayId=7Name=BAL_44b_A0B0
+#&gt;     1:                                                        7.555234
+#&gt;     2:                                                        6.817860
+#&gt;     3:                                                        7.736164
+#&gt;     4:                                                        8.728661
+#&gt;     5:                                                        4.022874
+#&gt;    ---                                                                
+#&gt; 22279:                                                        4.883055
+#&gt; 22280:                                                        4.443605
+#&gt; 22281:                                                        5.321434
+#&gt; 22282:                                                       11.756798
+#&gt; 22283:                                                       11.830940
+#&gt;        GSE2018_bioMaterial_24.GSM36446___BioAssayId=11Name=BAL_41_A1B0
+#&gt;     1:                                                        7.898749
+#&gt;     2:                                                        6.428031
+#&gt;     3:                                                        8.299871
+#&gt;     4:                                                        9.433338
+#&gt;     5:                                                        4.266776
+#&gt;    ---                                                                
+#&gt; 22279:                                                        6.307157
+#&gt; 22280:                                                        4.487075
+#&gt; 22281:                                                        5.462065
+#&gt; 22282:                                                       11.946831
+#&gt; 22283:                                                       11.781727
+#&gt;        GSE2018_bioMaterial_19.GSM36441___BioAssayId=16Name=BAL_31_A0B1
+#&gt;     1:                                                        7.482914
+#&gt;     2:                                                        6.873047
+#&gt;     3:                                                        7.714629
+#&gt;     4:                                                        9.106445
+#&gt;     5:                                                        4.127223
+#&gt;    ---                                                                
+#&gt; 22279:                                                        6.406686
+#&gt; 22280:                                                        4.551892
+#&gt; 22281:                                                        5.793712
+#&gt; 22282:                                                       12.617424
+#&gt; 22283:                                                       12.318279
+#&gt;        GSE2018_bioMaterial_5.GSM36427___BioAssayId=30Name=BAL_12_A1B0
+#&gt;     1:                                                       7.606950
+#&gt;     2:                                                       7.081941
+#&gt;     3:                                                       7.497553
+#&gt;     4:                                                       9.130426
+#&gt;     5:                                                       4.130228
+#&gt;    ---                                                               
+#&gt; 22279:                                                       6.242087
+#&gt; 22280:                                                       4.349244
+#&gt; 22281:                                                       5.663534
+#&gt; 22282:                                                      12.376739
+#&gt; 22283:                                                      12.476188
+#&gt;        GSE2018_bioMaterial_3.GSM36425___BioAssayId=32Name=BAL_15b_A0B0
+#&gt;     1:                                                        7.675714
+#&gt;     2:                                                        6.770301
+#&gt;     3:                                                        8.433980
+#&gt;     4:                                                        9.062922
+#&gt;     5:                                                        3.991846
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.699829
+#&gt; 22280:                                                        4.661939
+#&gt; 22281:                                                        5.803358
+#&gt; 22282:                                                       11.258021
+#&gt; 22283:                                                       11.643198
+#&gt;        GSE2018_bioMaterial_23.GSM36445___BioAssayId=12Name=BAL_40_A0B0
+#&gt;     1:                                                        7.568318
+#&gt;     2:                                                        6.754742
+#&gt;     3:                                                        7.307702
+#&gt;     4:                                                        9.126554
+#&gt;     5:                                                        4.057203
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.119069
+#&gt; 22280:                                                        4.238217
+#&gt; 22281:                                                        5.372956
+#&gt; 22282:                                                       12.462382
+#&gt; 22283:                                                       12.634298
+#&gt;        GSE2018_bioMaterial_33.GSM36455___BioAssayId=2Name=BAL_47b_A0B1
+#&gt;     1:                                                        7.605180
+#&gt;     2:                                                        6.785765
+#&gt;     3:                                                        7.800827
+#&gt;     4:                                                        9.024894
+#&gt;     5:                                                        4.179423
+#&gt;    ---                                                                
+#&gt; 22279:                                                        6.658047
+#&gt; 22280:                                                        4.462518
+#&gt; 22281:                                                        5.477958
+#&gt; 22282:                                                       12.871473
+#&gt; 22283:                                                       12.909754
+#&gt;        GSE2018_bioMaterial_34.GSM36456___BioAssayId=1Name=BAL_47c_A0B1
+#&gt;     1:                                                        7.629114
+#&gt;     2:                                                        6.910238
+#&gt;     3:                                                        7.474227
+#&gt;     4:                                                        9.173378
+#&gt;     5:                                                        3.955497
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.768701
+#&gt; 22280:                                                        4.355739
+#&gt; 22281:                                                        5.260586
+#&gt; 22282:                                                       12.033990
+#&gt; 22283:                                                       12.088908
+#&gt;        GSE2018_bioMaterial_29.GSM36451___BioAssayId=6Name=BAL_45a_A1B0
+#&gt;     1:                                                        7.446346
+#&gt;     2:                                                        6.803677
+#&gt;     3:                                                        7.623731
+#&gt;     4:                                                        9.293806
+#&gt;     5:                                                        4.034630
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.107271
+#&gt; 22280:                                                        4.260343
+#&gt; 22281:                                                        5.040337
+#&gt; 22282:                                                       11.272546
+#&gt; 22283:                                                       11.459026
+#&gt;        GSE2018_bioMaterial_32.GSM36454___BioAssayId=3Name=BAL_47a_A0B0
+#&gt;     1:                                                        7.787959
+#&gt;     2:                                                        6.440673
+#&gt;     3:                                                        7.844755
+#&gt;     4:                                                        9.040855
+#&gt;     5:                                                        3.909490
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.371702
+#&gt; 22280:                                                        4.276494
+#&gt; 22281:                                                        5.166088
+#&gt; 22282:                                                       12.462382
+#&gt; 22283:                                                       12.656571
+#&gt;        GSE2018_bioMaterial_27.GSM36449___BioAssayId=8Name=BAL_44a_A0B0
+#&gt;     1:                                                        7.734734
+#&gt;     2:                                                        6.940845
+#&gt;     3:                                                        7.603600
+#&gt;     4:                                                        9.248298
+#&gt;     5:                                                        4.004146
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.183981
+#&gt; 22280:                                                        4.627294
+#&gt; 22281:                                                        6.134356
+#&gt; 22282:                                                       12.257533
+#&gt; 22283:                                                       12.342556
+#&gt;        GSE2018_bioMaterial_21.GSM36443___BioAssayId=14Name=BAL_39_A0B1
+#&gt;     1:                                                        7.270490
+#&gt;     2:                                                        6.808251
+#&gt;     3:                                                        7.328971
+#&gt;     4:                                                        8.881946
+#&gt;     5:                                                        4.018348
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.413069
+#&gt; 22280:                                                        4.337369
+#&gt; 22281:                                                        5.647816
+#&gt; 22282:                                                       12.728011
+#&gt; 22283:                                                       12.855262
+#&gt;        GSE2018_bioMaterial_20.GSM36442___BioAssayId=15Name=BAL_33_A0B1
+#&gt;     1:                                                        7.428734
+#&gt;     2:                                                        7.139178
+#&gt;     3:                                                        7.568634
+#&gt;     4:                                                        8.946895
+#&gt;     5:                                                        4.025862
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.689970
+#&gt; 22280:                                                        4.311341
+#&gt; 22281:                                                        5.397744
+#&gt; 22282:                                                       11.887863
+#&gt; 22283:                                                       11.810861
+#&gt;        GSE2018_bioMaterial_17.GSM36439___BioAssayId=18Name=BAL_29_A1B0
+#&gt;     1:                                                        7.905805
+#&gt;     2:                                                        6.433760
+#&gt;     3:                                                        7.794066
+#&gt;     4:                                                        9.592714
+#&gt;     5:                                                        4.128827
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.304832
+#&gt; 22280:                                                        4.163611
+#&gt; 22281:                                                        5.566520
+#&gt; 22282:                                                       12.742010
+#&gt; 22283:                                                       12.880875
+#&gt;        GSE2018_bioMaterial_13.GSM36435___BioAssayId=22Name=BAL_25_A0B0
+#&gt;     1:                                                        7.565792
+#&gt;     2:                                                        6.887287
+#&gt;     3:                                                        7.444417
+#&gt;     4:                                                        8.923390
+#&gt;     5:                                                        3.979449
+#&gt;    ---                                                                
+#&gt; 22279:                                                        4.986458
+#&gt; 22280:                                                        4.339306
+#&gt; 22281:                                                        5.449715
+#&gt; 22282:                                                       12.323225
+#&gt; 22283:                                                       12.294077
+#&gt;        GSE2018_bioMaterial_15.GSM36437___BioAssayId=20Name=BAL_27a_A0B0
+#&gt;     1:                                                         7.912942
+#&gt;     2:                                                         6.975750
+#&gt;     3:                                                         7.775969
+#&gt;     4:                                                         9.249823
+#&gt;     5:                                                         4.027976
+#&gt;    ---                                                                 
+#&gt; 22279:                                                         5.660599
+#&gt; 22280:                                                         4.354635
+#&gt; 22281:                                                         5.502226
+#&gt; 22282:                                                        12.363355
+#&gt; 22283:                                                        12.294077
+#&gt;        GSE2018_bioMaterial_4.GSM36426___BioAssayId=31Name=BAL_1_A0B0
+#&gt;     1:                                                      7.520084
+#&gt;     2:                                                      7.158184
+#&gt;     3:                                                      7.843651
+#&gt;     4:                                                      9.057032
+#&gt;     5:                                                      4.168197
+#&gt;    ---                                                              
+#&gt; 22279:                                                      5.754021
+#&gt; 22280:                                                      4.305040
+#&gt; 22281:                                                      5.673235
+#&gt; 22282:                                                     12.419389
+#&gt; 22283:                                                     12.401875
+#&gt;        GSE2018_bioMaterial_2.GSM36424___BioAssayId=33Name=BAL_15a_A0B1
+#&gt;     1:                                                        7.633544
+#&gt;     2:                                                        6.906474
+#&gt;     3:                                                        7.689818
+#&gt;     4:                                                        8.764082
+#&gt;     5:                                                        4.025454
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.472515
+#&gt; 22280:                                                        4.360437
+#&gt; 22281:                                                        5.541409
+#&gt; 22282:                                                       12.462382
+#&gt; 22283:                                                       12.383058
+#&gt;        GSE2018_bioMaterial_26.GSM36448___BioAssayId=9Name=BAL_43_A0B0
+#&gt;     1:                                                       7.333711
+#&gt;     2:                                                       6.966837
+#&gt;     3:                                                       7.462743
+#&gt;     4:                                                       9.090870
+#&gt;     5:                                                       4.002775
+#&gt;    ---                                                               
+#&gt; 22279:                                                       5.713751
+#&gt; 22280:                                                       4.326695
+#&gt; 22281:                                                       5.575244
+#&gt; 22282:                                                      12.728011
+#&gt; 22283:                                                      12.708045
+#&gt;        GSE2018_bioMaterial_25.GSM36447___BioAssayId=10Name=BAL_42_A0B0
+#&gt;     1:                                                        7.893288
+#&gt;     2:                                                        6.649465
+#&gt;     3:                                                        8.579609
+#&gt;     4:                                                        8.930581
+#&gt;     5:                                                        4.113324
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.882000
+#&gt; 22280:                                                        4.201591
+#&gt; 22281:                                                        5.634897
+#&gt; 22282:                                                       12.758545
+#&gt; 22283:                                                       12.728011
+#&gt;        GSE2018_bioMaterial_22.GSM36444___BioAssayId=13Name=BAL_4_A0B0
+#&gt;     1:                                                       7.474848
+#&gt;     2:                                                       6.947905
+#&gt;     3:                                                       7.741327
+#&gt;     4:                                                       9.119985
+#&gt;     5:                                                       4.037982
+#&gt;    ---                                                               
+#&gt; 22279:                                                       5.745562
+#&gt; 22280:                                                       4.332832
+#&gt; 22281:                                                       5.390216
+#&gt; 22282:                                                      12.582693
+#&gt; 22283:                                                      12.742010
+#&gt;        GSE2018_bioMaterial_18.GSM36440___BioAssayId=17Name=BAL_3_A1B0
+#&gt;     1:                                                       7.543944
+#&gt;     2:                                                       6.895257
+#&gt;     3:                                                       7.542451
+#&gt;     4:                                                       8.873311
+#&gt;     5:                                                       3.861244
+#&gt;    ---                                                               
+#&gt; 22279:                                                       6.067514
+#&gt; 22280:                                                       4.337072
+#&gt; 22281:                                                       5.559285
+#&gt; 22282:                                                      12.595888
+#&gt; 22283:                                                      12.750864
+#&gt;        GSE2018_bioMaterial_8.GSM36430___BioAssayId=27Name=BAL_18_A1B0
+#&gt;     1:                                                       7.407762
+#&gt;     2:                                                       6.780074
+#&gt;     3:                                                       7.926313
+#&gt;     4:                                                       9.154426
+#&gt;     5:                                                       4.054710
+#&gt;    ---                                                               
+#&gt; 22279:                                                       7.299089
+#&gt; 22280:                                                       4.395083
+#&gt; 22281:                                                       5.974870
+#&gt; 22282:                                                      12.841431
+#&gt; 22283:                                                      12.862965
+#&gt;        GSE2018_bioMaterial_7.GSM36429___BioAssayId=28Name=BAL_17_A0B0
+#&gt;     1:                                                       7.229377
+#&gt;     2:                                                       6.963063
+#&gt;     3:                                                       7.972501
+#&gt;     4:                                                       8.806005
+#&gt;     5:                                                       4.024187
+#&gt;    ---                                                               
+#&gt; 22279:                                                       6.076631
+#&gt; 22280:                                                       4.215431
+#&gt; 22281:                                                       5.704353
+#&gt; 22282:                                                      12.516955
+#&gt; 22283:                                                      12.449719
+#&gt;        GSE2018_bioMaterial_12.GSM36434___BioAssayId=23Name=BAL_21_A0B0
+#&gt;     1:                                                        7.867851
+#&gt;     2:                                                        6.615844
+#&gt;     3:                                                        7.421375
+#&gt;     4:                                                        9.553362
+#&gt;     5:                                                        4.137057
+#&gt;    ---                                                                
+#&gt; 22279:                                                        7.957031
+#&gt; 22280:                                                        5.204943
+#&gt; 22281:                                                        7.226784
+#&gt; 22282:                                                       12.589158
+#&gt; 22283:                                                       12.909754
+#&gt;        GSE2018_bioMaterial_9.GSM36431___BioAssayId=26Name=BAL_19_A0B0
+#&gt;     1:                                                       7.821547
+#&gt;     2:                                                       6.709687
+#&gt;     3:                                                       7.825478
+#&gt;     4:                                                       9.574804
+#&gt;     5:                                                       3.989322
+#&gt;    ---                                                               
+#&gt; 22279:                                                       8.356067
+#&gt; 22280:                                                       5.687296
+#&gt; 22281:                                                       7.929119
+#&gt; 22282:                                                      12.671734
+#&gt; 22283:                                                      12.909754
+#&gt;        GSE2018_bioMaterial_30.GSM36452___BioAssayId=5Name=BAL_45b_A2B0
+#&gt;     1:                                                        7.782975
+#&gt;     2:                                                        6.593049
+#&gt;     3:                                                        7.932626
+#&gt;     4:                                                        8.999097
+#&gt;     5:                                                        3.944738
+#&gt;    ---                                                                
+#&gt; 22279:                                                        5.328197
+#&gt; 22280:                                                        4.119304
+#&gt; 22281:                                                        5.046239
+#&gt; 22282:                                                       12.123510
+#&gt; 22283:                                                       12.093898
+#&gt;        GSE2018_bioMaterial_14.GSM36436___BioAssayId=21Name=BAL_26_A2B0
+#&gt;     1:                                                        7.257932
+#&gt;     2:                                                        6.940845
+#&gt;     3:                                                        7.969855
+#&gt;     4:                                                        8.656306
+#&gt;     5:                                                        4.013794
+#&gt;    ---                                                                
+#&gt; 22279:                                                        4.948480
+#&gt; 22280:                                                        4.171280
+#&gt; 22281:                                                        5.167862
+#&gt; 22282:                                                       12.088908
+#&gt; 22283:                                                       12.211794
+#&gt;        GSE2018_bioMaterial_10.GSM36432___BioAssayId=25Name=BAL_20a_A1B1
+#&gt;     1:                                                              NaN
+#&gt;     2:                                                              NaN
+#&gt;     3:                                                              NaN
+#&gt;     4:                                                              NaN
+#&gt;     5:                                                              NaN
+#&gt;    ---                                                                 
+#&gt; 22279:                                                              NaN
+#&gt; 22280:                                                              NaN
+#&gt; 22281:                                                              NaN
+#&gt; 22282:                                                              NaN
+#&gt; 22283:                                                              NaN
+#&gt;        GSE2018_bioMaterial_11.GSM36433___BioAssayId=24Name=BAL_20b_A1B1
+#&gt;     1:                                                         7.680408
+#&gt;     2:                                                         6.650542
+#&gt;     3:                                                         7.738031
+#&gt;     4:                                                         9.239082
+#&gt;     5:                                                         4.030433
+#&gt;    ---                                                                 
+#&gt; 22279:                                                         6.952453
+#&gt; 22280:                                                         4.250091
+#&gt; 22281:                                                         5.876946
+#&gt; 22282:                                                        12.624101
+#&gt; 22283:                                                        12.449719
+#&gt;        GSE2018_bioMaterial_1.GSM36423___BioAssayId=34Name=BAL_37_A1B1
+#&gt;     1:                                                       7.466471
+#&gt;     2:                                                       6.858354
+#&gt;     3:                                                       7.689818
+#&gt;     4:                                                       9.055730
+#&gt;     5:                                                       4.062315
+#&gt;    ---                                                               
+#&gt; 22279:                                                       5.377125
+#&gt; 22280:                                                       4.253467
+#&gt; 22281:                                                       5.369570
+#&gt; 22282:                                                      11.975114
+#&gt; 22283:                                                      12.088908
+#&gt;        GSE2018_bioMaterial_31.GSM36453___BioAssayId=4Name=BAL_46_A2B0
+#&gt;     1:                                                       7.932626
+#&gt;     2:                                                       6.537636
+#&gt;     3:                                                       7.809553
+#&gt;     4:                                                      10.078527
+#&gt;     5:                                                       3.859072
+#&gt;    ---                                                               
+#&gt; 22279:                                                       8.848175
+#&gt; 22280:                                                       4.782150
+#&gt; 22281:                                                       7.281428
+#&gt; 22282:                                                      13.047083
+#&gt; 22283:                                                      13.239051
+#&gt;        GSE2018_bioMaterial_16.GSM36438___BioAssayId=19Name=BAL_27b_A2B1
+#&gt;     1:                                                         7.699664
+#&gt;     2:                                                         6.845171
+#&gt;     3:                                                         7.555798
+#&gt;     4:                                                         9.141695
+#&gt;     5:                                                         4.121438
+#&gt;    ---                                                                 
+#&gt; 22279:                                                         5.789951
+#&gt; 22280:                                                         4.440793
+#&gt; 22281:                                                         5.875893
+#&gt; 22282:                                                        12.443970
+#&gt; 22283:                                                        12.671734</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dataset samples</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasetSamples.Rd</code></div>
     </div>
 
@@ -189,7 +194,258 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>getDatasetSamples</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getDatasetSamples("GSE2018"): could not find function "getDatasetSamples"</span></div></pre>
+</div><div class='output co'>#&gt;                    bioMaterial.Name  sample.Name sample.ID
+#&gt;  1:  GSE2018_bioMaterial_4|GSM36426   BAL_1_A0B0        31
+#&gt;  2: GSE2018_bioMaterial_15|GSM36437 BAL_27a_A0B0        20
+#&gt;  3: GSE2018_bioMaterial_26|GSM36448  BAL_43_A0B0         9
+#&gt;  4:  GSE2018_bioMaterial_6|GSM36428  BAL_13_A0B0        29
+#&gt;  5: GSE2018_bioMaterial_17|GSM36439  BAL_29_A1B0        18
+#&gt;  6: GSE2018_bioMaterial_28|GSM36450 BAL_44b_A0B0         7
+#&gt;  7:  GSE2018_bioMaterial_8|GSM36430  BAL_18_A1B0        27
+#&gt;  8: GSE2018_bioMaterial_19|GSM36441  BAL_31_A0B1        16
+#&gt;  9: GSE2018_bioMaterial_30|GSM36452 BAL_45b_A2B0         5
+#&gt; 10: GSE2018_bioMaterial_10|GSM36432 BAL_20a_A1B1        25
+#&gt; 11: GSE2018_bioMaterial_21|GSM36443  BAL_39_A0B1        14
+#&gt; 12: GSE2018_bioMaterial_32|GSM36454 BAL_47a_A0B0         3
+#&gt; 13:  GSE2018_bioMaterial_1|GSM36423  BAL_37_A1B1        34
+#&gt; 14: GSE2018_bioMaterial_12|GSM36434  BAL_21_A0B0        23
+#&gt; 15: GSE2018_bioMaterial_23|GSM36445  BAL_40_A0B0        12
+#&gt; 16: GSE2018_bioMaterial_34|GSM36456 BAL_47c_A0B1         1
+#&gt; 17:  GSE2018_bioMaterial_3|GSM36425 BAL_15b_A0B0        32
+#&gt; 18: GSE2018_bioMaterial_14|GSM36436  BAL_26_A2B0        21
+#&gt; 19: GSE2018_bioMaterial_25|GSM36447  BAL_42_A0B0        10
+#&gt; 20:  GSE2018_bioMaterial_5|GSM36427  BAL_12_A1B0        30
+#&gt; 21: GSE2018_bioMaterial_16|GSM36438 BAL_27b_A2B1        19
+#&gt; 22: GSE2018_bioMaterial_27|GSM36449 BAL_44a_A0B0         8
+#&gt; 23:  GSE2018_bioMaterial_7|GSM36429  BAL_17_A0B0        28
+#&gt; 24: GSE2018_bioMaterial_18|GSM36440   BAL_3_A1B0        17
+#&gt; 25: GSE2018_bioMaterial_29|GSM36451 BAL_45a_A1B0         6
+#&gt; 26:  GSE2018_bioMaterial_9|GSM36431  BAL_19_A0B0        26
+#&gt; 27: GSE2018_bioMaterial_20|GSM36442  BAL_33_A0B1        15
+#&gt; 28: GSE2018_bioMaterial_31|GSM36453  BAL_46_A2B0         4
+#&gt; 29: GSE2018_bioMaterial_11|GSM36433 BAL_20b_A1B1        24
+#&gt; 30: GSE2018_bioMaterial_22|GSM36444   BAL_4_A0B0        13
+#&gt; 31: GSE2018_bioMaterial_33|GSM36455 BAL_47b_A0B1         2
+#&gt; 32:  GSE2018_bioMaterial_2|GSM36424 BAL_15a_A0B1        33
+#&gt; 33: GSE2018_bioMaterial_13|GSM36435  BAL_25_A0B0        22
+#&gt; 34: GSE2018_bioMaterial_24|GSM36446  BAL_41_A1B0        11
+#&gt;                    bioMaterial.Name  sample.Name sample.ID
+#&gt;                                                  sample.Correspondence
+#&gt;  1:                                Corresponding to Samples:  GSM36426
+#&gt;  2:                                Corresponding to Samples:  GSM36437
+#&gt;  3: Corresponding to samples:  ial corresponding to samples:  GSM36448
+#&gt;  4:                                Corresponding to Samples:  GSM36428
+#&gt;  5:                                Corresponding to Samples:  GSM36439
+#&gt;  6: Corresponding to samples:  ial corresponding to samples:  GSM36450
+#&gt;  7:                                Corresponding to Samples:  GSM36430
+#&gt;  8:                                Corresponding to Samples:  GSM36441
+#&gt;  9: Corresponding to samples:  ial corresponding to samples:  GSM36452
+#&gt; 10:                                Corresponding to Samples:  GSM36432
+#&gt; 11:                                Corresponding to Samples:  GSM36443
+#&gt; 12: Corresponding to samples:  ial corresponding to samples:  GSM36454
+#&gt; 13:                                Corresponding to Samples:  GSM36423
+#&gt; 14:                                Corresponding to Samples:  GSM36434
+#&gt; 15:                                Corresponding to Samples:  GSM36445
+#&gt; 16: Corresponding to samples:  ial corresponding to samples:  GSM36456
+#&gt; 17:                                Corresponding to Samples:  GSM36425
+#&gt; 18:                                Corresponding to Samples:  GSM36436
+#&gt; 19: Corresponding to samples:  ial corresponding to samples:  GSM36447
+#&gt; 20:                                Corresponding to Samples:  GSM36427
+#&gt; 21:                                Corresponding to Samples:  GSM36438
+#&gt; 22: Corresponding to samples:  ial corresponding to samples:  GSM36449
+#&gt; 23:                                Corresponding to Samples:  GSM36429
+#&gt; 24:                                Corresponding to Samples:  GSM36440
+#&gt; 25: Corresponding to samples:  ial corresponding to samples:  GSM36451
+#&gt; 26:                                Corresponding to Samples:  GSM36431
+#&gt; 27:                                Corresponding to Samples:  GSM36442
+#&gt; 28: Corresponding to samples:  ial corresponding to samples:  GSM36453
+#&gt; 29:                                Corresponding to Samples:  GSM36433
+#&gt; 30:                                Corresponding to Samples:  GSM36444
+#&gt; 31: Corresponding to samples:  ial corresponding to samples:  GSM36455
+#&gt; 32:                                Corresponding to Samples:  GSM36424
+#&gt; 33:                                Corresponding to Samples:  GSM36435
+#&gt; 34:                                Corresponding to Samples:  GSM36446
+#&gt;                                                  sample.Correspondence
+#&gt;                                                                                                                                                                                                                                           sample.Description
+#&gt;  1:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36426\nLast updated (according to GEO): May 27 2005
+#&gt;  2:     Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36437\nLast updated (according to GEO): May 27 2005
+#&gt;  3:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36448\nLast updated (according to GEO): May 27 2005
+#&gt;  4:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36428\nLast updated (according to GEO): May 27 2005
+#&gt;  5:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36439\nLast updated (according to GEO): May 27 2005
+#&gt;  6:     Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36450\nLast updated (according to GEO): May 27 2005
+#&gt;  7:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36430\nLast updated (according to GEO): May 27 2005
+#&gt;  8:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection).\nSource GEO sample is GSM36441\nLast updated (according to GEO): May 27 2005
+#&gt;  9:         Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=2 and B=0 (Acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36452\nLast updated (according to GEO): May 27 2005
+#&gt; 10:        Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=1 (Acute rejection). One of two samples from the same patient, different visits.\nSource GEO sample is GSM36432\nLast updated (according to GEO): May 27 2005
+#&gt; 11:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection).\nSource GEO sample is GSM36443\nLast updated (according to GEO): May 27 2005
+#&gt; 12:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of three samples from the same patient, different visits.\nSource GEO sample is GSM36454\nLast updated (according to GEO): May 27 2005
+#&gt; 13:                                                                     Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=1 (Acute rejection)\nSource GEO sample is GSM36423\nLast updated (according to GEO): May 27 2005
+#&gt; 14:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36434\nLast updated (according to GEO): May 27 2005
+#&gt; 15:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36445\nLast updated (according to GEO): May 27 2005
+#&gt; 16:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection). One of three samples from the same patient, different visits.\nSource GEO sample is GSM36456\nLast updated (according to GEO): May 27 2005
+#&gt; 17:     Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36425\nLast updated (according to GEO): May 27 2005
+#&gt; 18:                                                                    Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=2 and B=0 (Acute rejection).\nSource GEO sample is GSM36436\nLast updated (according to GEO): May 27 2005
+#&gt; 19:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36447\nLast updated (according to GEO): May 27 2005
+#&gt; 20:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36427\nLast updated (according to GEO): May 27 2005
+#&gt; 21:         Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=2 and B=1 (Acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36438\nLast updated (according to GEO): May 27 2005
+#&gt; 22:     Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36449\nLast updated (according to GEO): May 27 2005
+#&gt; 23:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36429\nLast updated (according to GEO): May 27 2005
+#&gt; 24:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36440\nLast updated (according to GEO): May 27 2005
+#&gt; 25:    Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits.\nSource GEO sample is GSM36451\nLast updated (according to GEO): May 27 2005
+#&gt; 26:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36431\nLast updated (according to GEO): May 27 2005
+#&gt; 27:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection).\nSource GEO sample is GSM36442\nLast updated (according to GEO): May 27 2005
+#&gt; 28:                                                                    Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=2 and B=0 (Acute rejection).\nSource GEO sample is GSM36453\nLast updated (according to GEO): May 27 2005
+#&gt; 29:        Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=1 (Acute rejection). One of two samples from the same patient, different visits.\nSource GEO sample is GSM36433\nLast updated (according to GEO): May 27 2005
+#&gt; 30:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36444\nLast updated (according to GEO): May 27 2005
+#&gt; 31:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection). One of three samples from the same patient, different visits.\nSource GEO sample is GSM36455\nLast updated (according to GEO): May 27 2005
+#&gt; 32:    Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=1 (Non-acute rejection). One of two samples from the same patient, different visits.\nSource GEO sample is GSM36424\nLast updated (according to GEO): May 27 2005
+#&gt; 33:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36435\nLast updated (according to GEO): May 27 2005
+#&gt; 34:                                                                Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36446\nLast updated (according to GEO): May 27 2005
+#&gt;                                                                                                                                                                                                                                           sample.Description
+#&gt;     sample.Outlier sample.Accession sample.Processed sample.Characteristics
+#&gt;  1:          FALSE         GSM36426     1.036695e+12      &lt;data.table[2x4]&gt;
+#&gt;  2:          FALSE         GSM36437     1.036693e+12      &lt;data.table[2x4]&gt;
+#&gt;  3:          FALSE         GSM36448     1.035573e+12      &lt;data.table[2x4]&gt;
+#&gt;  4:          FALSE         GSM36428     1.022102e+12      &lt;data.table[2x4]&gt;
+#&gt;  5:          FALSE         GSM36439     1.033757e+12      &lt;data.table[2x4]&gt;
+#&gt;  6:          FALSE         GSM36450     1.018980e+12      &lt;data.table[2x4]&gt;
+#&gt;  7:          FALSE         GSM36430     1.038437e+12      &lt;data.table[2x4]&gt;
+#&gt;  8:          FALSE         GSM36441     1.017868e+12      &lt;data.table[2x4]&gt;
+#&gt;  9:          FALSE         GSM36452     1.022094e+12      &lt;data.table[2x4]&gt;
+#&gt; 10:           TRUE         GSM36432     1.033585e+12      &lt;data.table[2x4]&gt;
+#&gt; 11:          FALSE         GSM36443     1.034711e+12      &lt;data.table[2x4]&gt;
+#&gt; 12:          FALSE         GSM36454     1.035314e+12      &lt;data.table[2x4]&gt;
+#&gt; 13:          FALSE         GSM36423     1.035575e+12      &lt;data.table[2x4]&gt;
+#&gt; 14:          FALSE         GSM36434     1.014920e+12      &lt;data.table[2x4]&gt;
+#&gt; 15:          FALSE         GSM36445     1.022189e+12      &lt;data.table[2x4]&gt;
+#&gt; 16:          FALSE         GSM36456     1.031678e+12      &lt;data.table[2x4]&gt;
+#&gt; 17:          FALSE         GSM36425     1.023216e+12      &lt;data.table[2x4]&gt;
+#&gt; 18:          FALSE         GSM36436     1.022179e+12      &lt;data.table[2x4]&gt;
+#&gt; 19:          FALSE         GSM36447     1.038437e+12      &lt;data.table[2x4]&gt;
+#&gt; 20:          FALSE         GSM36427     1.022872e+12      &lt;data.table[2x4]&gt;
+#&gt; 21:          FALSE         GSM36438     1.014919e+12      &lt;data.table[2x4]&gt;
+#&gt; 22:          FALSE         GSM36449     1.035308e+12      &lt;data.table[2x4]&gt;
+#&gt; 23:          FALSE         GSM36429     1.038435e+12      &lt;data.table[2x4]&gt;
+#&gt; 24:          FALSE         GSM36440     1.038433e+12      &lt;data.table[2x4]&gt;
+#&gt; 25:          FALSE         GSM36451     1.027532e+12      &lt;data.table[2x4]&gt;
+#&gt; 26:          FALSE         GSM36431     1.016133e+12      &lt;data.table[2x4]&gt;
+#&gt; 27:          FALSE         GSM36442     1.035307e+12      &lt;data.table[2x4]&gt;
+#&gt; 28:          FALSE         GSM36453     1.012521e+12      &lt;data.table[2x4]&gt;
+#&gt; 29:          FALSE         GSM36433     1.035313e+12      &lt;data.table[2x4]&gt;
+#&gt; 30:          FALSE         GSM36444     1.038439e+12      &lt;data.table[2x4]&gt;
+#&gt; 31:          FALSE         GSM36455     1.033677e+12      &lt;data.table[2x4]&gt;
+#&gt; 32:          FALSE         GSM36424     1.036696e+12      &lt;data.table[2x4]&gt;
+#&gt; 33:          FALSE         GSM36435     1.033758e+12      &lt;data.table[2x4]&gt;
+#&gt; 34:          FALSE         GSM36446     1.017866e+12      &lt;data.table[2x4]&gt;
+#&gt;     sample.Outlier sample.Accession sample.Processed sample.Characteristics
+#&gt;     sample.FactorValues array.ShortName
+#&gt;  1:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  2:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  3:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  4:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  5:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  6:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  7:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  8:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;  9:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 10:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 11:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 12:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 13:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 14:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 15:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 16:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 17:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 18:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 19:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 20:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 21:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 22:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 23:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 24:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 25:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 26:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 27:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 28:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 29:   &lt;data.table[3x4]&gt;           GPL96
+#&gt; 30:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 31:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 32:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 33:   &lt;data.table[2x4]&gt;           GPL96
+#&gt; 34:   &lt;data.table[2x4]&gt;           GPL96
+#&gt;     sample.FactorValues array.ShortName
+#&gt;                                                   array.Name array.Taxon
+#&gt;  1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  2: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  3: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  4: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  5: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  6: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  7: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  8: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;  9: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 10: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 11: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 12: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 13: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 14: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 15: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 16: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 17: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 18: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 19: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 20: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 21: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 22: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 23: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 24: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 25: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 26: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 27: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 28: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 29: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 30: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 31: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 32: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 33: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt; 34: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
+#&gt;                                                   array.Name array.Taxon
+#&gt;     array.TaxonID array.Type array.Description array.Troubled
+#&gt;  1:            NA         NA                NA          FALSE
+#&gt;  2:            NA         NA                NA          FALSE
+#&gt;  3:            NA         NA                NA          FALSE
+#&gt;  4:            NA         NA                NA          FALSE
+#&gt;  5:            NA         NA                NA          FALSE
+#&gt;  6:            NA         NA                NA          FALSE
+#&gt;  7:            NA         NA                NA          FALSE
+#&gt;  8:            NA         NA                NA          FALSE
+#&gt;  9:            NA         NA                NA          FALSE
+#&gt; 10:            NA         NA                NA          FALSE
+#&gt; 11:            NA         NA                NA          FALSE
+#&gt; 12:            NA         NA                NA          FALSE
+#&gt; 13:            NA         NA                NA          FALSE
+#&gt; 14:            NA         NA                NA          FALSE
+#&gt; 15:            NA         NA                NA          FALSE
+#&gt; 16:            NA         NA                NA          FALSE
+#&gt; 17:            NA         NA                NA          FALSE
+#&gt; 18:            NA         NA                NA          FALSE
+#&gt; 19:            NA         NA                NA          FALSE
+#&gt; 20:            NA         NA                NA          FALSE
+#&gt; 21:            NA         NA                NA          FALSE
+#&gt; 22:            NA         NA                NA          FALSE
+#&gt; 23:            NA         NA                NA          FALSE
+#&gt; 24:            NA         NA                NA          FALSE
+#&gt; 25:            NA         NA                NA          FALSE
+#&gt; 26:            NA         NA                NA          FALSE
+#&gt; 27:            NA         NA                NA          FALSE
+#&gt; 28:            NA         NA                NA          FALSE
+#&gt; 29:            NA         NA                NA          FALSE
+#&gt; 30:            NA         NA                NA          FALSE
+#&gt; 31:            NA         NA                NA          FALSE
+#&gt; 32:            NA         NA                NA          FALSE
+#&gt; 33:            NA         NA                NA          FALSE
+#&gt; 34:            NA         NA                NA          FALSE
+#&gt;     array.TaxonID array.Type array.Description array.Troubled</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Genes</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getGenes.Rd</code></div>
     </div>
 
@@ -196,8 +201,66 @@ A <code>400 error</code> if required parameters are missing.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>getGenes</span><span class='op'>(</span><span class='st'>"DYRK1A"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getGenes("DYRK1A"): could not find function "getGenes"</span></div><div class='input'><span class='fu'>getGenes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DYRK1A"</span>, <span class='st'>"PTEN"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getGenes(c("DYRK1A", "PTEN")): could not find function "getGenes"</span></div></pre>
+</div><div class='output co'>#&gt;    gene.Symbol       gene.Ensembl gene.NCBI
+#&gt; 1:      DYRK1A    ENSG00000157540      1859
+#&gt; 2:      Dyrk1a ENSMUSG00000022897     13548
+#&gt; 3:      Dyrk1a ENSRNOG00000001662     25255
+#&gt;                                                            gene.Name
+#&gt; 1:     dual specificity tyrosine phosphorylation regulated kinase 1A
+#&gt; 2: dual-specificity tyrosine-(Y)-phosphorylation regulated kinase 1a
+#&gt; 3:     dual specificity tyrosine phosphorylation regulated kinase 1A
+#&gt;    gene.Aliases                                      gene.Description gene.GO
+#&gt; 1:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 2:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 3:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt;    gene.Homologues gene.MFX.Rank taxon.Name taxon.ID  taxon.Scientific
+#&gt; 1:              NA             0      human        1      Homo sapiens
+#&gt; 2:              NA             0      mouse        2      Mus musculus
+#&gt; 3:              NA             0        rat        3 Rattus norvegicus
+#&gt;    phenotypes
+#&gt; 1:         NA
+#&gt; 2:         NA
+#&gt; 3:         NA</div><div class='input'><span class='fu'>getGenes</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"DYRK1A"</span>, <span class='st'>"PTEN"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    gene.Symbol       gene.Ensembl gene.NCBI
+#&gt; 1:      DYRK1A    ENSG00000157540      1859
+#&gt; 2:        PTEN    ENSG00000171862      5728
+#&gt; 3:      Dyrk1a ENSMUSG00000022897     13548
+#&gt; 4:        Pten ENSMUSG00000013663     19211
+#&gt; 5:      Dyrk1a ENSRNOG00000001662     25255
+#&gt; 6:        Pten ENSRNOG00000020723     50557
+#&gt; 7:        Pten        FBgn0026379     43991
+#&gt;                                                            gene.Name
+#&gt; 1:     dual specificity tyrosine phosphorylation regulated kinase 1A
+#&gt; 2:                                    phosphatase and tensin homolog
+#&gt; 3: dual-specificity tyrosine-(Y)-phosphorylation regulated kinase 1a
+#&gt; 4:                                    phosphatase and tensin homolog
+#&gt; 5:     dual specificity tyrosine phosphorylation regulated kinase 1A
+#&gt; 6:                                    phosphatase and tensin homolog
+#&gt; 7:                                    Phosphatase and tensin homolog
+#&gt;    gene.Aliases                                      gene.Description gene.GO
+#&gt; 1:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 2:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 3:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 4:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 5:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 6:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt; 7:           NA Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt;    gene.Homologues gene.MFX.Rank taxon.Name taxon.ID        taxon.Scientific
+#&gt; 1:              NA             0      human        1            Homo sapiens
+#&gt; 2:              NA             0      human        1            Homo sapiens
+#&gt; 3:              NA             0      mouse        2            Mus musculus
+#&gt; 4:              NA             0      mouse        2            Mus musculus
+#&gt; 5:              NA             0        rat        3       Rattus norvegicus
+#&gt; 6:              NA             0        rat        3       Rattus norvegicus
+#&gt; 7:              NA             0        fly       13 Drosophila melanogaster
+#&gt;    phenotypes
+#&gt; 1:         NA
+#&gt; 2:         NA
+#&gt; 3:         NA
+#&gt; 4:         NA
+#&gt; 5:         NA
+#&gt; 6:         NA
+#&gt; 7:         NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

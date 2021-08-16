@@ -114,7 +114,12 @@ later than the specified time period." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -129,7 +134,7 @@ later than the specified time period." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Delay async computation for the specified time</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
     <div class="hidden name"><code>delay.Rd</code></div>
     </div>
 
@@ -168,7 +173,12 @@ to delay the execution. It can be a fraction of a second.</p></td>
 <span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>resp</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in async(function() {    http_head("https://eu.httpbin.org?q=2")$then(function(value) resp[[1]] &lt;&lt;- value$status_code)$then(function(...) delay(1/2))$then(function(...) http_head("https://eu.httpbin.org?q=2"))$then(function(value) resp[[2]] &lt;&lt;- value$status_code)}): could not find function "async"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 200
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 200
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

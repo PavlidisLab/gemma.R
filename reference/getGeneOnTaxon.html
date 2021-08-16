@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Gene on specific taxon</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getGeneOnTaxon.Rd</code></div>
     </div>
 
@@ -213,7 +218,16 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>getGeneOnTaxon</span><span class='op'>(</span><span class='st'>"human"</span>, <span class='st'>"DYRK1A"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getGeneOnTaxon("human", "DYRK1A"): could not find function "getGeneOnTaxon"</span></div></pre>
+</div><div class='output co'>#&gt;    gene.Symbol    gene.Ensembl gene.NCBI
+#&gt; 1:      DYRK1A ENSG00000157540      1859
+#&gt;                                                        gene.Name gene.Aliases
+#&gt; 1: dual specificity tyrosine phosphorylation regulated kinase 1A           NA
+#&gt;                                         gene.Description gene.GO
+#&gt; 1: Imported from NCBI gene; Nomenclature status: INTERIM       0
+#&gt;    gene.Homologues gene.MFX.Rank taxon.Name taxon.ID taxon.Scientific
+#&gt; 1:              NA             0      human        1     Homo sapiens
+#&gt;    phenotypes
+#&gt; 1:         NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -112,7 +112,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -141,7 +146,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-dataset-endpoints" class="hasAnchor"><a href="#section-dataset-endpoints" class="anchor"></a>Dataset endpoints</h2>
-          <p class="section-desc"><p>Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files</p></p>
+          <p class="section-desc"><p>Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files.</p></p>
         </th>
       </tr>
       
@@ -224,6 +229,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="getResultSets.html">getResultSets()</a></code> </p>
+        </td>
+        <td><p>getResultSets</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="searchDatasets.html">searchDatasets()</a></code> </p>
         </td>
         <td><p>Dataset search</p></td>
@@ -232,7 +243,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-platform-endpoints" class="hasAnchor"><a href="#section-platform-endpoints" class="anchor"></a>Platform endpoints</h2>
-          <p class="section-desc"><p>Endpoints accessing platforms, and their associated properties and files</p></p>
+          <p class="section-desc"><p>Endpoints accessing platforms, and their associated properties and files.</p></p>
         </th>
       </tr>
       
@@ -241,6 +252,12 @@
       
       
       <tr>
+        
+        <td>
+          <p><code><a href="getPlatformAnnotation.html">getPlatformAnnotation()</a></code> </p>
+        </td>
+        <td><p>Get Gemma platform annotations</p></td>
+      </tr><tr>
         
         <td>
           <p><code><a href="getPlatformDatasets.html">getPlatformDatasets()</a></code> </p>
@@ -313,18 +330,12 @@
           <p><code><a href="getGenes.html">getGenes()</a></code> </p>
         </td>
         <td><p>Genes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="getPlatformAnnotation.html">getPlatformAnnotation()</a></code> </p>
-        </td>
-        <td><p>Get Gemma platform annotations</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
           <h2 id="section-taxon-endpoints" class="hasAnchor"><a href="#section-taxon-endpoints" class="anchor"></a>Taxon endpoints</h2>
-          <p class="section-desc"><p>Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets</p></p>
+          <p class="section-desc"><p>Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets.</p></p>
         </th>
       </tr>
       
@@ -385,7 +396,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
-          <p class="section-desc"><p>Remaining endpoints and helper functions</p></p>
+          <p class="section-desc"><p>Remaining endpoints and helper functions.</p></p>
         </th>
       </tr>
       
@@ -402,9 +413,76 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="searchAnnotations.html">searchAnnotations()</a></code> </p>
+        </td>
+        <td><p>Annotation search</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="setGemmaUser.html">setGemmaUser()</a></code> </p>
         </td>
         <td><p>Authentication</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-asynchronous-requests" class="hasAnchor"><a href="#section-asynchronous-requests" class="anchor"></a>Asynchronous Requests</h2>
+          <p class="section-desc"><p>Functions used for asynchronous requests.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="async.html">async()</a></code> </p>
+        </td>
+        <td><p>Create an async function</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="async_map.html">async_map()</a></code> </p>
+        </td>
+        <td><p>Apply an asynchronous function to each element of a vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="delay.html">delay()</a></code> </p>
+        </td>
+        <td><p>Delay async computation for the specified time</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="http_get.html">http_get()</a></code> </p>
+        </td>
+        <td><p>Asynchronous HTTP GET request</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="http_head.html">http_head()</a></code> </p>
+        </td>
+        <td><p>Asynchronous HTTP HEAD request</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="synchronise.html">synchronise()</a></code> </p>
+        </td>
+        <td><p>Synchronously wrap asynchronous code</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="when_all.html">when_all()</a></code> </p>
+        </td>
+        <td><p>Deferred value for a set of deferred values</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="when_some.html">when_some()</a></code> <code><a href="when_some.html">when_any()</a></code> </p>
+        </td>
+        <td><p>Resolve a deferred as soon as some deferred from a list resolve</p></td>
       </tr>
     </tbody>
     </table>

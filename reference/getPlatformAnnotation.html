@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get Gemma platform annotations</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>getPlatformAnnotation.Rd</code></div>
     </div>
 
@@ -175,7 +180,42 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>getPlatformAnnotation</span><span class='op'>(</span><span class='st'>"GPL96"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in getPlatformAnnotation("GPL96"): could not find function "getPlatformAnnotation"</span></div></pre>
+</div><div class='output co'>#&gt;          ProbeName   GeneSymbols                                     GeneNames
+#&gt;     1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a
+#&gt;     2:   216678_at                                                            
+#&gt;     3:   216345_at        ZSWIM8            zinc finger SWIM-type containing 8
+#&gt;     4:   207273_at                                                            
+#&gt;     5: 216025_x_at        CYP2C9 cytochrome P450 family 2 subfamily C member 9
+#&gt;    ---                                                                        
+#&gt; 22279:   217957_at        CFAP20      cilia and flagella associated protein 20
+#&gt; 22280:   206364_at         KIF14                      kinesin family member 14
+#&gt; 22281: 209679_s_at         SMAGP              small cell adhesion glycoprotein
+#&gt; 22282:   216469_at                                                            
+#&gt; 22283: 207032_s_at        CRISP1             cysteine rich secretory protein 1
+#&gt;                                                                                                                                                                                                                                                                                                                                                     GOTerms
+#&gt;     1:                                                                                                                                                                                                                                                   GO:0051301|GO:0000226|GO:0007017|GO:0000278|GO:0030705|GO:0000086|GO:0050807|GO:0010389|GO:0097711
+#&gt;     2:                                                                                                                                                                                                                                                                                                                                                     
+#&gt;     3:                                                                                                                                                                                                                                                                                                                                           GO:1902667
+#&gt;     4:                                                                                                                                                                                                                                                                                                                                                     
+#&gt;     5:                                                                                                                                                GO:0008203|GO:0008202|GO:0055114|GO:0006805|GO:0019373|GO:0097267|GO:0032787|GO:0046456|GO:0008210|GO:0019627|GO:0042738|GO:0006082|GO:0042759|GO:0042737|GO:0070989|GO:0043603|GO:0017144|GO:0016098
+#&gt;    ---                                                                                                                                                                                                                                                                                                                                                     
+#&gt; 22279:                                                                                                                                                                                                                                                                                    GO:0018095|GO:0060271|GO:0007275|GO:0060296|GO:2000253|GO:2000147
+#&gt; 22280: GO:0007019|GO:0021685|GO:0030334|GO:1903429|GO:0007018|GO:0033624|GO:0010389|GO:2000045|GO:0007080|GO:0031146|GO:0031641|GO:0021766|GO:0021987|GO:0030155|GO:0021846|GO:0001558|GO:0021693|GO:0043161|GO:0045184|GO:0051301|GO:0021772|GO:0021695|GO:0030705|GO:0043066|GO:0008284|GO:0043524|GO:0043523|GO:0034446|GO:0032467|GO:0032147|GO:0032487
+#&gt; 22281:                                                                                                                                                                                                                                                                                                                                                     
+#&gt; 22282:                                                                                                                                                                                                                                                                                                                                                     
+#&gt; 22283:                                                                                                                                                                                                                                                                                                                     GO:0007339|GO:0007342|GO:0060046
+#&gt;             GemmaIDs    NCBIids
+#&gt;     1: 360802|172797 84790|7846
+#&gt;     2:                         
+#&gt;     3:        235733      23053
+#&gt;     4:                         
+#&gt;     5:         32964       1559
+#&gt;    ---                         
+#&gt; 22279:        264549      29105
+#&gt; 22280:        204722       9928
+#&gt; 22281:        314365      57228
+#&gt; 22282:                         
+#&gt; 22283:          4293        167</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

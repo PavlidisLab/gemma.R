@@ -115,7 +115,12 @@ triggers the error when_all as well." />
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -130,7 +135,7 @@ triggers the error when_all as well." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Deferred value for a set of deferred values</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
     <div class="hidden name"><code>when_all.Rd</code></div>
     </div>
 
@@ -178,7 +183,7 @@ of them will be automatically cancelled.</p>
 <span class='op'>}</span><span class='op'>)</span>
 <span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in async(function() {    u1 &lt;- http_get("https://eu.httpbin.org")    u2 &lt;- http_get("https://eu.httpbin.org/get")    when_all(u1, u2)$then(function(x) identical(x[[1]]$content,         x[[2]]$content))}): could not find function "async"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -113,7 +113,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/PavlidisLab/Gemma-API/">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -128,7 +133,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Asynchronous HTTP HEAD request</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
     <div class="hidden name"><code>http_head.Rd</code></div>
     </div>
 
@@ -196,7 +201,12 @@ response body is written to a file. See details below.</p></td>
 <span class='va'>urls</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"https://google.com"</span>, <span class='st'>"https://eu.httpbin.org"</span><span class='op'>)</span>
 <span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='va'>urls</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in async(function() {    dx &lt;- http_head("https://eu.httpbin.org/status/200")$then(function(x) x$status_code)}): could not find function "async"</span></div><div class='input'>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; [1] 200
+#&gt; 
+#&gt; [[2]]
+#&gt; [1] 200
+#&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
