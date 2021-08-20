@@ -171,7 +171,8 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetPCA("GSE2018")
+#' dat <- getDatasetPCA("GSE2018")
+#' str(dat$expr)
 getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L,
     keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption(
         "gemma.raw",
@@ -371,7 +372,8 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetDE("GSE2018", diffExSet = 468329)
+#' dat <- getDatasetDE("GSE2018", diffExSet = 468329)
+#' str(dat$expr)
 getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
     diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_,
     raw = getOption("gemma.raw", FALSE), async = getOption(
@@ -469,7 +471,8 @@ memgetDatasetDE <- memoise::memoise(getDatasetDE)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetData("GSE2018")
+#' dat <- getDatasetData("GSE2018")
+#' str(dat)
 getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
@@ -523,7 +526,8 @@ memgetDatasetData <- memoise::memoise(getDatasetData)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetSamples("GSE2018")
+#' dat <- getDatasetSamples("GSE2018")
+#' head(dat)
 getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -640,7 +644,8 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetSVD("GSE2018")
+#' dat <- getDatasetSVD("GSE2018")
+#' head(dat)
 getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -804,7 +809,8 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasetDesign("GSE2018")
+#' dat <- getDatasetDesign("GSE2018")
+#' str(dat)
 getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -2307,7 +2313,8 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' @keywords dataset
 #'
 #' @examples
-#' searchDatasets("bipolar")
+#' dat <- searchDatasets("bipolar")
+#' str(dat)
 searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter = NA_character_,
     offset = 0L, limit = 0L, sort = "+id", raw = getOption(
         "gemma.raw",

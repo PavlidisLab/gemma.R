@@ -42,6 +42,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves samples for the given dataset
 }
 \examples{
-getDatasetSamples("GSE2018")
+dat <- getDatasetSamples("GSE2018")
+head(dat)
 }
 \keyword{dataset}

@@ -87,6 +87,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves differential expression levels for given datasets
 }
 \examples{
-getDatasetDE("GSE2018", diffExSet = 468329)
+dat <- getDatasetDE("GSE2018", diffExSet = 468329)
+str(dat$expr)
 }
 \keyword{dataset}
