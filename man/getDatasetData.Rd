@@ -90,6 +90,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves the data for the given dataset
 }
 \examples{
-getDatasetData("GSE2018")
+dat <- getDatasetData("GSE2018")
+str(dat)
 }
 \keyword{dataset}

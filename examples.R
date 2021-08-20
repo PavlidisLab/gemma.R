@@ -8,7 +8,8 @@ If raw is TRUE, a list with the same information."
 
 # searchDatasets
 # example
-searchDatasets("bipolar")
+dat <- searchDatasets("bipolar")
+str(dat)
 # value
 "If raw is FALSE (default), a data table with information about the queried dataset(s).
 If raw is TRUE, a list with the same information."
@@ -22,7 +23,8 @@ If raw is TRUE, a list with the same information."
 
 # getDatasetSamples
 # example
-getDatasetSamples("GSE2018")
+dat <- getDatasetSamples("GSE2018")
+head(dat)
 # value
 "If raw is FALSE (default), a data table with information about the samples of the queried dataset.
 If raw is TRUE, a list with the same information."
@@ -36,7 +38,8 @@ If raw is TRUE, a list with the same information."
 
 # getDatasetSVD
 # example
-getDatasetSVD("GSE2018")
+dat <- getDatasetSVD("GSE2018")
+head(dat)
 # value
 "If raw is FALSE (default), a data table of the support vector decomposition of the queried dataset.
 If raw is TRUE, a list with the same information."
@@ -50,28 +53,32 @@ If raw is TRUE, a list with the same information."
 
 # getDatasetData
 # example
-getDatasetData("GSE2018")
+dat <- getDatasetData("GSE2018")
+str(dat)
 # value
 "If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
 If raw is TRUE, a list with the expression matrix in binary form."
 
 # getDatasetDesign
 # example
-getDatasetDesign("GSE2018")
+dat <- getDatasetDesign("GSE2018")
+str(dat)
 # value
 "If raw is FALSE (default), a data table of the design matrix for the queried dataset.
 If raw is TRUE, a list with the design matrix in binary form."
 
 # getDatasetPCA
 # example
-getDatasetPCA("GSE2018")
+dat <- getDatasetPCA("GSE2018")
+str(dat$expr)
 # value
 "If raw is FALSE (default), a data table with the expression values for the selected component.
 If raw is TRUE, a list with the same information."
 
 # getDatasetDE
 # example
-getDatasetDE("GSE2018", diffExSet =  468329)
+dat <- getDatasetDE("GSE2018", diffExSet =  468329)
+str(dat$expr)
 # value
 "If raw is FALSE (default), a data table with the expression values.
 If raw is TRUE, a list with the same information."

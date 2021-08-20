@@ -78,6 +78,7 @@ Retrieves the expression levels most correlated with the given principal
 component
 }
 \examples{
-getDatasetPCA("GSE2018")
+dat <- getDatasetPCA("GSE2018")
+str(dat$expr)
 }
 \keyword{dataset}

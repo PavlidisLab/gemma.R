@@ -144,6 +144,7 @@ Does a search for datasets containing annotations, short name or full
 name matching the given string
 }
 \examples{
-searchDatasets("bipolar")
+dat <- searchDatasets("bipolar")
+str(dat)
 }
 \keyword{dataset}

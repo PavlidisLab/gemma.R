@@ -51,6 +51,7 @@ variance each component accounts for
 Retrieves the SVD information for the given dataset
 }
 \examples{
-getDatasetSVD("GSE2018")
+dat <- getDatasetSVD("GSE2018")
+head(dat)
 }
 \keyword{dataset}
