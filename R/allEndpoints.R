@@ -989,7 +989,8 @@ memgetPlatforms <- memoise::memoise(getPlatforms)
 #' @keywords platform
 #'
 #' @examples
-#' getPlatformDatasets("GPL1355")
+#' dat <- getPlatformDatasets("GPL1355")
+#' str(dat, vec.len = 1)
 getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -1061,7 +1062,8 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' @keywords platform
 #'
 #' @examples
-#' getPlatformElements("GPL1355")
+#' dat <- getPlatformElements("GPL1355")
+#' str(dat, vec.len = 1)
 getPlatformElements <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
