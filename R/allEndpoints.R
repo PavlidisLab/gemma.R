@@ -1063,7 +1063,7 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #'
 #' @examples
 #' dat <- getPlatformElements("GPL1355")
-#' str(dat, vec.len = 1)
+#' str(dat, vec.len = 1, max.level = 1)
 getPlatformElements <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1375,7 +1375,8 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' @keywords gene
 #'
 #' @examples
-#' getGeneProbes("DYRK1A")
+#' dat <- getGeneProbes("DYRK1A")
+#' str(dat, vec.len = 2)
 getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1577,8 +1578,8 @@ memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
 #' @keywords taxon
 #'
 #' @examples
-#' getTaxa("human")
-#' getTaxa(c("human", "rat"))
+#' getTaxa(1)
+#' getTaxa(c(1, 2))
 getTaxa <- function(taxa = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1703,7 +1704,8 @@ memgetTaxa <- memoise::memoise(getTaxa)
 #' @keywords taxon
 #'
 #' @examples
-#' getTaxonDatasets("human")
+#' dat <- getTaxonDatasets("human")
+#' str(dat, vec.len = 2)
 getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offset = 0L,
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1861,10 +1863,11 @@ memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
 #' @keywords taxon
 #'
 #' @examples
-#' getTaxonPhenotypeCandidates("human", phenotypes = c(
+#' dat <- getTaxonPhenotypeCandidates("human", phenotypes = c(
 #'     "http://purl.obolibrary.org/obo/DOID_11934",
 #'     "http://purl.obolibrary.org/obo/DOID_3119"
 #' ))
+#' str(dat, vec.len = 2, max.level = 1)
 getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FALSE, phenotypes = NA_character_,
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",

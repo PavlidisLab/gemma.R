@@ -64,6 +64,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves the composite sequences (elements) for the given platform
 }
 \examples{
-getPlatformElements("GPL1355")
+dat <- getPlatformElements("GPL1355")
+str(dat, vec.len = 1, max.level = 1)
 }
 \keyword{platform}

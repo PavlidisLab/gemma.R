@@ -127,6 +127,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves datasets for the given taxon.
 }
 \examples{
-getTaxonDatasets("human")
+dat <- getTaxonDatasets("human")
+str(dat, vec.len = 2)
 }
 \keyword{taxon}

@@ -68,9 +68,10 @@ A \verb{400 error} if required parameters are missing.
 Given a set of phenotypes, return all genes associated with them.
 }
 \examples{
-getTaxonPhenotypeCandidates("human", phenotypes = c(
+dat <- getTaxonPhenotypeCandidates("human", phenotypes = c(
     "http://purl.obolibrary.org/obo/DOID_11934",
     "http://purl.obolibrary.org/obo/DOID_3119"
 ))
+str(dat, vec.len = 2, max.level = 1)
 }
 \keyword{taxon}

@@ -52,6 +52,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves experiments in the given platform
 }
 \examples{
-getPlatformDatasets("GPL1355")
+dat <- getPlatformDatasets("GPL1355")
+str(dat, vec.len = 1)
 }
 \keyword{platform}

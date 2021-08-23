@@ -56,6 +56,7 @@ A \verb{404 error} if the given identifier does not map to any object.
 Retrieves the probes (composite sequences) with this gene
 }
 \examples{
-getGeneProbes("DYRK1A")
+dat <- getGeneProbes("DYRK1A")
+str(dat, vec.len = 2)
 }
 \keyword{gene}
