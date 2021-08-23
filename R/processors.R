@@ -443,7 +443,7 @@ processElements <- function(d) {
         mapping.Name = d[["name"]],
         mapping.Summary = ifelse(!is.na(d[["geneMappingSummaries"]]),
             lapply(d[["geneMappingSummaries"]], function(x) {
-                data.table(
+                suppressWarnings(data.table(
                     score = x[["score"]],
                     products = lapply(x[["geneProducts"]], function(y) {
                         data.table(
@@ -457,7 +457,7 @@ processElements <- function(d) {
                         )
                     }),
                     productMaps = lapply(x[["geneProductMap"]], processGenes)
-                )
+                ))
             }),
             NA
         ),
