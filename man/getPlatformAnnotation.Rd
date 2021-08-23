@@ -30,6 +30,7 @@ A table of annotations
 Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
 }
 \examples{
-getPlatformAnnotation("GPL96")
+dat <- getPlatformAnnotation("GPL96")
+str(dat)
 }
 \keyword{platform}

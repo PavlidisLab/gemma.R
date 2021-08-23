@@ -93,14 +93,16 @@ If raw is TRUE, a list with the same information."
 
 # getPlatformDatasets
 # example
-getPlatformDatasets("GPL1355")
+dat <- getPlatformDatasets("GPL1355")
+str(dat, vec.len = 1)
 # value
 "If raw is FALSE (default), a data table with information about the datasets associated with the queried platform.
 If raw is TRUE, a list with the same information."
 
 # getPlatformElements
 # example
-getPlatformElements("GPL1355")
+dat <- getPlatformElements("GPL1355")
+str(dat, vec.len = 1, max.level = 1)
 # value
 "If raw is FALSE (default), a data table with information about the elements (probes or genes) used by the queried platform.
 If raw is TRUE, a list with the same information."
@@ -136,7 +138,8 @@ If raw is TRUE, a list with the same information."
 
 # getGeneProbes
 # example
-getGeneProbes("DYRK1A")
+dat <- getGeneProbes("DYRK1A")
+str(dat, vec.len = 2)
 # value
 "If raw is FALSE (default), a data table with information about the probes that map to the queried gene.
 If raw is TRUE, a list with the same information."
@@ -150,23 +153,25 @@ If raw is TRUE, a list with the same information."
 
 # getTaxa
 # example
-getTaxa("human")
-getTaxa(c("human", "rat"))
+getTaxa(1)
+getTaxa(c(1, 2))
 # value
 "If raw is FALSE (default), a data table with information about the queried taxon/taxa.
 If raw is TRUE, a list with the same information."
 
 # getTaxonDatasets
 # example
-getTaxonDatasets("human")
+dat <- getTaxonDatasets("human")
+str(dat, vec.len = 2)
 # value
 "If raw is FALSE (default), a data table with information about the datasets associated to the queried taxon.
 If raw is TRUE, a list with the same information."
 
 # getTaxonPhenotypeCandidates
 # example
-getTaxonPhenotypeCandidates("human", phenotypes = c("http://purl.obolibrary.org/obo/DOID_11934",
+dat <- getTaxonPhenotypeCandidates("human", phenotypes = c("http://purl.obolibrary.org/obo/DOID_11934",
                                                     "http://purl.obolibrary.org/obo/DOID_3119"))
+str(dat, vec.len = 2, max.level = 1)
 # value
 "If raw is FALSE (default), a data table with information about the genes associated with the queried phenotype(s) in the queried taxon.
 If raw is TRUE, a list with the same information."

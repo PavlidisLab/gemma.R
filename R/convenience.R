@@ -147,7 +147,8 @@ batchId={countN + 1}
 #' @keywords platform
 #' @export
 #' @examples
-#' getPlatformAnnotation("GPL96")
+#' dat <- getPlatformAnnotation("GPL96")
+#' str(dat)
 getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
