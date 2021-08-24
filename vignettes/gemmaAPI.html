@@ -154,7 +154,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1">GSE2018</a>. We can do this in one of two ways using the API:</p>
 <ol style="list-style-type: decimal">
 <li>Using the dataset’s short name (GSE2018), or</li>
-<li>Using the dataset’s identifier (<code>1</code>, as you can see in the URL above)</li>
+<li>Using the dataset’s identifier in Gemma (e.g <code>1</code>, <code>2</code>, …)</li>
 </ol>
 <p>Each case is functionally identical in the API wrapper.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasets</span>(<span class="at">datasets =</span> <span class="dv">1</span>))</span>
@@ -225,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.Name          &lt;chr&gt; &quot;human&quot;, &quot;human&quot;</span></span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1, 1</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;, &quot;ONECOLOR&quot;</span></span></code></pre></div>
-<p>You’ll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. <code>datasets</code>).</p>
+<p>You’ll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. <code>datasets</code>, <code>platforms</code>).</p>
 <p>Some API endpoints only support a single identifier.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetAnnotations</span>(<span class="fu">c</span>(<span class="st">&#39;GSE2018&#39;</span>, <span class="st">&#39;GSE25136&#39;</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error: Please specify one valid identifier for dataset.</span></span></code></pre></div>
@@ -304,8 +304,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Only complete this synchronise block when all queries are finished</span></span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">when_all</span>(<span class="at">.list =</span> res)</span>
 <span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 0</span></span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 0</span></span></code></pre></div>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 24</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 3</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ee.ID     &lt;int&gt; 24, 126, 157, 157, 166, 204, 219, 219, 219, 219, 219, 219, 2…</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ expr      &lt;list&gt; [&lt;data.table[87 x 164]&gt;], [&lt;data.table[88 x 176]&gt;], [&lt;data.…</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ diffExSet &lt;int&gt; 484136, 443192, 481902, 481901, 459902, 443428, 482743, 4827…</span></span></code></pre></div>
 <p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
 <div id="benchmark" class="section level3">
 <h3>Benchmark</h3>
@@ -350,7 +353,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">%&gt;%</span> rbindlist</span>
 <span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">asyncBenchmark</span>(), <span class="fu">syncBenchmark</span>(), <span class="at">times =</span> <span class="dv">10</span>), <span class="at">unit =</span> <span class="st">&#39;s&#39;</span>))</span></code></pre></div>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">asyncBenchmark</span>(), <span class="fu">syncBenchmark</span>(), <span class="at">times =</span> <span class="dv">5</span>), <span class="at">unit =</span> <span class="st">&#39;s&#39;</span>))</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -367,27 +370,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">0.9985309</td>
-<td align="right">1.043786</td>
-<td align="right">1.202676</td>
-<td align="right">1.058775</td>
-<td align="right">1.090367</td>
-<td align="right">1.974744</td>
-<td align="right">10</td>
+<td align="right">5.612792</td>
+<td align="right">5.727327</td>
+<td align="right">5.773362</td>
+<td align="right">5.741305</td>
+<td align="right">5.85401</td>
+<td align="right">5.931377</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">5.3245308</td>
-<td align="right">5.369123</td>
-<td align="right">5.555839</td>
-<td align="right">5.438365</td>
-<td align="right">5.577277</td>
-<td align="right">6.511392</td>
-<td align="right">10</td>
+<td align="right">22.808438</td>
+<td align="right">22.987484</td>
+<td align="right">29.263584</td>
+<td align="right">24.848352</td>
+<td align="right">34.79192</td>
+<td align="right">40.881726</td>
+<td align="right">5</td>
 </tr>
 </tbody>
 </table>
-<p>As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we’re querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
+<p>As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For simplicity, we&#39;ll assume there are no experiment IDs larger than 20,000.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">synchronise</span>({</span>
@@ -401,10 +404,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span>(<span class="fu">is.data.table</span>(annotations)) annotations[, ee.ID <span class="sc">:</span><span class="er">=</span> dataset]</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cn">NULL</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>      })</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    }), <span class="at">.limit =</span> <span class="dv">200</span>) <span class="co"># Only allow 200 active requests at a time to not flood the server</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    }), <span class="at">.limit =</span> <span class="dv">50</span>) <span class="co"># Only allow 50 active requests at a time to not flood the server</span></span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  })</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist <span class="sc">%&gt;%</span> glimpse</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 62,197</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 61,740</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 7</span></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Type    &lt;chr&gt; &quot;ExperimentTag&quot;, &quot;ExperimentTag&quot;, &quot;FactorValue&quot;, &quot;Factor…</span></span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ class.Name    &lt;chr&gt; &quot;organism part&quot;, &quot;cell type&quot;, &quot;disease&quot;, &quot;treatment&quot;, NA…</span></span>
@@ -456,12 +459,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">11288.57</td>
-<td align="right">11288.57</td>
-<td align="right">11288.57</td>
-<td align="right">11288.57</td>
-<td align="right">11288.57</td>
-<td align="right">11288.57</td>
+<td align="right">10172.72</td>
+<td align="right">10172.72</td>
+<td align="right">10172.72</td>
+<td align="right">10172.72</td>
+<td align="right">10172.72</td>
+<td align="right">10172.72</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -493,12 +496,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">0.575525</td>
-<td align="right">0.575525</td>
-<td align="right">0.575525</td>
-<td align="right">0.575525</td>
-<td align="right">0.575525</td>
-<td align="right">0.575525</td>
+<td align="right">0.498614</td>
+<td align="right">0.498614</td>
+<td align="right">0.498614</td>
+<td align="right">0.498614</td>
+<td align="right">0.498614</td>
+<td align="right">0.498614</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -541,7 +544,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Name                &lt;chr&gt; &quot;Affymetrix GeneChip Human Genome U133 Ar…</span></span>
 <span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Description         &lt;chr&gt; &quot; The U133 set includes 2 arrays with a t…</span></span>
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 411</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 412</span></span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.GeneCount           &lt;lgl&gt; NA</span></span>
 <span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA</span></span>
 <span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA</span></span>
