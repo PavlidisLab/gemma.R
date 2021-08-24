@@ -180,10 +180,10 @@ syncBenchmark <- function() {
   }) %>% rbindlist
 }
 
-knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 10), unit = 's'))
+knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 5), unit = 's'))
 ```
 
-As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we're querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.
+As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.
 
 ```{r}
 # For simplicity, we'll assume there are no experiment IDs larger than 20,000.
@@ -199,7 +199,7 @@ synchronise({
         if(is.data.table(annotations)) annotations[, ee.ID := dataset]
         else NULL
       })
-    }), .limit = 200) # Only allow 200 active requests at a time to not flood the server
+    }), .limit = 50) # Only allow 50 active requests at a time to not flood the server
   })
 }) %>% rbindlist %>% glimpse
 ```
