@@ -214,7 +214,7 @@ processAnnotations <- function(d) {
 processDEA <- function(d) {
     divides <- data.table(
         analysis.ID = d[["id"]],
-        ee.ID = d[["sourceExperiment"]],
+        ee.ID = ifelse(is.na(d[["sourceExperiment"]]), d[["bioAssaySetId"]], d[["sourceExperiment"]]),
         sf.Enabled = d[["subset"]],
         sf = processGemmaFactor(d[["subsetFactorValue"]]),
         resultIds = lapply(d[["resultSets"]], "[[", "resultSetId")
@@ -281,7 +281,7 @@ processDEA <- function(d) {
             stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
             genes.Analyzed, ad.ID
         ), .(result.ID, id)] %>%
-        .[, !c("result.ID", "id")]
+        .[, !"id"]
 }
 
 #' Processes JSON as expression data
