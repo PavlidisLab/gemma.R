@@ -17,7 +17,6 @@ Description: Low and high level wrappers for Gemma's RESTful API. Gemma is a web
     expression profiles. Gemma contains data from thousands of public studies, 
     referencing thousands of published papers.
 URL: https://pavlidislab.github.io/Gemma-API/, https://github.com/PavlidisLab/Gemma-API
-Depends: R (>= 4.1)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
