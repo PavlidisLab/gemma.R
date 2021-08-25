@@ -270,8 +270,11 @@
   <span class="co"># Only complete this synchronise block when all queries are finished</span>
   <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 0</span>
-<span class="co">#&gt; Columns: 0</span></code></pre></div>
+<span class="co">#&gt; Rows: 24</span>
+<span class="co">#&gt; Columns: 3</span>
+<span class="co">#&gt; $ ee.ID     &lt;int&gt; 24, 126, 157, 157, 166, 204, 219, 219, 219, 219, 219, 219, 2…</span>
+<span class="co">#&gt; $ expr      &lt;list&gt; [&lt;data.table[87 x 164]&gt;], [&lt;data.table[88 x 176]&gt;], [&lt;data.…</span>
+<span class="co">#&gt; $ diffExSet &lt;int&gt; 484136, 443192, 481902, 481901, 459902, 443428, 482743, 4827…</span></code></pre></div>
 <p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
 <div id="benchmark" class="section level3">
 <h3 class="hasAnchor">
@@ -318,7 +321,7 @@
   <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
 <span class="op">}</span>
 
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'s'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'s'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">expr</th>
@@ -333,27 +336,27 @@
 <tbody>
 <tr class="odd">
 <td align="left">asyncBenchmark()</td>
-<td align="right">1.050866</td>
-<td align="right">1.056875</td>
-<td align="right">1.283486</td>
-<td align="right">1.091834</td>
-<td align="right">1.207718</td>
-<td align="right">2.780817</td>
-<td align="right">10</td>
+<td align="right">6.177528</td>
+<td align="right">6.213076</td>
+<td align="right">6.409134</td>
+<td align="right">6.237062</td>
+<td align="right">6.440273</td>
+<td align="right">6.977729</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">syncBenchmark()</td>
-<td align="right">5.084588</td>
-<td align="right">5.265705</td>
-<td align="right">6.080217</td>
-<td align="right">5.660526</td>
-<td align="right">7.116077</td>
-<td align="right">7.354762</td>
-<td align="right">10</td>
+<td align="right">32.601436</td>
+<td align="right">33.474817</td>
+<td align="right">33.568716</td>
+<td align="right">33.476154</td>
+<td align="right">33.605366</td>
+<td align="right">34.685808</td>
+<td align="right">5</td>
 </tr>
 </tbody>
 </table>
-<p>As you can see, the asynchronous method is faster by a factor of about 5 (the number of experiments we’re querying in this example). For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
+<p>As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># For simplicity, we'll assume there are no experiment IDs larger than 20,000.</span>
 
@@ -368,10 +371,10 @@
         <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">is.data.table</a></span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span><span class="op">)</span> <span class="va">annotations</span><span class="op">[</span>, <span class="va">ee.ID</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
         <span class="kw">else</span> <span class="cn">NULL</span>
       <span class="op">}</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">200</span><span class="op">)</span> <span class="co"># Only allow 200 active requests at a time to not flood the server</span>
+    <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="co"># Only allow 50 active requests at a time to not flood the server</span>
   <span class="op">}</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 61,852</span>
+<span class="co">#&gt; Rows: 61,740</span>
 <span class="co">#&gt; Columns: 7</span>
 <span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
 <span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
@@ -423,12 +426,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">12027.82</td>
-<td align="right">12027.82</td>
-<td align="right">12027.82</td>
-<td align="right">12027.82</td>
-<td align="right">12027.82</td>
-<td align="right">12027.82</td>
+<td align="right">12377.27</td>
+<td align="right">12377.27</td>
+<td align="right">12377.27</td>
+<td align="right">12377.27</td>
+<td align="right">12377.27</td>
+<td align="right">12377.27</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -436,14 +439,14 @@
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="41%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="5%">
+<col width="47%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
+<col width="6%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">expr</th>
@@ -457,12 +460,12 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">0.564449</td>
-<td align="right">0.564449</td>
-<td align="right">0.564449</td>
-<td align="right">0.564449</td>
-<td align="right">0.564449</td>
-<td align="right">0.564449</td>
+<td align="right">0.5818</td>
+<td align="right">0.5818</td>
+<td align="right">0.5818</td>
+<td align="right">0.5818</td>
+<td align="right">0.5818</td>
+<td align="right">0.5818</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
@@ -513,7 +516,7 @@
 <span class="co">#&gt; $ platform.Name                &lt;chr&gt; "Affymetrix GeneChip Human Genome U133 Ar…</span>
 <span class="co">#&gt; $ platform.Description         &lt;chr&gt; " The U133 set includes 2 arrays with a t…</span>
 <span class="co">#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 411</span>
+<span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 412</span>
 <span class="co">#&gt; $ platform.GeneCount           &lt;lgl&gt; NA</span>
 <span class="co">#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA</span>
 <span class="co">#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA</span>

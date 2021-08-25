@@ -210,93 +210,12 @@ A <code>400 error</code> if all identifiers are invalid.
 An array of all available taxa, if no identifiers were provided.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='st'>"human"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $url
-#&gt; [1] "https://gemma.msl.ubc.ca/rest/v2/taxa/human"
-#&gt; 
-#&gt; $status_code
-#&gt; [1] 400
-#&gt; 
-#&gt; $type
-#&gt; [1] "application/json"
-#&gt; 
-#&gt; $headers
-#&gt;   [1] 48 54 54 50 2f 31 2e 31 20 34 30 30 20 0d 0a 44 61 74 65 3a 20 4d 6f 6e 2c
-#&gt;  [26] 20 31 36 20 41 75 67 20 32 30 32 31 20 32 33 3a 34 35 3a 35 36 20 47 4d 54
-#&gt;  [51] 0d 0a 53 65 72 76 65 72 3a 20 41 70 61 63 68 65 2f 32 2e 34 2e 36 20 28 43
-#&gt;  [76] 65 6e 74 4f 53 29 20 4f 70 65 6e 53 53 4c 2f 31 2e 30 2e 32 6b 2d 66 69 70
-#&gt; [101] 73 20 50 48 50 2f 35 2e 34 2e 31 36 0d 0a 53 74 72 69 63 74 2d 54 72 61 6e
-#&gt; [126] 73 70 6f 72 74 2d 53 65 63 75 72 69 74 79 3a 20 6d 61 78 2d 61 67 65 3d 36
-#&gt; [151] 33 30 37 32 30 30 30 0d 0a 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 61 70
-#&gt; [176] 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 0d 0a 43 6f 6e 74 65 6e 74 2d 4c
-#&gt; [201] 65 6e 67 74 68 3a 20 31 36 34 0d 0a 58 2d 43 6f 6e 74 65 6e 74 2d 54 79 70
-#&gt; [226] 65 2d 4f 70 74 69 6f 6e 73 3a 20 6e 6f 73 6e 69 66 66 0d 0a 58 2d 46 72 61
-#&gt; [251] 6d 65 2d 4f 70 74 69 6f 6e 73 3a 20 53 41 4d 45 4f 52 49 47 49 4e 0d 0a 58
-#&gt; [276] 2d 58 53 53 2d 50 72 6f 74 65 63 74 69 6f 6e 3a 20 31 3b 20 6d 6f 64 65 3d
-#&gt; [301] 62 6c 6f 63 6b 0d 0a 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20 63 6c 6f 73 65 0d
-#&gt; [326] 0a 0d 0a
-#&gt; 
-#&gt; $modified
-#&gt; [1] NA
-#&gt; 
-#&gt; $times
-#&gt;      redirect    namelookup       connect   pretransfer starttransfer 
-#&gt;      0.000000      0.001131      0.070684      0.225680      0.335069 
-#&gt;         total 
-#&gt;      0.337605 
-#&gt; 
-#&gt; $content
-#&gt;   [1] 7b 22 61 70 69 56 65 72 73 69 6f 6e 22 3a 22 32 2e 33 2e 34 22 2c 22 65 72
-#&gt;  [26] 72 6f 72 22 3a 7b 22 63 6f 64 65 22 3a 34 30 30 2c 22 6d 65 73 73 61 67 65
-#&gt;  [51] 22 3a 22 45 6e 74 69 74 79 20 64 6f 65 73 20 6e 6f 74 20 63 6f 6e 74 61 69
-#&gt;  [76] 6e 20 74 68 65 20 67 69 76 65 6e 20 70 72 6f 70 65 72 74 79 2c 20 6f 72 20
-#&gt; [101] 74 68 65 20 70 72 6f 76 69 64 65 64 20 76 61 6c 75 65 20 63 61 6e 20 6e 6f
-#&gt; [126] 74 20 62 65 20 63 6f 6e 76 65 72 74 65 64 20 74 6f 20 74 68 65 20 70 72 6f
-#&gt; [151] 70 65 72 74 79 20 74 79 70 65 2e 22 7d 7d
-#&gt; </div><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"human"</span>, <span class='st'>"rat"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $url
-#&gt; [1] "https://gemma.msl.ubc.ca/rest/v2/taxa/human%2Crat"
-#&gt; 
-#&gt; $status_code
-#&gt; [1] 400
-#&gt; 
-#&gt; $type
-#&gt; [1] "application/json"
-#&gt; 
-#&gt; $headers
-#&gt;   [1] 48 54 54 50 2f 31 2e 31 20 34 30 30 20 0d 0a 44 61 74 65 3a 20 4d 6f 6e 2c
-#&gt;  [26] 20 31 36 20 41 75 67 20 32 30 32 31 20 32 33 3a 34 35 3a 35 36 20 47 4d 54
-#&gt;  [51] 0d 0a 53 65 72 76 65 72 3a 20 41 70 61 63 68 65 2f 32 2e 34 2e 36 20 28 43
-#&gt;  [76] 65 6e 74 4f 53 29 20 4f 70 65 6e 53 53 4c 2f 31 2e 30 2e 32 6b 2d 66 69 70
-#&gt; [101] 73 20 50 48 50 2f 35 2e 34 2e 31 36 0d 0a 53 74 72 69 63 74 2d 54 72 61 6e
-#&gt; [126] 73 70 6f 72 74 2d 53 65 63 75 72 69 74 79 3a 20 6d 61 78 2d 61 67 65 3d 36
-#&gt; [151] 33 30 37 32 30 30 30 0d 0a 43 6f 6e 74 65 6e 74 2d 54 79 70 65 3a 20 61 70
-#&gt; [176] 70 6c 69 63 61 74 69 6f 6e 2f 6a 73 6f 6e 0d 0a 43 6f 6e 74 65 6e 74 2d 4c
-#&gt; [201] 65 6e 67 74 68 3a 20 31 36 34 0d 0a 58 2d 43 6f 6e 74 65 6e 74 2d 54 79 70
-#&gt; [226] 65 2d 4f 70 74 69 6f 6e 73 3a 20 6e 6f 73 6e 69 66 66 0d 0a 58 2d 46 72 61
-#&gt; [251] 6d 65 2d 4f 70 74 69 6f 6e 73 3a 20 53 41 4d 45 4f 52 49 47 49 4e 0d 0a 58
-#&gt; [276] 2d 58 53 53 2d 50 72 6f 74 65 63 74 69 6f 6e 3a 20 31 3b 20 6d 6f 64 65 3d
-#&gt; [301] 62 6c 6f 63 6b 0d 0a 43 6f 6e 6e 65 63 74 69 6f 6e 3a 20 63 6c 6f 73 65 0d
-#&gt; [326] 0a 0d 0a
-#&gt; 
-#&gt; $modified
-#&gt; [1] NA
-#&gt; 
-#&gt; $times
-#&gt;      redirect    namelookup       connect   pretransfer starttransfer 
-#&gt;      0.000000      0.001240      0.074313      0.235185      0.323711 
-#&gt;         total 
-#&gt;      0.325876 
-#&gt; 
-#&gt; $content
-#&gt;   [1] 7b 22 61 70 69 56 65 72 73 69 6f 6e 22 3a 22 32 2e 33 2e 34 22 2c 22 65 72
-#&gt;  [26] 72 6f 72 22 3a 7b 22 63 6f 64 65 22 3a 34 30 30 2c 22 6d 65 73 73 61 67 65
-#&gt;  [51] 22 3a 22 45 6e 74 69 74 79 20 64 6f 65 73 20 6e 6f 74 20 63 6f 6e 74 61 69
-#&gt;  [76] 6e 20 74 68 65 20 67 69 76 65 6e 20 70 72 6f 70 65 72 74 79 2c 20 6f 72 20
-#&gt; [101] 74 68 65 20 70 72 6f 76 69 64 65 64 20 76 61 6c 75 65 20 63 61 6e 20 6e 6f
-#&gt; [126] 74 20 62 65 20 63 6f 6e 76 65 72 74 65 64 20 74 6f 20 74 68 65 20 70 72 6f
-#&gt; [151] 70 65 72 74 79 20 74 79 70 65 2e 22 7d 7d
-#&gt; </div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name
+#&gt; 1:      human     Homo sapiens        1       9606                hg38</div><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name
+#&gt; 1:      human     Homo sapiens        1       9606                hg38
+#&gt; 2:      mouse     Mus musculus        2      10090                mm10</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
