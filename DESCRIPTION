@@ -37,15 +37,16 @@ Imports:
     utils,
     uuid,
     stringr,
-    cli
+    cli,
+    SummarizedExperiment,
+    Biobase
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
     knitr,
     dplyr,
     microbenchmark,
-    covr,
-    Biobase
+    covr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: ExpressionData, ReproducibleResearch, GEO
