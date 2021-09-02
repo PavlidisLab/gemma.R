@@ -210,20 +210,27 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     }
 }
 
-#' Get ExpressionSet
+#' Get Bioconductor data structures
 #'
-#' Combines various endpoint calls to return an annotated Bioconductor ExpressionSet
+#' Combines various endpoint calls to return an annotated Bioconductor-compatible
+#' data structure of the queried dataset, including expression data,
+#' the experimental design and experiment metadata.
 #'
+#' @param type "SummarizedExperiment" or "ExpressionSet". We recommend using
+#' SummarizedExperiments if you are querying RNA-Seq data. See the Summarized experiment
+#' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
+#' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
+#' for more details.
 #' @param dataset A dataset identifier
-#' @param filter If true, call returns filtered expression data.
+#' @param filter If TRUE, call returns filtered expression data.
 #'
-#' @return An annotated ExpressionSet for the queried dataset.
-#' @importFrom  rlang .data
+#' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
+#' @importFrom rlang .data
 #' @keywords dataset
 #' @export
 #' @examples
-#' getExpressionSet("GSE2018", filter = TRUE)
-getExpressionSet <- function(dataset, filter) {
+#' getBioconductor("SummarizedExperiment", "GSE2018", filter = TRUE)
+getBioconductor <- function(type, dataset, filter) {
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)
     exprM <- expr[, 7:ncol(expr)] %>% data.matrix()
@@ -256,18 +263,34 @@ getExpressionSet <- function(dataset, filter) {
         taxon = dat$taxon.Name
     )
 
-    expData <- Biobase::MIAME(
-        title = dat$ee.Name,
-        abstract = dat$ee.Description,
-        url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID),
-        other = other
-    )
+    title = dat$ee.Name
+    abstract = dat$ee.Description
+    url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
-    # Create ExpressionSet
-    Biobase::ExpressionSet(
-        assayData = exprM,
-        phenoData = phenoData,
-        experimentData = expData,
-        annotation = getDatasetPlatforms(dataset)$platform.ShortName
-    )
+    if (type == 'SummarizedExperiment') {
+        expData <- list(title = title,
+                        abstract = abstract,
+                        url = url,
+                        other)
+        SummarizedExperiment::SummarizedExperiment(
+            assays=list(counts=exprM),
+            colData = design,
+            metadata = expData
+        )
+    } else if (type == "ExpressionSet") {
+        expData <- Biobase::MIAME(
+            title = title,
+            abstract = abstract,
+            url = url,
+            other = other
+        )
+        Biobase::ExpressionSet(
+            assayData = exprM,
+            phenoData = phenoData,
+            experimentData = expData,
+            annotation = getDatasetPlatforms(dataset)$platform.ShortName
+        )
+    } else {
+       stop('miguebo')
+    }
 }
