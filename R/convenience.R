@@ -268,10 +268,12 @@ getBioconductor <- function(type, dataset, filter) {
     url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
     if (type == 'SummarizedExperiment') {
-        expData <- list(title = title,
-                        abstract = abstract,
-                        url = url,
-                        other)
+        expData <- list(
+            title = title,
+            abstract = abstract,
+            url = url
+        )
+        expData <- c(expData, other)
         SummarizedExperiment::SummarizedExperiment(
             assays=list(counts=exprM),
             colData = design,
