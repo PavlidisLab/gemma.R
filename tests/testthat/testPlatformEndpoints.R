@@ -10,7 +10,7 @@ test_that("getPlatforms queries work", {
 
     expect_equal(getPlatforms(c(1, 2)) %>% nrow(), 2)
     expect_equal(getPlatforms(limit = 10) %>% nrow(), 10)
-    expect_false(getPlatforms(offset = 3)[1, 1] == getDatasets(offset = 0)[1, 1])
+    expect_true(getPlatforms(offset = 3)[4, 1] == getDatasets(offset = 0)[1, 1])
     expect_true(getPlatforms(filter = "curationDetails.troubled = true")$ee.troubled %>% all())
     expect_false(getPlatforms(sort = "-id")[1, 1] == getDatasets(sort = "+id")[1, 1])
 })
@@ -26,7 +26,7 @@ test_that("getPlatformDatasets queries work", {
     )
     expect_equal(getPlatformDatasets(1, limit = 10) %>% nrow(), 10)
     # TODO: Offset not working as expected in API
-    # expect_false(getPlatformDatasets(1, offset = 3)[1,1] == getPlatformDatasets(1, offset = 0)[1,1])
+    # expect_true(getPlatformDatasets(1, offset = 3)[1,1] == getPlatformDatasets(1, offset = 0)[5,1])
 })
 
 test_that("getPlatformElements queries work", {
