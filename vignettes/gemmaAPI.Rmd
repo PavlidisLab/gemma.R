@@ -14,9 +14,7 @@ vignette: >
 
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
-```
 
-```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -33,49 +31,43 @@ library(microbenchmark)
 
 # Getting started
 
-The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the inputs and outputs.
+The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.
 
-In this example, we want to find datasets in Gemma that are associated with bipolar disorder, and we are only interested in human data. 
-To do this, we can use the `searchDatasets()` endpoint, and we sort the resulting datasets according to their [Gemma Quality Scores](https://pavlidislab.github.io/Gemma/geeq.html):
+In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the `searchDatasets()` endpoint:
 
-```{r}
+```{r search}
 searchDatasets('bipolar') %>% 
   filter(taxon.Name == 'human') %>% 
   arrange(desc(geeq.qScore)) %>%
-  glimpse()
+  select(ee.ShortName)
 ```
 
-The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939).
+There are 60 datasets associated with bipolar disorder in Gemma. The dataset with 
+the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
+Now that we have the ID for our experiment, we fetch the data associated with it.
 
-## Simple queries
+To get the basic information of a dataset, we use the `getDatasets()` endpoint.
 
-The first endpoint in the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma. We can do this in one of two ways using the API:
-
-1.  Using the dataset's short name (GSE35974), or
-2.  Using the dataset's identifier in Gemma (e.g `1`, `2`, ...)
-
-Each case is functionally identical in the API wrapper.
-
-```{r}
-glimpse(getDatasets(datasets = 5939))
-
-glimpse(getDatasets(datasets = 'GSE35974'))
+```{r dataset}
+dataset <- getDatasets('GSE35974')
+colnames(dataset)
+dataset$ee.Description
 ```
 
-## Bioconductor data structures
-The function `getBioconductor()` is a high-level wrapper that combines various 
-endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages. Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data. Read the Summarized
-Experiment [vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or the ExpressionSet [vignette](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) for more details.
-```{r}
-getBioconductor('SummarizedExperiment', 'GSE35974', filter = TRUE)
-getBioconductor('ExpressionSet', 'GSE35974', filter = TRUE)
-```
+To access the actual expression data, you can use `getBioconductor()`. It is a high-level wrapper that combines various 
+endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages. 
+Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data. They include the expression matrix along with
+the experimental design, and ensure the sample names match between both.
 
-## Complex queries
+Check the Summarized  Experiment [vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or the ExpressionSet [vignette](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) for more details.
+
+```{r bioconductor}
+getBioconductor('ExpressionSet', 'GSE35974')
+```
 
 Many endpoints also allow you to query multiple objects at the same time, for example:
 
-```{r}
+```{r double-query}
 glimpse(getDatasets(datasets = c('GSE35974', 'GSE12649')))
 ```
 
@@ -83,13 +75,13 @@ You'll be able to tell either from the function documentation or simply because 
 
 Some API endpoints only support a single identifier.
 
-```{r error = TRUE}
+```{r error, error = TRUE}
 getDatasetAnnotations(c('GSE35974', 'GSE12649'))
 ```
 
 In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.
 
-```{r}
+```{r loop}
 lapply(c('GSE35974', 'GSE12649'), function(dataset) {
   getDatasetAnnotations(dataset)[, ee.ShortName := dataset]
 }) %>% rbindlist %>% glimpse
@@ -97,165 +89,18 @@ lapply(c('GSE35974', 'GSE12649'), function(dataset) {
 
 For large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained below.
 
-### Asynchronous requests
-
-The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a `synchronise` block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
-
-This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, `GSE2018` and `GSE25136`. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a `synchronise` block 2. Set `async = TRUE` in our requests
-
-We'll build back up to multiple queries, but starting with a single query, the difference is trivial to see.
-
-```{r}
-synchronise({
-  getDatasetAnnotations('GSE35974', async = TRUE)
-}) %>% glimpse
-```
-
-Notice the added `synchronise` block, and that we moved our call to `glimpse` outside of the synchronise block, since the result is guaranteed to be available there.
-
-With multiple queries, there's one additional thing we need to do and that is to actually "unpack" our asynchronous results. We have a few options for this (`when_all`, `when_any`, or `when_some`), but typically we'll just want to receive all the results and thus use `when_all`.
-
-```{r}
-synchronise({
-  # Make the queries
-  res <- lapply(c('GSE35974', 'GSE12649'), function(dataset) {
-    getDatasetAnnotations(dataset, async = TRUE)
-  })
-  
-  # Only complete this synchronise block when all queries are finished
-  when_all(.list = res)
-}) %>% rbindlist %>% glimpse
-```
-
-Finally, we'll introduce one last thing you can do with asynchronous results and that is the deferred chain, `$then`. As we've discussed, the result of a Gemma API query with `async = T` is a deferred value. However, it's still possible to work with them when they become available by specifying code to run when that happens. This is particularly useful when you want to compose information from multiple endpoints.
-
-```{r}
-synchronise({
-  # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
-  datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
-  
-  # Loop over dataset identifiers that we fetched and get differential expression analyses.
-  res <- lapply(datasets$ee.ID, function(dataset) {
-    # Get the DEA asynchronously and when it becomes available, run a function on the result
-    getDatasetDEA(dataset, async = TRUE)$then(function(response) {
-      # Now that we have a result ID, we can get differential expression results for these analyses
-      diffEx <- lapply(unique(response$result.ID), function(diffExSet) {
-        # Make all these requests asynchronously and add the diffExSet when we receive a response
-        getDatasetDE(dataset, diffExSet = diffExSet, async = TRUE)$then(function(response) {
-          response[, diffExSet := diffExSet]
-        })
-      })
-      
-      # When all of these results become available, bind them together for return
-      when_all(.list = diffEx)$then(function(results) rbindlist(results))
-    })
-  })
-  
-  # Only complete this synchronise block when all queries are finished
-  when_all(.list = res)
-}) %>% rbindlist %>% glimpse
-```
-
-Although this may look intimidating at first, it's a very powerful way to rapidly make batch queries.
-
-#### Benchmark
-
-For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).
-
-```{r}
-# First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
-datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
-
-asyncBenchmark <- function() {
-  synchronise({
-    # Loop over dataset identifiers that we fetched and get differential expression analyses.
-    res <- lapply(datasets$ee.ID, function(dataset) {
-      # Get the DEA asynchronously and when it becomes available, run a function on the result
-      getDatasetDEA(dataset, async = TRUE)$then(function(response) {
-        # Now that we have a result ID, we can get differential expression results for these analyses
-        diffEx <- lapply(unique(response$result.ID), function(diffExSet) {
-          # Make all these requests asynchronously and add the diffExSet when we receive a response
-          getDatasetDE(dataset, diffExSet = diffExSet, async = TRUE)$then(function(response) {
-            response[, diffExSet := diffExSet]
-          })
-        })
-        
-        # When all of these results become available, bind them together for return
-        when_all(.list = diffEx)$then(function(results) rbindlist(results))
-      })
-    })
-    
-    # Only complete this synchronise block when all queries are finished
-    when_all(.list = res)
-  }) %>% rbindlist
-}
-
-syncBenchmark <- function() {
-  # Loop over dataset identifiers that we fetched and get differential expression analyses.
-  lapply(datasets$ee.ID, function(dataset) {
-    # Get the DEA synchronously
-    response <- getDatasetDEA(dataset)
-    # Now that we have a result ID, we can get differential expression results for these analyses
-    lapply(unique(response$result.ID), function(diffExSet) {
-      # Make all these requests synchronously and add the diffExSet
-      getDatasetDE(dataset, diffExSet = diffExSet)[, diffExSet := diffExSet]
-    }) %>% rbindlist
-  }) %>% rbindlist
-}
-
-knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 5), unit = 's'))
-```
-
-As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.
-
-```{r}
-# For simplicity, we'll assume there are no experiment IDs larger than 20,000.
-
-synchronise({
-  # First send a request to an endpoint that accepts multiple datasets to narrow down our search space
-  async_map(split(1:20000, ceiling(seq_along(1:20000) / 1000)), async(function(chunk) {
-    getDatasets(chunk, limit = 0, async = TRUE)
-  }))$then(function(response) {
-    # Asynchronously request annotations for each experiment that was found
-    async_map(rbindlist(response, fill = TRUE)[, unique(ee.ID)], async(function(dataset) {
-      getDatasetAnnotations(dataset, async = TRUE)$then(function(annotations) {
-        if(is.data.table(annotations)) annotations[, ee.ID := dataset]
-        else NULL
-      })
-    }), .limit = 50) # Only allow 50 active requests at a time to not flood the server
-  })
-}) %>% rbindlist %>% glimpse
-```
-
-This can (conceivably) be done synchronously, but in practice it would take far too long.
-
-```{r eval=FALSE}
-# Not evaluated
-response <- lapply(split(1:20000, ceiling(seq_along(1:20000) / 1000)), function(chunk) {
-  getDatasets(chunk, limit = 0)
-}) %>% rbindlist(fill = TRUE)
-
-lapply(response[, unique(ee.ID)], function(dataset) {
-  annotations <- getDatasetAnnotations(dataset)
-  if(is.data.table(annotations)) annotations[, ee.ID := dataset]
-  else NULL
-}) %>% rbindlist %>% glimpse
-```
-
-### Memoised results
+## Memoised results
 
 A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
-```{r}
+```{r meamoised}
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 ```
 
-#### Clearing cache
-
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
 
-```{r}
+```{r clear-cache}
 forgetGemmaMemoised()
 ```
 
@@ -275,16 +120,12 @@ You can also specify whether or not the new fetched results are allowed to overw
 
 To illustrate these...
 
-```{r}
+```{r outputs}
 glimpse(getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD')) # raw = T, saves SVD.json
 glimpse(getDatasetPlatforms('GSE35974', file = 'platforms')) # No nested data.tables, saves platforms.csv
 glimpse(getDatasetSamples('GSE35974', file = 'samples')) # Some nested data.tables, saves samples.rds
 ```
 
-If, for some reason, you absolutely don't want to see the return value showing up in your R instance, you can suppress it using `invisible`.
-```{r}
-invisible(getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD')) # Saves SVD.json like above, but suppresses output in R
-```
 
 ```{r include=FALSE}
 unlink('SVD.json')
@@ -296,10 +137,10 @@ unlink('samples.rds')
 
 We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:
 
-```{r}
+```{r defaults}
 options(gemma.memoise = TRUE)
 ```
 
 ## Authentication
 
-If you have an account at [Gemma](https://gemma.msl.ubc.ca) and want to access data that is private, you can login using `setGemmaUser("USERNAME", "PASSWORD")`, providing your actual username and password. These will be passed on to every API request you make until you log out (by calling `setGemmaUser()`).
+If you have an account at [Gemma](https://gemma.msl.ubc.ca) and want to access data that is private, you can login using `setGemmaUser("USERNAME", "PASSWORD")`. These will be passed on to every API request you make until you log out (by calling `setGemmaUser()`).

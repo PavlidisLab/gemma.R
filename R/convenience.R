@@ -221,16 +221,15 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
-#' @param dataset A dataset identifier
-#' @param filter If TRUE, call returns filtered expression data.
-#'
+#' @param dataset A dataset identifier.
+#' @param filter The filtered vertsion corresponds to what is used in most Gemma analysis, removing some probes/elements. Unfiltered includes all elements.
 #' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
 #' @importFrom rlang .data
 #' @keywords dataset
 #' @export
 #' @examples
-#' getBioconductor("SummarizedExperiment", "GSE2018", filter = TRUE)
-getBioconductor <- function(type, dataset, filter) {
+#' getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
+getBioconductor <- function(type, dataset, filter = TRUE) {
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)
     exprM <- expr[, 7:ncol(expr)] %>% data.matrix()
