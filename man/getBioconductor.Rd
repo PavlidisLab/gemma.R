@@ -4,7 +4,7 @@
 \alias{getBioconductor}
 \title{Get Bioconductor data structures}
 \usage{
-getBioconductor(type, dataset, filter)
+getBioconductor(type, dataset, filter = TRUE)
 }
 \arguments{
 \item{type}{"SummarizedExperiment" or "ExpressionSet". We recommend using
@@ -13,9 +13,9 @@ SummarizedExperiments if you are querying RNA-Seq data. See the Summarized exper
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 for more details.}
 
-\item{dataset}{A dataset identifier}
+\item{dataset}{A dataset identifier.}
 
-\item{filter}{If TRUE, call returns filtered expression data.}
+\item{filter}{The filtered vertsion corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 }
 \value{
 An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
@@ -26,6 +26,6 @@ data structure of the queried dataset, including expression data,
 the experimental design and experiment metadata.
 }
 \examples{
-getBioconductor("SummarizedExperiment", "GSE2018", filter = TRUE)
+getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
 }
 \keyword{dataset}

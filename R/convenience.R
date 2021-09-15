@@ -222,7 +222,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
 #' @param dataset A dataset identifier.
-#' @param filter The filtered vertsion corresponds to what is used in most Gemma analysis, removing some probes/elements. Unfiltered includes all elements.
+#' @param filter The filtered vertsion corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
 #' @importFrom rlang .data
 #' @keywords dataset
@@ -230,6 +230,10 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @examples
 #' getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
 getBioconductor <- function(type, dataset, filter = TRUE) {
+    if (type != "ExpressionSet" && type != "SummarizedExperiment"){
+       stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
+    }
+
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)
     exprM <- expr[, 7:ncol(expr)] %>% data.matrix()
@@ -240,7 +244,6 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
     d <- getDatasetDesign(dataset)
     design <- data.frame(d, row.names = stringr::str_extract(d$Bioassay, "(?<=Name=).*")) %>%
         dplyr::select(-c(.data$ExternalID, .data$Bioassay))
-
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
@@ -266,7 +269,7 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
     abstract = dat$ee.Description
     url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
-    if (type == 'SummarizedExperiment') {
+    if (type == "SummarizedExperiment") {
         expData <- list(
             title = title,
             abstract = abstract,
@@ -291,7 +294,5 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
             experimentData = expData,
             annotation = getDatasetPlatforms(dataset)$platform.ShortName
         )
-    } else {
-       stop('miguebo')
     }
 }
