@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gemma API • gemmaAPI</title>
+<title>Downloading Gene Expression Data with the Gemma API R Wrapper • gemmaAPI</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Gemma API">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Downloading Gene Expression Data with the Gemma API R Wrapper">
 <meta property="og:description" content="gemmaAPI">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -62,6 +62,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -83,10 +95,10 @@
 
       
 
-      </header><script src="gemmaAPI_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="gemmaAPI_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Gemma API</h1>
+      <h1 data-toc-skip>Downloading Gene Expression Data with the Gemma API R Wrapper</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/Gemma-API/blob/master/vignettes/gemmaAPI.Rmd"><code>vignettes/gemmaAPI.Rmd</code></a></small>
@@ -102,310 +114,130 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/memoise">memoise</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></code></pre></div>
-<div id="getting-started" class="section level1">
-<h1 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting started</h1>
-<p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>. We suggest you make some example queries on the interactive API docs to get a sense of the input and output.</p>
-<div id="downloading-basic-information-for-a-dataset" class="section level2">
-<h2 class="hasAnchor">
-<a href="#downloading-basic-information-for-a-dataset" class="anchor"></a>Downloading basic information for a dataset</h2>
-<p>The first endpoint example for the REST API doc corresponds to a simple case: getting basic information about a single dataset in Gemma, such as <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=1">GSE2018</a>. We can do this in one of two ways using the API:</p>
-<ol style="list-style-type: decimal">
-<li>Using the dataset’s short name (GSE2018), or</li>
-<li>Using the dataset’s identifier in Gemma (e.g <code>1</code>, <code>2</code>, …)</li>
-</ol>
-<p>Each case is functionally identical in the API wrapper.</p>
+<p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>. We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.</p>
+<p>In this example, we want to find the dataset with the highest <a href="https://pavlidislab.github.io/Gemma/geeq.html">Gemma Quality Score</a> that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the <a href="https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html"><code>searchDatasets()</code></a> endpoint:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 19</span>
-<span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; "GSE2018"</span>
-<span class="co">#&gt; $ ee.Name             &lt;chr&gt; "Human Lung Transplant - BAL"</span>
-<span class="co">#&gt; $ ee.ID               &lt;int&gt; 1</span>
-<span class="co">#&gt; $ ee.Description      &lt;chr&gt; "Bronchoalveolar lavage samples collected from lun…</span>
-<span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE</span>
-<span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ ee.Accession        &lt;chr&gt; "GSE2018"</span>
-<span class="co">#&gt; $ ee.Database         &lt;chr&gt; "GEO"</span>
-<span class="co">#&gt; $ ee.URL              &lt;chr&gt; "http://www.ncbi.nlm.nih.gov/geo/"</span>
-<span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34</span>
-<span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26</span>
-<span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605</span>
-<span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2</span>
-<span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ geeq.qScore         &lt;dbl&gt; 0.5657485</span>
-<span class="co">#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875</span>
-<span class="co">#&gt; $ taxon.Name          &lt;chr&gt; "human"</span>
-<span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span>
-<span class="co">#&gt; $ technology.Type     &lt;chr&gt; "ONECOLOR"</span>
-
-<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="st">'GSE2018'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 19</span>
-<span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; "GSE2018"</span>
-<span class="co">#&gt; $ ee.Name             &lt;chr&gt; "Human Lung Transplant - BAL"</span>
-<span class="co">#&gt; $ ee.ID               &lt;int&gt; 1</span>
-<span class="co">#&gt; $ ee.Description      &lt;chr&gt; "Bronchoalveolar lavage samples collected from lun…</span>
-<span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE</span>
-<span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ ee.Accession        &lt;chr&gt; "GSE2018"</span>
-<span class="co">#&gt; $ ee.Database         &lt;chr&gt; "GEO"</span>
-<span class="co">#&gt; $ ee.URL              &lt;chr&gt; "http://www.ncbi.nlm.nih.gov/geo/"</span>
-<span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34</span>
-<span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26</span>
-<span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605</span>
-<span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2</span>
-<span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ geeq.qScore         &lt;dbl&gt; 0.5657485</span>
-<span class="co">#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875</span>
-<span class="co">#&gt; $ taxon.Name          &lt;chr&gt; "human"</span>
-<span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1</span>
-<span class="co">#&gt; $ technology.Type     &lt;chr&gt; "ONECOLOR"</span></code></pre></div>
-<p>Many endpoints also allow you to query multiple objects at the same time, for example:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, <span class="st">'GSE25136'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 2</span>
-<span class="co">#&gt; Columns: 19</span>
-<span class="co">#&gt; $ ee.ShortName        &lt;chr&gt; "GSE2018", "GSE25136"</span>
-<span class="co">#&gt; $ ee.Name             &lt;chr&gt; "Human Lung Transplant - BAL", "Optimizing molecul…</span>
-<span class="co">#&gt; $ ee.ID               &lt;int&gt; 1, 3236</span>
-<span class="co">#&gt; $ ee.Description      &lt;chr&gt; "Bronchoalveolar lavage samples collected from lun…</span>
-<span class="co">#&gt; $ ee.Public           &lt;lgl&gt; TRUE, TRUE</span>
-<span class="co">#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE, FALSE</span>
-<span class="co">#&gt; $ ee.Accession        &lt;chr&gt; "GSE2018", "GSE25136"</span>
-<span class="co">#&gt; $ ee.Database         &lt;chr&gt; "GEO", "GEO"</span>
-<span class="co">#&gt; $ ee.URL              &lt;chr&gt; "http://www.ncbi.nlm.nih.gov/geo/", "http://www.nc…</span>
-<span class="co">#&gt; $ ee.Samples          &lt;int&gt; 34, 79</span>
-<span class="co">#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2020-03-27 07:30:26, 2020-03-28 07:50:22</span>
-<span class="co">#&gt; $ ee.Batch.P          &lt;dbl&gt; 0.0079605, 0.0001848</span>
-<span class="co">#&gt; $ ee.Batch.PC         &lt;dbl&gt; 2, 3</span>
-<span class="co">#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE, FALSE</span>
-<span class="co">#&gt; $ geeq.qScore         &lt;dbl&gt; 0.5657485, 0.5634973</span>
-<span class="co">#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875, 0.875</span>
-<span class="co">#&gt; $ taxon.Name          &lt;chr&gt; "human", "human"</span>
-<span class="co">#&gt; $ taxon.ID            &lt;int&gt; 1, 1</span>
-<span class="co">#&gt; $ technology.Type     &lt;chr&gt; "ONECOLOR", "ONECOLOR"</span></code></pre></div>
-<p>You’ll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. <code>datasets</code>, <code>platforms</code>).</p>
-<p>Some API endpoints only support a single identifier.</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/searchDatasets.html">searchDatasets</a></span><span class="op">(</span><span class="st">"bipolar"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">taxon.Name</span> <span class="op">==</span> <span class="st">"human"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">geeq.qScore</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt;    ee.ShortName
+#&gt; 1:     GSE35974
+#&gt; 2:     GSE12649
+#&gt; 3:     GSE99349
+#&gt; 4:     GSE11767
+#&gt; 5:     GSE12654
+#&gt; 6:     GSE74358</code></pre>
+<p>The dataset with the highest quality score is <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939">GSE35974</a>. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
+<p>To get the basic information of a dataset, we use the <a href="https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html"><code>getDatasets()</code></a> endpoint.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, <span class="st">'GSE25136'</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Error: Please specify one valid identifier for dataset.</span></code></pre></div>
-<p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, <span class="st">'GSE25136'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span><span class="op">[</span>, <span class="va">ee.ShortName</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 6</span>
-<span class="co">#&gt; Columns: 7</span>
-<span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
-<span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "disease", "org…</span>
-<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000635", "http://www.ebi.…</span>
-<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IC", "", "IC", "IC", "IC"</span>
-<span class="co">#&gt; $ term.Name     &lt;chr&gt; "lung", "respiratory epithelial cell", "Transplanted Org…</span>
-<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/UBERON_0002048", "http:/…</span>
-<span class="co">#&gt; $ ee.ShortName  &lt;chr&gt; "GSE2018", "GSE2018", "GSE2018", "GSE25136", "GSE25136",…</span></code></pre></div>
-<p>For large requests, this is often insufficient and instead, we recommend using <code>async</code> requests.</p>
-</div>
-<div id="asynchronous-requests" class="section level2">
-<h2 class="hasAnchor">
-<a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h2>
-<p>The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a <code>synchronise</code> block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.</p>
-<p>This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, <code>GSE2018</code> and <code>GSE25136</code>. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a <code>synchronise</code> block 2. Set <code>async = TRUE</code> in our requests</p>
-<p>We’ll build back up to multiple queries, but starting with a single query, the difference is trivial to see.</p>
+<code class="sourceCode R"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">"GSE35974"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt;  [1] "ee.ShortName"        "ee.Name"             "ee.ID"              
+#&gt;  [4] "ee.Description"      "ee.Public"           "ee.Troubled"        
+#&gt;  [7] "ee.Accession"        "ee.Database"         "ee.URL"             
+#&gt; [10] "ee.Samples"          "ee.LastUpdated"      "ee.Batch.P"         
+#&gt; [13] "ee.Batch.PC"         "geeq.batchCorrected" "geeq.qScore"        
+#&gt; [16] "geeq.sScore"         "taxon.Name"          "taxon.ID"           
+#&gt; [19] "technology.Type"</code></pre>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 3</span>
-<span class="co">#&gt; Columns: 6</span>
-<span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue"</span>
-<span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease"</span>
-<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000635", "http://www.ebi.…</span>
-<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IC", ""</span>
-<span class="co">#&gt; $ term.Name     &lt;chr&gt; "lung", "respiratory epithelial cell", "Transplanted Org…</span>
-<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/UBERON_0002048", "http:/…</span></code></pre></div>
-<p>Notice the added <code>synchronise</code> block, and that we moved our call to <code>glimpse</code> outside of the synchronise block, since the result is guaranteed to be available there.</p>
-<p>With multiple queries, there’s one additional thing we need to do and that is to actually “unpack” our asynchronous results. We have a few options for this (<code>when_all</code>, <code>when_any</code>, or <code>when_some</code>), but typically we’ll just want to receive all the results and thus use <code>when_all</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="co"># Make the queries</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, <span class="st">'GSE25136'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-  
-  <span class="co"># Only complete this synchronise block when all queries are finished</span>
-  <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 6</span>
-<span class="co">#&gt; Columns: 6</span>
-<span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
-<span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "disease", "org…</span>
-<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000635", "http://www.ebi.…</span>
-<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IC", "", "IC", "IC", "IC"</span>
-<span class="co">#&gt; $ term.Name     &lt;chr&gt; "lung", "respiratory epithelial cell", "Transplanted Org…</span>
-<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/UBERON_0002048", "http:/…</span></code></pre></div>
-<p>Finally, we’ll introduce one last thing you can do with asynchronous results and that is the deferred chain, <code>$then</code>. As we’ve discussed, the result of a Gemma API query with <code>async = T</code> is a deferred value. However, it’s still possible to work with them when they become available by specifying code to run when that happens. This is particularly useful when you want to compose information from multiple endpoints.</p>
+<code class="sourceCode R"><span class="va">dataset</span><span class="op">$</span><span class="va">ee.Description</span></code></pre></div>
+<pre><code>#&gt; [1] "Background: Schizophrenia (SCZ) and bipolar disorder (BD) are highly heritable psychiatric disorders. Associated genetic and gene expression changes have been identified, but many have not been replicated and have unknown functions. We identified groups of genes whose expressions varied together, that is co-expression modules, then tested them for association with SCZ. Using weighted gene co-expression network analysis, we show that two modules were differentially expressed in patients versus controls. One, upregulated in cerebral cortex, was enriched with neuron differentiation and neuron development genes, as well as disease genome-wide association study genetic signals; the second, altered in cerebral cortex and cerebellum, was enriched with genes involved in neuron protection functions. The findings were preserved in five expression data sets, including sets from three brain\nregions, from a different microarray platform, and from BD patients. From those observations, we propose neuron differentiation and development pathways may be involved in etiologies of both SCZ and BD, and neuron protection function participates in pathological process of the diseases.\nLast Updated (by provider): Jul 26, 2018\nContributors:  Chao Chen Chunyu Liu Lijun Cheng"</code></pre>
+<p>To access the actual expression data, you can use [<code>getBioconductor()]()</code>. It is a high-level wrapper that combines various endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="co"># First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue</span>
-  <span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">'numberOfSamples &gt; 100'</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-  
-  <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
-  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span>
-    <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
-      <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
-      <span class="va">diffEx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
-        <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span>
-        <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
-          <span class="va">response</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
-        <span class="op">}</span><span class="op">)</span>
-      <span class="op">}</span><span class="op">)</span>
-      
-      <span class="co"># When all of these results become available, bind them together for return</span>
-      <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">diffEx</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span>
-  
-  <span class="co"># Only complete this synchronise block when all queries are finished</span>
-  <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 24</span>
-<span class="co">#&gt; Columns: 3</span>
-<span class="co">#&gt; $ ee.ID     &lt;int&gt; 24, 126, 157, 157, 166, 204, 219, 219, 219, 219, 219, 219, 2…</span>
-<span class="co">#&gt; $ expr      &lt;list&gt; [&lt;data.table[87 x 164]&gt;], [&lt;data.table[88 x 176]&gt;], [&lt;data.…</span>
-<span class="co">#&gt; $ diffExSet &lt;int&gt; 484136, 443192, 481902, 481901, 459902, 443428, 482743, 4827…</span></code></pre></div>
-<p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
-<div id="benchmark" class="section level3">
-<h3 class="hasAnchor">
-<a href="#benchmark" class="anchor"></a>Benchmark</h3>
-<p>For completeness, we’ll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue</span>
-<span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">'numberOfSamples &gt; 100'</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
-
-<span class="va">asyncBenchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
-    <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
-    <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-      <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span>
-      <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
-        <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
-        <span class="va">diffEx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
-          <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span>
-          <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
-            <span class="va">response</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
-          <span class="op">}</span><span class="op">)</span>
-        <span class="op">}</span><span class="op">)</span>
-        
-        <span class="co"># When all of these results become available, bind them together for return</span>
-        <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">diffEx</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span><span class="op">)</span>
-      <span class="op">}</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>
-    
-    <span class="co"># Only complete this synchronise block when all queries are finished</span>
-    <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
-<span class="op">}</span>
-
-<span class="va">syncBenchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-  <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
-  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Get the DEA synchronously</span>
-    <span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
-    <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
-    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
-      <span class="co"># Make all these requests synchronously and add the diffExSet</span>
-      <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span><span class="op">)</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
-    <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
-  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
-<span class="op">}</span>
-
-<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'s'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">expr</th>
-<th align="right">min</th>
-<th align="right">lq</th>
-<th align="right">mean</th>
-<th align="right">median</th>
-<th align="right">uq</th>
-<th align="right">max</th>
-<th align="right">neval</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">asyncBenchmark()</td>
-<td align="right">6.177528</td>
-<td align="right">6.213076</td>
-<td align="right">6.409134</td>
-<td align="right">6.237062</td>
-<td align="right">6.440273</td>
-<td align="right">6.977729</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">syncBenchmark()</td>
-<td align="right">32.601436</td>
-<td align="right">33.474817</td>
-<td align="right">33.568716</td>
-<td align="right">33.476154</td>
-<td align="right">33.605366</td>
-<td align="right">34.685808</td>
-<td align="right">5</td>
-</tr>
-</tbody>
-</table>
-<p>As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger, such as if we wanted to fetch all annotations in Gemma.</p>
+<code class="sourceCode R"><span class="co"># Create ExpressionSet</span>
+<span class="va">eset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getBioconductor.html">getBioconductor</a></span><span class="op">(</span><span class="st">"ExpressionSet"</span>, <span class="st">"GSE35974"</span><span class="op">)</span>
+<span class="va">eset</span></code></pre></div>
+<pre><code>#&gt; ExpressionSet (storageMode: lockedEnvironment)
+#&gt; assayData: 21939 features, 144 samples 
+#&gt;   element names: exprs 
+#&gt; protocolData: none
+#&gt; phenoData
+#&gt;   sampleNames: DE59_111109_rep1 DE60_100909 ... AC101_100909 (144
+#&gt;     total)
+#&gt;   varLabels: DiseaseState batch
+#&gt;   varMetadata: labelDescription
+#&gt; featureData: none
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; Annotation: GPL6244</code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># For simplicity, we'll assume there are no experiment IDs larger than 20,000.</span>
-
-<span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
-  <span class="co"># First send a request to an endpoint that accepts multiple datasets to narrow down our search space</span>
-  <span class="fu"><a href="../reference/async_map.html">async_map</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/split.html">split</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="../reference/async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">chunk</span><span class="op">)</span> <span class="op">{</span>
-    <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="va">chunk</span>, limit <span class="op">=</span> <span class="fl">0</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-  <span class="op">}</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
-    <span class="co"># Asynchronously request annotations for each experiment that was found</span>
-    <span class="fu"><a href="../reference/async_map.html">async_map</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">response</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[</span>, <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">ee.ID</span><span class="op">)</span><span class="op">]</span>, <span class="fu"><a href="../reference/async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-      <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span> <span class="op">{</span>
-        <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">is.data.table</a></span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span><span class="op">)</span> <span class="va">annotations</span><span class="op">[</span>, <span class="va">ee.ID</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
-        <span class="kw">else</span> <span class="cn">NULL</span>
-      <span class="op">}</span><span class="op">)</span>
-    <span class="op">}</span><span class="op">)</span>, .limit <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="co"># Only allow 50 active requests at a time to not flood the server</span>
-  <span class="op">}</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
-<span class="co">#&gt; Rows: 61,740</span>
-<span class="co">#&gt; Columns: 7</span>
-<span class="co">#&gt; $ class.Type    &lt;chr&gt; "ExperimentTag", "ExperimentTag", "FactorValue", "Factor…</span>
-<span class="co">#&gt; $ class.Name    &lt;chr&gt; "organism part", "cell type", "disease", "treatment", NA…</span>
-<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000635", "http://www.ebi.…</span>
-<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IC", "", "IC", "", "IC", "IC", "IC", "IC", "IC", …</span>
-<span class="co">#&gt; $ term.Name     &lt;chr&gt; "lung", "respiratory epithelial cell", "Transplanted Org…</span>
-<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/UBERON_0002048", "http:/…</span>
-<span class="co">#&gt; $ ee.ID         &lt;int&gt; 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 5, 5, 5, 5, 5,…</span></code></pre></div>
-<p>This can (conceivably) be done synchronously, but in practice it would take far too long.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Not evaluated</span>
-<span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/split.html">split</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_along</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">20000</span><span class="op">)</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">chunk</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="va">chunk</span>, limit <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">response</span><span class="op">[</span>, <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">ee.ID</span><span class="op">)</span><span class="op">]</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
-  <span class="va">annotations</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
-  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/as.data.table.html">is.data.table</a></span><span class="op">(</span><span class="va">annotations</span><span class="op">)</span><span class="op">)</span> <span class="va">annotations</span><span class="op">[</span>, <span class="va">ee.ID</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
-  <span class="kw">else</span> <span class="cn">NULL</span>
+<code class="sourceCode R"><span class="co"># Check the levels of the DiseaseState cofactor</span>
+<span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; [1] "reference_subject_role" "mental_depression"      "Bipolar_Disorder"      
+#&gt; [4] "schizophrenia"</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Subset patients with bipolar disorder and controls.</span>
+<span class="va">bipolar</span> <span class="op">&lt;-</span> <span class="va">eset</span><span class="op">[</span> , <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">"Bipolar_Disorder"</span> <span class="op">|</span> <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">'reference_subject_role'</span><span class="op">]</span>
+<span class="va">bipolar</span></code></pre></div>
+<pre><code>#&gt; ExpressionSet (storageMode: lockedEnvironment)
+#&gt; assayData: 21939 features, 87 samples 
+#&gt;   element names: exprs 
+#&gt; protocolData: none
+#&gt; phenoData
+#&gt;   sampleNames: DE59_111109_rep1 DE7_111109 ... AC1_100909 (87 total)
+#&gt;   varLabels: DiseaseState batch
+#&gt;   varMetadata: labelDescription
+#&gt; featureData: none
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; Annotation: GPL6244</code></pre>
+<p>Check the Summarized Experiment <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html">vignette</a> or the ExpressionSet <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">vignette</a> for more details.</p>
+<p>From this point, you can use <a href="https://bioconductor.org/packages/release/bioc/html/limma.html"><code>limma</code></a> or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.</p>
+<p>For quick exploration and visualization, we recommend exploring the data in tidy format.</p>
+<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span>, <span class="st">'GSE99349'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; Rows: 3
+#&gt; Columns: 19
+#&gt; $ ee.ShortName        &lt;chr&gt; "GSE12649", "GSE35974", "GSE99349"
+#&gt; $ ee.Name             &lt;chr&gt; "Gene expression from human prefrontal cortex (BA4…
+#&gt; $ ee.ID               &lt;int&gt; 1205, 5939, 11690
+#&gt; $ ee.Description      &lt;chr&gt; "Accumulating evidence suggests that mitochondrial…
+#&gt; $ ee.Public           &lt;lgl&gt; TRUE, TRUE, TRUE
+#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE
+#&gt; $ ee.Accession        &lt;chr&gt; "GSE12649", "GSE35974", "GSE99349"
+#&gt; $ ee.Database         &lt;chr&gt; "GEO", "GEO", "GEO"
+#&gt; $ ee.URL              &lt;chr&gt; "http://www.ncbi.nlm.nih.gov/geo/", "http://www.nc…
+#&gt; $ ee.Samples          &lt;int&gt; 102, 144, 36
+#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2021-01-13 16:08:05, 2020-03-28 04:23:35, 2020-03-…
+#&gt; $ ee.Batch.P          &lt;dbl&gt; NA, NA, NA
+#&gt; $ ee.Batch.PC         &lt;dbl&gt; NA, NA, NA
+#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE, TRUE, FALSE
+#&gt; $ geeq.qScore         &lt;dbl&gt; 0.9972712, 0.9975938, 0.9879754
+#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875, 1.000, 1.000
+#&gt; $ taxon.Name          &lt;chr&gt; "human", "human", "human"
+#&gt; $ taxon.ID            &lt;int&gt; 1, 1, 1
+#&gt; $ technology.Type     &lt;chr&gt; "ONECOLOR", "ONECOLOR", "GENELIST"</code></pre>
+<p>You’ll be able to tell which endpoints accept multiple inputs from the function examples in the documentation or simply because the the parameter name is plural (ie. <code>datasets</code>, <code>platforms</code>). The rest of the endpoints only support a single identifier:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; Error: Please specify one valid identifier for dataset.</code></pre>
+<p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span><span class="op">[</span>, <span class="va">ee.ShortName</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span></code></pre></div>
-</div>
-</div>
+<pre><code>#&gt; Rows: 10
+#&gt; Columns: 7
+#&gt; $ class.Type    &lt;chr&gt; "FactorValue", "BioMaterial", "BioMaterial", "FactorValu…
+#&gt; $ class.Name    &lt;chr&gt; "disease", "biological sex", "biological sex", "disease"…
+#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000408", "http://purl.obo…
+#&gt; $ evidence.Code &lt;chr&gt; "IC", "IIA", "IIA", "IC", "IC", "IC", "IEA", "IEA", "IC"…
+#&gt; $ term.Name     &lt;chr&gt; "Bipolar Disorder", "male", "female", "schizophrenia", "…
+#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/DOID_3312", "http://purl…
+#&gt; $ ee.ShortName  &lt;chr&gt; "GSE35974", "GSE35974", "GSE35974", "GSE35974", "GSE3597…</code></pre>
+<p>For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the async vignette.</p>
 <div id="memoised-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#memoised-results" class="anchor"></a>Memoised results</h2>
-<p>A different way to “speed up” requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>A different way to spe requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="41%">
+<col width="42%">
 <col width="8%">
 <col width="8%">
 <col width="8%">
@@ -425,28 +257,28 @@
 <th align="right">neval</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">12377.27</td>
-<td align="right">12377.27</td>
-<td align="right">12377.27</td>
-<td align="right">12377.27</td>
-<td align="right">12377.27</td>
-<td align="right">12377.27</td>
+<td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
+<td align="right">42008.21</td>
+<td align="right">42008.21</td>
+<td align="right">42008.21</td>
+<td align="right">42008.21</td>
+<td align="right">42008.21</td>
+<td align="right">42008.21</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="47%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="7%">
-<col width="6%">
+<col width="42%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="8%">
+<col width="5%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">expr</th>
@@ -459,24 +291,20 @@
 <th align="right">neval</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="left">getDatasetData(“GSE2018”, memoised = TRUE)</td>
-<td align="right">0.5818</td>
-<td align="right">0.5818</td>
-<td align="right">0.5818</td>
-<td align="right">0.5818</td>
-<td align="right">0.5818</td>
-<td align="right">0.5818</td>
+<td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
+<td align="right">0.438688</td>
+<td align="right">0.438688</td>
+<td align="right">0.438688</td>
+<td align="right">0.438688</td>
+<td align="right">0.438688</td>
+<td align="right">0.438688</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
-<div id="clearing-cache" class="section level3">
-<h3 class="hasAnchor">
-<a href="#clearing-cache" class="anchor"></a>Clearing cache</h3>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; [1] TRUE</span></code></pre></div>
-</div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; [1] TRUE</code></pre>
 </div>
 <div id="raw-data" class="section level2">
 <h2 class="hasAnchor">
@@ -498,71 +326,68 @@
 </ol>
 <p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
 <p>To illustrate these…</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span>
-<span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ bioMaterialIds: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
-<span class="co">#&gt;  $ variances     : num [1:34] 0.1475 0.0888 0.0716 0.0563 0.0541 ...</span>
-<span class="co">#&gt;  $ vMatrix       :List of 4</span>
-<span class="co">#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4</span>
-<span class="co">#&gt;   ..$ rowNames          : int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
-<span class="co">#&gt;   ..$ rawMatrix         : num [1:34, 1:5] 0.256542 -0.054118 -0.094021 0.000271 0.286761 ...</span>
-<span class="co">#&gt;   ..$ rowNameMapIterator: int [1:34] 32 33 27 19 8 18 5 11 16 7 ...</span>
-<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetPlatforms.html">getDatasetPlatforms</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, file <span class="op">=</span> <span class="st">'platforms'</span><span class="op">)</span><span class="op">)</span> <span class="co"># No nested data.tables, saves platforms.csv</span>
-<span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 15</span>
-<span class="co">#&gt; $ platform.ID                  &lt;int&gt; 1</span>
-<span class="co">#&gt; $ platform.ShortName           &lt;chr&gt; "GPL96"</span>
-<span class="co">#&gt; $ platform.Name                &lt;chr&gt; "Affymetrix GeneChip Human Genome U133 Ar…</span>
-<span class="co">#&gt; $ platform.Description         &lt;chr&gt; " The U133 set includes 2 arrays with a t…</span>
-<span class="co">#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE</span>
-<span class="co">#&gt; $ platform.ExperimentCount     &lt;int&gt; 412</span>
-<span class="co">#&gt; $ platform.GeneCount           &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ platform.ProbeGeneCount      &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ platform.ElementCount        &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ taxon.Name                   &lt;chr&gt; "human"</span>
-<span class="co">#&gt; $ taxon.ID                     &lt;lgl&gt; NA</span>
-<span class="co">#&gt; $ technology.Type              &lt;chr&gt; "ONECOLOR"</span>
-<span class="co">#&gt; $ technology.Color             &lt;chr&gt; "ONECOLOR"</span>
-<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSamples.html">getDatasetSamples</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, file <span class="op">=</span> <span class="st">'samples'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Some nested data.tables, saves samples.rds</span>
-<span class="co">#&gt; Rows: 34</span>
-<span class="co">#&gt; Columns: 17</span>
-<span class="co">#&gt; $ bioMaterial.Name       &lt;chr&gt; "GSE2018_bioMaterial_4|GSM36426", "GSE2018_bioM…</span>
-<span class="co">#&gt; $ sample.Name            &lt;chr&gt; "BAL_1_A0B0", "BAL_27a_A0B0", "BAL_43_A0B0", "B…</span>
-<span class="co">#&gt; $ sample.ID              &lt;int&gt; 31, 20, 9, 29, 18, 7, 27, 16, 5, 25, 14, 3, 34,…</span>
-<span class="co">#&gt; $ sample.Correspondence  &lt;chr&gt; "Corresponding to Samples:  GSM36426", "Corresp…</span>
-<span class="co">#&gt; $ sample.Description     &lt;chr&gt; " Bronchoalveolar lavage cells from a patient w…</span>
-<span class="co">#&gt; $ sample.Outlier         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span>
-<span class="co">#&gt; $ sample.Accession       &lt;chr&gt; "GSM36426", "GSM36437", "GSM36448", "GSM36428",…</span>
-<span class="co">#&gt; $ sample.Processed       &lt;dbl&gt; 1.036695e+12, 1.036693e+12, 1.035573e+12, 1.022…</span>
-<span class="co">#&gt; $ sample.Characteristics &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span>
-<span class="co">#&gt; $ sample.FactorValues    &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …</span>
-<span class="co">#&gt; $ array.ShortName        &lt;chr&gt; "GPL96", "GPL96", "GPL96", "GPL96", "GPL96", "G…</span>
-<span class="co">#&gt; $ array.Name             &lt;chr&gt; "Affymetrix GeneChip Human Genome U133 Array Se…</span>
-<span class="co">#&gt; $ array.Taxon            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
-<span class="co">#&gt; $ array.TaxonID          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
-<span class="co">#&gt; $ array.Type             &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
-<span class="co">#&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</span>
-<span class="co">#&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</span></code></pre></div>
-<p>If, for some reason, you absolutely don’t want to see the return value showing up in your R instance, you can suppress it using <code>invisible</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE2018'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Saves SVD.json like above, but suppresses output in R</span>
-<span class="co">#&gt; Warning in fun(value): SVD.json exists. Not overwriting.</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span></code></pre></div>
+<pre><code>#&gt; List of 3
+#&gt;  $ bioMaterialIds: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
+#&gt;  $ variances     : num [1:144] 0.0685 0.0437 0.0373 0.0287 0.0263 ...
+#&gt;  $ vMatrix       :List of 4
+#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4
+#&gt;   ..$ rowNames          : int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
+#&gt;   ..$ rawMatrix         : num [1:144, 1:5] 0.0509 -0.011 0.139 -0.0619 0.1197 ...
+#&gt;   ..$ rowNameMapIterator: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetPlatforms.html">getDatasetPlatforms</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'platforms'</span><span class="op">)</span><span class="op">)</span> <span class="co"># No nested data.tables, saves platforms.csv</span></code></pre></div>
+<pre><code>#&gt; Rows: 1
+#&gt; Columns: 15
+#&gt; $ platform.ID                  &lt;int&gt; 380
+#&gt; $ platform.ShortName           &lt;chr&gt; "GPL6244"
+#&gt; $ platform.Name                &lt;chr&gt; "Affymetrix Human Gene 1.0 ST Array"
+#&gt; $ platform.Description         &lt;chr&gt; " Probe set data extracted from HuGene-1_…
+#&gt; $ platform.Troubled            &lt;lgl&gt; FALSE
+#&gt; $ platform.ExperimentCount     &lt;int&gt; 338
+#&gt; $ platform.GeneCount           &lt;lgl&gt; NA
+#&gt; $ platform.ProbeSequenceCount  &lt;lgl&gt; NA
+#&gt; $ platform.ProbeAlignmentCount &lt;lgl&gt; NA
+#&gt; $ platform.ProbeGeneCount      &lt;lgl&gt; NA
+#&gt; $ platform.ElementCount        &lt;lgl&gt; NA
+#&gt; $ taxon.Name                   &lt;chr&gt; "human"
+#&gt; $ taxon.ID                     &lt;lgl&gt; NA
+#&gt; $ technology.Type              &lt;chr&gt; "ONECOLOR"
+#&gt; $ technology.Color             &lt;chr&gt; "ONECOLOR"</code></pre>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSamples.html">getDatasetSamples</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'samples'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Some nested data.tables, saves samples.rds</span></code></pre></div>
+<pre><code>#&gt; Rows: 144
+#&gt; Columns: 17
+#&gt; $ bioMaterial.Name       &lt;chr&gt; "GSE35974_Biomat_123", "GSE35974_Biomat_63", "G…
+#&gt; $ sample.Name            &lt;chr&gt; "DE15_102109", "AC52_103009", "AC60_111809", "D…
+#&gt; $ sample.ID              &lt;int&gt; 203849, 203902, 203893, 203840, 203946, 203937,…
+#&gt; $ sample.Correspondence  &lt;chr&gt; "BioMat:,GSM878312 on GPL6244", "BioMat:,GSM878…
+#&gt; $ sample.Description     &lt;chr&gt; " DE15\nSource GEO sample is GSM878312\nLast up…
+#&gt; $ sample.Outlier         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…
+#&gt; $ sample.Accession       &lt;chr&gt; "GSM878312", "GSM878259", "GSM878268", "GSM8783…
+#&gt; $ sample.Processed       &lt;dbl&gt; 1.256175e+12, 1.256945e+12, 1.258597e+12, 1.256…
+#&gt; $ sample.Characteristics &lt;list&gt; [&lt;data.table[9 x 4]&gt;], [&lt;data.table[9 x 4]&gt;], …
+#&gt; $ sample.FactorValues    &lt;list&gt; [&lt;data.table[2 x 4]&gt;], [&lt;data.table[2 x 4]&gt;], …
+#&gt; $ array.ShortName        &lt;chr&gt; "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GP…
+#&gt; $ array.Name             &lt;chr&gt; "Affymetrix Human Gene 1.0 ST Array", "Affymetr…
+#&gt; $ array.Taxon            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ array.TaxonID          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ array.Type             &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</code></pre>
 </div>
 <div id="changing-defaults" class="section level2">
 <h2 class="hasAnchor">
 <a href="#changing-defaults" class="anchor"></a>Changing defaults</h2>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
 <a href="#authentication" class="anchor"></a>Authentication</h2>
-<p>If you have an account at <a href="https://gemma.msl.ubc.ca">Gemma</a> and want to access data that is private, you can login using <code><a href="../reference/setGemmaUser.html">setGemmaUser("USERNAME", "PASSWORD")</a></code>, providing your actual username and password. These will be passed on to every API request you make until you log out (by calling <code><a href="../reference/setGemmaUser.html">setGemmaUser()</a></code>).</p>
-</div>
+<p>If you have an account at <a href="https://gemma.msl.ubc.ca">Gemma</a> and want to access data that is private, you can login using <code><a href="../reference/setGemmaUser.html">setGemmaUser("USERNAME", "PASSWORD")</a></code>. These will be passed on to every API request you make until you log out (by calling <code><a href="../reference/setGemmaUser.html">setGemmaUser()</a></code>).</p>
 </div>
   </div>
 
