@@ -1,8 +1,8 @@
 ---
-title: "Gemma API"
+title: "Using the Gemma API R Wrapper"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Gemma API}
+  %\VignetteIndexEntry{Using the Gemma API R Wrapper}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,10 +15,7 @@ vignette: >
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
 
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+knitr::opts_chunk$set(comment = "#>")
 ```
 
 ```{r setup, message = FALSE}
@@ -29,51 +26,81 @@ library(memoise)
 library(microbenchmark)
 ```
 
-# Getting started
+## 1 About Gemma
+Gemma is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.
 
+For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
+
+### 1.2 Platforms
+Re-annotated
+
+## 2 Using the Gemma API R Wrapper 
 The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.
 
-In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the `searchDatasets()` endpoint:
+
+In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
 
 ```{r search}
-searchDatasets('bipolar') %>% 
-  filter(taxon.Name == 'human') %>% 
+searchDatasets("bipolar") %>% 
+  filter(taxon.Name == "human") %>% 
   arrange(desc(geeq.qScore)) %>%
-  select(ee.ShortName)
+  select(ee.ShortName) %>%
+  head()
 ```
 
-There are 60 datasets associated with bipolar disorder in Gemma. The dataset with 
-the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
-Now that we have the ID for our experiment, we fetch the data associated with it.
+The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
+Now that we have the ID for our experiment, we can fetch the data associated with it.
 
-To get the basic information of a dataset, we use the `getDatasets()` endpoint.
+To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html) endpoint.
 
 ```{r dataset}
-dataset <- getDatasets('GSE35974')
+dataset <- getDatasets("GSE35974")
 colnames(dataset)
 dataset$ee.Description
 ```
 
-To access the actual expression data, you can use `getBioconductor()`. It is a high-level wrapper that combines various 
-endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages. 
-Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data. They include the expression matrix along with
-the experimental design, and ensure the sample names match between both.
+To access the actual expression data, you can use [`getBioconductor()](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html)`. 
+It is a high-level wrapper that combines various 
+endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. 
+Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data.
+They include the expression matrix along with
+the experimental design, and ensure the sample names match between both when transforming/subsetting data.
+
+Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples. 
+We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets. 
+```{r bioconductor}
+# Create ExpressionSet
+eset <- getBioconductor("ExpressionSet", "GSE35974")
+eset
+
+# Check the levels of the DiseaseState cofactor
+eset$DiseaseState %>% unique()
+
+# Subset patients with bipolar disorder and controls.
+bipolar <- eset[ , eset$DiseaseState == "Bipolar_Disorder" | eset$DiseaseState == 'reference_subject_role']
+bipolar
+```
 
 Check the Summarized  Experiment [vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or the ExpressionSet [vignette](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) for more details.
 
-```{r bioconductor}
-getBioconductor('ExpressionSet', 'GSE35974')
+From this point on, you can use [`limma`](https://bioconductor.org/packages/release/bioc/html/limma.html) or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.
+
+For quick exploration and visualization, we recommend exploring the data in tidy format
+
+```{r}
+
 ```
 
-Many endpoints also allow you to query multiple objects at the same time, for example:
+Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.
 
 ```{r double-query}
-glimpse(getDatasets(datasets = c('GSE35974', 'GSE12649')))
+getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>% 
+  glimpse()
 ```
 
-You'll be able to tell either from the function documentation or simply because the the parameter name is plural (ie. `datasets`, `platforms`).
-
-Some API endpoints only support a single identifier.
+You'll be able to tell which endpoints accept multiple inputs from the function examples in 
+the documentation or simply because the the parameter name is plural (ie. `datasets`, `platforms`).
+The rest of the endpoints only support a single identifier:
 
 ```{r error, error = TRUE}
 getDatasetAnnotations(c('GSE35974', 'GSE12649'))
@@ -87,13 +114,13 @@ lapply(c('GSE35974', 'GSE12649'), function(dataset) {
 }) %>% rbindlist %>% glimpse
 ```
 
-For large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained below.
+For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the async vignette.
 
 ## Memoised results
 
-A different way to "speed up" requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
+A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 
-```{r meamoised}
+```{r memoised}
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 ```

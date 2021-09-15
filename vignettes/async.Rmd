@@ -1,8 +1,11 @@
 ---
 title: "Asynchronous Requests (advanced)"
-author: "Javier J. Castillo Arnemann"
-date: "14/09/2021"
-output: html_document
+author: "Jordan Sicherman"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Asynchronous Requests (advanced)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -11,21 +14,19 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r, include = FALSE}
 # Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
-# if(Sys.getenv('RMD_BUILD') != 1)
-#   knitr::knit_exit()
+if(Sys.getenv('RMD_BUILD') != 1)
+  knitr::knit_exit()
 
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
-```
 
-```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup, message = FALSE}
+```{r, message = FALSE}
 library(gemmaAPI)
 library(dplyr)
 library(data.table)
@@ -65,7 +66,7 @@ synchronise({
 
 Finally, we'll introduce one last thing you can do with asynchronous results and that is the deferred chain, `$then`. As we've discussed, the result of a Gemma API query with `async = T` is a deferred value. However, it's still possible to work with them when they become available by specifying code to run when that happens. This is particularly useful when you want to compose information from multiple endpoints.
 
-```{r async}
+```{r async, eval=FALSE}
 synchronise({
   # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
   datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
@@ -98,7 +99,7 @@ Although this may look intimidating at first, it's a very powerful way to rapidl
 
 For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).
 
-```{r async-benchmark-1}
+```{r async-benchmark-1, eval=FALSE}
 # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
 datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
 
