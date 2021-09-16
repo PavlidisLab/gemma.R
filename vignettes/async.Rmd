@@ -12,10 +12,11 @@ vignette: >
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
 ```{r, include = FALSE}
 # Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
-if(Sys.getenv('RMD_BUILD') != 1)
-  knitr::knit_exit()
+# if(Sys.getenv('RMD_BUILD') != 1)
+#   knitr::knit_exit()
 
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
