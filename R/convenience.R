@@ -234,14 +234,15 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
+    validateID(dataset)
 
-    # Create expression matrix
-    expr <- getDatasetData(dataset, filter)
-    exprM <- processExpressionMatrix(expr)
+    # Expression matrix
+    exprM <- getDatasetData(dataset, filter) %>%
+        processExpressionMatrix()
 
-    # Create metadata table
-    d <- getDatasetDesign(dataset)
-    design <- processDesignMatrix(d)
+    # Metadata table
+    design <- getDatasetDesign(dataset) %>%
+        processDesignMatrix()
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
@@ -252,7 +253,7 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
     # Reorder expression matrix to match design
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-    # Create experiment description
+    # Experiment description
     dat <- getDatasets(dataset)
     other <- list(
         database = dat$ee.Database,
@@ -292,4 +293,40 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
             annotation = getDatasetPlatforms(dataset)$platform.ShortName
         )
     }
+}
+
+#' Get Tidy Dataset and Design
+#'
+#' Combines the expression and design matrix of the queried dataset into one
+#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}}.
+#'
+#' @param dataset A dataset identifier.
+#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
+#'
+#' @return A \code{\link[tibble]{tibble}}
+#' @importFrom rlang .data
+#' @keywords dataset
+#' @export
+#' @examples
+#' getTidyDataset("GSE2018")
+getTidyDataset <- function(dataset, filter = TRUE){
+    validateID(dataset)
+    # Metadata table
+    design <- getDatasetDesign(dataset) %>%
+        processDesignMatrix() %>%
+        tibble::rownames_to_column("Sample")
+
+    # Expression matrix
+    expr <- getDatasetData(dataset) %>%
+        processExpressionMatrix() %>%
+        as.data.frame()
+    # Match sample order with metadata
+    expr <- expr[, match(design$Sample, colnames(expr))]
+    #Convert to long format
+    exprLong <- expr %>%
+        tibble::rownames_to_column("gene") %>%
+        tidyr::pivot_longer(-gene, names_to = "Sample", values_to = "Expression")
+
+    # Join both
+    dplyr::inner_join(exprLong, design, by="Sample")
 }

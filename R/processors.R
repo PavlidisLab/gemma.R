@@ -638,7 +638,7 @@ processDesignMatrix <- function(m) {
 #' @importFrom rlang .data
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-    exprM <- m[, 7:ncol(expr)] %>% data.matrix()
+    exprM <- m[, 7:ncol(m)] %>% data.matrix()
     rownames(exprM) <- m$Probe
     colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
     exprM
