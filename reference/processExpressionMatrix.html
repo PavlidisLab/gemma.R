@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Platform datasets — getPlatformDatasets • gemmaAPI</title>
+<title>Processes expression matrix — processExpressionMatrix • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Platform datasets — getPlatformDatasets" />
-<meta property="og:description" content="Retrieves experiments in the given platform" />
+<meta property="og:title" content="Processes expression matrix — processExpressionMatrix" />
+<meta property="og:description" content="Processes expression matrix" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -144,104 +144,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Platform datasets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
-    <div class="hidden name"><code>getPlatformDatasets.Rd</code></div>
+    <h1>Processes expression matrix</h1>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/processors.R'><code>R/processors.R</code></a></small>
+    <div class="hidden name"><code>processExpressionMatrix.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Retrieves experiments in the given platform</p>
+    <p>Processes expression matrix</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getPlatformDatasets</span><span class='op'>(</span>
-  platform <span class='op'>=</span> <span class='cn'>NA_character_</span>,
-  offset <span class='op'>=</span> <span class='fl'>0L</span>,
-  limit <span class='op'>=</span> <span class='fl'>20L</span>,
-  raw <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.raw"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  async <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.async"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  memoised <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.memoise"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
-  file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.file"</span>, <span class='cn'>NA_character_</span><span class='op'>)</span>,
-  overwrite <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"gemma.overwrite"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>processExpressionMatrix</span><span class='op'>(</span><span class='va'>m</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>platform</th>
-      <td><p>Required, part of the URL path.
-Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)
-Retrieval by ID is more efficient.
-Only platforms that user has access to will be available.</p></td>
-    </tr>
-    <tr>
-      <th>offset</th>
-      <td><p>Optional, defaults to <code>0</code>.
-Skips the specified amount of objects when retrieving them from the
-database.</p></td>
-    </tr>
-    <tr>
-      <th>limit</th>
-      <td><p>Optional, defaults to <code>20</code>.
-Limits the result to specified amount of objects. Use 0 for no limit.</p></td>
-    </tr>
-    <tr>
-      <th>raw</th>
-      <td><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
-parsing.</p></td>
-    </tr>
-    <tr>
-      <th>async</th>
-      <td><p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run
-synchronously. See the <code>async</code> package for details.</p></td>
-    </tr>
-    <tr>
-      <th>memoised</th>
-      <td><p>Whether or not to cache results so future requests for the same data
-will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></td>
-    </tr>
-    <tr>
-      <th>file</th>
-      <td><p>The name of a file to save the results to, or <code>NULL</code> to not write
-results to a file. If <code>raw == TRUE</code>, the output will be a JSON file.
-Otherwise, it will be a RDS file.</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>Whether or not to overwrite if a file exists at the specified filename.</p></td>
+      <th>m</th>
+      <td><p>The matrix to process</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An array of datasets (expression experiment value objects) that are on
-the given platform.
-A <code>404 error</code> if the given identifier does not map to any object.</p>
+    <p>A processed matrix</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getPlatformDatasets</span><span class='op'>(</span><span class='st'>"GPL1355"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span>, vec.len <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	20 obs. of  19 variables:
-#&gt;  $ ee.ShortName       : chr  "GSE2872" ...
-#&gt;  $ ee.Name            : chr  "d'mel-affy-rat-168311" ...
-#&gt;  $ ee.ID              : int  2 2 ...
-#&gt;  $ ee.Description     : chr  "Neurological diseases disrupt the quality of the lives of patients and often lead to their death prematurely.  "| __truncated__ ...
-#&gt;  $ ee.Public          : logi  TRUE ...
-#&gt;  $ ee.Troubled        : logi  FALSE ...
-#&gt;  $ ee.Accession       : chr  "GSE2872" ...
-#&gt;  $ ee.Database        : chr  "GEO" ...
-#&gt;  $ ee.URL             : chr  "http://www.ncbi.nlm.nih.gov/geo/" ...
-#&gt;  $ ee.Samples         : int  12 12 ...
-#&gt;  $ ee.LastUpdated     : POSIXct, format: "2020-03-27 03:41:10" ...
-#&gt;  $ ee.Batch.P         : num  NA NA ...
-#&gt;  $ ee.Batch.PC        : num  NA NA ...
-#&gt;  $ geeq.batchCorrected: logi  FALSE ...
-#&gt;  $ geeq.qScore        : num  0.855 ...
-#&gt;  $ geeq.sScore        : num  0.5 0.5 ...
-#&gt;  $ taxon.Name         : chr  "rat" ...
-#&gt;  $ taxon.ID           : int  3 3 ...
-#&gt;  $ technology.Type    : chr  "ONECOLOR" ...
-#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

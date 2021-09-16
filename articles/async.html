@@ -95,7 +95,7 @@
 
       
 
-      </header><script src="async_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="async_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Asynchronous Requests (advanced)</h1>
@@ -109,7 +109,126 @@
 
     
     
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pavlidislab.github.io/Gemma-API/">gemmaAPI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/memoise">memoise</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></code></pre></div>
+<div id="asynchronous-requests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h3>
+<p>The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a <code>synchronise</code> block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.</p>
+<p>This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, <code>GSE2018</code> and <code>GSE25136</code>. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a <code>synchronise</code> block 2. Set <code>async = TRUE</code> in our requests</p>
+<p>We’ll build back up to multiple queries, but starting with a single query, the difference is trivial to see.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
+<span class="co">#&gt; Rows: 6</span>
+<span class="co">#&gt; Columns: 6</span>
+<span class="co">#&gt; $ class.Type    &lt;chr&gt; "FactorValue", "BioMaterial", "BioMaterial", "FactorValu…</span>
+<span class="co">#&gt; $ class.Name    &lt;chr&gt; "disease", "biological sex", "biological sex", "disease"…</span>
+<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000408", "http://purl.obo…</span>
+<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IIA", "IIA", "IC", "IC", "IC"</span>
+<span class="co">#&gt; $ term.Name     &lt;chr&gt; "Bipolar Disorder", "male", "female", "schizophrenia", "…</span>
+<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/DOID_3312", "http://purl…</span></code></pre></div>
+<p>Notice the added <code>synchronise</code> block, and that we moved our call to <code>glimpse</code> outside of the synchronise block, since the result is guaranteed to be available there.</p>
+<p>With multiple queries, there’s one additional thing we need to do and that is to actually “unpack” our asynchronous results. We have a few options for this (<code>when_all</code>, <code>when_any</code>, or <code>when_some</code>), but typically we’ll just want to receive all the results and thus use <code>when_all</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="co"># Make the queries</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span>
+  
+  <span class="co"># Only complete this synchronise block when all queries are finished</span>
+  <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span>
+<span class="co">#&gt; Rows: 10</span>
+<span class="co">#&gt; Columns: 6</span>
+<span class="co">#&gt; $ class.Type    &lt;chr&gt; "FactorValue", "BioMaterial", "BioMaterial", "FactorValu…</span>
+<span class="co">#&gt; $ class.Name    &lt;chr&gt; "disease", "biological sex", "biological sex", "disease"…</span>
+<span class="co">#&gt; $ class.URL     &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000408", "http://purl.obo…</span>
+<span class="co">#&gt; $ evidence.Code &lt;chr&gt; "IC", "IIA", "IIA", "IC", "IC", "IC", "IEA", "IEA", "IC"…</span>
+<span class="co">#&gt; $ term.Name     &lt;chr&gt; "Bipolar Disorder", "male", "female", "schizophrenia", "…</span>
+<span class="co">#&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/DOID_3312", "http://purl…</span></code></pre></div>
+<p>Finally, we’ll introduce one last thing you can do with asynchronous results and that is the deferred chain, <code>$then</code>. As we’ve discussed, the result of a Gemma API query with <code>async = T</code> is a deferred value. However, it’s still possible to work with them when they become available by specifying code to run when that happens. This is particularly useful when you want to compose information from multiple endpoints.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
+  <span class="co"># First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue</span>
+  <span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">'numberOfSamples &gt; 100'</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+  
+  <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
+  <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span>
+    <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
+      <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
+      <span class="va">diffEx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
+        <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span>
+        <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
+          <span class="va">response</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
+        <span class="op">}</span><span class="op">)</span>
+      <span class="op">}</span><span class="op">)</span>
+      
+      <span class="co"># When all of these results become available, bind them together for return</span>
+      <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">diffEx</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span><span class="op">)</span>
+    <span class="op">}</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span>
+  
+  <span class="co"># Only complete this synchronise block when all queries are finished</span>
+  <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span></code></pre></div>
+<p>Although this may look intimidating at first, it’s a very powerful way to rapidly make batch queries.</p>
+<div id="benchmark" class="section level4">
+<h4 class="hasAnchor">
+<a href="#benchmark" class="anchor"></a>Benchmark</h4>
+<p>For completeness, we’ll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue</span>
+<span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">'numberOfSamples &gt; 100'</span>, limit <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
 
+<span class="va">asyncBenchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/synchronise.html">synchronise</a></span><span class="op">(</span><span class="op">{</span>
+    <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
+    <span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+      <span class="co"># Get the DEA asynchronously and when it becomes available, run a function on the result</span>
+      <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
+        <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
+        <span class="va">diffEx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
+          <span class="co"># Make all these requests asynchronously and add the diffExSet when we receive a response</span>
+          <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span>, async <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">response</span><span class="op">)</span> <span class="op">{</span>
+            <span class="va">response</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
+          <span class="op">}</span><span class="op">)</span>
+        <span class="op">}</span><span class="op">)</span>
+        
+        <span class="co"># When all of these results become available, bind them together for return</span>
+        <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">diffEx</span><span class="op">)</span><span class="op">$</span><span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html">rbindlist</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span><span class="op">)</span>
+      <span class="op">}</span><span class="op">)</span>
+    <span class="op">}</span><span class="op">)</span>
+    
+    <span class="co"># Only complete this synchronise block when all queries are finished</span>
+    <span class="fu"><a href="../reference/when_all.html">when_all</a></span><span class="op">(</span>.list <span class="op">=</span> <span class="va">res</span><span class="op">)</span>
+  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
+<span class="op">}</span>
+
+<span class="va">syncBenchmark</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Loop over dataset identifiers that we fetched and get differential expression analyses.</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">datasets</span><span class="op">$</span><span class="va">ee.ID</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Get the DEA synchronously</span>
+    <span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetDEA.html">getDatasetDEA</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span>
+    <span class="co"># Now that we have a result ID, we can get differential expression results for these analyses</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="va">response</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">diffExSet</span><span class="op">)</span> <span class="op">{</span>
+      <span class="co"># Make all these requests synchronously and add the diffExSet</span>
+      <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="va">dataset</span>, diffExSet <span class="op">=</span> <span class="va">diffExSet</span><span class="op">)</span><span class="op">[</span>, <span class="va">diffExSet</span> <span class="op">:=</span> <span class="va">diffExSet</span><span class="op">]</span>
+    <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
+  <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span>
+<span class="op">}</span>
+
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu">asyncBenchmark</span><span class="op">(</span><span class="op">)</span>, <span class="fu">syncBenchmark</span><span class="op">(</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'s'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger.</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

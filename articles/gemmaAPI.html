@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Downloading Gene Expression Data with the Gemma API R Wrapper • gemmaAPI</title>
+<title>Gemma API R Wrapper • gemmaAPI</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Downloading Gene Expression Data with the Gemma API R Wrapper">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Gemma API R Wrapper">
 <meta property="og:description" content="gemmaAPI">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -95,10 +95,10 @@
 
       
 
-      </header><script src="gemmaAPI_files/header-attrs-2.10/header-attrs.js"></script><div class="row">
+      </header><script src="gemmaAPI_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Downloading Gene Expression Data with the Gemma API R Wrapper</h1>
+      <h1 data-toc-skip>Gemma API R Wrapper</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/Gemma-API/blob/master/vignettes/gemmaAPI.Rmd"><code>vignettes/gemmaAPI.Rmd</code></a></small>
@@ -110,10 +110,21 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pavlidislab.github.io/Gemma-API/">gemmaAPI</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Biobase">Biobase</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-lib/memoise">memoise</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/joshuaulrich/microbenchmark/">microbenchmark</a></span><span class="op">)</span></code></pre></div>
+<div id="about-gemma" class="section level2">
+<h2 class="hasAnchor">
+<a href="#about-gemma" class="anchor"></a>About Gemma</h2>
+<p><a href="https://gemma.ubc.msl.ca/">Gemma</a> is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.</p>
+<p>For detailed information on the curation process, check this <a href="https://pavlidislab.github.io/Gemma/curation.html">page</a> or the latest <a href="https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045">publication</a>.</p>
+</div>
+<div id="using-the-gemma-api-r-wrapper" class="section level2">
+<h2 class="hasAnchor">
+<a href="#using-the-gemma-api-r-wrapper" class="anchor"></a>Using the Gemma API R Wrapper</h2>
 <p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>. We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.</p>
 <p>In this example, we want to find the dataset with the highest <a href="https://pavlidislab.github.io/Gemma/geeq.html">Gemma Quality Score</a> that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the <a href="https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html"><code>searchDatasets()</code></a> endpoint:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -144,7 +155,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dataset</span><span class="op">$</span><span class="va">ee.Description</span></code></pre></div>
 <pre><code>#&gt; [1] "Background: Schizophrenia (SCZ) and bipolar disorder (BD) are highly heritable psychiatric disorders. Associated genetic and gene expression changes have been identified, but many have not been replicated and have unknown functions. We identified groups of genes whose expressions varied together, that is co-expression modules, then tested them for association with SCZ. Using weighted gene co-expression network analysis, we show that two modules were differentially expressed in patients versus controls. One, upregulated in cerebral cortex, was enriched with neuron differentiation and neuron development genes, as well as disease genome-wide association study genetic signals; the second, altered in cerebral cortex and cerebellum, was enriched with genes involved in neuron protection functions. The findings were preserved in five expression data sets, including sets from three brain\nregions, from a different microarray platform, and from BD patients. From those observations, we propose neuron differentiation and development pathways may be involved in etiologies of both SCZ and BD, and neuron protection function participates in pathological process of the diseases.\nLast Updated (by provider): Jul 26, 2018\nContributors:  Chao Chen Chunyu Liu Lijun Cheng"</code></pre>
-<p>To access the actual expression data, you can use [<code>getBioconductor()]()</code>. It is a high-level wrapper that combines various endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html"><code>getBioconductor()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
 <p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create ExpressionSet</span>
@@ -182,11 +193,47 @@
 #&gt; featureData: none
 #&gt; experimentData: use 'experimentData(object)'
 #&gt; Annotation: GPL6244</code></pre>
-<p>Check the Summarized Experiment <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html">vignette</a> or the ExpressionSet <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf">vignette</a> for more details.</p>
-<p>From this point, you can use <a href="https://bioconductor.org/packages/release/bioc/html/limma.html"><code>limma</code></a> or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.</p>
-<p>For quick exploration and visualization, we recommend exploring the data in tidy format.</p>
-<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.</p>
+<p>Let’s check the expression for every sample to make sure they look OK:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Get Expression matrix</span>
+<span class="va">bipExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/exprs.html">exprs</a></span><span class="op">(</span><span class="va">bipolar</span><span class="op">)</span>
+
+<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">bipExpr</span>, pch<span class="op">=</span><span class="st">'.'</span>, xaxt<span class="op">=</span><span class="st">'n'</span>, xlab<span class="op">=</span><span class="st">"Sample"</span>, ylab<span class="op">=</span><span class="st">"Expression"</span><span class="op">)</span></code></pre></div>
+<p><img src="gemmaAPI_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<p>We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.</p>
+<p>From this point on, you can use <a href="https://bioconductor.org/packages/release/bioc/html/limma.html"><code>limma</code></a> or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.</p>
+<div id="tidyverse-compatibility" class="section level3">
+<h3 class="hasAnchor">
+<a href="#tidyverse-compatibility" class="anchor"></a>Tidyverse compatibility</h3>
+<p>We included another wrapper, <a href="https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html"><code>getTidyDataset()</code></a> to get data in a “long” format that also combines the design and expression matrices and ensures they always match. This format allows visualization with the popular <a href="https://ggplot2.tidyverse.org/">ggplot2</a> package and is compatible with the rest of the <a href="https://www.tidyverse.org/">tidyverse</a>. It also combines the design and expression matrices and ensures they always match.</p>
+<p>This is the same workflow as above, now working with tidy data:</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tidy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getTidyDataset.html">getTidyDataset</a></span><span class="op">(</span><span class="st">"GSE35974"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">'Bipolar_Disorder'</span> <span class="op">|</span> <span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">'reference_subject_role'</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; Warning in readLines(.): incomplete final line found on '/var/folders/
+#&gt; 24/8k48jl6d249_n_qfxwsl6xvm0000gn/T//RtmpQp71Bo/file143e3fbbcf3f'</code></pre>
+<pre><code>#&gt; Warning in fread(text = .): Discarded single-line footer: &lt;&lt;8125568
+#&gt; 8125568_collapsed COL11A2 collagen type XI alpha 2 chain 27918 1302
+#&gt; 7.656243116163868 7.70820858759531 7.702169121103023 7.740751174382853
+#&gt; 7.846959155844178 7.763345830360864 7.568977684516343 7.707787982760013
+#&gt; 7.814476373955203 7.552206525576875 7.726933940086821 7.933918128355837
+#&gt; 7.624671763097353 7.64953342444451 7.747077004822324 7.7825436514170505
+#&gt; 7.800294434193315 7.881781150535977 7.837975398922191 7.777913499726154
+#&gt; 7.765618007855 7.654283874165762 7.613665772732396 7.710066004250&gt;&gt;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Plot distribution of expression data by sample</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">tidy</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">Sample</span>, <span class="va">Expression</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<pre><code>#&gt; Warning: Removed 81405 rows containing non-finite values (stat_boxplot).</code></pre>
+<p><img src="gemmaAPI_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
+</div>
+</div>
+<div id="complex-queries" class="section level2">
+<h2 class="hasAnchor">
+<a href="#complex-queries" class="anchor"></a>Complex queries</h2>
+<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span>, <span class="st">'GSE99349'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; Rows: 3
@@ -201,7 +248,7 @@
 #&gt; $ ee.Database         &lt;chr&gt; "GEO", "GEO", "GEO"
 #&gt; $ ee.URL              &lt;chr&gt; "http://www.ncbi.nlm.nih.gov/geo/", "http://www.nc…
 #&gt; $ ee.Samples          &lt;int&gt; 102, 144, 36
-#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2021-01-13 16:08:05, 2020-03-28 04:23:35, 2020-03-…
+#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2021-01-14 00:08:05, 2020-03-28 11:23:35, 2020-03-…
 #&gt; $ ee.Batch.P          &lt;dbl&gt; NA, NA, NA
 #&gt; $ ee.Batch.PC         &lt;dbl&gt; NA, NA, NA
 #&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE, TRUE, FALSE
@@ -210,12 +257,12 @@
 #&gt; $ taxon.Name          &lt;chr&gt; "human", "human", "human"
 #&gt; $ taxon.ID            &lt;int&gt; 1, 1, 1
 #&gt; $ technology.Type     &lt;chr&gt; "ONECOLOR", "ONECOLOR", "GENELIST"</code></pre>
-<p>You’ll be able to tell which endpoints accept multiple inputs from the function examples in the documentation or simply because the the parameter name is plural (ie. <code>datasets</code>, <code>platforms</code>). The rest of the endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<p>You’ll be able to tell which endpoints accept multiple inputs from the function examples or simply because the the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; Error: Please specify one valid identifier for dataset.</code></pre>
 <p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span><span class="op">[</span>, <span class="va">ee.ShortName</span> <span class="op">:=</span> <span class="va">dataset</span><span class="op">]</span>
 <span class="op">}</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="va">rbindlist</span> <span class="op">%&gt;%</span> <span class="va">glimpse</span></code></pre></div>
@@ -228,12 +275,16 @@
 #&gt; $ term.Name     &lt;chr&gt; "Bipolar Disorder", "male", "female", "schizophrenia", "…
 #&gt; $ term.URL      &lt;chr&gt; "http://purl.obolibrary.org/obo/DOID_3312", "http://purl…
 #&gt; $ ee.ShortName  &lt;chr&gt; "GSE35974", "GSE35974", "GSE35974", "GSE35974", "GSE3597…</code></pre>
-<p>For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the async vignette.</p>
-<div id="memoised-results" class="section level2">
-<h2 class="hasAnchor">
-<a href="#memoised-results" class="anchor"></a>Memoised results</h2>
-<p>A different way to spe requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div id="asynchronous-requests" class="section level3">
+<h3 class="hasAnchor">
+<a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h3>
+<p>For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the <a href="https://pavlidislab.github.io/Gemma-API/articles/async.html">async vignette</a>.</p>
+</div>
+<div id="memoised-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#memoised-data" class="anchor"></a>Memoised data</h3>
+<p>A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise">{memoise}</a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -258,27 +309,27 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">42008.21</td>
-<td align="right">42008.21</td>
-<td align="right">42008.21</td>
-<td align="right">42008.21</td>
-<td align="right">42008.21</td>
-<td align="right">42008.21</td>
+<td align="right">56003.53</td>
+<td align="right">56003.53</td>
+<td align="right">56003.53</td>
+<td align="right">56003.53</td>
+<td align="right">56003.53</td>
+<td align="right">56003.53</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="42%">
+<col width="44%">
 <col width="8%">
 <col width="8%">
 <col width="8%">
 <col width="8%">
 <col width="8%">
 <col width="8%">
-<col width="5%">
+<col width="6%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">expr</th>
@@ -292,28 +343,32 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">0.438688</td>
-<td align="right">0.438688</td>
-<td align="right">0.438688</td>
-<td align="right">0.438688</td>
-<td align="right">0.438688</td>
-<td align="right">0.438688</td>
+<td align="right">0.50114</td>
+<td align="right">0.50114</td>
+<td align="right">0.50114</td>
+<td align="right">0.50114</td>
+<td align="right">0.50114</td>
+<td align="right">0.50114</td>
 <td align="right">1</td>
 </tr></tbody>
 </table>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [1] TRUE</code></pre>
 </div>
-<div id="raw-data" class="section level2">
+</div>
+<div id="output-options" class="section level2">
 <h2 class="hasAnchor">
-<a href="#raw-data" class="anchor"></a>Raw data</h2>
+<a href="#output-options" class="anchor"></a>Output options</h2>
+<div id="raw-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#raw-data" class="anchor"></a>Raw data</h3>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
 </div>
-<div id="file-outputs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#file-outputs" class="anchor"></a>File outputs</h2>
+<div id="file-outputs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#file-outputs" class="anchor"></a>File outputs</h3>
 <p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
 <ol style="list-style-type: decimal">
 <li>
@@ -326,7 +381,7 @@
 </ol>
 <p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
 <p>To illustrate these…</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span></code></pre></div>
 <pre><code>#&gt; List of 3
 #&gt;  $ bioMaterialIds: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
@@ -336,7 +391,7 @@
 #&gt;   ..$ rowNames          : int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
 #&gt;   ..$ rawMatrix         : num [1:144, 1:5] 0.0509 -0.011 0.139 -0.0619 0.1197 ...
 #&gt;   ..$ rowNameMapIterator: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...</code></pre>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetPlatforms.html">getDatasetPlatforms</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'platforms'</span><span class="op">)</span><span class="op">)</span> <span class="co"># No nested data.tables, saves platforms.csv</span></code></pre></div>
 <pre><code>#&gt; Rows: 1
 #&gt; Columns: 15
@@ -355,7 +410,7 @@
 #&gt; $ taxon.ID                     &lt;lgl&gt; NA
 #&gt; $ technology.Type              &lt;chr&gt; "ONECOLOR"
 #&gt; $ technology.Color             &lt;chr&gt; "ONECOLOR"</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetSamples.html">getDatasetSamples</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'samples'</span><span class="op">)</span><span class="op">)</span> <span class="co"># Some nested data.tables, saves samples.rds</span></code></pre></div>
 <pre><code>#&gt; Rows: 144
 #&gt; Columns: 17
@@ -377,12 +432,13 @@
 #&gt; $ array.Description      &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
 #&gt; $ array.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…</code></pre>
 </div>
-<div id="changing-defaults" class="section level2">
-<h2 class="hasAnchor">
-<a href="#changing-defaults" class="anchor"></a>Changing defaults</h2>
-<p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div id="changing-defaults" class="section level3">
+<h3 class="hasAnchor">
+<a href="#changing-defaults" class="anchor"></a>Changing defaults</h3>
+<p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+</div>
 </div>
 <div id="authentication" class="section level2">
 <h2 class="hasAnchor">
