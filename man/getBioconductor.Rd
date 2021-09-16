@@ -15,10 +15,10 @@ for more details.}
 
 \item{dataset}{A dataset identifier.}
 
-\item{filter}{The filtered vertsion corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
+\item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 }
 \value{
-An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
+An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
 }
 \description{
 Combines various endpoint calls to return an annotated Bioconductor-compatible
