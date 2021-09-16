@@ -39,14 +39,17 @@ Imports:
     stringr,
     cli,
     SummarizedExperiment,
-    Biobase
+    Biobase,
+    tibble,
+    tidyr
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
     knitr,
     dplyr,
     microbenchmark,
-    covr
+    covr,
+    ggplot2
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: ExpressionData, ReproducibleResearch, GEO
