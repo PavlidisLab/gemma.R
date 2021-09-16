@@ -222,8 +222,9 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
 #' @param dataset A dataset identifier.
-#' @param filter The filtered vertsion corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
-#' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment-class}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
+#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
+#'
+#' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
 #' @importFrom rlang .data
 #' @keywords dataset
 #' @export
@@ -236,20 +237,16 @@ getBioconductor <- function(type, dataset, filter = TRUE) {
 
     # Create expression matrix
     expr <- getDatasetData(dataset, filter)
-    exprM <- expr[, 7:ncol(expr)] %>% data.matrix()
-    rownames(exprM) <- expr$Probe
-    colnames(exprM) <- stringr::str_extract(colnames(expr[, 7:ncol(expr)]), "(?<=Name=).*")
+    exprM <- processExpressionMatrix(expr)
 
     # Create metadata table
     d <- getDatasetDesign(dataset)
-    design <- data.frame(d, row.names = stringr::str_extract(d$Bioassay, "(?<=Name=).*")) %>%
-        dplyr::select(-c(.data$ExternalID, .data$Bioassay))
+    design <- processDesignMatrix(d)
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
         row.names = colnames(design)
     )
-
     phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = annots)
 
     # Reorder expression matrix to match design

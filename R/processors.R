@@ -615,3 +615,31 @@ processPhenotypes <- function(d) {
         children = lapply(d[["children"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", TRUE))))
     )
 }
+
+#' Processes design matrix
+#'
+#' @param m The design matrix to process
+#'
+#' @return A processed matrix
+#'
+#' @importFrom rlang .data
+#' @keywords internal
+processDesignMatrix <- function(m) {
+    data.frame(m, row.names = stringr::str_extract(m$Bioassay, "(?<=Name=).*")) %>%
+        dplyr::select(-c(.data$ExternalID, .data$Bioassay))
+}
+
+#' Processes expression matrix
+#'
+#' @param m The matrix to process
+#'
+#' @return A processed matrix
+#'
+#' @importFrom rlang .data
+#' @keywords internal
+processExpressionMatrix <- function(m) {
+    exprM <- m[, 7:ncol(expr)] %>% data.matrix()
+    rownames(exprM) <- m$Probe
+    colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
+    exprM
+}
