@@ -8,14 +8,14 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-# Don't build this whole thing if it's just for a test. Too long running/taxing on Gemma
-# if(Sys.getenv('RMD_BUILD') != 1)
-#   knitr::knit_exit()
-
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
 
-knitr::opts_chunk$set(comment = "#>")
+knitr::opts_chunk$set(
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4
+  )
 ```
 
 ```{r setup, message = FALSE}
@@ -57,11 +57,9 @@ colnames(dataset)
 dataset$ee.Description
 ```
 
-To access the actual expression data, you can use [`getBioconductor()](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html)`. 
+To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html). 
 It is a high-level wrapper that combines various 
-endpoints to return an annotated SummarizedExperiment or ExpressionSet of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. 
-Both classes are very similar, SummarizedExperiments are newer and more suitable for RNA-Seq data.
-They include the expression matrix along with
+endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data.
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples. 
@@ -87,15 +85,13 @@ bipExpr <- exprs(bipolar)
 boxplot(bipExpr, pch='.', xaxt='n', xlab="Sample", ylab="Expression")
 ```
 
-We can quickly see three samples among bipolar patients and controls are empty. This is because during the data curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
-
-Check the Summarized  Experiment [vignette](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or the ExpressionSet [vignette](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) for more details on how to use/modify these data structure.
+We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
 From this point on, you can use [`limma`](https://bioconductor.org/packages/release/bioc/html/limma.html) or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.
 
 ### Tidyverse compatibility
-We included another wrapper, `getTidyDataset()` to get data in a "long" format also combines the design and expression matrices and ensures they always match. This format allows visualization with the popular [ggplot2](https://ggplot2.tidyverse.org/) package and is compatible with the rest of the [tidyverse](https://www.tidyverse.org/).
-This "long" format also combines the design and expression matrices and ensures they always match. 
+We included another wrapper, [`getTidyDataset()`](https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html) to get data in a "long" format that also combines the design and expression matrices and ensures they always match. This format allows visualization with the popular [ggplot2](https://ggplot2.tidyverse.org/) package and is compatible with the rest of the [tidyverse](https://www.tidyverse.org/).
+It also combines the design and expression matrices and ensures they always match. 
 
 This is the same workflow as above, now working with tidy data:
 
@@ -132,11 +128,10 @@ lapply(c('GSE35974', 'GSE12649'), function(dataset) {
 ```
 
 ### Asynchronous requests
-For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the async vignette.
-
-A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
+For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the [async vignette](https://pavlidislab.github.io/Gemma-API/articles/async.html).
 
 ### Memoised data
+A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 ```{r memoised}
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
@@ -181,7 +176,7 @@ unlink('samples.rds')
 
 ### Changing defaults
 
-We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want Gemma API to memoise results by default, you can use:
+We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
