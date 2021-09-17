@@ -7,18 +7,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-# Prevent certificate issues for GitHub actions
-options(gemma.SSL = FALSE)
 
-knitr::opts_chunk$set(
-  comment = "#>",
-  fig.width = 7,
-  fig.height = 4
-  )
-```
 
-```{r setup, message = FALSE}
+
+```r
 library(gemmaAPI)
 library(Biobase)
 library(dplyr)
@@ -36,9 +28,10 @@ For detailed information on the curation process, check this [page](https://pavl
 ## Using the Gemma API R Wrapper 
 The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.
 
-In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
+The main goal of this wrapper is giving easy access to Gemma's curated dataset for downstream or meta-analyses.In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
 
-```{r search}
+
+```r
 searchDatasets("bipolar") %>% 
   filter(taxon.Name == "human") %>% 
   arrange(desc(geeq.qScore)) %>%
@@ -46,15 +39,40 @@ searchDatasets("bipolar") %>%
   head()
 ```
 
+```
+#>    ee.ShortName
+#> 1:     GSE35974
+#> 2:     GSE12649
+#> 3:     GSE99349
+#> 4:     GSE11767
+#> 5:     GSE12654
+#> 6:     GSE74358
+```
+
 The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
 Now that we have the ID for our experiment, we can fetch the data associated with it.
 
 To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html) endpoint.
 
-```{r dataset}
+
+```r
 dataset <- getDatasets("GSE35974")
 colnames(dataset)
+```
+
+```
+#>  [1] "ee.ShortName"        "ee.Name"             "ee.ID"               "ee.Description"      "ee.Public"           "ee.Troubled"        
+#>  [7] "ee.Accession"        "ee.Database"         "ee.URL"              "ee.Samples"          "ee.LastUpdated"      "ee.Batch.P"         
+#> [13] "ee.Batch.PC"         "geeq.batchCorrected" "geeq.qScore"         "geeq.sScore"         "taxon.Name"          "taxon.ID"           
+#> [19] "technology.Type"
+```
+
+```r
 dataset$ee.Description
+```
+
+```
+#> [1] "Background: Schizophrenia (SCZ) and bipolar disorder (BD) are highly heritable psychiatric disorders. Associated genetic and gene expression changes have been identified, but many have not been replicated and have unknown functions. We identified groups of genes whose expressions varied together, that is co-expression modules, then tested them for association with SCZ. Using weighted gene co-expression network analysis, we show that two modules were differentially expressed in patients versus controls. One, upregulated in cerebral cortex, was enriched with neuron differentiation and neuron development genes, as well as disease genome-wide association study genetic signals; the second, altered in cerebral cortex and cerebellum, was enriched with genes involved in neuron protection functions. The findings were preserved in five expression data sets, including sets from three brain\nregions, from a different microarray platform, and from BD patients. From those observations, we propose neuron differentiation and development pathways may be involved in etiologies of both SCZ and BD, and neuron protection function participates in pathological process of the diseases.\nLast Updated (by provider): Jul 26, 2018\nContributors:  Chao Chen Chunyu Liu Lijun Cheng"
 ```
 
 To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html). 
@@ -64,26 +82,66 @@ the experimental design, and ensure the sample names match between both when tra
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples. 
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets. 
-```{r bioconductor}
+
+```r
 # Create ExpressionSet
 eset <- getBioconductor("ExpressionSet", "GSE35974")
 eset
+```
 
+```
+#> ExpressionSet (storageMode: lockedEnvironment)
+#> assayData: 21939 features, 144 samples 
+#>   element names: exprs 
+#> protocolData: none
+#> phenoData
+#>   sampleNames: DE59_111109_rep1 DE60_100909 ... AC101_100909 (144 total)
+#>   varLabels: DiseaseState batch
+#>   varMetadata: labelDescription
+#> featureData: none
+#> experimentData: use 'experimentData(object)'
+#> Annotation: GPL6244
+```
+
+```r
 # Check the levels of the DiseaseState cofactor
 eset$DiseaseState %>% unique()
+```
 
+```
+#> [1] "reference_subject_role" "mental_depression"      "Bipolar_Disorder"       "schizophrenia"
+```
+
+```r
 # Subset patients with bipolar disorder and controls.
-bipolar <- eset[ , eset$DiseaseState == "Bipolar_Disorder" | eset$DiseaseState == 'reference_subject_role']
+bipolar <- eset[ , eset$DiseaseState == "Bipolar_Disorder" | eset$DiseaseState == "reference_subject_role"]
 bipolar
 ```
 
+```
+#> ExpressionSet (storageMode: lockedEnvironment)
+#> assayData: 21939 features, 87 samples 
+#>   element names: exprs 
+#> protocolData: none
+#> phenoData
+#>   sampleNames: DE59_111109_rep1 DE7_111109 ... AC1_100909 (87 total)
+#>   varLabels: DiseaseState batch
+#>   varMetadata: labelDescription
+#> featureData: none
+#> experimentData: use 'experimentData(object)'
+#> Annotation: GPL6244
+```
+
 Let's check the expression for every sample to make sure they look OK:
-```{r}
+
+```r
 # Get Expression matrix
 bipExpr <- exprs(bipolar)
 
-boxplot(bipExpr, pch='.', xaxt='n', xlab="Sample", ylab="Expression")
+boxplot(bipExpr, pch=".", xaxt="n'", xlab="Sample", ylab="Expression")
 ```
+
+![plot of chunk base-boxplot](figure/base-boxplot-1.png)
 
 We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
@@ -95,7 +153,8 @@ It also combines the design and expression matrices and ensures they always matc
 
 This is the same workflow as above, now working with tidy data:
 
-```{r}
+
+```r
 tidy <- getTidyDataset("GSE35974") %>%
   filter(DiseaseState == 'Bipolar_Disorder' | DiseaseState == 'reference_subject_role')
 
@@ -105,42 +164,125 @@ ggplot(tidy, aes(Sample, Expression)) +
   theme(axis.text.x = element_blank())
 ```
 
+```
+#> Warning: Removed 99756 rows containing non-finite values (stat_boxplot).
+```
+
+![plot of chunk ggplot-boxplot](figure/ggplot-boxplot-1.png)
+
 ## Complex queries
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.
 
-```{r double-query}
+
+```r
 getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>% 
   glimpse()
 ```
 
+```
+#> Rows: 3
+#> Columns: 19
+#> $ ee.ShortName        [3m[38;5;246m<chr>[39m[23m "GSE12649", "GSE35974", "GSE99349"
+#> $ ee.Name             [3m[38;5;246m<chr>[39m[23m "Gene expression from human prefrontal cortex (BA46)", "Expression data from the human cerebellum brain", "Gene Network Dysr…
+#> $ ee.ID               [3m[38;5;246m<int>[39m[23m 1205, 5939, 11690
+#> $ ee.Description      [3m[38;5;246m<chr>[39m[23m "Accumulating evidence suggests that mitochondrial dysfunction underlies the pathophysiology of bipolar disorder (BD) and sc…
+#> $ ee.Public           [3m[38;5;246m<lgl>[39m[23m TRUE, TRUE, TRUE
+#> $ ee.Troubled         [3m[38;5;246m<lgl>[39m[23m FALSE, FALSE, FALSE
+#> $ ee.Accession        [3m[38;5;246m<chr>[39m[23m "GSE12649", "GSE35974", "GSE99349"
+#> $ ee.Database         [3m[38;5;246m<chr>[39m[23m "GEO", "GEO", "GEO"
+#> $ ee.URL              [3m[38;5;246m<chr>[39m[23m "http://www.ncbi.nlm.nih.gov/geo/", "http://www.ncbi.nlm.nih.gov/geo/", "http://www.ncbi.nlm.nih.gov/geo/"
+#> $ ee.Samples          [3m[38;5;246m<int>[39m[23m 102, 144, 36
+#> $ ee.LastUpdated      [3m[38;5;246m<dttm>[39m[23m 2021-01-13 16:08:05, 2020-03-28 04:23:35, 2020-03-29 21:16:16
+#> $ ee.Batch.P          [3m[38;5;246m<dbl>[39m[23m NA, NA, NA
+#> $ ee.Batch.PC         [3m[38;5;246m<dbl>[39m[23m NA, NA, NA
+#> $ geeq.batchCorrected [3m[38;5;246m<lgl>[39m[23m FALSE, TRUE, FALSE
+#> $ geeq.qScore         [3m[38;5;246m<dbl>[39m[23m 0.9972712, 0.9975938, 0.9879754
+#> $ geeq.sScore         [3m[38;5;246m<dbl>[39m[23m 0.875, 1.000, 1.000
+#> $ taxon.Name          [3m[38;5;246m<chr>[39m[23m "human", "human", "human"
+#> $ taxon.ID            [3m[38;5;246m<int>[39m[23m 1, 1, 1
+#> $ technology.Type     [3m[38;5;246m<chr>[39m[23m "ONECOLOR", "ONECOLOR", "GENELIST"
+```
+
 You'll be able to tell which endpoints accept multiple inputs from the function examples or simply because the the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:
 
-```{r error, error = TRUE}
+
+```r
 getDatasetAnnotations(c('GSE35974', 'GSE12649'))
+```
+
+```
+#> Error: Please specify one valid identifier for dataset.
 ```
 
 In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.
 
-```{r loop}
+
+```r
 lapply(c('GSE35974', 'GSE12649'), function(dataset) {
-  getDatasetAnnotations(dataset)[, ee.ShortName := dataset]
-}) %>% rbindlist %>% glimpse
+  getDatasetAnnotations(dataset) %>% mutate(shortName = dataset)
+}) %>% rbindlist
+```
+
+```
+#>        class.Type     class.Name                                   class.URL evidence.Code              term.Name
+#>  1:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC       Bipolar Disorder
+#>  2:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047           IIA                   male
+#>  3:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047           IIA                 female
+#>  4:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC          schizophrenia
+#>  5: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635            IC             cerebellum
+#>  6:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC      mental depression
+#>  7:   BioMaterial  organism part        http://www.ebi.ac.uk/efo/EFO_0000635           IEA reference subject role
+#>  8:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408           IEA       Bipolar Disorder
+#>  9: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635            IC      prefrontal cortex
+#> 10:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408           IEA          schizophrenia
+#>                                          term.URL shortName
+#>  1:      http://purl.obolibrary.org/obo/DOID_3312  GSE35974
+#>  2:   http://purl.obolibrary.org/obo/PATO_0000384  GSE35974
+#>  3:   http://purl.obolibrary.org/obo/PATO_0000383  GSE35974
+#>  4:      http://purl.obolibrary.org/obo/DOID_5419  GSE35974
+#>  5: http://purl.obolibrary.org/obo/UBERON_0002037  GSE35974
+#>  6:      http://purl.obolibrary.org/obo/DOID_1596  GSE35974
+#>  7:    http://purl.obolibrary.org/obo/OBI_0000220  GSE12649
+#>  8:      http://purl.obolibrary.org/obo/DOID_3312  GSE12649
+#>  9: http://purl.obolibrary.org/obo/UBERON_0000451  GSE12649
+#> 10:      http://purl.obolibrary.org/obo/DOID_5419  GSE12649
 ```
 
 ### Asynchronous requests
 For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the [async vignette](https://pavlidislab.github.io/Gemma-API/articles/async.html).
 
 ### Memoised data
-A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [{memoise}](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
-```{r memoised}
-knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
+A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
+
+```r
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
 ```
 
+
+
+|expr                                        |      min|       lq|     mean|   median|       uq|      max| neval|
+|:-------------------------------------------|--------:|--------:|--------:|--------:|--------:|--------:|-----:|
+|getDatasetData("GSE35974", memoised = TRUE) | 41320.62| 41320.62| 41320.62| 41320.62| 41320.62| 41320.62|     1|
+
+```r
+knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
+```
+
+
+
+|expr                                        |      min|       lq|     mean|   median|       uq|      max| neval|
+|:-------------------------------------------|--------:|--------:|--------:|--------:|--------:|--------:|-----:|
+|getDatasetData("GSE35974", memoised = TRUE) | 0.414825| 0.414825| 0.414825| 0.414825| 0.414825| 0.414825|     1|
+
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
 
-```{r clear-cache}
+
+```r
 forgetGemmaMemoised()
+```
+
+```
+#> [1] TRUE
 ```
 
 ## Output options
@@ -161,24 +303,81 @@ You can also specify whether or not the new fetched results are allowed to overw
 
 To illustrate these...
 
-```{r outputs}
+
+```r
 glimpse(getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD')) # raw = T, saves SVD.json
+```
+
+```
+#> List of 3
+#>  $ bioMaterialIds: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
+#>  $ variances     : num [1:144] 0.0685 0.0437 0.0373 0.0287 0.0263 ...
+#>  $ vMatrix       :List of 4
+#>   ..$ colNames          : int [1:5] 0 1 2 3 4
+#>   ..$ rowNames          : int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
+#>   ..$ rawMatrix         : num [1:144, 1:5] 0.0509 -0.011 0.139 -0.0619 0.1197 ...
+#>   ..$ rowNameMapIterator: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
+```
+
+```r
 glimpse(getDatasetPlatforms('GSE35974', file = 'platforms')) # No nested data.tables, saves platforms.csv
+```
+
+```
+#> Rows: 1
+#> Columns: 15
+#> $ platform.ID                  [3m[38;5;246m<int>[39m[23m 380
+#> $ platform.ShortName           [3m[38;5;246m<chr>[39m[23m "GPL6244"
+#> $ platform.Name                [3m[38;5;246m<chr>[39m[23m "Affymetrix Human Gene 1.0 ST Array"
+#> $ platform.Description         [3m[38;5;246m<chr>[39m[23m " Probe set data extracted from HuGene-1_0-st-v1.r3.pgf  #%pgf_format_version=1.0 #%chip_type=HuGene-1_0-st-v1 #%li…
+#> $ platform.Troubled            [3m[38;5;246m<lgl>[39m[23m FALSE
+#> $ platform.ExperimentCount     [3m[38;5;246m<int>[39m[23m 338
+#> $ platform.GeneCount           [3m[38;5;246m<lgl>[39m[23m NA
+#> $ platform.ProbeSequenceCount  [3m[38;5;246m<lgl>[39m[23m NA
+#> $ platform.ProbeAlignmentCount [3m[38;5;246m<lgl>[39m[23m NA
+#> $ platform.ProbeGeneCount      [3m[38;5;246m<lgl>[39m[23m NA
+#> $ platform.ElementCount        [3m[38;5;246m<lgl>[39m[23m NA
+#> $ taxon.Name                   [3m[38;5;246m<chr>[39m[23m "human"
+#> $ taxon.ID                     [3m[38;5;246m<lgl>[39m[23m NA
+#> $ technology.Type              [3m[38;5;246m<chr>[39m[23m "ONECOLOR"
+#> $ technology.Color             [3m[38;5;246m<chr>[39m[23m "ONECOLOR"
+```
+
+```r
 glimpse(getDatasetSamples('GSE35974', file = 'samples')) # Some nested data.tables, saves samples.rds
 ```
 
-
-```{r include=FALSE}
-unlink('SVD.json')
-unlink('platforms.csv')
-unlink('samples.rds')
 ```
+#> Rows: 144
+#> Columns: 17
+#> $ bioMaterial.Name       [3m[38;5;246m<chr>[39m[23m "GSE35974_Biomat_123", "GSE35974_Biomat_63", "GSE35974_Biomat_5", "GSE35974_Biomat_41", "GSE35974_Biomat_124", "GSE35974_…
+#> $ sample.Name            [3m[38;5;246m<chr>[39m[23m "DE15_102109", "AC52_103009", "AC60_111809", "DE22_102309", "AC10_100909", "AC12_102109", "AC68_102309_rep1", "AC21_10230…
+#> $ sample.ID              [3m[38;5;246m<int>[39m[23m 203849, 203902, 203893, 203840, 203946, 203937, 203884, 203928, 203831, 203875, 203822, 203813, 203919, 203866, 203857, 2…
+#> $ sample.Correspondence  [3m[38;5;246m<chr>[39m[23m "BioMat:,GSM878312 on GPL6244", "BioMat:,GSM878259 on GPL6244", "BioMat:,GSM878268 on GPL6244", "BioMat:,GSM878321 on GPL…
+#> $ sample.Description     [3m[38;5;246m<chr>[39m[23m " DE15\nSource GEO sample is GSM878312\nLast updated (according to GEO): Dec 31 2012", " AC52\nSource GEO sample is GSM87…
+#> $ sample.Outlier         [3m[38;5;246m<lgl>[39m[23m FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL…
+#> $ sample.Accession       [3m[38;5;246m<chr>[39m[23m "GSM878312", "GSM878259", "GSM878268", "GSM878321", "GSM878215", "GSM878224", "GSM878277", "GSM878233", "GSM878330", "GSM…
+#> $ sample.Processed       [3m[38;5;246m<dbl>[39m[23m 1.256175e+12, 1.256945e+12, 1.258597e+12, 1.256341e+12, 1.255129e+12, 1.256173e+12, 1.256348e+12, 1.256345e+12, 1.255140e…
+#> $ sample.Characteristics [3m[38;5;246m<list>[39m[23m [<data.table[9 x 4]>], [<data.table[9 x 4]>], [<data.table[9 x 4]>], [<data.table[9 x 4]>], [<data.table[9 x 4]>], [<dat…
+#> $ sample.FactorValues    [3m[38;5;246m<list>[39m[23m [<data.table[2 x 4]>], [<data.table[2 x 4]>], [<data.table[2 x 4]>], [<data.table[2 x 4]>], [<data.table[2 x 4]>], [<dat…
+#> $ array.ShortName        [3m[38;5;246m<chr>[39m[23m "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", "GPL6244", …
+#> $ array.Name             [3m[38;5;246m<chr>[39m[23m "Affymetrix Human Gene 1.0 ST Array", "Affymetrix Human Gene 1.0 ST Array", "Affymetrix Human Gene 1.0 ST Array", "Affyme…
+#> $ array.Taxon            [3m[38;5;246m<lgl>[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+#> $ array.TaxonID          [3m[38;5;246m<lgl>[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+#> $ array.Type             [3m[38;5;246m<lgl>[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+#> $ array.Description      [3m[38;5;246m<lgl>[39m[23m NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+#> $ array.Troubled         [3m[38;5;246m<lgl>[39m[23m FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FA…
+```
+
+
+
 
 ### Changing defaults
 
 We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
-```{r defaults}
+
+```r
 options(gemma.memoise = TRUE)
 ```
 
