@@ -33,20 +33,20 @@ library(microbenchmark)
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
-## Using the Gemma API R Wrapper 
+## Using the Gemma API R Wrapper
 The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.
 
 The main goal of this wrapper is giving easy access to Gemma's curated dataset for downstream or meta-analyses.In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
 
 ```{r search}
-searchDatasets("bipolar") %>% 
-  filter(taxon.Name == "human") %>% 
+searchDatasets("bipolar") %>%
+  filter(taxon.Name == "human") %>%
   arrange(desc(geeq.qScore)) %>%
   select(ee.ShortName) %>%
   head()
 ```
 
-The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
+The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939).
 Now that we have the ID for our experiment, we can fetch the data associated with it.
 
 To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html) endpoint.
@@ -57,13 +57,13 @@ colnames(dataset)
 dataset$ee.Description
 ```
 
-To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html). 
-It is a high-level wrapper that combines various 
+To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html).
+It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data.
 
-Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples. 
-We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets. 
+Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
+We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r bioconductor}
 # Create ExpressionSet
 eset <- getBioconductor("ExpressionSet", "GSE35974")
@@ -91,7 +91,7 @@ From this point on, you can use [`limma`](https://bioconductor.org/packages/rele
 
 ### Tidyverse compatibility
 We included another wrapper, [`getTidyDataset()`](https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html) to get data in a "long" format that also combines the design and expression matrices and ensures they always match. This format allows visualization with the popular [ggplot2](https://ggplot2.tidyverse.org/) package and is compatible with the rest of the [tidyverse](https://www.tidyverse.org/).
-It also combines the design and expression matrices and ensures they always match. 
+It also combines the design and expression matrices and ensures they always match.
 
 This is the same workflow as above, now working with tidy data:
 
@@ -100,7 +100,7 @@ tidy <- getTidyDataset("GSE35974") %>%
   filter(DiseaseState == 'Bipolar_Disorder' | DiseaseState == 'reference_subject_role')
 
 # Plot distribution of expression data by sample
-ggplot(tidy, aes(Sample, Expression)) + 
+ggplot(tidy, aes(Sample, Expression)) +
   geom_boxplot() +
   theme(axis.text.x = element_blank())
 ```
@@ -109,7 +109,7 @@ ggplot(tidy, aes(Sample, Expression)) +
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.
 
 ```{r double-query}
-getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>% 
+getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>%
   glimpse()
 ```
 

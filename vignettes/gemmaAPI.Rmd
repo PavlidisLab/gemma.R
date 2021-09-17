@@ -25,15 +25,15 @@ library(microbenchmark)
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
-## Using the Gemma API R Wrapper 
+## Using the Gemma API R Wrapper
 The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, [here](https://gemma.msl.ubc.ca/resources/restapidocs/). We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.
 
 The main goal of this wrapper is giving easy access to Gemma's curated dataset for downstream or meta-analyses.In this example, we want to find the dataset with the highest [Gemma Quality Score](https://pavlidislab.github.io/Gemma/geeq.html) that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
 
 
 ```r
-searchDatasets("bipolar") %>% 
-  filter(taxon.Name == "human") %>% 
+searchDatasets("bipolar") %>%
+  filter(taxon.Name == "human") %>%
   arrange(desc(geeq.qScore)) %>%
   select(ee.ShortName) %>%
   head()
@@ -49,7 +49,7 @@ searchDatasets("bipolar") %>%
 #> 6:     GSE74358
 ```
 
-The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939). 
+The dataset with the highest quality score is [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939).
 Now that we have the ID for our experiment, we can fetch the data associated with it.
 
 To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html) endpoint.
@@ -75,17 +75,24 @@ dataset$ee.Description
 #> [1] "Background: Schizophrenia (SCZ) and bipolar disorder (BD) are highly heritable psychiatric disorders. Associated genetic and gene expression changes have been identified, but many have not been replicated and have unknown functions. We identified groups of genes whose expressions varied together, that is co-expression modules, then tested them for association with SCZ. Using weighted gene co-expression network analysis, we show that two modules were differentially expressed in patients versus controls. One, upregulated in cerebral cortex, was enriched with neuron differentiation and neuron development genes, as well as disease genome-wide association study genetic signals; the second, altered in cerebral cortex and cerebellum, was enriched with genes involved in neuron protection functions. The findings were preserved in five expression data sets, including sets from three brain\nregions, from a different microarray platform, and from BD patients. From those observations, we propose neuron differentiation and development pathways may be involved in etiologies of both SCZ and BD, and neuron protection function participates in pathological process of the diseases.\nLast Updated (by provider): Jul 26, 2018\nContributors:  Chao Chen Chunyu Liu Lijun Cheng"
 ```
 
-To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html). 
-It is a high-level wrapper that combines various 
+To access the actual expression data, you can use [`getBioconductor()`](https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html).
+It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data.
 
-Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples. 
-We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets. 
+Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
+We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 
 ```r
 # Create ExpressionSet
 eset <- getBioconductor("ExpressionSet", "GSE35974")
+```
+
+```
+#> Error: Please specify valid identifiers for dataset and do not combine different types of identifiers.
+```
+
+```r
 eset
 ```
 
@@ -149,7 +156,7 @@ From this point on, you can use [`limma`](https://bioconductor.org/packages/rele
 
 ### Tidyverse compatibility
 We included another wrapper, [`getTidyDataset()`](https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html) to get data in a "long" format that also combines the design and expression matrices and ensures they always match. This format allows visualization with the popular [ggplot2](https://ggplot2.tidyverse.org/) package and is compatible with the rest of the [tidyverse](https://www.tidyverse.org/).
-It also combines the design and expression matrices and ensures they always match. 
+It also combines the design and expression matrices and ensures they always match.
 
 This is the same workflow as above, now working with tidy data:
 
@@ -157,9 +164,15 @@ This is the same workflow as above, now working with tidy data:
 ```r
 tidy <- getTidyDataset("GSE35974") %>%
   filter(DiseaseState == 'Bipolar_Disorder' | DiseaseState == 'reference_subject_role')
+```
 
+```
+#> Error: Please specify one valid identifier for dataset.
+```
+
+```r
 # Plot distribution of expression data by sample
-ggplot(tidy, aes(Sample, Expression)) + 
+ggplot(tidy, aes(Sample, Expression)) +
   geom_boxplot() +
   theme(axis.text.x = element_blank())
 ```
@@ -175,7 +188,7 @@ Many endpoints also allow you to query multiple objects at the same time. For ex
 
 
 ```r
-getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>% 
+getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>%
   glimpse()
 ```
 
@@ -224,28 +237,7 @@ lapply(c('GSE35974', 'GSE12649'), function(dataset) {
 ```
 
 ```
-#>        class.Type     class.Name                                   class.URL evidence.Code              term.Name
-#>  1:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC       Bipolar Disorder
-#>  2:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047           IIA                   male
-#>  3:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047           IIA                 female
-#>  4:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC          schizophrenia
-#>  5: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635            IC             cerebellum
-#>  6:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408            IC      mental depression
-#>  7:   BioMaterial  organism part        http://www.ebi.ac.uk/efo/EFO_0000635           IEA reference subject role
-#>  8:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408           IEA       Bipolar Disorder
-#>  9: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635            IC      prefrontal cortex
-#> 10:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408           IEA          schizophrenia
-#>                                          term.URL shortName
-#>  1:      http://purl.obolibrary.org/obo/DOID_3312  GSE35974
-#>  2:   http://purl.obolibrary.org/obo/PATO_0000384  GSE35974
-#>  3:   http://purl.obolibrary.org/obo/PATO_0000383  GSE35974
-#>  4:      http://purl.obolibrary.org/obo/DOID_5419  GSE35974
-#>  5: http://purl.obolibrary.org/obo/UBERON_0002037  GSE35974
-#>  6:      http://purl.obolibrary.org/obo/DOID_1596  GSE35974
-#>  7:    http://purl.obolibrary.org/obo/OBI_0000220  GSE12649
-#>  8:      http://purl.obolibrary.org/obo/DOID_3312  GSE12649
-#>  9: http://purl.obolibrary.org/obo/UBERON_0000451  GSE12649
-#> 10:      http://purl.obolibrary.org/obo/DOID_5419  GSE12649
+#> Error: Please specify one valid identifier for dataset.
 ```
 
 ### Asynchronous requests
@@ -262,7 +254,7 @@ knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE),
 
 |expr                                        |      min|       lq|     mean|   median|       uq|      max| neval|
 |:-------------------------------------------|--------:|--------:|--------:|--------:|--------:|--------:|-----:|
-|getDatasetData("GSE35974", memoised = TRUE) | 41320.62| 41320.62| 41320.62| 41320.62| 41320.62| 41320.62|     1|
+|getDatasetData("GSE35974", memoised = TRUE) | 41776.12| 41776.12| 41776.12| 41776.12| 41776.12| 41776.12|     1|
 
 ```r
 knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
@@ -272,7 +264,7 @@ knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE),
 
 |expr                                        |      min|       lq|     mean|   median|       uq|      max| neval|
 |:-------------------------------------------|--------:|--------:|--------:|--------:|--------:|--------:|-----:|
-|getDatasetData("GSE35974", memoised = TRUE) | 0.414825| 0.414825| 0.414825| 0.414825| 0.414825| 0.414825|     1|
+|getDatasetData("GSE35974", memoised = TRUE) | 0.428396| 0.428396| 0.428396| 0.428396| 0.428396| 0.428396|     1|
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
 
