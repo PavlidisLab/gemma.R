@@ -24,7 +24,6 @@ library(gemmaAPI)
 library(Biobase)
 library(dplyr)
 library(data.table)
-library(ggplot2)
 library(memoise)
 library(microbenchmark)
 ```
