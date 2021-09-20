@@ -118,8 +118,8 @@ test_that("datasetPCA queries work", {
 })
 
 test_that("datasetDE queries work", {
-    dat <- getDatasetDE(1, diffExSet = 468329)
-    raw <- getDatasetDE(1, diffExSet = 468329, raw = TRUE)
+    dat <- getDatasetDE(1, diffExSet = 500184)
+    raw <- getDatasetDE(1, diffExSet = 500184, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(dat$ee.ID, raw$datasetId)
@@ -130,8 +130,8 @@ test_that("datasetDE queries work", {
     expect_equal(datExpV, rawExpV)
 
     expect_gt(
-        getDatasetDE(1, diffExSet = 468329, limit = 100)$expr[[1]] %>% nrow(),
-        getDatasetDE(1, diffExSet = 468329, limit = 50)$expr[[1]] %>% nrow()
+        getDatasetDE(1, diffExSet = 500184, limit = 100)$expr[[1]] %>% nrow(),
+        getDatasetDE(1, diffExSet = 500184, limit = 50)$expr[[1]] %>% nrow()
     )
 
     # Threshold not working as expected in API
