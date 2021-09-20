@@ -48,8 +48,7 @@ Suggests:
     knitr,
     dplyr,
     microbenchmark,
-    covr,
-    ggplot2
+    covr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: ExpressionData, ReproducibleResearch, GEO
