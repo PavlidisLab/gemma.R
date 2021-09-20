@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.width = 7,
   fig.height = 4,
-  fig.path = 'vignettes/'
+  fig.path = "figures/"
   )
 ```
 
@@ -78,6 +78,8 @@ bipolar
 ```
 
 ```{r echo = FALSE}
+## This code pre-load
+ 
 # Load ExpressionSet
 eset <- readRDS("eset.rds")
 eset
