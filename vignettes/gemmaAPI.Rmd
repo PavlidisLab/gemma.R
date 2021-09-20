@@ -12,10 +12,7 @@ vignette: >
 options(gemma.SSL = FALSE)
 
 knitr::opts_chunk$set(
-  comment = "#>",
-  fig.width = 7,
-  fig.height = 4,
-  fig.path = "figures/"
+  comment = "#>"
   )
 ```
 
