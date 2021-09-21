@@ -35,9 +35,9 @@ library(memoise)
 library(microbenchmark)
 ```
 
-### Asynchronous requests
+For very large queries, you can parallelize the requests by using asynchronous requests.
 
-The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a `synchronise` block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
+The basic idea is that asynchronous workers can be embedded inside of otherwise synchronous R code by use of a [`synchronise`](https://pavlidislab.github.io/Gemma-API/reference/synchronise.html) block. Inside this, async requests can be made and the main thread will only block while the synchronise block is being requested.
 
 This is made more obvious by example. Take the previous instance where we wanted to fetch annotations for two datasets, `GSE2018` and `GSE25136`. If we want to run API queries asynchronously, we only need to: 1. Embed our requests inside a `synchronise` block 2. Set `async = TRUE` in our requests
 
@@ -46,12 +46,10 @@ We'll build back up to multiple queries, but starting with a single query, the d
 ```{r}
 synchronise({
   getDatasetAnnotations('GSE35974', async = TRUE)
-}) %>% glimpse
+}) %>% glimpse()
 ```
 
-Notice the added `synchronise` block, and that we moved our call to `glimpse` outside of the synchronise block, since the result is guaranteed to be available there.
-
-With multiple queries, there's one additional thing we need to do and that is to actually "unpack" our asynchronous results. We have a few options for this (`when_all`, `when_any`, or `when_some`), but typically we'll just want to receive all the results and thus use `when_all`.
+With multiple queries, there's one additional thing we need to do and that is to actually "unpack" our asynchronous results. We have a few options for this ([`when_all`](https://pavlidislab.github.io/Gemma-API/reference/when_all.html), [`when_any`](https://pavlidislab.github.io/Gemma-API/reference/when_some.html), or [`when_some`](https://pavlidislab.github.io/Gemma-API/reference/when_some.html)), but typically we'll just want to receive all the results and thus use `when_all`.
 
 ```{r}
 synchronise({
@@ -62,12 +60,12 @@ synchronise({
   
   # Only complete this synchronise block when all queries are finished
   when_all(.list = res)
-}) %>% rbindlist %>% glimpse
+}) %>% rbindlist %>% glimpse()
 ```
 
 Finally, we'll introduce one last thing you can do with asynchronous results and that is the deferred chain, `$then`. As we've discussed, the result of a Gemma API query with `async = T` is a deferred value. However, it's still possible to work with them when they become available by specifying code to run when that happens. This is particularly useful when you want to compose information from multiple endpoints.
 
-```{r async, eval=FALSE}
+```{r async}
 synchronise({
   # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
   datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
@@ -91,7 +89,7 @@ synchronise({
   
   # Only complete this synchronise block when all queries are finished
   when_all(.list = res)
-}) %>% rbindlist %>% glimpse
+}) %>% rbindlist %>% glimpse()
 ```
 
 Although this may look intimidating at first, it's a very powerful way to rapidly make batch queries.
@@ -100,7 +98,7 @@ Although this may look intimidating at first, it's a very powerful way to rapidl
 
 For completeness, we'll provide a small benchmark to hopefully convince you that asynchronous programming is worth learning. Both of these functions do the same as the above (although one was rewritten to do it synchronously).
 
-```{r async-benchmark-1, eval=FALSE}
+```{r async-benchmark, eval=FALSE}
 # First, get datasets with more than 100 samples. We'll do this synchronously since we need identifiers to continue
 datasets <- getDatasets(filter = 'numberOfSamples > 100', limit = 10)
 
@@ -143,5 +141,10 @@ syncBenchmark <- function() {
 
 knitr::kable(summary(microbenchmark(asyncBenchmark(), syncBenchmark(), times = 5), unit = 's'))
 ```
+
+```{r, echo = FALSE}
+knitr::kable(readRDS("benchmarkTable.rds"))
+```
+
 
 As you can see, the asynchronous method is much faster (about 6x), even on this small test. For larger queries, the gains are even larger.

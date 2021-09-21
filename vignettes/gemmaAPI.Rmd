@@ -1,5 +1,6 @@
 ---
 title: "Gemma API R Wrapper"
+author: "Javier Castillo-Arnemann, Jordan Sicherman"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Gemma API R Wrapper}
@@ -145,6 +146,11 @@ forgetGemmaMemoised()
 ### Raw data
 
 By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
+```{r raw}
+getDatasets("GSE35974", raw = TRUE) %>%
+  glimpse()
+```
+
 
 ### File outputs
 
@@ -159,9 +165,9 @@ You can also specify whether or not the new fetched results are allowed to overw
 To illustrate these...
 
 ```{r outputs}
-glimpse(getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD')) # raw = T, saves SVD.json
-glimpse(getDatasetPlatforms('GSE35974', file = 'platforms')) # No nested data.tables, saves platforms.csv
-glimpse(getDatasetSamples('GSE35974', file = 'samples')) # Some nested data.tables, saves samples.rds
+getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD') %>% glimpse() # raw = T, saves SVD.json
+getDatasetPlatforms('GSE35974', file = 'platforms') %>% glipmse() # No nested data.tables, saves platforms.csv
+getDatasetSamples('GSE35974', file = 'samples') %>% glimpse() # Some nested data.tables, saves samples.rds
 ```
 
 
