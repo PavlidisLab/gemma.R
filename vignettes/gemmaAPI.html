@@ -10,6 +10,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<meta name="author" content="Javier Castillo-Arnemann, Jordan Sicherman" />
 
 
 <title>Gemma API R Wrapper</title>
@@ -138,6 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 <h1 class="title toc-ignore">Gemma API R Wrapper</h1>
+<h4 class="author">Javier Castillo-Arnemann, Jordan Sicherman</h4>
 
 
 
@@ -326,12 +328,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">59899.84</td>
-<td align="right">59899.84</td>
-<td align="right">59899.84</td>
-<td align="right">59899.84</td>
-<td align="right">59899.84</td>
-<td align="right">59899.84</td>
+<td align="right">57326.28</td>
+<td align="right">57326.28</td>
+<td align="right">57326.28</td>
+<td align="right">57326.28</td>
+<td align="right">57326.28</td>
+<td align="right">57326.28</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -363,12 +365,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <tbody>
 <tr class="odd">
 <td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">0.582363</td>
-<td align="right">0.582363</td>
-<td align="right">0.582363</td>
-<td align="right">0.582363</td>
-<td align="right">0.582363</td>
-<td align="right">0.582363</td>
+<td align="right">0.504361</td>
+<td align="right">0.504361</td>
+<td align="right">0.504361</td>
+<td align="right">0.504361</td>
+<td align="right">0.504361</td>
+<td align="right">0.504361</td>
 <td align="right">1</td>
 </tr>
 </tbody>
@@ -384,6 +386,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="raw-data" class="section level3">
 <h3>Raw data</h3>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasets</span>(<span class="st">&quot;GSE35974&quot;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>#&gt; Rows: 1
+#&gt; Columns: 37
+#&gt; $ id                             &lt;int&gt; 5939
+#&gt; $ lastUpdated                    &lt;dbl&gt; 1.585395e+12
+#&gt; $ troubled                       &lt;lgl&gt; FALSE
+#&gt; $ lastTroubledEvent              &lt;lgl&gt; NA
+#&gt; $ needsAttention                 &lt;lgl&gt; FALSE
+#&gt; $ lastNeedsAttentionEvent        &lt;lgl&gt; NA
+#&gt; $ curationNote                   &lt;lgl&gt; NA
+#&gt; $ lastNoteUpdateEvent            &lt;lgl&gt; NA
+#&gt; $ `_totalInQuery`                &lt;int&gt; 1
+#&gt; $ bioAssayCount                  &lt;int&gt; 144
+#&gt; $ description                    &lt;chr&gt; &quot;Background: Schizophrenia (SCZ) and bi…
+#&gt; $ name                           &lt;chr&gt; &quot;Expression data from the human cerebel…
+#&gt; $ accession                      &lt;chr&gt; &quot;GSE35974&quot;
+#&gt; $ arrayDesignCount               &lt;int&gt; 1
+#&gt; $ batchConfound                  &lt;lgl&gt; NA
+#&gt; $ batchEffect                    &lt;chr&gt; &quot;Data has been batch-corrected&quot;
+#&gt; $ bioMaterialCount               &lt;lgl&gt; NA
+#&gt; $ currentUserHasWritePermission  &lt;lgl&gt; FALSE
+#&gt; $ currentUserIsOwner             &lt;lgl&gt; FALSE
+#&gt; $ experimentalDesign             &lt;int&gt; 5260
+#&gt; $ externalDatabase               &lt;chr&gt; &quot;GEO&quot;
+#&gt; $ externalUri                    &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;
+#&gt; $ geeq                           &lt;df[,24]&gt; &lt;data.frame[1 x 24]&gt;
+#&gt; $ isPublic                       &lt;lgl&gt; TRUE
+#&gt; $ isShared                       &lt;lgl&gt; FALSE
+#&gt; $ metadata                       &lt;lgl&gt; NA
+#&gt; $ processedExpressionVectorCount &lt;int&gt; 33252
+#&gt; $ shortName                      &lt;chr&gt; &quot;GSE35974&quot;
+#&gt; $ source                         &lt;lgl&gt; NA
+#&gt; $ suitableForDEA                 &lt;lgl&gt; TRUE
+#&gt; $ taxon                          &lt;chr&gt; &quot;human&quot;
+#&gt; $ taxonId                        &lt;int&gt; 1
+#&gt; $ technologyType                 &lt;chr&gt; &quot;ONECOLOR&quot;
+#&gt; $ userOwned                      &lt;lgl&gt; FALSE
+#&gt; $ userCanWrite                   &lt;lgl&gt; FALSE
+#&gt; $ securableClass                 &lt;chr&gt; &quot;ubic.gemma.model.expression.experiment…
+#&gt; $ troubleDetails                 &lt;chr&gt; &quot;No trouble details provided.&quot;</code></pre>
 </div>
 <div id="file-outputs" class="section level3">
 <h3>File outputs</h3>
@@ -395,7 +438,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
 <p>To illustrate these…</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>)) <span class="co"># raw = T, saves SVD.json</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetSVD</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>, <span class="at">file =</span> <span class="st">&#39;SVD&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() <span class="co"># raw = T, saves SVD.json</span></span></code></pre></div>
 <pre><code>#&gt; List of 3
 #&gt;  $ bioMaterialIds: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
 #&gt;  $ variances     : num [1:144] 0.0685 0.0437 0.0373 0.0287 0.0263 ...
@@ -404,7 +447,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt;   ..$ rowNames          : int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
 #&gt;   ..$ rawMatrix         : num [1:144, 1:5] 0.0509 -0.011 0.139 -0.0619 0.1197 ...
 #&gt;   ..$ rowNameMapIterator: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetPlatforms</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">file =</span> <span class="st">&#39;platforms&#39;</span>)) <span class="co"># No nested data.tables, saves platforms.csv</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetPlatforms</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">file =</span> <span class="st">&#39;platforms&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() <span class="co"># No nested data.tables, saves platforms.csv</span></span></code></pre></div>
 <pre><code>#&gt; Rows: 1
 #&gt; Columns: 15
 #&gt; $ platform.ID                  &lt;int&gt; 380
@@ -422,7 +465,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 #&gt; $ taxon.ID                     &lt;lgl&gt; NA
 #&gt; $ technology.Type              &lt;chr&gt; &quot;ONECOLOR&quot;
 #&gt; $ technology.Color             &lt;chr&gt; &quot;ONECOLOR&quot;</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(<span class="fu">getDatasetSamples</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">file =</span> <span class="st">&#39;samples&#39;</span>)) <span class="co"># Some nested data.tables, saves samples.rds</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetSamples</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">file =</span> <span class="st">&#39;samples&#39;</span>) <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>() <span class="co"># Some nested data.tables, saves samples.rds</span></span></code></pre></div>
 <pre><code>#&gt; Rows: 144
 #&gt; Columns: 17
 #&gt; $ bioMaterial.Name       &lt;chr&gt; &quot;GSE35974_Biomat_123&quot;, &quot;GSE35974_Biomat_63&quot;, &quot;G…
@@ -446,7 +489,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="changing-defaults" class="section level3">
 <h3>Changing defaults</h3>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="authentication" class="section level2">
