@@ -166,7 +166,7 @@ To illustrate these...
 
 ```{r outputs}
 getDatasetSVD('GSE35974', raw = TRUE, file = 'SVD') %>% glimpse() # raw = T, saves SVD.json
-getDatasetPlatforms('GSE35974', file = 'platforms') %>% glipmse() # No nested data.tables, saves platforms.csv
+getDatasetPlatforms('GSE35974', file = 'platforms') %>% glimpse() # No nested data.tables, saves platforms.csv
 getDatasetSamples('GSE35974', file = 'samples') %>% glimpse() # Some nested data.tables, saves samples.rds
 ```
 
