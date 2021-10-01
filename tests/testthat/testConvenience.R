@@ -4,10 +4,10 @@ test_that("getPlatformAnnotation queries work", {
     expect_false(nrow(dat) == 0)
 })
 
-test_that("getBioconductor data is preserved", {
+test_that("getBioc data is preserved", {
     expr <- getDatasetData(1, filter = TRUE)
-    eset <- getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
-    sumexp <- getBioconductor("SummarizedExperiment", "GSE2018", filter = TRUE)
+    eset <- getBioc("ExpressionSet", "GSE2018", filter = TRUE)
+    sumexp <- getBioc("SummarizedExperiment", "GSE2018", filter = TRUE)
     design <- getDatasetDesign(1)
     expect_equal(nrow(expr), eset %>% nrow() %>% unname())
     expect_equal(Biobase::featureNames(eset), expr$Probe)
