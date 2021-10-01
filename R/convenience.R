@@ -230,7 +230,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @export
 #' @examples
 #' getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
-getBioconductor <- function(type, dataset, filter = TRUE) {
+getBioc <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
