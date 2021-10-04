@@ -1,7 +1,6 @@
 test_that("getTaxa queries work", {
-    # TODO: string inputs not accepted, bug in API
-    # dat <- getTaxa("human")
-    # raw <- getTaxa("human", raw = TRUE)
+    dat <- getTaxa("human")
+    raw <- getTaxa("human", raw = TRUE)
     dat <- getTaxa(1)
     raw <- getTaxa(1, raw = TRUE)
     expect_type(dat, "list")

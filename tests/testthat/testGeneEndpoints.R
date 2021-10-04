@@ -47,7 +47,6 @@ test_that("getGeneProbes queries work", {
         dat[, c(mapping.Description, array.ShortName, array.Type)],
         c(raw$description, raw$arrayDesign$shortName, raw$arrayDesign$technologyType)
     )
-
     expect_equal(getGeneProbes(1859, limit = 10) %>% nrow(), 10)
 })
 
