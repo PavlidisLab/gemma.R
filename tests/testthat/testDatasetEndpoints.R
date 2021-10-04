@@ -89,8 +89,7 @@ test_that("datasetAnnotations queries work", {
 })
 
 test_that("getDatasetData queries work", {
-    expect_type(getDatasetData(1), "list")
-    expect_type(getDatasetData(1, raw = TRUE), "list")
+    dat <- expect_type(getDatasetData(1), "list")
     expect_gt(getDatasetData(1) %>% nrow(), getDatasetData(1, filter = TRUE) %>% nrow())
 })
 
@@ -134,7 +133,6 @@ test_that("datasetDE queries work", {
         getDatasetDE(1, diffExSet = 500184, limit = 50)$expr[[1]] %>% nrow()
     )
 
-    # Threshold not working as expected in API
-    # expect_false(all.equal(getDatasetDE(1, diffExSet = 468329, threshold = 10)[['expr']],
-    # getDatasetDE(1, diffExSet = 468329, threshold = 200)[['expr']]))
+    expect_lt(getDatasetDE(1, diffExSet = 500184, threshold = 0.01)$expr[[1]] %>% nrow(),
+    getDatasetDE(1, diffExSet = 500184, threshold = 0.5)$expr[[1]] %>% nrow())
 })
