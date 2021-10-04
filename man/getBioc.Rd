@@ -26,6 +26,6 @@ data structure of the queried dataset, including expression data,
 the experimental design and experiment metadata.
 }
 \examples{
-getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
+getBioc("ExpressionSet", "GSE2018", filter = TRUE)
 }
 \keyword{dataset}

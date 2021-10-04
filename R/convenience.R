@@ -229,7 +229,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @keywords dataset
 #' @export
 #' @examples
-#' getBioconductor("ExpressionSet", "GSE2018", filter = TRUE)
+#' getBioc("ExpressionSet", "GSE2018", filter = TRUE)
 getBioc <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
@@ -303,7 +303,7 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
-#' @return A \code{\link[tibble]{tibble}}
+#' @return A \code{\link[tibble]{tibble}}.
 #' @importFrom rlang .data
 #' @keywords dataset
 #' @export
