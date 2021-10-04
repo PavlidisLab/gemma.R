@@ -34,7 +34,7 @@ For detailed information on the curation process, check this [page](https://pavl
 ## Using the Gemma API R Wrapper
 The main goal of this wrapper is to give easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html) endpoint:
 
-```{r search}
+```{r search, eval = FALSE}
 searchDatasets('bipolar') %>%
   filter(taxon.Name == 'human', geeq.batchCorrected == TRUE) %>%
   select(ee.ShortName, ee.Name, ee.Samples)
