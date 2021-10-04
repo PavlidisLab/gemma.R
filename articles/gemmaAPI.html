@@ -125,25 +125,15 @@
 <div id="using-the-gemma-api-r-wrapper" class="section level2">
 <h2 class="hasAnchor">
 <a href="#using-the-gemma-api-r-wrapper" class="anchor"></a>Using the Gemma API R Wrapper</h2>
-<p>The Gemma API wrapper is very straightforward to use and contains a function for each entry in the REST API docs, <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">here</a>. We suggest you make some example queries on the interactive API docs to get a sense of the endpoints and their inputs and outputs.</p>
-<p>The main goal of this wrapper is giving easy access to Gemma’s curated dataset for downstream or meta-analyses.In this example, we want to find the dataset with the highest <a href="https://pavlidislab.github.io/Gemma/geeq.html">Gemma Quality Score</a> that is associated with bipolar disorder, and we are only interested in human data. To do this, we can use the <a href="https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html"><code>searchDatasets()</code></a> endpoint:</p>
+<p>The main goal of this wrapper is to give easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected. To do this, we use the <a href="https://pavlidislab.github.io/Gemma-API/reference/searchDatasets.html"><code>searchDatasets()</code></a> endpoint:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/searchDatasets.html">searchDatasets</a></span><span class="op">(</span><span class="st">"bipolar"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">taxon.Name</span> <span class="op">==</span> <span class="st">"human"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">geeq.qScore</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>#&gt;    ee.ShortName
-#&gt; 1:     GSE35974
-#&gt; 2:     GSE12649
-#&gt; 3:     GSE99349
-#&gt; 4:     GSE11767
-#&gt; 5:     GSE12654
-#&gt; 6:     GSE74358</code></pre>
-<p>The dataset with the highest quality score is <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939">GSE35974</a>. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
+<code class="sourceCode R"><span class="fu"><a href="../reference/searchDatasets.html">searchDatasets</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">taxon.Name</span> <span class="op">==</span> <span class="st">'human'</span>, <span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.Samples</span><span class="op">)</span></code></pre></div>
+<p>We are left with two datasets, and we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939">GSE35974</a> since it has the larger sample size. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
 <p>To get the basic information of a dataset, we use the <a href="https://pavlidislab.github.io/Gemma-API/reference/getDatasets.html"><code>getDatasets()</code></a> endpoint.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">"GSE35974"</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">'GSE35974'</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt;  [1] "ee.ShortName"        "ee.Name"             "ee.ID"              
 #&gt;  [4] "ee.Description"      "ee.Public"           "ee.Troubled"        
@@ -152,21 +142,22 @@
 #&gt; [13] "ee.Batch.PC"         "geeq.batchCorrected" "geeq.qScore"        
 #&gt; [16] "geeq.sScore"         "taxon.Name"          "taxon.ID"           
 #&gt; [19] "technology.Type"</code></pre>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dataset</span><span class="op">$</span><span class="va">ee.Description</span></code></pre></div>
 <pre><code>#&gt; [1] "Background: Schizophrenia (SCZ) and bipolar disorder (BD) are highly heritable psychiatric disorders. Associated genetic and gene expression changes have been identified, but many have not been replicated and have unknown functions. We identified groups of genes whose expressions varied together, that is co-expression modules, then tested them for association with SCZ. Using weighted gene co-expression network analysis, we show that two modules were differentially expressed in patients versus controls. One, upregulated in cerebral cortex, was enriched with neuron differentiation and neuron development genes, as well as disease genome-wide association study genetic signals; the second, altered in cerebral cortex and cerebellum, was enriched with genes involved in neuron protection functions. The findings were preserved in five expression data sets, including sets from three brain\nregions, from a different microarray platform, and from BD patients. From those observations, we propose neuron differentiation and development pathways may be involved in etiologies of both SCZ and BD, and neuron protection function participates in pathological process of the diseases.\nLast Updated (by provider): Jul 26, 2018\nContributors:  Chao Chen Chunyu Liu Lijun Cheng"</code></pre>
-<p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/Gemma-API/reference/getBioconductor.html"><code>getBioconductor()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/Gemma-API/reference/getBioc.html"><code>getBioc()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>Alternatively, you can use <a href="https://pavlidislab.github.io/Gemma-API/reference/getDatasetData.html"><code>getDatasetData()</code></a> to get the expression matrix directly, and <a href="https://pavlidislab.github.io/Gemma-API/reference/getDatasetDesign.html"><code>getDatasetDesign()</code></a> to get the matrix with the experimental design.</p>
 <p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create ExpressionSet</span>
-<span class="va">eset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getBioconductor.html">getBioconductor</a></span><span class="op">(</span><span class="st">"ExpressionSet"</span>, <span class="st">"GSE35974"</span><span class="op">)</span>
+<span class="va">eset</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getBioc.html">getBioc</a></span><span class="op">(</span><span class="st">'ExpressionSet'</span>, <span class="st">'GSE35974'</span><span class="op">)</span>
 <span class="va">eset</span>
 
 <span class="co"># Check the levels of the DiseaseState cofactor</span>
 <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html">unique</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="co"># Subset patients with bipolar disorder and controls.</span>
-<span class="va">bipolar</span> <span class="op">&lt;-</span> <span class="va">eset</span><span class="op">[</span> , <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">"Bipolar_Disorder"</span> <span class="op">|</span> <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">"reference_subject_role"</span><span class="op">]</span>
+<span class="va">bipolar</span> <span class="op">&lt;-</span> <span class="va">eset</span><span class="op">[</span> , <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">'Bipolar_Disorder'</span> <span class="op">|</span> <span class="va">eset</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">'reference_subject_role'</span><span class="op">]</span>
 <span class="va">bipolar</span></code></pre></div>
 <pre><code>#&gt; ExpressionSet (storageMode: lockedEnvironment)
 #&gt; assayData: 21939 features, 144 samples 
@@ -194,18 +185,25 @@
 #&gt; experimentData: use 'experimentData(object)'
 #&gt; Annotation: GPL6244</code></pre>
 <p>Let’s check the expression for every sample to make sure they look OK:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get Expression matrix</span>
 <span class="va">bipExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Biobase/man/exprs.html">exprs</a></span><span class="op">(</span><span class="va">bipolar</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">bipExpr</span>, pch<span class="op">=</span><span class="st">"."</span>, xaxt<span class="op">=</span><span class="st">"n'"</span>, xlab<span class="op">=</span><span class="st">"Sample"</span>, ylab<span class="op">=</span><span class="st">"Expression"</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">bipExpr</span>, pch<span class="op">=</span><span class="st">'.'</span>, xaxt<span class="op">=</span><span class="st">'n'</span>, xlab<span class="op">=</span><span class="st">'Sample'</span>, ylab<span class="op">=</span><span class="st">'Expression'</span><span class="op">)</span></code></pre></div>
 <p><img src="gemmaAPI_files/figure-html/base-boxplot-1.png" width="700"></p>
 <p>We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.</p>
+<p>Finally, you can use <a href="https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html">‘getTidyDataset()’</a> to fetch data in a long, ‘tidy’ format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with [<code>ggplot2</code>]<a href="https://ggplot2.tidyverse.org/" class="uri">https://ggplot2.tidyverse.org/</a>).</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">tidyData</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getTidyDataset.html">getTidyDataset</a></span><span class="op">(</span><span class="st">'GSE35974'</span><span class="op">)</span></code></pre></div>
+<div id="differential-expression-example-todo" class="section level3">
+<h3 class="hasAnchor">
+<a href="#differential-expression-example-todo" class="anchor"></a>Differential Expression Example (TODO)</h3>
 <p>From this point on, you can use <a href="https://bioconductor.org/packages/release/bioc/html/limma.html"><code>limma</code></a> or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.</p>
+</div>
 <div id="complex-queries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#complex-queries" class="anchor"></a>Complex queries</h3>
-<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on the top 3 datasets associated with bipolar disorder.</p>
+<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span>, <span class="st">'GSE99349'</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -272,88 +270,18 @@
 #&gt;  8:      http://purl.obolibrary.org/obo/DOID_3312  GSE12649
 #&gt;  9: http://purl.obolibrary.org/obo/UBERON_0000451  GSE12649
 #&gt; 10:      http://purl.obolibrary.org/obo/DOID_5419  GSE12649</code></pre>
-<div id="asynchronous-requests" class="section level4">
-<h4 class="hasAnchor">
-<a href="#asynchronous-requests" class="anchor"></a>Asynchronous requests</h4>
-<p>For very large requests, this is often insufficient and instead, we recommend using asynchronous requests, which are explained in the <a href="https://pavlidislab.github.io/Gemma-API/articles/async.html">async vignette</a>.</p>
 </div>
-<div id="memoised-data" class="section level4">
-<h4 class="hasAnchor">
-<a href="#memoised-data" class="anchor"></a>Memoised data</h4>
-<p>A different way to speed up requests (in a way) is to remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
+<div id="memoise-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#memoise-data" class="anchor"></a>Memoise data</h3>
+<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="42%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="5%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">expr</th>
-<th align="right">min</th>
-<th align="right">lq</th>
-<th align="right">mean</th>
-<th align="right">median</th>
-<th align="right">uq</th>
-<th align="right">max</th>
-<th align="right">neval</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">60669.66</td>
-<td align="right">60669.66</td>
-<td align="right">60669.66</td>
-<td align="right">60669.66</td>
-<td align="right">60669.66</td>
-<td align="right">60669.66</td>
-<td align="right">1</td>
-</tr></tbody>
-</table>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<table class="table">
-<colgroup>
-<col width="42%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="8%">
-<col width="5%">
-</colgroup>
-<thead><tr class="header">
-<th align="left">expr</th>
-<th align="right">min</th>
-<th align="right">lq</th>
-<th align="right">mean</th>
-<th align="right">median</th>
-<th align="right">uq</th>
-<th align="right">max</th>
-<th align="right">neval</th>
-</tr></thead>
-<tbody><tr class="odd">
-<td align="left">getDatasetData(“GSE35974”, memoised = TRUE)</td>
-<td align="right">0.533368</td>
-<td align="right">0.533368</td>
-<td align="right">0.533368</td>
-<td align="right">0.533368</td>
-<td align="right">0.533368</td>
-<td align="right">0.533368</td>
-<td align="right">1</td>
-</tr></tbody>
-</table>
+<code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; [1] TRUE</code></pre>
-</div>
 </div>
 </div>
 <div id="output-options" class="section level2">
@@ -362,9 +290,9 @@
 <div id="raw-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#raw-data" class="anchor"></a>Raw data</h3>
-<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. Sometimes, you may wish to to get access to everything, unadulterated by the Gemma API wrapper. This is enabled by setting <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>#&gt; Rows: 1
 #&gt; Columns: 37
@@ -401,9 +329,9 @@
 #&gt; $ taxon                          &lt;chr&gt; "human"
 #&gt; $ taxonId                        &lt;int&gt; 1
 #&gt; $ technologyType                 &lt;chr&gt; "ONECOLOR"
-#&gt; $ userOwned                      &lt;lgl&gt; FALSE
-#&gt; $ userCanWrite                   &lt;lgl&gt; FALSE
 #&gt; $ securableClass                 &lt;chr&gt; "ubic.gemma.model.expression.experiment…
+#&gt; $ userCanWrite                   &lt;lgl&gt; FALSE
+#&gt; $ userOwned                      &lt;lgl&gt; FALSE
 #&gt; $ troubleDetails                 &lt;chr&gt; "No trouble details provided."</code></pre>
 </div>
 <div id="file-outputs" class="section level3">
@@ -421,17 +349,25 @@
 </ol>
 <p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
 <p>To illustrate these…</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetSVD.html">getDatasetSVD</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span></code></pre></div>
-<pre><code>#&gt; List of 3
-#&gt;  $ bioMaterialIds: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
-#&gt;  $ variances     : num [1:144] 0.0685 0.0437 0.0373 0.0287 0.0263 ...
-#&gt;  $ vMatrix       :List of 4
-#&gt;   ..$ colNames          : int [1:5] 0 1 2 3 4
-#&gt;   ..$ rowNames          : int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...
-#&gt;   ..$ rawMatrix         : num [1:144, 1:5] 0.0509 -0.011 0.139 -0.0619 0.1197 ...
-#&gt;   ..$ rowNameMapIterator: int [1:144] 203828 203846 203939 203908 203818 203944 203861 203827 203946 203817 ...</code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span>, file <span class="op">=</span> <span class="st">'SVD'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># raw = T, saves SVD.json</span></code></pre></div>
+<pre><code>#&gt; Rows: 6
+#&gt; Columns: 14
+#&gt; $ id                        &lt;int&gt; NA, NA, NA, NA, 8258247, NA
+#&gt; $ classUri                  &lt;chr&gt; "http://www.ebi.ac.uk/efo/EFO_0000408", "htt…
+#&gt; $ className                 &lt;chr&gt; "disease", "biological sex", "biological sex…
+#&gt; $ termUri                   &lt;chr&gt; "http://purl.obolibrary.org/obo/DOID_3312", …
+#&gt; $ termName                  &lt;chr&gt; "Bipolar Disorder", "male", "female", "schiz…
+#&gt; $ parentName                &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ parentDescription         &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ parentLink                &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ parentOfParentName        &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ parentOfParentDescription &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ parentOfParentLink        &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ description               &lt;lgl&gt; NA, NA, NA, NA, NA, NA
+#&gt; $ evidenceCode              &lt;chr&gt; "IC", "IIA", "IIA", "IC", "IC", "IC"
+#&gt; $ objectClass               &lt;chr&gt; "FactorValue", "BioMaterial", "BioMaterial",…</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetPlatforms.html">getDatasetPlatforms</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'platforms'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># No nested data.tables, saves platforms.csv</span></code></pre></div>
 <pre><code>#&gt; Rows: 1
 #&gt; Columns: 15
@@ -447,10 +383,10 @@
 #&gt; $ platform.ProbeGeneCount      &lt;lgl&gt; NA
 #&gt; $ platform.ElementCount        &lt;lgl&gt; NA
 #&gt; $ taxon.Name                   &lt;chr&gt; "human"
-#&gt; $ taxon.ID                     &lt;lgl&gt; NA
+#&gt; $ taxon.ID                     &lt;int&gt; 1
 #&gt; $ technology.Type              &lt;chr&gt; "ONECOLOR"
 #&gt; $ technology.Color             &lt;chr&gt; "ONECOLOR"</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetSamples.html">getDatasetSamples</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, file <span class="op">=</span> <span class="st">'samples'</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Some nested data.tables, saves samples.rds</span></code></pre></div>
 <pre><code>#&gt; Rows: 144
 #&gt; Columns: 17
@@ -476,14 +412,9 @@
 <h3 class="hasAnchor">
 <a href="#changing-defaults" class="anchor"></a>Changing defaults</h3>
 <p>We’ve seen how to change <code>async = T</code>, <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-</div>
-<div id="authentication" class="section level2">
-<h2 class="hasAnchor">
-<a href="#authentication" class="anchor"></a>Authentication</h2>
-<p>If you have an account at <a href="https://gemma.msl.ubc.ca">Gemma</a> and want to access data that is private, you can login using <code><a href="../reference/setGemmaUser.html">setGemmaUser("USERNAME", "PASSWORD")</a></code>. These will be passed on to every API request you make until you log out (by calling <code><a href="../reference/setGemmaUser.html">setGemmaUser()</a></code>).</p>
 </div>
   </div>
 

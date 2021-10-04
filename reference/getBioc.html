@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Tidy Dataset and Design — getTidyDataset • gemmaAPI</title>
+<title>Get Bioconductor data structures — getBioc • gemmaAPI</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,10 @@
 
 
 
-<meta property="og:title" content="Get Tidy Dataset and Design — getTidyDataset" />
-<meta property="og:description" content="Combines the expression and design matrix of the queried dataset into one
-tibble for easy visualization and exploration with ggplot." />
+<meta property="og:title" content="Get Bioconductor data structures — getBioc" />
+<meta property="og:description" content="Combines various endpoint calls to return an annotated Bioconductor-compatible
+data structure of the queried dataset, including expression data,
+the experimental design and experiment metadata." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -145,21 +146,30 @@ tibble for easy visualization and exploration with ggplot." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get Tidy Dataset and Design</h1>
+    <h1>Get Bioconductor data structures</h1>
     <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
-    <div class="hidden name"><code>getTidyDataset.Rd</code></div>
+    <div class="hidden name"><code>getBioc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Combines the expression and design matrix of the queried dataset into one
-tibble for easy visualization and exploration with <code>ggplot</code>.</p>
+    <p>Combines various endpoint calls to return an annotated Bioconductor-compatible
+data structure of the queried dataset, including expression data,
+the experimental design and experiment metadata.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getTidyDataset</span><span class='op'>(</span><span class='va'>dataset</span>, filter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>getBioc</span><span class='op'>(</span><span class='va'>type</span>, <span class='va'>dataset</span>, filter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>type</th>
+      <td><p>"SummarizedExperiment" or "ExpressionSet". We recommend using
+SummarizedExperiments if you are querying RNA-Seq data. See the Summarized experiment
+<a href='https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html'>vignette</a>
+or the ExpressionSet <a href='https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf'>vignette</a>
+for more details.</p></td>
+    </tr>
     <tr>
       <th>dataset</th>
       <td><p>A dataset identifier.</p></td>
@@ -172,24 +182,21 @@ tibble for easy visualization and exploration with <code>ggplot</code>.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code>.</p>
+    <p>An annotated <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment</a></code> or <code><a href='https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html'>ExpressionSet</a></code> for the queried dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getTidyDataset</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 757,622 × 5</span>
-#&gt;    gene      Sample       Expression diseaseState                     batch     
-#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                            <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>     
-#&gt; <span style='color: #BCBCBC;'> 1</span> 1007_s_at BAL_47c_A0B1       7.63 reference_subject_role           Batch_06_…
-#&gt; <span style='color: #BCBCBC;'> 2</span> 1007_s_at BAL_47b_A0B1       7.61 reference_subject_role           Batch_07_…
-#&gt; <span style='color: #BCBCBC;'> 3</span> 1007_s_at BAL_47a_A0B0       7.79 reference_subject_role           Batch_09_…
-#&gt; <span style='color: #BCBCBC;'> 4</span> 1007_s_at BAL_46_A2B0        7.93 Transplanted_Organ_Complication… Batch_01_…
-#&gt; <span style='color: #BCBCBC;'> 5</span> 1007_s_at BAL_45b_A2B0       7.78 Transplanted_Organ_Complication… Batch_03_…
-#&gt; <span style='color: #BCBCBC;'> 6</span> 1007_s_at BAL_45a_A1B0       7.45 reference_subject_role           Batch_06_…
-#&gt; <span style='color: #BCBCBC;'> 7</span> 1007_s_at BAL_44b_A0B0       7.56 reference_subject_role           Batch_02_…
-#&gt; <span style='color: #BCBCBC;'> 8</span> 1007_s_at BAL_44a_A0B0       7.73 reference_subject_role           Batch_09_…
-#&gt; <span style='color: #BCBCBC;'> 9</span> 1007_s_at BAL_43_A0B0        7.33 reference_subject_role           Batch_10_…
-#&gt; <span style='color: #BCBCBC;'>10</span> 1007_s_at BAL_42_A0B0        7.89 reference_subject_role           Batch_12_…
-#&gt; <span style='color: #949494;'># … with 757,612 more rows</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>getBioc</span><span class='op'>(</span><span class='st'>"ExpressionSet"</span>, <span class='st'>"GSE2018"</span>, filter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; ExpressionSet (storageMode: lockedEnvironment)
+#&gt; assayData: 16882 features, 34 samples 
+#&gt;   element names: exprs 
+#&gt; protocolData: none
+#&gt; phenoData
+#&gt;   sampleNames: BAL_47c_A0B1 BAL_47b_A0B1 ... BAL_37_A1B1 (34 total)
+#&gt;   varLabels: diseaseState batch
+#&gt;   varMetadata: labelDescription
+#&gt; featureData: none
+#&gt; experimentData: use 'experimentData(object)'
+#&gt; Annotation: GPL96 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
