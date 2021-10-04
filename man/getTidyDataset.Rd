@@ -12,7 +12,7 @@ getTidyDataset(dataset, filter = TRUE)
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 }
 \value{
-A \code{\link[tibble]{tibble}}
+A \code{\link[tibble]{tibble}}.
 }
 \description{
 Combines the expression and design matrix of the queried dataset into one
