@@ -18,8 +18,7 @@ getResultSets(
 )
 }
 \arguments{
-\item{resultSet}{Optional, defaults to empty. A single resultSet identifier (ex. 423176).
-Only datasets that user has access to will be available.}
+\item{resultSet}{Optional, defaults to empty. A single resultSet identifier (ex. 423176)}
 
 \item{filter}{Optional, defaults to \code{empty}.
 Filtering can be done on any* property or nested property that the

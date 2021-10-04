@@ -32,7 +32,7 @@ devtools::install_github("PavlidisLab/gemmaAPI")
 
 ### Bioconductor (not available yet)
 
-You can install `GemmaAPI` using from
+You can install `GemmaAPI` from
 [Bioconductor](http://bioconductor.org/) with the following code:
 
 ``` r

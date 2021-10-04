@@ -279,7 +279,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         } else if (arg == "...") {
             mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
         } else if (arg == "resultSet") {
-            mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176). Only datasets that user has access to will be available."
+            mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
         } else {
             mArg <- arg
             if (arg == "component") {
