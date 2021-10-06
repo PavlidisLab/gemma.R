@@ -4,9 +4,8 @@
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/jsicherman/GemmAPI/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/jsicherman/GemmAPI/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/jsicherman/GemmAPI/branch/master/graph/badge.svg)](https://codecov.io/gh/jsicherman/GemmAPI?branch=master)
+status](https://github.com/PavlidisLab/Gemma-API/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/PavlidisLab/Gemma-API
+coverage](https://codecov.io/gh/PavlidisLab/Gemma-API/branch/master/graph/badge.svg)](https://codecov.io/gh/PavlidisLab/Gemma-API?branch=master)
 [![DOI](https://img.shields.io/badge/doi-10.1093/database/baab006-yellow.svg)](https://doi.org/10.1093/database/baab006)
 <!-- badges: end -->
 
