@@ -224,7 +224,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
-#' @return An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
+#' @return A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried dataset.
 #' @importFrom rlang .data
 #' @keywords dataset
 #' @export
@@ -322,11 +322,12 @@ getTidyDataset <- function(dataset, filter = TRUE){
         as.data.frame()
     # Match sample order with metadata
     expr <- expr[, match(design$Sample, colnames(expr))]
-    #Convert to long format
+    # Convert to long format
     exprLong <- expr %>%
-        tibble::rownames_to_column("gene") %>%
-        tidyr::pivot_longer(-gene, names_to = "Sample", values_to = "Expression")
+        tibble::rownames_to_column("probe") %>%
+        tidyr::pivot_longer(-probe, names_to = "Sample", values_to = "expression")
 
-    # Join both
-    dplyr::inner_join(exprLong, design, by="Sample")
+    # Join expression with metadata
+    dplyr::inner_join(exprLong, design, by="Sample") %>%
+        dplyr::rename(sample = Sample)
 }
