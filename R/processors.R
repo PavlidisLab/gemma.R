@@ -352,6 +352,20 @@ processResultSets <- function(d) {
     )
 }
 
+#' Processes JSON as a datasets result set
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
+#'
+#' @keywords internal
+processDatasetResultSets <- function(d) {
+    data.table(
+        resultSet.id = d$id,
+        analysis.id = d$analysis$id
+    )
+}
+
 #' Processes JSON as annotations
 #'
 #' @param d The JSON to process

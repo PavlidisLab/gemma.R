@@ -210,3 +210,9 @@ If raw is TRUE, a list with the same information."
 getResultSets()
 # value
 "Incomplete"
+
+# getDatasetResultSet
+# example
+getDatasetResultSets("GSE2872")
+# value
+"A data table with the queried dataset's resultSet ID(s)."

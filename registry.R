@@ -350,13 +350,14 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
     ),
     preprocessor = quote(processExpression)
 )
-
-registerEndpoint("resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint(
+    "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "getResultSets",
-    logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters",
+    logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
     keyword = "dataset",
     defaults = list(
         resultSet = NA_character_,
+        dataset = NA_character_,
         filter = NA_character_,
         offset = 0L,
         limit = 20L,
@@ -364,12 +365,27 @@ registerEndpoint("resultSets/{resultSet}?filter={filter}&offset={offset}&limit={
     ),
     validators = alist(
         resultSet = validateOptionalID,
+        dataset = validateOptionalID,
         filter = validateFilter,
         offset = validatePositiveInteger,
         limit = validatePositiveInteger,
         sort = validateSort
     ),
     preprocessor = quote(processResultSets)
+)
+
+registerEndpoint(
+  "resultSets?datasets={dataset}",
+  "getDatasetResultSets",
+  logname = "datasetResultSets", roxygen = "foobar",
+  keyword = "dataset",
+  defaults = list(
+    dataset = NA_character_
+  ),
+  validators = alist(
+    dataset = validateID
+  ),
+  preprocessor = quote(processDatasetResultSets)
 )
 
 registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}",
@@ -713,7 +729,7 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&of
         taxon = NA_character_,
         filter = NA_character_,
         offset = 0L,
-        limit = 0L,
+        limit = 20L,
         sort = "+id"
     ),
     validators = alist(
@@ -752,7 +768,6 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     styler::style_file("./R/allEndpoints.R", transformers = biocthis::bioc_style())
     devtools::document()
     devtools::build(vignettes = FALSE)
-    devtools::install()
 }
 
 doFinalize()
