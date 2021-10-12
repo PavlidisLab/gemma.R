@@ -205,9 +205,13 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 
 #' getResultSets
 #'
-#' Lists resultSets filtered and organized by given parameters
+#' Lists resultSets filtered and organized by given parameters.
 #'
 #' @param resultSet Optional, defaults to empty. A single resultSet identifier (ex. 423176)
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
@@ -282,23 +286,24 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @keywords dataset
 #'
 #' @examples
-getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
-        "gemma.raw",
+getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
+    filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+    raw = getOption("gemma.raw", FALSE), async = getOption(
+        "gemma.async",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     keyword <- "dataset"
     isFile <- FALSE
     fname <- "getResultSets"
     preprocessor <- processResultSets
     validators <- list(
-        resultSet = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validatePositiveInteger,
-        sort = validateSort
+        resultSet = validateOptionalID, dataset = validateOptionalID,
+        filter = validateFilter, offset = validatePositiveInteger,
+        limit = validatePositiveInteger, sort = validateSort
     )
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
@@ -311,6 +316,58 @@ getResultSets <- function(resultSet = NA_character_, filter = NA_character_,
 #'
 #' @keywords internal
 memgetResultSets <- memoise::memoise(getResultSets)
+
+#' getDatasetResultSets
+#'
+#' foobar
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return Varies
+#' @export
+#'
+#' @keywords dataset
+#'
+#' @examples
+getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    keyword <- "dataset"
+    isFile <- FALSE
+    fname <- "getDatasetResultSets"
+    preprocessor <- processDatasetResultSets
+    validators <- list(dataset = validateID)
+    endpoint <- "resultSets?datasets={encode(dataset)}"
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, raw, overwrite, file, async, match.call()
+    )
+}
+
+#' Memoise getDatasetResultSets
+#'
+#' @keywords internal
+memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 
 #' Datasets differential expression levels
 #'
@@ -2320,7 +2377,7 @@ memgetGenesAtLocation <- memoise::memoise(getGenesAtLocation)
 #' dat <- searchDatasets("bipolar")
 #' str(dat)
 searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 0L, sort = "+id", raw = getOption(
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
         FALSE
     ), async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -2423,6 +2480,7 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
     memoise::forget(memgetDatasetPCA)
     memoise::forget(memgetResultSets)
+    memoise::forget(memgetDatasetResultSets)
     memoise::forget(memgetDatasetDE)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
