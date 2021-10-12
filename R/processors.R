@@ -53,7 +53,8 @@
                     NULL
                 }
             )
-            paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
+            ## Uncomment for debugging
+            # paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
             if (raw || length(mData) == 0) {
                 mOut <- mData
             } else {
