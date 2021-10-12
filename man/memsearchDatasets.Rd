@@ -9,7 +9,7 @@ memsearchDatasets(
   taxon = NA_character_,
   filter = NA_character_,
   offset = 0L,
-  limit = 0L,
+  limit = 20L,
   sort = "+id",
   raw = getOption("gemma.raw", FALSE),
   async = getOption("gemma.async", FALSE),

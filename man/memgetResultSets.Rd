@@ -6,6 +6,7 @@
 \usage{
 memgetResultSets(
   resultSet = NA_character_,
+  dataset = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
