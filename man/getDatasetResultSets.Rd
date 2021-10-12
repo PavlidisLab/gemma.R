@@ -40,4 +40,7 @@ Varies
 \description{
 foobar
 }
+\examples{
+getDatasetResultSets("GSE2872")
+}
 \keyword{dataset}
