@@ -6,6 +6,7 @@
 \usage{
 getResultSets(
   resultSet = NA_character_,
+  dataset = NA_character_,
   filter = NA_character_,
   offset = 0L,
   limit = 20L,
@@ -19,6 +20,11 @@ getResultSets(
 }
 \arguments{
 \item{resultSet}{Optional, defaults to empty. A single resultSet identifier (ex. 423176)}
+
+\item{dataset}{Required, part of the URL path.
+Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
+Retrieval by ID is more efficient.
+Only datasets that user has access to will be available}
 
 \item{filter}{Optional, defaults to \code{empty}.
 Filtering can be done on any* property or nested property that the
@@ -106,6 +112,6 @@ Otherwise, it will be a RDS file.}
 Varies
 }
 \description{
-Lists resultSets filtered and organized by given parameters
+Lists resultSets filtered and organized by given parameters.
 }
 \keyword{dataset}
