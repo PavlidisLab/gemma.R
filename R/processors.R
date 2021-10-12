@@ -32,7 +32,7 @@
 
     # Generate request
     request <- quote(http_get(
-        paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+        paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
         options = switch(is.null(getOption("gemma.password", NULL)) + 1,
             list(userpwd = paste0(getOption("gemma.username"), ":", getOption("gemma.password"))),
             list()
@@ -53,7 +53,7 @@
                     NULL
                 }
             )
-
+            paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
             if (raw || length(mData) == 0) {
                 mOut <- mData
             } else {
@@ -76,10 +76,15 @@
                     }
                 }
             }
-
             mOut
-        } else {
-            response
+        } else if (response$status_code == 403){
+            message(paste0("Error ", response$status_code, ": Forbidden. You do not have permission to access this data."))
+        } else if (response$status_code == 404){
+            message(paste0("Error ", response$status_code, ": Not found. Ensure your parameters are written correctly."))
+        } else if (response$status_code == 503){
+            message(paste0("Error ", response$status_code, ": Service Unavailable. Gemma might be under maintenance."))
+        } else{
+            message(paste0("Error", response$status_code))
         }
     }))
 
@@ -335,7 +340,16 @@ processSVD <- function(d) {
 #' @keywords internal
 # TODO: Finish implementation
 processResultSets <- function(d) {
-    data.table(rs.ID = d[["id"]])
+    d <- d$results %>%
+        dplyr::select(-id) %>%
+        tidyr::unnest(genes, keep_empty = TRUE)
+    data.table(
+        Probe = d$probeId,
+        GeneSymbol = d$officialSymbol,
+        GeneName = d$officialName,
+        GemmaID = d$id,
+        NCBIid = d$ncbiId
+    )
 }
 
 #' Processes JSON as annotations
