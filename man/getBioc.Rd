@@ -18,7 +18,7 @@ for more details.}
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 }
 \value{
-An annotated \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} for the queried dataset.
+A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried dataset.
 }
 \description{
 Combines various endpoint calls to return an annotated Bioconductor-compatible
