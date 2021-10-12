@@ -98,9 +98,9 @@ boxplot(bipExpr, pch='.', xaxt='n', xlab='Sample', ylab='Expression')
 
 We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
-Finally, you can use ['getTidyDataset()'](https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html) to fetch data in a long, 'tidy' format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with [`ggplot2`]https://ggplot2.tidyverse.org/).
+You can also use [`getTidyDataset()`](https://pavlidislab.github.io/Gemma-API/reference/getTidyDataset.html) to fetch data in a long, 'tidy' format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with [`ggplot2`](https://ggplot2.tidyverse.org/).
 
-```{r tidy}
+```{r tidy, eval = FALSE}
 tidyData <- getTidyDataset('GSE35974')
 ```
 
@@ -108,7 +108,7 @@ tidyData <- getTidyDataset('GSE35974')
 ### Differential Expression Example (TODO)
 From this point on, you can use [`limma`](https://bioconductor.org/packages/release/bioc/html/limma.html) or other alternatives in Bioconductor to compare the gene expression of bipolar patients with healthy controls and determine which genes showed the most significant changes.
 
-### Complex queries
+### Longer queries
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.
 
 ```{r double-query}
@@ -146,7 +146,6 @@ forgetGemmaMemoised()
 ## Output options
 
 ### Raw data
-
 By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
 ```{r raw}
 getDatasets('GSE35974', raw = TRUE) %>%
@@ -154,7 +153,6 @@ getDatasets('GSE35974', raw = TRUE) %>%
 ```
 
 ### File outputs
-
 Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
 
 1.  `.json`, if you requested results with `raw = TRUE`
@@ -163,24 +161,8 @@ Sometimes, you may wish to save results to a file for future inspection. You can
 
 You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite` parameter.
 
-To illustrate these...
-
-```{r outputs}
-getDatasetAnnotations('GSE35974', raw = TRUE, file = 'SVD') %>% glimpse() # raw = T, saves SVD.json
-getDatasetPlatforms('GSE35974', file = 'platforms') %>% glimpse() # No nested data.tables, saves platforms.csv
-getDatasetSamples('GSE35974', file = 'samples') %>% glimpse() # Some nested data.tables, saves samples.rds
-```
-
-
-```{r include=FALSE}
-unlink('SVD.json')
-unlink('platforms.csv')
-unlink('samples.rds')
-```
-
 ### Changing defaults
-
-We've seen how to change `async = T`, `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
