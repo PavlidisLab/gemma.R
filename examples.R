@@ -211,7 +211,7 @@ getResultSets()
 # value
 "Incomplete"
 
-# getDatasetResultSet
+# getDatasetResultSets
 # example
 getDatasetResultSets("GSE2872")
 # value

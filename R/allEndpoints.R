@@ -342,6 +342,7 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @keywords dataset
 #'
 #' @examples
+#' getDatasetResultSets("GSE2872")
 getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
