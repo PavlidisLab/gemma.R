@@ -4,7 +4,7 @@
 \alias{processFile}
 \title{Processes a response as a gzip file}
 \usage{
-processFile(response)
+processFile(content)
 }
 \arguments{
 \item{response}{The response from an \code{http_get} request}

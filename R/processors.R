@@ -8,6 +8,7 @@
 #' @param endpoint Formatted endpoint URL
 #' @param envWhere Environment to evaluate in
 #' @param isFile Whether or not the endpoint is expect to return a file
+#' @param hasHeader Indicates if the endpoint uses a HTTP header
 #' @param raw Whether to return JSON (`TRUE`) or data.table (`FALSE`)
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
@@ -15,13 +16,19 @@
 #' @param .call The original function call
 #'
 #' @keywords internal
-.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, raw, overwrite, file, async, .call) {
+.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, hasHeader, raw, overwrite, file, async, .call) {
     # Call a memoised version if applicable
     if (memoised) {
         newArgs <- as.list(.call)[-1]
         newArgs$memoised <- FALSE
         return(do.call(glue::glue("mem{fname}"), newArgs))
     }
+    # Set header for TSV files
+    if(hasHeader){
+        header <- setNames("text/tab-separated-values", "Accept")
+        }
+    else(header <- "")
+    envWhere$header = header
 
     # Validate arguments
     if (!is.null(validators)) {
@@ -29,20 +36,20 @@
             assign(v, eval(validators[[v]])(get(v, envir = envWhere, inherits = FALSE), name = v), envir = envWhere)
         }
     }
-
     # Generate request
     request <- quote(http_get(
         paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
         options = switch(is.null(getOption("gemma.password", NULL)) + 1,
             list(userpwd = paste0(getOption("gemma.username"), ":", getOption("gemma.password"))),
             list()
-        )
+        ),
+        headers = header
     )$then(function(response) {
         if (response$status_code == 200) {
             mData <- tryCatch(
                 {
                     if (isFile) {
-                        response
+                        response$content
                     } else {
                         jsonlite::fromJSON(rawToChar(response$content))$data
                     }
@@ -50,11 +57,10 @@
                 error = function(e) {
                     message(paste0("Failed to parse ", response$type, " from ", response$url))
                     warning(e$message)
-                    NULL
                 }
             )
             ## Uncomment for debugging
-            # paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
+            paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
             if (raw || length(mData) == 0) {
                 mOut <- mData
             } else {
@@ -85,7 +91,7 @@
         } else if (response$status_code == 503){
             message(paste0("Error ", response$status_code, ": Service Unavailable. Gemma might be under maintenance."))
         } else{
-            message(paste0("Error", response$status_code))
+            message(paste0("Error ", response$status_code))
         }
     }))
 
@@ -392,9 +398,9 @@ processAnnotations <- function(d) {
 #' @return A processed data.table
 #'
 #' @keywords internal
-processFile <- function(response) {
+processFile <- function(content) {
     tmp <- tempfile() # Make a temp file
-    writeBin(response$content, tmp) # Save to that file
+    writeBin(content, tmp) # Save to that file
     tmp2 <- gzfile(tmp)
     ret <- tmp2 %>%
         readLines() %>%
