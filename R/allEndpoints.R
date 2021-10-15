@@ -1543,78 +1543,6 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
 #' @keywords internal
 memgetGeneGO <- memoise::memoise(getGeneGO)
 
-#' Gene coexpression
-#'
-#' Retrieves the coexpression of two given genes
-#'
-#' @param gene Required, part of the URL path.
-#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
-#' official symbol (`DYRK1A`) of the gene.
-#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' Official
-#' symbol represents a gene homologue for a random taxon, unless used in a
-#' specific taxon (see Taxon Endpoints).
-#' @param with Required, defaults to `empty`.
-#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
-#' official symbol (`DYRK1A`) of the gene.
-#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' Official
-#' symbol represents a gene homologue for a random taxon, unless used in a
-#' specific taxon (see Taxon Endpoints).
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param stringency Optional, defaults to `1`.
-#' Sets the stringency of coexpression search.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return An array of gene coexpression data (coexpression meta value objects)
-#' representing the coexpression of the two given genes.
-#' A `404 error` if the given identifier does not map to any object.
-#' A `400 error` if required parameters are missing.
-#' @export
-#'
-#' @keywords gene
-#'
-#' @examples
-getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limit = 20L,
-    stringency = 1L, raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    keyword <- "gene"
-    hasHeader <- FALSE
-    isFile <- FALSE
-    fname <- "getGeneCoexpression"
-    preprocessor <- processCoexpression
-    validators <- list(
-        gene = validateSingleID, with = validateSingleID,
-        limit = validatePositiveInteger, stringency = validatePositiveInteger
-    )
-    endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, hasHeader, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getGeneCoexpression
-#'
-#' @keywords internal
-memgetGeneCoexpression <- memoise::memoise(getGeneCoexpression)
-
 #' Taxa
 #'
 #' List taxa filtered by given parameters
@@ -2531,7 +2459,6 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetGeneLocation)
     memoise::forget(memgetGeneProbes)
     memoise::forget(memgetGeneGO)
-    memoise::forget(memgetGeneCoexpression)
     memoise::forget(memgetTaxa)
     memoise::forget(memgetTaxonDatasets)
     memoise::forget(memgetTaxonPhenotypes)

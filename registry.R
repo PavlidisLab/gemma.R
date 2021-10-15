@@ -584,24 +584,6 @@ registerSimpleEndpoint("gene", "goTerms",
     preprocessor = quote(processGO)
 )
 
-registerEndpoint("genes/{gene}/coexpression?with={with}&limit={limit}&stringency={stringency}",
-    "getGeneCoexpression",
-    logname = "coexpression", roxygen = "Gene coexpression", keyword = "gene",
-    defaults = list(
-        gene = NA_character_,
-        with = NA_character_,
-        limit = 20L,
-        stringency = 1L
-    ),
-    validators = alist(
-        gene = validateSingleID,
-        with = validateSingleID,
-        limit = validatePositiveInteger,
-        stringency = validatePositiveInteger
-    ),
-    preprocessor = quote(processCoexpression)
-)
-
 # Taxon endpoints ----
 registerSimpleEndpoint("taxa", "",
     logname = "taxa", roxygen = "Taxa", keyword = "taxon",
