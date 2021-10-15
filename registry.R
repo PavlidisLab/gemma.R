@@ -612,22 +612,6 @@ registerEndpoint("taxa/{taxon}/datasets?filter={filter}&offset={offset}&limit={l
     preprocessor = quote(processDatasets)
 )
 
-registerEndpoint("taxa/{taxon}/phenotypes?editableOnly={editableOnly}&tree={tree}",
-    "getTaxonPhenotypes",
-    logname = "phenotypes", roxygen = "Taxon phenotypes", keyword = "taxon",
-    defaults = list(
-        taxon = NA_character_,
-        editableOnly = FALSE,
-        tree = FALSE
-    ),
-    validators = alist(
-        taxon = validateSingleTaxon,
-        editableOnly = validateBoolean,
-        tree = validateBoolean
-    ),
-    preprocessor = quote(processPhenotypes)
-)
-
 registerEndpoint("taxa/{taxon}/phenotypes/candidates?editableOnly={editableOnly}&phenotypes={phenotypes}",
     "getTaxonPhenotypeCandidates",
     logname = "phenoCandidateGenes", roxygen = "Taxon phenotypes candidate genes",

@@ -23,13 +23,6 @@ test_that("getTaxonDatasets queries work", {
     expect_false(getTaxonDatasets("human", sort = "-id")[1, 1] == getTaxonDatasets("human", sort = "+id")[1, 1])
 })
 
-# TODO: How useful is this endpoint? Fetches a lot of data and is very hard to filter
-# test_that('getTaxonPhenotypes queries work', {
-#   dat <- getTaxonPhenotypes('human')
-#   raw <- getTaxonPhenotypes('human', raw = TRUE)
-#
-# })
-
 test_that("getTaxonPhenotypeCandidates queries work", {
     dat <- getTaxonPhenotypeCandidates("human", phenotypes = "http://purl.obolibrary.org/obo/DOID_11934")
     raw <- getTaxonPhenotypeCandidates("human", phenotypes = "http://purl.obolibrary.org/obo/DOID_11934", raw = TRUE)
