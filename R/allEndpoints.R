@@ -1743,88 +1743,6 @@ getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offs
 #' @keywords internal
 memgetTaxonDatasets <- memoise::memoise(getTaxonDatasets)
 
-#' Taxon phenotypes
-#'
-#' Loads all phenotypes for the given taxon.
-#'
-#' @param taxon Not required, part of the URL path.
-#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
-#' scientific name, common name
-#' It is recommended to use Taxon ID for efficiency.
-#' Please note, that not all taxa have all the possible identifiers
-#' available.
-#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
-#' convenience, below is a list of officially supported taxa:
-#'   ID   Comm.name   Scient.name                NcbiID
-#'   ---- ----------- -------------------------- --------
-#'   1    human       Homo sapiens               9606
-#'   2    mouse       Mus musculus               10090
-#'   3    rat         Rattus norvegicus          10116
-#'   11   yeast       Saccharomyces cerevisiae   4932
-#'   12   zebrafish   Danio rerio                7955
-#'   13   fly         Drosophila melanogaster    7227
-#'   14   worm        Caenorhabditis elegans     6239
-#' @param editableOnly Optional, defaults to `false`.
-#' Whether to only list editable objects.
-#' @param tree Optional, defaults to `false`.
-#' Whether the returned structure should be an actual tree (nested JSON
-#' objects).
-#' Default is false - the tree is flattened and the tree structure
-#' information is stored as the values of the returned object.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return If `tree = false`, an array of simple tree value objects.
-#' If `tree = true`, an array of tree characteristic value objects, that
-#' will represent root nodes of a phenotype tree. Each node has its child
-#' nodes in the `children` array property. There will be exactly 3 root
-#' nodes - for a disease ontology tree, human phenotype ontology tree and a
-#' mammalian phenotype ontology tree. If there are no terms for the given
-#' taxon in any of the ontologies, the relevant root node will be null.
-#' A `404 error` if the given identifier does not map to any object.
-#' @export
-#'
-#' @keywords taxon
-#'
-#' @examples
-getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree = FALSE,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    keyword <- "taxon"
-    hasHeader <- FALSE
-    isFile <- FALSE
-    fname <- "getTaxonPhenotypes"
-    preprocessor <- processPhenotypes
-    validators <- list(
-        taxon = validateSingleTaxon, editableOnly = validateBoolean,
-        tree = validateBoolean
-    )
-    endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, hasHeader, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getTaxonPhenotypes
-#'
-#' @keywords internal
-memgetTaxonPhenotypes <- memoise::memoise(getTaxonPhenotypes)
-
 #' Taxon phenotypes candidate genes
 #'
 #' Given a set of phenotypes, return all genes associated with them.
@@ -2461,7 +2379,6 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetGeneGO)
     memoise::forget(memgetTaxa)
     memoise::forget(memgetTaxonDatasets)
-    memoise::forget(memgetTaxonPhenotypes)
     memoise::forget(memgetTaxonPhenotypeCandidates)
     memoise::forget(memgetGeneOnTaxon)
     memoise::forget(memgetEvidenceOnTaxon)
