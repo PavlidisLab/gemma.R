@@ -99,6 +99,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasets"
     preprocessor <- processDatasets
@@ -110,7 +111,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -183,6 +184,7 @@ getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetPCA"
     preprocessor <- processExpression
@@ -194,7 +196,7 @@ getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L
     endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -297,9 +299,10 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
         FALSE
     )) {
     keyword <- "dataset"
-    isFile <- FALSE
+    hasHeader <- TRUE
+    isFile <- TRUE
     fname <- "getResultSets"
-    preprocessor <- processResultSets
+    preprocessor <- processFile
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
         filter = validateFilter, offset = validatePositiveInteger,
@@ -308,7 +311,7 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -354,6 +357,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetResultSets"
     preprocessor <- processDatasetResultSets
@@ -361,7 +365,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "resultSets?datasets={encode(dataset)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -442,6 +446,7 @@ getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetDE"
     preprocessor <- processExpression
@@ -453,7 +458,7 @@ getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
     endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -541,6 +546,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- TRUE
     fname <- "getDatasetData"
     preprocessor <- processFile
@@ -548,7 +554,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -596,6 +602,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetSamples"
     preprocessor <- processSamples
@@ -603,7 +610,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/samples"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -652,6 +659,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetDEA"
     preprocessor <- processDEA
@@ -659,7 +667,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -714,6 +722,7 @@ getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetSVD"
     preprocessor <- processSVD
@@ -721,7 +730,7 @@ getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/svd"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -769,6 +778,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetPlatforms"
     preprocessor <- processPlatforms
@@ -776,7 +786,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/platforms"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -824,6 +834,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getDatasetAnnotations"
     preprocessor <- processAnnotations
@@ -831,7 +842,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/annotations"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -879,6 +890,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- TRUE
     fname <- "getDatasetDesign"
     preprocessor <- processFile
@@ -886,7 +898,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/design"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -994,6 +1006,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "platform"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getPlatforms"
     preprocessor <- processPlatforms
@@ -1005,7 +1018,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1058,6 +1071,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
         FALSE
     )) {
     keyword <- "platform"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
@@ -1068,7 +1082,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1129,6 +1143,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "platform"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
@@ -1139,7 +1154,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1199,6 +1214,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "platform"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
@@ -1209,7 +1225,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1264,6 +1280,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGenes"
     preprocessor <- processGenes
@@ -1271,7 +1288,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(genes)}/"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1322,6 +1339,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneEvidence"
     preprocessor <- processGeneEvidence
@@ -1329,7 +1347,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/evidence"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1380,6 +1398,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneLocation"
     preprocessor <- processGeneLocation
@@ -1387,7 +1406,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/locations"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1445,6 +1464,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneProbes"
     preprocessor <- processElements
@@ -1455,7 +1475,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1506,6 +1526,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneGO"
     preprocessor <- processGO
@@ -1513,7 +1534,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/goTerms"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1574,6 +1595,7 @@ getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limi
         FALSE
     )) {
     keyword <- "gene"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneCoexpression"
     preprocessor <- processCoexpression
@@ -1584,7 +1606,7 @@ getGeneCoexpression <- function(gene = NA_character_, with = NA_character_, limi
     endpoint <- "genes/{encode(gene)}/coexpression?with={encode(with)}&limit={encode(limit)}&stringency={encode(stringency)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1648,6 +1670,7 @@ getTaxa <- function(taxa = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getTaxa"
     preprocessor <- processTaxon
@@ -1655,7 +1678,7 @@ getTaxa <- function(taxa = NA_character_, raw = getOption(
     endpoint <- "taxa/{encode(taxa)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1771,6 +1794,7 @@ getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offs
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
@@ -1782,7 +1806,7 @@ getTaxonDatasets <- function(taxon = NA_character_, filter = NA_character_, offs
     endpoint <- "taxa/{encode(taxon)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1853,6 +1877,7 @@ getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getTaxonPhenotypes"
     preprocessor <- processPhenotypes
@@ -1863,7 +1888,7 @@ getTaxonPhenotypes <- function(taxon = NA_character_, editableOnly = FALSE, tree
     endpoint <- "taxa/{encode(taxon)}/phenotypes?editableOnly={encode(editableOnly)}&tree={encode(tree)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -1935,6 +1960,7 @@ getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FA
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getTaxonPhenotypeCandidates"
     preprocessor <- processGeneEvidence
@@ -1945,7 +1971,7 @@ getTaxonPhenotypeCandidates <- function(taxon = NA_character_, editableOnly = FA
     endpoint <- "taxa/{encode(taxon)}/phenotypes/candidates?editableOnly={encode(editableOnly)}&phenotypes={encode(phenotypes)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2013,6 +2039,7 @@ getGeneOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = ge
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneOnTaxon"
     preprocessor <- processGenes
@@ -2020,7 +2047,7 @@ getGeneOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw = ge
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2087,6 +2114,7 @@ getEvidenceOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw 
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getEvidenceOnTaxon"
     preprocessor <- processGeneEvidence
@@ -2094,7 +2122,7 @@ getEvidenceOnTaxon <- function(taxon = NA_character_, gene = NA_character_, raw 
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/evidence"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2162,6 +2190,7 @@ getGeneLocationOnTaxon <- function(taxon = NA_character_, gene = NA_character_, 
         FALSE
     )) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGeneLocationOnTaxon"
     preprocessor <- processGeneLocation
@@ -2169,7 +2198,7 @@ getGeneLocationOnTaxon <- function(taxon = NA_character_, gene = NA_character_, 
     endpoint <- "taxa/{encode(taxon)}/genes/{encode(gene)}/locations"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2243,6 +2272,7 @@ getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "taxon"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "getGenesAtLocation"
     preprocessor <- processGenes
@@ -2254,7 +2284,7 @@ getGenesAtLocation <- function(taxon = NA_character_, chromosome = NA_character_
     endpoint <- "taxa/{encode(taxon)}/chromosomes/{encode(chromosome)}/genes?strand={encode(strand)}&start={encode(start)}&size={encode(size)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2387,6 +2417,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     keyword <- "dataset"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
@@ -2398,7 +2429,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 
@@ -2451,6 +2482,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
         FALSE
     )) {
     keyword <- "misc"
+    hasHeader <- FALSE
     isFile <- FALSE
     fname <- "searchAnnotations"
     preprocessor <- processAnnotations
@@ -2458,7 +2490,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
     endpoint <- "annotations/search/{encode(query)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, raw, overwrite, file, async, match.call()
+        isFile, hasHeader, raw, overwrite, file, async, match.call()
     )
 }
 

@@ -30,6 +30,7 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
+#' @param hasHeader Indicates if the endpoint uses a HTTP header
 registerEndpoint <- function(endpoint,
     fname,
     preprocessor,
@@ -40,7 +41,8 @@ registerEndpoint <- function(endpoint,
     keyword = NULL,
     where = parent.env(environment()),
     document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-    isFile = FALSE) {
+    isFile = FALSE,
+    hasHeader = FALSE) {
     if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
         stop("Please specify an endpoint, function name and preprocessor.")
     }
@@ -69,11 +71,11 @@ registerEndpoint <- function(endpoint,
 
     formals(f) <- fargs
     body(f) <- quote({
-        .body(memoised, fname, validators, endpoint, environment(), isFile, raw, overwrite, file, async, match.call())
+        .body(memoised, fname, validators, endpoint, environment(), isFile, hasHeader, raw, overwrite, file, async, match.call())
     })
 
     # Add our variables
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "keyword")) {
+    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "hasHeader", "keyword")) {
         if (is.character(get(i))) {
             v <- glue::glue('"{get(i)}"')
         } else if (is.list(get(i))) {
@@ -139,19 +141,21 @@ registerEndpoint <- function(endpoint,
 #' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
+#' @param hasHeader Indicates if the endpoint uses a HTTP header
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
-    logname = fname, roxygen = NULL, keyword = root,
-    where = parent.env(environment()),
-    plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-    isFile = FALSE) {
-    registerEndpoint(ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
-        glue::glue("{root}/{{{plural}}}")
+                                   logname = fname, roxygen = NULL, keyword = root,
+                                   where = parent.env(environment()),
+                                   plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
+                                   isFile = FALSE, hasHeader = FALSE) {
+  registerEndpoint(
+    ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
+           glue::glue("{root}/{{{plural}}}")
     ),
     fname,
     defaults = setNames(NA_character_, root),
     validators = switch(is.null(validator) + 1,
-        validator,
-        alist(validateSingleID) %>% `names<-`(root)
+                        validator,
+                        alist(validateSingleID) %>% `names<-`(root)
     ),
     logname = logname,
     roxygen = roxygen,
@@ -159,8 +163,9 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
     preprocessor = preprocessor,
     where = where,
     document = document,
-    isFile = isFile
-    )
+    isFile = isFile,
+    hasHeader = hasHeader
+  )
 }
 
 #' Log an endpoint for the currently active category endpoint
@@ -350,11 +355,13 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
     ),
     preprocessor = quote(processExpression)
 )
+
 registerEndpoint(
     "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "getResultSets",
     logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
-    keyword = "dataset",
+    keyword = "dataset", isFile = TRUE,
+    hasHeader = TRUE,
     defaults = list(
         resultSet = NA_character_,
         dataset = NA_character_,
@@ -371,7 +378,7 @@ registerEndpoint(
         limit = validatePositiveInteger,
         sort = validateSort
     ),
-    preprocessor = quote(processResultSets)
+    preprocessor = quote(processFile)
 )
 
 registerEndpoint(

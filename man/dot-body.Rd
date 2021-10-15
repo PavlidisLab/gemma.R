@@ -11,6 +11,7 @@
   endpoint,
   envWhere,
   isFile,
+  hasHeader,
   raw,
   overwrite,
   file,
@@ -30,6 +31,8 @@
 \item{envWhere}{Environment to evaluate in}
 
 \item{isFile}{Whether or not the endpoint is expect to return a file}
+
+\item{hasHeader}{Indicates if the endpoint uses a HTTP header}
 
 \item{raw}{Whether to return JSON (\code{TRUE}) or data.table (\code{FALSE})}
 
