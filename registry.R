@@ -30,7 +30,7 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
-#' @param hasHeader Indicates if the endpoint uses a HTTP header
+#' @param header Specific HTTP header for the request
 registerEndpoint <- function(endpoint,
     fname,
     preprocessor,
@@ -42,7 +42,7 @@ registerEndpoint <- function(endpoint,
     where = parent.env(environment()),
     document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
     isFile = FALSE,
-    hasHeader = FALSE) {
+    header = "") {
     if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
         stop("Please specify an endpoint, function name and preprocessor.")
     }
@@ -71,11 +71,11 @@ registerEndpoint <- function(endpoint,
 
     formals(f) <- fargs
     body(f) <- quote({
-        .body(memoised, fname, validators, endpoint, environment(), isFile, hasHeader, raw, overwrite, file, async, match.call())
+        .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, async, match.call())
     })
 
     # Add our variables
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "hasHeader", "keyword")) {
+    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword")) {
         if (is.character(get(i))) {
             v <- glue::glue('"{get(i)}"')
         } else if (is.list(get(i))) {
@@ -141,12 +141,12 @@ registerEndpoint <- function(endpoint,
 #' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
-#' @param hasHeader Indicates if the endpoint uses a HTTP header
+#' @param header Specific HTTP header for the request
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, keyword = root,
                                    where = parent.env(environment()),
                                    plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-                                   isFile = FALSE, hasHeader = FALSE) {
+                                   isFile = FALSE, header = "") {
   registerEndpoint(
     ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
            glue::glue("{root}/{{{plural}}}")
@@ -164,7 +164,7 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
     where = where,
     document = document,
     isFile = isFile,
-    hasHeader = hasHeader
+    header = header
   )
 }
 
@@ -361,7 +361,7 @@ registerEndpoint(
     "getResultSets",
     logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
     keyword = "dataset", isFile = TRUE,
-    hasHeader = TRUE,
+    header = "text/tab-separated-values",
     defaults = list(
         resultSet = NA_character_,
         dataset = NA_character_,
@@ -379,6 +379,30 @@ registerEndpoint(
         sort = validateSort
     ),
     preprocessor = quote(processFile)
+)
+
+registerEndpoint(
+  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+  "getResultSetFactors",
+  logname = "resultSetFactors", roxygen = "Fetches the factors and contrasts for the queried resultSet(s).",
+  keyword = "dataset",
+  defaults = list(
+    resultSet = NA_character_,
+    dataset = NA_character_,
+    filter = NA_character_,
+    offset = 0L,
+    limit = 20L,
+    sort = "+id"
+  ),
+  validators = alist(
+    resultSet = validateOptionalID,
+    dataset = validateOptionalID,
+    filter = validateFilter,
+    offset = validatePositiveInteger,
+    limit = validatePositiveInteger,
+    sort = validateSort
+  ),
+  preprocessor = quote(processFile)
 )
 
 registerEndpoint(
