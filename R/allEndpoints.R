@@ -288,6 +288,7 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @keywords dataset
 #'
 #' @examples
+#' getResultSets(500184)
 getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
     raw = getOption("gemma.raw", FALSE), async = getOption(
