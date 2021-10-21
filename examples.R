@@ -204,12 +204,11 @@ searchAnnotations("traumatic")
 "If raw is FALSE (default), a data table with information about the queried annotation).
 If raw is TRUE, a list with the same information."
 
-# TODO: finish implementation
-# getResultSet
+# getResultSets
 # example
-getResultSets()
+getResultSets(500184)
 # value
-"Incomplete"
+"A data table with differential expression data."
 
 # getDatasetResultSets
 # example
