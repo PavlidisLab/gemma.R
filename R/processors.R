@@ -8,7 +8,7 @@
 #' @param endpoint Formatted endpoint URL
 #' @param envWhere Environment to evaluate in
 #' @param isFile Whether or not the endpoint is expect to return a file
-#' @param hasHeader Indicates if the endpoint uses a HTTP header
+#' @param header Specific HTTP header for the request
 #' @param raw Whether to return JSON (`TRUE`) or data.table (`FALSE`)
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
@@ -16,19 +16,19 @@
 #' @param .call The original function call
 #'
 #' @keywords internal
-.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, hasHeader, raw, overwrite, file, async, .call) {
+.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, async, .call) {
     # Call a memoised version if applicable
     if (memoised) {
         newArgs <- as.list(.call)[-1]
         newArgs$memoised <- FALSE
         return(do.call(glue::glue("mem{fname}"), newArgs))
     }
-    # Set header for TSV files
-    if(hasHeader){
-        header <- setNames("text/tab-separated-values", "Accept")
-        }
-    else(header <- "")
-    envWhere$header = header
+
+    # Set header
+    if(header == "text/tab-separated-values"){
+        names(header) <- "Accept"
+    }
+    envWhere$header <- header
 
     # Validate arguments
     if (!is.null(validators)) {
