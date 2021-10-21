@@ -283,7 +283,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Which specific endpoint to request.</p>"
         } else if (arg == "...") {
             mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
-        } else if (arg == "resultSet") {
+        } else if (arg == "excludeResults") {
+            mAdd <- "Only keep factor values and exclude numerical results from resultSets."
+        }
+          else if (arg == "resultSet") {
             mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
         } else {
             mArg <- arg
@@ -382,9 +385,9 @@ registerEndpoint(
 )
 
 registerEndpoint(
-  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
   "getResultSetFactors",
-  logname = "resultSetFactors", roxygen = "Fetches the factors and contrasts for the queried resultSet(s).",
+  logname = "resultSetFactors", roxygen = "Returns the factor values for the queried resultSet.",
   keyword = "dataset",
   defaults = list(
     resultSet = NA_character_,
@@ -392,7 +395,8 @@ registerEndpoint(
     filter = NA_character_,
     offset = 0L,
     limit = 20L,
-    sort = "+id"
+    sort = "+id",
+    excludeResults = TRUE
   ),
   validators = alist(
     resultSet = validateOptionalID,
@@ -402,7 +406,7 @@ registerEndpoint(
     limit = validatePositiveInteger,
     sort = validateSort
   ),
-  preprocessor = quote(processFile)
+  preprocessor = quote(processResultSetFactors)
 )
 
 registerEndpoint(
