@@ -41,6 +41,6 @@ Varies
 foobar
 }
 \examples{
-getDatasetResultSets("GSE2872")
+getDatasetResultSets("GSE2018")
 }
 \keyword{dataset}

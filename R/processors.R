@@ -345,18 +345,8 @@ processSVD <- function(d) {
 #' @return A processed data.table
 #'
 #' @keywords internal
-# TODO: Finish implementation
-processResultSets <- function(d) {
-    d <- d$results %>%
-        dplyr::select(-id) %>%
-        tidyr::unnest(genes, keep_empty = TRUE)
-    data.table(
-        Probe = d$probeId,
-        GeneSymbol = d$officialSymbol,
-        GeneName = d$officialName,
-        GemmaID = d$id,
-        NCBIid = d$ncbiId
-    )
+processResultSetFactors <- function(d) {
+    data.table(d$experimentalFactors)
 }
 
 #' Processes JSON as a datasets result set
@@ -366,11 +356,13 @@ processResultSets <- function(d) {
 #' @return A processed data.table
 #'
 #' @keywords internal
+# TODO: Finish implementation
 processDatasetResultSets <- function(d) {
     data.table(
         resultSet.id = d$id,
-        analysis.id = d$analysis$id
+        analysis.id = d$analysis$id,
     )
+    lapply(data_96659_rs[["experimentalFactors"]], function(x) {x[["factorValues"]]})
 }
 
 #' Processes JSON as annotations
@@ -660,6 +652,7 @@ processPhenotypes <- function(d) {
 #' @importFrom rlang .data
 #' @keywords internal
 processDesignMatrix <- function(m) {
+    # Remove redundant strings from sample names, unnecessary columns
     data.frame(m, row.names = stringr::str_extract(m$Bioassay, "(?<=Name=).*")) %>%
         dplyr::select(-c(.data$ExternalID, .data$Bioassay))
 }
@@ -675,6 +668,7 @@ processDesignMatrix <- function(m) {
 processExpressionMatrix <- function(m) {
     exprM <- m[, 7:ncol(m)] %>% data.matrix()
     rownames(exprM) <- m$Probe
+    # Remove redundant strings from sample names
     colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
     exprM
 }

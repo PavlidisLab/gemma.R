@@ -212,6 +212,6 @@ getResultSets(500184)
 
 # getDatasetResultSets
 # example
-getDatasetResultSets("GSE2872")
+getDatasetResultSets("GSE2018")
 # value
 "A data table with the queried dataset's resultSet ID(s)."
