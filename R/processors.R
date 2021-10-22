@@ -346,7 +346,8 @@ processSVD <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
-    data.table(d$experimentalFactors)
+    lapply(d$experimentalFactors$values, dplyr::select, c('id', 'factorValue', 'category')) %>%
+        bind_rows()
 }
 
 #' Processes JSON as a datasets result set
@@ -362,7 +363,7 @@ processDatasetResultSets <- function(d) {
         resultSet.id = d$id,
         analysis.id = d$analysis$id,
     )
-    lapply(data_96659_rs[["experimentalFactors"]], function(x) {x[["factorValues"]]})
+
 }
 
 #' Processes JSON as annotations
@@ -666,6 +667,23 @@ processDesignMatrix <- function(m) {
 #' @importFrom rlang .data
 #' @keywords internal
 processExpressionMatrix <- function(m) {
+    exprM <- m[, 7:ncol(m)] %>% data.matrix()
+    rownames(exprM) <- m$Probe
+    # Remove redundant strings from sample names
+    colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
+    exprM
+}
+
+#' Processes differential expression matrix
+#'
+#' @param m The matrix to process
+#'
+#' @return A processed matrix
+#'
+#' @importFrom rlang .data
+#' @keywords internal
+processDiffExpressionMatrix <- function(m) {
+
     exprM <- m[, 7:ncol(m)] %>% data.matrix()
     rownames(exprM) <- m$Probe
     # Remove redundant strings from sample names
