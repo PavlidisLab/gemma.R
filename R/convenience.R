@@ -9,7 +9,7 @@
 #' setGemmaUser("username", "password") # login
 #' setGemmaUser() # logout
 #' @keywords misc
-#' @export
+#' @internal
 setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
