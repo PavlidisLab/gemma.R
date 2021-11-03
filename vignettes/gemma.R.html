@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Javier Castillo-Arnemann" />
+
+
+<title>gemma.R: an R Wrapper for the Gemma API</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">gemma.R: an R Wrapper for the Gemma API</h1>
+<h4 class="author">Javier Castillo-Arnemann</h4>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gemma.R)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Biobase)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(memoise)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(microbenchmark)</span></code></pre></div>
+<div id="about-gemma" class="section level2">
+<h2>About Gemma</h2>
+<!-- [Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses. -->
+<p>For detailed information on the curation process, check this <a href="https://pavlidislab.github.io/Gemma/curation.html">page</a> or the latest <a href="https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045">publication</a>.</p>
+</div>
+<div id="using-gemma.r" class="section level2">
+<h2>Using gemma.R</h2>
+<p>The main goal of this wrapper is to give easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected. To do this, we use the <a href="https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html"><code>searchDatasets()</code></a> endpoint:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">searchDatasets</span>(<span class="st">&#39;bipolar&#39;</span>, <span class="at">limit =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(taxon.Name <span class="sc">==</span> <span class="st">&#39;human&#39;</span>, geeq.batchCorrected <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(ee.ShortName, ee.Name, ee.Samples)</span></code></pre></div>
+<pre><code>#&gt;    ee.ShortName                                                         ee.Name
+#&gt; 1:     GSE35974                 Expression data from the human cerebellum brain
+#&gt; 2:     GSE46416 State- and trait-specific gene expression in euthymia and mania
+#&gt;    ee.Samples
+#&gt; 1:        144
+#&gt; 2:         32</code></pre>
+<p>We are left with two datasets, and we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939">GSE35974</a> since it has the larger number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
+<p>To get the basic information of a dataset, we use the <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasets.html"><code>getDatasets()</code></a> endpoint.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">getDatasets</span>(<span class="st">&#39;GSE35974&#39;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(dataset)</span></code></pre></div>
+<pre><code>#&gt;  [1] &quot;ee.ShortName&quot;        &quot;ee.Name&quot;             &quot;ee.ID&quot;              
+#&gt;  [4] &quot;ee.Public&quot;           &quot;ee.Troubled&quot;         &quot;ee.Accession&quot;       
+#&gt;  [7] &quot;ee.Database&quot;         &quot;ee.URL&quot;              &quot;ee.Samples&quot;         
+#&gt; [10] &quot;ee.LastUpdated&quot;      &quot;ee.Batch.P&quot;          &quot;ee.Batch.PC&quot;        
+#&gt; [13] &quot;geeq.batchCorrected&quot; &quot;geeq.qScore&quot;         &quot;geeq.sScore&quot;        
+#&gt; [16] &quot;taxon.Name&quot;          &quot;taxon.ID&quot;            &quot;technology.Type&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dataset<span class="sc">$</span>ee.Description</span></code></pre></div>
+<pre><code>#&gt; NULL</code></pre>
+<p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getBioc.html"><code>getBioc()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>Alternatively, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html"><code>getDatasetData()</code></a> to get the expression matrix directly, and <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html"><code>getDatasetDesign()</code></a> to get the matrix with the experimental design.</p>
+<p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create ExpressionSet</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>eset <span class="ot">&lt;-</span> <span class="fu">getBioc</span>(<span class="st">&#39;ExpressionSet&#39;</span>, <span class="st">&#39;GSE35974&#39;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>eset</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the levels of the DiseaseState cofactor</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>eset<span class="sc">$</span>DiseaseState <span class="sc">%&gt;%</span> <span class="fu">unique</span>()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset patients with bipolar disorder and controls.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>bipolar <span class="ot">&lt;-</span> eset[ , eset<span class="sc">$</span>DiseaseState <span class="sc">==</span> <span class="st">&#39;Bipolar_Disorder&#39;</span> <span class="sc">|</span> eset<span class="sc">$</span>DiseaseState <span class="sc">==</span> <span class="st">&#39;reference_subject_role&#39;</span>]</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>bipolar</span></code></pre></div>
+<pre><code>#&gt; ExpressionSet (storageMode: lockedEnvironment)
+#&gt; assayData: 21939 features, 144 samples 
+#&gt;   element names: exprs 
+#&gt; protocolData: none
+#&gt; phenoData
+#&gt;   sampleNames: DE59_111109_rep1 DE60_100909 ... AC101_100909 (144
+#&gt;     total)
+#&gt;   varLabels: DiseaseState batch
+#&gt;   varMetadata: labelDescription
+#&gt; featureData: none
+#&gt; experimentData: use &#39;experimentData(object)&#39;
+#&gt; Annotation: GPL6244</code></pre>
+<pre><code>#&gt; [1] &quot;reference_subject_role&quot; &quot;mental_depression&quot;      &quot;Bipolar_Disorder&quot;      
+#&gt; [4] &quot;schizophrenia&quot;</code></pre>
+<pre><code>#&gt; ExpressionSet (storageMode: lockedEnvironment)
+#&gt; assayData: 21939 features, 87 samples 
+#&gt;   element names: exprs 
+#&gt; protocolData: none
+#&gt; phenoData
+#&gt;   sampleNames: DE59_111109_rep1 DE7_111109 ... AC1_100909 (87 total)
+#&gt;   varLabels: DiseaseState batch
+#&gt;   varMetadata: labelDescription
+#&gt; featureData: none
+#&gt; experimentData: use &#39;experimentData(object)&#39;
+#&gt; Annotation: GPL6244</code></pre>
+<p>Let’s check the expression for every sample to make sure they look OK:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Expression matrix</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bipExpr <span class="ot">&lt;-</span> <span class="fu">exprs</span>(bipolar)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bipExpr, <span class="at">pch=</span><span class="st">&#39;.&#39;</span>, <span class="at">xaxt=</span><span class="st">&#39;n&#39;</span>, <span class="at">xlab=</span><span class="st">&#39;Sample&#39;</span>, <span class="at">ylab=</span><span class="st">&#39;Expression&#39;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.</p>
+<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html"><code>getTidyDataset()</code></a> to fetch data in a long, ‘tidy’ format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a>.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tidyData <span class="ot">&lt;-</span> <span class="fu">getTidyDataset</span>(<span class="st">&#39;GSE35974&#39;</span>)</span></code></pre></div>
+<div id="differential-expression-example-todo" class="section level3">
+<h3>Differential Expression Example (TODO)</h3>
+<p>Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetsResultsets.html"><code>getDatasetResultsets()</code></a>, then using <a href="https://pavlidislab.github.io/gemma.R/reference/getResultsets.html"><code>getResultsets()</code></a> to fetch the desired table:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetResultSets</span>(<span class="st">&quot;GSE2872&quot;</span>)</span></code></pre></div>
+<pre><code>#&gt;    resultSet.id analysis.id
+#&gt; 1:       500185      189752
+#&gt; 2:       500186      189752
+#&gt; 3:       500187      189752</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rs <span class="ot">&lt;-</span> <span class="fu">getResultSets</span>(<span class="dv">500185</span>)</span></code></pre></div>
+<pre><code>#&gt; Warning in require_bit64_if_needed(ans): Some columns are type &#39;integer64&#39;
+#&gt; but package bit64 is not installed. Those columns will print as strange
+#&gt; looking floating point data. There is no need to reload the data. Simply
+#&gt; install.packages(&#39;bit64&#39;) to obtain the integer64 print method and print the
+#&gt; data again.</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rs</span></code></pre></div>
+<pre><code>#&gt; Warning in require_bit64_if_needed(x): Some columns are type &#39;integer64&#39;
+#&gt; but package bit64 is not installed. Those columns will print as strange
+#&gt; looking floating point data. There is no need to reload the data. Simply
+#&gt; install.packages(&#39;bit64&#39;) to obtain the integer64 print method and print the
+#&gt; data again.</code></pre>
+<pre><code>#&gt;                   id probe_id   probe_name gene_id gene_name gene_ncbi_id
+#&gt;     1: 1.231266e-314    47068   1373766_at                               
+#&gt;     2: 1.231266e-314    35199   1385651_at                               
+#&gt;     3: 1.231266e-314    25756   1395741_at                               
+#&gt;     4: 1.231266e-314    35857 1384991_a_at 1040274    Hdac10       362981
+#&gt;     5: 1.231266e-314    32978   1388337_at  988737       Pnp       290029
+#&gt;    ---                                                                   
+#&gt; 31078: 1.231261e-314    52752   1368082_at  940614    Slc4a2        24780
+#&gt; 31079: 1.231261e-314    26677   1394820_at                               
+#&gt; 31080: 1.231261e-314    29649   1391666_at                               
+#&gt; 31081: 1.231261e-314    26678   1394819_at 1007143     Sp110       301570
+#&gt; 31082: 1.231261e-314    46669   1374165_at                               
+#&gt;        gene_official_symbol  pvalue corrected_pvalue    rank
+#&gt;     1:                      0.89790                1 0.87660
+#&gt;     2:                      0.02789                1 0.01515
+#&gt;     3:                      0.28530                1 0.21280
+#&gt;     4:               Hdac10 0.29140                1 0.21860
+#&gt;     5:                  Pnp 0.72850                1 0.67500
+#&gt;    ---                                                      
+#&gt; 31078:               Slc4a2 0.31470                1 0.23800
+#&gt; 31079:                      0.65950                1 0.59540
+#&gt; 31080:                      0.46580                1 0.38400
+#&gt; 31081:                Sp110 0.30950                1 0.23330
+#&gt; 31082:                      0.86310                1 0.83320
+#&gt;        contrast_134441_log2fc contrast_134441_tstat contrast_134441_pvalue
+#&gt;     1:              -0.066240              -0.19810                 0.8479
+#&gt;     2:               0.014290               0.30850                 0.7656
+#&gt;     3:               0.160400               0.86730                 0.4110
+#&gt;     4:               0.094980               0.89850                 0.3952
+#&gt;     5:              -0.202600              -0.68020                 0.5156
+#&gt;    ---                                                                    
+#&gt; 31078:               0.007386               0.04921                 0.9620
+#&gt; 31079:               0.003892               0.02543                 0.9803
+#&gt; 31080:              -0.010570              -0.10600                 0.9182
+#&gt; 31081:               0.131500               1.09300                 0.3062
+#&gt; 31082:               0.017110               0.07563                 0.9416</code></pre>
+<p>From here on, it’s easy to visualize/explore the data and find the most differentially-expressed genes:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>rs <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(<span class="fu">desc</span>(corrected_pvalue))</span></code></pre></div>
+<pre><code>#&gt; Warning in require_bit64_if_needed(x): Some columns are type &#39;integer64&#39;
+#&gt; but package bit64 is not installed. Those columns will print as strange
+#&gt; looking floating point data. There is no need to reload the data. Simply
+#&gt; install.packages(&#39;bit64&#39;) to obtain the integer64 print method and print the
+#&gt; data again.</code></pre>
+<pre><code>#&gt;                   id probe_id   probe_name gene_id gene_name gene_ncbi_id
+#&gt;     1: 1.231266e-314    47068   1373766_at                               
+#&gt;     2: 1.231266e-314    35199   1385651_at                               
+#&gt;     3: 1.231266e-314    25756   1395741_at                               
+#&gt;     4: 1.231266e-314    35857 1384991_a_at 1040274    Hdac10       362981
+#&gt;     5: 1.231266e-314    32978   1388337_at  988737       Pnp       290029
+#&gt;    ---                                                                   
+#&gt; 31078: 1.231262e-314    46430   1374404_at  938767       Jun        24516
+#&gt; 31079: 1.231263e-314    47135   1373699_at                               
+#&gt; 31080: 1.231262e-314    31787 1389528_s_at  938767       Jun        24516
+#&gt; 31081: 1.231260e-314    50519 1370315_a_at  962863     Stmn4        79423
+#&gt; 31082: 1.231271e-314    42190   1378645_at                               
+#&gt;        gene_official_symbol    pvalue corrected_pvalue      rank
+#&gt;     1:                      8.979e-01          1.00000 8.766e-01
+#&gt;     2:                      2.789e-02          1.00000 1.515e-02
+#&gt;     3:                      2.853e-01          1.00000 2.128e-01
+#&gt;     4:               Hdac10 2.914e-01          1.00000 2.186e-01
+#&gt;     5:                  Pnp 7.285e-01          1.00000 6.750e-01
+#&gt;    ---                                                          
+#&gt; 31078:                  Jun 1.770e-04          0.93000 1.287e-04
+#&gt; 31079:                      2.586e-04          0.93000 2.574e-04
+#&gt; 31080:                  Jun 6.551e-05          0.93000 6.435e-05
+#&gt; 31081:                Stmn4 2.275e-04          0.93000 1.930e-04
+#&gt; 31082:                      3.328e-07          0.01034 3.217e-05
+#&gt;        contrast_134441_log2fc contrast_134441_tstat contrast_134441_pvalue
+#&gt;     1:              -0.066240               -0.1981               0.847900
+#&gt;     2:               0.014290                0.3085               0.765600
+#&gt;     3:               0.160400                0.8673               0.411000
+#&gt;     4:               0.094980                0.8985               0.395200
+#&gt;     5:              -0.202600               -0.6802               0.515600
+#&gt;    ---                                                                    
+#&gt; 31078:               0.997100                3.7980               0.005249
+#&gt; 31079:              -0.455400               -4.0770               0.003550
+#&gt; 31080:               1.251000                4.5160               0.001961
+#&gt; 31081:               0.563200                2.5640               0.033420
+#&gt; 31082:              -0.009721               -0.1428               0.890000</code></pre>
+</div>
+<div id="longer-queries" class="section level3">
+<h3>Longer queries</h3>
+<p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasets</span>(<span class="at">datasets =</span> <span class="fu">c</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="st">&#39;GSE12649&#39;</span>, <span class="st">&#39;GSE99349&#39;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>#&gt; Rows: 3
+#&gt; Columns: 18
+#&gt; $ ee.ShortName        &lt;chr&gt; &quot;GSE12649&quot;, &quot;GSE35974&quot;, &quot;GSE99349&quot;
+#&gt; $ ee.Name             &lt;chr&gt; &quot;Gene expression from human prefrontal cortex (BA4…
+#&gt; $ ee.ID               &lt;int&gt; 1205, 5939, 11690
+#&gt; $ ee.Public           &lt;lgl&gt; TRUE, TRUE, TRUE
+#&gt; $ ee.Troubled         &lt;lgl&gt; FALSE, FALSE, FALSE
+#&gt; $ ee.Accession        &lt;chr&gt; &quot;GSE12649&quot;, &quot;GSE35974&quot;, &quot;GSE99349&quot;
+#&gt; $ ee.Database         &lt;chr&gt; &quot;GEO&quot;, &quot;GEO&quot;, &quot;GEO&quot;
+#&gt; $ ee.URL              &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;, &quot;http://www.nc…
+#&gt; $ ee.Samples          &lt;int&gt; 102, 144, 36
+#&gt; $ ee.LastUpdated      &lt;dttm&gt; 2021-09-18 07:35:38, 2020-03-28 11:23:35, 2020-03-…
+#&gt; $ ee.Batch.P          &lt;dbl&gt; NA, NA, NA
+#&gt; $ ee.Batch.PC         &lt;dbl&gt; NA, NA, NA
+#&gt; $ geeq.batchCorrected &lt;lgl&gt; FALSE, TRUE, FALSE
+#&gt; $ geeq.qScore         &lt;dbl&gt; 0.9972712, 0.9975938, 0.9879754
+#&gt; $ geeq.sScore         &lt;dbl&gt; 0.875, 1.000, 1.000
+#&gt; $ taxon.Name          &lt;chr&gt; &quot;human&quot;, &quot;human&quot;, &quot;human&quot;
+#&gt; $ taxon.ID            &lt;int&gt; 1, 1, 1
+#&gt; $ technology.Type     &lt;chr&gt; &quot;ONECOLOR&quot;, &quot;ONECOLOR&quot;, &quot;GENELIST&quot;</code></pre>
+<p>You’ll be able to tell which endpoints accept multiple inputs from the function examples or simply because the the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasetAnnotations</span>(<span class="fu">c</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="st">&#39;GSE12649&#39;</span>))</span></code></pre></div>
+<pre><code>#&gt; Error: Please specify one valid identifier for dataset.</code></pre>
+<p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">c</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="st">&#39;GSE12649&#39;</span>), <span class="cf">function</span>(dataset) {</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">getDatasetAnnotations</span>(dataset) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">shortName =</span> dataset)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>}) <span class="sc">%&gt;%</span> rbindlist</span></code></pre></div>
+<pre><code>#&gt;        class.Type     class.Name                                   class.URL
+#&gt;  1:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408
+#&gt;  2:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047
+#&gt;  3:   BioMaterial biological sex http://purl.obolibrary.org/obo/PATO_0000047
+#&gt;  4:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408
+#&gt;  5: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635
+#&gt;  6:   FactorValue        disease        http://www.ebi.ac.uk/efo/EFO_0000408
+#&gt;  7:   BioMaterial  organism part        http://www.ebi.ac.uk/efo/EFO_0000635
+#&gt;  8:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408
+#&gt;  9: ExperimentTag  organism part        http://www.ebi.ac.uk/efo/EFO_0000635
+#&gt; 10:   BioMaterial        disease        http://www.ebi.ac.uk/efo/EFO_0000408
+#&gt;     evidence.Code              term.Name
+#&gt;  1:            IC       Bipolar Disorder
+#&gt;  2:           IIA                   male
+#&gt;  3:           IIA                 female
+#&gt;  4:            IC          schizophrenia
+#&gt;  5:            IC             cerebellum
+#&gt;  6:            IC      mental depression
+#&gt;  7:           IEA reference subject role
+#&gt;  8:           IEA       Bipolar Disorder
+#&gt;  9:            IC      prefrontal cortex
+#&gt; 10:           IEA          schizophrenia
+#&gt;                                          term.URL shortName
+#&gt;  1:      http://purl.obolibrary.org/obo/DOID_3312  GSE35974
+#&gt;  2:   http://purl.obolibrary.org/obo/PATO_0000384  GSE35974
+#&gt;  3:   http://purl.obolibrary.org/obo/PATO_0000383  GSE35974
+#&gt;  4:      http://purl.obolibrary.org/obo/DOID_5419  GSE35974
+#&gt;  5: http://purl.obolibrary.org/obo/UBERON_0002037  GSE35974
+#&gt;  6:      http://purl.obolibrary.org/obo/DOID_1596  GSE35974
+#&gt;  7:    http://purl.obolibrary.org/obo/OBI_0000220  GSE12649
+#&gt;  8:      http://purl.obolibrary.org/obo/DOID_3312  GSE12649
+#&gt;  9: http://purl.obolibrary.org/obo/UBERON_0000451  GSE12649
+#&gt; 10:      http://purl.obolibrary.org/obo/DOID_5419  GSE12649</code></pre>
+</div>
+<div id="memoise-data" class="section level3">
+<h3>Memoise data</h3>
+<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">memoised =</span> <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">summary</span>(<span class="fu">microbenchmark</span>(<span class="fu">getDatasetData</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">memoised =</span> <span class="cn">TRUE</span>), <span class="at">times =</span> <span class="dv">1</span>), <span class="at">unit =</span> <span class="st">&#39;ms&#39;</span>))</span></code></pre></div>
+<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forgetGemmaMemoised</span>()</span></code></pre></div>
+<pre><code>#&gt; [1] TRUE</code></pre>
+</div>
+</div>
+<div id="output-options" class="section level2">
+<h2>Output options</h2>
+<div id="raw-data" class="section level3">
+<h3>Raw data</h3>
+<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getDatasets</span>(<span class="st">&#39;GSE35974&#39;</span>, <span class="at">raw =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">glimpse</span>()</span></code></pre></div>
+<pre><code>#&gt; Rows: 1
+#&gt; Columns: 37
+#&gt; $ id                             &lt;int&gt; 5939
+#&gt; $ lastUpdated                    &lt;dbl&gt; 1.585395e+12
+#&gt; $ troubled                       &lt;lgl&gt; FALSE
+#&gt; $ lastTroubledEvent              &lt;lgl&gt; NA
+#&gt; $ needsAttention                 &lt;lgl&gt; FALSE
+#&gt; $ lastNeedsAttentionEvent        &lt;lgl&gt; NA
+#&gt; $ curationNote                   &lt;lgl&gt; NA
+#&gt; $ lastNoteUpdateEvent            &lt;lgl&gt; NA
+#&gt; $ `_totalInQuery`                &lt;int&gt; 1
+#&gt; $ bioAssayCount                  &lt;int&gt; 144
+#&gt; $ description                    &lt;chr&gt; &quot;Background: Schizophrenia (SCZ) and bi…
+#&gt; $ name                           &lt;chr&gt; &quot;Expression data from the human cerebel…
+#&gt; $ accession                      &lt;chr&gt; &quot;GSE35974&quot;
+#&gt; $ arrayDesignCount               &lt;int&gt; 1
+#&gt; $ batchConfound                  &lt;lgl&gt; NA
+#&gt; $ batchEffect                    &lt;chr&gt; &quot;Data has been batch-corrected&quot;
+#&gt; $ bioMaterialCount               &lt;lgl&gt; NA
+#&gt; $ currentUserHasWritePermission  &lt;lgl&gt; FALSE
+#&gt; $ currentUserIsOwner             &lt;lgl&gt; FALSE
+#&gt; $ experimentalDesign             &lt;int&gt; 5260
+#&gt; $ externalDatabase               &lt;chr&gt; &quot;GEO&quot;
+#&gt; $ externalUri                    &lt;chr&gt; &quot;http://www.ncbi.nlm.nih.gov/geo/&quot;
+#&gt; $ geeq                           &lt;df[,24]&gt; &lt;data.frame[1 x 24]&gt;
+#&gt; $ isPublic                       &lt;lgl&gt; TRUE
+#&gt; $ isShared                       &lt;lgl&gt; FALSE
+#&gt; $ metadata                       &lt;lgl&gt; NA
+#&gt; $ processedExpressionVectorCount &lt;int&gt; 33252
+#&gt; $ shortName                      &lt;chr&gt; &quot;GSE35974&quot;
+#&gt; $ source                         &lt;lgl&gt; NA
+#&gt; $ suitableForDEA                 &lt;lgl&gt; TRUE
+#&gt; $ taxon                          &lt;chr&gt; &quot;human&quot;
+#&gt; $ taxonId                        &lt;int&gt; 1
+#&gt; $ technologyType                 &lt;chr&gt; &quot;ONECOLOR&quot;
+#&gt; $ userOwned                      &lt;lgl&gt; FALSE
+#&gt; $ userCanWrite                   &lt;lgl&gt; FALSE
+#&gt; $ securableClass                 &lt;chr&gt; &quot;ubic.gemma.model.expression.experiment…
+#&gt; $ troubleDetails                 &lt;chr&gt; &quot;No trouble details provided.&quot;</code></pre>
+</div>
+<div id="file-outputs" class="section level3">
+<h3>File outputs</h3>
+<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
+<ol style="list-style-type: decimal">
+<li><code>.json</code>, if you requested results with <code>raw = TRUE</code></li>
+<li><code>.csv</code> if the results have no nested <code>data.table</code>s</li>
+<li><code>.rds</code> otherwise</li>
+</ol>
+<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite</code> parameter.</p>
+</div>
+<div id="changing-defaults" class="section level3">
+<h3>Changing defaults</h3>
+<p>We’ve seen how to change <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">gemma.memoise =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
