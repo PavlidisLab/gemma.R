@@ -60,7 +60,7 @@
                 }
             )
             ## Uncomment for debugging
-            paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
+            # paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
             if (raw || length(mData) == 0) {
                 mOut <- mData
             } else {
@@ -181,7 +181,7 @@ processDatasets <- function(d) {
         ee.ShortName = d[["shortName"]],
         ee.Name = d[["name"]],
         ee.ID = d[["id"]],
-        ee.Description = d[["description"]],
+        # ee.Description = d[["description"]], # Description takes too much space
         ee.Public = d[["isPublic"]],
         ee.Troubled = d[["troubled"]],
         ee.Accession = d[["accession"]],
@@ -346,7 +346,8 @@ processSVD <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
-    lapply(d$experimentalFactors$values, dplyr::select, c('id', 'factorValue', 'category')) %>%
+    lapply(d$experimentalFactors$values,
+           dplyr::select, c('id', 'factorValue', 'category')) %>%
         bind_rows()
 }
 
@@ -361,9 +362,8 @@ processResultSetFactors <- function(d) {
 processDatasetResultSets <- function(d) {
     data.table(
         resultSet.id = d$id,
-        analysis.id = d$analysis$id,
+        analysis.id = d$analysis$id
     )
-
 }
 
 #' Processes JSON as annotations
@@ -674,19 +674,3 @@ processExpressionMatrix <- function(m) {
     exprM
 }
 
-#' Processes differential expression matrix
-#'
-#' @param m The matrix to process
-#'
-#' @return A processed matrix
-#'
-#' @importFrom rlang .data
-#' @keywords internal
-processDiffExpressionMatrix <- function(m) {
-
-    exprM <- m[, 7:ncol(m)] %>% data.matrix()
-    rownames(exprM) <- m$Probe
-    # Remove redundant strings from sample names
-    colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
-    exprM
-}
