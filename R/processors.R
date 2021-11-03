@@ -38,7 +38,7 @@
     }
     # Generate request
     request <- quote(http_get(
-        paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+        paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
         options = switch(is.null(getOption("gemma.password", NULL)) + 1,
             list(userpwd = paste0(getOption("gemma.username"), ":", getOption("gemma.password"))),
             list()
@@ -60,7 +60,7 @@
                 }
             )
             ## Uncomment for debugging
-            # paste0(getOption("gemma.API", "https://dev.gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
+            # paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
             if (raw || length(mData) == 0) {
                 mOut <- mData
             } else {
