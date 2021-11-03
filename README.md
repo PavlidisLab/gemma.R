@@ -1,12 +1,12 @@
 
-# Gemma API R Wrapper<img src='man/figures/logo.png' align="right" height="138" />
+# gemma.R: an R Wrapper for the Gemma API <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/jsicherman/GemmAPI/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/jsicherman/GemmAPI/actions)
+status](https://github.com/PavlidisLab/gemma.R/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/PavlidisLab/gemma.R/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/PavlidisLab/Gemma-API/branch/master/graph/badge.svg)](https://codecov.io/gh/PavlidisLab/Gemma-API?branch=master)
+coverage](https://codecov.io/gh/PavlidisLab/gemma.R/branch/master/graph/badge.svg)](https://codecov.io/gh/PavlidisLab/gemma.R?branch=master)
 [![DOI](https://img.shields.io/badge/doi-10.1093/database/baab006-yellow.svg)](https://doi.org/10.1093/database/baab006)
 <!-- badges: end -->
 
@@ -21,18 +21,18 @@ public studies, referencing thousands of published papers.
 
 ### Development
 
-The current development version of GemmaAPI can be installed with:
+The current development version of `gemma.R` can be installed with:
 
 ``` r
 if (!requireNamespace("devtools", quietly = TRUE)) {
     install.packages("devtools")
 }
-devtools::install_github("PavlidisLab/gemmaAPI")
+devtools::install_github("PavlidisLab/gemma.R")
 ```
 
 ### Bioconductor (not available yet)
 
-You can install `GemmaAPI` using
+You can install `gemma.R` through
 [Bioconductor](http://bioconductor.org/) with the following code:
 
 ``` r
@@ -40,13 +40,13 @@ You can install `GemmaAPI` using
 #     install.packages("BiocManager")
 # }
 # 
-# BiocManager::install("GemmaAPI")
+# BiocManager::install("gemma.R")
 ```
 
 ## Usage
 
-To get started with the Gemma API wrapper, read the
-[vignette](https://pavlidislab.github.io/Gemma-API/articles/gemmaAPI.html).
+To get started with `gemma.R`, read the
+[vignette](https://pavlidislab.github.io/gemma.R/articles/gemma.R.html).
 In addition, you can check the [interactive API
 documentation](https://gemma.msl.ubc.ca/resources/restapidocs/) to get
 familiar quickly with the endpoints and their output.
@@ -59,7 +59,7 @@ transcriptomic studies to enable data reuse, Database,
 
 ## Code of Conduct
 
-Please note that the `GemmaAPI` project is released with the
-[Bioconductor Contributor Code of
+Please note that `gemma.R` is released with the [Bioconductor
+Contributor Code of
 Conduct](http://bioconductor.org/about/code-of-conduct/). By
 contributing to this project, you agree to abide by its terms.
