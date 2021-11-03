@@ -5,11 +5,7 @@
 #' @param username Your username (or empty, if logging out)
 #' @param password Your password (or empty, if logging out)
 #'
-#' @examples
-#' setGemmaUser("username", "password") # login
-#' setGemmaUser() # logout
-#' @keywords misc
-#' @internal
+#' @keywords internal
 setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
