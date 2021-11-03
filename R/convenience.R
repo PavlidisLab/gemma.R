@@ -234,7 +234,6 @@ getBioc <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
-    validateID(dataset)
 
     # Expression matrix
     exprM <- getDatasetData(dataset, filter) %>%
@@ -254,17 +253,17 @@ getBioc <- function(type, dataset, filter = TRUE) {
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
     # Experiment description
-    dat <- getDatasets(dataset)
+    dat <- getDatasets(dataset, raw = TRUE)
     other <- list(
-        database = dat$ee.Database,
-        accesion = dat$ee.Accession,
-        GemmaQualityScore = dat$geeq.qScore,
-        GemmaSuitabilityScore = dat$geeq.sScore,
-        taxon = dat$taxon.Name
+        database = dat$externalDatabase,
+        accesion = dat$accession,
+        GemmaQualityScore = dat$geeq$publicQualityScore,
+        GemmaSuitabilityScore = dat$geeq$geeq.sScore,
+        taxon = dat$taxon
     )
 
-    title = dat$ee.Name
-    abstract = dat$ee.Description
+    title = dat$name
+    abstract = dat$description
     url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
     if (type == "SummarizedExperiment") {
@@ -298,7 +297,7 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' Get Tidy Dataset and Design
 #'
 #' Combines the expression and design matrix of the queried dataset into one
-#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}}.
+#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
@@ -310,7 +309,6 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' @examples
 #' getTidyDataset("GSE2018")
 getTidyDataset <- function(dataset, filter = TRUE){
-    validateID(dataset)
     # Metadata table
     design <- getDatasetDesign(dataset) %>%
         processDesignMatrix() %>%

@@ -4,8 +4,8 @@ test_that("getDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.ID, ee.Description)] %>% paste0(collapse = ""),
-        raw[, c("shortName", "id", "description")] %>% paste0(collapse = "")
+        dat[, c(ee.ShortName, ee.ID)] %>% paste0(collapse = ""),
+        raw[, c("shortName", "id")] %>% paste0(collapse = "")
     )
 
     expect_equal(getDatasets(c("GSE2018", "GSE2872")) %>% nrow(), 2)
@@ -16,22 +16,17 @@ test_that("getDatasets queries work", {
     expect_false(getDatasets(sort = "-id")[1, 1] == getDatasets(sort = "+id")[1, 1])
 })
 
-# TODO: not working in API
-# test_that("datasetSearch queries work", {
-#     dat <- searchDatasets("bipolar", limit = 50)
-#     raw <- searchDatasets("bipolar", limit = 50, raw = TRUE)
-#     expect_type(dat, "list")
-#     expect_type(raw, "list")
-#     expect_equal(
-#         dat[, c(ee.ShortName, ee.ID, ee.Description)],
-#         c(raw$shortName, raw$id, raw$description)
-#     )
-#     expect_equal(dat %>% nrow(), 50)
-#     expect_lt(
-#         searchDatasets("bipolar", taxon = "human") %>% nrow(),
-#         searchDatasets("bipolar") %>% nrow()
-#     )
-# })
+test_that("searchDatasets queries work", {
+    dat <- searchDatasets("bipolar", limit = 20)
+    raw <- searchDatasets("bipolar", limit = 20, raw = TRUE)
+    expect_type(dat, "list")
+    expect_type(raw, "list")
+    expect_equal(
+        dat[, c(ee.ShortName, ee.ID)],
+        c(raw$shortName, raw$id)
+    )
+    expect_equal(dat %>% nrow(), 20)
+})
 
 test_that("datasetPlatforms queries work", {
     dat <- getDatasetPlatforms(1)
@@ -96,7 +91,7 @@ test_that("getDatasetData queries work", {
 
 test_that("datasetDesign queries work", {
     expect_type(getDatasetDesign("GSE2018"), "list")
-    expect_type(getDatasetDesign("GSE2018", raw = TRUE), "list")
+    expect_type(getDatasetDesign("GSE2018", raw = TRUE), "raw")
 })
 
 test_that("datasetPCA queries work", {

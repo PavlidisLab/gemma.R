@@ -20,8 +20,8 @@ test_that("getPlatformDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.Name, ee.Description, ee.Samples, geeq.qScore)],
-        c(raw$shortName, raw$name, raw$description, raw$bioAssayCount, raw$geeq$publicQualityScore)
+        dat[, c(ee.ShortName, ee.Name, ee.Samples, geeq.qScore)],
+        c(raw$shortName, raw$name, raw$bioAssayCount, raw$geeq$publicQualityScore)
     )
     expect_equal(getPlatformDatasets(1, limit = 10) %>% nrow(), 10)
     expect_equal(getPlatformDatasets(1, offset = 0)[2,], getPlatformDatasets(1, offset = 1)[1,])
