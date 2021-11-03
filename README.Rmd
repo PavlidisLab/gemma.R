@@ -46,12 +46,12 @@ You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with 
 #     install.packages("BiocManager")
 # }
 # 
-# BiocManager::install("GemmaAPI")
+# BiocManager::install("gemma.R")
 ```
 
 ## Usage
 
-To get started with the gemma.R, read the [vignette](https://pavlidislab.github.io/gemma.R/articles/gemmaAPI.html). In addition, you can check the [interactive API documentation](https://gemma.msl.ubc.ca/resources/restapidocs/) to get familiar quickly with the endpoints and their output.
+To get started with `gemma.R`, read the [vignette](https://pavlidislab.github.io/gemma.R/articles/gemma.R.html). In addition, you can check the [interactive API documentation](https://gemma.msl.ubc.ca/resources/restapidocs/) to get familiar quickly with the endpoints and their output.
 
 ## Citation
 
@@ -59,4 +59,4 @@ To cite Gemma, please use: [Lim, N. et al., Curation of over 10 000 transcriptom
 
 ## Code of Conduct
 
-Please note that the `GemmaAPI` project is released with the [Bioconductor Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
+Please note that `gemma.R` is released with the [Bioconductor Contributor Code of Conduct](http://bioconductor.org/about/code-of-conduct/). By contributing to this project, you agree to abide by its terms.
