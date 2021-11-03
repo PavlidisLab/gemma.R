@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Datasets — getDatasets • gemmaAPI</title>
+<title>Datasets — getDatasets • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Datasets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasets.Rd</code></div>
     </div>
 
@@ -291,37 +288,29 @@ experiments by the quality of their data, and their suitability for use
 in Gemma. You can <a href='https://pavlidislab.github.io/Gemma/geeq.html'>read more about the geeq properties here</a>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getDatasets</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    ee.ShortName                     ee.Name ee.ID
-#&gt; 1:      GSE2018 Human Lung Transplant - BAL     1
-#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ee.Description
-#&gt; 1: Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary patient ID and AxBx number indicates the perivascular (A) and bronchiolar (B) scores from biopsies collected on the same day as the BAL fluid was collected.  Several patients have more than one sample in this series and can be determined by patient number followed by a lower case letter.  Acute rejection state is determined by the combined A and B score - specifically, a combined AB score of 2 or greater is considered an acute rejection.
-#&gt;    ee.Public ee.Troubled ee.Accession ee.Database
-#&gt; 1:      TRUE       FALSE      GSE2018         GEO
-#&gt;                              ee.URL ee.Samples      ee.LastUpdated ee.Batch.P
-#&gt; 1: http://www.ncbi.nlm.nih.gov/geo/         34 2021-09-17 07:22:51  0.0079605
-#&gt;    ee.Batch.PC geeq.batchCorrected geeq.qScore geeq.sScore taxon.Name taxon.ID
-#&gt; 1:           2               FALSE   0.5657485       0.875      human        1
-#&gt;    technology.Type
-#&gt; 1:        ONECOLOR</div><div class='input'><span class='fu'>getDatasets</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GSE2018"</span>, <span class='st'>"GSE2872"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    ee.ShortName                     ee.Name ee.ID
-#&gt; 1:      GSE2018 Human Lung Transplant - BAL     1
-#&gt; 2:      GSE2872       d'mel-affy-rat-168311     2
-#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ee.Description
-#&gt; 1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary patient ID and AxBx number indicates the perivascular (A) and bronchiolar (B) scores from biopsies collected on the same day as the BAL fluid was collected.  Several patients have more than one sample in this series and can be determined by patient number followed by a lower case letter.  Acute rejection state is determined by the combined A and B score - specifically, a combined AB score of 2 or greater is considered an acute rejection.
-#&gt; 2: Neurological diseases disrupt the quality of the lives of patients and often lead to their death prematurely.  A common feature of most neurological diseases is the degeneration of neurons, which results from an inappropriate activation of apoptosis. Drugs that inhibit neuronal apoptosis could thus be candidates for therapeutic intervention in neurodegenerative disorders.  We have identified (and recently reported) a chemical called GW5074 that inhibits apoptosis in a variety of cell culture paradigms of neuronal apoptosis.  Additionally, we have found that GW5074 reduces neurodegeneration and improves behavioral outcome in a mouse model of Huntington's disease.  Although GW5074 is a c-Raf inhibitor, we know very little about the molecular mechanisms underlying its neuroprotective action.  Identifying genes that are regulated by GW5074 in neurons will shed insight into this issue. We believe that neuroprotection by GW5074 involves the regulation of several genes.  Some of these genes are likely to be induced whereas the expression of other genes might be inhibited.  The specific aim is to identify genes that are differentially expressed in neurons treated with GW5074. We believe that neuroprotection by GW5074 involves the regulation of several genes.  Some of these genes are likely to be induced whereas the expression of other genes might be inhibited. Cultures of cerebellar granule neurons undergo apoptosis when switched from medium containing levated levels of potassium (high K+ or HK) to medium containing low potassium (LK).  Although cell death begins at about 18 h, we have found that the by 6 h after LK treatment these neurons are irreversibly committed to cell death.  We will treat cerebellar granule neuron cultures with LK medium (which induces them to undergo apoptosis) or with GW5074 (1 uM).  We will extract RNA at two time-points after treatment: 3 h and 6 h. Analysis at the two different time-points will show us whether changes in expression of specific genes is transient or sustained or whether the changes occurs early or relatively late in the process.  Neuronal cultures will be prepared from 1 week old Wistar rats.  The cultures will be maintained in culture for 1 week before treatment.  Following treatment the cells will be lysed and total RNA isolated.  The RNA will be stored at -80oC and shipped to the microarray facility for analysis.  The experiment will be done in triplicate.  Thus, for each time-point (3 or 6h treatment) we will be hope to provide 3 sets of samples (each set coming from a different culture preparation and containing lysates from cells treated with LK or GW5074).  Having samples from 3 independent cultures will mitigate any expression differences resulting from subtle variations in culture quality or in the preparation or quality of RNA.\nDate GSE2872 Last Updated: Jul 06 2005\nContributors:  S R D'Mello\nIncludes GDS1837.\n Update date: Jun 09 2006.\n Dataset description GDS1837: Analysis of cultured cerebellar granule neurons in low potassium medium 3 and 6 hours following treatment with the c-Raf inhibitor GW5074. GW5074 blocks low potassium induced cell death. Results provide insight into the neuroprotective action of GW5074.
-#&gt;    ee.Public ee.Troubled ee.Accession ee.Database
-#&gt; 1:      TRUE       FALSE      GSE2018         GEO
-#&gt; 2:      TRUE       FALSE      GSE2872         GEO
-#&gt;                              ee.URL ee.Samples      ee.LastUpdated ee.Batch.P
-#&gt; 1: http://www.ncbi.nlm.nih.gov/geo/         34 2021-09-17 07:22:51  0.0079605
-#&gt; 2: http://www.ncbi.nlm.nih.gov/geo/         12 2021-09-17 07:30:14         NA
-#&gt;    ee.Batch.PC geeq.batchCorrected geeq.qScore geeq.sScore taxon.Name taxon.ID
-#&gt; 1:           2               FALSE   0.5657485       0.875      human        1
-#&gt; 2:          NA               FALSE   0.8552303       0.500        rat        3
-#&gt;    technology.Type
-#&gt; 1:        ONECOLOR
-#&gt; 2:        ONECOLOR</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>getDatasets</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ee.ShortName                     ee.Name ee.ID ee.Public ee.Troubled</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1      TRUE       FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ee.Accession ee.Database                           ee.URL ee.Samples</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      GSE2018         GEO http://www.ncbi.nlm.nih.gov/geo/         34</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         ee.LastUpdated ee.Batch.P ee.Batch.PC geeq.batchCorrected geeq.qScore</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1: 2021-09-17 07:22:51  0.0079605           2               FALSE   0.5657485</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    geeq.sScore taxon.Name taxon.ID technology.Type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:       0.875      human        1        ONECOLOR</span>
+<span class='r-in'><span class='fu'>getDatasets</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"GSE2018"</span>, <span class='st'>"GSE2872"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ee.ShortName                     ee.Name ee.ID ee.Public ee.Troubled</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1      TRUE       FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:      GSE2872       d'mel-affy-rat-168311     2      TRUE       FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ee.Accession ee.Database                           ee.URL ee.Samples</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      GSE2018         GEO http://www.ncbi.nlm.nih.gov/geo/         34</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:      GSE2872         GEO http://www.ncbi.nlm.nih.gov/geo/         12</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         ee.LastUpdated ee.Batch.P ee.Batch.PC geeq.batchCorrected geeq.qScore</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1: 2021-09-17 07:22:51  0.0079605           2               FALSE   0.5657485</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2: 2021-09-17 07:30:14         NA          NA               FALSE   0.8552303</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    geeq.sScore taxon.Name taxon.ID technology.Type</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:       0.875      human        1        ONECOLOR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:       0.500        rat        3        ONECOLOR</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

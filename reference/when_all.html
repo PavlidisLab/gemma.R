@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deferred value for a set of deferred values — when_all • gemmaAPI</title>
+<title>Deferred value for a set of deferred values — when_all • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -91,7 +91,7 @@ triggers the error when_all as well." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -105,9 +105,6 @@ triggers the error when_all as well." />
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +115,7 @@ triggers the error when_all as well." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -128,7 +125,7 @@ triggers the error when_all as well." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -147,7 +144,7 @@ triggers the error when_all as well." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Deferred value for a set of deferred values</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
     <div class="hidden name"><code>when_all.Rd</code></div>
     </div>
 
@@ -185,18 +182,19 @@ of them will be automatically cancelled.</p>
     <div class='dont-index'><p><code><a href='when_some.html'>when_any()</a></code>, <code><a href='when_some.html'>when_some()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='op'>{</span>
-<span class='co'>## Check that the contents of two URLs are the same</span>
-<span class='va'>afun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='async.html'>async</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span>
-    <span class='va'>u1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org"</span><span class='op'>)</span>
-    <span class='va'>u2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org/get"</span><span class='op'>)</span>
-    <span class='fu'>when_all</span><span class='op'>(</span><span class='va'>u1</span>, <span class='va'>u2</span><span class='op'>)</span><span class='op'>$</span>
-        <span class='fu'>then</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>content</span>, <span class='va'>x</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>content</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span><span class='op'>)</span>
-<span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='op'>{</span></span>
+<span class='r-in'><span class='co'>## Check that the contents of two URLs are the same</span></span>
+<span class='r-in'><span class='va'>afun</span> <span class='op'>&lt;-</span> <span class='fu'><a href='async.html'>async</a></span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='va'>u1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org"</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='va'>u2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='http_get.html'>http_get</a></span><span class='op'>(</span><span class='st'>"https://eu.httpbin.org/get"</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='fu'>when_all</span><span class='op'>(</span><span class='va'>u1</span>, <span class='va'>u2</span><span class='op'>)</span><span class='op'>$</span></span>
+<span class='r-in'>        <span class='fu'>then</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[[</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>content</span>, <span class='va'>x</span><span class='op'>[[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>]</span><span class='op'>$</span><span class='va'>content</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='fu'>afun</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] FALSE</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

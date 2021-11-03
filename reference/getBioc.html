@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Bioconductor data structures — getBioc • gemmaAPI</title>
+<title>Get Bioconductor data structures — getBioc • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -91,7 +91,7 @@ the experimental design and experiment metadata." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -105,9 +105,6 @@ the experimental design and experiment metadata." />
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +115,7 @@ the experimental design and experiment metadata." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -128,7 +125,7 @@ the experimental design and experiment metadata." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -147,7 +144,7 @@ the experimental design and experiment metadata." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get Bioconductor data structures</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>getBioc.Rd</code></div>
     </div>
 
@@ -182,21 +179,22 @@ for more details.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An annotated <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment</a></code> or <code><a href='https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html'>ExpressionSet</a></code> for the queried dataset.</p>
+    <p>A <code><a href='https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html'>SummarizedExperiment</a></code> or <code><a href='https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html'>ExpressionSet</a></code> of the queried dataset.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getBioc</span><span class='op'>(</span><span class='st'>"ExpressionSet"</span>, <span class='st'>"GSE2018"</span>, filter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; ExpressionSet (storageMode: lockedEnvironment)
-#&gt; assayData: 16882 features, 34 samples 
-#&gt;   element names: exprs 
-#&gt; protocolData: none
-#&gt; phenoData
-#&gt;   sampleNames: BAL_47c_A0B1 BAL_47b_A0B1 ... BAL_37_A1B1 (34 total)
-#&gt;   varLabels: diseaseState batch
-#&gt;   varMetadata: labelDescription
-#&gt; featureData: none
-#&gt; experimentData: use 'experimentData(object)'
-#&gt; Annotation: GPL96 </div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>getBioc</span><span class='op'>(</span><span class='st'>"ExpressionSet"</span>, <span class='st'>"GSE2018"</span>, filter <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> ExpressionSet (storageMode: lockedEnvironment)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> assayData: 16882 features, 34 samples </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   element names: exprs </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> protocolData: none</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> phenoData</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   sampleNames: BAL_47c_A0B1 BAL_47b_A0B1 ... BAL_37_A1B1 (34 total)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   varLabels: diseaseState batch</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   varMetadata: labelDescription</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> featureData: none</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> experimentData: use 'experimentData(object)'</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Annotation: GPL96 </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

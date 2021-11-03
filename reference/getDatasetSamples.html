@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dataset samples — getDatasetSamples • gemmaAPI</title>
+<title>Dataset samples — getDatasetSamples • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dataset samples</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasetSamples.Rd</code></div>
     </div>
 
@@ -205,57 +202,58 @@ Otherwise, it will be a RDS file.</p></td>
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getDatasetSamples</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;                   bioMaterial.Name  sample.Name sample.ID
-#&gt; 1:  GSE2018_bioMaterial_4|GSM36426   BAL_1_A0B0        31
-#&gt; 2: GSE2018_bioMaterial_15|GSM36437 BAL_27a_A0B0        20
-#&gt; 3: GSE2018_bioMaterial_26|GSM36448  BAL_43_A0B0         9
-#&gt; 4:  GSE2018_bioMaterial_6|GSM36428  BAL_13_A0B0        29
-#&gt; 5: GSE2018_bioMaterial_17|GSM36439  BAL_29_A1B0        18
-#&gt; 6: GSE2018_bioMaterial_28|GSM36450 BAL_44b_A0B0         7
-#&gt;                                                 sample.Correspondence
-#&gt; 1:                                Corresponding to Samples:  GSM36426
-#&gt; 2:                                Corresponding to Samples:  GSM36437
-#&gt; 3: Corresponding to samples:  ial corresponding to samples:  GSM36448
-#&gt; 4:                                Corresponding to Samples:  GSM36428
-#&gt; 5:                                Corresponding to Samples:  GSM36439
-#&gt; 6: Corresponding to samples:  ial corresponding to samples:  GSM36450
-#&gt;                                                                                                                                                                                                                                       sample.Description
-#&gt; 1:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36426\nLast updated (according to GEO): May 27 2005
-#&gt; 2:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36437\nLast updated (according to GEO): May 27 2005
-#&gt; 3:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36448\nLast updated (according to GEO): May 27 2005
-#&gt; 4:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36428\nLast updated (according to GEO): May 27 2005
-#&gt; 5:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36439\nLast updated (according to GEO): May 27 2005
-#&gt; 6:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36450\nLast updated (according to GEO): May 27 2005
-#&gt;    sample.Outlier sample.Accession sample.Processed sample.Characteristics
-#&gt; 1:          FALSE         GSM36426     1.036695e+12      &lt;data.table[2x4]&gt;
-#&gt; 2:          FALSE         GSM36437     1.036693e+12      &lt;data.table[2x4]&gt;
-#&gt; 3:          FALSE         GSM36448     1.035573e+12      &lt;data.table[2x4]&gt;
-#&gt; 4:          FALSE         GSM36428     1.022102e+12      &lt;data.table[2x4]&gt;
-#&gt; 5:          FALSE         GSM36439     1.033757e+12      &lt;data.table[2x4]&gt;
-#&gt; 6:          FALSE         GSM36450     1.018980e+12      &lt;data.table[2x4]&gt;
-#&gt;    sample.FactorValues array.ShortName
-#&gt; 1:   &lt;data.table[2x4]&gt;           GPL96
-#&gt; 2:   &lt;data.table[2x4]&gt;           GPL96
-#&gt; 3:   &lt;data.table[2x4]&gt;           GPL96
-#&gt; 4:   &lt;data.table[2x4]&gt;           GPL96
-#&gt; 5:   &lt;data.table[2x4]&gt;           GPL96
-#&gt; 6:   &lt;data.table[2x4]&gt;           GPL96
-#&gt;                                                  array.Name array.Taxon
-#&gt; 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt; 2: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt; 3: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt; 4: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt; 5: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt; 6: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA
-#&gt;    array.TaxonID array.Type array.Description array.Troubled
-#&gt; 1:            NA         NA                NA          FALSE
-#&gt; 2:            NA         NA                NA          FALSE
-#&gt; 3:            NA         NA                NA          FALSE
-#&gt; 4:            NA         NA                NA          FALSE
-#&gt; 5:            NA         NA                NA          FALSE
-#&gt; 6:            NA         NA                NA          FALSE</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getDatasetSamples</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   bioMaterial.Name  sample.Name sample.ID</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:  GSE2018_bioMaterial_4|GSM36426   BAL_1_A0B0        31</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2: GSE2018_bioMaterial_15|GSM36437 BAL_27a_A0B0        20</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3: GSE2018_bioMaterial_26|GSM36448  BAL_43_A0B0         9</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:  GSE2018_bioMaterial_6|GSM36428  BAL_13_A0B0        29</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5: GSE2018_bioMaterial_17|GSM36439  BAL_29_A1B0        18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6: GSE2018_bioMaterial_28|GSM36450 BAL_44b_A0B0         7</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                 sample.Correspondence</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:                                Corresponding to Samples:  GSM36426</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:                                Corresponding to Samples:  GSM36437</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3: Corresponding to samples:  ial corresponding to samples:  GSM36448</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:                                Corresponding to Samples:  GSM36428</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5:                                Corresponding to Samples:  GSM36439</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6: Corresponding to samples:  ial corresponding to samples:  GSM36450</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                                                                                                                                                                       sample.Description</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36426\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36437\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36448\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36428\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36439\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36450\nLast updated (according to GEO): May 27 2005</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    sample.Outlier sample.Accession sample.Processed sample.Characteristics</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:          FALSE         GSM36426     1.036695e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:          FALSE         GSM36437     1.036693e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3:          FALSE         GSM36448     1.035573e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:          FALSE         GSM36428     1.022102e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5:          FALSE         GSM36439     1.033757e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6:          FALSE         GSM36450     1.018980e+12      &lt;data.table[2x4]&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    sample.FactorValues array.ShortName</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6:   &lt;data.table[2x4]&gt;           GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                  array.Name array.Taxon</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    array.TaxonID array.Type array.Description array.Troubled</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:            NA         NA                NA          FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:            NA         NA                NA          FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3:            NA         NA                NA          FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4:            NA         NA                NA          FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 5:            NA         NA                NA          FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 6:            NA         NA                NA          FALSE</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

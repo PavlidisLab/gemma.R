@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dataset platforms — getDatasetPlatforms • gemmaAPI</title>
+<title>Dataset platforms — getDatasetPlatforms • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dataset platforms</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasetPlatforms.Rd</code></div>
     </div>
 
@@ -206,21 +203,22 @@ dataset.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getDatasetPlatforms</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    platform.ID platform.ShortName
-#&gt; 1:           1              GPL96
-#&gt;                                               platform.Name
-#&gt; 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A
-#&gt;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.Description
-#&gt; 1:  The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006
-#&gt;    platform.Troubled platform.ExperimentCount platform.GeneCount
-#&gt; 1:             FALSE                      410                 NA
-#&gt;    platform.ProbeSequenceCount platform.ProbeAlignmentCount
-#&gt; 1:                          NA                           NA
-#&gt;    platform.ProbeGeneCount platform.ElementCount taxon.Name taxon.ID
-#&gt; 1:                      NA                    NA      human        1
-#&gt;    technology.Type technology.Color
-#&gt; 1:        ONECOLOR         ONECOLOR</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>getDatasetPlatforms</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    platform.ID platform.ShortName</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:           1              GPL96</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                               platform.Name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.Description</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:  The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    platform.Troubled platform.ExperimentCount platform.GeneCount</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:             FALSE                      409                 NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    platform.ProbeSequenceCount platform.ProbeAlignmentCount</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:                          NA                           NA</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    platform.ProbeGeneCount platform.ElementCount taxon.Name taxon.ID</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:                      NA                    NA      human        1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    technology.Type technology.Color</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:        ONECOLOR         ONECOLOR</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Taxa — getTaxa • gemmaAPI</title>
+<title>Taxa — getTaxa • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Taxa</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getTaxa.Rd</code></div>
     </div>
 
@@ -222,12 +219,14 @@ A <code>400 error</code> if all identifiers are invalid.
 An array of all available taxa, if no identifiers were provided.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name
-#&gt; 1:      human     Homo sapiens        1       9606                hg38</div><div class='input'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name
-#&gt; 1:      human     Homo sapiens        1       9606                hg38
-#&gt; 2:      mouse     Mus musculus        2      10090                mm10</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      human     Homo sapiens        1       9606                hg38</span>
+<span class='r-in'><span class='fu'>getTaxa</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    taxon.Name taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1:      human     Homo sapiens        1       9606                hg38</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2:      mouse     Mus musculus        2      10090                mm10</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

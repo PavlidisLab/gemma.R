@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dataset data — getDatasetData • gemmaAPI</title>
+<title>Dataset data — getDatasetData • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Dataset data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getDatasetData.Rd</code></div>
     </div>
 
@@ -254,50 +251,51 @@ Otherwise, it will be a RDS file.</p></td>
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getDatasetData</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	22283 obs. of  40 variables:
-#&gt;  $ Probe                                                           : chr  "1007_s_at" "1053_at" "117_at" "121_at" ...
-#&gt;  $ Sequence                                                        : chr  "1007_s_at_collapsed" "1053_at_collapsed" "117_at_collapsed" "121_at_collapsed" ...
-#&gt;  $ GeneSymbol                                                      : chr  "DDR1" "RFC2" "HSPA7|HSPA6" "PAX8" ...
-#&gt;  $ GeneName                                                        : chr  "discoidin domain receptor tyrosine kinase 1" "replication factor C subunit 2" "heat shock protein family A (Hsp70) member 7 (pseudogene)|heat shock protein family A (Hsp70) member 6" "paired box 8" ...
-#&gt;  $ GemmaId                                                         : chr  "16908" "139878" "73442|73420" "173107" ...
-#&gt;  $ NCBIid                                                          : chr  "780" "5982" "3311|3310" "7849" ...
-#&gt;  $ GSE2018_bioMaterial_6.GSM36428___BioAssayId=29Name=BAL_13_A0B0  : num  7.66 6.82 7.7 8.87 4.02 ...
-#&gt;  $ GSE2018_bioMaterial_28.GSM36450___BioAssayId=7Name=BAL_44b_A0B0 : num  7.56 6.82 7.74 8.73 4.02 ...
-#&gt;  $ GSE2018_bioMaterial_24.GSM36446___BioAssayId=11Name=BAL_41_A1B0 : num  7.9 6.43 8.3 9.43 4.27 ...
-#&gt;  $ GSE2018_bioMaterial_19.GSM36441___BioAssayId=16Name=BAL_31_A0B1 : num  7.48 6.87 7.71 9.11 4.13 ...
-#&gt;  $ GSE2018_bioMaterial_5.GSM36427___BioAssayId=30Name=BAL_12_A1B0  : num  7.61 7.08 7.5 9.13 4.13 ...
-#&gt;  $ GSE2018_bioMaterial_3.GSM36425___BioAssayId=32Name=BAL_15b_A0B0 : num  7.68 6.77 8.43 9.06 3.99 ...
-#&gt;  $ GSE2018_bioMaterial_23.GSM36445___BioAssayId=12Name=BAL_40_A0B0 : num  7.57 6.75 7.31 9.13 4.06 ...
-#&gt;  $ GSE2018_bioMaterial_33.GSM36455___BioAssayId=2Name=BAL_47b_A0B1 : num  7.61 6.79 7.8 9.02 4.18 ...
-#&gt;  $ GSE2018_bioMaterial_34.GSM36456___BioAssayId=1Name=BAL_47c_A0B1 : num  7.63 6.91 7.47 9.17 3.96 ...
-#&gt;  $ GSE2018_bioMaterial_29.GSM36451___BioAssayId=6Name=BAL_45a_A1B0 : num  7.45 6.8 7.62 9.29 4.03 ...
-#&gt;  $ GSE2018_bioMaterial_32.GSM36454___BioAssayId=3Name=BAL_47a_A0B0 : num  7.79 6.44 7.84 9.04 3.91 ...
-#&gt;  $ GSE2018_bioMaterial_27.GSM36449___BioAssayId=8Name=BAL_44a_A0B0 : num  7.73 6.94 7.6 9.25 4 ...
-#&gt;  $ GSE2018_bioMaterial_21.GSM36443___BioAssayId=14Name=BAL_39_A0B1 : num  7.27 6.81 7.33 8.88 4.02 ...
-#&gt;  $ GSE2018_bioMaterial_20.GSM36442___BioAssayId=15Name=BAL_33_A0B1 : num  7.43 7.14 7.57 8.95 4.03 ...
-#&gt;  $ GSE2018_bioMaterial_17.GSM36439___BioAssayId=18Name=BAL_29_A1B0 : num  7.91 6.43 7.79 9.59 4.13 ...
-#&gt;  $ GSE2018_bioMaterial_13.GSM36435___BioAssayId=22Name=BAL_25_A0B0 : num  7.57 6.89 7.44 8.92 3.98 ...
-#&gt;  $ GSE2018_bioMaterial_15.GSM36437___BioAssayId=20Name=BAL_27a_A0B0: num  7.91 6.98 7.78 9.25 4.03 ...
-#&gt;  $ GSE2018_bioMaterial_4.GSM36426___BioAssayId=31Name=BAL_1_A0B0   : num  7.52 7.16 7.84 9.06 4.17 ...
-#&gt;  $ GSE2018_bioMaterial_2.GSM36424___BioAssayId=33Name=BAL_15a_A0B1 : num  7.63 6.91 7.69 8.76 4.03 ...
-#&gt;  $ GSE2018_bioMaterial_26.GSM36448___BioAssayId=9Name=BAL_43_A0B0  : num  7.33 6.97 7.46 9.09 4 ...
-#&gt;  $ GSE2018_bioMaterial_25.GSM36447___BioAssayId=10Name=BAL_42_A0B0 : num  7.89 6.65 8.58 8.93 4.11 ...
-#&gt;  $ GSE2018_bioMaterial_22.GSM36444___BioAssayId=13Name=BAL_4_A0B0  : num  7.47 6.95 7.74 9.12 4.04 ...
-#&gt;  $ GSE2018_bioMaterial_18.GSM36440___BioAssayId=17Name=BAL_3_A1B0  : num  7.54 6.9 7.54 8.87 3.86 ...
-#&gt;  $ GSE2018_bioMaterial_8.GSM36430___BioAssayId=27Name=BAL_18_A1B0  : num  7.41 6.78 7.93 9.15 4.05 ...
-#&gt;  $ GSE2018_bioMaterial_7.GSM36429___BioAssayId=28Name=BAL_17_A0B0  : num  7.23 6.96 7.97 8.81 4.02 ...
-#&gt;  $ GSE2018_bioMaterial_12.GSM36434___BioAssayId=23Name=BAL_21_A0B0 : num  7.87 6.62 7.42 9.55 4.14 ...
-#&gt;  $ GSE2018_bioMaterial_9.GSM36431___BioAssayId=26Name=BAL_19_A0B0  : num  7.82 6.71 7.83 9.57 3.99 ...
-#&gt;  $ GSE2018_bioMaterial_30.GSM36452___BioAssayId=5Name=BAL_45b_A2B0 : num  7.78 6.59 7.93 9 3.94 ...
-#&gt;  $ GSE2018_bioMaterial_14.GSM36436___BioAssayId=21Name=BAL_26_A2B0 : num  7.26 6.94 7.97 8.66 4.01 ...
-#&gt;  $ GSE2018_bioMaterial_10.GSM36432___BioAssayId=25Name=BAL_20a_A1B1: num  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN ...
-#&gt;  $ GSE2018_bioMaterial_11.GSM36433___BioAssayId=24Name=BAL_20b_A1B1: num  7.68 6.65 7.74 9.24 4.03 ...
-#&gt;  $ GSE2018_bioMaterial_1.GSM36423___BioAssayId=34Name=BAL_37_A1B1  : num  7.47 6.86 7.69 9.06 4.06 ...
-#&gt;  $ GSE2018_bioMaterial_31.GSM36453___BioAssayId=4Name=BAL_46_A2B0  : num  7.93 6.54 7.81 10.08 3.86 ...
-#&gt;  $ GSE2018_bioMaterial_16.GSM36438___BioAssayId=19Name=BAL_27b_A2B1: num  7.7 6.85 7.56 9.14 4.12 ...
-#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getDatasetData</span><span class='op'>(</span><span class='st'>"GSE2018"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  40 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ Probe                                                           : chr  "1007_s_at" "1053_at" "117_at" "121_at" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ Sequence                                                        : chr  "1007_s_at_collapsed" "1053_at_collapsed" "117_at_collapsed" "121_at_collapsed" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GeneSymbol                                                      : chr  "DDR1" "RFC2" "HSPA7|HSPA6" "PAX8" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GeneName                                                        : chr  "discoidin domain receptor tyrosine kinase 1" "replication factor C subunit 2" "heat shock protein family A (Hsp70) member 7 (pseudogene)|heat shock protein family A (Hsp70) member 6" "paired box 8" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GemmaId                                                         : chr  "16908" "139878" "73442|73420" "173107" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ NCBIid                                                          : chr  "780" "5982" "3311|3310" "7849" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_6.GSM36428___BioAssayId=29Name=BAL_13_A0B0  : num  7.66 6.82 7.7 8.87 4.02 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_28.GSM36450___BioAssayId=7Name=BAL_44b_A0B0 : num  7.56 6.82 7.74 8.73 4.02 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_24.GSM36446___BioAssayId=11Name=BAL_41_A1B0 : num  7.9 6.43 8.3 9.43 4.27 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_19.GSM36441___BioAssayId=16Name=BAL_31_A0B1 : num  7.48 6.87 7.71 9.11 4.13 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_5.GSM36427___BioAssayId=30Name=BAL_12_A1B0  : num  7.61 7.08 7.5 9.13 4.13 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_3.GSM36425___BioAssayId=32Name=BAL_15b_A0B0 : num  7.68 6.77 8.43 9.06 3.99 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_23.GSM36445___BioAssayId=12Name=BAL_40_A0B0 : num  7.57 6.75 7.31 9.13 4.06 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_33.GSM36455___BioAssayId=2Name=BAL_47b_A0B1 : num  7.61 6.79 7.8 9.02 4.18 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_34.GSM36456___BioAssayId=1Name=BAL_47c_A0B1 : num  7.63 6.91 7.47 9.17 3.96 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_29.GSM36451___BioAssayId=6Name=BAL_45a_A1B0 : num  7.45 6.8 7.62 9.29 4.03 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_32.GSM36454___BioAssayId=3Name=BAL_47a_A0B0 : num  7.79 6.44 7.84 9.04 3.91 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_27.GSM36449___BioAssayId=8Name=BAL_44a_A0B0 : num  7.73 6.94 7.6 9.25 4 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_21.GSM36443___BioAssayId=14Name=BAL_39_A0B1 : num  7.27 6.81 7.33 8.88 4.02 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_20.GSM36442___BioAssayId=15Name=BAL_33_A0B1 : num  7.43 7.14 7.57 8.95 4.03 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_17.GSM36439___BioAssayId=18Name=BAL_29_A1B0 : num  7.91 6.43 7.79 9.59 4.13 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_13.GSM36435___BioAssayId=22Name=BAL_25_A0B0 : num  7.57 6.89 7.44 8.92 3.98 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_15.GSM36437___BioAssayId=20Name=BAL_27a_A0B0: num  7.91 6.98 7.78 9.25 4.03 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_4.GSM36426___BioAssayId=31Name=BAL_1_A0B0   : num  7.52 7.16 7.84 9.06 4.17 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_2.GSM36424___BioAssayId=33Name=BAL_15a_A0B1 : num  7.63 6.91 7.69 8.76 4.03 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_26.GSM36448___BioAssayId=9Name=BAL_43_A0B0  : num  7.33 6.97 7.46 9.09 4 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_25.GSM36447___BioAssayId=10Name=BAL_42_A0B0 : num  7.89 6.65 8.58 8.93 4.11 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_22.GSM36444___BioAssayId=13Name=BAL_4_A0B0  : num  7.47 6.95 7.74 9.12 4.04 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_18.GSM36440___BioAssayId=17Name=BAL_3_A1B0  : num  7.54 6.9 7.54 8.87 3.86 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_8.GSM36430___BioAssayId=27Name=BAL_18_A1B0  : num  7.41 6.78 7.93 9.15 4.05 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_7.GSM36429___BioAssayId=28Name=BAL_17_A0B0  : num  7.23 6.96 7.97 8.81 4.02 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_12.GSM36434___BioAssayId=23Name=BAL_21_A0B0 : num  7.87 6.62 7.42 9.55 4.14 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_9.GSM36431___BioAssayId=26Name=BAL_19_A0B0  : num  7.82 6.71 7.83 9.57 3.99 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_30.GSM36452___BioAssayId=5Name=BAL_45b_A2B0 : num  7.78 6.59 7.93 9 3.94 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_14.GSM36436___BioAssayId=21Name=BAL_26_A2B0 : num  7.26 6.94 7.97 8.66 4.01 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_10.GSM36432___BioAssayId=25Name=BAL_20a_A1B1: num  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_11.GSM36433___BioAssayId=24Name=BAL_20b_A1B1: num  7.68 6.65 7.74 9.24 4.03 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_1.GSM36423___BioAssayId=34Name=BAL_37_A1B1  : num  7.47 6.86 7.69 9.06 4.06 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_31.GSM36453___BioAssayId=4Name=BAL_46_A2B0  : num  7.93 6.54 7.81 10.08 3.86 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GSE2018_bioMaterial_16.GSM36438___BioAssayId=19Name=BAL_27b_A2B1: num  7.7 6.85 7.56 9.14 4.12 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

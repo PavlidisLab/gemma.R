@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get Gemma platform annotations — getPlatformAnnotation • gemmaAPI</title>
+<title>Get Gemma platform annotations — getPlatformAnnotation • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get Gemma platform annotations</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/convenience.R'><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>getPlatformAnnotation.Rd</code></div>
     </div>
 
@@ -191,16 +188,17 @@
     <p>A table of annotations</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getPlatformAnnotation</span><span class='op'>(</span><span class='st'>"GPL96"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	22283 obs. of  6 variables:
-#&gt;  $ ProbeName  : chr  "211750_x_at" "216678_at" "216345_at" "207273_at" ...
-#&gt;  $ GeneSymbols: chr  "TUBA1A|TUBA1C" "" "ZSWIM8" "" ...
-#&gt;  $ GeneNames  : chr  "tubulin alpha 1a|tubulin alpha 1c" "" "zinc finger SWIM-type containing 8" "" ...
-#&gt;  $ GOTerms    : chr  "GO:0000226|GO:0007017|GO:0050807|GO:0051301|GO:0000278|GO:0030705" "" "GO:0043161|GO:0016567|GO:2000627" "" ...
-#&gt;  $ GemmaIDs   : chr  "172797|360802" "" "235733" "" ...
-#&gt;  $ NCBIids    : chr  "7846|84790" "" "23053" "" ...
-#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getPlatformAnnotation</span><span class='op'>(</span><span class='st'>"GPL96"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  6 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ProbeName  : chr  "211750_x_at" "216678_at" "216345_at" "207273_at" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GeneSymbols: chr  "TUBA1A|TUBA1C" "" "ZSWIM8" "" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GeneNames  : chr  "tubulin alpha 1a|tubulin alpha 1c" "" "zinc finger SWIM-type containing 8" "" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GOTerms    : chr  "GO:0000226|GO:0007017|GO:0050807|GO:0051301|GO:0000278|GO:0030705" "" "GO:0043161|GO:0016567|GO:2000627" "" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ GemmaIDs   : chr  "172797|360802" "" "235733" "" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ NCBIids    : chr  "7846|84790" "" "23053" "" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

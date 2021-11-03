@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create an async function — async • gemmaAPI</title>
+<title>Create an async function — async • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -91,7 +91,7 @@ nothing, just returns it." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -105,9 +105,6 @@ nothing, just returns it." />
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +115,7 @@ nothing, just returns it." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -128,7 +125,7 @@ nothing, just returns it." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -147,7 +144,7 @@ nothing, just returns it." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create an async function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/aaa-async.R'><code>R/aaa-async.R</code></a></small>
     <div class="hidden name"><code>async.Rd</code></div>
     </div>
 
@@ -177,48 +174,51 @@ nothing, just returns it.</p>
 values, and the same environment as the original input function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>42</span>
-<span class='va'>af</span> <span class='op'>&lt;-</span> <span class='fu'>async</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span>
-<span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='va'>dx</span> <span class='op'>&lt;-</span> <span class='fu'>af</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 42</div><div class='input'><span class='va'>dx</span>
-</div><div class='output co'>#&gt; &lt;deferred&gt;
-#&gt;   Public:
-#&gt;     cancel: function (reason = "Cancelled") 
-#&gt;     catch: function (...) 
-#&gt;     clone: function (deep = FALSE) 
-#&gt;     finally: function (on_finally) 
-#&gt;     initialize: function (action = NULL, on_progress = NULL, on_cancel = NULL, 
-#&gt;     share: function () 
-#&gt;     then: function (on_fulfilled) 
-#&gt;   Private:
-#&gt;     action: NULL
-#&gt;     add_as_parent: function (child) 
-#&gt;     cancel_callback: NULL
-#&gt;     cancelled: FALSE
-#&gt;     children: list
-#&gt;     dead_end: FALSE
-#&gt;     event_loop: event_loop, R6
-#&gt;     get_info: function () 
-#&gt;     id: 2
-#&gt;     make_error_object: function (err) 
-#&gt;     maybe_cancel_parents: function (reason) 
-#&gt;     mycall: call
-#&gt;     null: function () 
-#&gt;     parent_reject: function (value, resolve) 
-#&gt;     parent_resolve: function (value, resolve) 
-#&gt;     parents: NULL
-#&gt;     progress: function (data) 
-#&gt;     progress_callback: NULL
-#&gt;     reject: function (reason) 
-#&gt;     resolve: function (value) 
-#&gt;     run_action: function () 
-#&gt;     running: TRUE
-#&gt;     shared: FALSE
-#&gt;     state: fulfilled
-#&gt;     type: async
-#&gt;     update_parent: function (old, new) 
-#&gt;     value: 42</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>f</span> <span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fl'>42</span></span>
+<span class='r-in'><span class='va'>af</span> <span class='op'>&lt;-</span> <span class='fu'>async</span><span class='op'>(</span><span class='va'>f</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>f</span><span class='op'>(</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 42</span>
+<span class='r-in'><span class='fu'><a href='synchronise.html'>synchronise</a></span><span class='op'>(</span><span class='va'>dx</span> <span class='op'>&lt;-</span> <span class='fu'>af</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 42</span>
+<span class='r-in'><span class='va'>dx</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> &lt;deferred&gt;</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Public:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     cancel: function (reason = "Cancelled") </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     catch: function (...) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     clone: function (deep = FALSE) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     finally: function (on_finally) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     initialize: function (action = NULL, on_progress = NULL, on_cancel = NULL, </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     share: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     then: function (on_fulfilled) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   Private:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     action: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     add_as_parent: function (child) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     cancel_callback: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     cancelled: FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     children: list</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     dead_end: FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     event_loop: event_loop, R6</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     get_info: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     id: 2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     make_error_object: function (err) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     maybe_cancel_parents: function (reason) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     mycall: call</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     null: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     parent_reject: function (value, resolve) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     parent_resolve: function (value, resolve) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     parents: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     progress: function (data) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     progress_callback: NULL</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     reject: function (reason) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     resolve: function (value) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     run_action: function () </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     running: TRUE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     shared: FALSE</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     state: fulfilled</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     type: async</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     update_parent: function (old, new) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     value: 42</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

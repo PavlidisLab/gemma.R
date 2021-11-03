@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>getResultSets — getResultSets • gemmaAPI</title>
+<title>getResultSets — getResultSets • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="getResultSets — getResultSets" />
-<meta property="og:description" content="Lists resultSets filtered and organized by given parameters" />
+<meta property="og:description" content="Lists resultSets filtered and organized by given parameters." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,16 +142,17 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>getResultSets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getResultSets.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Lists resultSets filtered and organized by given parameters</p>
+    <p>Lists resultSets filtered and organized by given parameters.</p>
     </div>
 
     <pre class="usage"><span class='fu'>getResultSets</span><span class='op'>(</span>
   resultSet <span class='op'>=</span> <span class='cn'>NA_character_</span>,
+  dataset <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   filter <span class='op'>=</span> <span class='cn'>NA_character_</span>,
   offset <span class='op'>=</span> <span class='fl'>0L</span>,
   limit <span class='op'>=</span> <span class='fl'>20L</span>,
@@ -172,6 +170,13 @@
     <tr>
       <th>resultSet</th>
       <td><p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)</p></td>
+    </tr>
+    <tr>
+      <th>dataset</th>
+      <td><p>Required, part of the URL path.
+Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).
+Retrieval by ID is more efficient.
+Only datasets that user has access to will be available</p></td>
     </tr>
     <tr>
       <th>filter</th>
@@ -278,6 +283,47 @@ Otherwise, it will be a RDS file.</p></td>
 
     <p>Varies</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='r-in'><span class='fu'>getResultSets</span><span class='op'>(</span><span class='fl'>500184</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Some columns are type 'integer64' but package bit64 is not installed. Those columns will print as strange looking floating point data. There is no need to reload the data. Simply install.packages('bit64') to obtain the integer64 print method and print the data again.</span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>Some columns are type 'integer64' but package bit64 is not installed. Those columns will print as strange looking floating point data. There is no need to reload the data. Simply install.packages('bit64') to obtain the integer64 print method and print the data again.</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                   id probe_id  probe_name      gene_id               gene_name</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1: 1.231217e-314    17652   205105_at        88540                  MAN2A1</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2: 1.231217e-314     5356   217563_at                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3: 1.231217e-314    15939   206819_at                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4: 1.231217e-314     3474   219446_at       295003                   RIC8B</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5: 1.231217e-314    16128   206630_at       165557                     TYR</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                                                                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22267: 1.231224e-314     9213   213691_at      8797810               PTOV1-AS2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22268: 1.231224e-314    11392 211485_s_at       185530                   FGF18</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22269: 1.231224e-314     1984 220936_s_at       303350                    H2AJ</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22270: 1.231224e-314    17744 205013_s_at 3694|8802617 ADORA2A|SPECC1L-ADORA2A</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22271: 1.231224e-314     2528   220392_at       327286                    EBF2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>         gene_ncbi_id    gene_official_symbol   pvalue corrected_pvalue    rank</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1:          4124                  MAN2A1 0.691200           0.8827 0.78310</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2:                                       0.023940           0.2607 0.09178</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3:                                       0.029350           0.2801 0.10470</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4:         55188                   RIC8B 0.680000           0.8786 0.77400</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5:          7299                     TYR 0.416300           0.7360 0.56560</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                                                                        </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22267:     101928378               PTOV1-AS2 0.160400           0.5186 0.30930</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22268:          8817                   FGF18 0.154700           0.5131 0.30150</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22269:         55766                    H2AJ 0.375100           0.7092 0.52890</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22270: 135|101730217 ADORA2A|SPECC1L-ADORA2A 0.373800           0.7085 0.52760</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22271:         64641                    EBF2 0.001836           0.1074 0.01702</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        contrast_1_log2fc contrast_1_tstat contrast_1_pvalue</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     1:           0.07823           0.4009          0.691200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     2:           0.17390           2.3750          0.023940</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     3:           0.14450           2.2840          0.029350</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     4:          -0.05527          -0.4163          0.680000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     5:          -0.06343          -0.8240          0.416300</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>    ---                                                     </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22267:          -0.14890          -1.4380          0.160400</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22268:          -0.09667          -1.4590          0.154700</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22269:           0.05851           0.8999          0.375100</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22270:           0.20720           0.9023          0.373800</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 22271:          -0.16590          -3.4070          0.001836</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

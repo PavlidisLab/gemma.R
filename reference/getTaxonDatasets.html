@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Taxon datasets — getTaxonDatasets • gemmaAPI</title>
+<title>Taxon datasets — getTaxonDatasets • gemma.R</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -89,7 +89,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">gemmaAPI</a>
+        <a class="navbar-link" href="../index.html">gemma.R</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.99.0</span>
       </span>
     </div>
@@ -103,9 +103,6 @@
   </a>
 </li>
 <li>
-  <a href="../articles/gemmaAPI.html">Get started</a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,7 +113,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/async.html">Asynchronous Requests (advanced)</a>
+      <a href="../articles/gemma.R.html">gemma.R: an R Wrapper for the Gemma API</a>
     </li>
   </ul>
 </li>
@@ -126,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/PavlidisLab/Gemma-API/">
+  <a href="https://github.com/PavlidisLab/gemma.R/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -145,7 +142,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Taxon datasets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/Gemma-API/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/PavlidisLab/gemma.R/blob/master/R/allEndpoints.R'><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>getTaxonDatasets.Rd</code></div>
     </div>
 
@@ -296,29 +293,29 @@ with the given taxon.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getTaxonDatasets</span><span class='op'>(</span><span class='st'>"human"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span>, vec.len <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; Classes ‘data.table’ and 'data.frame':	20 obs. of  19 variables:
-#&gt;  $ ee.ShortName       : chr  "GSE2018" "GSE4036" ...
-#&gt;  $ ee.Name            : chr  "Human Lung Transplant - BAL" "perro-affy-human-186940" ...
-#&gt;  $ ee.ID              : int  1 4 18 50 98 ...
-#&gt;  $ ee.Description     : chr  "Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an"| __truncated__ "Our laboratory has developed the first mouse model overexpressing a RNA-binding protein, the ELAV-like protein "| __truncated__ ...
-#&gt;  $ ee.Public          : logi  TRUE TRUE TRUE ...
-#&gt;  $ ee.Troubled        : logi  FALSE FALSE FALSE ...
-#&gt;  $ ee.Accession       : chr  "GSE2018" "GSE4036" ...
-#&gt;  $ ee.Database        : chr  "GEO" "GEO" ...
-#&gt;  $ ee.URL             : chr  "http://www.ncbi.nlm.nih.gov/geo/" "http://www.ncbi.nlm.nih.gov/geo/" ...
-#&gt;  $ ee.Samples         : int  34 28 28 15 20 ...
-#&gt;  $ ee.LastUpdated     : POSIXct, format: "2021-09-17 07:22:51" "2021-09-17 07:30:14" ...
-#&gt;  $ ee.Batch.P         : num  0.00796 NA ...
-#&gt;  $ ee.Batch.PC        : num  2 NA NA NA NA ...
-#&gt;  $ geeq.batchCorrected: logi  FALSE FALSE FALSE ...
-#&gt;  $ geeq.qScore        : num  0.566 0.997 ...
-#&gt;  $ geeq.sScore        : num  0.875 0.75 0.5 0.625 0.375 ...
-#&gt;  $ taxon.Name         : chr  "human" "human" ...
-#&gt;  $ taxon.ID           : int  1 1 1 1 1 ...
-#&gt;  $ technology.Type    : chr  "ONECOLOR" "ONECOLOR" ...
-#&gt;  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='fu'>getTaxonDatasets</span><span class='op'>(</span><span class='st'>"human"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'><a href='https://rdrr.io/r/utils/str.html'>str</a></span><span class='op'>(</span><span class='va'>dat</span>, vec.len <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  18 variables:</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.ShortName       : chr  "GSE2018" "GSE4036" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Name            : chr  "Human Lung Transplant - BAL" "perro-affy-human-186940" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.ID              : int  1 4 18 50 98 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Public          : logi  TRUE TRUE TRUE ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Troubled        : logi  FALSE FALSE FALSE ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Accession       : chr  "GSE2018" "GSE4036" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Database        : chr  "GEO" "GEO" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.URL             : chr  "http://www.ncbi.nlm.nih.gov/geo/" "http://www.ncbi.nlm.nih.gov/geo/" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Samples         : int  34 28 28 15 20 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.LastUpdated     : POSIXct, format: "2021-09-17 07:22:51" "2021-09-17 07:30:14" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Batch.P         : num  0.00796 NA ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ ee.Batch.PC        : num  2 NA NA NA NA ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ geeq.batchCorrected: logi  FALSE FALSE FALSE ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ geeq.qScore        : num  0.566 0.997 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ geeq.sScore        : num  0.875 0.75 0.5 0.625 0.375 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ taxon.Name         : chr  "human" "human" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ taxon.ID           : int  1 1 1 1 1 ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  $ technology.Type    : chr  "ONECOLOR" "ONECOLOR" ...</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
