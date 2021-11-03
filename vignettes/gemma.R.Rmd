@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup, message = FALSE}
-library(gemmaAPI)
+library(gemma.R)
 library(Biobase)
 library(dplyr)
 library(data.table)
@@ -28,7 +28,7 @@ library(microbenchmark)
 ```
 
 ## About Gemma
-[Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.
+<!-- [Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses. -->
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
