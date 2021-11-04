@@ -1,8 +1,8 @@
 library(testthat)
-library(gemmaAPI)
+library(gemma.R)
 library(dplyr)
 
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE)
 
-test_check("gemmaAPI")
+test_check("gemma.R")
