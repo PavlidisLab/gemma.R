@@ -98,9 +98,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="gemma-api-r-wrapper" class="section level1">
+<div id="gemmar-an-r-wrapper-for-the-gemma-api-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#gemma-api-r-wrapper" class="anchor"></a>Gemma API R Wrapper<img src="reference/figures/logo.png" align="right" height="138">
+<a href="#gemmar-an-r-wrapper-for-the-gemma-api-" class="anchor"></a>gemma.R: an R Wrapper for the Gemma API <img src="reference/figures/logo.png" align="right" height="138">
 </h1></div>
 <!-- badges: start -->
 
@@ -111,29 +111,29 @@
 <div id="development" class="section level3">
 <h3 class="hasAnchor">
 <a href="#development" class="anchor"></a>Development</h3>
-<p>The current development version of GemmaAPI can be installed with:</p>
+<p>The current development version of <code>gemma.R</code> can be installed with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PavlidisLab/gemmaAPI"</span><span class="op">)</span></code></pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PavlidisLab/gemma.R"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="bioconductor-not-available-yet" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bioconductor-not-available-yet" class="anchor"></a>Bioconductor (not available yet)</h3>
-<p>You can install <code>GemmaAPI</code> using <a href="http://bioconductor.org/">Bioconductor</a> with the following code:</p>
+<p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/">Bioconductor</a> with the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># if (!requireNamespace("BiocManager", quietly = TRUE)) {</span>
 <span class="co">#     install.packages("BiocManager")</span>
 <span class="co"># }</span>
 <span class="co"># </span>
-<span class="co"># BiocManager::install("GemmaAPI")</span></code></pre></div>
+<span class="co"># BiocManager::install("gemma.R")</span></code></pre></div>
 </div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<p>To get started with the Gemma API wrapper, read the <a href="https://pavlidislab.github.io/Gemma-API/articles/gemmaAPI.html">vignette</a>. In addition, you can check the <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">interactive API documentation</a> to get familiar quickly with the endpoints and their output.</p>
+<p>To get started with <code>gemma.R</code>, read the <a href="https://pavlidislab.github.io/gemma.R/articles/gemma.R.html">vignette</a>. In addition, you can check the <a href="https://gemma.msl.ubc.ca/resources/restapidocs/">interactive API documentation</a> to get familiar quickly with the endpoints and their output.</p>
 </div>
 <div id="citation" class="section level2">
 <h2 class="hasAnchor">
@@ -143,7 +143,7 @@
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
 <a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
-<p>Please note that the <code>GemmaAPI</code> project is released with the <a href="http://bioconductor.org/about/code-of-conduct/">Bioconductor Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that <code>gemma.R</code> is released with the <a href="http://bioconductor.org/about/code-of-conduct/">Bioconductor Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>
@@ -181,8 +181,8 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/jsicherman/GemmAPI/actions"><img src="https://github.com/jsicherman/GemmAPI/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/PavlidisLab/Gemma-API?branch=master"><img src="https://codecov.io/gh/PavlidisLab/Gemma-API/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://github.com/PavlidisLab/gemma.R/actions"><img src="https://github.com/PavlidisLab/gemma.R/workflows/R-CMD-check-bioc/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/PavlidisLab/gemma.R?branch=master"><img src="https://codecov.io/gh/PavlidisLab/gemma.R/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 <li><a href="https://doi.org/10.1093/database/baab006"><img src="https://img.shields.io/badge/doi-10.1093/database/baab006-yellow.svg" alt="DOI"></a></li>
 </ul>
 </div>
