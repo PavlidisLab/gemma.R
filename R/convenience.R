@@ -221,7 +221,6 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
 #' @return A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried dataset.
-#' @importFrom rlang .data
 #' @keywords dataset
 #' @export
 #' @examples
@@ -230,12 +229,8 @@ getBioc <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
-
-    # Expression matrix
     exprM <- getDatasetData(dataset, filter) %>%
         processExpressionMatrix()
-
-    # Metadata table
     design <- getDatasetDesign(dataset) %>%
         processDesignMatrix()
     # This annotation table is required
@@ -258,9 +253,9 @@ getBioc <- function(type, dataset, filter = TRUE) {
         taxon = dat$taxon
     )
 
-    title = dat$name
-    abstract = dat$description
-    url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
+    title <- dat$name
+    abstract <- dat$description
+    url <- paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
     if (type == "SummarizedExperiment") {
         expData <- list(
@@ -299,29 +294,21 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
 #' @return A \code{\link[tibble]{tibble}}.
-#' @importFrom rlang .data
 #' @keywords dataset
 #' @export
 #' @examples
 #' getTidyDataset("GSE2018")
 getTidyDataset <- function(dataset, filter = TRUE){
-    # Metadata table
     design <- getDatasetDesign(dataset) %>%
         processDesignMatrix() %>%
         tibble::rownames_to_column("Sample")
-
-    # Expression matrix
-    expr <- getDatasetData(dataset) %>%
+    # Get expression data, convert to long format and add exp. design
+    getDatasetData(dataset) %>%
         processExpressionMatrix() %>%
-        as.data.frame()
-    # Match sample order with metadata
-    expr <- expr[, match(design$Sample, colnames(expr))]
-    # Convert to long format
-    exprLong <- expr %>%
+        as.data.frame() %>%
+        .[, match(design$Sample, colnames(.))] %>% # match sample order
         tibble::rownames_to_column("probe") %>%
-        tidyr::pivot_longer(-probe, names_to = "Sample", values_to = "expression")
-
-    # Join expression with metadata
-    dplyr::inner_join(exprLong, design, by="Sample") %>%
+        tidyr::pivot_longer(-probe, names_to = "Sample", values_to = "expression") %>%
+        dplyr::inner_join(design, by = "Sample") %>%
         dplyr::rename(sample = Sample)
 }
