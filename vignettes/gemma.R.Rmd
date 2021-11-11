@@ -28,7 +28,7 @@ library(microbenchmark)
 ```
 
 ## About Gemma
-<!-- [Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses. -->
+[Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
@@ -36,8 +36,8 @@ For detailed information on the curation process, check this [page](https://pavl
 The main goal of this wrapper is to give easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html) endpoint:
 
 ```{r search}
-searchDatasets('bipolar', limit = 100) %>%
-  filter(taxon.Name == 'human', geeq.batchCorrected == TRUE) %>%
+searchDatasets('bipolar', limit = 100, taxon = 'human') %>%
+  filter(geeq.batchCorrected == TRUE) %>%
   select(ee.ShortName, ee.Name, ee.Samples)
 ```
 
@@ -47,9 +47,7 @@ Now that we have the ID for our experiment, we can fetch the data associated wit
 To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/gemma.R/reference/getDatasets.html) endpoint.
 
 ```{r dataset}
-dataset <- getDatasets('GSE35974')
-colnames(dataset)
-dataset$ee.Description
+getDatasets('GSE35974')
 ```
 
 To access the actual expression data, you can use [`getBioc()`](https://pavlidislab.github.io/gemma.R/reference/getBioc.html).
@@ -127,7 +125,7 @@ getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>%
   glimpse()
 ```
 
-You'll be able to tell which endpoints accept multiple inputs from the function examples or simply because the the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:
+You'll be able to tell which endpoints accept multiple inputs from the function examples or simply because the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:
 
 ```{r error, error = TRUE}
 getDatasetAnnotations(c('GSE35974', 'GSE12649'))
@@ -138,7 +136,7 @@ In these cases, you will have to loop over all the identifiers you wish to query
 ```{r loop}
 lapply(c('GSE35974', 'GSE12649'), function(dataset) {
   getDatasetAnnotations(dataset) %>% mutate(shortName = dataset)
-}) %>% rbindlist
+}) %>% rbindlist()
 ```
 
 ### Memoise data
