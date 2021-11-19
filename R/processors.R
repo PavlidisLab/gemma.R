@@ -348,7 +348,7 @@ processSVD <- function(d) {
 processResultSetFactors <- function(d) {
     lapply(d$experimentalFactors$values,
            dplyr::select, c('id', 'factorValue', 'category')) %>%
-        bind_rows()
+        dplyr::bind_rows()
 }
 
 #' Processes JSON as a datasets result set
@@ -358,12 +358,19 @@ processResultSetFactors <- function(d) {
 #' @return A processed data.table
 #'
 #' @keywords internal
-# TODO: Finish implementation
 processDatasetResultSets <- function(d) {
     data.table(
         resultSet.id = d$id,
-        analysis.id = d$analysis$id
-    )
+        analysis.id = d$analysis$id,
+        factors = lapply(d$experimentalFactors,
+                         dplyr::select, c('id', 'category', 'description')
+        )
+    ) %>%
+        tidyr::unnest(factors) %>%
+        rename('factor.id' = 'id',
+               'factor.category' = 'category',
+               'factor.levels' = 'description') %>%
+        as.data.table()
 }
 
 #' Processes JSON as annotations
