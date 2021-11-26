@@ -11,7 +11,6 @@ setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.password = password)
 }
 
-
 #' Get Gemma platform annotations
 #'
 #' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/

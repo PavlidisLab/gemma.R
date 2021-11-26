@@ -347,7 +347,7 @@ processSVD <- function(d) {
 #' @keywords internal
 processResultSetFactors <- function(d) {
     lapply(d$experimentalFactors$values,
-           dplyr::select, c('id', 'factorValue', 'category')) %>%
+           dplyr::select, c("id", "factorValue", "category")) %>%
         dplyr::bind_rows()
 }
 
@@ -363,13 +363,11 @@ processDatasetResultSets <- function(d) {
         resultSet.id = d$id,
         analysis.id = d$analysis$id,
         factors = lapply(d$experimentalFactors,
-                         dplyr::select, c('id', 'category', 'description')
-        )
+                         dplyr::select, c("category", "description"))
     ) %>%
         tidyr::unnest(factors) %>%
-        rename('factor.id' = 'id',
-               'factor.category' = 'category',
-               'factor.levels' = 'description') %>%
+        dplyr::rename("factor.category" = "category",
+                      "factor.levels" = "description") %>%
         as.data.table()
 }
 
