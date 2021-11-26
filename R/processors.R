@@ -679,3 +679,17 @@ processExpressionMatrix <- function(m) {
     exprM
 }
 
+#' Processes differential expression matrix
+#'
+#' @param m The matrix to process
+#'
+#' @return A processed matrix
+#'
+#' @importFrom rlang .data
+#' @keywords internal
+# TODO: Use this processor for ResultSets wrapper
+processDEMatrix <- function(m) {
+    exprM <- m[, 11:ncol(m)] %>% data.matrix()
+    rownames(exprM) <- m$Probe_name
+    exprM
+}
