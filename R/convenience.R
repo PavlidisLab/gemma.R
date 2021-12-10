@@ -111,10 +111,11 @@ getBioc <- function(type, dataset, filter = TRUE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
-    exprM <- getDatasetData(dataset, filter) %>%
-        processExpressionMatrix()
-    design <- getDatasetDesign(dataset) %>%
-        processDesignMatrix()
+    exprM <- getDatasetData(dataset, filter)
+    rownames(exprM) <- exprM$Probe
+    exprM$Probe <- NULL
+    exprM <- data.matrix(exprM)
+    design <- getDatasetDesign(dataset)
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
@@ -182,15 +183,47 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' getTidyDataset("GSE2018")
 getTidyDataset <- function(dataset, filter = TRUE){
     design <- getDatasetDesign(dataset) %>%
-        processDesignMatrix() %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
     getDatasetData(dataset) %>%
-        processExpressionMatrix() %>%
         as.data.frame() %>%
         .[, match(design$Sample, colnames(.))] %>% # match sample order
         tibble::rownames_to_column("probe") %>%
         tidyr::pivot_longer(-probe, names_to = "Sample", values_to = "expression") %>%
         dplyr::inner_join(design, by = "Sample") %>%
         dplyr::rename(sample = Sample)
+}
+
+#' Get Differential Expression ResultSet
+#'
+#' Combines the expression and design matrix of the queried dataset into one
+#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
+#'
+#' @param dataset A dataset identifier.
+#'
+#' @return A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried resultSet.
+#' @keywords dataset
+#' @export
+#' @examples
+#' getDiffExpr("GSE2018")
+getDiffExpr <- function(dataset){
+    rs <- getDatasetResultSets(dataset)
+    if (nrow(rs) > 1){
+        validID <- FALSE
+        while(validID == FALSE){
+            n <- readline(prompt = "Enter the ID of the desired differential expression ResultSet: ")
+            if (!(n %in% rs$resultSet.id)){
+                warning("The ID you selected was not found for this dataset. Here are the avalaible resultSets",
+                        immediate. = TRUE)
+                validID <- FALSE
+            }
+            else{
+                validID <- TRUE
+            }
+        }
+    }
+    else {
+        n <- rs$resultSet.id
+    }
+    getResultSets(n)
 }
