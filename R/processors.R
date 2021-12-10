@@ -87,7 +87,7 @@
         } else if (response$status_code == 403){
             message(paste0("Error ", response$status_code, ": Forbidden. You do not have permission to access this data."))
         } else if (response$status_code == 404){
-            message(paste0("Error ", response$status_code, ": Not found. Ensure your parameters are written correctly."))
+            message(paste0("Error ", response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID."))
         } else if (response$status_code == 503){
             message(paste0("Error ", response$status_code, ": Service Unavailable. Gemma might be under maintenance."))
         } else{
@@ -361,7 +361,7 @@ processResultSetFactors <- function(d) {
 processDatasetResultSets <- function(d) {
     data.table(
         resultSet.id = d$id,
-        analysis.id = d$analysis$id,
+        # analysis.id = d$analysis$id,
         factors = lapply(d$experimentalFactors,
                          dplyr::select, c("category", "description"))
     ) %>%
@@ -391,7 +391,7 @@ processAnnotations <- function(d) {
 
 #' Processes a response as a gzip file
 #'
-#' @param response The response from an `http_get` request
+#' @param content The content from an `http_get` request
 #'
 #' @return A processed data.table
 #'
@@ -410,6 +410,15 @@ processFile <- function(content) {
         }
     close(tmp2)
     unlink(tmp) # Delete the temp file
+    if (colnames(ret)[1] == "Probe"){
+        ret <- processExpressionMatrix(ret)
+    }
+    else if (colnames(ret)[1] == "id"){
+        ret <- processDEMatrix(ret)
+    }
+    else{
+        ret <- processDesignMatrix(ret)
+    }
     ret
 }
 
@@ -665,31 +674,34 @@ processDesignMatrix <- function(m) {
 
 #' Processes expression matrix
 #'
-#' @param m The matrix to process
+#' @param m The expression matrix to process
 #'
 #' @return A processed matrix
 #'
 #' @importFrom rlang .data
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-    exprM <- m[, 7:ncol(m)] %>% data.matrix()
-    rownames(exprM) <- m$Probe
+    expr <- m[, 7:ncol(m)]
     # Remove redundant strings from sample names
-    colnames(exprM) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
-    exprM
+    colnames(expr) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
+    expr <- cbind(m$Probe, expr) %>%
+        dplyr::rename(Probe = V1)
+    expr
 }
 
 #' Processes differential expression matrix
 #'
-#' @param m The matrix to process
+#' @param m The differential expression matrix to process
 #'
 #' @return A processed matrix
 #'
 #' @importFrom rlang .data
 #' @keywords internal
-# TODO: Use this processor for ResultSets wrapper
-processDEMatrix <- function(m) {
-    exprM <- m[, 11:ncol(m)] %>% data.matrix()
-    rownames(exprM) <- m$Probe_name
-    exprM
+processDEMatrix <- function(m, id) {
+    deM <- m[, 8:ncol(m)]
+    # factors <- getResultSetFactors(id)
+    deM <- cbind(m$probe_name, deM) %>%
+        dplyr::rename(Probe = V1)
+    deM
 }
+
