@@ -7,7 +7,7 @@
 processExpressionMatrix(m)
 }
 \arguments{
-\item{m}{The matrix to process}
+\item{m}{The expression matrix to process}
 }
 \value{
 A processed matrix

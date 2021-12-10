@@ -4,10 +4,10 @@
 \alias{processDEMatrix}
 \title{Processes differential expression matrix}
 \usage{
-processDEMatrix(m)
+processDEMatrix(m, id)
 }
 \arguments{
-\item{m}{The matrix to process}
+\item{m}{The differential expression matrix to process}
 }
 \value{
 A processed matrix
