@@ -185,13 +185,14 @@ getTidyDataset <- function(dataset, filter = TRUE){
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
-    getDatasetData(dataset) %>%
+    getDatasetData(dataset, filter = filter) %>%
         as.data.frame() %>%
+        tibble::column_to_rownames("Probe") %>%
         .[, match(design$Sample, colnames(.))] %>% # match sample order
-        tibble::rownames_to_column("probe") %>%
-        tidyr::pivot_longer(-probe, names_to = "Sample", values_to = "expression") %>%
+        tibble::rownames_to_column("Probe") %>%
+        tidyr::pivot_longer(-Probe, names_to = "Sample", values_to = "expression") %>%
         dplyr::inner_join(design, by = "Sample") %>%
-        dplyr::rename(sample = Sample)
+        dplyr::rename(sample = Sample, probe = Probe)
 }
 
 #' Get Differential Expression ResultSet
