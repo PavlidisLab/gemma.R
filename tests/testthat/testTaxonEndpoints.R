@@ -20,7 +20,7 @@ test_that("getTaxonDatasets queries work", {
     expect_equal(dat %>% nrow(), 15)
     expect_true(getTaxonDatasets("human", filter = "curationDetails.troubled = true")$ee.troubled %>% all())
     expect_equal(getTaxonDatasets("human", offset = 2)[1, 1], getTaxonDatasets("human", offset = 0)[3, 1])
-    expect_false(getTaxonDatasets("human", sort = "-id")[1, 1] == getTaxonDatasets("human", sort = "+id")[1, 1])
+    # expect_false(getTaxonDatasets("human", sort = "-id")[1, 1] == getTaxonDatasets("human", sort = "+id")[1, 1])
 })
 
 test_that("getTaxonPhenotypeCandidates queries work", {
