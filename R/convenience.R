@@ -95,7 +95,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' the experimental design and experiment metadata.
 #'
 #' @param type "SummarizedExperiment" or "ExpressionSet". We recommend using
-#' SummarizedExperiments if you are querying RNA-Seq data. See the Summarized experiment
+#' SummarizedExperiments which are more recent. See the Summarized experiment
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
@@ -195,10 +195,9 @@ getTidyDataset <- function(dataset, filter = TRUE){
         dplyr::rename(sample = Sample, probe = Probe)
 }
 
-#' Get Differential Expression ResultSet
+#' Get Differential Expression SummarizedExperiment
 #'
-#' Combines the expression and design matrix of the queried dataset into one
-#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
+#' Combine the SummarizedExperiment
 #'
 #' @param dataset A dataset identifier.
 #'
@@ -212,9 +211,10 @@ getDiffExpr <- function(dataset){
     if (nrow(rs) > 1){
         validID <- FALSE
         while(validID == FALSE){
-            n <- readline(prompt = "Enter the ID of the desired differential expression ResultSet: ")
-            if (!(n %in% rs$resultSet.id)){
-                warning("The ID you selected was not found for this dataset. Here are the avalaible resultSets",
+            print(rs)
+            rsID <- readline(prompt = "Enter the ID of the desired differential expression ResultSet: ")
+            if (!(rsID %in% rs$resultSet.id)){
+                warning("The ID you selected was not found for this dataset. Here are the avalaible resultSets:",
                         immediate. = TRUE)
                 validID <- FALSE
             }
@@ -224,7 +224,15 @@ getDiffExpr <- function(dataset){
         }
     }
     else {
-        n <- rs$resultSet.id
+        rsID <- rs$resultSet.id
     }
-    getResultSets(n)
+    rs <- getResultSets(id)
+    # Replace factor IDs by the factor names
+    factors <- getResultSetFactors(id)
+    colNames <- colnames(rs)
+    for (f in factors$id){
+        colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
+    }
+    colnames(rs) <- colNames
+    rs
 }

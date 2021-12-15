@@ -410,6 +410,7 @@ processFile <- function(content) {
         }
     close(tmp2)
     unlink(tmp) # Delete the temp file
+    # Process matrix according to data type
     if (colnames(ret)[1] == "Probe"){
         ret <- processExpressionMatrix(ret)
     }
