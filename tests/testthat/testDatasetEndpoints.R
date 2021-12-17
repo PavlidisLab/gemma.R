@@ -50,18 +50,6 @@ test_that("datasetSamples queries work", {
     )
 })
 
-test_that("datasetDEA queries work", {
-    dat <- getDatasetDEA(1)
-    raw <- getDatasetDEA(1, raw = TRUE)
-    rs <- raw$resultSets[[1]]
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(
-        dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
-        c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount)
-    )
-})
-
 test_that("datasetSVD queries work", {
     dat <- getDatasetSVD(1)
     raw <- getDatasetSVD(1, raw = TRUE)
@@ -110,25 +98,4 @@ test_that("datasetPCA queries work", {
         getDatasetPCA(1, limit = 100)$expr[[1]] %>% nrow(),
         getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow()
     )
-})
-
-test_that("datasetDE queries work", {
-    dat <- getDatasetDE(1, diffExSet = 500184)
-    raw <- getDatasetDE(1, diffExSet = 500184, raw = TRUE)
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(dat$ee.ID, raw$datasetId)
-
-    # Check the expression vector for one gene
-    datExpV <- dat$expr[[1]][1] %>% dplyr::select(-c(gene.ID, gene.Symbol, probe))
-    rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table()
-    expect_equal(datExpV, rawExpV)
-
-    expect_gt(
-        getDatasetDE(1, diffExSet = 500184, limit = 100)$expr[[1]] %>% nrow(),
-        getDatasetDE(1, diffExSet = 500184, limit = 50)$expr[[1]] %>% nrow()
-    )
-
-    expect_lt(getDatasetDE(1, diffExSet = 500184, threshold = 0.01)$expr[[1]] %>% nrow(),
-    getDatasetDE(1, diffExSet = 500184, threshold = 0.5)$expr[[1]] %>% nrow())
 })
