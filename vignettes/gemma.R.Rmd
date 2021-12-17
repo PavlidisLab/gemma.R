@@ -104,7 +104,7 @@ tidyData <- getTidyDataset('GSE35974')
 ```
 ### Differential Expression Example (TODO)
 Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with 
-```{r resultSets}
+```{r resultSets, eval = FALSE}
 getDatasetDE('GSE2018')
 ```
 From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
@@ -153,10 +153,6 @@ forgetGemmaMemoised()
 
 ### Raw data
 By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
-```{r raw}
-getDatasets('GSE35974', raw = TRUE) %>%
-  glimpse()
-```
 
 ### File outputs
 Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
