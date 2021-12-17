@@ -103,17 +103,14 @@ You can also use [`getTidyDataset()`](https://pavlidislab.github.io/gemma.R/refe
 tidyData <- getTidyDataset('GSE35974')
 ```
 ### Differential Expression Example (TODO)
-Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with [`getDatasetResultsets()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetsResultsets.html), then using [`getResultsets()`](https://pavlidislab.github.io/gemma.R/reference/getResultsets.html) to fetch the desired table:
-```{r resulSets}
-getDatasetResultSets("GSE2872")
-
-rs <- getResultSets(500185)
-rs
+Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with 
+```{r resultSets}
+getDatasetDE('GSE2018')
 ```
 From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
 
 ```{r diffExp}
-rs %>% arrange(desc(corrected_pvalue))
+# rs %>% arrange(desc(corrected_pvalue))
 ```
 
 
