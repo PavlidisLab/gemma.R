@@ -423,29 +423,6 @@ registerEndpoint(
   preprocessor = quote(processDatasetResultSets)
 )
 
-registerEndpoint("datasets/{datasets}/expressions/differential?keepNonSpecific={keepNonSpecific}&diffExSet={diffExSet}&threshold={threshold}&limit={limit}&consolidate={consolidate}",
-    "getDatasetDE",
-    logname = "diffEx", roxygen = "Datasets differential expression levels",
-    keyword = "dataset",
-    defaults = list(
-        datasets = NA_character_,
-        keepNonSpecific = FALSE,
-        diffExSet = NA_integer_,
-        threshold = 100.0,
-        limit = 100L,
-        consolidate = NA_character_
-    ),
-    validators = alist(
-        datasets = validateID,
-        keepNonSpecific = validateBoolean,
-        diffExSet = validatePositiveInteger,
-        threshold = validatePositiveReal,
-        limit = validatePositiveInteger,
-        consolidate = validateConsolidate
-    ),
-    preprocessor = quote(processExpression)
-)
-
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
     "getDatasetData",
     logname = "data", roxygen = "Dataset data", keyword = "dataset",
@@ -465,12 +442,6 @@ registerSimpleEndpoint("dataset", "samples",
     logname = "samples", roxygen = "Dataset samples",
     "getDatasetSamples",
     preprocessor = quote(processSamples)
-)
-
-registerSimpleEndpoint("dataset", "analyses/differential",
-    logname = "differential", roxygen = "Dataset differential analysis",
-    "getDatasetDEA",
-    preprocessor = quote(processDEA)
 )
 
 registerSimpleEndpoint("dataset", "svd",

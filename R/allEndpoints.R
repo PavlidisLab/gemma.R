@@ -489,99 +489,6 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
 #' @keywords internal
 memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 
-#' Datasets differential expression levels
-#'
-#' Retrieves differential expression levels for given datasets
-#'
-#' @param datasets Optional, defaults to `empty`.
-#' Limits the result to entities with given identifiers.
-#' A list of identifiers, separated by commas (e.g:
-#' `GSE2871,GSE2869,GSE2868`). Identifiers can either be the Dataset ID or
-#' its short name. Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available.
-#' Do not combine different identifiers in one query.
-#' @param keepNonSpecific Optional, defaults to `false`.
-#' If set to `false`, the response will only include elements that map
-#' exclusively to each queried gene
-#' If set to `true`, the response will include all elements that map to
-#' each queried gene, even if they also map to other genes.
-#' @param diffExSet Required, defaults to `empty`.
-#' The ID of the differential expression set to retrieve the data from.
-#' This value can be obtained through the 'Dataset differential analysis'
-#' endpoint in the 'Dataset endpoints' category. See the `resultSetId` in
-#' one of the response objects in said endpoint.
-#' @param threshold Optional, defaults to `100.0`.
-#' The threshold that the differential expression has to meet to be
-#' included in the response.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param consolidate Optional, defaults to `empty`.
-#' What action to take when there is more than one element per gene in a
-#' dataset.
-#' The choices are:
-#' -   `[empty]` - will list all vectors separately
-#' -   `pickmax` - only return the vector that has the highest expression
-#'     (mean over all its bioAssays)
-#' -   `pickvar` - only return the vector with highest variance of
-#'     expression across its bioAssays
-#' -   `average` - create a new vector that will average the bioAssay
-#'     values from all vectors
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return The differential expression levels for each given experiment (experiment
-#' expression levels value object) in the given differential expression
-#' set.
-#' If the experiment is not in the given diff. exp. set, an empty array is
-#' returned.
-#' A `404 error` if the given identifier does not map to any object.
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-#' dat <- getDatasetDE("GSE2018", diffExSet = 468329)
-#' str(dat$expr)
-getDatasetDE <- function(datasets = NA_character_, keepNonSpecific = FALSE,
-    diffExSet = NA_integer_, threshold = 100, limit = 100L, consolidate = NA_character_,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    keyword <- "dataset"
-    header <- ""
-    isFile <- FALSE
-    fname <- "getDatasetDE"
-    preprocessor <- processExpression
-    validators <- list(
-        datasets = validateID, keepNonSpecific = validateBoolean,
-        diffExSet = validatePositiveInteger, threshold = validatePositiveReal,
-        limit = validatePositiveInteger, consolidate = validateConsolidate
-    )
-    endpoint <- "datasets/{encode(datasets)}/expressions/differential?keepNonSpecific={encode(keepNonSpecific)}&diffExSet={encode(diffExSet)}&threshold={encode(threshold)}&limit={encode(limit)}&consolidate={encode(consolidate)}"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getDatasetDE
-#'
-#' @keywords internal
-memgetDatasetDE <- memoise::memoise(getDatasetDE)
-
 #' Dataset data
 #'
 #' Retrieves the data for the given dataset
@@ -733,63 +640,6 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
 #'
 #' @keywords internal
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
-
-#' Dataset differential analysis
-#'
-#' Retrieves the differential analysis results for the given dataset
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return An array of analyses (differential expression value objects) in the
-#' given dataset.
-#' A `404 error` if the given identifier does not map to any object.
-#' A `400 error` if required parameters are missing.
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-#' getDatasetDEA("GSE2018")
-getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    keyword <- "dataset"
-    header <- ""
-    isFile <- FALSE
-    fname <- "getDatasetDEA"
-    preprocessor <- processDEA
-    validators <- list(dataset = validateSingleID)
-    endpoint <- "datasets/{encode(dataset)}/analyses/differential"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getDatasetDEA
-#'
-#' @keywords internal
-memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
 #' Dataset SVD information
 #'
@@ -2476,10 +2326,8 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetResultSets)
     memoise::forget(memgetResultSetFactors)
     memoise::forget(memgetDatasetResultSets)
-    memoise::forget(memgetDatasetDE)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
-    memoise::forget(memgetDatasetDEA)
     memoise::forget(memgetDatasetSVD)
     memoise::forget(memgetDatasetPlatforms)
     memoise::forget(memgetDatasetAnnotations)
