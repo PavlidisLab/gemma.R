@@ -58,9 +58,6 @@
     <loc>/reference/getDatasetDE.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetDEA.html</loc>
-  </url>
-  <url>
     <loc>/reference/getDatasetData.html</loc>
   </url>
   <url>
@@ -85,12 +82,6 @@
     <loc>/reference/getDatasets.html</loc>
   </url>
   <url>
-    <loc>/reference/getDiffExpr.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getEvidenceOnTaxon.html</loc>
-  </url>
-  <url>
     <loc>/reference/getGeneEvidence.html</loc>
   </url>
   <url>
@@ -100,19 +91,10 @@
     <loc>/reference/getGeneLocation.html</loc>
   </url>
   <url>
-    <loc>/reference/getGeneLocationOnTaxon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGeneOnTaxon.html</loc>
-  </url>
-  <url>
     <loc>/reference/getGeneProbes.html</loc>
   </url>
   <url>
     <loc>/reference/getGenes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGenesAtLocation.html</loc>
   </url>
   <url>
     <loc>/reference/getPlatformAnnotation.html</loc>
@@ -136,15 +118,6 @@
     <loc>/reference/getResultSets.html</loc>
   </url>
   <url>
-    <loc>/reference/getTaxa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTaxonDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTaxonPhenotypeCandidates.html</loc>
-  </url>
-  <url>
     <loc>/reference/getTidyDataset.html</loc>
   </url>
   <url>
@@ -158,12 +131,6 @@
   </url>
   <url>
     <loc>/reference/memgetDatasetAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetDE.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetDEA.html</loc>
   </url>
   <url>
     <loc>/reference/memgetDatasetData.html</loc>
@@ -190,9 +157,6 @@
     <loc>/reference/memgetDatasets.html</loc>
   </url>
   <url>
-    <loc>/reference/memgetEvidenceOnTaxon.html</loc>
-  </url>
-  <url>
     <loc>/reference/memgetGeneEvidence.html</loc>
   </url>
   <url>
@@ -202,19 +166,10 @@
     <loc>/reference/memgetGeneLocation.html</loc>
   </url>
   <url>
-    <loc>/reference/memgetGeneLocationOnTaxon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGeneOnTaxon.html</loc>
-  </url>
-  <url>
     <loc>/reference/memgetGeneProbes.html</loc>
   </url>
   <url>
     <loc>/reference/memgetGenes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGenesAtLocation.html</loc>
   </url>
   <url>
     <loc>/reference/memgetPlatformDatasets.html</loc>
@@ -233,15 +188,6 @@
   </url>
   <url>
     <loc>/reference/memgetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetTaxa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetTaxonDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetTaxonPhenotypeCandidates.html</loc>
   </url>
   <url>
     <loc>/reference/memsearchAnnotations.html</loc>

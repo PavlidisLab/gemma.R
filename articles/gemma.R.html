@@ -194,80 +194,18 @@
 <div class="section level3">
 <h3 id="differential-expression-example-todo">Differential Expression Example (TODO)<a class="anchor" aria-label="anchor" href="#differential-expression-example-todo"></a>
 </h3>
-<p>Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetsResultsets.html" class="external-link"><code>getDatasetResultsets()</code></a>, then using <a href="https://pavlidislab.github.io/gemma.R/reference/getResultsets.html" class="external-link"><code>getResultsets()</code></a> to fetch the desired table:</p>
+<p>Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetResultSets.html">getDatasetResultSets</a></span><span class="op">(</span><span class="st">"GSE2872"</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt;    resultSet.id factor.category              factor.levels</span>
-<span class="co">#&gt; 1:       500185       treatment low potassium (LK), GW5074</span>
-<span class="co">#&gt; 2:       500186       timepoint                   3 h, 6 h</span>
-<span class="co">#&gt; 3:       500187       treatment low potassium (LK), GW5074</span>
-<span class="co">#&gt; 4:       500187       timepoint                   3 h, 6 h</span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getResultSets.html">getResultSets</a></span><span class="op">(</span><span class="fl">500185</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; Warning in require_bit64_if_needed(ans): Some columns are type 'integer64'</span>
-<span class="co">#&gt; but package bit64 is not installed. Those columns will print as strange</span>
-<span class="co">#&gt; looking floating point data. There is no need to reload the data. Simply</span>
-<span class="co">#&gt; install.packages('bit64') to obtain the integer64 print method and print the</span>
-<span class="co">#&gt; data again.</span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rs</span></code></pre></div>
-<pre><code><span class="co">#&gt;               Probe  pvalue corrected_pvalue    rank contrast_134441_log2fc</span>
-<span class="co">#&gt;     1:   1373766_at 0.89790                1 0.87660              -0.066240</span>
-<span class="co">#&gt;     2:   1385651_at 0.02789                1 0.01515               0.014290</span>
-<span class="co">#&gt;     3:   1395741_at 0.28530                1 0.21280               0.160400</span>
-<span class="co">#&gt;     4: 1384991_a_at 0.29140                1 0.21860               0.094980</span>
-<span class="co">#&gt;     5:   1388337_at 0.72850                1 0.67500              -0.202600</span>
-<span class="co">#&gt;    ---                                                                     </span>
-<span class="co">#&gt; 31078:   1368082_at 0.31470                1 0.23800               0.007386</span>
-<span class="co">#&gt; 31079:   1394820_at 0.65950                1 0.59540               0.003892</span>
-<span class="co">#&gt; 31080:   1391666_at 0.46580                1 0.38400              -0.010570</span>
-<span class="co">#&gt; 31081:   1394819_at 0.30950                1 0.23330               0.131500</span>
-<span class="co">#&gt; 31082:   1374165_at 0.86310                1 0.83320               0.017110</span>
-<span class="co">#&gt;        contrast_134441_tstat contrast_134441_pvalue</span>
-<span class="co">#&gt;     1:              -0.19810                 0.8479</span>
-<span class="co">#&gt;     2:               0.30850                 0.7656</span>
-<span class="co">#&gt;     3:               0.86730                 0.4110</span>
-<span class="co">#&gt;     4:               0.89850                 0.3952</span>
-<span class="co">#&gt;     5:              -0.68020                 0.5156</span>
-<span class="co">#&gt;    ---                                             </span>
-<span class="co">#&gt; 31078:               0.04921                 0.9620</span>
-<span class="co">#&gt; 31079:               0.02543                 0.9803</span>
-<span class="co">#&gt; 31080:              -0.10600                 0.9182</span>
-<span class="co">#&gt; 31081:               1.09300                 0.3062</span>
-<span class="co">#&gt; 31082:               0.07563                 0.9416</span></code></pre>
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="st">'GSE2018'</span><span class="op">)</span></code></pre></div>
 <p>From here on, it’s easy to visualize/explore the data and find the most differentially-expressed genes:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">rs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">corrected_pvalue</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt;               Probe    pvalue corrected_pvalue      rank contrast_134441_log2fc</span>
-<span class="co">#&gt;     1:   1373766_at 8.979e-01          1.00000 8.766e-01              -0.066240</span>
-<span class="co">#&gt;     2:   1385651_at 2.789e-02          1.00000 1.515e-02               0.014290</span>
-<span class="co">#&gt;     3:   1395741_at 2.853e-01          1.00000 2.128e-01               0.160400</span>
-<span class="co">#&gt;     4: 1384991_a_at 2.914e-01          1.00000 2.186e-01               0.094980</span>
-<span class="co">#&gt;     5:   1388337_at 7.285e-01          1.00000 6.750e-01              -0.202600</span>
-<span class="co">#&gt;    ---                                                                         </span>
-<span class="co">#&gt; 31078:   1374404_at 1.770e-04          0.93000 1.287e-04               0.997100</span>
-<span class="co">#&gt; 31079:   1373699_at 2.586e-04          0.93000 2.574e-04              -0.455400</span>
-<span class="co">#&gt; 31080: 1389528_s_at 6.551e-05          0.93000 6.435e-05               1.251000</span>
-<span class="co">#&gt; 31081: 1370315_a_at 2.275e-04          0.93000 1.930e-04               0.563200</span>
-<span class="co">#&gt; 31082:   1378645_at 3.328e-07          0.01034 3.217e-05              -0.009721</span>
-<span class="co">#&gt;        contrast_134441_tstat contrast_134441_pvalue</span>
-<span class="co">#&gt;     1:               -0.1981               0.847900</span>
-<span class="co">#&gt;     2:                0.3085               0.765600</span>
-<span class="co">#&gt;     3:                0.8673               0.411000</span>
-<span class="co">#&gt;     4:                0.8985               0.395200</span>
-<span class="co">#&gt;     5:               -0.6802               0.515600</span>
-<span class="co">#&gt;    ---                                             </span>
-<span class="co">#&gt; 31078:                3.7980               0.005249</span>
-<span class="co">#&gt; 31079:               -4.0770               0.003550</span>
-<span class="co">#&gt; 31080:                4.5160               0.001961</span>
-<span class="co">#&gt; 31081:                2.5640               0.033420</span>
-<span class="co">#&gt; 31082:               -0.1428               0.890000</span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># rs %&gt;% arrange(desc(corrected_pvalue))</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="longer-queries">Longer queries<a class="anchor" aria-label="anchor" href="#longer-queries"></a>
 </h3>
 <p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span>, <span class="st">'GSE99349'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; Rows: 3</span>
@@ -291,11 +229,11 @@
 <span class="co">#&gt; $ taxon.ID            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1, 1, 1</span>
 <span class="co">#&gt; $ technology.Type     <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA, NA, NA</span></code></pre>
 <p>You’ll be able to tell which endpoints accept multiple inputs from the function examples or simply because the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; Error: Please specify one valid identifier for dataset.</span></code></pre>
 <p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">rbindlist</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -337,11 +275,11 @@
 <h3 id="memoise-data">Memoise data<a class="anchor" aria-label="anchor" href="#memoise-data"></a>
 </h3>
 <p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = T</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span><span class="fu"><a href="../reference/getDatasetData.html">getDatasetData</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, times <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>, unit <span class="op">=</span> <span class="st">'ms'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <code>forgetGemmaMemoised</code>.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/forgetGemmaMemoised.html">forgetGemmaMemoised</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; [1] TRUE</span></code></pre>
 </div>
@@ -353,47 +291,6 @@
 <h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
 </h3>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = T</code>. Instead of a <code>data.table</code>, you’ll be served (typically) a list that represents the underlying JSON response.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">#&gt; Rows: 1</span>
-<span class="co">#&gt; Columns: 36</span>
-<span class="co">#&gt; $ id                             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 5939</span>
-<span class="co">#&gt; $ lastUpdated                    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1.585395e+12</span>
-<span class="co">#&gt; $ troubled                       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ lastTroubledEvent              <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ needsAttention                 <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ lastNeedsAttentionEvent        <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ curationNote                   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ lastNoteUpdateEvent            <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ bioAssayCount                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 144</span>
-<span class="co">#&gt; $ description                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Background: Schizophrenia (SCZ) and bi…</span>
-<span class="co">#&gt; $ name                           <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Expression data from the human cerebel…</span>
-<span class="co">#&gt; $ accession                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "GSE35974"</span>
-<span class="co">#&gt; $ arrayDesignCount               <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ batchConfound                  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ batchEffect                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Data has been batch-corrected"</span>
-<span class="co">#&gt; $ bioMaterialCount               <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ currentUserHasWritePermission  <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ currentUserIsOwner             <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ experimentalDesign             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 5260</span>
-<span class="co">#&gt; $ externalDatabase               <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "GEO"</span>
-<span class="co">#&gt; $ externalUri                    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "http://www.ncbi.nlm.nih.gov/geo/"</span>
-<span class="co">#&gt; $ geeq                           <span style="color: #949494; font-style: italic;">&lt;df[,24]&gt;</span> &lt;data.frame[1 x 24]&gt;</span>
-<span class="co">#&gt; $ isPublic                       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE</span>
-<span class="co">#&gt; $ isShared                       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ metadata                       <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ processedExpressionVectorCount <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 33252</span>
-<span class="co">#&gt; $ shortName                      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "GSE35974"</span>
-<span class="co">#&gt; $ source                         <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ suitableForDEA                 <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> TRUE</span>
-<span class="co">#&gt; $ taxon                          <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "human"</span>
-<span class="co">#&gt; $ taxonId                        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1</span>
-<span class="co">#&gt; $ technologyType                 <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> NA</span>
-<span class="co">#&gt; $ userOwned                      <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ userCanWrite                   <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE</span>
-<span class="co">#&gt; $ securableClass                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "ubic.gemma.model.expression.experiment…</span>
-<span class="co">#&gt; $ troubleDetails                 <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "No trouble details provided."</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -414,7 +311,7 @@
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
 <p>We’ve seen how to change <code>memoised = T</code>, <code>overwrite = T</code> and <code>raw = T</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
