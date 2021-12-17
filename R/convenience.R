@@ -205,14 +205,14 @@ getTidyDataset <- function(dataset, filter = TRUE){
 #' @keywords dataset
 #' @export
 #' @examples
-#' getDiffExpr("GSE2018")
-getDiffExpr <- function(dataset){
+#' getDatasetDE("GSE2018")
+getDatasetDE <- function(dataset){
     rs <- getDatasetResultSets(dataset)
     if (nrow(rs) > 1){
         validID <- FALSE
         while(validID == FALSE){
             print(rs)
-            rsID <- readline(prompt = "Enter the ID of the desired differential expression ResultSet: ")
+            rsID <- readline(prompt = "Enter the ID of the desired differential expression resultSet: ")
             if (!(rsID %in% rs$resultSet.id)){
                 warning("The ID you selected was not found for this dataset. Here are the avalaible resultSets:",
                         immediate. = TRUE)
@@ -226,9 +226,9 @@ getDiffExpr <- function(dataset){
     else {
         rsID <- rs$resultSet.id
     }
-    rs <- getResultSets(id)
+    rs <- getResultSets(rsID)
     # Replace factor IDs by the factor names
-    factors <- getResultSetFactors(id)
+    factors <- getResultSetFactors(rsID)
     colNames <- colnames(rs)
     for (f in factors$id){
         colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
