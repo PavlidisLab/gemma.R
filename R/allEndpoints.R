@@ -98,6 +98,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -183,6 +184,7 @@ getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -299,6 +301,7 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -413,6 +416,7 @@ getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_characte
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -471,6 +475,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -567,6 +572,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- TRUE
@@ -623,6 +629,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -686,6 +693,7 @@ getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -742,6 +750,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -798,6 +807,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -854,6 +864,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- TRUE
@@ -970,6 +981,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
@@ -1035,6 +1047,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
@@ -1107,6 +1120,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
@@ -1178,6 +1192,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
@@ -1244,6 +1259,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
@@ -1303,6 +1319,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
@@ -1362,6 +1379,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
@@ -1428,6 +1446,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
@@ -1490,6 +1509,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
@@ -1631,6 +1651,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
+    internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -1696,6 +1717,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    internal <- FALSE
     keyword <- "misc"
     header <- ""
     isFile <- FALSE
