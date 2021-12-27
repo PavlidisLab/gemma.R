@@ -27,104 +27,115 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 #' @param logname The activating phrase in the category endpoint
 #' @param roxygen The name to pull roxygen information from
 #' @param keyword The category keyboard for use in documentation
+#' @param internal Whether the endpoint will be exposed to users
 #' @param where The environment to add the new function to
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
 #' @param header Specific HTTP header for the request
-registerEndpoint <- function(endpoint,
-    fname,
-    preprocessor,
-    defaults = NULL,
-    validators = NULL,
-    logname = fname,
-    roxygen = NULL,
-    keyword = NULL,
-    where = parent.env(environment()),
-    document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-    isFile = FALSE,
-    header = "") {
-    if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
-        stop("Please specify an endpoint, function name and preprocessor.")
-    }
-    if (exists(fname, envir = where, inherits = FALSE)) {
-        warning(glue::glue("{fname} already exists. Skipping."))
-        return(NULL)
-    }
+registerEndpoint <- function(
+  endpoint,
+  fname,
+  preprocessor,
+  defaults = NULL,
+  validators = NULL,
+  logname = fname,
+  roxygen = NULL,
+  keyword = NULL,
+  internal = FALSE,
+  where = parent.env(environment()),
+  document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
+  isFile = FALSE,
+  header = "") {
+  if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
+    stop("Please specify an endpoint, function name and preprocessor.")
+  }
+  if (exists(fname, envir = where, inherits = FALSE)) {
+    warning(glue::glue("{fname} already exists. Skipping."))
+    return(NULL)
+  }
 
-    logEndpoint(fname, logname)
+  logEndpoint(fname, logname)
 
-    # Make sure arguments are URL encoded
-    endpoint <- gsub("\\{([^\\}]+)\\}", "\\{encode\\(\\1\\)\\}", endpoint)
+  # Make sure arguments are URL encoded
+  endpoint <- gsub("\\{([^\\}]+)\\}", "\\{encode\\(\\1\\)\\}", endpoint)
 
-    f <- function() {}
+  f <- function() {}
 
-    fargs <- alist()
-    for (d in names(defaults)) {
-        fargs[[d]] <- defaults[[d]]
-    }
+  fargs <- alist()
+  for (d in names(defaults)) {
+    fargs[[d]] <- defaults[[d]]
+  }
 
-    fargs$raw <- quote(getOption("gemma.raw", FALSE))
-    fargs$async <- quote(getOption("gemma.async", FALSE))
-    fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
-    fargs$file <- quote(getOption("gemma.file", NA_character_))
-    fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
+  fargs$raw <- quote(getOption("gemma.raw", FALSE))
+  fargs$async <- quote(getOption("gemma.async", FALSE))
+  fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
+  fargs$file <- quote(getOption("gemma.file", NA_character_))
+  fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
-    formals(f) <- fargs
-    body(f) <- quote({
-        .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, async, match.call())
-    })
+  formals(f) <- fargs
+  body(f) <- quote({
+    .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, async, match.call())
+  })
 
-    # Add our variables
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword")) {
-        if (is.character(get(i))) {
-            v <- glue::glue('"{get(i)}"')
-        } else if (is.list(get(i))) {
-            v <- get(i) %>% {
-                paste0("list(", paste0(names(.), " = ", ., collapse = ", "), ")")
-            }
-        } else {
-            v <- get(i)
-        }
-
-        body(f) <- body(f) %>%
-            as.list() %>%
-            append(str2expression(glue::glue("{i} <- {v}")), 1) %>%
-            as.call()
+  # Add our variables
+  for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal")) {
+    if (is.character(get(i))) {
+      v <- glue::glue('"{get(i)}"')
+    } else if (is.list(get(i))) {
+      v <- get(i) %>% {
+        paste0("list(", paste0(names(.), " = ", ., collapse = ", "), ")")
+      }
+    } else {
+      v <- get(i)
     }
 
-    # And our memoised function
-    environment(f) <- where
+    body(f) <- body(f) %>%
+      as.list() %>%
+      append(str2expression(glue::glue("{i} <- {v}")), 1) %>%
+      as.call()
+  }
 
-    # Make this function available in the parent environment...
-    assign(fname, f, env = where)
-    memF <- glue::glue("mem", fname)
-    assign(memF, memoise::memoise(f), where)
+  # And our memoised function
+  environment(f) <- where
 
-    if (!exists("forgetGemmaMemoised", envir = where, inherits = FALSE)) {
-        assign("forgetGemmaMemoised", function() {}, envir = where)
+  # Make this function available in the parent environment...
+  assign(fname, f, env = where)
+  memF <- glue::glue("mem", fname)
+  assign(memF, memoise::memoise(f), where)
+
+  if (!exists("forgetGemmaMemoised", envir = where, inherits = FALSE)) {
+    assign("forgetGemmaMemoised", function() {}, envir = where)
+  }
+
+  forgetMe <- get("forgetGemmaMemoised", envir = where, inherits = FALSE)
+
+  body(forgetMe) <- body(forgetMe) %>%
+    as.list() %>%
+    append(str2expression(glue::glue("memoise::forget({memF})"))) %>%
+    as.call()
+
+  assign("forgetGemmaMemoised", forgetMe, envir = where, inherits = FALSE)
+
+  if (!is.null(document)) {
+    # cat(glue::glue("#' {fname}\n"), file = document, append = T)
+    comment(fname, roxygen, names(fargs), document)
+    if (internal == TRUE){
+      cat(glue::glue("#' @keywords internal\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+      print("internal is true")
     }
-
-    forgetMe <- get("forgetGemmaMemoised", envir = where, inherits = FALSE)
-
-    body(forgetMe) <- body(forgetMe) %>%
-        as.list() %>%
-        append(str2expression(glue::glue("memoise::forget({memF})"))) %>%
-        as.call()
-
-    assign("forgetGemmaMemoised", forgetMe, envir = where, inherits = FALSE)
-
-    if (!is.null(document)) {
-        # cat(glue::glue("#' {fname}\n"), file = document, append = T)
-        comment(fname, roxygen, names(fargs), document)
-        cat(glue::glue("#' @export\n#'\n#' @keywords {keyword}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
-        cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
-        cat(glue::glue("{fname} <- "), file = document, append = TRUE)
-        cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
-        cat("\n\n", file = document, append = TRUE)
-        cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = TRUE)
-        cat(glue::glue("mem{fname} <- memoise::memoise({fname})"), file = document, append = TRUE)
-        cat("\n\n", file = document, append = TRUE)
+    else{
+      cat(glue::glue("#' @export\n#'\n#' @keywords {keyword}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
+      print(keyword)
+      print("internal is false")
     }
+    cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
+    cat(glue::glue("{fname} <- "), file = document, append = TRUE)
+    cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
+    cat("\n\n", file = document, append = TRUE)
+    cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = TRUE)
+    cat(glue::glue("mem{fname} <- memoise::memoise({fname})"), file = document, append = TRUE)
+    cat("\n\n", file = document, append = TRUE)
+  }
 }
 
 #' Register a simple endpoint (ie. one that accepts no parameters) (internal use)
@@ -137,6 +148,7 @@ registerEndpoint <- function(endpoint,
 #' @param logname The activating phrase in the category endpoint
 #' @param roxygen The name to pull roxygen information from
 #' @param keyword The category keyboard for use in documentation
+#' @param internal Whether the endpoint will be exposed to users
 #' @param where The environment to add the new function to
 #' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
 #' @param document A file to print information for pasting generating the package
@@ -144,7 +156,7 @@ registerEndpoint <- function(endpoint,
 #' @param header Specific HTTP header for the request
 registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
                                    logname = fname, roxygen = NULL, keyword = root,
-                                   where = parent.env(environment()),
+                                   internal = FALSE, where = parent.env(environment()),
                                    plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
                                    isFile = FALSE, header = "") {
   registerEndpoint(
@@ -160,6 +172,7 @@ registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator =
     logname = logname,
     roxygen = roxygen,
     keyword = keyword,
+    internal = internal,
     preprocessor = preprocessor,
     where = where,
     document = document,
@@ -360,28 +373,28 @@ registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limi
 )
 
 registerEndpoint(
-    "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
-    "getResultSets",
-    logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
-    keyword = "dataset", isFile = TRUE,
-    header = "text/tab-separated-values",
-    defaults = list(
-        resultSet = NA_character_,
-        dataset = NA_character_,
-        filter = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
-    ),
-    validators = alist(
-        resultSet = validateOptionalID,
-        dataset = validateOptionalID,
-        filter = validateFilter,
-        offset = validatePositiveInteger,
-        limit = validatePositiveInteger,
-        sort = validateSort
-    ),
-    preprocessor = quote(processFile)
+  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+  "getResultSets",
+  logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
+  isFile = TRUE, keyword = 'dataset',
+  header = "text/tab-separated-values",
+  defaults = list(
+    resultSet = NA_character_,
+    dataset = NA_character_,
+    filter = NA_character_,
+    offset = 0L,
+    limit = 20L,
+    sort = "+id"
+  ),
+  validators = alist(
+    resultSet = validateOptionalID,
+    dataset = validateOptionalID,
+    filter = validateFilter,
+    offset = validatePositiveInteger,
+    limit = validatePositiveInteger,
+    sort = validateSort
+  ),
+  preprocessor = quote(processFile)
 )
 
 registerEndpoint(
