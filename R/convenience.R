@@ -214,7 +214,7 @@ getDatasetDE <- function(dataset){
             print(rs)
             rsID <- readline(prompt = "Enter the ID of the desired differential expression resultSet: ")
             if (!(rsID %in% rs$resultSet.id)){
-                warning("The ID you selected was not found for this dataset. Here are the avalaible resultSets:",
+                warning("The ID you selected was not found for this dataset. Here are the available resultSets:",
                         immediate. = TRUE)
                 validID <- FALSE
             }
@@ -227,8 +227,10 @@ getDatasetDE <- function(dataset){
         rsID <- rs$resultSet.id
     }
     rs <- getResultSets(rsID)
+
     # Replace factor IDs by the factor names
     factors <- getResultSetFactors(rsID)
+    colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
     colNames <- colnames(rs)
     for (f in factors$id){
         colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
