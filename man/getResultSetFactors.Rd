@@ -117,4 +117,4 @@ Varies
 \description{
 Returns the factor values for the queried resultSet.
 }
-\keyword{dataset}
+\keyword{internal}

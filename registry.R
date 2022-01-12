@@ -121,12 +121,9 @@ registerEndpoint <- function(
     comment(fname, roxygen, names(fargs), document)
     if (internal == TRUE){
       cat(glue::glue("#' @keywords internal\n#' \n#' @examples\n\n"), file = document, append = TRUE)
-      print("internal is true")
     }
     else{
       cat(glue::glue("#' @export\n#'\n#' @keywords {keyword}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
-      print(keyword)
-      print("internal is false")
     }
     cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
@@ -376,7 +373,7 @@ registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getResultSets",
   logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
-  isFile = TRUE, keyword = 'dataset',
+  isFile = TRUE, internal = TRUE,
   header = "text/tab-separated-values",
   defaults = list(
     resultSet = NA_character_,
@@ -401,7 +398,7 @@ registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
   "getResultSetFactors",
   logname = "resultSetFactors", roxygen = "Returns the factor values for the queried resultSet.",
-  keyword = "dataset",
+  internal = TRUE,
   defaults = list(
     resultSet = NA_character_,
     dataset = NA_character_,
