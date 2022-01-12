@@ -114,7 +114,4 @@ Varies
 \description{
 Lists resultSets filtered and organized by given parameters.
 }
-\examples{
-getResultSets(500184)
-}
-\keyword{dataset}
+\keyword{internal}

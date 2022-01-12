@@ -285,12 +285,9 @@ memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return Varies
-#' @export
-#'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
-#' getResultSets(500184)
 getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
     raw = getOption("gemma.raw", FALSE), async = getOption(
@@ -301,8 +298,7 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
         "gemma.overwrite",
         FALSE
     )) {
-    internal <- FALSE
-    keyword <- "dataset"
+    internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
     fname <- "getResultSets"
@@ -403,9 +399,7 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return Varies
-#' @export
-#'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
 getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
@@ -416,8 +410,7 @@ getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_characte
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
-    internal <- FALSE
-    keyword <- "dataset"
+    internal <- TRUE
     header <- ""
     isFile <- FALSE
     fname <- "getResultSetFactors"

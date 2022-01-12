@@ -8,7 +8,7 @@ getBioc(type, dataset, filter = TRUE)
 }
 \arguments{
 \item{type}{"SummarizedExperiment" or "ExpressionSet". We recommend using
-SummarizedExperiments if you are querying RNA-Seq data. See the Summarized experiment
+SummarizedExperiments which are more recent. See the Summarized experiment
 \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 for more details.}

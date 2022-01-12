@@ -204,12 +204,6 @@ searchAnnotations("traumatic")
 "If raw is FALSE (default), a data table with information about the queried annotation).
 If raw is TRUE, a list with the same information."
 
-# getResultSets
-# example
-getResultSets(500184)
-# value
-"A data table with differential expression data."
-
 # getDatasetResultSets
 # example
 getDatasetResultSets("GSE2018")
