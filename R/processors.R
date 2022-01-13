@@ -682,10 +682,11 @@ processDesignMatrix <- function(m) {
 #' @importFrom rlang .data
 #' @keywords internal
 processExpressionMatrix <- function(m) {
+    genes <- dplyr::select(m, "GeneSymbol", "GeneName", "NCBIid")
     expr <- m[, 7:ncol(m)]
     # Remove redundant strings from sample names
     colnames(expr) <- stringr::str_extract(colnames(m[, 7:ncol(m)]), "(?<=Name=).*")
-    expr <- cbind(m$Probe, expr) %>%
+    expr <- cbind(m$Probe, genes, expr) %>%
         dplyr::rename(Probe = V1)
     expr
 }
@@ -700,7 +701,6 @@ processExpressionMatrix <- function(m) {
 #' @keywords internal
 processDEMatrix <- function(m, id) {
     deM <- m[, 8:ncol(m)]
-    # factors <- getResultSetFactors(id)
     deM <- cbind(m$probe_name, deM) %>%
         dplyr::rename(Probe = V1)
     deM

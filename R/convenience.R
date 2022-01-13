@@ -113,9 +113,13 @@ getBioc <- function(type, dataset, filter = TRUE) {
     }
     exprM <- getDatasetData(dataset, filter)
     rownames(exprM) <- exprM$Probe
-    exprM$Probe <- NULL
+    genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
+    exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid")
     exprM <- data.matrix(exprM)
+    print(head(exprM))
+
     design <- getDatasetDesign(dataset)
+
     # This annotation table is required
     annots <- data.frame(
         labelDescription = colnames(design),
@@ -149,6 +153,7 @@ getBioc <- function(type, dataset, filter = TRUE) {
         expData <- c(expData, other)
         SummarizedExperiment::SummarizedExperiment(
             assays=list(counts=exprM),
+            rowData = genes,
             colData = design,
             metadata = expData
         )
