@@ -41,7 +41,8 @@ Imports:
     SummarizedExperiment,
     Biobase,
     tibble,
-    tidyr
+    tidyr,
+    S4Vectors
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
