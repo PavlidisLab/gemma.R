@@ -24,8 +24,8 @@ test_that("getTidyDataset works properly", {
     dat <- getDatasetData(1, filter = TRUE)
     tidy <- getTidyDataset(1)
     design <- getDatasetDesign(1)
-    # Check number of rows = samples * probes
-    expect_equal((ncol(dat) - 1) * nrow(dat), nrow(tidy))
+    # Check number of rows = samples * probes (4 columns are gene info, not samples)
+    expect_equal((ncol(dat) - 4) * nrow(dat), nrow(tidy))
     # Check design matrix
     expect_equal(colnames(design), colnames(tidy[, 4:ncol(tidy)]))
 })
