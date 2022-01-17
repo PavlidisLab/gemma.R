@@ -876,6 +876,64 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
 #' @keywords internal
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
+#' Dataset differential analysis
+#'
+#' Retrieves the differential analysis results for the given dataset
+#'
+#' @param dataset Required, part of the URL path.
+#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
+#' Retrieval by ID is more efficient.
+#' Only datasets that user has access to will be available
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing.
+#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
+#' synchronously. See the `async` package for details.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file.
+#' Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return An array of analyses (differential expression value objects) in the
+#' given dataset.
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
+#' @export
+#'
+#' @keywords dataset
+#'
+#' @examples
+#' getDatasetDEA("GSE2018")
+getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), async = getOption("gemma.async", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    internal <- FALSE
+    keyword <- "dataset"
+    header <- ""
+    isFile <- FALSE
+    fname <- "getDatasetDEA"
+    preprocessor <- processDEA
+    validators <- list(dataset = validateSingleID)
+    endpoint <- "datasets/{encode(dataset)}/analyses/differential"
+    .body(
+        memoised, fname, validators, endpoint, environment(),
+        isFile, header, raw, overwrite, file, async, match.call()
+    )
+}
+
+#' Memoise getDatasetDEA
+#'
+#' @keywords internal
+memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
+
 #' Platforms
 #'
 #' List platforms filtered and organized by given parameters
@@ -1751,6 +1809,7 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasetPlatforms)
     memoise::forget(memgetDatasetAnnotations)
     memoise::forget(memgetDatasetDesign)
+    memoise::forget(memgetDatasetDEA)
     memoise::forget(memgetPlatforms)
     memoise::forget(memgetPlatformDatasets)
     memoise::forget(memgetPlatformElements)
