@@ -137,10 +137,12 @@
 <span class="co">#&gt; 1:     GSE35974 Expression data from the human cerebellum brain  5939      TRUE</span>
 <span class="co">#&gt;    ee.Troubled ee.Accession ee.Database                           ee.URL</span>
 <span class="co">#&gt; 1:       FALSE     GSE35974         GEO http://www.ncbi.nlm.nih.gov/geo/</span>
-<span class="co">#&gt;    ee.Samples      ee.LastUpdated ee.Batch.P ee.Batch.PC geeq.batchCorrected</span>
-<span class="co">#&gt; 1:        144 2020-03-28 11:23:35         NA          NA                TRUE</span>
-<span class="co">#&gt;    geeq.qScore geeq.sScore taxon.Name taxon.ID technology.Type</span>
-<span class="co">#&gt; 1:   0.9975938           1      human        1              NA</span></code></pre>
+<span class="co">#&gt;    ee.Samples      ee.LastUpdated                ee.batchEffect ee.Batch.P</span>
+<span class="co">#&gt; 1:        144 2020-03-28 11:23:35 Data has been batch-corrected         NA</span>
+<span class="co">#&gt;    ee.Batch.PC geeq.batchCorrected geeq.qScore geeq.sScore taxon.Name taxon.ID</span>
+<span class="co">#&gt; 1:          NA                TRUE   0.9975938           1      human        1</span>
+<span class="co">#&gt;    technology.Type</span>
+<span class="co">#&gt; 1:              NA</span></code></pre>
 <p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getBioc.html" class="external-link"><code>getBioc()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
 <p>Alternatively, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html" class="external-link"><code>getDatasetData()</code></a> to get the expression matrix directly, and <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html" class="external-link"><code>getDatasetDesign()</code></a> to get the matrix with the experimental design.</p>
 <p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
@@ -209,7 +211,7 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'GSE35974'</span>, <span class="st">'GSE12649'</span>, <span class="st">'GSE99349'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">#&gt; Rows: 3</span>
-<span class="co">#&gt; Columns: 18</span>
+<span class="co">#&gt; Columns: 19</span>
 <span class="co">#&gt; $ ee.ShortName        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "GSE12649", "GSE35974", "GSE99349"</span>
 <span class="co">#&gt; $ ee.Name             <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "Gene expression from human prefrontal cortex (BA4…</span>
 <span class="co">#&gt; $ ee.ID               <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 1205, 5939, 11690</span>
@@ -220,6 +222,7 @@
 <span class="co">#&gt; $ ee.URL              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "http://www.ncbi.nlm.nih.gov/geo/", "http://www.nc…</span>
 <span class="co">#&gt; $ ee.Samples          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> 102, 144, 36</span>
 <span class="co">#&gt; $ ee.LastUpdated      <span style="color: #949494; font-style: italic;">&lt;dttm&gt;</span> 2021-09-18 07:35:38, 2020-03-28 11:23:35, 2020-03-…</span>
+<span class="co">#&gt; $ ee.batchEffect      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> "NO_BATCH_EFFECT_SUCCESS", "Data has been batch-co…</span>
 <span class="co">#&gt; $ ee.Batch.P          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> NA, NA, NA</span>
 <span class="co">#&gt; $ ee.Batch.PC         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> NA, NA, NA</span>
 <span class="co">#&gt; $ geeq.batchCorrected <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> FALSE, TRUE, FALSE</span>
@@ -334,7 +337,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

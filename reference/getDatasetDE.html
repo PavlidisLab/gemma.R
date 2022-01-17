@@ -86,30 +86,42 @@
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getDatasetDE</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some columns are type 'integer64' but package bit64 is not installed. Those columns will print as strange looking floating point data. There is no need to reload the data. Simply install.packages('bit64') to obtain the integer64 print method and print the data again.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe   pvalue corrected_pvalue    rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205105_at 0.691200           0.8827 0.78310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   217563_at 0.023940           0.2607 0.09178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   206819_at 0.029350           0.2801 0.10470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   219446_at 0.680000           0.8786 0.77400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   206630_at 0.416300           0.7360 0.56560</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:   213691_at 0.160400           0.5186 0.30930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268: 211485_s_at 0.154700           0.5131 0.30150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269: 220936_s_at 0.375100           0.7092 0.52890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: 205013_s_at 0.373800           0.7085 0.52760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:   220392_at 0.001836           0.1074 0.01702</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_logreference subject rolefc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                                               0.07823</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                               0.17390</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                                               0.14450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                                              -0.05527</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                                              -0.06343</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                                                              -0.14890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                                                              -0.09667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                                               0.05851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270:                                                                               0.20720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                                                              -0.16590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe                GeneName        NCBIid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205105_at                  MAN2A1          4124</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   217563_at                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   206819_at                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   219446_at                   RIC8B         55188</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   206630_at                     TYR          7299</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:   213691_at               PTOV1-AS2     101928378</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22268: 211485_s_at                   FGF18          8817</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22269: 220936_s_at                    H2AJ         55766</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: 205013_s_at ADORA2A|SPECC1L-ADORA2A 135|101730217</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:   220392_at                    EBF2         64641</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     GeneSymbol   pvalue corrected_pvalue    rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                  MAN2A1 0.691200           0.8827 0.78310</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                         0.023940           0.2607 0.09178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                         0.029350           0.2801 0.10470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                   RIC8B 0.680000           0.8786 0.77400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                     TYR 0.416300           0.7360 0.56560</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:               PTOV1-AS2 0.160400           0.5186 0.30930</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                   FGF18 0.154700           0.5131 0.30150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                    H2AJ 0.375100           0.7092 0.52890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: ADORA2A|SPECC1L-ADORA2A 0.373800           0.7085 0.52760</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                    EBF2 0.001836           0.1074 0.01702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_logFoldChange</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                                 0.07823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                 0.17390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                                 0.14450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                                -0.05527</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                                -0.06343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                                                -0.14890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                                                -0.09667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                                 0.05851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22270:                                                                 0.20720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                                                -0.16590</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_tstat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                          0.4009</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                          2.3750</span>
@@ -148,7 +160,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
