@@ -189,7 +189,7 @@ processDatasets <- function(d) {
         ee.URL = d[["externalUri"]],
         ee.Samples = d[["bioAssayCount"]],
         ee.LastUpdated = as.POSIXct(d[["lastUpdated"]] / 1e3, origin = "1970-01-01"),
-        ee.Batch.Effect = d[["batchEffect"]],
+        ee.batchEffect = d[["batchEffect"]],
         ee.Batch.P = suppressWarnings(as.numeric(gsub(".*p=(\\d+\\.?\\d+).*", "\\1", d[["batchEffect"]]))),
         ee.Batch.PC = suppressWarnings(as.numeric(gsub(".*PC (\\d+).*", "\\1", d[["batchEffect"]]))),
         geeq.batchCorrected = d[["geeq"]][["batchCorrected"]],
