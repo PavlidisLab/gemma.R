@@ -478,6 +478,12 @@ registerSimpleEndpoint("dataset", "design",
     preprocessor = quote(processFile)
 )
 
+registerSimpleEndpoint("dataset", "analyses/differential",
+    logname = "differential", roxygen = "Dataset differential analysis",
+    "getDatasetDEA",
+    preprocessor = quote(processDEA)
+)
+
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "getPlatforms",
