@@ -212,11 +212,11 @@ getTidyDataset <- function(dataset, filter = TRUE){
 #' @examples
 #' getDatasetDE("GSE2018")
 getDatasetDE <- function(dataset){
-    rs <- getDatasetResultSets(dataset)
-    if (nrow(rs) > 1){
+    rss <- getDatasetResultSets(dataset)
+    if (nrow(rss) > 1){
         validID <- FALSE
         while(validID == FALSE){
-            print(rs)
+            print(rss)
             rsID <- readline(prompt = "Enter the ID of the desired differential expression resultSet: ")
             if (!(rsID %in% rs$resultSet.id)){
                 warning("The ID you selected was not found for this dataset. Here are the available resultSets:",
@@ -235,11 +235,18 @@ getDatasetDE <- function(dataset){
 
     # Replace factor IDs by the factor names
     factors <- getResultSetFactors(rsID)
+    baseline <- getDatasetDEA(dataset) %>%
+        .[.$result.ID == rsID, cf.Baseline] %>%
+        unique()
     colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
     colNames <- colnames(rs)
     for (f in factors$id){
         colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
     }
     colnames(rs) <- colNames
+
+    cat(paste0("Baseline: ", baseline, "\n"))
+    cat(paste0("Factors: ", rss[rss$resultSet.id == rsID, factor.levels], "\n\n"))
+
     rs
 }
