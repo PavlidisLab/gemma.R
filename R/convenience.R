@@ -175,7 +175,7 @@ getBioc <- function(type, dataset, filter = TRUE) {
 
 #' Get Tidy Dataset and Design
 #'
-#' Combines the expression and design matrix of the queried dataset into one
+#' Combines the expression and design matrix of the queried dataset into a
 #' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
 #'
 #' @param dataset A dataset identifier.
@@ -200,13 +200,15 @@ getTidyDataset <- function(dataset, filter = TRUE){
         dplyr::rename(sample = Sample, probe = Probe)
 }
 
-#' Get Differential Expression SummarizedExperiment
+#' Get Differential Expression
 #'
-#' Combine the SummarizedExperiment
+#' Retrieves the differential expression resultSet(s) associated with the dataset.
+#' If there is more than one resultSet, it will show the options and prompt the user
+#' to choose one.
 #'
 #' @param dataset A dataset identifier.
 #'
-#' @return A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried resultSet.
+#' @return A data table with differential expression values
 #' @keywords dataset
 #' @export
 #' @examples

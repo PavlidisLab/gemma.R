@@ -15,7 +15,7 @@ getTidyDataset(dataset, filter = TRUE)
 A \code{\link[tibble]{tibble}}.
 }
 \description{
-Combines the expression and design matrix of the queried dataset into one
+Combines the expression and design matrix of the queried dataset into a
 tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
 }
 \examples{

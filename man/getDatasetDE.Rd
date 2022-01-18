@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{Get Differential Expression SummarizedExperiment}
+\title{Get Differential Expression}
 \usage{
 getDatasetDE(dataset)
 }
@@ -10,10 +10,12 @@ getDatasetDE(dataset)
 \item{dataset}{A dataset identifier.}
 }
 \value{
-A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried resultSet.
+A data table with differential expression values
 }
 \description{
-Combine the SummarizedExperiment
+Retrieves the differential expression resultSet(s) associated with the dataset.
+If there is more than one resultSet, it will show the options and prompt the user
+to choose one.
 }
 \examples{
 getDatasetDE("GSE2018")
