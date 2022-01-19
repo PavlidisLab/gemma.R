@@ -231,7 +231,7 @@ getDatasetDE <- function(dataset){
         }
     }
     else {
-        rsID <- rs$resultSet.id
+        rsID <- rss$resultSet.id
     }
     rs <- getResultSets(rsID)
 
