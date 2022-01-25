@@ -1,9 +1,9 @@
 ---
-title: 'gemma.R: an R Wrapper for the Gemma API'
+title: 'Using gemma.R'
 author: 'Javier Castillo-Arnemann'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Gemma API R Wrapper}
+  %\VignetteIndexEntry{Using gemma.R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -13,18 +13,19 @@ vignette: >
 options(gemma.SSL = FALSE)
 
 knitr::opts_chunk$set(
-  comment = '#>',
-  collapse = FALSE
-  )
+    comment = ""
+)
 ```
 
 ```{r setup, message = FALSE}
 library(gemma.R)
-library(Biobase)
 library(dplyr)
 library(data.table)
+library(ggplot2)
+library(ggrepel)
 library(memoise)
 library(microbenchmark)
+library(SummarizedExperiment)
 ```
 
 ## About Gemma
@@ -36,9 +37,9 @@ For detailed information on the curation process, check this [page](https://pavl
 The main goal of this wrapper is to give easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html) endpoint:
 
 ```{r search}
-searchDatasets('bipolar', limit = 100, taxon = 'human') %>%
-  filter(geeq.batchCorrected == TRUE) %>%
-  select(ee.ShortName, ee.Name, ee.Samples)
+searchDatasets("bipolar", limit = 100, taxon = "human") %>%
+    filter(geeq.batchCorrected == TRUE) %>%
+    select(ee.ShortName, ee.Name, ee.Samples)
 ```
 
 We are left with two datasets, and we'll pick [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939) since it has the larger number of samples.
@@ -47,7 +48,8 @@ Now that we have the ID for our experiment, we can fetch the data associated wit
 To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/gemma.R/reference/getDatasets.html) endpoint.
 
 ```{r dataset}
-getDatasets('GSE35974')
+getDatasets("GSE35974") %>%
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples, taxon.Name)
 ```
 
 To access the actual expression data, you can use [`getBioc()`](https://pavlidislab.github.io/gemma.R/reference/getBioc.html).
@@ -55,92 +57,119 @@ It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-Alternatively, you can use [`getDatasetData()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to get the expression matrix directly, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the matrix with the experimental design. 
+Alternatively, you can use [`getDatasetData()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to get the expression matrix as a data table, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the matrix with the experimental design. 
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r bioconductor, eval = FALSE}
-# Create ExpressionSet
-eset <- getBioc('ExpressionSet', 'GSE35974')
-eset
-
-# Check the levels of the DiseaseState cofactor
-eset$DiseaseState %>% unique()
-
-# Subset patients with bipolar disorder and controls.
-bipolar <- eset[ , eset$DiseaseState == 'Bipolar_Disorder' | eset$DiseaseState == 'reference_subject_role']
-bipolar
+# Get SummarizedExperiment
+se <- getBioc("SummarizedExperiment", "GSE35974")
+se
 ```
 
 ```{r echo = FALSE}
-## This code pre-loads the eset to save time
- 
-# Load ExpressionSet
-eset <- readRDS('eset.rds')
-eset
+## This code pre-loads the summarized experiment to save time
+(se <- readRDS("se.rds"))
+```
+
+
+```{r}
+# Load SummarizedExperiment
+se <- readRDS("se.rds")
+se
 
 # Check the levels of the DiseaseState cofactor
-eset$DiseaseState %>% unique()
+se$DiseaseState %>% unique()
 
 # Subset patients with bipolar disorder and controls.
-bipolar <- eset[ , eset$DiseaseState == 'Bipolar_Disorder' | eset$DiseaseState == 'reference_subject_role']
+bipolar <- se[, se$DiseaseState == "Bipolar_Disorder" | se$DiseaseState == "reference_subject_role"]
 bipolar
 ```
 
 Let's check the expression for every sample to make sure they look OK:
-```{r base-boxplot}
+```{r boxplot}
 # Get Expression matrix
-bipExpr <- exprs(bipolar)
+bipExpr <- assays(bipolar)$counts
 
-boxplot(bipExpr, pch='.', xaxt='n', xlab='Sample', ylab='Expression')
+boxplot(bipExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 ```
 
 We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
 You can also use [`getTidyDataset()`](https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html) to fetch data in a long, 'tidy' format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with [`ggplot2`](https://ggplot2.tidyverse.org/).
 
-```{r tidy, eval = FALSE}
-tidyData <- getTidyDataset('GSE35974')
-```
-### Differential Expression Example (TODO)
-Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can check the available resultSets for a dataset with 
-```{r resultSets, eval = FALSE}
-getDatasetDE('GSE2018')
-```
-From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
+### Differential Expression Results
+Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](). From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
 
-```{r diffExp}
-# rs %>% arrange(desc(corrected_pvalue))
-```
+```{r diffExpr, warning=FALSE}
+de <- getDatasetDE("GSE35974")
 
+# Classify genes for plotting
+de$diffexpr <- "No"
+de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
+de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & de$pvalue < 0.05] <- "Down"
+
+# Upregulated genes
+de[de$diffexpr == "Up", ] %>%
+    arrange(`contrast_Bipolar Disorder_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`)
+
+# Downregulated genes
+de[de$diffexpr == "Down", ] %>%
+    arrange(`contrast_Bipolar Disorder_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`)
+
+# Add gene symbols as labels to DE genes
+de$delabel <- ""
+de$delabel[de$diffexpr != "No"] <- de$GeneSymbol[de$diffexpr != "No"]
+
+# Volcano plot for bipolar patients vs controls
+ggplot(
+    data = de,
+    aes(
+        x = `contrast_Bipolar Disorder_logFoldChange`,
+        y = -log10(`contrast_Bipolar Disorder_pvalue`),
+        color = diffexpr,
+        label = delabel
+    )
+) +
+    geom_point() +
+    geom_hline(yintercept = -log10(0.05), col = "red") +
+    geom_vline(xintercept = c(-0.4, 0.4), col = "red") +
+    labs(x = "log2 Fold Change", y = "-log10(p-value)") +
+    scale_color_manual(values = c("blue", "black", "red")) +
+    geom_text_repel(show.legend = FALSE) +
+    theme_minimal()
+```
 
 ### Longer queries
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.
 
 ```{r double-query}
-getDatasets(datasets = c('GSE35974', 'GSE12649', 'GSE99349')) %>%
-  glimpse()
+getDatasets(datasets = c("GSE35974", "GSE46416", "GSE99349")) %>%
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples, taxon.Name)
 ```
 
 You'll be able to tell which endpoints accept multiple inputs from the function examples or simply because the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:
 
 ```{r error, error = TRUE}
-getDatasetAnnotations(c('GSE35974', 'GSE12649'))
+getDatasetAnnotations(c("GSE35974", "GSE46416"))
 ```
 
 In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.
 
 ```{r loop}
-lapply(c('GSE35974', 'GSE12649'), function(dataset) {
-  getDatasetAnnotations(dataset) %>% mutate(shortName = dataset)
-}) %>% rbindlist()
+lapply(c("GSE35974", "GSE12649"), function(dataset) {
+    getDatasetAnnotations(dataset) %>% mutate(ee.shortName = dataset)
+}) %>% rbindlist() %>%
+  select(ee.shortName, class.Type, class.Name, term.Name)
 ```
 
 ### Memoise data
 To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
 ```{r memoised, eval=FALSE}
-knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
-knitr::kable(summary(microbenchmark(getDatasetData('GSE35974', memoised = TRUE), times = 1), unit = 'ms'))
+# knitr::kable(summary(microbenchmark(getDatasetData("GSE35974", memoised = TRUE), times = 1), unit = "ms"))
+knitr::kable(summary(microbenchmark(getDatasetData("GSE35974", memoised = TRUE), times = 1), unit = "ms"))
 ```
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
@@ -152,19 +181,19 @@ forgetGemmaMemoised()
 ## Output options
 
 ### Raw data
-By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw = T`. Instead of a `data.table`, you'll be served (typically) a list that represents the underlying JSON response.
+By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw=TRUE`. Instead of a data table, you'll be served (typically) a list that represents the underlying JSON response.
 
 ### File outputs
 Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
 
-1.  `.json`, if you requested results with `raw = TRUE`
-2.  `.csv` if the results have no nested `data.table`s
+1.  `.json`, if you requested results with `raw=TRUE`
+2.  `.csv` if the results have no nested data tables
 3.  `.rds` otherwise
 
-You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite` parameter.
+You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite=TRUE` parameter.
 
 ### Changing defaults
-We've seen how to change `memoised = T`, `overwrite = T` and `raw = T`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `memoised=TRUE`, `overwrite=TRUE` and `raw=TRUE`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
