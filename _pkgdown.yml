@@ -15,10 +15,6 @@ reference:
   desc: Endpoints accessing genes (non taxon-specific). Most endpoints also have a taxon-specific counterpart in the Taxon endpoints.
   contents:
   - has_keyword("gene")
-- title: Taxon endpoints
-  desc: Endpoints accessing data for specific taxa. E.g Taxon-specific genes or datasets.
-  contents:
-  - has_keyword("taxon")
 - title: Other functions
   desc: Remaining endpoints and helper functions.
   contents:
