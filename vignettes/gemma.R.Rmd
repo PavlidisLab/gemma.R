@@ -24,7 +24,6 @@ library(data.table)
 library(ggplot2)
 library(ggrepel)
 library(memoise)
-library(microbenchmark)
 library(SummarizedExperiment)
 ```
 
@@ -33,7 +32,7 @@ library(SummarizedExperiment)
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
-## Using gemma.R
+## Downloading expression data
 The main goal of this wrapper is to give easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html) endpoint:
 
 ```{r search}
@@ -57,7 +56,7 @@ It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-Alternatively, you can use [`getDatasetData()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to get the expression matrix as a data table, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the matrix with the experimental design. 
+Alternatively, you can use [`getDatasetData()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to get the expression matrix as a data table, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get a matrix with the experimental design. 
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
@@ -67,17 +66,14 @@ se <- getBioc("SummarizedExperiment", "GSE35974")
 se
 ```
 
-```{r echo = FALSE}
-## This code pre-loads the summarized experiment to save time
-(se <- readRDS("se.rds"))
+```{r include = FALSE}
+## Pre-loads the summarized experiment to save time
+se <- readRDS("se.rds")
+se
 ```
 
 
 ```{r}
-# Load SummarizedExperiment
-se <- readRDS("se.rds")
-se
-
 # Check the levels of the DiseaseState cofactor
 se$DiseaseState %>% unique()
 
@@ -96,14 +92,19 @@ boxplot(bipExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 
 We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
-You can also use [`getTidyDataset()`](https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html) to fetch data in a long, 'tidy' format that combines the expression matrix with the metadata. This is less memory-efficient than the two alternatives above, but allows quick and easy visualization and exploration of the data with [`ggplot2`](https://ggplot2.tidyverse.org/).
-
 ### Differential Expression Results
-Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors in the experimental design. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](). From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
+Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
 
-```{r diffExpr, warning=FALSE}
+```{r, include = FALSE}
+## Pre-loads the differential expression results to save time
+de <- readRDS("de.rds")
+```
+
+```{r, eval = FALSE}
 de <- getDatasetDE("GSE35974")
+```
 
+```{r diffExpr, warning = FALSE}
 # Classify genes for plotting
 de$diffexpr <- "No"
 de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
@@ -167,16 +168,8 @@ lapply(c("GSE35974", "GSE12649"), function(dataset) {
 
 ### Memoise data
 To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
-```{r memoised, eval=FALSE}
-# knitr::kable(summary(microbenchmark(getDatasetData("GSE35974", memoised = TRUE), times = 1), unit = "ms"))
-knitr::kable(summary(microbenchmark(getDatasetData("GSE35974", memoised = TRUE), times = 1), unit = "ms"))
-```
 
-If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using `forgetGemmaMemoised`.
-
-```{r clear-cache}
-forgetGemmaMemoised()
-```
+If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
 ## Output options
 
