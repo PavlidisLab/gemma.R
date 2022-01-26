@@ -48,7 +48,6 @@ Suggests:
     rmarkdown,
     knitr,
     dplyr,
-    microbenchmark,
     covr,
     ggplot2,
     ggrepel
