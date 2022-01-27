@@ -4,7 +4,7 @@
 \alias{getTidyDataset}
 \title{Get Tidy Dataset and Design}
 \usage{
-getTidyDataset(dataset, filter = TRUE)
+getTidyDataset(dataset, filter = FALSE)
 }
 \arguments{
 \item{dataset}{A dataset identifier.}

@@ -105,7 +105,7 @@ test_that("datasetPCA queries work", {
     datExpV <- dat$expr[[1]][1] %>% dplyr::select(-c(gene.ID, gene.Symbol, probe))
     rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table()
     expect_equal(datExpV, rawExpV)
-    expect_false(dat$expr[[1]][1, 1] ==  getDatasetPCA(1, 2)$expr[[1]][1, 1])
+    expect_false(dat$expr[[1]][1, 1] == getDatasetPCA(1, 2)$expr[[1]][1, 1])
     expect_gt(
         getDatasetPCA(1, limit = 100)$expr[[1]] %>% nrow(),
         getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow()

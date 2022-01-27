@@ -107,7 +107,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @export
 #' @examples
 #' getBioc("ExpressionSet", "GSE2018", filter = TRUE)
-getBioc <- function(type, dataset, filter = TRUE) {
+getBioc <- function(type, dataset, filter = FALSE) {
     if (type != "ExpressionSet" && type != "SummarizedExperiment"){
        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
@@ -116,7 +116,6 @@ getBioc <- function(type, dataset, filter = TRUE) {
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
     exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid")
     exprM <- data.matrix(exprM)
-    print(head(exprM))
 
     design <- getDatasetDesign(dataset)
 
@@ -186,7 +185,7 @@ getBioc <- function(type, dataset, filter = TRUE) {
 #' @export
 #' @examples
 #' getTidyDataset("GSE2018")
-getTidyDataset <- function(dataset, filter = TRUE){
+getTidyDataset <- function(dataset, filter = FALSE){
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
