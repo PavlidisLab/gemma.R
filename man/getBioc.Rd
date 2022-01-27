@@ -4,7 +4,7 @@
 \alias{getBioc}
 \title{Get Bioconductor data structures}
 \usage{
-getBioc(type, dataset, filter = TRUE)
+getBioc(type, dataset, filter = FALSE)
 }
 \arguments{
 \item{type}{"SummarizedExperiment" or "ExpressionSet". We recommend using

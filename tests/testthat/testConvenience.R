@@ -21,7 +21,7 @@ test_that("getBioc data is preserved", {
 })
 
 test_that("getTidyDataset works properly", {
-    dat <- getDatasetData(1, filter = TRUE)
+    dat <- getDatasetData(1)
     tidy <- getTidyDataset(1)
     design <- getDatasetDesign(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
