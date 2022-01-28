@@ -53,4 +53,17 @@ Suggests:
     ggrepel
 Config/testthat/edition: 2
 VignetteBuilder: knitr
-biocViews: ExpressionData, ReproducibleResearch, GEO
+biocViews: 
+    ExperimentData, 
+    ExpressionData, 
+    RepositoryData, 
+    GEO, 
+    DiseaseModel, 
+    OrganismData,
+    Homo_sapiens_Data,
+    Mus_musculus_Data,
+    Rattus_norvegicus_Data,
+    TechnologyData,
+    MicroarrayData,
+    SequencingData,
+    RNASeqData
