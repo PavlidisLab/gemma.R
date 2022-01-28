@@ -1,9 +1,19 @@
-citHeader("To cite gemmaAPI in publications use:")
+citHeader("To cite gemma.R in publications use:")
 
 citEntry(
   entry    = "Article",
   title    = "Curation of over 10 000 transcriptomic studies to enable data reuse",
-  author   = "Nathaniel Lim, Stepan Tesar, Manuel Belmadani, Guillaume Poirier-Morency, Burak Ogan Mancarci, Jordan Sicherman, Matthew Jacobson, Justin Leong, Patrick Tan, Paul Pavlidis",
+  author   = personList( as.person("Nathaniel Lim"),
+                         as.person("Stepan Tesar"),
+                         as.person("Manuel Belmadani"),
+                         as.person("Guillaume Poirier-Morency"),
+                         as.person("Burak Ogan Mancarci"),
+                         as.person("Jordan Sicherman"),
+                         as.person("Matthew Jacobson"),
+                         as.person("Justin Leong"),
+                         as.person("Patrick Tan"),
+                         as.person("Paul Pavlidis"),
+                         ),
   journal  = "Database",
   year     = 2021,
   volume   = 2021,
