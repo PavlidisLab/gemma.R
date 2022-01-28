@@ -67,16 +67,10 @@
     <loc>/reference/getDatasetDesign.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetPCA.html</loc>
-  </url>
-  <url>
     <loc>/reference/getDatasetPlatforms.html</loc>
   </url>
   <url>
     <loc>/reference/getDatasetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getDatasetSVD.html</loc>
   </url>
   <url>
     <loc>/reference/getDatasetSamples.html</loc>
@@ -145,16 +139,10 @@
     <loc>/reference/memgetDatasetDesign.html</loc>
   </url>
   <url>
-    <loc>/reference/memgetDatasetPCA.html</loc>
-  </url>
-  <url>
     <loc>/reference/memgetDatasetPlatforms.html</loc>
   </url>
   <url>
     <loc>/reference/memgetDatasetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetSVD.html</loc>
   </url>
   <url>
     <loc>/reference/memgetDatasetSamples.html</loc>

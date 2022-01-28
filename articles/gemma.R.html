@@ -181,12 +181,12 @@ colData names(2): DiseaseState batch</code></pre>
 <code class="sourceCode R"><span class="co"># Classify genes for plotting</span>
 <span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">&lt;-</span> <span class="st">"No"</span>
 <span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_logFoldChange`</span> <span class="op">&gt;</span> <span class="fl">0.4</span> <span class="op">&amp;</span> <span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Up"</span>
-<span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_logFoldChange`</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">&amp;</span> <span class="va">de</span><span class="op">$</span><span class="va">pvalue</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Down"</span>
+<span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_logFoldChange`</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">0.4</span> <span class="op">&amp;</span> <span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Down"</span>
 
 <span class="co"># Upregulated genes</span>
 <span class="va">de</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Up"</span>, <span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Probe</span>, <span class="va">GeneSymbol</span>, <span class="va">`contrast_Bipolar Disorder_pvalue`</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Probe</span>, <span class="va">GeneSymbol</span>, <span class="va">`contrast_Bipolar Disorder_pvalue`</span>, <span class="va">`contrast_Bipolar Disorder_logFoldChange`</span><span class="op">)</span></code></pre></div>
 <pre><code>      Probe   GeneSymbol contrast_Bipolar Disorder_pvalue
  1: 7944716                                     3.438e-06
  2: 7894738                                     5.992e-05
@@ -200,12 +200,26 @@ colData names(2): DiseaseState batch</code></pre>
 10: 8124413         H4C4                        1.980e-02
 11: 8160546       LINGO2                        3.519e-02
 12: 8124385         H4C2                        3.552e-02
-13: 7911241  OR2L8|OR2L3                        4.484e-02</code></pre>
+13: 7911241  OR2L8|OR2L3                        4.484e-02
+    contrast_Bipolar Disorder_logFoldChange
+ 1:                                  0.4661
+ 2:                                  0.4625
+ 3:                                  0.6789
+ 4:                                  0.5227
+ 5:                                  0.4355
+ 6:                                  0.5317
+ 7:                                  0.4863
+ 8:                                  0.4874
+ 9:                                  0.4094
+10:                                  0.4870
+11:                                  0.5954
+12:                                  0.4018
+13:                                  0.4940</code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Downregulated genes</span>
 <span class="va">de</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Down"</span>, <span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Probe</span>, <span class="va">GeneSymbol</span>, <span class="va">`contrast_Bipolar Disorder_pvalue`</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Probe</span>, <span class="va">GeneSymbol</span>, <span class="va">`contrast_Bipolar Disorder_pvalue`</span>, <span class="va">`contrast_Bipolar Disorder_logFoldChange`</span><span class="op">)</span></code></pre></div>
 <pre><code>      Probe GeneSymbol contrast_Bipolar Disorder_pvalue
  1: 8091678      VEPH1                        6.040e-06
  2: 7893969                                   9.489e-06
@@ -216,7 +230,18 @@ colData names(2): DiseaseState batch</code></pre>
  7: 8118548    HLA-DRA                        3.512e-04
  8: 8000097        ZP2                        5.219e-04
  9: 8178193    HLA-DRA                        6.375e-04
-10: 7894590                                   1.065e-02</code></pre>
+10: 7894590                                   1.065e-02
+    contrast_Bipolar Disorder_logFoldChange
+ 1:                                 -0.5999
+ 2:                                 -0.4392
+ 3:                                 -0.4467
+ 4:                                 -0.5490
+ 5:                                 -0.6875
+ 6:                                 -0.4518
+ 7:                                 -0.4645
+ 8:                                 -0.4873
+ 9:                                 -0.5035
+10:                                 -0.4167</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Add gene symbols as labels to DE genes</span>
 <span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span>
@@ -233,8 +258,8 @@ colData names(2): DiseaseState batch</code></pre>
     <span class="op">)</span>
 <span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>, <span class="fl">0.4</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.4</span>, <span class="fl">0.4</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, linetype <span class="op">=</span> <span class="st">"dashed"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"log2 Fold Change"</span>, y <span class="op">=</span> <span class="st">"-log10(p-value)"</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"blue"</span>, <span class="st">"black"</span>, <span class="st">"red"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>

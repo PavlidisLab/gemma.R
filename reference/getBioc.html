@@ -73,7 +73,7 @@ the experimental design and experiment metadata.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getBioc</span><span class="op">(</span><span class="va">type</span>, <span class="va">dataset</span>, filter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getBioc</span><span class="op">(</span><span class="va">type</span>, <span class="va">dataset</span>, filter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -97,55 +97,6 @@ for more details.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getBioc</span><span class="op">(</span><span class="st">"ExpressionSet"</span>, <span class="st">"GSE2018"</span>, filter <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_13_A0B0 BAL_44b_A0B0 BAL_41_A1B0 BAL_31_A0B1 BAL_12_A1B0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at    7.664396     7.555234    7.898749    7.482914    7.606950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at      6.818718     6.817860    6.428031    6.873047    7.081941</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at       7.702311     7.736164    8.299871    7.714629    7.497553</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at       8.872670     8.728661    9.433338    9.106445    9.130426</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at      8.160051     8.167152    8.310143    8.423330    7.919121</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at    8.317717     4.819089    5.806837    6.059646    6.209588</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_15b_A0B0 BAL_40_A0B0 BAL_47b_A0B1 BAL_47c_A0B1 BAL_45a_A1B0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at     7.675714    7.568318     7.605180     7.629114     7.446346</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at       6.770301    6.754742     6.785765     6.910238     6.803677</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at        8.433980    7.307702     7.800827     7.474227     7.623731</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at        9.062922    9.126554     9.024894     9.173378     9.293806</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at       8.073624    7.985805     7.690446     8.095362     7.767184</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at     7.842482    5.678075     5.368177     5.420613     5.236767</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_47a_A0B0 BAL_44a_A0B0 BAL_39_A0B1 BAL_33_A0B1 BAL_29_A1B0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at     7.787959     7.734734    7.270490    7.428734    7.905805</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at       6.440673     6.940845    6.808251    7.139178    6.433760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at        7.844755     7.603600    7.328971    7.568634    7.794066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at        9.040855     9.248298    8.881946    8.946895    9.592714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at       8.238363     7.831628    7.594063    7.985047    8.235317</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at     5.101142     5.779910    4.943302    5.081131    5.442704</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_25_A0B0 BAL_27a_A0B0 BAL_1_A0B0 BAL_15a_A0B1 BAL_43_A0B0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at    7.565792     7.912942   7.520084     7.633544    7.333711</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at      6.887287     6.975750   7.158184     6.906474    6.966837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at       7.444417     7.775969   7.843651     7.689818    7.462743</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at       8.923390     9.249823   9.057032     8.764082    9.090870</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at      7.942874     8.002995   8.214784     8.161073    7.599208</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at    4.959163     5.702014   5.150363     5.726658    5.052991</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_42_A0B0 BAL_4_A0B0 BAL_3_A1B0 BAL_18_A1B0 BAL_17_A0B0 BAL_21_A0B0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at    7.893288   7.474848   7.543944    7.407762    7.229377    7.867851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at      6.649465   6.947905   6.895257    6.780074    6.963063    6.615844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at       8.579609   7.741327   7.542451    7.926313    7.972501    7.421375</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at       8.930581   9.119985   8.873311    9.154426    8.806005    9.553362</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at      8.051791   7.962631   8.089026    7.733194    8.011512    6.691001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at    5.525917   7.155452   7.715133    4.933423    4.680708    5.892646</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_19_A0B0 BAL_45b_A2B0 BAL_26_A2B0 BAL_20a_A1B1 BAL_20b_A1B1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at    7.821547     7.782975    7.257932          NaN     7.680408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at      6.709687     6.593049    6.940845          NaN     6.650542</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at       7.825478     7.932626    7.969855          NaN     7.738031</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at       9.574804     8.999097    8.656306          NaN     9.239082</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at      7.426700     8.002345    7.798976          NaN     7.544248</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at    5.574899     9.355310    6.762661          NaN     8.672792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           BAL_37_A1B1 BAL_46_A2B0 BAL_27b_A2B1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1007_s_at    7.466471    7.932626     7.699664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1053_at      6.858354    6.537636     6.845171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 117_at       7.689818    7.809553     7.555798</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 121_at       9.055730   10.078527     9.141695</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1294_at      7.794066    7.223764     7.572540</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1405_i_at    8.497562    5.803567     5.578185</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ExpressionSet (storageMode: lockedEnvironment)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> assayData: 16882 features, 34 samples </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   element names: exprs </span>
