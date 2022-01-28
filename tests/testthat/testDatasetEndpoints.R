@@ -62,17 +62,6 @@ test_that("datasetDEA queries work", {
     )
 })
 
-test_that("datasetSVD queries work", {
-    dat <- getDatasetSVD(1)
-    raw <- getDatasetSVD(1, raw = TRUE)
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(
-        c(dat$variance, dat[,2:6] %>% unname %>% as.matrix),
-        c(raw$variances, raw$vMatrix$rawMatrix)
-    )
-})
-
 test_that("datasetAnnotations queries work", {
     dat <- getDatasetAnnotations(1)
     raw <- getDatasetAnnotations(1, raw = TRUE)
@@ -94,20 +83,3 @@ test_that("datasetDesign queries work", {
     expect_type(getDatasetDesign("GSE2018", raw = TRUE), "raw")
 })
 
-test_that("datasetPCA queries work", {
-    dat <- getDatasetPCA(1)
-    raw <- getDatasetPCA(1, raw = TRUE)
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(dat$ee.ID, raw$datasetId)
-
-    # Check the expression vector for one gene
-    datExpV <- dat$expr[[1]][1] %>% dplyr::select(-c(gene.ID, gene.Symbol, probe))
-    rawExpV <- raw$geneExpressionLevels[[1]]$vectors[1][[1]]$bioAssayExpressionLevels %>% data.table()
-    expect_equal(datExpV, rawExpV)
-    expect_false(dat$expr[[1]][1, 1] == getDatasetPCA(1, 2)$expr[[1]][1, 1])
-    expect_gt(
-        getDatasetPCA(1, limit = 100)$expr[[1]] %>% nrow(),
-        getDatasetPCA(1, limit = 50)$expr[[1]] %>% nrow()
-    )
-})

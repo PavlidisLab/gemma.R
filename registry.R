@@ -348,27 +348,6 @@ registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
     preprocessor = quote(processDatasets)
 )
 
-registerEndpoint("datasets/{datasets}/expressions/pca?component={component}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
-    "getDatasetPCA",
-    logname = "PCA", roxygen = "Datasets pca component expression levels",
-    keyword = "dataset",
-    defaults = list(
-        datasets = NA_character_,
-        component = 1L,
-        limit = 100L,
-        keepNonSpecific = FALSE,
-        consolidate = NA_character_
-    ),
-    validators = alist(
-        datasets = validateID,
-        component = validatePositiveInteger,
-        limit = validatePositiveInteger,
-        keepNonSpecific = validateBoolean,
-        consolidate = validateConsolidate
-    ),
-    preprocessor = quote(processExpression)
-)
-
 registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
   "getResultSets",
@@ -452,12 +431,6 @@ registerSimpleEndpoint("dataset", "samples",
     logname = "samples", roxygen = "Dataset samples",
     "getDatasetSamples",
     preprocessor = quote(processSamples)
-)
-
-registerSimpleEndpoint("dataset", "svd",
-    logname = "SVD", roxygen = "Dataset SVD information",
-    "getDatasetSVD",
-    preprocessor = quote(processSVD)
 )
 
 registerSimpleEndpoint("dataset", "platforms",

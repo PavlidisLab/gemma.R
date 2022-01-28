@@ -121,92 +121,6 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
 #' @keywords internal
 memgetDatasets <- memoise::memoise(getDatasets)
 
-#' Datasets pca component expression levels
-#'
-#' Retrieves the expression levels most correlated with the given principal
-#' component
-#'
-#' @param datasets Optional, defaults to `empty`.
-#' Limits the result to entities with given identifiers.
-#' A list of identifiers, separated by commas (e.g:
-#' `GSE2871,GSE2869,GSE2868`). Identifiers can either be the Dataset ID or
-#' its short name. Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available.
-#' Do not combine different identifiers in one query.
-#' @param component Required, defaults to `empty`.
-#' The pca component to limit the results to.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
-#' @param keepNonSpecific Optional, defaults to `false`.
-#' If set to `false`, the response will only include elements that map
-#' exclusively to each queried gene
-#' If set to `true`, the response will include all elements that map to
-#' each queried gene, even if they also map to other genes.
-#' @param consolidate Optional, defaults to `empty`.
-#' What action to take when there is more than one element per gene in a
-#' dataset.
-#' The choices are:
-#' -   `[empty]` - will list all vectors separately
-#' -   `pickmax` - only return the vector that has the highest expression
-#'     (mean over all its bioAssays)
-#' -   `pickvar` - only return the vector with highest variance of
-#'     expression across its bioAssays
-#' -   `average` - create a new vector that will average the bioAssay
-#'     values from all vectors
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return The expression levels for each given experiment (experiment expression
-#' levels value object) of genes that are most correlated with the given
-#' principal component.
-#' A `404 error` if the given identifier does not map to any object.
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-#' dat <- getDatasetPCA("GSE2018")
-#' str(dat$expr)
-getDatasetPCA <- function(datasets = NA_character_, component = 1L, limit = 100L,
-    keepNonSpecific = FALSE, consolidate = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    internal <- FALSE
-    keyword <- "dataset"
-    header <- ""
-    isFile <- FALSE
-    fname <- "getDatasetPCA"
-    preprocessor <- processExpression
-    validators <- list(
-        datasets = validateID, component = validatePositiveInteger,
-        limit = validatePositiveInteger, keepNonSpecific = validateBoolean,
-        consolidate = validateConsolidate
-    )
-    endpoint <- "datasets/{encode(datasets)}/expressions/pca?component={encode(component)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getDatasetPCA
-#'
-#' @keywords internal
-memgetDatasetPCA <- memoise::memoise(getDatasetPCA)
-
 #' getResultSets
 #'
 #' Lists resultSets filtered and organized by given parameters.
@@ -640,70 +554,6 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
 #'
 #' @keywords internal
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
-
-#' Dataset SVD information
-#'
-#' Retrieves the SVD information for the given dataset
-#'
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return A simple SVD value object for the given dataset, containing information
-#' about SVD of expression data
-#' A `404 error` if the given identifier does not map to any object.
-#' Properties of the returned object are:
-#' -   **bioMaterialIds** - Array of Bio Material IDs, in same order as the
-#'     rows of the v matrix
-#' -   **variances** - An array of values representing the fraction of the
-#'     variance each component accounts for
-#' -   **vMatrix** - the V Matrix (DoubleMatrix object)
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-#' dat <- getDatasetSVD("GSE2018")
-#' head(dat)
-getDatasetSVD <- function(dataset = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    internal <- FALSE
-    keyword <- "dataset"
-    header <- ""
-    isFile <- FALSE
-    fname <- "getDatasetSVD"
-    preprocessor <- processSVD
-    validators <- list(dataset = validateSingleID)
-    endpoint <- "datasets/{encode(dataset)}/svd"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
-    )
-}
-
-#' Memoise getDatasetSVD
-#'
-#' @keywords internal
-memgetDatasetSVD <- memoise::memoise(getDatasetSVD)
 
 #' Dataset platforms
 #'
@@ -1799,13 +1649,11 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' forgetGemmaMemoised()
 forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
-    memoise::forget(memgetDatasetPCA)
     memoise::forget(memgetResultSets)
     memoise::forget(memgetResultSetFactors)
     memoise::forget(memgetDatasetResultSets)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
-    memoise::forget(memgetDatasetSVD)
     memoise::forget(memgetDatasetPlatforms)
     memoise::forget(memgetDatasetAnnotations)
     memoise::forget(memgetDatasetDesign)
