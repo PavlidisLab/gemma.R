@@ -108,17 +108,17 @@ de <- getDatasetDE("GSE35974")
 # Classify genes for plotting
 de$diffexpr <- "No"
 de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
-de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & de$pvalue < 0.05] <- "Down"
+de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Down"
 
 # Upregulated genes
 de[de$diffexpr == "Up", ] %>%
     arrange(`contrast_Bipolar Disorder_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`)
+    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, `contrast_Bipolar Disorder_logFoldChange`)
 
 # Downregulated genes
 de[de$diffexpr == "Down", ] %>%
     arrange(`contrast_Bipolar Disorder_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`)
+    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, `contrast_Bipolar Disorder_logFoldChange`)
 
 # Add gene symbols as labels to DE genes
 de$delabel <- ""
@@ -135,8 +135,8 @@ ggplot(
     )
 ) +
     geom_point() +
-    geom_hline(yintercept = -log10(0.05), col = "red") +
-    geom_vline(xintercept = c(-0.4, 0.4), col = "red") +
+    geom_hline(yintercept = -log10(0.05), col = "red", linetype = "dashed") +
+    geom_vline(xintercept = c(-0.4, 0.4), col = "red", linetype = "dashed") +
     labs(x = "log2 Fold Change", y = "-log10(p-value)") +
     scale_color_manual(values = c("blue", "black", "red")) +
     geom_text_repel(show.legend = FALSE) +
