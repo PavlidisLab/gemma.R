@@ -1,9 +1,9 @@
 ---
-title: 'Using gemma.R'
+title: 'Accessing curated expresson data with gemma.R'
 author: 'Javier Castillo-Arnemann'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using gemma.R}
+  %\VignetteIndexEntry{Accessing curated expresson data with gemma.R}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,6 +31,30 @@ library(SummarizedExperiment)
 [Gemma](https://gemma.ubc.msl.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.
 
 For detailed information on the curation process, check this [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
+
+## Installation instructions
+
+### Development
+
+The current development version of `gemma.R` can be installed with:
+
+```{r, eval = FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)) {
+    install.packages("devtools")
+}
+devtools::install_github("PavlidisLab/gemma.R")
+```
+
+### Bioconductor (not available yet)
+You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
+
+```{r 'install', eval = FALSE}
+# if (!requireNamespace("BiocManager", quietly = TRUE)) {
+#     install.packages("BiocManager")
+# }
+# 
+# BiocManager::install("gemma.R")
+```
 
 ## Downloading expression data
 The main goal of this wrapper is to give easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html) endpoint:
@@ -191,3 +215,9 @@ We've seen how to change `memoised=TRUE`, `overwrite=TRUE` and `raw=TRUE`... It'
 ```{r defaults}
 options(gemma.memoise = TRUE)
 ```
+
+## Session info
+```{r}
+sessionInfo()
+```
+
