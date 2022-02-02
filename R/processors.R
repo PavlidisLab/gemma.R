@@ -225,6 +225,14 @@ processAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
+    # Initialize internal variables to avoid R CMD check notes
+    resultIds <- factor.ID <- cf.Baseline <- factorValue <- valueUri <- NULL
+    factorId <- id <- result.ID <- analysis.Id <- ee.ID <- cf.Cat <- NULL
+    cf.CatLongUri <- cf.Val <- cf.ValLongUri <- sf.Enabled <- NULL
+    sf.category.Name <- sf.category.URL <- sf.name <- sf.URL <- stats.DE <- NULL
+    stats.Down <- stats.Up <- analysis.Threshold <- probes.Analyzed <- NULL
+    genes.Analyzed <- ad.ID <- factors <- cf.BaseLongUri <- analysis.ID <- NULL
+
     divides <- data.table(
         analysis.ID = d[["id"]],
         ee.ID = ifelse(is.na(d[["sourceExperiment"]]), d[["bioAssaySetId"]], d[["sourceExperiment"]]),
@@ -366,7 +374,7 @@ processDatasetResultSets <- function(d) {
         factors = lapply(d$experimentalFactors,
                          dplyr::select, c("category", "description"))
     ) %>%
-        tidyr::unnest(factors) %>%
+        tidyr::unnest(.data$factors) %>%
         dplyr::rename("factor.category" = "category",
                       "factor.levels" = "description") %>%
         as.data.table()
@@ -666,7 +674,6 @@ processPhenotypes <- function(d) {
 #'
 #' @return A processed matrix
 #'
-#' @importFrom rlang .data
 #' @keywords internal
 processDesignMatrix <- function(m) {
     # Remove redundant strings from sample names, unnecessary columns
@@ -680,10 +687,9 @@ processDesignMatrix <- function(m) {
 #'
 #' @return A processed matrix
 #'
-#' @importFrom rlang .data
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-    m <- dplyr::select(m, -Sequence, -GemmaId)
+    m <- dplyr::select(m, -.data$Sequence, -.data$GemmaId)
     # Remove redundant strings from sample names
     colnames(m) <- stringr::str_extract(colnames(m), "(?<=Name=).*")
     m
@@ -695,13 +701,12 @@ processExpressionMatrix <- function(m) {
 #'
 #' @return A processed matrix
 #'
-#' @importFrom rlang .data
 #' @keywords internal
 processDEMatrix <- function(m, id) {
-    dplyr::select(m, -id, -probe_id, -gene_id) %>%
-        dplyr::rename(Probe = probe_name,
-                      GeneSymbol = gene_official_symbol,
-                      GeneName = gene_name,
-                      NCBIid = gene_ncbi_id)
+    dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id) %>%
+        dplyr::rename(Probe = .data$probe_name,
+                      GeneSymbol = .data$gene_official_symbol,
+                      GeneName = .data$gene_name,
+                      NCBIid = .data$gene_ncbi_id)
 }
 
