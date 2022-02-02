@@ -118,7 +118,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
 
 #' Memoise getDatasets
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasets <- memoise::memoise(getDatasets)
 
 #' getResultSets
@@ -231,7 +231,7 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
 
 #' Memoise getResultSets
 #'
-#' @keywords internal
+#' @noRd
 memgetResultSets <- memoise::memoise(getResultSets)
 
 #' getResultSetFactors
@@ -343,7 +343,7 @@ getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_characte
 
 #' Memoise getResultSetFactors
 #'
-#' @keywords internal
+#' @noRd
 memgetResultSetFactors <- memoise::memoise(getResultSetFactors)
 
 #' getDatasetResultSets
@@ -398,7 +398,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetResultSets
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 
 #' Dataset data
@@ -495,7 +495,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
 
 #' Memoise getDatasetData
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetData <- memoise::memoise(getDatasetData)
 
 #' Dataset samples
@@ -552,7 +552,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetSamples
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 
 #' Dataset platforms
@@ -609,7 +609,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetPlatforms
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 
 #' Dataset annotations
@@ -666,7 +666,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetAnnotations
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 
 #' Dataset design
@@ -723,7 +723,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetDesign
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 
 #' Dataset differential analysis
@@ -781,7 +781,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
 
 #' Memoise getDatasetDEA
 #'
-#' @keywords internal
+#' @noRd
 memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 
 #' Platforms
@@ -902,7 +902,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
 
 #' Memoise getPlatforms
 #'
-#' @keywords internal
+#' @noRd
 memgetPlatforms <- memoise::memoise(getPlatforms)
 
 #' Platform datasets
@@ -967,7 +967,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
 
 #' Memoise getPlatformDatasets
 #'
-#' @keywords internal
+#' @noRd
 memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 
 #' Platform elements
@@ -1040,7 +1040,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
 
 #' Memoise getPlatformElements
 #'
-#' @keywords internal
+#' @noRd
 memgetPlatformElements <- memoise::memoise(getPlatformElements)
 
 #' Platform element genes
@@ -1112,7 +1112,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
 
 #' Memoise getPlatformElementGenes
 #'
-#' @keywords internal
+#' @noRd
 memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 
 #' Genes
@@ -1176,7 +1176,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
 
 #' Memoise getGenes
 #'
-#' @keywords internal
+#' @noRd
 memgetGenes <- memoise::memoise(getGenes)
 
 #' Gene evidence
@@ -1236,7 +1236,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
 
 #' Memoise getGeneEvidence
 #'
-#' @keywords internal
+#' @noRd
 memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 
 #' Gene locations
@@ -1296,7 +1296,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
 
 #' Memoise getGeneLocation
 #'
-#' @keywords internal
+#' @noRd
 memgetGeneLocation <- memoise::memoise(getGeneLocation)
 
 #' Gene probes
@@ -1366,7 +1366,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
 
 #' Memoise getGeneProbes
 #'
-#' @keywords internal
+#' @noRd
 memgetGeneProbes <- memoise::memoise(getGeneProbes)
 
 #' Gene goTerms
@@ -1426,7 +1426,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
 
 #' Memoise getGeneGO
 #'
-#' @keywords internal
+#' @noRd
 memgetGeneGO <- memoise::memoise(getGeneGO)
 
 #' Dataset search
@@ -1572,7 +1572,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
 
 #' Memoise searchDatasets
 #'
-#' @keywords internal
+#' @noRd
 memsearchDatasets <- memoise::memoise(searchDatasets)
 
 #' Annotation search
@@ -1634,7 +1634,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
 
 #' Memoise searchAnnotations
 #'
-#' @keywords internal
+#' @noRd
 memsearchAnnotations <- memoise::memoise(searchAnnotations)
 
 
