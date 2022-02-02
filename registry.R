@@ -129,7 +129,7 @@ registerEndpoint <- function(
     cat(glue::glue("{fname} <- "), file = document, append = TRUE)
     cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
     cat("\n\n", file = document, append = TRUE)
-    cat(glue::glue("#' Memoise {fname}\n#'\n#' @keywords internal\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' Memoise {fname}\n#'\n#' @noRd\n\n"), file = document, append = TRUE)
     cat(glue::glue("mem{fname} <- memoise::memoise({fname})"), file = document, append = TRUE)
     cat("\n\n", file = document, append = TRUE)
   }
