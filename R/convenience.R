@@ -36,7 +36,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
         if (!isTRUE(nrow(platforms) == 1)) {
             stop(paste0(platform, " is not a valid single platform."))
         }
-        platform <- platforms[, platform.ID]
+        platform <- platforms[, "platform.ID"]
     }
 
     annotType <- match.arg(annotType, c("bioProcess", "noParents", "allParents"))
@@ -194,9 +194,9 @@ getTidyDataset <- function(dataset, filter = FALSE){
         tibble::column_to_rownames("Probe") %>%
         .[, match(design$Sample, colnames(.))] %>% # match sample order
         tibble::rownames_to_column("Probe") %>%
-        tidyr::pivot_longer(-Probe, names_to = "Sample", values_to = "expression") %>%
+        tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
         dplyr::inner_join(design, by = "Sample") %>%
-        dplyr::rename(sample = Sample, probe = Probe)
+        dplyr::rename(sample = .data$Sample, probe = .data$Probe)
 }
 
 #' Get Differential Expression
@@ -237,7 +237,7 @@ getDatasetDE <- function(dataset){
     # Replace factor IDs by the factor names
     factors <- getResultSetFactors(rsID)
     baseline <- getDatasetDEA(dataset) %>%
-        .[.$result.ID == rsID, cf.Baseline] %>%
+        .[.data$result.ID == rsID, "cf.Baseline"] %>%
         unique()
     colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
     colNames <- colnames(rs)
@@ -247,7 +247,7 @@ getDatasetDE <- function(dataset){
     colnames(rs) <- colNames
 
     cat(paste0("Baseline: ", baseline, "\n"))
-    cat(paste0("Factors: ", rss[rss$resultSet.id == rsID, factor.levels], "\n\n"))
+    cat(paste0("Factors: ", rss[rss$resultSet.id == rsID, rss$factor.levels], "\n\n"))
 
     rs
 }
