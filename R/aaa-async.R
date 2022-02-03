@@ -103,7 +103,7 @@ on_failure(is_flag) <- function(call, env) {
 }
 
 is_action_function <- function(x) {
-    is.function(x) && length(formals(x)) %in% 1:2
+    is.function(x) && length(formals(x)) %in% seq_len(2)
 }
 
 on_failure(is_action_function) <- function(call, env) {
@@ -2175,7 +2175,7 @@ el__update_time <- function(self, private) {
 #'
 el__update_curl_data <- function(self, private) {
     private$curl_fdset <- multi_fdset(private$pool)
-    num_fds <- length(unique(unlist(private$curl_fdset[1:3])))
+    num_fds <- length(unique(unlist(private$curl_fdset[seq_len(2)])))
     private$curl_poll <- num_fds > 0
     private$curl_timer <- if ((t <- private$curl_fdset$timeout) != -1) {
         private$time + as.difftime(t / 1000.0, units = "secs")
@@ -4530,7 +4530,7 @@ wp_start_workers <- function(self, private) {
 
     ## Yeah, start some more
     to_start <- num - NROW(private$workers)
-    sess <- lapply(1:to_start, function(x) r_session$new(wait = FALSE))
+    sess <- lapply(seq_len(to_start), function(x) r_session$new(wait = FALSE))
     fd <- viapply(sess, function(x) conn_get_fileno(x$get_poll_connection()))
     new_workers <- data.frame(
         stringsAsFactors = FALSE,
