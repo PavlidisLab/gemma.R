@@ -109,8 +109,8 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @examples
 #' getBioc("ExpressionSet", "GSE2018", filter = TRUE)
 getBioc <- function(type, dataset, filter = FALSE) {
-    if (type != "ExpressionSet" && type != "SummarizedExperiment"){
-       stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
+    if (type != "ExpressionSet" && type != "SummarizedExperiment") {
+        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
     }
     exprM <- getDatasetData(dataset, filter)
     rownames(exprM) <- exprM$Probe
@@ -152,7 +152,7 @@ getBioc <- function(type, dataset, filter = FALSE) {
         )
         expData <- c(expData, other)
         SummarizedExperiment::SummarizedExperiment(
-            assays=list(counts=exprM),
+            assays = list(counts = exprM),
             rowData = genes,
             colData = design,
             metadata = expData
@@ -186,7 +186,7 @@ getBioc <- function(type, dataset, filter = FALSE) {
 #' @export
 #' @examples
 #' getTidyDataset("GSE2018")
-getTidyDataset <- function(dataset, filter = FALSE){
+getTidyDataset <- function(dataset, filter = FALSE) {
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
@@ -213,24 +213,23 @@ getTidyDataset <- function(dataset, filter = FALSE){
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset){
+getDatasetDE <- function(dataset) {
     rss <- getDatasetResultSets(dataset)
-    if (nrow(rss) > 1){
+    if (nrow(rss) > 1) {
         validID <- FALSE
-        while(validID == FALSE){
+        while (validID == FALSE) {
             print(rss)
             rsID <- readline(prompt = "Enter the ID of the desired differential expression resultSet: ")
-            if (!(rsID %in% rs$resultSet.id)){
+            if (!(rsID %in% rs$resultSet.id)) {
                 warning("The ID you selected was not found for this dataset. Here are the available resultSets:",
-                        immediate. = TRUE)
+                    immediate. = TRUE
+                )
                 validID <- FALSE
-            }
-            else{
+            } else {
                 validID <- TRUE
             }
         }
-    }
-    else {
+    } else {
         rsID <- rss$resultSet.id
     }
     rs <- getResultSets(rsID)
@@ -242,7 +241,7 @@ getDatasetDE <- function(dataset){
         unique()
     colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
     colNames <- colnames(rs)
-    for (f in factors$id){
+    for (f in factors$id) {
         colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
     }
     colnames(rs) <- colNames

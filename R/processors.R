@@ -25,7 +25,7 @@
     }
 
     # Set header
-    if(header == "text/tab-separated-values"){
+    if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
     }
     envWhere$header <- header
@@ -84,13 +84,13 @@
                 }
             }
             mOut
-        } else if (response$status_code == 403){
+        } else if (response$status_code == 403) {
             stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
-        } else if (response$status_code == 404){
+        } else if (response$status_code == 404) {
             stop(response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID.")
-        } else if (response$status_code == 503){
+        } else if (response$status_code == 503) {
             stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
-        } else{
+        } else {
             stop(response$status_code)
         }
     }))
@@ -253,14 +253,15 @@ processDEA <- function(d) {
             probes.Analyzed = r[["numberOfProbesAnalyzed"]],
             genes.Analyzed = r[["numberOfGenesAnalyzed"]],
             factor.ID = r[["factorIds"]],
-            r[["baselineGroup"]] %>% {
-                data.table(
-                    cf.Cat = .[["category"]],
-                    cf.CatLongUri = .[["categoryUri"]],
-                    cf.Baseline = .[["factorValue"]],
-                    cf.BaseLongUri = .[["valueUri"]]
-                )
-            }
+            r[["baselineGroup"]] %>%
+                {
+                    data.table(
+                        cf.Cat = .[["category"]],
+                        cf.CatLongUri = .[["categoryUri"]],
+                        cf.Baseline = .[["factorValue"]],
+                        cf.BaseLongUri = .[["valueUri"]]
+                    )
+                }
         ) %>%
             .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")]
     }) %>%
@@ -355,8 +356,10 @@ processSVD <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
-    lapply(d$experimentalFactors$values,
-           dplyr::select, c("id", "factorValue", "category")) %>%
+    lapply(
+        d$experimentalFactors$values,
+        dplyr::select, c("id", "factorValue", "category")
+    ) %>%
         dplyr::bind_rows()
 }
 
@@ -371,12 +374,16 @@ processDatasetResultSets <- function(d) {
     data.table(
         resultSet.id = d$id,
         # analysis.id = d$analysis$id,
-        factors = lapply(d$experimentalFactors,
-                         dplyr::select, c("category", "description"))
+        factors = lapply(
+            d$experimentalFactors,
+            dplyr::select, c("category", "description")
+        )
     ) %>%
         tidyr::unnest(.data$factors) %>%
-        dplyr::rename("factor.category" = "category",
-                      "factor.levels" = "description") %>%
+        dplyr::rename(
+            "factor.category" = "category",
+            "factor.levels" = "description"
+        ) %>%
         as.data.table()
 }
 
@@ -420,13 +427,11 @@ processFile <- function(content) {
     close(tmp2)
     unlink(tmp) # Delete the temp file
     # Process matrix according to data type
-    if (colnames(ret)[1] == "Probe"){
+    if (colnames(ret)[1] == "Probe") {
         ret <- processExpressionMatrix(ret)
-    }
-    else if (colnames(ret)[1] == "id"){
+    } else if (colnames(ret)[1] == "id") {
         ret <- processDEMatrix(ret)
-    }
-    else{
+    } else {
         ret <- processDesignMatrix(ret)
     }
     ret
@@ -704,9 +709,10 @@ processExpressionMatrix <- function(m) {
 #' @keywords internal
 processDEMatrix <- function(m, id) {
     dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id) %>%
-        dplyr::rename(Probe = .data$probe_name,
-                      GeneSymbol = .data$gene_official_symbol,
-                      GeneName = .data$gene_name,
-                      NCBIid = .data$gene_ncbi_id)
+        dplyr::rename(
+            Probe = .data$probe_name,
+            GeneSymbol = .data$gene_official_symbol,
+            GeneName = .data$gene_name,
+            NCBIid = .data$gene_ncbi_id
+        )
 }
-

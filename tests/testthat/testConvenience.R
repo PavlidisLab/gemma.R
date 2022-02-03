@@ -16,8 +16,10 @@ test_that("getBioc data is preserved", {
 
     expect_equal(nrow(expr), nrow(sumexp))
     expect_equal(rownames(sumexp), expr$Probe)
-    expect_equal(colnames(SummarizedExperiment::colData(sumexp)),
-                 colnames(design))
+    expect_equal(
+        colnames(SummarizedExperiment::colData(sumexp)),
+        colnames(design)
+    )
 })
 
 test_that("getTidyDataset works properly", {
@@ -29,4 +31,3 @@ test_that("getTidyDataset works properly", {
     # Check design matrix
     expect_equal(colnames(design), colnames(tidy[, 4:ncol(tidy)]))
 })
-

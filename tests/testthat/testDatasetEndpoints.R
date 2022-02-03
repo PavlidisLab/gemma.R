@@ -82,4 +82,3 @@ test_that("datasetDesign queries work", {
     expect_type(getDatasetDesign("GSE2018"), "list")
     expect_type(getDatasetDesign("GSE2018", raw = TRUE), "raw")
 })
-
