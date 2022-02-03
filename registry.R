@@ -350,7 +350,7 @@ registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
 
 registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
-  "getResultSets",
+  ".getResultSets",
   logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
   isFile = TRUE, internal = TRUE,
   header = "text/tab-separated-values",
@@ -375,7 +375,7 @@ registerEndpoint(
 
 registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
-  "getResultSetFactors",
+  ".getResultSetFactors",
   logname = "resultSetFactors", roxygen = "Returns the factor values for the queried resultSet.",
   internal = TRUE,
   defaults = list(

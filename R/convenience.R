@@ -232,10 +232,10 @@ getDatasetDE <- function(dataset) {
     } else {
         rsID <- rss$resultSet.id
     }
-    rs <- getResultSets(rsID)
+    rs <- .getResultSets(rsID)
 
     # Replace factor IDs by the factor names
-    factors <- getResultSetFactors(rsID)
+    factors <- .getResultSetFactors(rsID)
     baseline <- getDatasetDEA(dataset) %>%
         .[.data$result.ID == rsID, "cf.Baseline"] %>%
         unique()
