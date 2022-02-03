@@ -18,7 +18,6 @@ Since R is single-threaded, the deferred value might be resolved (much)
 later than the specified time period.
 }
 \examples{
-{
 ## Two HEAD requests with 1/2 sec delay between them
 resp <- list()
 afun <- async(function() {
@@ -30,7 +29,5 @@ afun <- async(function() {
 })
 synchronise(afun())
 resp
-}
-
 }
 \keyword{async}
