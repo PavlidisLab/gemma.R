@@ -5,6 +5,7 @@
 #' @param username Your username (or empty, if logging out)
 #' @param password Your password (or empty, if logging out)
 #'
+#' @return None
 #' @keywords internal
 setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
@@ -88,7 +89,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     }
 }
 
-#' Get Bioconductor data structures
+#' Get Bioconductor expression data
 #'
 #' Combines various endpoint calls to return an annotated Bioconductor-compatible
 #' data structure of the queried dataset, including expression data,
@@ -172,9 +173,9 @@ getBioc <- function(type, dataset, filter = FALSE) {
     }
 }
 
-#' Get Tidy Dataset and Design
+#' Get tidy dataset and design
 #'
-#' Combines the expression and design matrix of the queried dataset into a
+#' Combines the expression and design matrices of the queried dataset into a
 #' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
 #'
 #' @param dataset A dataset identifier.

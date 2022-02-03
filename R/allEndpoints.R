@@ -1642,11 +1642,12 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #'
 #' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)
 #'
+#' @return TRUE to indicate cache was cleared.
+#' @examples
+#' forgetGemmaMemoised()
 #' @export
 #'
 #' @keywords misc
-#' @examples
-#' forgetGemmaMemoised()
 forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
     memoise::forget(memgetResultSets)

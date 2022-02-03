@@ -15,7 +15,7 @@
 #' @param async Whether or not to run asynchronously
 #' @param .call The original function call
 #'
-#' @keywords internal
+#' @noRd
 .body <- function(memoised, fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, async, .call) {
     # Call a memoised version if applicable
     if (memoised) {

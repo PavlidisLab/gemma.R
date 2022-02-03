@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getBioc}
 \alias{getBioc}
-\title{Get Bioconductor data structures}
+\title{Get Bioconductor expression data}
 \usage{
 getBioc(type, dataset, filter = FALSE)
 }
