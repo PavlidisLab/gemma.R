@@ -121,7 +121,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
 #' @noRd
 memgetDatasets <- memoise::memoise(getDatasets)
 
-#' getResultSets
+#' .getResultSets
 #'
 #' Lists resultSets filtered and organized by given parameters.
 #'
@@ -202,7 +202,7 @@ memgetDatasets <- memoise::memoise(getDatasets)
 #' @keywords internal
 #'
 #' @examples
-getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
+.getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
     raw = getOption("gemma.raw", FALSE), async = getOption(
         "gemma.async",
@@ -215,7 +215,7 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
-    fname <- "getResultSets"
+    fname <- ".getResultSets"
     preprocessor <- processFile
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
@@ -229,12 +229,12 @@ getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     )
 }
 
-#' Memoise getResultSets
+#' Memoise .getResultSets
 #'
 #' @noRd
-memgetResultSets <- memoise::memoise(getResultSets)
+mem.getResultSets <- memoise::memoise(.getResultSets)
 
-#' getResultSetFactors
+#' .getResultSetFactors
 #'
 #' Returns the factor values for the queried resultSet.
 #'
@@ -316,7 +316,7 @@ memgetResultSets <- memoise::memoise(getResultSets)
 #' @keywords internal
 #'
 #' @examples
-getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
+.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
     excludeResults = TRUE, raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -327,7 +327,7 @@ getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_characte
     internal <- TRUE
     header <- ""
     isFile <- FALSE
-    fname <- "getResultSetFactors"
+    fname <- ".getResultSetFactors"
     preprocessor <- processResultSetFactors
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
@@ -341,10 +341,10 @@ getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_characte
     )
 }
 
-#' Memoise getResultSetFactors
+#' Memoise .getResultSetFactors
 #'
 #' @noRd
-memgetResultSetFactors <- memoise::memoise(getResultSetFactors)
+mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors)
 
 #' getDatasetResultSets
 #'
@@ -1650,8 +1650,8 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #' @keywords misc
 forgetGemmaMemoised <- function() {
     memoise::forget(memgetDatasets)
-    memoise::forget(memgetResultSets)
-    memoise::forget(memgetResultSetFactors)
+    memoise::forget(mem.getResultSets)
+    memoise::forget(mem.getResultSetFactors)
     memoise::forget(memgetDatasetResultSets)
     memoise::forget(memgetDatasetData)
     memoise::forget(memgetDatasetSamples)
