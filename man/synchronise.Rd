@@ -10,6 +10,9 @@ synchronise(expr)
 \item{expr}{Async function call expression. If it does not evaluate
 to a deferred value, then it is just returned.}
 }
+\value{
+The evaluation of the code inside the synchronise block.
+}
 \description{
 Evaluate an expression in an async phase. It creates an event loop,
 then evaluates the supplied expression. If its result is a deferred

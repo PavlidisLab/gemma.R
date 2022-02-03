@@ -6,6 +6,9 @@
 \usage{
 forgetGemmaMemoised()
 }
+\value{
+TRUE to indicate cache was cleared.
+}
 \description{
 Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = \code{TRUE})
 }

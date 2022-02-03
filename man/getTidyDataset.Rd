@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getTidyDataset}
 \alias{getTidyDataset}
-\title{Get Tidy Dataset and Design}
+\title{Get tidy dataset and design}
 \usage{
 getTidyDataset(dataset, filter = FALSE)
 }
@@ -15,7 +15,7 @@ getTidyDataset(dataset, filter = FALSE)
 A \code{\link[tibble]{tibble}}.
 }
 \description{
-Combines the expression and design matrix of the queried dataset into a
+Combines the expression and design matrices of the queried dataset into a
 tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
 }
 \examples{

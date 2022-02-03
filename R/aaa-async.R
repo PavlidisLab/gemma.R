@@ -3632,6 +3632,7 @@ async_some <- mark_as_async(async_some)
 #'
 #' @param expr Async function call expression. If it does not evaluate
 #' to a deferred value, then it is just returned.
+#' @return The evaluation of the code inside the synchronise block.
 #'
 #' @export
 #' @keywords async
@@ -4162,7 +4163,7 @@ get_private <- function(x) {
 #'   or the error thrown.
 #' @param info Extra info to add to the error object. Must be a named list.
 #'
-#' @keywords internal
+#' @noRd
 
 call_with_callback <- function(func, callback, info = NULL) {
     recerror <- NULL
