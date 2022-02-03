@@ -1499,19 +1499,18 @@ is_deferred <- function(x) {
 #' @keywords async
 #' @examples
 #' {
-#' ## Two HEAD requests with 1/2 sec delay between them
-#' resp <- list()
-#' afun <- async(function() {
-#'     http_head("https://eu.httpbin.org?q=2")$
-#'         then(function(value) resp[[1]] <<- value$status_code)$
-#'         then(function(...) delay(1 / 2))$
-#'         then(function(...) http_head("https://eu.httpbin.org?q=2"))$
-#'         then(function(value) resp[[2]] <<- value$status_code)
-#' })
-#' synchronise(afun())
-#' resp
+#'     ## Two HEAD requests with 1/2 sec delay between them
+#'     resp <- list()
+#'     afun <- async(function() {
+#'         http_head("https://eu.httpbin.org?q=2")$
+#'             then(function(value) resp[[1]] <<- value$status_code)$
+#'             then(function(...) delay(1 / 2))$
+#'             then(function(...) http_head("https://eu.httpbin.org?q=2"))$
+#'             then(function(value) resp[[2]] <<- value$status_code)
+#'     })
+#'     synchronise(afun())
+#'     resp
 #' }
-#'
 delay <- function(delay) {
     force(delay)
     id <- NULL
@@ -2522,13 +2521,12 @@ async_reject <- mark_as_async(async_reject)
 #' @importFrom curl new_handle handle_setheaders
 #' @examples
 #' {
-#' afun <- async(function() {
-#'     http_get("https://eu.httpbin.org/status/200")$
-#'         then(function(x) x$status_code)
-#' })
-#' synchronise(afun())
+#'     afun <- async(function() {
+#'         http_get("https://eu.httpbin.org/status/200")$
+#'             then(function(x) x$status_code)
+#'     })
+#'     synchronise(afun())
 #' }
-#'
 http_get <- function(url, headers = character(), file = NULL,
     options = list(), on_progress = NULL) {
     url
@@ -2581,21 +2579,20 @@ http_get <- mark_as_async(http_get)
 #' @importFrom curl handle_setopt
 #' @examples
 #' {
-#' afun <- async(function() {
-#'     dx <- http_head("https://eu.httpbin.org/status/200")$
-#'         then(function(x) x$status_code)
-#' })
-#' synchronise(afun())
+#'     afun <- async(function() {
+#'         dx <- http_head("https://eu.httpbin.org/status/200")$
+#'             then(function(x) x$status_code)
+#'     })
+#'     synchronise(afun())
 #'
-#' # Check a list of URLs in parallel
-#' afun <- function(urls) {
-#'     when_all(.list = lapply(urls, http_head))$
-#'         then(function(x) lapply(x, "[[", "status_code"))
+#'     # Check a list of URLs in parallel
+#'     afun <- function(urls) {
+#'         when_all(.list = lapply(urls, http_head))$
+#'             then(function(x) lapply(x, "[[", "status_code"))
+#'     }
+#'     urls <- c("https://google.com", "https://eu.httpbin.org")
+#'     synchronise(afun(urls))
 #' }
-#' urls <- c("https://google.com", "https://eu.httpbin.org")
-#' synchronise(afun(urls))
-#' }
-#'
 http_head <- function(url, headers = character(), file = NULL,
     options = list(), on_progress = NULL) {
     url
@@ -2695,8 +2692,14 @@ get_default_curl_options <- function(options) {
     modifyList(
         options,
         drop_nulls(list(
-            ssl_verifyhost = switch(is.null(getOption('gemma.SSL')) + 1, as.integer(getOption('gemma.SSL')), NULL),
-            ssl_verifypeer = switch(is.null(getOption('gemma.SSL')) + 1, as.integer(getOption('gemma.SSL')), NULL),
+            ssl_verifyhost = switch(is.null(getOption("gemma.SSL")) + 1,
+                as.integer(getOption("gemma.SSL")),
+                NULL
+            ),
+            ssl_verifypeer = switch(is.null(getOption("gemma.SSL")) + 1,
+                as.integer(getOption("gemma.SSL")),
+                NULL
+            ),
             timeout = as.integer(getopt("timeout") %||% 0),
             connecttimeout = as.integer(getopt("connecttimeout") %||% 300),
             low_speed_time = as.integer(getopt("low_speed_time") %||% 0),
@@ -3638,14 +3641,13 @@ async_some <- mark_as_async(async_some)
 #' @keywords async
 #' @examples
 #' {
-#' http_status <- function(url, ...) {
-#'     http_get(url, ...)$
-#'         then(function(x) x$status_code)
-#' }
+#'     http_status <- function(url, ...) {
+#'         http_get(url, ...)$
+#'             then(function(x) x$status_code)
+#'     }
 #'
-#' synchronise(http_status("https://eu.httpbin.org/status/418"))
+#'     synchronise(http_status("https://eu.httpbin.org/status/418"))
 #' }
-#'
 synchronise <- function(expr) {
     new_el <- push_event_loop()
     on.exit(
@@ -4267,16 +4269,15 @@ str_trim <- function(x) {
 #' @export
 #' @examples
 #' {
-#' ## Check that the contents of two URLs are the same
-#' afun <- async(function() {
-#'     u1 <- http_get("https://eu.httpbin.org")
-#'     u2 <- http_get("https://eu.httpbin.org/get")
-#'     when_all(u1, u2)$
-#'         then(function(x) identical(x[[1]]$content, x[[2]]$content))
-#' })
-#' synchronise(afun())
+#'     ## Check that the contents of two URLs are the same
+#'     afun <- async(function() {
+#'         u1 <- http_get("https://eu.httpbin.org")
+#'         u2 <- http_get("https://eu.httpbin.org/get")
+#'         when_all(u1, u2)$
+#'             then(function(x) identical(x[[1]]$content, x[[2]]$content))
+#'     })
+#'     synchronise(afun())
 #' }
-#'
 when_all <- function(..., .list = list()) {
     defs <- c(list(...), .list)
     nx <- 0L
@@ -4336,15 +4337,14 @@ when_all <- mark_as_async(when_all)
 #' @keywords async
 #' @examples
 #' {
-#' ## Use the URL that returns first
-#' afun <- function() {
-#'     u1 <- http_get("https://eu.httpbin.org")
-#'     u2 <- http_get("https://eu.httpbin.org/get")
-#'     when_any(u1, u2)$then(function(x) x$url)
+#'     ## Use the URL that returns first
+#'     afun <- function() {
+#'         u1 <- http_get("https://eu.httpbin.org")
+#'         u2 <- http_get("https://eu.httpbin.org/get")
+#'         when_any(u1, u2)$then(function(x) x$url)
+#'     }
+#'     synchronise(afun())
 #' }
-#' synchronise(afun())
-#' }
-#'
 when_some <- function(count, ..., .list = list()) {
     force(count)
     defs <- c(list(...), .list)

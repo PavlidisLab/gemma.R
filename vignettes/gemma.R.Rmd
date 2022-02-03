@@ -3,9 +3,9 @@ title: 'Accessing curated expresson data with gemma.R'
 author: 'Javier Castillo-Arnemann'
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Accessing curated expresson data with gemma.R}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+    %\VignetteIndexEntry{Accessing curated expresson data with gemma.R}
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -187,7 +187,7 @@ In these cases, you will have to loop over all the identifiers you wish to query
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
     getDatasetAnnotations(dataset) %>% mutate(ee.shortName = dataset)
 }) %>% rbindlist() %>%
-  select(ee.shortName, class.Type, class.Name, term.Name)
+    select(ee.shortName, class.Type, class.Name, term.Name)
 ```
 
 ### Memoise data
