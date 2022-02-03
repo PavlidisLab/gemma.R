@@ -12,7 +12,7 @@ reference:
   contents:
   - has_keyword("platform")
 - title: Gene endpoints
-  desc: Endpoints accessing genes (non taxon-specific). Most endpoints also have a taxon-specific counterpart in the Taxon endpoints.
+  desc: Endpoints accessing genes (non taxon-specific).
   contents:
   - has_keyword("gene")
 - title: Other functions
