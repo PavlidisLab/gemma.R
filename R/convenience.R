@@ -35,7 +35,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     if (!is.numeric(platform)) {
         platforms <- getPlatforms(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
-            stop(paste0(platform, " is not a valid single platform."))
+            stop(platform, " is not a valid single platform.")
         }
         platform <- platforms[, "platform.ID"]
     }
@@ -78,7 +78,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     }
 
     if ((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite) {
-        warning(paste0(tools::file_path_sans_ext(file), " exists. Not overwriting."))
+        warning(tools::file_path_sans_ext(file), " exists. Not overwriting.")
         doReadFile(file)
     } else {
         synchronise({

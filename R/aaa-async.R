@@ -4593,7 +4593,7 @@ wp_notify_event <- function(self, private, pids, event_loop) {
         if (msg$code == 200 || (msg$code >= 500 && msg$code < 600)) {
             if (msg$code >= 500 && msg$code < 600) dead <- c(dead, w)
             wt <- match(private$workers$task[[w]], private$tasks$id)
-            if (is.na(wt)) stop("Internal error, no such task")
+            if (is.na(wt)) stop("No such task")
             private$tasks$result[[wt]] <- msg
             private$tasks$status[[wt]] <- "done"
             private$workers$task[[w]] <- NA_character_

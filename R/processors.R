@@ -55,7 +55,7 @@
                     }
                 },
                 error = function(e) {
-                    message(paste0("Failed to parse ", response$type, " from ", response$url))
+                    message("Failed to parse ", response$type, " from ", response$url)
                     warning(e$message)
                 }
             )
@@ -72,7 +72,7 @@
                 file <- paste0(tools::file_path_sans_ext(file), extension)
 
                 if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
-                    warning(paste0(file, " exists. Not overwriting."))
+                    warning(file, " exists. Not overwriting.")
                 } else {
                     if (extension == ".json") {
                         write(jsonlite::toJSON(mOut, pretty = 2), file)
@@ -85,13 +85,13 @@
             }
             mOut
         } else if (response$status_code == 403){
-            message(paste0("Error ", response$status_code, ": Forbidden. You do not have permission to access this data."))
+            stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
         } else if (response$status_code == 404){
-            message(paste0("Error ", response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID."))
+            stop(response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID.")
         } else if (response$status_code == 503){
-            message(paste0("Error ", response$status_code, ": Service Unavailable. Gemma might be under maintenance."))
+            stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
         } else{
-            message(paste0("Error ", response$status_code))
+            stop(response$status_code)
         }
     }))
 
