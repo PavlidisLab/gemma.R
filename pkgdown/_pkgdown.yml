@@ -23,4 +23,7 @@ reference:
   desc: Functions used for asynchronous requests.
   contents:
   - has_keyword("async")
+- title: internal
+  contents:
+  - gemma.R
 
