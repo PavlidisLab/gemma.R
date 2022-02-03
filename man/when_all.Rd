@@ -25,7 +25,6 @@ async has auto-cancellation, so if one deferred value errors, the rest
 of them will be automatically cancelled.
 }
 \examples{
-{
 ## Check that the contents of two URLs are the same
 afun <- async(function() {
     u1 <- http_get("https://eu.httpbin.org")
@@ -34,8 +33,6 @@ afun <- async(function() {
         then(function(x) identical(x[[1]]$content, x[[2]]$content))
 })
 synchronise(afun())
-}
-
 }
 \seealso{
 \code{\link[=when_any]{when_any()}}, \code{\link[=when_some]{when_some()}}
