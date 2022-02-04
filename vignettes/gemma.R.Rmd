@@ -167,6 +167,10 @@ ggplot(
     theme_minimal()
 ```
 
+The unlabeled genes in the volcano plot correspond to microarray probes that do
+not map to any gene after re-aligning the probes during Gemma's curation process.
+You can also see how multiple probes can map to the same gene.
+
 ### Longer queries
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.
 
