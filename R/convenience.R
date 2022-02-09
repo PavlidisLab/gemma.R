@@ -207,47 +207,33 @@ getTidyDataset <- function(dataset, filter = FALSE) {
 #' to choose one.
 #'
 #' @param dataset A dataset identifier.
+#' @param resultSet A resultSet identifier.
+#' @param all If TRUE, will download all differential expression resultSets for the dataset.
 #'
-#' @return A data table with differential expression values
+#' @return A data table with differential expression values. If there are multiple
+#' resultSets and all = TRUE, a list of data tables with differential expression
+#' values.
 #' @keywords dataset
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset) {
+getDatasetDE <- function(dataset, resultSet = NA_character_, all = FALSE) {
     rss <- getDatasetResultSets(dataset)
-    if (nrow(rss) > 1) {
-        validID <- FALSE
-        while (validID == FALSE) {
-            print(rss)
-            rsID <- readline(prompt = "Enter the ID of the desired differential expression resultSet: ")
-            if (!(rsID %in% rs$resultSet.id)) {
-                warning("The ID you selected was not found for this dataset. Here are the available resultSets:",
-                    immediate. = TRUE
-                )
-                validID <- FALSE
-            } else {
-                validID <- TRUE
-            }
-        }
-    } else {
-        rsID <- rss$resultSet.id
+    if (nrow(rss) > 1 && is.na(resultSet) && all == FALSE){
+        print(rss)
+        stop("There are multiple resultSets for this dataset, specify which one you want from the options above or choose all = TRUE")
+    } else if (nrow(rss) > 1 && is.na(resultSet) == FALSE){
+        resultSet <- resultSet
+    } else{
+        resultSet <- rss$resultSet.id %>% unique()
     }
-    rs <- .getResultSets(rsID)
-
-    # Replace factor IDs by the factor names
-    factors <- .getResultSetFactors(rsID)
-    baseline <- getDatasetDEA(dataset) %>%
-        .[.data$result.ID == rsID, "cf.Baseline"] %>%
-        unique()
-    colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
-    colNames <- colnames(rs)
-    for (f in factors$id) {
-        colNames <- stringr::str_replace(colNames, as.character(f), factors[factors$id == f, 2])
+    # Get resultSet(s) and replace contrast column names
+    rs <- lapply(resultSet, function(x){
+        .getResultSets(x) %>%
+            processDEcontrasts(x)
+    })
+    if (length(rs) == 1){
+        rs <- rs[[1]]
     }
-    colnames(rs) <- colNames
-
-    cat(paste0("Baseline: ", baseline, "\n"))
-    cat(paste0("Factors: ", rss[rss$resultSet.id == rsID, rss$factor.levels], "\n\n"))
-
     rs
 }
