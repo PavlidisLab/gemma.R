@@ -707,12 +707,30 @@ processExpressionMatrix <- function(m) {
 #' @return A processed matrix
 #'
 #' @keywords internal
-processDEMatrix <- function(m, id) {
-    dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id) %>%
+processDEMatrix <- function(m) {
+    dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id, -.data$gene_name) %>%
         dplyr::rename(
             Probe = .data$probe_name,
             GeneSymbol = .data$gene_official_symbol,
-            GeneName = .data$gene_name,
+            GeneName = .data$gene_official_name,
             NCBIid = .data$gene_ncbi_id
         )
 }
+
+#' Replaces factor ids by the factors strings in DE table columns
+#'
+#' @param rs The resultSet matrix to process
+#'
+#' @return A processed matrix
+#'
+#' @keywords internal
+processDEcontrasts <- function(rs, rsID) {
+    factors <- .getResultSetFactors(rsID)
+    colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")
+    # Replace factor IDs by the factor names
+    for (f in factors$id) {
+        colnames(rs) <- stringr::str_replace(colnames(rs), as.character(f), factors[factors$id == f, 2])
+    }
+    rs
+}
+
