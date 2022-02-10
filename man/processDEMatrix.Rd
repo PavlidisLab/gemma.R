@@ -4,7 +4,7 @@
 \alias{processDEMatrix}
 \title{Processes differential expression matrix}
 \usage{
-processDEMatrix(m, id)
+processDEMatrix(m)
 }
 \arguments{
 \item{m}{The differential expression matrix to process}
