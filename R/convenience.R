@@ -203,8 +203,9 @@ getTidyDataset <- function(dataset, filter = FALSE) {
 #' Get Differential Expression
 #'
 #' Retrieves the differential expression resultSet(s) associated with the dataset.
-#' If there is more than one resultSet, it will show the options and prompt the user
-#' to choose one.
+#' If there is more than one resultSet, use \code{\link{getDatasetResultSets}} to see
+#' the options and get the ID you want. Alternatively, you can query the resultSet
+#' directly if you know its ID beforehand.
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
@@ -217,17 +218,28 @@ getTidyDataset <- function(dataset, filter = FALSE) {
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset, resultSet = NA_character_, all = FALSE) {
-    rss <- getDatasetResultSets(dataset)
-    if (nrow(rss) > 1 && is.na(resultSet) && all == FALSE){
-        print(rss)
-        stop("There are multiple resultSets for this dataset, specify which one you want from the options above or choose all = TRUE")
-    } else if (nrow(rss) > 1 && is.na(resultSet) == FALSE){
-        resultSet <- resultSet
-    } else{
-        resultSet <- rss$resultSet.id %>% unique()
+getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all = FALSE) {
+    if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
+        rss <- getDatasetResultSets(dataset)
+        if (!(resultSet %in% rss$resultSet.id)){
+            stop("The queried resultSet is not derived from this dataset. Check the available resultSets with `getDatasetResultSets()` or query without the dataset parameter.")
+        }
     }
-    # Get resultSet(s) and replace contrast column names
+    else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
+        rss <- getDatasetResultSets(dataset)
+        if (nrow(rss) > 1 && all == FALSE){
+            stop("There are multiple resultSets for this dataset. Check the available resultSets with `getDatasetResultSets()` or choose all = TRUE")
+        } else if (nrow(rss) > 1 && all == TRUE){
+            resultSet <- rss$resultSet.id %>% unique()
+        } else{
+            resultSet <- rss$resultSet.id
+        }
+    } else if (is.na(dataset) == TRUE && is.na(resultSet) == FALSE){
+        resultSet <- resultSet
+    } else {
+        stop("Specify a dataset or a resultSet ID.")
+    }
+
     rs <- lapply(resultSet, function(x){
         .getResultSets(x) %>%
             processDEcontrasts(x)

@@ -4,18 +4,25 @@
 \alias{getDatasetDE}
 \title{Get Differential Expression}
 \usage{
-getDatasetDE(dataset)
+getDatasetDE(dataset = NA_character_, resultSet = NA_integer_, all = FALSE)
 }
 \arguments{
 \item{dataset}{A dataset identifier.}
+
+\item{resultSet}{A resultSet identifier.}
+
+\item{all}{If TRUE, will download all differential expression resultSets for the dataset.}
 }
 \value{
-A data table with differential expression values
+A data table with differential expression values. If there are multiple
+resultSets and all = TRUE, a list of data tables with differential expression
+values.
 }
 \description{
 Retrieves the differential expression resultSet(s) associated with the dataset.
-If there is more than one resultSet, it will show the options and prompt the user
-to choose one.
+If there is more than one resultSet, use \code{\link{getDatasetResultSets}} to see
+the options and get the ID you want. Alternatively, you can query the resultSet
+directly if you know its ID beforehand.
 }
 \examples{
 getDatasetDE("GSE2018")
