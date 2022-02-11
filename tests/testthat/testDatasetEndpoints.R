@@ -25,7 +25,11 @@ test_that("searchDatasets queries work", {
         dat[, c(ee.ShortName, ee.ID)],
         c(raw$shortName, raw$id)
     )
-    expect_equal(dat %>% nrow(), 20)
+    expect_equal(nrow(dat), 20)
+    expect_equal(
+        searchDatasets("bipolar", taxon = "rat")[[1,"taxon.Name"]],
+        "rat"
+    )
 })
 
 test_that("datasetPlatforms queries work", {
