@@ -20,7 +20,7 @@ values.
 }
 \description{
 Retrieves the differential expression resultSet(s) associated with the dataset.
-If there is more than one resultSet, use \code{\link{getDatasetResultSets}} to see
+If there is more than one resultSet, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} to see
 the options and get the ID you want. Alternatively, you can query the resultSet
 directly if you know its ID beforehand.
 }

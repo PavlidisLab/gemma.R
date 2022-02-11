@@ -103,7 +103,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
-#' @return A \code{\link[SummarizedExperiment]{SummarizedExperiment}} or \code{\link[Biobase]{ExpressionSet}} of the queried dataset.
+#' @return A SummarizedExperiment or ExpressionSet of the queried dataset.
 #' @keywords dataset
 #' @export
 #' @examples
@@ -176,12 +176,12 @@ getBioc <- function(type, dataset, filter = FALSE) {
 #' Get tidy dataset and design
 #'
 #' Combines the expression and design matrices of the queried dataset into a
-#' tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
+#' tibble for easy visualization and exploration with ggplot and the rest of the tidyverse.
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
-#' @return A \code{\link[tibble]{tibble}}.
+#' @return A tibble that combines the expression and design matrices.
 #' @keywords dataset
 #' @export
 #' @examples
@@ -203,7 +203,7 @@ getTidyDataset <- function(dataset, filter = FALSE) {
 #' Get Differential Expression
 #'
 #' Retrieves the differential expression resultSet(s) associated with the dataset.
-#' If there is more than one resultSet, use \code{\link{getDatasetResultSets}} to see
+#' If there is more than one resultSet, use [getDatasetResultSets()] to see
 #' the options and get the ID you want. Alternatively, you can query the resultSet
 #' directly if you know its ID beforehand.
 #'

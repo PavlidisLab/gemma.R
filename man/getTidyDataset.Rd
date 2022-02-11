@@ -12,11 +12,11 @@ getTidyDataset(dataset, filter = FALSE)
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 }
 \value{
-A \code{\link[tibble]{tibble}}.
+A tibble that combines the expression and design matrices.
 }
 \description{
 Combines the expression and design matrices of the queried dataset into a
-tibble for easy visualization and exploration with \code{\link[ggplot2]{ggplot}} and the rest of the tidyverse.
+tibble for easy visualization and exploration with ggplot and the rest of the tidyverse.
 }
 \examples{
 getTidyDataset("GSE2018")
