@@ -291,12 +291,13 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Whether or not to overwrite if a file exists at the specified filename.</p>"
         } else if (arg == "request") {
             mAdd <- "<p>Which specific endpoint to request.</p>"
+        } else if (arg == "taxon"){
+            mAdd <- "Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name. "
         } else if (arg == "...") {
             mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
         } else if (arg == "excludeResults") {
             mAdd <- "Only keep factor values and exclude numerical results from resultSets."
-        }
-          else if (arg == "resultSet") {
+        } else if (arg == "resultSet") {
             mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
         } else {
             mArg <- arg
