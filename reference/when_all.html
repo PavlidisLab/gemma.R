@@ -40,7 +40,7 @@ triggers the error when_all as well."><meta property="og:image" content="/logo.p
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/gemma.R.html">Using gemma.R</a>
+      <a href="../articles/gemma.R.html">Accessing curated expresson data with gemma.R</a>
     </li>
   </ul></li>
 <li>
@@ -100,8 +100,7 @@ of them will be automatically cancelled.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"><span class="co">## Check that the contents of two URLs are the same</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">## Check that the contents of two URLs are the same</span></span>
 <span class="r-in"><span class="va">afun</span> <span class="op">&lt;-</span> <span class="fu"><a href="async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">    <span class="va">u1</span> <span class="op">&lt;-</span> <span class="fu"><a href="http_get.html">http_get</a></span><span class="op">(</span><span class="st">"https://eu.httpbin.org"</span><span class="op">)</span></span>
 <span class="r-in">    <span class="va">u2</span> <span class="op">&lt;-</span> <span class="fu"><a href="http_get.html">http_get</a></span><span class="op">(</span><span class="st">"https://eu.httpbin.org/get"</span><span class="op">)</span></span>
@@ -109,9 +108,7 @@ of them will be automatically cancelled.</p>
 <span class="r-in">        <span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">x</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">content</span>, <span class="va">x</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">content</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="synchronise.html">synchronise</a></span><span class="op">(</span><span class="fu">afun</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -122,7 +119,7 @@ of them will be automatically cancelled.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jordan Sicherman, Ogan Mancarci, Javier Castillo-Arnemann.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">

@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Using gemma.R • gemma.R</title>
+<title>Accessing curated expresson data with gemma.R • gemma.R</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using gemma.R">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Accessing curated expresson data with gemma.R">
 <meta property="og:description" content="gemma.R">
 <meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -63,7 +63,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/gemma.R.html">Using gemma.R</a>
+      <a href="../articles/gemma.R.html">Accessing curated expresson data with gemma.R</a>
     </li>
   </ul>
 </li>
@@ -91,7 +91,7 @@
       </header><script src="gemma.R_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using gemma.R</h1>
+      <h1 data-toc-skip>Accessing curated expresson data with gemma.R</h1>
                         <h4 data-toc-skip class="author">Javier Castillo-Arnemann</h4>
             
       
@@ -117,10 +117,35 @@
 <p>For detailed information on the curation process, check this <a href="https://pavlidislab.github.io/Gemma/curation.html" class="external-link">page</a> or the latest <a href="https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045" class="external-link">publication</a>.</p>
 </div>
 <div class="section level2">
+<h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
+</h2>
+<div class="section level3">
+<h3 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
+</h3>
+<p>The current development version of <code>gemma.R</code> can be installed with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PavlidisLab/gemma.R"</span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="bioconductor-not-available-yet">Bioconductor (not available yet)<a class="anchor" aria-label="anchor" href="#bioconductor-not-available-yet"></a>
+</h3>
+<p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> with the following code:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># if (!requireNamespace("BiocManager", quietly = TRUE)) {</span>
+<span class="co">#     install.packages("BiocManager")</span>
+<span class="co"># }</span>
+<span class="co"># </span>
+<span class="co"># BiocManager::install("gemma.R")</span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
 </h2>
 <p>The main goal of this wrapper is to give easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected. To do this, we use the <a href="https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html" class="external-link"><code>searchDatasets()</code></a> endpoint:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/searchDatasets.html">searchDatasets</a></span><span class="op">(</span><span class="st">"bipolar"</span>, limit <span class="op">=</span> <span class="fl">100</span>, taxon <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.Samples</span><span class="op">)</span></code></pre></div>
@@ -132,7 +157,7 @@
 2:         32</code></pre>
 <p>We are left with two datasets, and we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939" class="external-link">GSE35974</a> since it has the larger number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
 <p>To get the basic information of a dataset, we use the <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasets.html" class="external-link"><code>getDatasets()</code></a> endpoint.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span><span class="st">"GSE35974"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Database</span>, <span class="va">ee.Samples</span>, <span class="va">taxon.Name</span><span class="op">)</span></code></pre></div>
 <pre><code>   ee.ShortName                                         ee.Name ee.ID
@@ -142,16 +167,16 @@
 <p>To access the actual expression data, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getBioc.html" class="external-link"><code>getBioc()</code></a>. It is a high-level wrapper that combines various endpoints to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
 <p>Alternatively, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html" class="external-link"><code>getDatasetData()</code></a> to get the expression matrix as a data table, and <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html" class="external-link"><code>getDatasetDesign()</code></a> to get a matrix with the experimental design.</p>
 <p>Since this dataset also contains patients with schizophrenia and depression, and we’re only interested in bipolar patients, we can remove those samples. We’re also keeping the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get SummarizedExperiment</span>
 <span class="va">se</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getBioc.html">getBioc</a></span><span class="op">(</span><span class="st">"SummarizedExperiment"</span>, <span class="st">"GSE35974"</span><span class="op">)</span>
 <span class="va">se</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Check the levels of the DiseaseState cofactor</span>
 <span class="va">se</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "reference_subject_role" "mental_depression"      "Bipolar_Disorder"      
 [4] "schizophrenia"         </code></pre>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Subset patients with bipolar disorder and controls.</span>
 <span class="va">bipolar</span> <span class="op">&lt;-</span> <span class="va">se</span><span class="op">[</span>, <span class="va">se</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">"Bipolar_Disorder"</span> <span class="op">|</span> <span class="va">se</span><span class="op">$</span><span class="va">DiseaseState</span> <span class="op">==</span> <span class="st">"reference_subject_role"</span><span class="op">]</span>
 <span class="va">bipolar</span></code></pre></div>
@@ -164,7 +189,7 @@ rowData names(3): GeneSymbol GeneName NCBIid
 colnames(87): DE59_111109_rep1 DE7_111109 ... AC103_100909 AC1_100909
 colData names(2): DiseaseState batch</code></pre>
 <p>Let’s check the expression for every sample to make sure they look OK:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get Expression matrix</span>
 <span class="va">bipExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assays</a></span><span class="op">(</span><span class="va">bipolar</span><span class="op">)</span><span class="op">$</span><span class="va">counts</span>
 
@@ -175,9 +200,9 @@ colData names(2): DiseaseState batch</code></pre>
 <h3 id="differential-expression-results">Differential Expression Results<a class="anchor" aria-label="anchor" href="#differential-expression-results"></a>
 </h3>
 <p>Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html" class="external-link"><code>getDatasetDE()</code></a>. From here on, it’s easy to visualize/explore the data and find the most differentially-expressed genes:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="st">"GSE35974"</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Classify genes for plotting</span>
 <span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">&lt;-</span> <span class="st">"No"</span>
 <span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_logFoldChange`</span> <span class="op">&gt;</span> <span class="fl">0.4</span> <span class="op">&amp;</span> <span class="va">de</span><span class="op">$</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Up"</span>
@@ -215,7 +240,7 @@ colData names(2): DiseaseState batch</code></pre>
 11:                                  0.5954
 12:                                  0.4018
 13:                                  0.4940</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Downregulated genes</span>
 <span class="va">de</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Down"</span>, <span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_Bipolar Disorder_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
@@ -242,7 +267,7 @@ colData names(2): DiseaseState batch</code></pre>
  8:                                 -0.4873
  9:                                 -0.5035
 10:                                 -0.4167</code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Add gene symbols as labels to DE genes</span>
 <span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span>
 <span class="va">de</span><span class="op">$</span><span class="va">delabel</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">de</span><span class="op">$</span><span class="va">GeneSymbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span>
@@ -265,12 +290,13 @@ colData names(2): DiseaseState batch</code></pre>
     <span class="fu"><a href="https://rdrr.io/pkg/ggrepel/man/geom_text_repel.html" class="external-link">geom_text_repel</a></span><span class="op">(</span>show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
     <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="gemma.R_files/figure-html/diffExpr-1.png" width="700"></p>
+<p>The unlabeled genes in the volcano plot correspond to microarray probes that do not map to any gene after re-aligning the probes during Gemma’s curation process. You can also see how multiple probes can map to the same gene.</p>
 </div>
 <div class="section level3">
 <h3 id="longer-queries">Longer queries<a class="anchor" aria-label="anchor" href="#longer-queries"></a>
 </h3>
 <p>Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasets.html">getDatasets</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span>, <span class="st">"GSE99349"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Database</span>, <span class="va">ee.Samples</span>, <span class="va">taxon.Name</span><span class="op">)</span></code></pre></div>
 <pre><code>   ee.ShortName
@@ -286,15 +312,15 @@ colData names(2): DiseaseState batch</code></pre>
 2:  8997     GSE46416         GEO         32      human
 3: 11690     GSE99349         GEO         36      human</code></pre>
 <p>You’ll be able to tell which endpoints accept multiple inputs from the function examples or simply because the parameter name is plural in the documentation. The rest of the endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <pre><code>Error: Please specify one valid identifier for dataset.</code></pre>
 <p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ee.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span>
 <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">rbindlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></code></pre></div>
 <pre><code>    ee.shortName    class.Type     class.Name              term.Name
  1:     GSE35974   FactorValue        disease       Bipolar Disorder
  2:     GSE35974   BioMaterial biological sex                   male
@@ -341,9 +367,63 @@ colData names(2): DiseaseState batch</code></pre>
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
 <p>We’ve seen how to change <code>memoised=TRUE</code>, <code>overwrite=TRUE</code> and <code>raw=TRUE</code>… It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
+</h2>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-apple-darwin17.0 (64-bit)
+Running under: macOS Big Sur 10.16
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats4    stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] SummarizedExperiment_1.24.0 Biobase_2.54.0             
+ [3] GenomicRanges_1.46.1        GenomeInfoDb_1.30.1        
+ [5] IRanges_2.28.0              S4Vectors_0.32.3           
+ [7] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
+ [9] matrixStats_0.61.0          memoise_2.0.1              
+[11] ggrepel_0.9.1               ggplot2_3.3.5              
+[13] data.table_1.14.2           dplyr_1.0.8                
+[15] gemma.R_0.99.0             
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.8             lattice_0.20-45        ps_1.6.0              
+ [4] assertthat_0.2.1       rprojroot_2.0.2        digest_0.6.29         
+ [7] utf8_1.2.2             R6_2.5.1               evaluate_0.14         
+[10] highr_0.9              pillar_1.7.0           zlibbioc_1.40.0       
+[13] rlang_1.0.1            curl_4.3.2             uuid_1.0-3            
+[16] callr_3.7.0            jquerylib_0.1.4        Matrix_1.3-4          
+[19] rmarkdown_2.11         pkgdown_2.0.2          labeling_0.4.2        
+[22] textshaping_0.3.6      desc_1.4.0             stringr_1.4.0         
+[25] RCurl_1.98-1.6         munsell_0.5.0          DelayedArray_0.20.0   
+[28] compiler_4.1.2         xfun_0.29              pkgconfig_2.0.3       
+[31] systemfonts_1.0.2      htmltools_0.5.2        tidyselect_1.1.1      
+[34] tibble_3.1.6           GenomeInfoDbData_1.2.7 fansi_1.0.2           
+[37] crayon_1.4.2           withr_2.4.3            bitops_1.0-7          
+[40] grid_4.1.2             jsonlite_1.7.3         gtable_0.3.0          
+[43] lifecycle_1.0.1        magrittr_2.0.2         scales_1.1.1          
+[46] cli_3.1.1              stringi_1.7.6          cachem_1.0.6          
+[49] farver_2.1.0           XVector_0.34.0         fs_1.5.2              
+[52] bslib_0.3.1            ellipsis_0.3.2         ragg_1.1.3            
+[55] generics_0.1.2         vctrs_0.3.8            tools_4.1.2           
+[58] glue_1.6.1             purrr_0.3.4            processx_3.5.2        
+[61] fastmap_1.1.0          yaml_2.2.2             colorspace_2.0-2      
+[64] knitr_1.37             sass_0.4.0            </code></pre>
 </div>
   </div>
 
@@ -359,7 +439,7 @@ colData names(2): DiseaseState batch</code></pre>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Jordan Sicherman, Ogan Mancarci, Javier Castillo-Arnemann.</p>
+<p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">

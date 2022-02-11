@@ -31,22 +31,25 @@
     <loc>/reference/async_map.html</loc>
   </url>
   <url>
-    <loc>/reference/call_with_callback.html</loc>
-  </url>
-  <url>
     <loc>/reference/def__make_error_object.html</loc>
   </url>
   <url>
     <loc>/reference/delay.html</loc>
   </url>
   <url>
-    <loc>/reference/dot-body.html</loc>
+    <loc>/reference/dot-getResultSetFactors.html</loc>
+  </url>
+  <url>
+    <loc>/reference/dot-getResultSets.html</loc>
   </url>
   <url>
     <loc>/reference/encode.html</loc>
   </url>
   <url>
     <loc>/reference/forgetGemmaMemoised.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gemma.R.html</loc>
   </url>
   <url>
     <loc>/reference/getBioc.html</loc>
@@ -109,12 +112,6 @@
     <loc>/reference/getPlatforms.html</loc>
   </url>
   <url>
-    <loc>/reference/getResultSetFactors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getResultSets.html</loc>
-  </url>
-  <url>
     <loc>/reference/getTidyDataset.html</loc>
   </url>
   <url>
@@ -127,69 +124,6 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/memgetDatasetAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetDEA.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetData.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetDesign.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetPlatforms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasetSamples.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGeneEvidence.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGeneGO.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGeneLocation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGeneProbes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetGenes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetPlatformDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetPlatformElementGenes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetPlatformElements.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetPlatforms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetResultSetFactors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memgetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memsearchAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memsearchDatasets.html</loc>
-  </url>
-  <url>
     <loc>/reference/processAnnotations.html</loc>
   </url>
   <url>
@@ -200,6 +134,9 @@
   </url>
   <url>
     <loc>/reference/processDEMatrix.html</loc>
+  </url>
+  <url>
+    <loc>/reference/processDEcontrasts.html</loc>
   </url>
   <url>
     <loc>/reference/processDatasetResultSets.html</loc>

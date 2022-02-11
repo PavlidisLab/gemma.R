@@ -38,7 +38,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/gemma.R.html">Using gemma.R</a>
+      <a href="../articles/gemma.R.html">Accessing curated expresson data with gemma.R</a>
     </li>
   </ul></li>
 <li>
@@ -106,12 +106,12 @@ response body is written to a file. See details below.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="op">{</span></span>
-<span class="r-in"><span class="va">afun</span> <span class="op">&lt;-</span> <span class="fu"><a href="async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">afun</span> <span class="op">&lt;-</span> <span class="fu"><a href="async.html">async</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in">    <span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu">http_head</span><span class="op">(</span><span class="st">"https://eu.httpbin.org/status/200"</span><span class="op">)</span><span class="op">$</span></span>
 <span class="r-in">        <span class="fu">then</span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">status_code</span><span class="op">)</span></span>
 <span class="r-in"><span class="op">}</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="synchronise.html">synchronise</a></span><span class="op">(</span><span class="fu">afun</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Check a list of URLs in parallel</span></span>
 <span class="r-in"><span class="va">afun</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">urls</span><span class="op">)</span> <span class="op">{</span></span>
@@ -120,14 +120,12 @@ response body is written to a file. See details below.</p></dd>
 <span class="r-in"><span class="op">}</span></span>
 <span class="r-in"><span class="va">urls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://google.com"</span>, <span class="st">"https://eu.httpbin.org"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="synchronise.html">synchronise</a></span><span class="op">(</span><span class="fu">afun</span><span class="op">(</span><span class="va">urls</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 200</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
 </code></pre></div>
     </div>
   </div>
@@ -138,7 +136,7 @@ response body is written to a file. See details below.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Jordan Sicherman, Ogan Mancarci, Javier Castillo-Arnemann.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">
