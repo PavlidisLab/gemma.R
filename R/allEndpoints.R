@@ -1443,23 +1443,8 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
-#' @param taxon Not required, part of the URL path.
-#' can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers:
-#' scientific name, common name
-#' It is recommended to use Taxon ID for efficiency.
-#' Please note, that not all taxa have all the possible identifiers
-#' available.
-#' Use the 'All Taxa' endpoint to retrieve the necessary information. For
-#' convenience, below is a list of officially supported taxa:
-#'   ID   Comm.name   Scient.name                NcbiID
-#'   ---- ----------- -------------------------- --------
-#'   1    human       Homo sapiens               9606
-#'   2    mouse       Mus musculus               10090
-#'   3    rat         Rattus norvegicus          10116
-#'   11   yeast       Saccharomyces cerevisiae   4932
-#'   12   zebrafish   Danio rerio                7955
-#'   13   fly         Drosophila melanogaster    7227
-#'   14   worm        Caenorhabditis elegans     6239
+#' @param taxon Not required, part of the URL path. can either be Taxon ID, Taxon NCBI
+#' ID, or one of its string identifiers: scientific name, common name.
 #' @param filter Optional, defaults to `empty`.
 #' Filtering can be done on any* property or nested property that the
 #' appropriate object class defines or inherits (and that is mapped by
