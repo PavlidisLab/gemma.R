@@ -75,10 +75,12 @@ validateOptionalTaxon <- function(name, ...) {
 #' @keywords internal
 validateTaxon <- function(name, ...) {
     # TODO LOOKUP_TABLE is insufficient so
-    return(validateID(name, ...))
+    # return(validateID(name, ...))
 
     taxa <- as.character(unlist(list(...)))
-
+    if (length(taxa) > 1) {
+        stop("Please specify only one taxon.", call. = FALSE)
+    }
     LOOKUP_TABLE <- data.table(
         id = c(1, 2, 3, 11, 12, 13, 14),
         name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
@@ -96,23 +98,6 @@ validateTaxon <- function(name, ...) {
             call. = FALSE)
     }
     paste0(taxa, collapse = ",")
-}
-
-#' Validate a taxon using the acceptable taxa entries
-#'
-#' @param name The variable name
-#' @param ... Any taxa to validate
-#'
-#' @return The validated taxon, or stop with an error message
-#'
-#' @keywords internal
-validateSingleTaxon <- function(name, ...) {
-    taxon <- unlist(list(...))
-
-    if (length(taxon) > 1) {
-        stop("Please specify only one taxon.", call. = FALSE)
-    }
-    validateTaxon(name, ...)
 }
 
 #' Validate a query
