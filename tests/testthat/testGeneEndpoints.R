@@ -1,6 +1,6 @@
-test_that("getGenes queries work", {
-    dat <- getGenes(1859)
-    raw <- getGenes(1859, raw = TRUE)
+test_that("getGenesInfo queries work", {
+    dat <- getGenesInfo(1859)
+    raw <- getGenesInfo(1859, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(

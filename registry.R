@@ -330,7 +330,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
 
 # Dataset endpoints ----
 registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
-    "getDatasets",
+    "getDatasetsInfo",
     logname = "datasets", roxygen = "Datasets", keyword = "dataset",
     defaults = list(
         datasets = NA_character_,
@@ -414,8 +414,8 @@ registerEndpoint(
 )
 
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
-    "getDatasetData",
-    logname = "data", roxygen = "Dataset data", keyword = "dataset",
+    "getDatasetExpression",
+    logname = "data", roxygen = "Retrieves the expression matrix for the given dataset", keyword = "dataset",
     isFile = TRUE,
     defaults = list(
         dataset = NA_character_,
@@ -460,7 +460,7 @@ registerSimpleEndpoint("dataset", "analyses/differential",
 
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
-    "getPlatforms",
+    "getPlatformsInfo",
     logname = "platforms", roxygen = "Platforms", keyword = "platform",
     defaults = list(
         platforms = NA_character_,
@@ -534,7 +534,7 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
 # Gene endpoints ----
 registerSimpleEndpoint("genes", "",
     logname = "genes", roxygen = "Genes", keyword = "gene",
-    "getGenes",
+    "getGenesInfo",
     validator = alist(genes = validateID),
     preprocessor = quote(processGenes)
 )

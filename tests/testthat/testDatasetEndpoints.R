@@ -1,19 +1,18 @@
-test_that("getDatasets queries work", {
-    dat <- getDatasets(1)
-    raw <- getDatasets(1, raw = TRUE)
+test_that("getDatasetsInfo queries work", {
+    dat <- getDatasetsInfo(1)
+    raw <- getDatasetsInfo(1, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
         dat[, c(ee.ShortName, ee.ID)] %>% paste0(collapse = ""),
         raw[, c("shortName", "id")] %>% paste0(collapse = "")
     )
-
-    expect_equal(getDatasets(c("GSE2018", "GSE2872")) %>% nrow(), 2)
-    expect_equal(getDatasets(c(1, 2)) %>% nrow(), 2)
-    expect_equal(getDatasets(limit = 10) %>% nrow(), 10)
-    expect_equal(getDatasets(offset = 2)[1, 1], getDatasets(offset = 0)[3, 1])
-    expect_true(getDatasets(filter = "curationDetails.troubled = true")$ee.troubled %>% all())
-    expect_false(getDatasets(sort = "-id")[1, 1] == getDatasets(sort = "+id")[1, 1])
+    expect_equal(getDatasetsInfo(c("GSE2018", "GSE2872")) %>% nrow(), 2)
+    expect_equal(getDatasetsInfo(c(1, 2)) %>% nrow(), 2)
+    expect_equal(getDatasetsInfo(limit = 10) %>% nrow(), 10)
+    expect_equal(getDatasetsInfo(offset = 2)[1, 1], getDatasetsInfo(offset = 0)[3, 1])
+    expect_true(getDatasetsInfo(filter = "curationDetails.troubled = true")$ee.troubled %>% all())
+    expect_false(getDatasetsInfo(sort = "-id")[1, 1] == getDatasetsInfo(sort = "+id")[1, 1])
 })
 
 test_that("searchDatasets queries work", {
@@ -77,9 +76,9 @@ test_that("datasetAnnotations queries work", {
     )
 })
 
-test_that("getDatasetData queries work", {
-    dat <- expect_type(getDatasetData(1), "list")
-    expect_gt(getDatasetData(1) %>% nrow(), getDatasetData(1, filter = TRUE) %>% nrow())
+test_that("getDatasetExpression queries work", {
+    dat <- expect_type(getDatasetExpression(1), "list")
+    expect_gt(getDatasetExpression(1) %>% nrow(), getDatasetExpression(1, filter = TRUE) %>% nrow())
 })
 
 test_that("datasetDesign queries work", {

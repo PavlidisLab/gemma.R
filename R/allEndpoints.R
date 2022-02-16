@@ -89,9 +89,9 @@
 #' @keywords dataset
 #'
 #' @examples
-#' getDatasets("GSE2018")
-#' getDatasets(c("GSE2018", "GSE2872"))
-getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
+#' getDatasetsInfo("GSE2018")
+#' getDatasetsInfo(c("GSE2018", "GSE2872"))
+getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
     async = getOption("gemma.async", FALSE), memoised = getOption(
         "gemma.memoise",
@@ -102,7 +102,7 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
-    fname <- "getDatasets"
+    fname <- "getDatasetsInfo"
     preprocessor <- processDatasets
     validators <- list(
         datasets = validateOptionalID, filter = validateFilter,
@@ -116,10 +116,10 @@ getDatasets <- function(datasets = NA_character_, filter = NA_character_, offset
     )
 }
 
-#' Memoise getDatasets
+#' Memoise getDatasetsInfo
 #'
 #' @noRd
-memgetDatasets <- memoise::memoise(getDatasets)
+memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 
 #' .getResultSets
 #'
@@ -401,9 +401,9 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
 #' @noRd
 memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 
-#' Dataset data
+#' getDatasetExpression
 #'
-#' Retrieves the data for the given dataset
+#' Retrieves the expression matrix for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
@@ -460,16 +460,15 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return The data file for the given dataset.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return Varies
 #' @export
 #'
 #' @keywords dataset
 #'
 #' @examples
-#' dat <- getDatasetData("GSE2018")
+#' dat <- getDatasetExpression("GSE2018")
 #' str(dat)
-getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
+getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
     ), async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -483,7 +482,7 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
     keyword <- "dataset"
     header <- ""
     isFile <- TRUE
-    fname <- "getDatasetData"
+    fname <- "getDatasetExpression"
     preprocessor <- processFile
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
@@ -493,10 +492,10 @@ getDatasetData <- function(dataset = NA_character_, filter = FALSE, raw = getOpt
     )
 }
 
-#' Memoise getDatasetData
+#' Memoise getDatasetExpression
 #'
 #' @noRd
-memgetDatasetData <- memoise::memoise(getDatasetData)
+memgetDatasetExpression <- memoise::memoise(getDatasetExpression)
 
 #' Dataset samples
 #'
@@ -871,9 +870,9 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @keywords platform
 #'
 #' @examples
-#' getPlatforms("GPL1355")
-#' getPlatforms(c("GPL1355", "GPL96"))
-getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
+#' getPlatformsInfo("GPL1355")
+#' getPlatformsInfo(c("GPL1355", "GPL96"))
+getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
         FALSE
@@ -886,7 +885,7 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
-    fname <- "getPlatforms"
+    fname <- "getPlatformsInfo"
     preprocessor <- processPlatforms
     validators <- list(
         platforms = validateOptionalID, filter = validateFilter,
@@ -900,10 +899,10 @@ getPlatforms <- function(platforms = NA_character_, filter = NA_character_,
     )
 }
 
-#' Memoise getPlatforms
+#' Memoise getPlatformsInfo
 #'
 #' @noRd
-memgetPlatforms <- memoise::memoise(getPlatforms)
+memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo)
 
 #' Platform datasets
 #'
@@ -1148,9 +1147,9 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' @keywords gene
 #'
 #' @examples
-#' getGenes("DYRK1A")
-#' getGenes(c("DYRK1A", "PTEN"))
-getGenes <- function(genes = NA_character_, raw = getOption(
+#' getGenesInfo("DYRK1A")
+#' getGenesInfo(c("DYRK1A", "PTEN"))
+getGenesInfo <- function(genes = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
     ), async = getOption("gemma.async", FALSE), memoised = getOption(
@@ -1164,7 +1163,7 @@ getGenes <- function(genes = NA_character_, raw = getOption(
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
-    fname <- "getGenes"
+    fname <- "getGenesInfo"
     preprocessor <- processGenes
     validators <- list(genes = validateID)
     endpoint <- "genes/{encode(genes)}/"
@@ -1174,10 +1173,10 @@ getGenes <- function(genes = NA_character_, raw = getOption(
     )
 }
 
-#' Memoise getGenes
+#' Memoise getGenesInfo
 #'
 #' @noRd
-memgetGenes <- memoise::memoise(getGenes)
+memgetGenesInfo <- memoise::memoise(getGenesInfo)
 
 #' Gene evidence
 #'
@@ -1634,21 +1633,21 @@ memsearchAnnotations <- memoise::memoise(searchAnnotations)
 #'
 #' @keywords misc
 forgetGemmaMemoised <- function() {
-    memoise::forget(memgetDatasets)
+    memoise::forget(memgetDatasetsInfo)
     memoise::forget(mem.getResultSets)
     memoise::forget(mem.getResultSetFactors)
     memoise::forget(memgetDatasetResultSets)
-    memoise::forget(memgetDatasetData)
+    memoise::forget(memgetDatasetExpression)
     memoise::forget(memgetDatasetSamples)
     memoise::forget(memgetDatasetPlatforms)
     memoise::forget(memgetDatasetAnnotations)
     memoise::forget(memgetDatasetDesign)
     memoise::forget(memgetDatasetDEA)
-    memoise::forget(memgetPlatforms)
+    memoise::forget(memgetPlatformsInfo)
     memoise::forget(memgetPlatformDatasets)
     memoise::forget(memgetPlatformElements)
     memoise::forget(memgetPlatformElementGenes)
-    memoise::forget(memgetGenes)
+    memoise::forget(memgetGenesInfo)
     memoise::forget(memgetGeneEvidence)
     memoise::forget(memgetGeneLocation)
     memoise::forget(memgetGeneProbes)
