@@ -68,25 +68,25 @@ searchDatasets("bipolar", limit = 100, taxon = "human") %>%
 We are left with two datasets, and we'll pick [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939) since it has the larger number of samples.
 Now that we have the ID for our experiment, we can fetch the data associated with it.
 
-To get the basic information of a dataset, we use the [`getDatasets()`](https://pavlidislab.github.io/gemma.R/reference/getDatasets.html) endpoint.
+To get the basic information of a dataset, we use the [`getDatasetsInfo()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetsInfo.html) endpoint.
 
 ```{r dataset}
-getDatasets("GSE35974") %>%
+getDatasetsInfo("GSE35974") %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples, taxon.Name)
 ```
 
-To access the actual expression data, you can use [`getBioc()`](https://pavlidislab.github.io/gemma.R/reference/getBioc.html).
+To access the actual expression data in a convenient form, you can use [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getBioc.html).
 It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-Alternatively, you can use [`getDatasetData()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to get the expression matrix as a data table, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get a matrix with the experimental design. 
+Alternatively, you can use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetData.html) to only get the, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get a matrix with the experimental design. Finally
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r bioconductor, eval = FALSE}
 # Get SummarizedExperiment
-se <- getDatasetExpression("GSE35974")
+se <- getDataset("GSE35974")
 se
 ```
 
@@ -173,11 +173,11 @@ The unlabeled genes in the volcano plot correspond to microarray probes that do
 not map to any gene after re-aligning the probes during Gemma's curation process.
 You can also see how multiple probes can map to the same gene.
 
-### Longer queries
+### Larger queries
 Many endpoints also allow you to query multiple objects at the same time. For example, getting information on 3 datasets at the same time.
 
 ```{r double-query}
-getDatasets(datasets = c("GSE35974", "GSE46416", "GSE99349")) %>%
+getDatasetsInfo(datasets = c("GSE35974", "GSE46416", "GSE99349")) %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples, taxon.Name)
 ```
 

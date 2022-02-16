@@ -1,7 +1,7 @@
-# getDatasets
+# getDatasetsInfo
 # example
-getDatasets("GSE2018")
-getDatasets(c("GSE2018", "GSE2872"))
+getDatasetsInfo("GSE2018")
+getDatasetsInfo(c("GSE2018", "GSE2872"))
 # value
 "If raw is FALSE (default), a data table with information about the queried dataset(s).
 If raw is TRUE, a list with the same information."
@@ -51,9 +51,9 @@ getDatasetAnnotations("GSE2018")
 "If raw is FALSE (default), a data table with information about the annotations of the queried dataset.
 If raw is TRUE, a list with the same information."
 
-# getDatasetData
+# getDatasetExpression
 # example
-dat <- getDatasetData("GSE2018")
+dat <- getDatasetExpression("GSE2018")
 str(dat)
 # value
 "If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
@@ -83,10 +83,10 @@ str(dat$expr)
 "If raw is FALSE (default), a data table with the expression values.
 If raw is TRUE, a list with the same information."
 
-# getPlatforms
+# getPlatformsInfo
 # example
-getPlatforms("GPL1355")
-getPlatforms(c("GPL1355", "GPL96"))
+getPlatformsInfo("GPL1355")
+getPlatformsInfo(c("GPL1355", "GPL96"))
 # value
 "If raw is FALSE (default), a data table with information about the queried platform(s).
 If raw is TRUE, a list with the same information."
@@ -114,10 +114,10 @@ getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
 "If raw is FALSE (default), a data table with information about the gene(s) on the queried platform element.
 If raw is TRUE, a list with the same information."
 
-# getGenes
+# getGenesInfo
 # example
-getGenes("DYRK1A")
-getGenes(c("DYRK1A", "PTEN"))
+getGenesInfo("DYRK1A")
+getGenesInfo(c("DYRK1A", "PTEN"))
 # value
 "If raw is FALSE (default), a data table with information about the queried gene(s).
 If raw is TRUE, a list with the same information."

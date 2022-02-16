@@ -33,7 +33,7 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     overwrite = getOption("gemma.overwrite", FALSE),
     unzip = FALSE) {
     if (!is.numeric(platform)) {
-        platforms <- getPlatforms(platform)
+        platforms <- getPlatformsInfo(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
             stop(platform, " is not a valid single platform.")
         }
@@ -107,12 +107,12 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
 #' @keywords dataset
 #' @export
 #' @examples
-#' getDatasetExpression("GSE2018")
-getDatasetExpression <- function(dataset, filter = FALSE, type = "se") {
+#' getDataset("GSE2018")
+getDataset <- function(dataset, filter = FALSE, type = "se") {
     if (type != "eset" && type != "se") {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
     }
-    exprM <- getDatasetData(dataset, filter)
+    exprM <- getDatasetExpression(dataset, filter)
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
     exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid")
@@ -131,7 +131,7 @@ getDatasetExpression <- function(dataset, filter = FALSE, type = "se") {
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
     # Experiment description
-    dat <- getDatasets(dataset, raw = TRUE)
+    dat <- getDatasetsInfo(dataset, raw = TRUE)
     other <- list(
         database = dat$externalDatabase,
         accesion = dat$accession,
@@ -190,7 +190,7 @@ getTidyDataset <- function(dataset, filter = FALSE) {
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
-    getDatasetData(dataset, filter = filter) %>%
+    getDatasetExpression(dataset, filter = filter) %>%
         as.data.frame() %>%
         tibble::column_to_rownames("Probe") %>%
         .[, match(design$Sample, colnames(.))] %>% # match sample order

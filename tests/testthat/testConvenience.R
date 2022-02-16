@@ -4,10 +4,10 @@ test_that("getPlatformAnnotation queries work", {
     expect_false(nrow(dat) == 0)
 })
 
-test_that("getDatasetExpression data is preserved", {
-    expr <- getDatasetData(1, filter = TRUE)
-    eset <- getDatasetExpression("GSE2018", filter = TRUE, type = "eset")
-    sumexp <- getDatasetExpression("GSE2018", filter = TRUE, type = "se")
+test_that("getDataset works properly", {
+    expr <- getDatasetExpression(1, filter = TRUE)
+    eset <- getDataset("GSE2018", filter = TRUE, type = "eset")
+    sumexp <- getDataset("GSE2018", filter = TRUE, type = "se")
     design <- getDatasetDesign(1)
 
     expect_equal(nrow(expr), eset %>% nrow() %>% unname())
@@ -23,7 +23,7 @@ test_that("getDatasetExpression data is preserved", {
 })
 
 test_that("getTidyDataset works properly", {
-    dat <- getDatasetData(1)
+    dat <- getDatasetExpression(1)
     tidy <- getTidyDataset(1)
     design <- getDatasetDesign(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
