@@ -91,8 +91,9 @@ validateTaxon <- function(name, ...) {
     )
 
     if (!all(taxa %in% c("", unlist(LOOKUP_TABLE)))) {
-        print(LOOKUP_TABLE)
-        stop(glue::glue("You must specify a valid taxon for {name}."), call. = FALSE)
+        stop("You must specify a valid taxon. The available taxa are:
+            human, mouse, rat, yeast, zebrafish, fly and worm.",
+            call. = FALSE)
     }
     paste0(taxa, collapse = ",")
 }
@@ -109,7 +110,7 @@ validateSingleTaxon <- function(name, ...) {
     taxon <- unlist(list(...))
 
     if (length(taxon) > 1) {
-        stop(glue::glue("Please specify one taxon for {name}."), call. = FALSE)
+        stop("Please specify only one taxon.", call. = FALSE)
     }
     validateTaxon(name, ...)
 }
@@ -162,22 +163,6 @@ validatePositiveInteger <- function(name, ...) {
     unlist(args)
 }
 
-#' Validate a non-negative number
-#'
-#' @param name The variable name
-#' @param ... Any possible numbers
-#'
-#' @return The validated numbers, or stop with an error message
-#'
-#' @keywords internal
-validatePositiveReal <- function(name, ...) {
-    args <- list(...)
-    if (length(unlist(args)) != 1 || !is.numeric(unlist(args)) || any(vapply(args, sign, FUN.VALUE = numeric(1)) < 0)) {
-        stop(glue::glue("Please only specify positive values for {name}."), call. = FALSE)
-    }
-    unlist(args)
-}
-
 #' Validate a boolean value
 #'
 #' @param name The variable name
@@ -192,38 +177,6 @@ validateBoolean <- function(name, ...) {
         stop(glue::glue("Please only specify boolean values for {name}."), call. = FALSE)
     }
     tolower(as.character(args))
-}
-
-#' Validate a strand (ie. + or -)
-#'
-#' @param name The variable name
-#' @param ... Any strands
-#'
-#' @return The validated strands, or stop with an error message
-#'
-#' @keywords internal
-validateStrand <- function(name, ...) {
-    strand <- unlist(list(...))
-    if (length(strand) != 1 || !(strand %in% c("+", "-"))) {
-        stop(glue::glue("Please specify + or - for {name}."), call. = FALSE)
-    }
-    strand
-}
-
-#' Validate a consolidate entry (one of pickmax, pickvar, average or missing)
-#'
-#' @param name The variable name
-#' @param ... Any consolidate entries
-#'
-#' @return The validated consolidate entries, or stop with an error message
-#'
-#' @keywords internal
-validateConsolidate <- function(name, ...) {
-    consolidate <- unlist(list(...))
-    if (length(consolidate) != 1 || !all(is.na(consolidate) | consolidate %in% c("", "pickmax", "pickvar", "average"))) {
-        stop(glue::glue('{name} must be one of "pickmax", "pickvar", "average" or empty.'), call. = FALSE)
-    }
-    consolidate
 }
 
 #' Validate a sort argument
