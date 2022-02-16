@@ -384,6 +384,12 @@ processDatasetResultSets <- function(d) {
             "factor.category" = "category",
             "factor.levels" = "description"
         ) %>%
+        dplyr::group_by(.data$resultSet.id) %>%
+        dplyr::mutate(
+            factor.category = paste0(.data$factor.category, collapse = " x "),
+            factor.levels = paste0(.data$factor.levels, collapse = ", ")
+            ) %>%
+        unique() %>%
         as.data.table()
 }
 
