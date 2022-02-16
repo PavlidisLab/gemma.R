@@ -306,48 +306,6 @@ processDEA <- function(d) {
         .[, !"id"]
 }
 
-#' Processes JSON as expression data
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processExpression <- function(d) {
-    expr <- lapply(d[["geneExpressionLevels"]], function(x) {
-        n.reps <- unlist(lapply(x[["vectors"]], nrow))
-
-        data.table(
-            gene.ID = rep(x[["geneNcbiId"]], n.reps),
-            gene.Symbol = rep(x[["geneOfficialSymbol"]], n.reps),
-            probe = unlist(lapply(x[["vectors"]], "[[", "designElementName")),
-            rbindlist(lapply(x[["vectors"]], "[[", "bioAssayExpressionLevels"))
-        )
-    })
-    if (length(d[["datasetId"]]) > 0) {
-        data.table(ee.ID = d[["datasetId"]], expr)
-    } else {
-        expr
-    }
-}
-
-#' Processes JSON as an experiment's SVD
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processSVD <- function(d) {
-    vM <- d$vMatrix$rawMatrix
-    colnames(vM) <- d$vMatrix$colNames
-    rownames(vM) <- d$vMatrix$rowNames
-    data.table(
-        variance = d$variances,
-        VMatrix = vM
-    )
-}
-
 #' Processes JSON as a result set
 #'
 #' @param d The JSON to process
