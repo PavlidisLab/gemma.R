@@ -89,28 +89,28 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
     }
 }
 
-#' Get Bioconductor expression data
+#' Get expression data
 #'
 #' Combines various endpoint calls to return an annotated Bioconductor-compatible
-#' data structure of the queried dataset, including expression data,
-#' the experimental design and experiment metadata.
+#' data structure of the queried dataset, including expression data and
+#' the experimental design.
 #'
-#' @param type "SummarizedExperiment" or "ExpressionSet". We recommend using
+#' @param dataset A dataset identifier.
+#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
+#' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
-#' @param dataset A dataset identifier.
-#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #'
 #' @return A SummarizedExperiment or ExpressionSet of the queried dataset.
 #' @keywords dataset
 #' @export
 #' @examples
-#' getBioc("ExpressionSet", "GSE2018", filter = TRUE)
-getBioc <- function(type, dataset, filter = FALSE) {
-    if (type != "ExpressionSet" && type != "SummarizedExperiment") {
-        stop("Please enter a valid type: 'ExpressionSet' or 'SummarizedExperiment'")
+#' getDatasetExpression("GSE2018")
+getDatasetExpression <- function(dataset, filter = FALSE, type = "se") {
+    if (type != "eset" && type != "se") {
+        stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
     }
     exprM <- getDatasetData(dataset, filter)
     rownames(exprM) <- exprM$Probe
@@ -144,7 +144,7 @@ getBioc <- function(type, dataset, filter = FALSE) {
     abstract <- dat$description
     url <- paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
 
-    if (type == "SummarizedExperiment") {
+    if (type == "se") {
         expData <- list(
             title = title,
             abstract = abstract,
@@ -157,7 +157,7 @@ getBioc <- function(type, dataset, filter = FALSE) {
             colData = design,
             metadata = expData
         )
-    } else if (type == "ExpressionSet") {
+    } else if (type == "eset") {
         expData <- Biobase::MIAME(
             title = title,
             abstract = abstract,

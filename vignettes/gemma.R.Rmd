@@ -86,12 +86,12 @@ Since this dataset also contains patients with schizophrenia and depression, and
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r bioconductor, eval = FALSE}
 # Get SummarizedExperiment
-se <- getBioc("SummarizedExperiment", "GSE35974")
+se <- getDatasetExpression("GSE35974")
 se
 ```
 
 ```{r include = FALSE}
-## Pre-loads the summarized experiment to save time
+## Pre-loads the summarized experiment to save time and pass vignette build
 se <- readRDS("se.rds")
 se
 ```
@@ -120,7 +120,7 @@ We can quickly see three samples among bipolar patients and controls are empty. 
 Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, it's easy to visualize/explore the data and find the most differentially-expressed genes:
 
 ```{r, include = FALSE}
-## Pre-loads the differential expression results to save time
+## Pre-loads the differential expression results to save time and pass vignette build
 de <- readRDS("de.rds")
 ```
 
@@ -131,16 +131,18 @@ de <- getDatasetDE("GSE35974")
 ```{r diffExpr, warning = FALSE}
 # Classify genes for plotting
 de$diffexpr <- "No"
-de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
-de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Down"
+de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & 
+        de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
+de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & 
+        de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Down"
 
 # Upregulated genes
-de[de$diffexpr == "Up", ] %>%
+filter(de, diffexpr == "Up") %>%
     arrange(`contrast_Bipolar Disorder_pvalue`) %>%
     select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, `contrast_Bipolar Disorder_logFoldChange`)
 
 # Downregulated genes
-de[de$diffexpr == "Down", ] %>%
+filter(de, diffexpr == "Down") %>%
     arrange(`contrast_Bipolar Disorder_pvalue`) %>%
     select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, `contrast_Bipolar Disorder_logFoldChange`)
 
