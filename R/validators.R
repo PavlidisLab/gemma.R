@@ -74,9 +74,6 @@ validateOptionalTaxon <- function(name, ...) {
 #'
 #' @keywords internal
 validateTaxon <- function(name, ...) {
-    # TODO LOOKUP_TABLE is insufficient so
-    # return(validateID(name, ...))
-
     taxa <- as.character(unlist(list(...)))
     if (length(taxa) > 1) {
         stop("Please specify only one taxon.", call. = FALSE)
