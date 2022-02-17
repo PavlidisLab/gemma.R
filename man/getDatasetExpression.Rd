@@ -8,7 +8,6 @@ getDatasetExpression(
   dataset = NA_character_,
   filter = FALSE,
   raw = getOption("gemma.raw", FALSE),
-  async = getOption("gemma.async", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE)
@@ -69,9 +68,6 @@ administrator.
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing.}
-
-\item{async}{\code{TRUE} to run the API query on a separate worker, or \code{FALSE} to run
-synchronously. See the \code{async} package for details.}
 
 \item{memoised}{Whether or not to cache results so future requests for the same data
 will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}

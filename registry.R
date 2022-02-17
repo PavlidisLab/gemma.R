@@ -1,15 +1,11 @@
 # -------------------------------
 # You should define all endpoints in this file. This ensures everything is uniform
 # and prevents you from rewriting boilerplate.
-# To package the wrapper, just source this file after you're done making changes. Functions will be written to allEndpoints.R
+# To package the wrapper, just source this file after you're done making changes.
+# Functions will be written to allEndpoints.R
 # -------------------------------
 
 library(magrittr)
-library(async)
-
-if (!file.exists("R/aaa-async.R")) {
-    synchronise(http_get("https://raw.githubusercontent.com/r-lib/pkgcache/master/R/aaa-async.R", file = "R/aaa-async.R"))
-}
 
 if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
     file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
@@ -67,14 +63,13 @@ registerEndpoint <- function(
   }
 
   fargs$raw <- quote(getOption("gemma.raw", FALSE))
-  fargs$async <- quote(getOption("gemma.async", FALSE))
   fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
   fargs$file <- quote(getOption("gemma.file", NA_character_))
   fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
   formals(f) <- fargs
   body(f) <- quote({
-    .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, async, match.call())
+    .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, match.call())
   })
 
   # Add our variables
@@ -192,7 +187,7 @@ logEndpoint <- function(fname, logname) {
 }
 
 # Load in descriptions from the JS
-eval(synchronise(http_get("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js"))$content %>%
+eval(httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js")$content %>%
     rawToChar() %>%
     {
         gsub("\\/\\*[\\s\\S]*?\\*\\/", "", ., perl = TRUE)
@@ -207,7 +202,7 @@ eval(synchronise(http_get("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue
 rm(`+`)
 
 # And endpoints from the HTML
-endpoints <- synchronise(http_get("https://gemma.msl.ubc.ca/resources/restapidocs/"))$content %>%
+endpoints <- httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/")$content %>%
     rawToChar() %>%
     xml2::read_html() %>%
     xml2::xml_find_all(".//endpoint")
@@ -281,8 +276,6 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     for (arg in parameters) {
         if (arg == "raw") {
             mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing.</p>"
-        } else if (arg == "async") {
-            mAdd <- "<p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run synchronously. See the <code>async</code> package for details.</p>"
         } else if (arg == "memoised") {
             mAdd <- "<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
         } else if (arg == "file") {

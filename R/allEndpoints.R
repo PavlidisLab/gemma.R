@@ -68,8 +68,6 @@
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -93,11 +91,13 @@
 #' getDatasetsInfo(c("GSE2018", "GSE2872"))
 getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
     limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
-    async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -112,7 +112,7 @@ getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, of
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -189,8 +189,6 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -204,14 +202,11 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' @examples
 .getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -225,7 +220,7 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -303,8 +298,6 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #' @param excludeResults Only keep factor values and exclude numerical results from resultSets.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -319,11 +312,13 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 .getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
     filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
     excludeResults = TRUE, raw = getOption("gemma.raw", FALSE),
-    async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- TRUE
     header <- ""
     isFile <- FALSE
@@ -337,7 +332,7 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -356,8 +351,6 @@ mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -375,10 +368,10 @@ mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors)
 getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -392,7 +385,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "resultSets?datasets={encode(dataset)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -451,8 +444,6 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 #' administrator.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -471,10 +462,10 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -488,7 +479,7 @@ getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = 
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -507,8 +498,6 @@ memgetDatasetExpression <- memoise::memoise(getDatasetExpression)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -528,10 +517,10 @@ memgetDatasetExpression <- memoise::memoise(getDatasetExpression)
 getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -545,7 +534,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/samples"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -564,8 +553,6 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -585,10 +572,10 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -602,7 +589,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/platforms"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -621,8 +608,6 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -642,10 +627,10 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -659,7 +644,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/annotations"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -678,8 +663,6 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -699,10 +682,10 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -716,7 +699,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/design"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -735,8 +718,6 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -757,10 +738,10 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -774,7 +755,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -853,8 +834,6 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -876,11 +855,11 @@ getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -895,7 +874,7 @@ getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -919,8 +898,6 @@ memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo)
 #' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -939,14 +916,11 @@ memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo)
 #' dat <- getPlatformDatasets("GPL1355")
 #' str(dat, vec.len = 1)
 getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 20L,
-    raw = getOption("gemma.raw", FALSE), async = getOption(
-        "gemma.async",
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -960,7 +934,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -993,8 +967,6 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1015,11 +987,13 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' str(dat, vec.len = 1, max.level = 1)
 getPlatformElements <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
-    async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1033,7 +1007,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1066,8 +1040,6 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1087,11 +1059,13 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
 getPlatformElementGenes <- function(platform = NA_character_, element = NA_character_,
     offset = 0L, limit = 20L, raw = getOption("gemma.raw", FALSE),
-    async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1105,7 +1079,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1129,8 +1103,6 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' Do not combine different identifiers in one query.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1152,10 +1124,10 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 getGenesInfo <- function(genes = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1169,7 +1141,7 @@ getGenesInfo <- function(genes = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(genes)}/"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1191,8 +1163,6 @@ memgetGenesInfo <- memoise::memoise(getGenesInfo)
 #' specific taxon (see Taxon Endpoints).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1212,10 +1182,10 @@ memgetGenesInfo <- memoise::memoise(getGenesInfo)
 getGeneEvidence <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1229,7 +1199,7 @@ getGeneEvidence <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/evidence"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1251,8 +1221,6 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 #' specific taxon (see Taxon Endpoints).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1272,10 +1240,10 @@ memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
 getGeneLocation <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1289,7 +1257,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/locations"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1316,8 +1284,6 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' Limits the result to specified amount of objects. Use 0 for no limit.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1339,10 +1305,10 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1359,7 +1325,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1381,8 +1347,6 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' specific taxon (see Taxon Endpoints).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1402,10 +1366,10 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 getGeneGO <- function(gene = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1419,7 +1383,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
     endpoint <- "genes/{encode(gene)}/goTerms"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1503,8 +1467,6 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1531,11 +1493,11 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     offset = 0L, limit = 20L, sort = "+id", raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1550,7 +1512,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1574,8 +1536,6 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' phenotype value URIs (see the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing.
-#' @param async `TRUE` to run the API query on a separate worker, or `FALSE` to run
-#' synchronously. See the `async` package for details.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1595,10 +1555,10 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), async = getOption("gemma.async", FALSE), memoised = getOption(
-        "gemma.memoise",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1612,7 +1572,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
     endpoint <- "annotations/search/{encode(query)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, async, match.call()
+        isFile, header, raw, overwrite, file, match.call()
     )
 }
 
