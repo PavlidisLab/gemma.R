@@ -179,8 +179,6 @@ processDatasets <- function(d) {
         ee.Samples = d[["bioAssayCount"]],
         ee.LastUpdated = as.POSIXct(d[["lastUpdated"]] / 1e3, origin = "1970-01-01"),
         ee.batchEffect = d[["batchEffect"]],
-        ee.Batch.P = suppressWarnings(as.numeric(gsub(".*p=(\\d+\\.?\\d+).*", "\\1", d[["batchEffect"]]))),
-        ee.Batch.PC = suppressWarnings(as.numeric(gsub(".*PC (\\d+).*", "\\1", d[["batchEffect"]]))),
         geeq.batchCorrected = d[["geeq"]][["batchCorrected"]],
         geeq.qScore = d[["geeq"]][["publicQualityScore"]],
         geeq.sScore = d[["geeq"]][["publicSuitabilityScore"]],
@@ -451,28 +449,7 @@ processPlatforms <- function(d) {
 processElements <- function(d) {
     data.table(
         mapping.Name = d[["name"]],
-        mapping.Summary = ifelse(!is.na(d[["geneMappingSummaries"]]),
-            lapply(d[["geneMappingSummaries"]], function(x) {
-                suppressWarnings(data.table(
-                    score = x[["score"]],
-                    products = lapply(x[["geneProducts"]], function(y) {
-                        data.table(
-                            gene.Name = y[["name"]],
-                            gene.ID = y[["geneId"]],
-                            gene.NCBI = y[["ncbiId"]],
-                            chromosome = y[["chromosome"]],
-                            strand = y[["strand"]],
-                            nucleotide.Start = y[["nucleotideStart"]],
-                            nucleotide.End = y[["nucleotideEnd"]]
-                        )
-                    }),
-                    productMaps = lapply(x[["geneProductMap"]], processGenes)
-                ))
-            }),
-            NA
-        ),
-        mapping.Description = d[["description"]],
-        processGemmaArray(d[["arrayDesign"]])
+        mapping.Description = d[["description"]]
     )
 }
 
@@ -509,30 +486,29 @@ processGenes <- function(d) {
 #'
 #' @keywords internal
 processGeneEvidence <- function(d) {
-    suppressWarnings(data.table(evidence = lapply(d[["evidence"]], function(x) {
-        data.table(
-            gene.ID = x[["geneId"]],
-            gene.NCBI = x[["geneNCBI"]],
-            gene.Symbol = x[["geneOfficialSymbol"]],
-            gene.Name = x[["geneOfficialName"]],
-            relationship = x[["relationship"]],
-            phenotypes = lapply(x[["phenotypes"]], processPhenotypes),
-            negative = x[["isNegativeEvidence"]],
-            description = x[["description"]],
-            URL = x[["evidenceSource"]][["externalUrl"]],
-            code = x[["evidenceCode"]],
-            accession = x[["evidenceSource"]][["accession"]],
-            rbindlist(lapply(x[["phenotypeAssPubVO"]], function(y) {
-                data.table(
-                    type = y[["type"]],
-                    pubmed.URL = y[["citationValueObject"]][["pubmedURL"]],
-                    pubmed.Accession = y[["citationValueObject"]][["pubmedAccession"]],
-                    citation = y[["citationValueObject"]][["citation"]],
-                    retracted = y[["citationValueObject"]][["retracted"]]
-                )
-            }))
-        )
-    }), processGenes(d)))
+    x <- d[["evidence"]][[1]]
+    data.table(
+        gene.ID = x[["geneId"]],
+        gene.NCBI = x[["geneNCBI"]],
+        gene.Symbol = x[["geneOfficialSymbol"]],
+        gene.Name = x[["geneOfficialName"]],
+        relationship = x[["relationship"]],
+        # phenotypes = lapply(x[["phenotypes"]], processPhenotypes),
+        negative = x[["isNegativeEvidence"]],
+        description = x[["description"]],
+        URL = x[["evidenceSource"]][["externalUrl"]],
+        code = x[["evidenceCode"]],
+        accession = x[["evidenceSource"]][["accession"]],
+        rbindlist(lapply(x[["phenotypeAssPubVO"]], function(y) {
+            data.table(
+                type = y[["type"]],
+                pubmed.URL = y[["citationValueObject"]][["pubmedURL"]],
+                pubmed.Accession = y[["citationValueObject"]][["pubmedAccession"]],
+                citation = y[["citationValueObject"]][["citation"]],
+                retracted = y[["citationValueObject"]][["retracted"]]
+            )
+        }))
+    )
 }
 
 #' Processes JSON as a vector of taxa
