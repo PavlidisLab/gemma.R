@@ -33,14 +33,14 @@ test_that("getPlatformElements queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(mapping.Name, array.ShortName, array.Name, array.Type)],
-        c(raw$name, raw$arrayDesign$shortName, raw$arrayDesign$name, raw$arrayDesign$technologyType)
+        dat[, c(mapping.Name, mapping.Description)],
+        c(raw$name, raw$description)
     )
     dat <- getPlatformElements("GPL1355", element = "AFFX_Rat_beta-actin_M_at")
     raw <- getPlatformElements("GPL1355", element = "AFFX_Rat_beta-actin_M_at", raw = TRUE)
     expect_equal(
-        dat[, c(mapping.Name, array.ShortName, array.Name, array.Type)],
-        c(raw$name, raw$arrayDesign$shortName, raw$arrayDesign$name, raw$arrayDesign$technologyType)
+        dat[, c(mapping.Name, mapping.Description)],
+        c(raw$name, raw$description)
     )
 
     expect_equal(getPlatformElements(1, limit = 10) %>% nrow(), 10)
