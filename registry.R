@@ -532,12 +532,6 @@ registerSimpleEndpoint("genes", "",
     preprocessor = quote(processGenes)
 )
 
-registerSimpleEndpoint("gene", "evidence",
-    logname = "evidence", roxygen = "Gene evidence",
-    "getGeneEvidence",
-    preprocessor = quote(processGeneEvidence)
-)
-
 registerSimpleEndpoint("gene", "locations",
     logname = "locations", roxygen = "Gene locations",
     "getGeneLocation",

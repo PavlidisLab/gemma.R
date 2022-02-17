@@ -1150,64 +1150,6 @@ getGenesInfo <- function(genes = NA_character_, raw = getOption(
 #' @noRd
 memgetGenesInfo <- memoise::memoise(getGenesInfo)
 
-#' Gene evidence
-#'
-#' Retrieves gene evidence for the given gene
-#'
-#' @param gene Required, part of the URL path.
-#' Can either be the NCBI ID (`1859`), Ensembl ID (`ENSG00000157540`) or
-#' official symbol (`DYRK1A`) of the gene.
-#' NCBI ID is the most efficient (and guaranteed to be unique) identifier.
-#' Official
-#' symbol represents a gene homologue for a random taxon, unless used in a
-#' specific taxon (see Taxon Endpoints).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
-#'
-#' @return An array of gene evidence value objects for the given gene or gene
-#' homologues.
-#' A `404 error` if the given identifier does not map to any object.
-#' @export
-#'
-#' @keywords gene
-#'
-#' @examples
-#' getGeneEvidence("DYRK1A")
-getGeneEvidence <- function(gene = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    internal <- FALSE
-    keyword <- "gene"
-    header <- ""
-    isFile <- FALSE
-    fname <- "getGeneEvidence"
-    preprocessor <- processGeneEvidence
-    validators <- list(gene = validateSingleID)
-    endpoint <- "genes/{encode(gene)}/evidence"
-    .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
-    )
-}
-
-#' Memoise getGeneEvidence
-#'
-#' @noRd
-memgetGeneEvidence <- memoise::memoise(getGeneEvidence)
-
 #' Gene locations
 #'
 #' Retrieves the physical location of the given gene
@@ -1608,7 +1550,6 @@ forgetGemmaMemoised <- function() {
     memoise::forget(memgetPlatformElements)
     memoise::forget(memgetPlatformElementGenes)
     memoise::forget(memgetGenesInfo)
-    memoise::forget(memgetGeneEvidence)
     memoise::forget(memgetGeneLocation)
     memoise::forget(memgetGeneProbes)
     memoise::forget(memgetGeneGO)

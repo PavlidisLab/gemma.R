@@ -478,39 +478,6 @@ processGenes <- function(d) {
     )
 }
 
-#' Processes JSON as a vector of gene evidence (which also contains genes)
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processGeneEvidence <- function(d) {
-    x <- d[["evidence"]][[1]]
-    data.table(
-        gene.ID = x[["geneId"]],
-        gene.NCBI = x[["geneNCBI"]],
-        gene.Symbol = x[["geneOfficialSymbol"]],
-        gene.Name = x[["geneOfficialName"]],
-        relationship = x[["relationship"]],
-        # phenotypes = lapply(x[["phenotypes"]], processPhenotypes),
-        negative = x[["isNegativeEvidence"]],
-        description = x[["description"]],
-        URL = x[["evidenceSource"]][["externalUrl"]],
-        code = x[["evidenceCode"]],
-        accession = x[["evidenceSource"]][["accession"]],
-        rbindlist(lapply(x[["phenotypeAssPubVO"]], function(y) {
-            data.table(
-                type = y[["type"]],
-                pubmed.URL = y[["citationValueObject"]][["pubmedURL"]],
-                pubmed.Accession = y[["citationValueObject"]][["pubmedAccession"]],
-                citation = y[["citationValueObject"]][["citation"]],
-                retracted = y[["citationValueObject"]][["retracted"]]
-            )
-        }))
-    )
-}
-
 #' Processes JSON as a vector of taxa
 #'
 #' @param d The JSON to process
