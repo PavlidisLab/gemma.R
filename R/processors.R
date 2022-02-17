@@ -12,11 +12,10 @@
 #' @param raw Whether to return JSON (`TRUE`) or data.table (`FALSE`)
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
-#' @param async Whether or not to run asynchronously
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, async, .call) {
+.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, .call) {
     # Call a memoised version if applicable
     if (memoised) {
         newArgs <- as.list(.call)[-1]
@@ -37,68 +36,58 @@
         }
     }
     # Generate request
-    request <- quote(http_get(
+    requestExpr <- quote(httr::GET(
         paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
-        options = switch(is.null(getOption("gemma.password", NULL)) + 1,
-            list(userpwd = paste0(getOption("gemma.username"), ":", getOption("gemma.password"))),
-            list()
-        ),
-        headers = header
-    )$then(function(response) {
-        if (response$status_code == 200) {
-            mData <- tryCatch(
-                {
-                    if (isFile) {
-                        response$content
-                    } else {
-                        jsonlite::fromJSON(rawToChar(response$content))$data
-                    }
-                },
-                error = function(e) {
-                    message("Failed to parse ", response$type, " from ", response$url)
-                    warning(e$message)
-                }
-            )
-            ## Uncomment for debugging
-            # paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
-            if (raw || length(mData) == 0) {
-                mOut <- mData
-            } else {
-                mOut <- eval(preprocessor)(mData)
-            }
-
-            if (!is.null(file) && !is.na(file)) {
-                extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
-                file <- paste0(tools::file_path_sans_ext(file), extension)
-
-                if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
-                    warning(file, " exists. Not overwriting.")
+        httr::add_headers(header)))
+    response <- eval(requestExpr, envir = envWhere)
+    if (response$status_code == 200) {
+        mData <- tryCatch(
+            {
+                if (isFile) {
+                    response$content
                 } else {
-                    if (extension == ".json") {
-                        write(jsonlite::toJSON(mOut, pretty = 2), file)
-                    } else if (extension == ".rds") {
-                        saveRDS(mOut, file)
-                    } else {
-                        write.csv2(mOut, file, row.names = FALSE)
-                    }
+                    jsonlite::fromJSON(rawToChar(response$content))$data
+                }
+            },
+            error = function(e) {
+                message("Failed to parse ", response$type, " from ", response$url)
+                warning(e$message)
+            }
+        )
+        envWhere$mData <- mData
+        ## Uncomment for debugging
+        # paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
+        if (raw || length(mData) == 0) {
+            mOut <- mData
+        } else {
+            mOut <- eval(quote(eval(preprocessor)(mData)), envir = envWhere)
+        }
+
+        if (!is.null(file) && !is.na(file)) {
+            extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
+            file <- paste0(tools::file_path_sans_ext(file), extension)
+
+            if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
+                warning(file, " exists. Not overwriting.")
+            } else {
+                if (extension == ".json") {
+                    write(jsonlite::toJSON(mOut, pretty = 2), file)
+                } else if (extension == ".rds") {
+                    saveRDS(mOut, file)
+                } else {
+                    utils::write.csv2(mOut, file, row.names = FALSE)
                 }
             }
-            mOut
-        } else if (response$status_code == 403) {
-            stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
-        } else if (response$status_code == 404) {
-            stop(response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID.")
-        } else if (response$status_code == 503) {
-            stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
-        } else {
-            stop(response$status_code)
         }
-    }))
-
-    if (!async) {
-        synchronise(eval(request, envir = envWhere))
+        mOut
+    } else if (response$status_code == 403) {
+        stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
+    } else if (response$status_code == 404) {
+        stop(response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID.")
+    } else if (response$status_code == 503) {
+        stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
     } else {
-        eval(request, envir = envWhere)
+        stop(response$status_code)
     }
 }
 

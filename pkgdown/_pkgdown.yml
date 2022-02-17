@@ -19,10 +19,6 @@ reference:
   desc: Remaining endpoints and helper functions.
   contents:
   - has_keyword("misc")
-- title: Asynchronous Requests
-  desc: Functions used for asynchronous requests.
-  contents:
-  - has_keyword("async")
 - title: internal
   contents:
   - gemma.R

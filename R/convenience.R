@@ -28,10 +28,11 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @examples
 #' dat <- getPlatformAnnotation("GPL96")
 #' str(dat)
-getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParents", "allParents"),
+getPlatformAnnotation <- function(platform,
+    annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
-    unzip = FALSE) {
+    unzip = FALSE){
     if (!is.numeric(platform)) {
         platforms <- getPlatformsInfo(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
@@ -64,7 +65,8 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
             close(tmp)
 
             if (!is.tmp && unzip) {
-                utils::write.table(ret, tools::file_path_sans_ext(file), sep = "\t", quote = FALSE, row.names = FALSE)
+                utils::write.table(ret, tools::file_path_sans_ext(file),
+                    sep = "\t", quote = FALSE, row.names = FALSE)
             }
 
             if (is.tmp || !unzip) {
@@ -81,11 +83,11 @@ getPlatformAnnotation <- function(platform, annotType = c("bioProcess", "noParen
         warning(tools::file_path_sans_ext(file), " exists. Not overwriting.")
         doReadFile(file)
     } else {
-        synchronise({
-            http_get(glue::glue(paste0(getOption("gemma.base", "https://gemma.msl.ubc.ca/"), "arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")), file = file)$then(function(...) {
-                doReadFile(file)
-            })
-        })
+        httr::GET(glue::glue(
+            paste0(getOption("gemma.base", "https://gemma.msl.ubc.ca/"),
+                "arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
+            httr::write_disk(file))
+        doReadFile(file)
     }
 }
 
@@ -115,9 +117,8 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
     exprM <- getDatasetExpression(dataset, filter)
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
-    exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid")
-    exprM <- data.matrix(exprM)
-
+    exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid") %>%
+        data.matrix()
     design <- getDatasetDesign(dataset)
 
     # This annotation table is required
