@@ -52,8 +52,8 @@
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -67,7 +67,8 @@
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -173,8 +174,8 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -188,7 +189,8 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -281,8 +283,8 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -297,7 +299,8 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #' the compiled URL below).
 #' @param excludeResults Only keep factor values and exclude numerical results from resultSets.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -343,14 +346,15 @@ mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors)
 
 #' getDatasetResultSets
 #'
-#' foobar
+#' Lists the available resultSets for the queried dataset.
 #'
 #' @param dataset Required, part of the URL path.
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -396,7 +400,7 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 
 #' getDatasetExpression
 #'
-#' Retrieves the expression matrix for the given dataset
+#' Dataset expression
 #'
 #' @param dataset Required, part of the URL path.
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
@@ -443,7 +447,8 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 #' Filter `curationDetails.troubled` will be ignored if user is not an
 #' administrator.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -497,7 +502,8 @@ memgetDatasetExpression <- memoise::memoise(getDatasetExpression)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -552,7 +558,8 @@ memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -607,7 +614,8 @@ memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -662,7 +670,8 @@ memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -717,7 +726,8 @@ memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -818,8 +828,8 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -833,7 +843,8 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -894,10 +905,11 @@ memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -963,10 +975,11 @@ memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1036,10 +1049,11 @@ memgetPlatformElements <- memoise::memoise(getPlatformElements)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1102,7 +1116,8 @@ memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
 #' specific taxon (see Taxon Endpoints).
 #' Do not combine different identifiers in one query.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1162,7 +1177,8 @@ memgetGenesInfo <- memoise::memoise(getGenesInfo)
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1222,10 +1238,11 @@ memgetGeneLocation <- memoise::memoise(getGeneLocation)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1288,7 +1305,8 @@ memgetGeneProbes <- memoise::memoise(getGeneProbes)
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1393,8 +1411,8 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to `20`.
-#' Limits the result to specified amount of objects. Use 0 for no limit.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of
+#' objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -1408,7 +1426,8 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1477,7 +1496,8 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing.
+#' parsing. Raw results usually contain additional fields and flags that
+#' are omitted in the parsed results.
 #' @param memoised Whether or not to cache results so future requests for the same data
 #' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
@@ -1524,7 +1544,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
 memsearchAnnotations <- memoise::memoise(searchAnnotations)
 
 
-#' Clear Gemma API cache
+#' Clear gemma.R cache
 #'
 #' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)
 #'

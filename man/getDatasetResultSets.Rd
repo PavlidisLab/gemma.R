@@ -19,7 +19,8 @@ Retrieval by ID is more efficient.
 Only datasets that user has access to will be available}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-parsing.}
+parsing. Raw results usually contain additional fields and flags that
+are omitted in the parsed results.}
 
 \item{memoised}{Whether or not to cache results so future requests for the same data
 will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
@@ -34,7 +35,7 @@ Otherwise, it will be a RDS file.}
 Varies
 }
 \description{
-foobar
+Lists the available resultSets for the queried dataset.
 }
 \examples{
 getDatasetResultSets("GSE2018")

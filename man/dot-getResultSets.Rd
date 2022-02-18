@@ -76,8 +76,8 @@ administrator.
 Skips the specified amount of objects when retrieving them from the
 database.}
 
-\item{limit}{Optional, defaults to \code{20}.
-Limits the result to specified amount of objects. Use 0 for no limit.}
+\item{limit}{Optional, defaults to 20. Limits the result to specified amount of
+objects.}
 
 \item{sort}{Optional, defaults to \code{+id}.
 Sets the ordering property and direction.
@@ -93,7 +93,8 @@ using in scripts, remember to URL-encode the '+' plus character (see
 the compiled URL below).}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-parsing.}
+parsing. Raw results usually contain additional fields and flags that
+are omitted in the parsed results.}
 
 \item{memoised}{Whether or not to cache results so future requests for the same data
 will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}

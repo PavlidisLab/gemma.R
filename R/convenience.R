@@ -12,7 +12,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.password = password)
 }
 
-#' Get Gemma platform annotations
+#' Gemma platform annotations
 #'
 #' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
 #'
@@ -91,11 +91,11 @@ getPlatformAnnotation <- function(platform,
     }
 }
 
-#' Get expression data
+#' Dataset expression and design
 #'
 #' Combines various endpoint calls to return an annotated Bioconductor-compatible
 #' data structure of the queried dataset, including expression data and
-#' the experimental design.
+#' the experimental design. la nema mia
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
@@ -174,7 +174,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
     }
 }
 
-#' Get tidy dataset and design
+#' Tidy expression and design
 #'
 #' Combines the expression and design matrices of the queried dataset into a
 #' tibble for easy visualization and exploration with ggplot and the rest of the tidyverse.
@@ -201,7 +201,7 @@ getTidyDataset <- function(dataset, filter = FALSE) {
         dplyr::rename(sample = .data$Sample, probe = .data$Probe)
 }
 
-#' Get Differential Expression
+#' Dataset differential expression
 #'
 #' Retrieves the differential expression resultSet(s) associated with the dataset.
 #' If there is more than one resultSet, use [getDatasetResultSets()] to see

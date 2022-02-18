@@ -24,7 +24,8 @@ specific taxon (see Taxon Endpoints).
 Do not combine different identifiers in one query.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-parsing.}
+parsing. Raw results usually contain additional fields and flags that
+are omitted in the parsed results.}
 
 \item{memoised}{Whether or not to cache results so future requests for the same data
 will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}

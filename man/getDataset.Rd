@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getDataset}
 \alias{getDataset}
-\title{Get expression data}
+\title{Dataset expression and design}
 \usage{
 getDataset(dataset, filter = FALSE, type = "se")
 }
@@ -23,7 +23,7 @@ A SummarizedExperiment or ExpressionSet of the queried dataset.
 \description{
 Combines various endpoint calls to return an annotated Bioconductor-compatible
 data structure of the queried dataset, including expression data and
-the experimental design.
+the experimental design. la nema mia
 }
 \examples{
 getDataset("GSE2018")
