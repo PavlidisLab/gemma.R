@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getDatasetDE}
 \alias{getDatasetDE}
-\title{Get Differential Expression}
+\title{Dataset differential expression}
 \usage{
 getDatasetDE(dataset = NA_character_, resultSet = NA_integer_, all = FALSE)
 }

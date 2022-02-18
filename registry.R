@@ -275,7 +275,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
 
     for (arg in parameters) {
         if (arg == "raw") {
-            mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing.</p>"
+            mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.</p>"
         } else if (arg == "memoised") {
             mAdd <- "<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
         } else if (arg == "file") {
@@ -285,13 +285,15 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         } else if (arg == "request") {
             mAdd <- "<p>Which specific endpoint to request.</p>"
         } else if (arg == "taxon"){
-            mAdd <- "Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name. "
+            mAdd <- "<p>Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.<p>"
         } else if (arg == "...") {
             mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
         } else if (arg == "excludeResults") {
-            mAdd <- "Only keep factor values and exclude numerical results from resultSets."
+            mAdd <- "<p>Only keep factor values and exclude numerical results from resultSets.<p>"
+        } else if (arg == "limit") {
+          mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
         } else if (arg == "resultSet") {
-            mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
+            mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
         } else {
             mArg <- arg
             if (arg == "component") {
@@ -370,7 +372,8 @@ registerEndpoint(
 registerEndpoint(
   "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
   ".getResultSetFactors",
-  logname = "resultSetFactors", roxygen = "Returns the factor values for the queried resultSet.",
+  logname = "resultSetFactors",
+  roxygen = "Returns the factor values for the queried resultSet.",
   internal = TRUE,
   defaults = list(
     resultSet = NA_character_,
@@ -395,7 +398,8 @@ registerEndpoint(
 registerEndpoint(
   "resultSets?datasets={dataset}",
   "getDatasetResultSets",
-  logname = "datasetResultSets", roxygen = "foobar",
+  logname = "datasetResultSets",
+  roxygen = "Lists the available resultSets for the queried dataset.",
   keyword = "dataset",
   defaults = list(
     dataset = NA_character_
@@ -408,7 +412,7 @@ registerEndpoint(
 
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
     "getDatasetExpression",
-    logname = "data", roxygen = "Retrieves the expression matrix for the given dataset", keyword = "dataset",
+    logname = "data", roxygen = "Dataset expression", keyword = "dataset",
     isFile = TRUE,
     defaults = list(
         dataset = NA_character_,
@@ -594,7 +598,7 @@ registerEndpoint("annotations/search/{query}",
 # Clean up
 doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
     cat("\n", file = document, append = TRUE)
-    cat(glue::glue("#' Clear Gemma API cache\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' Clear gemma.R cache\n\n"), file = document, append = TRUE)
     cat("#'\n", file = document, append = TRUE)
     cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = TRUE)
     cat("#' @return TRUE to indicate cache was cleared.\n", file = document, append = TRUE)

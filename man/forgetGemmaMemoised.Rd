@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{forgetGemmaMemoised}
 \alias{forgetGemmaMemoised}
-\title{Clear Gemma API cache}
+\title{Clear gemma.R cache}
 \usage{
 forgetGemmaMemoised()
 }

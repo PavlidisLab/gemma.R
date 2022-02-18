@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getPlatformAnnotation}
 \alias{getPlatformAnnotation}
-\title{Get Gemma platform annotations}
+\title{Gemma platform annotations}
 \usage{
 getPlatformAnnotation(
   platform,

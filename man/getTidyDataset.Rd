@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getTidyDataset}
 \alias{getTidyDataset}
-\title{Get tidy dataset and design}
+\title{Tidy expression and design}
 \usage{
 getTidyDataset(dataset, filter = FALSE)
 }
