@@ -10,7 +10,6 @@ test_that("getPlatformsInfo queries work", {
     expect_equal(getPlatformsInfo(c(1, 2)) %>% nrow(), 2)
     expect_equal(getPlatformsInfo(limit = 10) %>% nrow(), 10)
     expect_true(getPlatformsInfo(offset = 3)[1, 1] == getPlatformsInfo(offset = 0)[4, 1])
-    expect_true(getPlatformsInfo(filter = "curationDetails.troubled = true")$ee.troubled %>% all())
     expect_false(getPlatformsInfo(sort = "-id")[1, 1] == getPlatformsInfo(sort = "+id")[1, 1])
 })
 

@@ -9,46 +9,6 @@
 #' its short name. Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available.
 #' Do not combine different identifiers in one query.
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -90,15 +50,12 @@
 #' @examples
 #' getDatasetsInfo("GSE2018")
 #' getDatasetsInfo(c("GSE2018", "GSE2872"))
-getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, offset = 0L,
-    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
-    memoised = getOption("gemma.memoise", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
+getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
         FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -106,11 +63,10 @@ getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, of
     fname <- "getDatasetsInfo"
     preprocessor <- processDatasets
     validators <- list(
-        datasets = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validateLimit,
-        sort = validateSort
+        datasets = validateOptionalID, offset = validatePositiveInteger,
+        limit = validateLimit, sort = validateSort
     )
-    endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, header, raw, overwrite, file, match.call()
@@ -131,46 +87,6 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -203,12 +119,14 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #'
 #' @examples
 .getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
-    filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
+        "gemma.raw",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    ), memoised = getOption("gemma.memoise", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -216,10 +134,10 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
     preprocessor <- processFile
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
-        filter = validateFilter, offset = validatePositiveInteger,
-        limit = validateLimit, sort = validateSort
+        offset = validatePositiveInteger, limit = validateLimit,
+        sort = validateSort
     )
-    endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, header, raw, overwrite, file, match.call()
@@ -240,46 +158,6 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -313,15 +191,12 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #'
 #' @examples
 .getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
-    filter = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    excludeResults = TRUE, raw = getOption("gemma.raw", FALSE),
-    memoised = getOption("gemma.memoise", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
+    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
         FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- TRUE
     header <- ""
     isFile <- FALSE
@@ -329,10 +204,10 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
     preprocessor <- processResultSetFactors
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
-        filter = validateFilter, offset = validatePositiveInteger,
-        limit = validateLimit, sort = validateSort
+        offset = validatePositiveInteger, limit = validateLimit,
+        sort = validateSort
     )
-    endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
+    endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, header, raw, overwrite, file, match.call()
@@ -406,46 +281,9 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
+#' @param filter The filtered version (`filter = TRUE`) corresponds to what is used in
+#' most Gemma analyses, removing some probes/elements. Unfiltered includes
+#' all elements.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
@@ -785,46 +623,6 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' its short name. Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
 #' Do not combine different identifiers in one query.
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -862,15 +660,12 @@ memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
 #' @examples
 #' getPlatformsInfo("GPL1355")
 #' getPlatformsInfo(c("GPL1355", "GPL96"))
-getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
-        "gemma.raw",
+getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -878,11 +673,10 @@ getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
     fname <- "getPlatformsInfo"
     preprocessor <- processPlatforms
     validators <- list(
-        platforms = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validateLimit,
-        sort = validateSort
+        platforms = validateOptionalID, offset = validatePositiveInteger,
+        limit = validateLimit, sort = validateSort
     )
-    endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "platforms/{encode(platforms)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, header, raw, overwrite, file, match.call()
@@ -1368,46 +1162,6 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' phenotype value URIs (see the compiled URL below).
 #' @param taxon Not required, part of the URL path. can either be Taxon ID, Taxon NCBI
 #' ID, or one of its string identifiers: scientific name, common name.
-#' @param filter Optional, defaults to `empty`.
-#' Filtering can be done on any* property or nested property that the
-#' appropriate object class defines or inherits (and that is mapped by
-#' hibernate). [These do not correspond to the properties of the objects
-#' returned by the API calls.]{.description-imp}
-#' Class definitions:
-#' -   Datasets:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java)
-#' -   Platforms:
-#'     [javaDoc](http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html)     [gitHub](https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java)
-#' E.g: `curationDetails` or `curationDetails.lastTroubledEvent.date`.
-#' * Any property of a supported type. Currently supported types are:
-#' -   String - property of String type, required value can be any String.
-#' -   Number - any Number implementation. Required value must be a string
-#'     parseable to the specific Number type.
-#' -   Boolean - required value will be parsed to true only if the string
-#'     matches 'true', ignoring case.
-#' Accepted operator keywords are:
-#' -   '=' - equality
-#' -   '!=' - non-equality
-#' -   '<' - smaller than
-#' -   '>' - larger than
-#' -   '<=' - smaller or equal
-#' -   '=>' - larger or equal
-#' -   'like' - similar string, effectively means 'contains',
-#'     translates to the sql 'LIKE' operator (given value will be
-#'     surrounded by % signs)
-#' Multiple filters can be chained using `AND` and `OR` keywords.
-#' Leave space between the keywords and the previous/next word!
-#' E.g: `?filter=property1 < value1 AND property2 like value2`
-#' If chained filters are mixed conjunctions and disjunctions, the query
-#' must be in conjunctive normal form (CNF). Parentheses are not necessary
-#' - every AND keyword separates blocks of disjunctions.
-#' Example:
-#' `?filter=p1 = v1 OR p1 != v2 AND p2 <= v2 AND p3 > v3 OR p3 < v4`
-#' Above query will translate to:
-#' `(p1 = v1 OR p1 != v2) AND (p2 <= v2) AND (p3 > v3 OR p3 < v4;)`
-#' Breaking the CNF results in an error.
-#' Filter `curationDetails.troubled` will be ignored if user is not an
-#' administrator.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -1450,12 +1204,12 @@ memgetGeneGO <- memoise::memoise(getGeneGO)
 #' @examples
 #' dat <- searchDatasets("bipolar")
 #' str(dat)
-searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+searchDatasets <- function(query = NA_character_, taxon = NA_character_, offset = 0L,
+    limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
+    memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -1467,10 +1221,9 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     preprocessor <- processDatasets
     validators <- list(
         query = validateQuery, taxon = validateOptionalTaxon,
-        filter = validateFilter, offset = validatePositiveInteger,
         limit = validateLimit, sort = validateSort
     )
-    endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
         memoised, fname, validators, endpoint, environment(),
         isFile, header, raw, overwrite, file, match.call()
