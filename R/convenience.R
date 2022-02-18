@@ -95,7 +95,7 @@ getPlatformAnnotation <- function(platform,
 #'
 #' Combines various endpoint calls to return an annotated Bioconductor-compatible
 #' data structure of the queried dataset, including expression data and
-#' the experimental design. la nema mia
+#' the experimental design.
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.

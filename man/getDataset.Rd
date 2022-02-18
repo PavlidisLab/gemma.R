@@ -23,7 +23,7 @@ A SummarizedExperiment or ExpressionSet of the queried dataset.
 \description{
 Combines various endpoint calls to return an annotated Bioconductor-compatible
 data structure of the queried dataset, including expression data and
-the experimental design. la nema mia
+the experimental design.
 }
 \examples{
 getDataset("GSE2018")

@@ -288,8 +288,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.<p>"
         } else if (arg == "...") {
             mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
+        } else if (arg == "filter") {
+          mAdd <- "<p>The filtered version (<code>filter = TRUE</code>) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.<p>"
         } else if (arg == "excludeResults") {
-            mAdd <- "<p>Only keep factor values and exclude numerical results from resultSets.<p>"
+          mAdd <- "<p>Only keep factor values and exclude numerical results from resultSets.<p>"
         } else if (arg == "limit") {
           mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
         } else if (arg == "resultSet") {
@@ -324,19 +326,17 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
 }
 
 # Dataset endpoints ----
-registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
     "getDatasetsInfo",
     logname = "datasets", roxygen = "Datasets", keyword = "dataset",
     defaults = list(
         datasets = NA_character_,
-        filter = NA_character_,
         offset = 0L,
         limit = 20L,
         sort = "+id"
     ),
     validators = alist(
         datasets = validateOptionalID,
-        filter = validateFilter,
         offset = validatePositiveInteger,
         limit = validateLimit,
         sort = validateSort
@@ -345,7 +345,7 @@ registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
 )
 
 registerEndpoint(
-  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+  "resultSets/{resultSet}?&offset={offset}&limit={limit}&sort={sort}",
   ".getResultSets",
   logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
   isFile = TRUE, internal = TRUE,
@@ -353,7 +353,6 @@ registerEndpoint(
   defaults = list(
     resultSet = NA_character_,
     dataset = NA_character_,
-    filter = NA_character_,
     offset = 0L,
     limit = 20L,
     sort = "+id"
@@ -361,7 +360,6 @@ registerEndpoint(
   validators = alist(
     resultSet = validateOptionalID,
     dataset = validateOptionalID,
-    filter = validateFilter,
     offset = validatePositiveInteger,
     limit = validateLimit,
     sort = validateSort
@@ -370,7 +368,7 @@ registerEndpoint(
 )
 
 registerEndpoint(
-  "resultSets/{resultSet}?filter={filter}&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
+  "resultSets/{resultSet}?&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
   ".getResultSetFactors",
   logname = "resultSetFactors",
   roxygen = "Returns the factor values for the queried resultSet.",
@@ -378,7 +376,6 @@ registerEndpoint(
   defaults = list(
     resultSet = NA_character_,
     dataset = NA_character_,
-    filter = NA_character_,
     offset = 0L,
     limit = 20L,
     sort = "+id",
@@ -387,7 +384,6 @@ registerEndpoint(
   validators = alist(
     resultSet = validateOptionalID,
     dataset = validateOptionalID,
-    filter = validateFilter,
     offset = validatePositiveInteger,
     limit = validateLimit,
     sort = validateSort
@@ -456,19 +452,17 @@ registerSimpleEndpoint("dataset", "analyses/differential",
 )
 
 # Platform endpoints ----
-registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
     "getPlatformsInfo",
     logname = "platforms", roxygen = "Platforms", keyword = "platform",
     defaults = list(
         platforms = NA_character_,
-        filter = NA_character_,
         offset = 0L,
         limit = 20L,
         sort = "+id"
     ),
     validators = alist(
         platforms = validateOptionalID,
-        filter = validateFilter,
         offset = validatePositiveInteger,
         limit = validateLimit,
         sort = validateSort
@@ -564,13 +558,12 @@ registerSimpleEndpoint("gene", "goTerms",
     preprocessor = quote(processGO)
 )
 
-registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint("annotations/{taxon}/search/{query}/datasets?&offset={offset}&limit={limit}&sort={sort}",
     "searchDatasets",
     logname = "datasets", roxygen = "Dataset search", keyword = "dataset",
     defaults = list(
         query = NA_character_,
         taxon = NA_character_,
-        filter = NA_character_,
         offset = 0L,
         limit = 20L,
         sort = "+id"
@@ -578,8 +571,6 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&of
     validators = alist(
         query = validateQuery,
         taxon = validateOptionalTaxon,
-        filter = validateFilter,
-        offset = validatePositiveInteger,
         limit = validateLimit,
         sort = validateSort
     ),

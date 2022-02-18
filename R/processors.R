@@ -40,6 +40,7 @@
         paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
         httr::add_headers(header)))
     response <- eval(requestExpr, envir = envWhere)
+    print(response$url)
     if (response$status_code == 200) {
         mData <- tryCatch(
             {
@@ -55,8 +56,6 @@
             }
         )
         envWhere$mData <- mData
-        ## Uncomment for debugging
-        # paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))) %>% print()
         if (raw || length(mData) == 0) {
             mOut <- mData
         } else {

@@ -11,7 +11,6 @@ test_that("getDatasetsInfo queries work", {
     expect_equal(getDatasetsInfo(c(1, 2)) %>% nrow(), 2)
     expect_equal(getDatasetsInfo(limit = 10) %>% nrow(), 10)
     expect_equal(getDatasetsInfo(offset = 2)[1, 1], getDatasetsInfo(offset = 0)[3, 1])
-    expect_true(getDatasetsInfo(filter = "curationDetails.troubled = true")$ee.troubled %>% all())
     expect_false(getDatasetsInfo(sort = "-id")[1, 1] == getDatasetsInfo(sort = "+id")[1, 1])
 })
 
