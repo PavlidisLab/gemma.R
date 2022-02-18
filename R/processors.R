@@ -170,7 +170,7 @@ processDatasets <- function(d) {
         ee.ShortName = d[["shortName"]],
         ee.Name = d[["name"]],
         ee.ID = d[["id"]],
-        # ee.Description = d[["description"]], # Description takes too much space
+        ee.Description = d[["description"]],
         ee.Public = d[["isPublic"]],
         ee.Troubled = d[["troubled"]],
         ee.Accession = d[["accession"]],
