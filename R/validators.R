@@ -139,8 +139,30 @@ validateFilter <- function(name, ...) {
 #' @keywords internal
 validatePositiveInteger <- function(name, ...) {
     args <- list(...)
-    if (length(unlist(args)) != 1 || any(is.na(unlist(args))) || !is.numeric(unlist(args)) || any(vapply(args, "%%", 1, FUN.VALUE = numeric(1)) != 0) || any(vapply(args, sign, FUN.VALUE = numeric(1)) < 0)) {
-        stop(glue::glue("Please only specify positive integer values for {name}."), call. = FALSE)
+    if (length(unlist(args)) != 1 || any(is.na(unlist(args))) ||
+            !is.numeric(unlist(args)) ||
+            any(vapply(args, "%%", 1, FUN.VALUE = numeric(1)) != 0) ||
+            any(vapply(args, sign, FUN.VALUE = numeric(1)) < 0)) {
+        stop(glue::glue("Please only specify positive integer values for {name}."),
+            call. = FALSE)
+    }
+    unlist(args)
+}
+
+#' Validate a limit value
+#'
+#' @param name The variable name
+#' @param ... Any possible integers
+#'
+#' @return The validated integers, or stop with an error message
+#'
+#' @keywords internal
+validateLimit <- function(name, ...) {
+    validatePositiveInteger(name, ...)
+    args <- list(...)
+    if (unlist(args) <= 0 || unlist(args) > 100) {
+        stop(glue::glue("Please specify a limit between 1 and 100 (inclusive)"),
+            call. = FALSE)
     }
     unlist(args)
 }
@@ -156,7 +178,8 @@ validatePositiveInteger <- function(name, ...) {
 validateBoolean <- function(name, ...) {
     args <- unlist(list(...))
     if (length(args) != 1 || !is.logical(args)) {
-        stop(glue::glue("Please only specify boolean values for {name}."), call. = FALSE)
+        stop(glue::glue("Please only specify boolean values for {name}."),
+            call. = FALSE)
     }
     tolower(as.character(args))
 }
