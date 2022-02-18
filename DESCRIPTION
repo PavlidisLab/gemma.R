@@ -11,6 +11,9 @@ Authors@R:
       person(given = "Ogan", family = "Mancarci", 
              role = c("aut"), email = "ogan.mancarci@gmail.com",
              comment = c(ORCID = "0000-0002-1452-0889")),
+      person(give = "Guillaume", family = "Poirier-Morency",
+             role = c("aut"), email = "poirigui@msl.ubc.ca",
+             comment = c(ORCID = "0000-0002-6554-0441")),
       person(given = "Paul", family = "Pavlidis", 
              role = c("cre"), email = "paul@msl.ubc.ca",
              comment = c(ORCID = "0000-0002-0426-5028")))
