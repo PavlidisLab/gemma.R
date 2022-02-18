@@ -106,7 +106,7 @@ getDatasetsInfo <- function(datasets = NA_character_, filter = NA_character_, of
     preprocessor <- processDatasets
     validators <- list(
         datasets = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        offset = validatePositiveInteger, limit = validateLimit,
         sort = validateSort
     )
     endpoint <- "datasets/{encode(datasets)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
@@ -215,7 +215,7 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
         filter = validateFilter, offset = validatePositiveInteger,
-        limit = validatePositiveInteger, sort = validateSort
+        limit = validateLimit, sort = validateSort
     )
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(
@@ -327,7 +327,7 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
     validators <- list(
         resultSet = validateOptionalID, dataset = validateOptionalID,
         filter = validateFilter, offset = validatePositiveInteger,
-        limit = validatePositiveInteger, sort = validateSort
+        limit = validateLimit, sort = validateSort
     )
     endpoint <- "resultSets/{encode(resultSet)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
     .body(
@@ -868,7 +868,7 @@ getPlatformsInfo <- function(platforms = NA_character_, filter = NA_character_,
     preprocessor <- processPlatforms
     validators <- list(
         platforms = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validatePositiveInteger,
+        offset = validatePositiveInteger, limit = validateLimit,
         sort = validateSort
     )
     endpoint <- "platforms/{encode(platforms)}?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
@@ -929,7 +929,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
     preprocessor <- processDatasets
     validators <- list(
         platform = validateSingleID, offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     .body(
@@ -1002,7 +1002,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
     preprocessor <- processElements
     validators <- list(
         platform = validateSingleID, element = validateOptionalID,
-        offset = validatePositiveInteger, limit = validatePositiveInteger
+        offset = validatePositiveInteger, limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
     .body(
@@ -1074,7 +1074,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
     preprocessor <- processGenes
     validators <- list(
         platform = validateSingleID, element = validateSingleID,
-        offset = validatePositiveInteger, limit = validatePositiveInteger
+        offset = validatePositiveInteger, limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
@@ -1262,7 +1262,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
     preprocessor <- processElements
     validators <- list(
         gene = validateSingleID, offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     )
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     .body(
@@ -1449,7 +1449,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, filter 
     validators <- list(
         query = validateQuery, taxon = validateOptionalTaxon,
         filter = validateFilter, offset = validatePositiveInteger,
-        limit = validatePositiveInteger, sort = validateSort
+        limit = validateLimit, sort = validateSort
     )
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     .body(

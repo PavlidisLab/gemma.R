@@ -336,7 +336,7 @@ registerEndpoint("datasets/{datasets}?filter={filter}&offset={offset}&limit={lim
         datasets = validateOptionalID,
         filter = validateFilter,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger,
+        limit = validateLimit,
         sort = validateSort
     ),
     preprocessor = quote(processDatasets)
@@ -361,7 +361,7 @@ registerEndpoint(
     dataset = validateOptionalID,
     filter = validateFilter,
     offset = validatePositiveInteger,
-    limit = validatePositiveInteger,
+    limit = validateLimit,
     sort = validateSort
   ),
   preprocessor = quote(processFile)
@@ -386,7 +386,7 @@ registerEndpoint(
     dataset = validateOptionalID,
     filter = validateFilter,
     offset = validatePositiveInteger,
-    limit = validatePositiveInteger,
+    limit = validateLimit,
     sort = validateSort
   ),
   preprocessor = quote(processResultSetFactors)
@@ -466,7 +466,7 @@ registerEndpoint("platforms/{platforms}?filter={filter}&offset={offset}&limit={l
         platforms = validateOptionalID,
         filter = validateFilter,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger,
+        limit = validateLimit,
         sort = validateSort
     ),
     preprocessor = quote(processPlatforms)
@@ -483,7 +483,7 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
     validators = alist(
         platform = validateSingleID,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     ),
     preprocessor = quote(processDatasets)
 )
@@ -501,7 +501,7 @@ registerEndpoint("platforms/{platform}/elements/{element}?offset={offset}&limit=
         platform = validateSingleID,
         element = validateOptionalID,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     ),
     preprocessor = quote(processElements)
 )
@@ -519,7 +519,7 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
         platform = validateSingleID,
         element = validateSingleID,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     ),
     preprocessor = quote(processGenes)
 )
@@ -549,7 +549,7 @@ registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
     validators = alist(
         gene = validateSingleID,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger
+        limit = validateLimit
     ),
     preprocessor = quote(processElements)
 )
@@ -576,7 +576,7 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?filter={filter}&of
         taxon = validateOptionalTaxon,
         filter = validateFilter,
         offset = validatePositiveInteger,
-        limit = validatePositiveInteger,
+        limit = validateLimit,
         sort = validateSort
     ),
     preprocessor = quote(processDatasets)
