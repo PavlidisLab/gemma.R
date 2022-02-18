@@ -67,9 +67,9 @@
           <p class="section-desc"></p><p>Endpoints accessing datasets (i.e. expression experiments), and their associated properties and files.</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="getBioc.html">getBioc()</a></code> </p>
+          <p><code><a href="getDataset.html">getDataset()</a></code> </p>
         </td>
-        <td><p>Get Bioconductor expression data</p></td>
+        <td><p>Get expression data</p></td>
       </tr><tr><td>
           <p><code><a href="getDatasetAnnotations.html">getDatasetAnnotations()</a></code> </p>
         </td>
@@ -83,13 +83,13 @@
         </td>
         <td><p>Dataset differential analysis</p></td>
       </tr><tr><td>
-          <p><code><a href="getDatasetData.html">getDatasetData()</a></code> </p>
-        </td>
-        <td><p>Dataset data</p></td>
-      </tr><tr><td>
           <p><code><a href="getDatasetDesign.html">getDatasetDesign()</a></code> </p>
         </td>
         <td><p>Dataset design</p></td>
+      </tr><tr><td>
+          <p><code><a href="getDatasetExpression.html">getDatasetExpression()</a></code> </p>
+        </td>
+        <td><p>getDatasetExpression</p></td>
       </tr><tr><td>
           <p><code><a href="getDatasetPlatforms.html">getDatasetPlatforms()</a></code> </p>
         </td>
@@ -103,7 +103,7 @@
         </td>
         <td><p>Dataset samples</p></td>
       </tr><tr><td>
-          <p><code><a href="getDatasets.html">getDatasets()</a></code> </p>
+          <p><code><a href="getDatasetsInfo.html">getDatasetsInfo()</a></code> </p>
         </td>
         <td><p>Datasets</p></td>
       </tr><tr><td>
@@ -135,7 +135,7 @@
         </td>
         <td><p>Platform elements</p></td>
       </tr><tr><td>
-          <p><code><a href="getPlatforms.html">getPlatforms()</a></code> </p>
+          <p><code><a href="getPlatformsInfo.html">getPlatformsInfo()</a></code> </p>
         </td>
         <td><p>Platforms</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -143,10 +143,6 @@
           <p class="section-desc"></p><p>Endpoints accessing genes (non taxon-specific).</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="getGeneEvidence.html">getGeneEvidence()</a></code> </p>
-        </td>
-        <td><p>Gene evidence</p></td>
-      </tr><tr><td>
           <p><code><a href="getGeneGO.html">getGeneGO()</a></code> </p>
         </td>
         <td><p>Gene goTerms</p></td>
@@ -159,7 +155,7 @@
         </td>
         <td><p>Gene probes</p></td>
       </tr><tr><td>
-          <p><code><a href="getGenes.html">getGenes()</a></code> </p>
+          <p><code><a href="getGenesInfo.html">getGenesInfo()</a></code> </p>
         </td>
         <td><p>Genes</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
@@ -174,42 +170,6 @@
           <p><code><a href="searchAnnotations.html">searchAnnotations()</a></code> </p>
         </td>
         <td><p>Annotation search</p></td>
-      </tr></tbody><tbody><tr><th colspan="2">
-          <h2 id="asynchronous-requests">Asynchronous Requests <a href="#asynchronous-requests" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p><p>Functions used for asynchronous requests.</p>
-        </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="async.html">async()</a></code> </p>
-        </td>
-        <td><p>Create an async function</p></td>
-      </tr><tr><td>
-          <p><code><a href="async_map.html">async_map()</a></code> </p>
-        </td>
-        <td><p>Apply an asynchronous function to each element of a vector</p></td>
-      </tr><tr><td>
-          <p><code><a href="delay.html">delay()</a></code> </p>
-        </td>
-        <td><p>Delay async computation for the specified time</p></td>
-      </tr><tr><td>
-          <p><code><a href="http_get.html">http_get()</a></code> </p>
-        </td>
-        <td><p>Asynchronous HTTP GET request</p></td>
-      </tr><tr><td>
-          <p><code><a href="http_head.html">http_head()</a></code> </p>
-        </td>
-        <td><p>Asynchronous HTTP HEAD request</p></td>
-      </tr><tr><td>
-          <p><code><a href="synchronise.html">synchronise()</a></code> </p>
-        </td>
-        <td><p>Synchronously wrap asynchronous code</p></td>
-      </tr><tr><td>
-          <p><code><a href="when_all.html">when_all()</a></code> </p>
-        </td>
-        <td><p>Deferred value for a set of deferred values</p></td>
-      </tr><tr><td>
-          <p><code><a href="when_some.html">when_some()</a></code> <code><a href="when_some.html">when_any()</a></code> </p>
-        </td>
-        <td><p>Resolve a deferred as soon as some deferred from a list resolve</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

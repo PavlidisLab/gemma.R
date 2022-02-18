@@ -25,18 +25,6 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
-    <loc>/reference/async.html</loc>
-  </url>
-  <url>
-    <loc>/reference/async_map.html</loc>
-  </url>
-  <url>
-    <loc>/reference/def__make_error_object.html</loc>
-  </url>
-  <url>
-    <loc>/reference/delay.html</loc>
-  </url>
-  <url>
     <loc>/reference/dot-getResultSetFactors.html</loc>
   </url>
   <url>
@@ -52,7 +40,7 @@
     <loc>/reference/gemma.R.html</loc>
   </url>
   <url>
-    <loc>/reference/getBioc.html</loc>
+    <loc>/reference/getDataset.html</loc>
   </url>
   <url>
     <loc>/reference/getDatasetAnnotations.html</loc>
@@ -64,10 +52,10 @@
     <loc>/reference/getDatasetDEA.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetData.html</loc>
+    <loc>/reference/getDatasetDesign.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetDesign.html</loc>
+    <loc>/reference/getDatasetExpression.html</loc>
   </url>
   <url>
     <loc>/reference/getDatasetPlatforms.html</loc>
@@ -79,10 +67,7 @@
     <loc>/reference/getDatasetSamples.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getGeneEvidence.html</loc>
+    <loc>/reference/getDatasetsInfo.html</loc>
   </url>
   <url>
     <loc>/reference/getGeneGO.html</loc>
@@ -94,7 +79,7 @@
     <loc>/reference/getGeneProbes.html</loc>
   </url>
   <url>
-    <loc>/reference/getGenes.html</loc>
+    <loc>/reference/getGenesInfo.html</loc>
   </url>
   <url>
     <loc>/reference/getPlatformAnnotation.html</loc>
@@ -109,16 +94,10 @@
     <loc>/reference/getPlatformElements.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatforms.html</loc>
+    <loc>/reference/getPlatformsInfo.html</loc>
   </url>
   <url>
     <loc>/reference/getTidyDataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/http_get.html</loc>
-  </url>
-  <url>
-    <loc>/reference/http_head.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -151,9 +130,6 @@
     <loc>/reference/processElements.html</loc>
   </url>
   <url>
-    <loc>/reference/processExpression.html</loc>
-  </url>
-  <url>
     <loc>/reference/processExpressionMatrix.html</loc>
   </url>
   <url>
@@ -167,9 +143,6 @@
   </url>
   <url>
     <loc>/reference/processGemmaFactor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGeneEvidence.html</loc>
   </url>
   <url>
     <loc>/reference/processGeneLocation.html</loc>
@@ -187,9 +160,6 @@
     <loc>/reference/processResultSetFactors.html</loc>
   </url>
   <url>
-    <loc>/reference/processSVD.html</loc>
-  </url>
-  <url>
     <loc>/reference/processSamples.html</loc>
   </url>
   <url>
@@ -205,13 +175,7 @@
     <loc>/reference/setGemmaUser.html</loc>
   </url>
   <url>
-    <loc>/reference/synchronise.html</loc>
-  </url>
-  <url>
     <loc>/reference/validateBoolean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateConsolidate.html</loc>
   </url>
   <url>
     <loc>/reference/validateFilter.html</loc>
@@ -229,30 +193,15 @@
     <loc>/reference/validatePositiveInteger.html</loc>
   </url>
   <url>
-    <loc>/reference/validatePositiveReal.html</loc>
-  </url>
-  <url>
     <loc>/reference/validateQuery.html</loc>
   </url>
   <url>
     <loc>/reference/validateSingleID.html</loc>
   </url>
   <url>
-    <loc>/reference/validateSingleTaxon.html</loc>
-  </url>
-  <url>
     <loc>/reference/validateSort.html</loc>
   </url>
   <url>
-    <loc>/reference/validateStrand.html</loc>
-  </url>
-  <url>
     <loc>/reference/validateTaxon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/when_all.html</loc>
-  </url>
-  <url>
-    <loc>/reference/when_some.html</loc>
   </url>
 </urlset>

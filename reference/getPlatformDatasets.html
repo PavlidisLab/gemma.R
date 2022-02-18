@@ -74,7 +74,6 @@
   offset <span class="op">=</span> <span class="fl">0L</span>,
   limit <span class="op">=</span> <span class="fl">20L</span>,
   raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  async <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.async"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
   overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
@@ -98,9 +97,6 @@ Limits the result to specified amount of objects. Use 0 for no limit.</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing.</p></dd>
-<dt>async</dt>
-<dd><p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run
-synchronously. See the <code>async</code> package for details.</p></dd>
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
@@ -122,7 +118,7 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getPlatformDatasets</span><span class="op">(</span><span class="st">"GPL1355"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span>, vec.len <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  19 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  17 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ShortName       : chr  "GSE2872" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Name            : chr  "d'mel-affy-rat-168311" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ID              : int  2 199 ...</span>
@@ -134,8 +130,6 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Samples         : int  12 18 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.LastUpdated     : POSIXct, format: "2021-09-17 07:30:14" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.batchEffect     : chr  "SINGLE_BATCH_SUCCESS" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Batch.P         : num  NA NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Batch.PC        : num  NA NA ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.batchCorrected: logi  FALSE ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.qScore        : num  0.855 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.sScore        : num  0.5 0.5 ...</span>

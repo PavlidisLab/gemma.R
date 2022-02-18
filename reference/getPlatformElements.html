@@ -75,7 +75,6 @@
   offset <span class="op">=</span> <span class="fl">0L</span>,
   limit <span class="op">=</span> <span class="fl">20L</span>,
   raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  async <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.async"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
   overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
@@ -109,9 +108,6 @@ Limits the result to specified amount of objects. Use 0 for no limit.</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing.</p></dd>
-<dt>async</dt>
-<dd><p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run
-synchronously. See the <code>async</code> package for details.</p></dd>
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
@@ -134,17 +130,9 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getPlatformElements</span><span class="op">(</span><span class="st">"GPL1355"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span>, vec.len <span class="op">=</span> <span class="fl">1</span>, max.level <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  10 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mapping.Name       : chr  "AFFX_Rat_Hexokinase_M_at" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ mapping.Summary    : logi  NA ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mapping.Description: chr  " hexokinase 1" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.ShortName    : chr  "GPL1355" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.Name         : chr  "Affymetrix GeneChip Rat Genome 230 2.0 Array" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.Taxon        : chr  "rat" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.TaxonID      : int  3 3 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.Type         : chr  "ONECOLOR" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.Description  : chr  " The GeneChip Rat Genome 230 2.0 Array is a powerful tool for toxicology, neurobiology, and other applications "| __truncated__ ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ array.Troubled     : logi  FALSE ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 </code></pre></div>
     </div>

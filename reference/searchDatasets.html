@@ -79,7 +79,6 @@ name matching the given string</p>
   limit <span class="op">=</span> <span class="fl">20L</span>,
   sort <span class="op">=</span> <span class="st">"+id"</span>,
   raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  async <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.async"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
   overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
@@ -165,9 +164,6 @@ the compiled URL below).</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing.</p></dd>
-<dt>async</dt>
-<dd><p><code>TRUE</code> to run the API query on a separate worker, or <code>FALSE</code> to run
-synchronously. See the <code>async</code> package for details.</p></dd>
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
@@ -194,7 +190,7 @@ The search only only checks the annotations value, not the category
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">searchDatasets</span><span class="op">(</span><span class="st">"bipolar"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  19 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  17 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ShortName       : chr  "GSE5389" "GSE4030" "GSE5388" "GSE7036" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Name            : chr  "Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls" "bunge-affy-arabi-162779" "Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls" "Expression profiling in monozygotic twins discordant for bipolar disorder" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ID              : int  326 348 594 660 670 672 700 831 833 834 ...</span>
@@ -206,8 +202,6 @@ The search only only checks the annotations value, not the category
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Samples         : int  21 8 61 6 23 66 8 50 102 47 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.LastUpdated     : POSIXct, format: "2021-09-18 07:31:21" "2021-09-18 07:31:26" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.batchEffect     : chr  "NO_BATCH_EFFECT_SUCCESS" "SINGLE_BATCH_SUCCESS" "NO_BATCH_EFFECT_SUCCESS" "SINGLE_BATCH_SUCCESS" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Batch.P         : num  NA NA NA NA NA NA NA NA NA NA ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Batch.PC        : num  NA NA NA NA NA NA NA NA NA NA ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.batchCorrected: logi  FALSE FALSE FALSE FALSE FALSE FALSE ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.qScore        : num  0.852 0.426 0.853 0.712 0.282 ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.sScore        : num  0.875 0.838 0.625 0.838 0.25 ...</span>
