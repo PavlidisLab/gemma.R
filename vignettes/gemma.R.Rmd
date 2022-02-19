@@ -1,9 +1,10 @@
 ---
-title: 'Accessing curated expresson data with gemma.R'
+title: 'Accessing curated expression data with gemma.R'
 author: 'Javier Castillo-Arnemann'
+date: "February 18, 2022"
 output: rmarkdown::html_vignette
 vignette: >
-    %\VignetteIndexEntry{Accessing curated expresson data with gemma.R}
+    %\VignetteIndexEntry{Accessing curated expression data with gemma.R}
     %\VignetteEngine{knitr::rmarkdown}
     %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +24,6 @@ library(dplyr)
 library(data.table)
 library(ggplot2)
 library(ggrepel)
-library(memoise)
 library(SummarizedExperiment)
 ```
 
@@ -49,15 +49,15 @@ devtools::install_github("PavlidisLab/gemma.R")
 You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
 
 ```{r 'install', eval = FALSE}
-# if (!requireNamespace("BiocManager", quietly = TRUE)) {
-#     install.packages("BiocManager")
-# }
-# 
-# BiocManager::install("gemma.R")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+
+BiocManager::install("gemma.R")
 ```
 
 ## Downloading expression data
-The main goal of this wrapper is to enable easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected. To do this, we use the [`searchDatasets()`](https://pavlidislab.github.io/gemma.R/reference/searchDatasets.html) endpoint:
+The main goal of this wrapper is to enable easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected.
 
 ```{r search}
 searchDatasets("bipolar", limit = 100, taxon = "human") %>%
@@ -65,14 +65,11 @@ searchDatasets("bipolar", limit = 100, taxon = "human") %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples)
 ```
 
-We are left with two datasets, and we'll pick [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939) since it has the larger number of samples.
-Now that we have the ID for our experiment, we can fetch the data associated with it.
-
-To get the basic information of a dataset, we use the [`getDatasetsInfo()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetsInfo.html) endpoint.
+We are left with two datasets, and we'll pick [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939) since it has the larger number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.
 
 ```{r dataset}
 getDatasetsInfo("GSE35974") %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples)
+    select(ee.ShortName, ee.Name, ee.ID, ee.Description)
 ```
 
 To access the expression data in a convenient form, you can use [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html).
@@ -80,7 +77,7 @@ It is a high-level wrapper that combines various
 endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-Alternatively, you can use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get a the experimental design matrix. Finally, you can use [`getTidyDataset`](https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html) to get a tibble that combines the expression and design matrices in tidy format. This format is less memory efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html) but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
+Alternatively, you can use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getTidyDataset()`](https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html) to get a tibble that combines the expression and design matrices in tidy format. This format is less memory efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html) but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
 
 Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
 We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
@@ -112,7 +109,7 @@ boxplot(bipExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 
 We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
 
-### Differential Expression Results
+### Differential expression results
 Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, you can visualize/explore the data and find the most differentially-expressed genes:
 
 ```{r, include = FALSE}
@@ -159,15 +156,15 @@ ggplot(
     )
 ) +
     geom_point() +
-    geom_hline(yintercept = -log10(0.05), col = "grey", linetype = "dashed") +
-    geom_vline(xintercept = c(-0.4, 0.4), col = "grey", linetype = "dashed") +
-    labs(x = "log2 Fold Change", y = "-log10(p-value)") +
+    geom_hline(yintercept = -log10(0.05), col = "gray45", linetype = "dashed") +
+    geom_vline(xintercept = c(-0.4, 0.4), col = "gray45", linetype = "dashed") +
+    labs(x = "log2(FoldChange)", y = "-log10(p-value)") +
     scale_color_manual(values = c("blue", "black", "red")) +
     geom_text_repel(show.legend = FALSE) +
     theme_minimal()
 ```
 
-The unlabeled genes in the volcano plot correspond to microarray probes that do
+The unlabeled colored points in the volcano plot correspond to microarray probes that do
 not map to any gene after re-aligning the probes during Gemma's curation process.
 You can also see how multiple probes can map to the same gene.
 
@@ -179,7 +176,7 @@ getDatasetDE("GSE2872")
 ```
 In this case, you can check the available resultSets to get the ID you want and
 or use `all = TRUE` to get a list containing all the resultSets.
-```{r}
+```{r, warning=FALSE}
 # Show available resultSets
 getDatasetResultSets("GSE2872")
 
@@ -189,21 +186,23 @@ head(de)
 ```
 
 ### Larger queries
-The `*Info()` endpoints accept multiple identifiers in a single function call For example, getting information on 3 datasets at the same time.
+The `*Info()` endpoints accept multiple identifiers in a single function call. 
+For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
-getDatasetsInfo(datasets = c("GSE35974", "GSE46416", "GSE99349")) %>%
+getDatasetsInfo(datasets = c("GSE35974", "GSE46416")) %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples, taxon.Name)
 ```
 
 To query large amounts of data, the API has a pagination system which uses
 the `limit` and `offset` arguments. To avoid overloading the system, calls are limited
 to a maximum of 100 entries, so the offset allows you to get the next batch of entries
-in the next call(s).
+in the next call(s). For simplicity, this example shows how pagination works with 5 entries per query.
 ```{r}
-getDatasetsInfo(limit = 5) %>% select(ee.ID, ee.ShortName)
-getDatasetsInfo(limit = 5, offset = 5) %>% select(ee.ID, ee.ShortName) 
-getDatasetsInfo(limit = 5, offset = 10) %>% select(ee.ID, ee.ShortName) 
+lapply(c(0, 5, 10), function(offset){
+    getPlatformsInfo(limit = 5, offset = offset) %>%
+        select(platform.ID, platform.ShortName, taxon.Name)
+})
 ```
 
 The rest of the endpoints only support a single identifier:
@@ -215,8 +214,10 @@ In these cases, you will have to loop over all the identifiers you wish to query
 
 ```{r loop}
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
-    getDatasetAnnotations(dataset) %>% mutate(ee.shortName = dataset)
-}) %>% rbindlist() %>%
+    getDatasetAnnotations(dataset) %>% 
+        mutate(ee.shortName = dataset)
+}) %>% 
+    rbindlist() %>%
     select(ee.shortName, class.Type, class.Name, term.Name)
 ```
 
