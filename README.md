@@ -11,11 +11,11 @@ coverage](https://codecov.io/gh/PavlidisLab/gemma.R/branch/master/graph/badge.sv
 <!-- badges: end -->
 
 This is an R wrapper for [Gemma](http://gemma.msl.ubc.ca)’s RESTful
-[API](https://gemma.msl.ubc.ca/resources/restapidocs/). Gemma is a web
-site, database and a set of tools for the meta-analysis, re-use and
-sharing of genomics data, currently primarily targeted at the analysis
-of gene expression profiles. Gemma contains data from thousands of
-public studies, referencing thousands of published papers.
+[API](https://gemma.msl.ubc.ca/rest/v2/). Gemma is a web site, database
+and a set of tools for the meta-analysis, re-use and sharing of genomics
+data, currently primarily targeted at the analysis of gene expression
+profiles. Gemma contains data from thousands of public studies,
+referencing thousands of published papers.
 
 ## Installation instructions
 
@@ -47,9 +47,6 @@ You can install `gemma.R` through
 
 To get started with `gemma.R`, read the
 [vignette](https://pavlidislab.github.io/gemma.R/articles/gemma.R.html).
-In addition, you can check the [interactive API
-documentation](https://gemma.msl.ubc.ca/resources/restapidocs/) to get
-familiar quickly with the endpoints and their output.
 
 ## Citation
 
