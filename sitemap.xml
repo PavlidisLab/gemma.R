@@ -4,9 +4,6 @@
     <loc>/404.html</loc>
   </url>
   <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
     <loc>/LICENSE.html</loc>
   </url>
   <url>
@@ -106,9 +103,6 @@
     <loc>/reference/processAnnotations.html</loc>
   </url>
   <url>
-    <loc>/reference/processCoexpression.html</loc>
-  </url>
-  <url>
     <loc>/reference/processDEA.html</loc>
   </url>
   <url>
@@ -151,9 +145,6 @@
     <loc>/reference/processGenes.html</loc>
   </url>
   <url>
-    <loc>/reference/processPhenotypes.html</loc>
-  </url>
-  <url>
     <loc>/reference/processPlatforms.html</loc>
   </url>
   <url>
@@ -178,10 +169,10 @@
     <loc>/reference/validateBoolean.html</loc>
   </url>
   <url>
-    <loc>/reference/validateFilter.html</loc>
+    <loc>/reference/validateID.html</loc>
   </url>
   <url>
-    <loc>/reference/validateID.html</loc>
+    <loc>/reference/validateLimit.html</loc>
   </url>
   <url>
     <loc>/reference/validateOptionalID.html</loc>

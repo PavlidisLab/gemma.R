@@ -38,7 +38,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/gemma.R.html">Accessing curated expresson data with gemma.R</a>
+      <a href="../articles/gemma.R.html">Accessing curated expression data with gemma.R</a>
     </li>
   </ul></li>
 <li>
@@ -72,7 +72,6 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">.getResultSets</span><span class="op">(</span>
   resultSet <span class="op">=</span> <span class="cn">NA_character_</span>,
   dataset <span class="op">=</span> <span class="cn">NA_character_</span>,
-  filter <span class="op">=</span> <span class="cn">NA_character_</span>,
   offset <span class="op">=</span> <span class="fl">0L</span>,
   limit <span class="op">=</span> <span class="fl">20L</span>,
   sort <span class="op">=</span> <span class="st">"+id"</span>,
@@ -92,54 +91,13 @@
 Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).
 Retrieval by ID is more efficient.
 Only datasets that user has access to will be available</p></dd>
-<dt>filter</dt>
-<dd><p>Optional, defaults to <code>empty</code>.
-Filtering can be done on any* property or nested property that the
-appropriate object class defines or inherits (and that is mapped by
-hibernate). [These do not correspond to the properties of the objects
-returned by the API calls.].description-imp
-Class definitions:</p><ul><li><p>Datasets:
-<a href="http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html" class="external-link">javaDoc</a>     <a href="https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java" class="external-link">gitHub</a></p></li>
-<li><p>Platforms:
-<a href="http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html" class="external-link">javaDoc</a>     <a href="https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java" class="external-link">gitHub</a>
-E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p></li>
-</ul><ul><li><p>Any property of a supported type. Currently supported types are:</p></li>
-</ul><ul><li><p>String - property of String type, required value can be any String.</p></li>
-<li><p>Number - any Number implementation. Required value must be a string
-parseable to the specific Number type.</p></li>
-<li><p>Boolean - required value will be parsed to true only if the string
-matches 'true', ignoring case.
-Accepted operator keywords are:</p></li>
-<li><p>'=' - equality</p></li>
-<li><p>'!=' - non-equality</p></li>
-<li><p>'&lt;' - smaller than</p></li>
-<li><p>'&gt;' - larger than</p></li>
-<li><p>'&lt;=' - smaller or equal</p></li>
-<li><p>'=&gt;' - larger or equal</p></li>
-<li><p>'like' - similar string, effectively means 'contains',
-translates to the sql 'LIKE' operator (given value will be
-surrounded by % signs)
-Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.
-Leave space between the keywords and the previous/next word!
-E.g: <code>?filter=property1 &lt; value1 AND property2 like value2</code>
-If chained filters are mixed conjunctions and disjunctions, the query
-must be in conjunctive normal form (CNF). Parentheses are not necessary</p></li>
-<li><p>every AND keyword separates blocks of disjunctions.
-Example:
-<code>?filter=p1 = v1 OR p1 != v2 AND p2 &lt;= v2 AND p3 &gt; v3 OR p3 &lt; v4</code>
-Above query will translate to:
-<code>(p1 = v1 OR p1 != v2) AND (p2 &lt;= v2) AND (p3 &gt; v3 OR p3 &lt; v4;)</code>
-Breaking the CNF results in an error.
-Filter <code>curationDetails.troubled</code> will be ignored if user is not an
-administrator.</p></li>
-</ul></dd>
 <dt>offset</dt>
 <dd><p>Optional, defaults to <code>0</code>.
 Skips the specified amount of objects when retrieving them from the
 database.</p></dd>
 <dt>limit</dt>
-<dd><p>Optional, defaults to <code>20</code>.
-Limits the result to specified amount of objects. Use 0 for no limit.</p></dd>
+<dd><p>Optional, defaults to 20. Limits the result to specified amount of
+objects.</p></dd>
 <dt>sort</dt>
 <dd><p>Optional, defaults to <code>+id</code>.
 Sets the ordering property and direction.
@@ -155,7 +113,8 @@ using in scripts, remember to URL-encode the '+' plus character (see
 the compiled URL below).</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
-parsing.</p></dd>
+parsing. Raw results usually contain additional fields and flags that
+are omitted in the parsed results.</p></dd>
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
@@ -179,7 +138,7 @@ Otherwise, it will be a RDS file.</p></dd>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Paul Pavlidis.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">

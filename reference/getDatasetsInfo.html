@@ -38,7 +38,7 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/gemma.R.html">Accessing curated expresson data with gemma.R</a>
+      <a href="../articles/gemma.R.html">Accessing curated expression data with gemma.R</a>
     </li>
   </ul></li>
 <li>
@@ -71,7 +71,6 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetsInfo</span><span class="op">(</span>
   datasets <span class="op">=</span> <span class="cn">NA_character_</span>,
-  filter <span class="op">=</span> <span class="cn">NA_character_</span>,
   offset <span class="op">=</span> <span class="fl">0L</span>,
   limit <span class="op">=</span> <span class="fl">20L</span>,
   sort <span class="op">=</span> <span class="st">"+id"</span>,
@@ -92,54 +91,13 @@ A list of identifiers, separated by commas (e.g:
 its short name. Retrieval by ID is more efficient.
 Only datasets that user has access to will be available.
 Do not combine different identifiers in one query.</p></dd>
-<dt>filter</dt>
-<dd><p>Optional, defaults to <code>empty</code>.
-Filtering can be done on any* property or nested property that the
-appropriate object class defines or inherits (and that is mapped by
-hibernate). [These do not correspond to the properties of the objects
-returned by the API calls.].description-imp
-Class definitions:</p><ul><li><p>Datasets:
-<a href="http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/experiment/ExpressionExperiment.html" class="external-link">javaDoc</a>     <a href="https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/experiment/ExpressionExperiment.java" class="external-link">gitHub</a></p></li>
-<li><p>Platforms:
-<a href="http://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/model/expression/arrayDesign/ArrayDesign.html" class="external-link">javaDoc</a>     <a href="https://github.com/ppavlidis/Gemma/blob/development/gemma-core/src/main/java/ubic/gemma/model/expression/arrayDesign/ArrayDesign.java" class="external-link">gitHub</a>
-E.g: <code>curationDetails</code> or <code>curationDetails.lastTroubledEvent.date</code>.</p></li>
-</ul><ul><li><p>Any property of a supported type. Currently supported types are:</p></li>
-</ul><ul><li><p>String - property of String type, required value can be any String.</p></li>
-<li><p>Number - any Number implementation. Required value must be a string
-parseable to the specific Number type.</p></li>
-<li><p>Boolean - required value will be parsed to true only if the string
-matches 'true', ignoring case.
-Accepted operator keywords are:</p></li>
-<li><p>'=' - equality</p></li>
-<li><p>'!=' - non-equality</p></li>
-<li><p>'&lt;' - smaller than</p></li>
-<li><p>'&gt;' - larger than</p></li>
-<li><p>'&lt;=' - smaller or equal</p></li>
-<li><p>'=&gt;' - larger or equal</p></li>
-<li><p>'like' - similar string, effectively means 'contains',
-translates to the sql 'LIKE' operator (given value will be
-surrounded by % signs)
-Multiple filters can be chained using <code>AND</code> and <code>OR</code> keywords.
-Leave space between the keywords and the previous/next word!
-E.g: <code>?filter=property1 &lt; value1 AND property2 like value2</code>
-If chained filters are mixed conjunctions and disjunctions, the query
-must be in conjunctive normal form (CNF). Parentheses are not necessary</p></li>
-<li><p>every AND keyword separates blocks of disjunctions.
-Example:
-<code>?filter=p1 = v1 OR p1 != v2 AND p2 &lt;= v2 AND p3 &gt; v3 OR p3 &lt; v4</code>
-Above query will translate to:
-<code>(p1 = v1 OR p1 != v2) AND (p2 &lt;= v2) AND (p3 &gt; v3 OR p3 &lt; v4;)</code>
-Breaking the CNF results in an error.
-Filter <code>curationDetails.troubled</code> will be ignored if user is not an
-administrator.</p></li>
-</ul></dd>
 <dt>offset</dt>
 <dd><p>Optional, defaults to <code>0</code>.
 Skips the specified amount of objects when retrieving them from the
 database.</p></dd>
 <dt>limit</dt>
-<dd><p>Optional, defaults to <code>20</code>.
-Limits the result to specified amount of objects. Use 0 for no limit.</p></dd>
+<dd><p>Optional, defaults to 20. Limits the result to specified amount of
+objects.</p></dd>
 <dt>sort</dt>
 <dd><p>Optional, defaults to <code>+id</code>.
 Sets the ordering property and direction.
@@ -155,7 +113,8 @@ using in scripts, remember to URL-encode the '+' plus character (see
 the compiled URL below).</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
-parsing.</p></dd>
+parsing. Raw results usually contain additional fields and flags that
+are omitted in the parsed results.</p></dd>
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
@@ -180,12 +139,14 @@ in Gemma. You can <a href="https://pavlidislab.github.io/Gemma/geeq.html" class=
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getDatasetsInfo</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.ShortName                     ee.Name ee.ID ee.Public ee.Troubled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1      TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.Accession ee.Database                           ee.URL ee.Samples</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018         GEO http://www.ncbi.nlm.nih.gov/geo/         34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.LastUpdated</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2021-09-17 07:22:51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.ShortName                     ee.Name ee.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ee.Description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary patient ID and AxBx number indicates the perivascular (A) and bronchiolar (B) scores from biopsies collected on the same day as the BAL fluid was collected.  Several patients have more than one sample in this series and can be determined by patient number followed by a lower case letter.  Acute rejection state is determined by the combined A and B score - specifically, a combined AB score of 2 or greater is considered an acute rejection.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.Public ee.Troubled ee.Accession ee.Database</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      TRUE       FALSE      GSE2018         GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              ee.URL ee.Samples      ee.LastUpdated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ncbi.nlm.nih.gov/geo/         34 2021-09-17 07:22:51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                 ee.batchEffect</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: This data set may have a batch artifact (PC 2), p=0.0079605</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    geeq.batchCorrected geeq.qScore geeq.sScore taxon.Name taxon.ID</span>
@@ -193,15 +154,18 @@ in Gemma. You can <a href="https://pavlidislab.github.io/Gemma/geeq.html" class=
 <span class="r-out co"><span class="r-pr">#&gt;</span>    technology.Type</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:              NA</span>
 <span class="r-in"><span class="fu">getDatasetsInfo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE2018"</span>, <span class="st">"GSE2872"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.ShortName                     ee.Name ee.ID ee.Public ee.Troubled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1      TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      GSE2872       d'mel-affy-rat-168311     2      TRUE       FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.Accession ee.Database                           ee.URL ee.Samples</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018         GEO http://www.ncbi.nlm.nih.gov/geo/         34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      GSE2872         GEO http://www.ncbi.nlm.nih.gov/geo/         12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ee.LastUpdated</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2021-09-17 07:22:51</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 2021-09-17 07:30:14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.ShortName                     ee.Name ee.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      GSE2018 Human Lung Transplant - BAL     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      GSE2872       d'mel-affy-rat-168311     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ee.Description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Bronchoalveolar lavage samples collected from lung transplant recipients.  Numeric portion of sample name is an arbitrary patient ID and AxBx number indicates the perivascular (A) and bronchiolar (B) scores from biopsies collected on the same day as the BAL fluid was collected.  Several patients have more than one sample in this series and can be determined by patient number followed by a lower case letter.  Acute rejection state is determined by the combined A and B score - specifically, a combined AB score of 2 or greater is considered an acute rejection.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: Neurological diseases disrupt the quality of the lives of patients and often lead to their death prematurely.  A common feature of most neurological diseases is the degeneration of neurons, which results from an inappropriate activation of apoptosis. Drugs that inhibit neuronal apoptosis could thus be candidates for therapeutic intervention in neurodegenerative disorders.  We have identified (and recently reported) a chemical called GW5074 that inhibits apoptosis in a variety of cell culture paradigms of neuronal apoptosis.  Additionally, we have found that GW5074 reduces neurodegeneration and improves behavioral outcome in a mouse model of Huntington's disease.  Although GW5074 is a c-Raf inhibitor, we know very little about the molecular mechanisms underlying its neuroprotective action.  Identifying genes that are regulated by GW5074 in neurons will shed insight into this issue. We believe that neuroprotection by GW5074 involves the regulation of several genes.  Some of these genes are likely to be induced whereas the expression of other genes might be inhibited.  The specific aim is to identify genes that are differentially expressed in neurons treated with GW5074. We believe that neuroprotection by GW5074 involves the regulation of several genes.  Some of these genes are likely to be induced whereas the expression of other genes might be inhibited. Cultures of cerebellar granule neurons undergo apoptosis when switched from medium containing levated levels of potassium (high K+ or HK) to medium containing low potassium (LK).  Although cell death begins at about 18 h, we have found that the by 6 h after LK treatment these neurons are irreversibly committed to cell death.  We will treat cerebellar granule neuron cultures with LK medium (which induces them to undergo apoptosis) or with GW5074 (1 uM).  We will extract RNA at two time-points after treatment: 3 h and 6 h. Analysis at the two different time-points will show us whether changes in expression of specific genes is transient or sustained or whether the changes occurs early or relatively late in the process.  Neuronal cultures will be prepared from 1 week old Wistar rats.  The cultures will be maintained in culture for 1 week before treatment.  Following treatment the cells will be lysed and total RNA isolated.  The RNA will be stored at -80oC and shipped to the microarray facility for analysis.  The experiment will be done in triplicate.  Thus, for each time-point (3 or 6h treatment) we will be hope to provide 3 sets of samples (each set coming from a different culture preparation and containing lysates from cells treated with LK or GW5074).  Having samples from 3 independent cultures will mitigate any expression differences resulting from subtle variations in culture quality or in the preparation or quality of RNA.\nDate GSE2872 Last Updated: Jul 06 2005\nContributors:  S R D'Mello\nIncludes GDS1837.\n Update date: Jun 09 2006.\n Dataset description GDS1837: Analysis of cultured cerebellar granule neurons in low potassium medium 3 and 6 hours following treatment with the c-Raf inhibitor GW5074. GW5074 blocks low potassium induced cell death. Results provide insight into the neuroprotective action of GW5074.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ee.Public ee.Troubled ee.Accession ee.Database</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      TRUE       FALSE      GSE2018         GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      TRUE       FALSE      GSE2872         GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              ee.URL ee.Samples      ee.LastUpdated</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ncbi.nlm.nih.gov/geo/         34 2021-09-17 07:22:51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: http://www.ncbi.nlm.nih.gov/geo/         12 2021-09-17 07:30:14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                 ee.batchEffect</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: This data set may have a batch artifact (PC 2), p=0.0079605</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                        SINGLE_BATCH_SUCCESS</span>
@@ -221,7 +185,7 @@ in Gemma. You can <a href="https://pavlidislab.github.io/Gemma/geeq.html" class=
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Paul Pavlidis.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">
