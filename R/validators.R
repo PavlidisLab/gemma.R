@@ -115,20 +115,6 @@ validateQuery <- function(name, ...) {
     paste0(query, collapse = ",")
 }
 
-#' Validate a filter
-#'
-#' @param name The variable name
-#' @param ... Any filters
-#'
-#' @return The validated filters, or stop with an error message
-#'
-#' @keywords internal
-validateFilter <- function(name, ...) {
-    filters <- unlist(list(...))
-    # TODO stub
-    paste0(filters, collapse = " AND ")
-}
-
 #' Validate a non-negative integer value
 #'
 #' @param name The variable name
