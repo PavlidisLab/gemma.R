@@ -528,46 +528,6 @@ processGO <- function(d) {
     )
 }
 
-#' Processes JSON as coexpression data
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processCoexpression <- function(d) {
-    data.table(
-        query.Degree = d[["queryGeneNodeDegree"]],
-        query.Rank = d[["queryGeneNodeDegreeRank"]],
-        found.Degree = d[["foundGeneNodeDegree"]],
-        found.Rank = d[["foundGeneNodeDegreeRank"]],
-        tested = d[["numTestedIn"]],
-        support.Positive = d[["posSupp"]],
-        support.Negative = d[["negSupp"]],
-        support.N = d[["support"]],
-        support.Experiments = d[["supportingExperiments"]],
-        setnames(processGenes(d[["queryGene"]]), function(x) paste0("query.", x)),
-        setnames(processGenes(d[["foundGene"]]), function(x) paste0("found.", x))
-    )
-}
-
-#' Processes JSON as a vector of phenotypes
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processPhenotypes <- function(d) {
-    data.table(
-        value.Name = d[["factorValue"]],
-        value.URL = d[["valueUri"]],
-        value.GeneCount = d[["publicGeneCount"]],
-        parents = lapply(d[["_parent"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", TRUE)))),
-        children = lapply(d[["children"]], function(x) paste0("http://purl.obolibrary.org/obo/", unlist(strsplit(x, "<", TRUE))))
-    )
-}
-
 #' Processes design matrix
 #'
 #' @param m The design matrix to process
