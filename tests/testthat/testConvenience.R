@@ -22,9 +22,9 @@ test_that("getDataset works properly", {
     )
 })
 
-test_that("getTidyDataset works properly", {
+test_that("getDatasetTidy works properly", {
     dat <- getDatasetExpression(1)
-    tidy <- getTidyDataset(1)
+    tidy <- getDatasetTidy(1)
     design <- getDatasetDesign(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
     expect_equal((ncol(dat) - 4) * nrow(dat), nrow(tidy))
