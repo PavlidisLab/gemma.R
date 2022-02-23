@@ -186,8 +186,8 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
 #' @keywords dataset
 #' @export
 #' @examples
-#' getTidyDataset("GSE2018")
-getTidyDataset <- function(dataset, filter = FALSE) {
+#' getDatasetTidy("GSE2018")
+getDatasetTidy <- function(dataset, filter = FALSE) {
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
