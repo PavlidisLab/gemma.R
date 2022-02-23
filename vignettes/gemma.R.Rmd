@@ -1,7 +1,7 @@
 ---
 title: 'Accessing curated expression data with gemma.R'
 author: 'Javier Castillo-Arnemann'
-date: "February 18, 2022"
+date: "February 22, 2022"
 output: rmarkdown::html_vignette
 vignette: >
     %\VignetteIndexEntry{Accessing curated expression data with gemma.R}
@@ -65,81 +65,75 @@ searchDatasets("bipolar", limit = 100, taxon = "human") %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples)
 ```
 
-We are left with two datasets, and we'll pick [GSE35974](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=5939) since it has the larger number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.
+We are left with two datasets. For simplicity, we'll pick [GSE46416](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997) since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.
 
 ```{r dataset}
-getDatasetsInfo("GSE35974") %>%
+getDatasetsInfo("GSE46416") %>%
     select(ee.ShortName, ee.Name, ee.ID, ee.Description)
 ```
 
 To access the expression data in a convenient form, you can use [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html).
 It is a high-level wrapper that combines various
-endpoints to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
+endpoint calls to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-Alternatively, you can use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getTidyDataset()`](https://pavlidislab.github.io/gemma.R/reference/getTidyDataset.html) to get a tibble that combines the expression and design matrices in tidy format. This format is less memory efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html) but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
-
-Since this dataset also contains patients with schizophrenia and depression, and we're only interested in bipolar patients, we can remove those samples.
-We're also keeping the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r load-expression, eval = FALSE}
-dat <- getDataset("GSE35974")
+dat <- getDataset("GSE46416")
+dat
 ```
 
 ```{r include = FALSE}
 ## Pre-loads the summarized experiment to save time and pass vignette build
 dat <- readRDS("se.rds")
+dat
 ```
 
+To show how subsetting works, we'll keep the manic phase data and the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r}
-# Check the levels of the DiseaseState cofactor
-dat$DiseaseState %>% unique()
+# Check the levels of the disease factor
+dat$disease %>% unique()
 
 # Subset patients with bipolar disorder and controls.
-bipolar <- dat[, dat$DiseaseState == "Bipolar_Disorder" | dat$DiseaseState == "reference_subject_role"]
-bipolar
+manic <- dat[, dat$disease == "bipolar_disorder_|_manic_phase_|" | dat$disease == "reference_subject_role"]
+manic
 ```
 
 Let's check the expression for every sample to make sure they look OK:
 ```{r boxplot}
 # Get Expression matrix
-bipExpr <- assays(bipolar)$counts
-
-boxplot(bipExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
+manicExpr <- assays(manic)$counts
+boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 ```
 
-We can quickly see three samples among bipolar patients and controls are empty. This is because during the curation process Gemma flags potential outlier samples automatically, which are then manually reviewed. Samples confirmed to be outliers are represented as missing data to ensure transparency.
+You can also use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getDatasetTidy()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetTidy.html) to get a tibble that combines the expression and design matrices in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). This format is less memory efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html) but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
 
 ### Differential expression results
 Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, you can visualize/explore the data and find the most differentially-expressed genes:
 
-```{r, include = FALSE}
-## Pre-loads the differential expression results to save time and pass vignette build
-de <- readRDS("de.rds")
-```
-
-```{r, eval = FALSE}
-de <- getDatasetDE("GSE35974")
-```
-
 ```{r diffExpr, warning = FALSE}
+# Get DE data
+de <- getDatasetDE("GSE46416")
+
 # Classify probes for plotting
 de$diffexpr <- "No"
-de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` > 0.4 & 
-        de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Up"
-de$diffexpr[de$`contrast_Bipolar Disorder_logFoldChange` < -0.4 & 
-        de$`contrast_Bipolar Disorder_pvalue` < 0.05] <- "Down"
+de$diffexpr[de$`contrast_bipolar disorder, manic phase_logFoldChange` > 1.0 & 
+        de$`contrast_bipolar disorder, manic phase_pvalue` < 0.05] <- "Up"
+de$diffexpr[de$`contrast_bipolar disorder, manic phase_logFoldChange` < -1.0 & 
+        de$`contrast_bipolar disorder, manic phase_pvalue` < 0.05] <- "Down"
 
 # Upregulated probes
 filter(de, diffexpr == "Up") %>%
-    arrange(`contrast_Bipolar Disorder_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, 
-        `contrast_Bipolar Disorder_logFoldChange`)
+    arrange(`contrast_bipolar disorder, manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder, manic phase_pvalue`, 
+        `contrast_bipolar disorder, manic phase_logFoldChange`) %>%
+    head(10)
 
 # Downregulated probes
 filter(de, diffexpr == "Down") %>%
-    arrange(`contrast_Bipolar Disorder_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_Bipolar Disorder_pvalue`, 
-        `contrast_Bipolar Disorder_logFoldChange`)
+    arrange(`contrast_bipolar disorder, manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder, manic phase_pvalue`, 
+        `contrast_bipolar disorder, manic phase_logFoldChange`) %>%
+    head(10)
 
 # Add gene symbols as labels to DE genes
 de$delabel <- ""
@@ -149,24 +143,20 @@ de$delabel[de$diffexpr != "No"] <- de$GeneSymbol[de$diffexpr != "No"]
 ggplot(
     data = de,
     aes(
-        x = `contrast_Bipolar Disorder_logFoldChange`,
-        y = -log10(`contrast_Bipolar Disorder_pvalue`),
+        x = `contrast_bipolar disorder, manic phase_logFoldChange`,
+        y = -log10(`contrast_bipolar disorder, manic phase_pvalue`),
         color = diffexpr,
         label = delabel
     )
 ) +
     geom_point() +
     geom_hline(yintercept = -log10(0.05), col = "gray45", linetype = "dashed") +
-    geom_vline(xintercept = c(-0.4, 0.4), col = "gray45", linetype = "dashed") +
+    geom_vline(xintercept = c(-1.0, 1.0), col = "gray45", linetype = "dashed") +
     labs(x = "log2(FoldChange)", y = "-log10(p-value)") +
     scale_color_manual(values = c("blue", "black", "red")) +
     geom_text_repel(show.legend = FALSE) +
     theme_minimal()
 ```
-
-The unlabeled colored points in the volcano plot correspond to microarray probes that do
-not map to any gene after re-aligning the probes during Gemma's curation process.
-You can also see how multiple probes can map to the same gene.
 
 Since there are some datasets that have more than one ResultSet associated with them,
 you will get an error if you try to fetch that data directly:
@@ -174,7 +164,7 @@ you will get an error if you try to fetch that data directly:
 ```{r, error = TRUE}
 getDatasetDE("GSE2872")
 ```
-In this case, you can check the available resultSets to get the ID you want and
+In this case, you can check the available resultSets to get the ID you need,
 or use `all = TRUE` to get a list containing all the resultSets.
 ```{r, warning=FALSE}
 # Show available resultSets
