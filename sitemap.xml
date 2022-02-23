@@ -64,6 +64,9 @@
     <loc>/reference/getDatasetSamples.html</loc>
   </url>
   <url>
+    <loc>/reference/getDatasetTidy.html</loc>
+  </url>
+  <url>
     <loc>/reference/getDatasetsInfo.html</loc>
   </url>
   <url>
@@ -92,9 +95,6 @@
   </url>
   <url>
     <loc>/reference/getPlatformsInfo.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTidyDataset.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
