@@ -23,7 +23,7 @@ Description: Low- and high-level wrappers for Gemma's RESTful API. They enable
     meta-analysis, re-use and sharing of genomics data, currently primarily 
     targeted at the analysis of gene expression profiles.
 URL: https://pavlidislab.github.io/gemma.R/, https://github.com/PavlidisLab/gemma.R
-License: Apache License (>= 2)
+License: Apache License (2.0)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
