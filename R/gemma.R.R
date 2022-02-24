@@ -26,7 +26,7 @@
 #' Lim, N. et al., Curation of over 10 000 transcriptomic studies to enable
 #' data reuse, Database, 2021. \url{https://doi.org/10.1093/database/baab006}
 #'
-#' @author Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci
+#' @author Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency
 #'
 #' @docType package
 #' @name gemma.R
