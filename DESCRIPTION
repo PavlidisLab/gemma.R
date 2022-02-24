@@ -50,7 +50,7 @@ Suggests:
     covr,
     ggplot2,
     ggrepel,
-    biocStyle
+    BiocStyle
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
