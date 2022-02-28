@@ -3,7 +3,6 @@ title: 'Accessing curated gene expression data with gemma.R'
 author:
 - name: Javier Castillo-Arnemann
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
-  email: javiercastilloar@gmail.com
 - name: Jordan Sicherman
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
 package: gemma.R
@@ -68,7 +67,7 @@ The main goal of this wrapper is to enable easy access to Gemma's curated datase
 ```{r search}
 searchDatasets("bipolar", limit = 100, taxon = "human") %>%
     filter(geeq.batchCorrected == TRUE) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Database, ee.Samples)
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Samples)
 ```
 
 We are left with two datasets. For simplicity, we'll pick [GSE46416](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997) since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.
@@ -104,19 +103,18 @@ manic
 ```
 
 Let's check the expression for every sample to make sure they look OK:
-```{r boxplot, fig.cap="Expression profiles of bipolar patients during manic phase and controls."}
+```{r boxplot, fig.cap="Gene expression distributions of bipolar patients during manic phase and controls."}
 # Get Expression matrix
 manicExpr <- assays(manic)$counts
 boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 ```
 
-You can also use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getDatasetTidy()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetTidy.html) to get a tibble that combines the expression and design matrices in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). This format is less memory efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html) but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
+You can also use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getDatasetTidy()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetTidy.html) to get a tibble that combines the expression and design matrices in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). This format is less memory-efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html), but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
 
 ## Differential expression results
 Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, you can visualize/explore the data and find the most differentially-expressed genes:
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
-# Get DE data
 de <- getDatasetDE("GSE46416")
 
 # Classify probes for plotting
@@ -172,10 +170,8 @@ getDatasetDE("GSE2872")
 In this case, you can check the available resultSets to get the ID you need,
 or use `all = TRUE` to get a list containing all the resultSets.
 ```{r, warning=FALSE}
-# Show available resultSets
 getDatasetResultSets("GSE2872")
 
-# Get differential expression resultSet
 de <- getDatasetDE("GSE2872", resultSet = 500185)
 head(de)
 ```
@@ -186,12 +182,11 @@ For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
 getDatasetsInfo(datasets = c("GSE35974", "GSE46416")) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, 
-        ee.Database, ee.Samples, taxon.Name)
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Samples, taxon.Name)
 ```
 
 To query large amounts of data, the API has a pagination system which uses
-the `limit` and `offset` arguments. To avoid overloading the system, calls are limited
+the `limit` and `offset` parameters. To avoid overloading the server, calls are limited
 to a maximum of 100 entries, so the offset allows you to get the next batch of entries
 in the next call(s). For simplicity, this example shows how pagination works with 5 entries per query.
 ```{r}
@@ -218,7 +213,7 @@ lapply(c("GSE35974", "GSE12649"), function(dataset) {
 ```
 
 ## Memoise data
-To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = T`.
+To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call.
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
@@ -237,7 +232,7 @@ Sometimes, you may wish to save results to a file for future inspection. You can
 You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite=TRUE` parameter.
 
 ## Changing defaults
-We've seen how to change `memoised=TRUE`, `overwrite=TRUE` and `raw=TRUE`... It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `memoised=TRUE`, `overwrite=TRUE` and `raw=TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
