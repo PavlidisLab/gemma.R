@@ -26,6 +26,8 @@ data structure of the queried dataset, including expression data and
 the experimental design.
 }
 \examples{
+\donttest{
 getDataset("GSE2018")
+}
 }
 \keyword{dataset}

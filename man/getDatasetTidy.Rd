@@ -19,6 +19,9 @@ Combines the expression and design matrices of the queried dataset into a
 tibble for easy visualization and exploration with ggplot and the rest of the tidyverse.
 }
 \examples{
+
+\donttest{
 getDatasetTidy("GSE2018")
+}
 }
 \keyword{dataset}

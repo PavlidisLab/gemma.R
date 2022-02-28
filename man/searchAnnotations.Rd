@@ -45,6 +45,8 @@ A \verb{400 error} if required parameters are missing.
 Does a search for annotations based on the given string
 }
 \examples{
+\donttest{
 searchAnnotations("traumatic")
+}
 }
 \keyword{misc}

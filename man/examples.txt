@@ -53,8 +53,9 @@ If raw is TRUE, a list with the same information."
 
 # getDatasetExpression
 # example
+\donttest{
 dat <- getDatasetExpression("GSE2018")
-str(dat)
+}
 # value
 "If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
 If raw is TRUE, a list with the expression matrix in binary form."
@@ -199,7 +200,9 @@ If raw is TRUE, a list with the same information."
 
 # searchAnnotations
 # example
+\donttest{
 searchAnnotations("traumatic")
+}
 # value
 "If raw is FALSE (default), a data table with information about the queried annotation).
 If raw is TRUE, a list with the same information."

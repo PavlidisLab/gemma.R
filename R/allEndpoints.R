@@ -300,8 +300,9 @@ memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
 #' @keywords dataset
 #'
 #' @examples
+#' \donttest{
 #' dat <- getDatasetExpression("GSE2018")
-#' str(dat)
+#' }
 getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1266,7 +1267,9 @@ memsearchDatasets <- memoise::memoise(searchDatasets)
 #' @keywords misc
 #'
 #' @examples
+#' \donttest{
 #' searchAnnotations("traumatic")
+#' }
 searchAnnotations <- function(query = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -1282,7 +1285,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
     header <- ""
     isFile <- FALSE
     fname <- "searchAnnotations"
-    preprocessor <- processAnnotations
+    preprocessor <- processSearchAnnotations
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
     .body(
