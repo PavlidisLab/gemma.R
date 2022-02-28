@@ -82,11 +82,13 @@
     } else if (response$status_code == 403) {
         stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
     } else if (response$status_code == 404) {
-        stop(response$status_code, ": Not found. Ensure your parameters are written correctly or that you're querying an existing ID.")
+        stop(response$status_code, ": Not found. Ensure your parameters are spelled correctly and that you're querying an existing ID.")
+    } else if (response$status_code == 500) {
+        stop(response$status_code, ": Internal server error.")
     } else if (response$status_code == 503) {
         stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
     } else {
-        stop(response$status_code)
+        stop("HTTP code ", response$status_code)
     }
 }
 
@@ -331,7 +333,7 @@ processDatasetResultSets <- function(d) {
         dplyr::group_by(.data$resultSet.id) %>%
         dplyr::mutate(
             factor.category = paste0(.data$factor.category, collapse = " x "),
-            factor.levels = paste0(.data$factor.levels, collapse = ", ")
+            factor.levels = paste0(.data$factor.levels, collapse = "; ")
             ) %>%
         unique() %>%
         as.data.table()
