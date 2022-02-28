@@ -43,7 +43,8 @@ Varies
 Dataset expression
 }
 \examples{
+\donttest{
 dat <- getDatasetExpression("GSE2018")
-str(dat)
+}
 }
 \keyword{dataset}

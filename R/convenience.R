@@ -109,7 +109,9 @@ getPlatformAnnotation <- function(platform,
 #' @keywords dataset
 #' @export
 #' @examples
+#' \donttest{
 #' getDataset("GSE2018")
+#' }
 getDataset <- function(dataset, filter = FALSE, type = "se") {
     if (type != "eset" && type != "se") {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
@@ -186,7 +188,10 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
 #' @keywords dataset
 #' @export
 #' @examples
+#'
+#' \donttest{
 #' getDatasetTidy("GSE2018")
+#' }
 getDatasetTidy <- function(dataset, filter = FALSE) {
     design <- getDatasetDesign(dataset) %>%
         tibble::rownames_to_column("Sample")

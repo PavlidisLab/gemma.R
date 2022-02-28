@@ -206,7 +206,7 @@ endpoints <- httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/")$conten
     xml2::read_html() %>%
     xml2::xml_find_all(".//endpoint")
 
-examples <- readLines("examples.R") %>%
+examples <- readLines("man/examples.txt") %>%
     {
         gsub("# ", "", .)
     }
