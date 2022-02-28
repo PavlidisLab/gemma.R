@@ -62,7 +62,6 @@
         } else {
             mOut <- eval(quote(eval(preprocessor)(mData)), envir = envWhere)
         }
-
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
             file <- paste0(tools::file_path_sans_ext(file), extension)
@@ -195,7 +194,7 @@ processDatasets <- function(d) {
 #' @return A processed data.table
 #'
 #' @keywords internal
-processAnnotations <- function(d) {
+processSearchAnnotations <- function(d) {
     data.table(
         category.Name = d[["category"]],
         category.URL = d[["categoryUri"]],

@@ -577,7 +577,7 @@ registerEndpoint("annotations/search/{query}",
     keyword = "misc",
     defaults = list(query = NA_character_),
     validators = alist(query = validateQuery),
-    preprocessor = quote(processAnnotations)
+    preprocessor = quote(processSearchAnnotations)
 )
 
 # Clean up
