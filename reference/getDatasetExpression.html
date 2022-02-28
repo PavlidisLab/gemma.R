@@ -111,48 +111,9 @@ Otherwise, it will be a RDS file.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getDatasetExpression</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  38 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ Probe       : chr  "1007_s_at" "1053_at" "117_at" "121_at" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneSymbol  : chr  "DDR1" "RFC2" "HSPA7|HSPA6" "PAX8" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneName    : chr  "discoidin domain receptor tyrosine kinase 1" "replication factor C subunit 2" "heat shock protein family A (Hsp70) member 7 (pseudogene)|heat shock protein family A (Hsp70) member 6" "paired box 8" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NCBIid      : chr  "780" "5982" "3311|3310" "7849" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_13_A0B0 : num  7.66 6.82 7.7 8.87 4.02 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_44b_A0B0: num  7.56 6.82 7.74 8.73 4.02 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_41_A1B0 : num  7.9 6.43 8.3 9.43 4.27 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_31_A0B1 : num  7.48 6.87 7.71 9.11 4.13 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_12_A1B0 : num  7.61 7.08 7.5 9.13 4.13 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_15b_A0B0: num  7.68 6.77 8.43 9.06 3.99 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_40_A0B0 : num  7.57 6.75 7.31 9.13 4.06 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_47b_A0B1: num  7.61 6.79 7.8 9.02 4.18 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_47c_A0B1: num  7.63 6.91 7.47 9.17 3.96 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_45a_A1B0: num  7.45 6.8 7.62 9.29 4.03 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_47a_A0B0: num  7.79 6.44 7.84 9.04 3.91 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_44a_A0B0: num  7.73 6.94 7.6 9.25 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_39_A0B1 : num  7.27 6.81 7.33 8.88 4.02 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_33_A0B1 : num  7.43 7.14 7.57 8.95 4.03 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_29_A1B0 : num  7.91 6.43 7.79 9.59 4.13 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_25_A0B0 : num  7.57 6.89 7.44 8.92 3.98 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_27a_A0B0: num  7.91 6.98 7.78 9.25 4.03 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_1_A0B0  : num  7.52 7.16 7.84 9.06 4.17 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_15a_A0B1: num  7.63 6.91 7.69 8.76 4.03 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_43_A0B0 : num  7.33 6.97 7.46 9.09 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_42_A0B0 : num  7.89 6.65 8.58 8.93 4.11 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_4_A0B0  : num  7.47 6.95 7.74 9.12 4.04 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_3_A1B0  : num  7.54 6.9 7.54 8.87 3.86 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_18_A1B0 : num  7.41 6.78 7.93 9.15 4.05 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_17_A0B0 : num  7.23 6.96 7.97 8.81 4.02 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_21_A0B0 : num  7.87 6.62 7.42 9.55 4.14 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_19_A0B0 : num  7.82 6.71 7.83 9.57 3.99 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_45b_A2B0: num  7.78 6.59 7.93 9 3.94 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_26_A2B0 : num  7.26 6.94 7.97 8.66 4.01 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_20a_A1B1: num  NaN NaN NaN NaN NaN NaN NaN NaN NaN NaN ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_20b_A1B1: num  7.68 6.65 7.74 9.24 4.03 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_37_A1B1 : num  7.47 6.86 7.69 9.06 4.06 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_46_A2B0 : num  7.93 6.54 7.81 10.08 3.86 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ BAL_27b_A2B1: num  7.7 6.85 7.56 9.14 4.12 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getDatasetExpression</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>

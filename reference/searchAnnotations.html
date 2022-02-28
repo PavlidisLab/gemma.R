@@ -113,8 +113,54 @@ A <code>400 error</code> if required parameters are missing.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">searchAnnotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Null data.table (0 rows and 0 cols)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
+<span class="r-in"><span class="fu">searchAnnotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     category.Name                         category.URL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:     treatment http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:     treatment http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:          &lt;NA&gt;                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:      genotype http://www.ebi.ac.uk/efo/EFO_0000513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:       disease http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:     BioSource http://www.ebi.ac.uk/efo/EFO_0000635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:     BioSource http://www.ebi.ac.uk/efo/EFO_0000635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:          &lt;NA&gt;                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     BioSource http://www.ebi.ac.uk/efo/EFO_0000635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          &lt;NA&gt;                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:          &lt;NA&gt;                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:          &lt;NA&gt;                                 &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:     BioSource http://www.ebi.ac.uk/efo/EFO_0000635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:     BioSource http://www.ebi.ac.uk/efo/EFO_0000635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            value.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                                                            Traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                                                            traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                                                  traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                                                  traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                                                                    post-traumatic stress disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                 Hippocampus LCM Neurons, traumatic brain injury, Saline, 2wk, pool from 3 animals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: Hippocampus LCM Neurons, traumatic brain injury, Scramble virus control, 2wk, pool from 3 animals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                                                 treatment: traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:        Hippocampus LCM Neurons, traumatic brain injury, nNos3 knockdown, 2wk, pool from 3 animals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                                           treatment: traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                                                  received: traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                                treatment: contralateral to traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:         Hippocampus LCM Neurons, traumatic brain injury, GPX2 knockdown, 2wk, pool from 3 animals</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                                            lateral cortex, traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                      value.URL</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://ontology.neuinfo.org/NIF/Dysfunction/NIF-Dysfunction.owl#nlx_143898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                                   http://purl.obolibrary.org/obo/DOID_2055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                                                       &lt;NA&gt;</span>
+<span class="r-in"><span class="co"># }</span></span>
 </code></pre></div>
     </div>
   </div>
