@@ -6,6 +6,7 @@ test_that("getPlatformAnnotation queries work", {
 
 test_that("getDataset works properly", {
     # Skip during checks since long runtime causes RMD/biocCheck fails
+    # These tests pass when run locally
     skip_on_cran()
     skip_on_bioc()
     expr <- getDatasetExpression(1, filter = TRUE)
@@ -27,6 +28,7 @@ test_that("getDataset works properly", {
 
 test_that("getDatasetTidy works properly", {
     # Skip during checks since long runtime causes RMD/biocCheck fails
+    # These tests pass when run locally
     skip_on_cran()
     skip_on_bioc()
     dat <- getDatasetExpression(1)

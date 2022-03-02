@@ -77,6 +77,7 @@ test_that("datasetAnnotations queries work", {
 
 test_that("getDatasetExpression queries work", {
     # Skip during checks since long runtime causes RMD/biocCheck fails
+    # These tests pass when run locally
     skip_on_cran()
     skip_on_bioc()
     dat <- expect_type(getDatasetExpression(1), "list")
