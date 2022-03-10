@@ -179,7 +179,7 @@ processDatasets <- function(d) {
         ee.URL = d[["externalUri"]],
         ee.Samples = d[["bioAssayCount"]],
         ee.LastUpdated = switch(is.character(d[["lastUpdated"]]),
-                                ymd_hms(d[["lastUpdated"]]), # parse ISO 8601 format
+                                lubridate::ymd_hms(d[["lastUpdated"]]), # parse ISO 8601 format
                                 as.POSIXct(d[["lastUpdated"]] / 1e3, origin = "1970-01-01")),
         ee.batchEffect = d[["batchEffect"]],
         geeq.batchCorrected = d[["geeq"]][["batchCorrected"]],
