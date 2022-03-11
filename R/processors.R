@@ -470,7 +470,6 @@ processGenes <- function(d) {
         gene.NCBI = d[["ncbiId"]],
         gene.Name = d[["officialName"]],
         gene.Aliases = d[["aliases"]],
-        gene.Description = d[["description"]],
         gene.GO = d[["numGoTerms"]],
         gene.Homologues = d[["homologues"]],
         gene.MFX.Rank = d[["multifunctionalityRank"]],
