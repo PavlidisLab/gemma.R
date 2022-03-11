@@ -32,7 +32,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -119,7 +119,7 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getPlatformDatasets</span><span class="op">(</span><span class="st">"GPL1355"</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span>, vec.len <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  18 variables:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  17 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ShortName       : chr  "GSE2872" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Name            : chr  "d'mel-affy-rat-168311" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.ID              : int  2 199 ...</span>
@@ -130,7 +130,6 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Database        : chr  "GEO" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.URL             : chr  "http://www.ncbi.nlm.nih.gov/geo/" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.Samples         : int  12 18 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.LastUpdated     : POSIXct, format: "2021-09-17 07:30:14" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ee.batchEffect     : chr  "SINGLE_BATCH_SUCCESS" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.batchCorrected: logi  FALSE ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ geeq.qScore        : num  0.855 ...</span>
