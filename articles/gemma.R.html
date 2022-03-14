@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.2</span>
       </span>
     </div>
 
@@ -108,7 +108,6 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pavlidislab.github.io/gemma.R/" class="external-link">gemma.R</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel" class="external-link">ggrepel</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">SummarizedExperiment</a></span><span class="op">)</span></code></pre></div>
@@ -173,7 +172,7 @@
 <p>To show how subsetting works, we’ll keep the manic phase data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Check the levels of the disease factor</span>
-<span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/duplicated.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>[1] "reference_subject_role"              "euthymic_phase_|_Bipolar_Disorder_|"
 [3] "bipolar_disorder_|_manic_phase_|"   </code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -203,9 +202,9 @@ Gene expression distributions of bipolar patients during manic phase and control
 </div>
 <p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html" class="external-link"><code>getDatasetExpression()</code></a> to only get the expression matrix, and <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html" class="external-link"><code>getDatasetDesign()</code></a> to get the experimental design matrix. Finally, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetTidy.html" class="external-link"><code>getDatasetTidy()</code></a> to get a tibble that combines the expression and design matrices in <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidy format</a>. This format is less memory-efficient than <a href="https://pavlidislab.github.io/gemma.R/reference/getDataset.html" class="external-link"><code>getDataset()</code></a>, but allows easy visualization and exploration with <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> and the rest of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.</p>
 <div class="section level3">
-<h3 id="differential-expression-results">Differential expression results<a class="anchor" aria-label="anchor" href="#differential-expression-results"></a>
+<h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
 </h3>
-<p>Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html" class="external-link"><code>getDatasetDE()</code></a>. From here on, you can visualize/explore the data and find the most differentially-expressed genes:</p>
+<p>Gemma also contains precomputed differential expression analyses for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html" class="external-link"><code>getDatasetDE()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span>
 
@@ -393,27 +392,24 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span>
     <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ee.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-    <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/rbindlist.html" class="external-link">rbindlist</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></code></pre></div>
-<pre><code>    ee.shortName    class.Type     class.Name              term.Name
- 1:     GSE35974   FactorValue        disease       Bipolar Disorder
- 2:     GSE35974   BioMaterial biological sex                   male
- 3:     GSE35974   BioMaterial biological sex                 female
- 4:     GSE35974   FactorValue        disease          schizophrenia
- 5:     GSE35974 ExperimentTag  organism part             cerebellum
- 6:     GSE35974   FactorValue        disease      mental depression
- 7:     GSE12649   BioMaterial  organism part reference subject role
- 8:     GSE12649   BioMaterial        disease       Bipolar Disorder
- 9:     GSE12649 ExperimentTag  organism part      prefrontal cortex
-10:     GSE12649   BioMaterial        disease          schizophrenia</code></pre>
-</div>
-<div class="section level3">
-<h3 id="memoise-data">Memoise data<a class="anchor" aria-label="anchor" href="#memoise-data"></a>
-</h3>
-<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call.</p>
-<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html" class="external-link"><code>forgetGemmaMemoised()</code></a>.</p>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ee.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
+        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
+<pre><code>[[1]]
+   ee.shortName    class.Type     class.Name         term.Name
+1:     GSE35974   FactorValue        disease  Bipolar Disorder
+2:     GSE35974   BioMaterial biological sex              male
+3:     GSE35974   BioMaterial biological sex            female
+4:     GSE35974   FactorValue        disease     schizophrenia
+5:     GSE35974 ExperimentTag  organism part        cerebellum
+6:     GSE35974   FactorValue        disease mental depression
+
+[[2]]
+   ee.shortName    class.Type    class.Name              term.Name
+1:     GSE12649   BioMaterial organism part reference subject role
+2:     GSE12649   BioMaterial       disease       Bipolar Disorder
+3:     GSE12649 ExperimentTag organism part      prefrontal cortex
+4:     GSE12649   BioMaterial       disease          schizophrenia</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -422,12 +418,40 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="section level3">
 <h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
 </h3>
-<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw=TRUE</code>. Instead of a data table, you’ll be served (typically) a list that represents the underlying JSON response.</p>
+<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = TRUE</code>. Instead of a data table, you’ll usually be served a list that represents the underlying JSON response.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getGeneLocation.html">getGeneLocation</a></span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></code></pre></div>
+<pre><code>   chromosome strand bin nucleotide length taxon.Name  taxon.Scientific
+1:         11      + 105   33890705 118714        rat Rattus norvegicus
+2:         21      + 108   37365572 160785      human      Homo sapiens
+3:         16      +  20   94370636 125741      mouse      Mus musculus
+   taxon.ID taxon.NCBI taxon.Database.Name
+1:        3      10116                 rn6
+2:        1       9606                hg38
+3:        2      10090                mm10</code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getGeneLocation.html">getGeneLocation</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<pre><code>  id nucleotide nucleotideLength strand bin chromosome taxon.id
+1 NA   33890705           118714      + 105         11        3
+2 NA   37365572           160785      + 108         21        1
+3 NA   94370636           125741      +  20         16        2
+  taxon.scientificName taxon.commonName taxon.ncbiId taxon.isSpecies
+1    Rattus norvegicus              rat        10116              NA
+2         Homo sapiens            human         9606              NA
+3         Mus musculus            mouse        10090              NA
+  taxon.isGenesUsable taxon.externalDatabase.name taxon.externalDatabase.id
+1                TRUE                         rn6                        86
+2                TRUE                        hg38                        87
+3                TRUE                        mm10                        81
+  taxon.externalDatabase.checked
+1                          FALSE
+2                          FALSE
+3                          FALSE</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
 </h3>
-<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to <code>file</code>. The extension for this file will be one of three options:</p>
+<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to the <code>file</code> parameter. The extension for this file will be one of three options:</p>
 <ol style="list-style-type: decimal">
 <li>
 <code>.json</code>, if you requested results with <code>raw=TRUE</code>
@@ -437,24 +461,30 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <li>
 <code>.rds</code> otherwise</li>
 </ol>
-<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite=TRUE</code> parameter.</p>
+<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite = TRUE</code> parameter.</p>
+</div>
+<div class="section level3">
+<h3 id="memoise-data">Memoise data<a class="anchor" aria-label="anchor" href="#memoise-data"></a>
+</h3>
+<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call.</p>
+<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html" class="external-link"><code>forgetGemmaMemoised()</code></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
-<p>We’ve seen how to change <code>memoised=TRUE</code>, <code>overwrite=TRUE</code> and <code>raw=TRUE</code> in individual function calls. It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<p>We’ve seen how to change <code>raw = TRUE</code>, <code>overwrite = TRUE</code> and <code>memoise = TRUE</code> in individual function calls. It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoise <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>R version 4.1.2 (2021-11-01)
+<pre><code>R version 4.1.3 (2022-03-10)
 Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur 10.16
+Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
@@ -473,33 +503,32 @@ other attached packages:
  [5] IRanges_2.28.0              S4Vectors_0.32.3           
  [7] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
  [9] matrixStats_0.61.0          ggrepel_0.9.1              
-[11] ggplot2_3.3.5               data.table_1.14.2          
-[13] dplyr_1.0.8                 gemma.R_0.99.1             
-[15] BiocStyle_2.22.0           
+[11] ggplot2_3.3.5               dplyr_1.0.8                
+[13] gemma.R_0.99.2              BiocStyle_2.22.0           
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8             lattice_0.20-45        tidyr_1.2.0           
+ [1] Rcpp_1.0.8.2           lattice_0.20-45        tidyr_1.2.0           
  [4] rprojroot_2.0.2        digest_0.6.29          utf8_1.2.2            
  [7] R6_2.5.1               evaluate_0.15          highr_0.9             
 [10] httr_1.4.2             pillar_1.7.0           zlibbioc_1.40.0       
-[13] rlang_1.0.2            curl_4.3.2             jquerylib_0.1.4       
-[16] Matrix_1.3-4           rmarkdown_2.13         pkgdown_2.0.2         
-[19] labeling_0.4.2         textshaping_0.3.6      desc_1.4.1            
-[22] stringr_1.4.0          RCurl_1.98-1.6         munsell_0.5.0         
-[25] DelayedArray_0.20.0    compiler_4.1.2         xfun_0.30             
-[28] pkgconfig_2.0.3        systemfonts_1.0.4      htmltools_0.5.2       
-[31] tidyselect_1.1.2       tibble_3.1.6           GenomeInfoDbData_1.2.7
-[34] bookdown_0.24          fansi_1.0.2            crayon_1.5.0          
-[37] withr_2.5.0            bitops_1.0-7           grid_4.1.2            
-[40] jsonlite_1.8.0         gtable_0.3.0           lifecycle_1.0.1       
-[43] magrittr_2.0.2         scales_1.1.1           cli_3.2.0             
-[46] stringi_1.7.6          cachem_1.0.6           farver_2.1.0          
-[49] XVector_0.34.0         fs_1.5.2               bslib_0.3.1           
-[52] ellipsis_0.3.2         ragg_1.2.2             generics_0.1.2        
-[55] vctrs_0.3.8            tools_4.1.2            glue_1.6.2            
-[58] purrr_0.3.4            fastmap_1.1.0          yaml_2.3.5            
-[61] colorspace_2.0-3       BiocManager_1.30.16    memoise_2.0.1         
-[64] knitr_1.37             sass_0.4.0            </code></pre>
+[13] rlang_1.0.2            curl_4.3.2             data.table_1.14.2     
+[16] jquerylib_0.1.4        Matrix_1.4-0           rmarkdown_2.13        
+[19] pkgdown_2.0.2          labeling_0.4.2         textshaping_0.3.6     
+[22] desc_1.4.1             stringr_1.4.0          RCurl_1.98-1.6        
+[25] munsell_0.5.0          DelayedArray_0.20.0    compiler_4.1.3        
+[28] xfun_0.30              pkgconfig_2.0.3        systemfonts_1.0.4     
+[31] htmltools_0.5.2        tidyselect_1.1.2       tibble_3.1.6          
+[34] GenomeInfoDbData_1.2.7 bookdown_0.24          fansi_1.0.2           
+[37] crayon_1.5.0           withr_2.5.0            bitops_1.0-7          
+[40] grid_4.1.3             jsonlite_1.8.0         gtable_0.3.0          
+[43] lifecycle_1.0.1        magrittr_2.0.2         scales_1.1.1          
+[46] cli_3.2.0              stringi_1.7.6          cachem_1.0.6          
+[49] farver_2.1.0           XVector_0.34.0         fs_1.5.2              
+[52] bslib_0.3.1            ellipsis_0.3.2         ragg_1.2.2            
+[55] generics_0.1.2         vctrs_0.3.8            tools_4.1.3           
+[58] glue_1.6.2             purrr_0.3.4            fastmap_1.1.0         
+[61] yaml_2.3.5             colorspace_2.0-3       BiocManager_1.30.16   
+[64] memoise_2.0.1          knitr_1.37             sass_0.4.0            </code></pre>
 </div>
   </div>
 
