@@ -26,7 +26,6 @@ knitr::opts_chunk$set(
 ```{r setup, message = FALSE}
 library(gemma.R)
 library(dplyr)
-library(data.table)
 library(ggplot2)
 library(ggrepel)
 library(SummarizedExperiment)
@@ -111,8 +110,8 @@ boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 
 You can also use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetExpression.html) to only get the expression matrix, and [`getDatasetDesign()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDesign.html) to get the experimental design matrix. Finally, you can use [`getDatasetTidy()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetTidy.html) to get a tibble that combines the expression and design matrices in [tidy format](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html). This format is less memory-efficient than [`getDataset()`](https://pavlidislab.github.io/gemma.R/reference/getDataset.html), but allows easy visualization and exploration with [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the [tidyverse](https://www.tidyverse.org/).
 
-## Differential expression results
-Gemma also contains differential expression results for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, you can visualize/explore the data and find the most differentially-expressed genes:
+## Differential expression analyses
+Gemma also contains precomputed differential expression analyses for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, we can explore and visualize the data to find the most differentially-expressed genes:
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
 de <- getDatasetDE("GSE46416")
@@ -163,10 +162,10 @@ ggplot(
 
 Since there are some datasets that have more than one ResultSet associated with them,
 you will get an error if you try to fetch that data directly:
-
 ```{r, error = TRUE}
 getDatasetDE("GSE2872")
 ```
+
 In this case, you can check the available resultSets to get the ID you need,
 or use `all = TRUE` to get a list containing all the resultSets.
 ```{r, warning=FALSE}
@@ -206,33 +205,38 @@ In these cases, you will have to loop over all the identifiers you wish to query
 ```{r loop}
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
     getDatasetAnnotations(dataset) %>% 
-        mutate(ee.shortName = dataset)
-}) %>% 
-    rbindlist() %>%
-    select(ee.shortName, class.Type, class.Name, term.Name)
+        mutate(ee.shortName = dataset) %>%
+        select(ee.shortName, class.Type, class.Name, term.Name)
+})
 ```
+
+# Output options
+
+## Raw data
+By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw = TRUE`. Instead of a data table, you'll usually be served a list that represents the underlying JSON response.
+
+```{r}
+getGeneLocation("DYRK1A")
+
+getGeneLocation("DYRK1A", raw = TRUE)
+```
+
+## File outputs
+Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to the `file` parameter. The extension for this file will be one of three options:
+
+1.  `.json`, if you requested results with `raw=TRUE`
+2.  `.csv` if the results have no nested data tables
+3.  `.rds` otherwise
+
+You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite = TRUE` parameter.
 
 ## Memoise data
 To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call.
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
-# Output options
-
-## Raw data
-By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use `raw=TRUE`. Instead of a data table, you'll be served (typically) a list that represents the underlying JSON response.
-
-## File outputs
-Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to `file`. The extension for this file will be one of three options:
-
-1.  `.json`, if you requested results with `raw=TRUE`
-2.  `.csv` if the results have no nested data tables
-3.  `.rds` otherwise
-
-You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite=TRUE` parameter.
-
 ## Changing defaults
-We've seen how to change `memoised=TRUE`, `overwrite=TRUE` and `raw=TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoise = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
