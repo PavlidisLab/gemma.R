@@ -39,7 +39,8 @@ Imports:
     tibble,
     tidyr,
     S4Vectors,
-    httr
+    httr,
+    rappdirs
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
