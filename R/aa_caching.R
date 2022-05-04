@@ -3,7 +3,7 @@
 #' @keywords internal
 gemmaCache <- function(){
   dir <- getOption(x = "gemma.cache",
-                   rappdirs::user_cache_dir(appname="gemmaR"))
+                   tools::R_user_dir('gemmaR', which="cache"))
 
   memoise::cache_filesystem(dir, algo = "xxhash64", compress = FALSE)
 }
