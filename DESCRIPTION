@@ -40,7 +40,7 @@ Imports:
     tidyr,
     S4Vectors,
     httr,
-    rappdirs
+    tools
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
