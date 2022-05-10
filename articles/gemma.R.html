@@ -466,7 +466,8 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="section level3">
 <h3 id="memoise-data">Memoise data<a class="anchor" aria-label="anchor" href="#memoise-data"></a>
 </h3>
-<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call.</p>
+<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call. By default this will create a cache in your local filesystem.</p>
+<p>You can see the path to your cache by using <code>tools::R_user_dir('gemmaR', which="cache")</code>. If you want to use a different directory, use <code>options(gemma.cache = 'path')</code> and reload the package</p>
 <p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html" class="external-link"><code>forgetGemmaMemoised()</code></a>.</p>
 </div>
 <div class="section level3">
@@ -482,13 +483,13 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 </h2>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<pre><code>R version 4.1.3 (2022-03-10)
+<pre><code>R version 4.2.0 (2022-04-22)
 Platform: x86_64-apple-darwin17.0 (64-bit)
 Running under: macOS Big Sur/Monterey 10.16
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -498,37 +499,37 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] SummarizedExperiment_1.24.0 Biobase_2.54.0             
- [3] GenomicRanges_1.46.1        GenomeInfoDb_1.30.1        
- [5] IRanges_2.28.0              S4Vectors_0.32.3           
- [7] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
- [9] matrixStats_0.61.0          ggrepel_0.9.1              
-[11] ggplot2_3.3.5               dplyr_1.0.8                
-[13] gemma.R_0.99.2              BiocStyle_2.22.0           
+ [1] SummarizedExperiment_1.26.1 Biobase_2.56.0             
+ [3] GenomicRanges_1.48.0        GenomeInfoDb_1.32.1        
+ [5] IRanges_2.30.0              S4Vectors_0.34.0           
+ [7] BiocGenerics_0.42.0         MatrixGenerics_1.8.0       
+ [9] matrixStats_0.62.0          ggrepel_0.9.1              
+[11] ggplot2_3.3.6               dplyr_1.0.9                
+[13] gemma.R_0.99.2              BiocStyle_2.24.0           
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.8.2           lattice_0.20-45        tidyr_1.2.0           
- [4] rprojroot_2.0.2        digest_0.6.29          utf8_1.2.2            
+ [1] Rcpp_1.0.8.3           lattice_0.20-45        tidyr_1.2.0           
+ [4] rprojroot_2.0.3        digest_0.6.29          utf8_1.2.2            
  [7] R6_2.5.1               evaluate_0.15          highr_0.9             
-[10] httr_1.4.2             pillar_1.7.0           zlibbioc_1.40.0       
+[10] httr_1.4.3             pillar_1.7.0           zlibbioc_1.42.0       
 [13] rlang_1.0.2            curl_4.3.2             data.table_1.14.2     
-[16] jquerylib_0.1.4        Matrix_1.4-0           rmarkdown_2.13        
-[19] pkgdown_2.0.2          labeling_0.4.2         textshaping_0.3.6     
+[16] jquerylib_0.1.4        Matrix_1.4-1           rmarkdown_2.14        
+[19] pkgdown_2.0.3          labeling_0.4.2         textshaping_0.3.6     
 [22] desc_1.4.1             stringr_1.4.0          RCurl_1.98-1.6        
-[25] munsell_0.5.0          DelayedArray_0.20.0    compiler_4.1.3        
-[28] xfun_0.30              pkgconfig_2.0.3        systemfonts_1.0.4     
-[31] htmltools_0.5.2        tidyselect_1.1.2       tibble_3.1.6          
-[34] GenomeInfoDbData_1.2.7 bookdown_0.24          fansi_1.0.2           
-[37] crayon_1.5.0           withr_2.5.0            bitops_1.0-7          
-[40] grid_4.1.3             jsonlite_1.8.0         gtable_0.3.0          
-[43] lifecycle_1.0.1        magrittr_2.0.2         scales_1.1.1          
-[46] cli_3.2.0              stringi_1.7.6          cachem_1.0.6          
-[49] farver_2.1.0           XVector_0.34.0         fs_1.5.2              
+[25] munsell_0.5.0          DelayedArray_0.22.0    compiler_4.2.0        
+[28] xfun_0.31              pkgconfig_2.0.3        systemfonts_1.0.4     
+[31] htmltools_0.5.2        tidyselect_1.1.2       tibble_3.1.7          
+[34] GenomeInfoDbData_1.2.8 bookdown_0.26          fansi_1.0.3           
+[37] crayon_1.5.1           withr_2.5.0            bitops_1.0-7          
+[40] grid_4.2.0             jsonlite_1.8.0         gtable_0.3.0          
+[43] lifecycle_1.0.1        magrittr_2.0.3         scales_1.2.0          
+[46] cli_3.3.0              stringi_1.7.6          cachem_1.0.6          
+[49] farver_2.1.0           XVector_0.36.0         fs_1.5.2              
 [52] bslib_0.3.1            ellipsis_0.3.2         ragg_1.2.2            
-[55] generics_0.1.2         vctrs_0.3.8            tools_4.1.3           
+[55] generics_0.1.2         vctrs_0.4.1            tools_4.2.0           
 [58] glue_1.6.2             purrr_0.3.4            fastmap_1.1.0         
-[61] yaml_2.3.5             colorspace_2.0-3       BiocManager_1.30.16   
-[64] memoise_2.0.1          knitr_1.37             sass_0.4.0            </code></pre>
+[61] yaml_2.3.5             colorspace_2.0-3       BiocManager_1.30.17   
+[64] memoise_2.0.1          knitr_1.39             sass_0.4.1            </code></pre>
 </div>
   </div>
 
@@ -549,7 +550,7 @@ loaded via a namespace (and not attached):
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>
