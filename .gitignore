@@ -4,3 +4,5 @@ gemma.R.Rproj
 .Ruserdata
 docs
 .Rproj.user
+/doc/
+/Meta/
