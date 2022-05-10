@@ -22,6 +22,6 @@ test_that('persistent caches work',{
       times = 1,unit = 'ms') %>% summary
 
   testthat::expect_lt(timeMemo$mean,timeForgot$mean)
-  testthat::expect_lt(timeNonMemo$mean,timeForgot$mean)
+  testthat::expect_lt(timeMemo$mean,timeForgot$mean)
 
 })
