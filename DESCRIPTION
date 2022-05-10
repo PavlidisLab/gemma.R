@@ -39,7 +39,8 @@ Imports:
     tibble,
     tidyr,
     S4Vectors,
-    httr
+    httr,
+    tools
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
@@ -48,7 +49,8 @@ Suggests:
     covr,
     ggplot2,
     ggrepel,
-    BiocStyle
+    BiocStyle,
+    microbenchmark
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 

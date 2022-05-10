@@ -76,7 +76,7 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
 #' Memoise getDatasetsInfo
 #'
 #' @noRd
-memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
+memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
 
 #' .getResultSets
 #'
@@ -147,7 +147,7 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo)
 #' Memoise .getResultSets
 #'
 #' @noRd
-mem.getResultSets <- memoise::memoise(.getResultSets)
+mem.getResultSets <- memoise::memoise(.getResultSets, cache = gemmaCache())
 
 #' .getResultSetFactors
 #'
@@ -217,7 +217,7 @@ mem.getResultSets <- memoise::memoise(.getResultSets)
 #' Memoise .getResultSetFactors
 #'
 #' @noRd
-mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors)
+mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
 
 #' getDatasetResultSets
 #'
@@ -271,7 +271,7 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetResultSets
 #'
 #' @noRd
-memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets)
+memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
 
 #' getDatasetExpression
 #'
@@ -330,7 +330,7 @@ getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = 
 #' Memoise getDatasetExpression
 #'
 #' @noRd
-memgetDatasetExpression <- memoise::memoise(getDatasetExpression)
+memgetDatasetExpression <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
 
 #' Dataset samples
 #'
@@ -386,7 +386,7 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetSamples
 #'
 #' @noRd
-memgetDatasetSamples <- memoise::memoise(getDatasetSamples)
+memgetDatasetSamples <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
 
 #' Dataset platforms
 #'
@@ -442,7 +442,7 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetPlatforms
 #'
 #' @noRd
-memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms)
+memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
 
 #' Dataset annotations
 #'
@@ -498,7 +498,7 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetAnnotations
 #'
 #' @noRd
-memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations)
+memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
 
 #' Dataset design
 #'
@@ -554,7 +554,7 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetDesign
 #'
 #' @noRd
-memgetDatasetDesign <- memoise::memoise(getDatasetDesign)
+memgetDatasetDesign <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
 
 #' Dataset differential analysis
 #'
@@ -611,7 +611,7 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
 #' Memoise getDatasetDEA
 #'
 #' @noRd
-memgetDatasetDEA <- memoise::memoise(getDatasetDEA)
+memgetDatasetDEA <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
 
 #' Platforms
 #'
@@ -687,7 +687,7 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
 #' Memoise getPlatformsInfo
 #'
 #' @noRd
-memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo)
+memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
 
 #' Platform datasets
 #'
@@ -748,7 +748,7 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
 #' Memoise getPlatformDatasets
 #'
 #' @noRd
-memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets)
+memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
 
 #' Platform elements
 #'
@@ -822,7 +822,7 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
 #' Memoise getPlatformElements
 #'
 #' @noRd
-memgetPlatformElements <- memoise::memoise(getPlatformElements)
+memgetPlatformElements <- memoise::memoise(getPlatformElements, cache = gemmaCache())
 
 #' Platform element genes
 #'
@@ -895,7 +895,7 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
 #' Memoise getPlatformElementGenes
 #'
 #' @noRd
-memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes)
+memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
 
 #' Genes
 #'
@@ -958,7 +958,7 @@ getGenesInfo <- function(genes = NA_character_, raw = getOption(
 #' Memoise getGenesInfo
 #'
 #' @noRd
-memgetGenesInfo <- memoise::memoise(getGenesInfo)
+memgetGenesInfo <- memoise::memoise(getGenesInfo, cache = gemmaCache())
 
 #' Gene locations
 #'
@@ -1017,7 +1017,7 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
 #' Memoise getGeneLocation
 #'
 #' @noRd
-memgetGeneLocation <- memoise::memoise(getGeneLocation)
+memgetGeneLocation <- memoise::memoise(getGeneLocation, cache = gemmaCache())
 
 #' Gene probes
 #'
@@ -1086,7 +1086,7 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
 #' Memoise getGeneProbes
 #'
 #' @noRd
-memgetGeneProbes <- memoise::memoise(getGeneProbes)
+memgetGeneProbes <- memoise::memoise(getGeneProbes, cache = gemmaCache())
 
 #' Gene goTerms
 #'
@@ -1145,7 +1145,7 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
 #' Memoise getGeneGO
 #'
 #' @noRd
-memgetGeneGO <- memoise::memoise(getGeneGO)
+memgetGeneGO <- memoise::memoise(getGeneGO, cache = gemmaCache())
 
 #' Dataset search
 #'
@@ -1234,7 +1234,7 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, offset 
 #' Memoise searchDatasets
 #'
 #' @noRd
-memsearchDatasets <- memoise::memoise(searchDatasets)
+memsearchDatasets <- memoise::memoise(searchDatasets, cache = gemmaCache())
 
 #' Annotation search
 #'
@@ -1297,7 +1297,7 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
 #' Memoise searchAnnotations
 #'
 #' @noRd
-memsearchAnnotations <- memoise::memoise(searchAnnotations)
+memsearchAnnotations <- memoise::memoise(searchAnnotations, cache = gemmaCache())
 
 
 #' Clear gemma.R cache
