@@ -231,7 +231,11 @@ Sometimes, you may wish to save results to a file for future inspection. You can
 You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite = TRUE` parameter.
 
 ## Memoise data
-To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call.
+To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call. By default this will create a cache in your local filesystem. 
+
+You can see
+the path to your cache by using `tools::R_user_dir('gemmaR', which="cache")`. If you want to use a different directory, use
+`options(gemma.cache = 'path_to_cache_directory')` anr reload the package
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
