@@ -176,7 +176,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
             assayData = exprM,
             phenoData = phenoData,
             experimentData = expData,
-            annotation = getDatasetPlatforms(dataset)$platform.ShortName
+            annotation = getDatasetPlatforms(dataset,memoised = memoised)$platform.ShortName
         )
     }
 }
