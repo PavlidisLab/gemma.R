@@ -4,7 +4,12 @@
 \alias{getDataset}
 \title{Dataset expression and design}
 \usage{
-getDataset(dataset, filter = FALSE, type = "se")
+getDataset(
+  dataset,
+  filter = FALSE,
+  type = "se",
+  memoised = getOption("gemma.memoise", FALSE)
+)
 }
 \arguments{
 \item{dataset}{A dataset identifier.}
@@ -12,7 +17,10 @@ getDataset(dataset, filter = FALSE, type = "se")
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 
 \item{type}{"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
-SummarizedExperiments which are more recent. See the Summarized experiment
+SummarizedExperiments which are more recent. See the Summarized experiment}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.
 \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 for more details.}

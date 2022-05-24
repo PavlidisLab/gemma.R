@@ -20,6 +20,8 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @param annotType Which GO terms should the output include
 #' @param file Where to save the annotation file to, or empty to just load into memory
 #' @param overwrite Whether or not to overwrite an existing file
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
@@ -102,6 +104,8 @@ getPlatformAnnotation <- function(platform,
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
@@ -184,6 +188,8 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #'
 #' @return A tibble that combines the expression and design matrices.
 #' @keywords dataset
@@ -217,6 +223,8 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
 #' @param all If TRUE, will download all differential expression resultSets for the dataset.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #'
 #' @return A data table with differential expression values. If there are multiple
 #' resultSets and all = TRUE, a list of data tables with differential expression

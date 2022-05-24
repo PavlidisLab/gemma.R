@@ -4,12 +4,19 @@
 \alias{getDatasetTidy}
 \title{Tidy expression and design}
 \usage{
-getDatasetTidy(dataset, filter = FALSE)
+getDatasetTidy(
+  dataset,
+  filter = FALSE,
+  memoised = getOption("gemma.memoise", FALSE)
+)
 }
 \arguments{
 \item{dataset}{A dataset identifier.}
 
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
 A tibble that combines the expression and design matrices.
