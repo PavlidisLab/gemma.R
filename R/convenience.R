@@ -32,6 +32,7 @@ getPlatformAnnotation <- function(platform,
     annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
+    memoised = getOption("gemma.memoise", FALSE),
     unzip = FALSE){
     if (!is.numeric(platform)) {
         platforms <- getPlatformsInfo(platform)
@@ -112,16 +113,16 @@ getPlatformAnnotation <- function(platform,
 #' \donttest{
 #' getDataset("GSE2018")
 #' }
-getDataset <- function(dataset, filter = FALSE, type = "se") {
+getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoise", FALSE)) {
     if (type != "eset" && type != "se") {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
     }
-    exprM <- getDatasetExpression(dataset, filter)
+    exprM <- getDatasetExpression(dataset, filter,memoised = memoised)
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
     exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid") %>%
         data.matrix()
-    design <- getDatasetDesign(dataset)
+    design <- getDatasetDesign(dataset,memoised = memoised)
 
     # This annotation table is required
     annots <- data.frame(
@@ -134,7 +135,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
     # Experiment description
-    dat <- getDatasetsInfo(dataset, raw = TRUE)
+    dat <- getDatasetsInfo(dataset, raw = TRUE,memoised = memoised)
     other <- list(
         database = dat$externalDatabase,
         accesion = dat$accession,
@@ -192,11 +193,11 @@ getDataset <- function(dataset, filter = FALSE, type = "se") {
 #' \donttest{
 #' getDatasetTidy("GSE2018")
 #' }
-getDatasetTidy <- function(dataset, filter = FALSE) {
-    design <- getDatasetDesign(dataset) %>%
+getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoise", FALSE)) {
+    design <- getDatasetDesign(dataset,memoised = memoised) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
-    getDatasetExpression(dataset, filter = filter) %>%
+    getDatasetExpression(dataset, filter = filter,memoised = memoised) %>%
         as.data.frame() %>%
         tibble::column_to_rownames("Probe") %>%
         .[, match(design$Sample, colnames(.))] %>% # match sample order
@@ -224,15 +225,15 @@ getDatasetTidy <- function(dataset, filter = FALSE) {
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all = FALSE) {
+getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all = FALSE, memoised = getOption("gemma.memoise", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
-        rss <- getDatasetResultSets(dataset)
+        rss <- getDatasetResultSets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
             stop("The queried resultSet is not derived from this dataset. Check the available resultSets with `getDatasetResultSets()` or query without the dataset parameter.")
         }
     }
     else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
-        rss <- getDatasetResultSets(dataset)
+        rss <- getDatasetResultSets(dataset,memoised = memoised)
         if (nrow(rss) > 1 && all == FALSE){
             stop("There are multiple resultSets for this dataset. Check the available resultSets with `getDatasetResultSets()` or choose all = TRUE")
         } else if (nrow(rss) > 1 && all == TRUE){
@@ -247,7 +248,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all =
     }
 
     rs <- lapply(resultSet, function(x){
-        .getResultSets(x) %>%
+        .getResultSets(x,memoised = memoised) %>%
             processDEcontrasts(x)
     })
     if (length(rs) == 1){
