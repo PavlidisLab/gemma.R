@@ -75,7 +75,12 @@ directly if you know its ID beforehand.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetDE</span><span class="op">(</span>dataset <span class="op">=</span> <span class="cn">NA_character_</span>, resultSet <span class="op">=</span> <span class="cn">NA_integer_</span>, all <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetDE</span><span class="op">(</span>
+  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,
+  resultSet <span class="op">=</span> <span class="cn">NA_integer_</span>,
+  all <span class="op">=</span> <span class="cn">FALSE</span>,
+  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -86,6 +91,9 @@ directly if you know its ID beforehand.</p>
 <dd><p>A resultSet identifier.</p></dd>
 <dt>all</dt>
 <dd><p>If TRUE, will download all differential expression resultSets for the dataset.</p></dd>
+<dt>memoised</dt>
+<dd><p>Whether or not to cache results so future requests for the same data
+will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

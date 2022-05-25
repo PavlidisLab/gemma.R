@@ -71,7 +71,11 @@ tibble for easy visualization and exploration with ggplot and the rest of the ti
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetTidy</span><span class="op">(</span><span class="va">dataset</span>, filter <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetTidy</span><span class="op">(</span>
+  <span class="va">dataset</span>,
+  filter <span class="op">=</span> <span class="cn">FALSE</span>,
+  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -80,6 +84,9 @@ tibble for easy visualization and exploration with ggplot and the rest of the ti
 <dd><p>A dataset identifier.</p></dd>
 <dt>filter</dt>
 <dd><p>The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.</p></dd>
+<dt>memoised</dt>
+<dd><p>Whether or not to cache results so future requests for the same data
+will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>

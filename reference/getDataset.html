@@ -73,7 +73,12 @@ the experimental design.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDataset</span><span class="op">(</span><span class="va">dataset</span>, filter <span class="op">=</span> <span class="cn">FALSE</span>, type <span class="op">=</span> <span class="st">"se"</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDataset</span><span class="op">(</span>
+  <span class="va">dataset</span>,
+  filter <span class="op">=</span> <span class="cn">FALSE</span>,
+  type <span class="op">=</span> <span class="st">"se"</span>,
+  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -84,7 +89,10 @@ the experimental design.</p>
 <dd><p>The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.</p></dd>
 <dt>type</dt>
 <dd><p>"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
-SummarizedExperiments which are more recent. See the Summarized experiment
+SummarizedExperiments which are more recent. See the Summarized experiment</p></dd>
+<dt>memoised</dt>
+<dd><p>Whether or not to cache results so future requests for the same data
+will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.
 <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link">vignette</a>
 or the ExpressionSet <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link">vignette</a>
 for more details.</p></dd>
