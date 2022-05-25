@@ -68,8 +68,28 @@ registerEndpoint <- function(endpoint,
 
     formals(f) <- fargs
     body(f) <- quote({
-        .body(memoised, fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, match.call())
+        .body(fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, match.call())
     })
+
+    # here we create a call for the memoised version of the function that simply
+    # passes the variables forward.
+    memoise_args = names(fargs) %>% purrr::map_chr(function(x){
+        if(x != 'memoised'){
+            glue::glue('{x} = {x}')
+        } else{
+            glue::glue('memoised = FALSE')
+        }
+    }) %>% paste(collapse= ',\n')
+
+    memoise_call = str2expression(glue::glue('if(memoised){
+        out <- mem[fname]([memoise_args])
+        return(out)
+    }',.open = '[',.close = ']'))
+
+    body(f) = body(f) %>%
+        as.list() %>%
+        append(memoise_call,1) %>%
+        as.call()
 
     # Add our variables
     for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal")) {
