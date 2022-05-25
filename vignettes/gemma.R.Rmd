@@ -240,7 +240,7 @@ the path to your cache by using `tools::R_user_dir('gemmaR', which="cache")`. If
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
 ## Changing defaults
-We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoise = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoised = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
 
 ```{r defaults}
 options(gemma.memoise = TRUE)
