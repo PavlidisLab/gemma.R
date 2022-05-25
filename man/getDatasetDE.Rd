@@ -4,7 +4,12 @@
 \alias{getDatasetDE}
 \title{Dataset differential expression}
 \usage{
-getDatasetDE(dataset = NA_character_, resultSet = NA_integer_, all = FALSE)
+getDatasetDE(
+  dataset = NA_character_,
+  resultSet = NA_integer_,
+  all = FALSE,
+  memoised = getOption("gemma.memoise", FALSE)
+)
 }
 \arguments{
 \item{dataset}{A dataset identifier.}
@@ -12,6 +17,9 @@ getDatasetDE(dataset = NA_character_, resultSet = NA_integer_, all = FALSE)
 \item{resultSet}{A resultSet identifier.}
 
 \item{all}{If TRUE, will download all differential expression resultSets for the dataset.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
 A data table with differential expression values. If there are multiple

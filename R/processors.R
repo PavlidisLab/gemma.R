@@ -15,13 +15,7 @@
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(memoised, fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, .call) {
-    # Call a memoised version if applicable
-    if (memoised) {
-        newArgs <- as.list(.call)[-1]
-        newArgs$memoised <- FALSE
-        return(do.call(glue::glue("mem{fname}"), newArgs))
-    }
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, .call) {
 
     # Set header
     if (header == "text/tab-separated-values") {

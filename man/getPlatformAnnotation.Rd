@@ -9,6 +9,7 @@ getPlatformAnnotation(
   annotType = c("bioProcess", "noParents", "allParents"),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE),
+  memoised = getOption("gemma.memoise", FALSE),
   unzip = FALSE
 )
 }
@@ -20,6 +21,9 @@ getPlatformAnnotation(
 \item{file}{Where to save the annotation file to, or empty to just load into memory}
 
 \item{overwrite}{Whether or not to overwrite an existing file}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 
 \item{unzip}{Whether or not to unzip the file (if @param file is not empty)}
 }

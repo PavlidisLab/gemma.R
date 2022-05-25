@@ -67,9 +67,17 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
         limit = validateLimit, sort = validateSort
     )
     endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        out <- memgetDatasetsInfo(
+            datasets = datasets, offset = offset,
+            limit = limit, sort = sort, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -138,9 +146,17 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
         sort = validateSort
     )
     endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        out <- mem.getResultSets(
+            resultSet = resultSet, dataset = dataset,
+            offset = offset, limit = limit, sort = sort, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -208,9 +224,18 @@ mem.getResultSets <- memoise::memoise(.getResultSets, cache = gemmaCache())
         sort = validateSort
     )
     endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
+    if (memoised) {
+        out <- mem.getResultSetFactors(
+            resultSet = resultSet,
+            dataset = dataset, offset = offset, limit = limit,
+            sort = sort, excludeResults = excludeResults, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -262,9 +287,16 @@ getDatasetResultSets <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processDatasetResultSets
     validators <- list(dataset = validateID)
     endpoint <- "resultSets?datasets={encode(dataset)}"
+    if (memoised) {
+        out <- memgetDatasetResultSets(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -321,9 +353,16 @@ getDatasetExpression <- function(dataset = NA_character_, filter = FALSE, raw = 
     preprocessor <- processFile
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
+    if (memoised) {
+        out <- memgetDatasetExpression(
+            dataset = dataset, filter = filter,
+            raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -377,9 +416,16 @@ getDatasetSamples <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processSamples
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/samples"
+    if (memoised) {
+        out <- memgetDatasetSamples(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -433,9 +479,16 @@ getDatasetPlatforms <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processPlatforms
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
+    if (memoised) {
+        out <- memgetDatasetPlatforms(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -489,9 +542,16 @@ getDatasetAnnotations <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processAnnotations
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
+    if (memoised) {
+        out <- memgetDatasetAnnotations(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -545,9 +605,16 @@ getDatasetDesign <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processFile
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/design"
+    if (memoised) {
+        out <- memgetDatasetDesign(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -602,9 +669,16 @@ getDatasetDEA <- function(dataset = NA_character_, raw = getOption(
     preprocessor <- processDEA
     validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
+    if (memoised) {
+        out <- memgetDatasetDEA(
+            dataset = dataset, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -678,9 +752,17 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
         limit = validateLimit, sort = validateSort
     )
     endpoint <- "platforms/{encode(platforms)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        out <- memgetPlatformsInfo(
+            platforms = platforms, offset = offset,
+            limit = limit, sort = sort, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -739,9 +821,17 @@ getPlatformDatasets <- function(platform = NA_character_, offset = 0L, limit = 2
         limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
+    if (memoised) {
+        out <- memgetPlatformDatasets(
+            platform = platform, offset = offset,
+            limit = limit, raw = raw, memoised = FALSE, file = file,
+            overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -813,9 +903,17 @@ getPlatformElements <- function(platform = NA_character_, element = NA_character
         offset = validatePositiveInteger, limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
+    if (memoised) {
+        out <- memgetPlatformElements(
+            platform = platform, element = element,
+            offset = offset, limit = limit, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -886,9 +984,17 @@ getPlatformElementGenes <- function(platform = NA_character_, element = NA_chara
         offset = validatePositiveInteger, limit = validateLimit
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
+    if (memoised) {
+        out <- memgetPlatformElementGenes(
+            platform = platform,
+            element = element, offset = offset, limit = limit,
+            raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -949,9 +1055,16 @@ getGenesInfo <- function(genes = NA_character_, raw = getOption(
     preprocessor <- processGenes
     validators <- list(genes = validateID)
     endpoint <- "genes/{encode(genes)}/"
+    if (memoised) {
+        out <- memgetGenesInfo(
+            genes = genes, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1008,9 +1121,16 @@ getGeneLocation <- function(gene = NA_character_, raw = getOption(
     preprocessor <- processGeneLocation
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
+    if (memoised) {
+        out <- memgetGeneLocation(
+            gene = gene, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1077,9 +1197,17 @@ getGeneProbes <- function(gene = NA_character_, offset = 0L, limit = 20L, raw = 
         limit = validateLimit
     )
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
+    if (memoised) {
+        out <- memgetGeneProbes(
+            gene = gene, offset = offset,
+            limit = limit, raw = raw, memoised = FALSE, file = file,
+            overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1136,9 +1264,16 @@ getGeneGO <- function(gene = NA_character_, raw = getOption(
     preprocessor <- processGO
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
+    if (memoised) {
+        out <- memgetGeneGO(
+            gene = gene, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1225,9 +1360,17 @@ searchDatasets <- function(query = NA_character_, taxon = NA_character_, offset 
         limit = validateLimit, sort = validateSort
     )
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        out <- memsearchDatasets(
+            query = query, taxon = taxon,
+            offset = offset, limit = limit, sort = sort, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
@@ -1288,9 +1431,16 @@ searchAnnotations <- function(query = NA_character_, raw = getOption(
     preprocessor <- processSearchAnnotations
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
+    if (memoised) {
+        out <- memsearchAnnotations(
+            query = query, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite
+        )
+        return(out)
+    }
     .body(
-        memoised, fname, validators, endpoint, environment(),
-        isFile, header, raw, overwrite, file, match.call()
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
     )
 }
 
