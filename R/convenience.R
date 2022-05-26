@@ -36,6 +36,22 @@ getPlatformAnnotation <- function(platform,
     overwrite = getOption("gemma.overwrite", FALSE),
     memoised = getOption("gemma.memoise", FALSE),
     unzip = FALSE){
+
+    if (memoised){
+        if (!is.na(file)){
+            warning("Saving to files is not supported with memoisation.")
+        }
+        out <- memgetPlatformAnnotation(
+            platform = platform,
+            annotType = annotType,
+            file = NA,
+            overwrite = overwrite,
+            memoised = FALSE,
+            unzip = unzip
+        )
+        return(out)
+    }
+
     if (!is.numeric(platform)) {
         platforms <- getPlatformsInfo(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
@@ -93,6 +109,12 @@ getPlatformAnnotation <- function(platform,
         doReadFile(file)
     }
 }
+
+#' Memoise getPlatformAnnotation
+#'
+#' @noRd
+memgetPlatformAnnotation <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+
 
 #' Dataset expression and design
 #'
