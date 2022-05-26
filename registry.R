@@ -15,13 +15,6 @@ if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
 file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 
 
-#' Log an endpoint for the currently active category endpoint
-#'
-#' @param fname The function name to call
-#' @param logname The activating phrase
-logEndpoint <- function(fname, logname) {
-    options(gemmaAPI.logged = c(getOption("gemmaAPI.logged"), setNames(fname, logname)))
-}
 
 # Documentation ----
 `+` <- function(A, B) {
@@ -70,97 +63,6 @@ for (i in examples) {
     }
 }
 
-#' Comment a function
-#'
-#' @param fname The name of the function to comment
-#' @param src The name of the entry to use (in endpoints)
-#' @param parameters The parameters that the function accepts
-#' @param document A file to print information for pasting generating the package
-comment <- function(fname, src, parameters, document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
-    pandoc <- function(text) {
-        tmp <- tempfile()
-        write(text, tmp)
-        ret <- system2(paste0(Sys.getenv("RSTUDIO_PANDOC"), "/pandoc"), c("-f html", "-t markdown", tmp), stdout = TRUE)
-        unlink(tmp)
-        gsub("\n#' \n#' ", "\n#' ", gsub("\n", "\n#' ", paste0(ret, collapse = "\n"), fixed = TRUE), fixed = TRUE) %>%
-            {
-                # Fix badly formatted URLs (from unescaping []), remove unsupported glyphicons and unescape
-                gsub("\\[\\[([^\\]]+)\\]\\]", "\\[\\1\\]", gsub("\\[\\]\\{\\.glyphicon[^\\}]+\\} ", "", gsub("\\", "", ., fixed = TRUE)), perl = TRUE)
-            } %>%
-            {
-                # Fix multiline URLs
-                gsub("\\[(.*)\n#' ([^\\]]+)\\]\\(([^\\)]+)\\)", "[\\1 \\2](\\3)", ., perl = TRUE)
-            }
-    }
-
-    if (is.null(src)) {
-        cat(glue::glue("#' {fname}\n"), file = document, append = TRUE)
-        cat("\n", file = document, append = TRUE)
-        return(NULL)
-    }
-
-    node <- Filter(function(elem) {
-        xml2::xml_attr(elem, ":name") == paste0("'", src, "'")
-    }, endpoints)
-
-    if (length(node) == 0) {
-        mName <- paste0("'", fname, "'")
-        mDesc <- paste0("'", src, "'")
-        mResp <- "Varies"
-    } else {
-        mName <- xml2::xml_attr(node, ":name")
-        mDesc <- xml2::xml_attr(node, ":description")
-        mResp <- get(xml2::xml_attr(node, ":response-description"))
-    }
-
-    cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
-    cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
-
-    for (arg in parameters) {
-        if (arg == "raw") {
-            mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.</p>"
-        } else if (arg == "memoised") {
-            mAdd <- "<p>Whether or not to cache results so future requests for the same data will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
-        } else if (arg == "file") {
-            mAdd <- "<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>"
-        } else if (arg == "overwrite") {
-            mAdd <- "<p>Whether or not to overwrite if a file exists at the specified filename.</p>"
-        } else if (arg == "request") {
-            mAdd <- "<p>Which specific endpoint to request.</p>"
-        } else if (arg == "taxon") {
-            mAdd <- "<p>Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.<p>"
-        } else if (arg == "...") {
-            mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
-        } else if (arg == "filter") {
-            mAdd <- "<p>The filtered version (<code>filter = TRUE</code>) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.<p>"
-        } else if (arg == "excludeResults") {
-            mAdd <- "<p>Only keep factor values and exclude numerical results from resultSets.<p>"
-        } else if (arg == "limit") {
-            mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
-        } else if (arg == "resultSet") {
-            mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
-        } else {
-            mArg <- arg
-            if (arg == "threshold") {
-                mArg <- "diffExThreshold"
-            } else if (arg == "element") {
-                mArg <- "probes"
-            } else if (arg == "with") {
-                mArg <- "geneWith"
-            } else if (arg == "start") {
-                mArg <- "nuclStart"
-            } else if (arg == "size") {
-                mArg <- "nuclSize"
-            } else if (arg == "query") mArg <- "search"
-
-            mAdd <- get(paste0(mArg, "Description"))
-        }
-
-        cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = TRUE)
-    }
-
-    cat(glue::glue("#'\n#' @return {pandoc(mResp)}\n\n"), file = document, append = TRUE)
-}
 
 # Dataset endpoints ----
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
