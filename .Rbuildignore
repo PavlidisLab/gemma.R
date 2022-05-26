@@ -10,5 +10,6 @@
 ^GemmaAPI\.pdf$
 ^examples\.R$
 ^registry\.R$
+^registry_helpers\.R$
 ^doc$
 ^Meta$
