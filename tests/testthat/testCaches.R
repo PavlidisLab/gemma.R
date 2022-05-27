@@ -27,6 +27,8 @@ test_that(' caches work',{
   testthat::expect_lt(timeMemo$mean,timeNonMemo$mean)
 
   # testing caches for high level functions
+  skip_on_ci()
+  skip_on_bioc()
 
   timeNonMemo = microbenchmark::microbenchmark(
     getDataset("GSE46416", memoised = FALSE),
