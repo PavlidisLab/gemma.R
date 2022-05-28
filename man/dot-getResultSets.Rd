@@ -6,10 +6,6 @@
 \usage{
 .getResultSets(
   resultSet = NA_character_,
-  dataset = NA_character_,
-  offset = 0L,
-  limit = 20L,
-  sort = "+id",
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
@@ -18,31 +14,6 @@
 }
 \arguments{
 \item{resultSet}{Optional, defaults to empty. A single resultSet identifier (ex. 423176)}
-
-\item{dataset}{Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available}
-
-\item{offset}{Optional, defaults to \code{0}.
-Skips the specified amount of objects when retrieving them from the
-database.}
-
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount of
-objects.}
-
-\item{sort}{Optional, defaults to \code{+id}.
-Sets the ordering property and direction.
-Format is \verb{[+,-][property name]}. E.g. \code{-accession} will translate to
-descending ordering by the 'Accession' property.
-Note that this does [not guarantee the order of the returned
-entities!]{.description-imp} This is merely a signal to how the data
-should be pre-sorted before the limit and offset are applied.
-Nested properties are also supported (recursively).
-E.g: \code{+curationDetails.lastTroubledEvent.date}
-When
-using in scripts, remember to URL-encode the '+' plus character (see
-the compiled URL below).}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that

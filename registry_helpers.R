@@ -218,6 +218,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         return(NULL)
     }
 
+
     node <- Filter(function(elem) {
         xml2::xml_attr(elem, ":name") == paste0("'", src, "'")
     }, endpoints)
@@ -229,7 +230,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     } else {
         mName <- xml2::xml_attr(node, ":name")
         mDesc <- xml2::xml_attr(node, ":description")
-        mResp <- get(xml2::xml_attr(node, ":response-description"))
+        # this reads the descriptions environment defined in the global
+        # scope. used to use global environment but wanted to clean that up
+        # when debuggin -ogan
+        mResp <- get(xml2::xml_attr(node, ":response-description"),descriptions)
     }
 
     cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
@@ -272,7 +276,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
                 mArg <- "nuclSize"
             } else if (arg == "query") mArg <- "search"
 
-            mAdd <- get(paste0(mArg, "Description"))
+            # this reads the descriptions environment defined in the global
+            # scope. used to use global environment but wanted to clean that up
+            # when debuggin -ogan
+            mAdd <- get(paste0(mArg, "Description"),descriptions)
         }
 
         cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = TRUE)

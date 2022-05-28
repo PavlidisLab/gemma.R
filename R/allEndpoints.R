@@ -91,27 +91,6 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
 #' Lists resultSets filtered and organized by given parameters.
 #'
 #' @param resultSet Optional, defaults to empty. A single resultSet identifier (ex. 423176)
-#' @param dataset Required, part of the URL path.
-#' Can either be the dataset ID or its short name (e.g. `GSE1234`).
-#' Retrieval by ID is more efficient.
-#' Only datasets that user has access to will be available
-#' @param offset Optional, defaults to `0`.
-#' Skips the specified amount of objects when retrieving them from the
-#' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
-#' @param sort Optional, defaults to `+id`.
-#' Sets the ordering property and direction.
-#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
-#' descending ordering by the 'Accession' property.
-#' Note that this does [not guarantee the order of the returned
-#' entities!]{.description-imp} This is merely a signal to how the data
-#' should be pre-sorted before the limit and offset are applied.
-#' Nested properties are also supported (recursively).
-#' E.g: `+curationDetails.lastTroubledEvent.date`
-#' When
-#' using in scripts, remember to URL-encode the '+' plus character (see
-#' the compiled URL below).
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
@@ -126,12 +105,13 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
 #' @keywords internal
 #'
 #' @examples
-.getResultSets <- function(resultSet = NA_character_, dataset = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", raw = getOption(
+.getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -140,16 +120,11 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
     isFile <- TRUE
     fname <- ".getResultSets"
     preprocessor <- processFile
-    validators <- list(
-        resultSet = validateOptionalID, dataset = validateOptionalID,
-        offset = validatePositiveInteger, limit = validateLimit,
-        sort = validateSort
-    )
-    endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    validators <- list(resultSet = validateOptionalID)
+    endpoint <- "resultSets/{encode(resultSet)}"
     if (memoised) {
         out <- mem.getResultSets(
-            resultSet = resultSet, dataset = dataset,
-            offset = offset, limit = limit, sort = sort, raw = raw,
+            resultSet = resultSet, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite
         )
         return(out)
