@@ -84,24 +84,16 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 )
 
 registerEndpoint(
-    "resultSets/{resultSet}?&offset={offset}&limit={limit}&sort={sort}",
+    "resultSets/{resultSet}",
     ".getResultSets",
     logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
     isFile = TRUE, internal = TRUE,
     header = "text/tab-separated-values",
     defaults = list(
-        resultSet = NA_character_,
-        dataset = bquote(),
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
+        resultSet = NA_character_
     ),
     validators = alist(
-        resultSet = validateOptionalID,
-        dataset = validateOptionalID,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
+        resultSet = validateOptionalID
     ),
     preprocessor = quote(processFile)
 )
