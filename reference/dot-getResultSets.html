@@ -71,10 +71,6 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">.getResultSets</span><span class="op">(</span>
   resultSet <span class="op">=</span> <span class="cn">NA_character_</span>,
-  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,
-  offset <span class="op">=</span> <span class="fl">0L</span>,
-  limit <span class="op">=</span> <span class="fl">20L</span>,
-  sort <span class="op">=</span> <span class="st">"+id"</span>,
   raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
   file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
@@ -86,31 +82,6 @@
     <h2>Arguments</h2>
     <dl><dt>resultSet</dt>
 <dd><p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)</p></dd>
-<dt>dataset</dt>
-<dd><p>Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. <code>GSE1234</code>).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available</p></dd>
-<dt>offset</dt>
-<dd><p>Optional, defaults to <code>0</code>.
-Skips the specified amount of objects when retrieving them from the
-database.</p></dd>
-<dt>limit</dt>
-<dd><p>Optional, defaults to 20. Limits the result to specified amount of
-objects.</p></dd>
-<dt>sort</dt>
-<dd><p>Optional, defaults to <code>+id</code>.
-Sets the ordering property and direction.
-Format is <code>[+,-][property name]</code>. E.g. <code>-accession</code> will translate to
-descending ordering by the 'Accession' property.
-Note that this does [not guarantee the order of the returned
-entities!].description-imp This is merely a signal to how the data
-should be pre-sorted before the limit and offset are applied.
-Nested properties are also supported (recursively).
-E.g: <code>+curationDetails.lastTroubledEvent.date</code>
-When
-using in scripts, remember to URL-encode the '+' plus character (see
-the compiled URL below).</p></dd>
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that
