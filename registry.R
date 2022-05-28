@@ -17,11 +17,11 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 
 
 # Documentation ----
-`+` <- function(A, B) {
+# Load in descriptions from the JS
+descriptions = new.env()
+descriptions$`+` <- function(A, B) {
     paste0(A, B, collapse = "")
 }
-
-# Load in descriptions from the JS
 eval(httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js")$content %>%
     rawToChar() %>%
     {
@@ -32,9 +32,9 @@ eval(httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptio
     } %>%
     {
         parse(text = .)
-    })
+    },envir = descriptions)
 
-rm(`+`)
+rm(`+`,envir = descriptions)
 
 # And endpoints from the HTML
 endpoints <- httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/")$content %>%
@@ -84,24 +84,16 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 )
 
 registerEndpoint(
-    "resultSets/{resultSet}?&offset={offset}&limit={limit}&sort={sort}",
+    "resultSets/{resultSet}",
     ".getResultSets",
     logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
     isFile = TRUE, internal = TRUE,
     header = "text/tab-separated-values",
     defaults = list(
-        resultSet = NA_character_,
-        dataset = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
+        resultSet = NA_character_
     ),
     validators = alist(
-        resultSet = validateOptionalID,
-        dataset = validateOptionalID,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
+        resultSet = validateOptionalID
     ),
     preprocessor = quote(processFile)
 )
