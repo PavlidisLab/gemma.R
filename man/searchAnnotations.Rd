@@ -5,7 +5,7 @@
 \title{Annotation search}
 \usage{
 searchAnnotations(
-  query = NA_character_,
+  query,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),

@@ -8,6 +8,9 @@ source('registry_helpers.R')
 
 library(magrittr)
 
+options(gemmaAPI.document = 'R/allEndpoints.R')
+
+
 if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
     file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 }
@@ -129,7 +132,7 @@ registerEndpoint(
     roxygen = "Lists the available resultSets for the queried dataset.",
     keyword = "dataset",
     defaults = list(
-        dataset = NA_character_
+        dataset = bquote()
     ),
     validators = alist(
         dataset = validateID
@@ -142,7 +145,7 @@ registerEndpoint("datasets/{dataset}/data?filter={filter}",
     logname = "data", roxygen = "Dataset expression", keyword = "dataset",
     isFile = TRUE,
     defaults = list(
-        dataset = NA_character_,
+        dataset = bquote(),
         filter = FALSE
     ),
     validators = alist(
@@ -152,35 +155,73 @@ registerEndpoint("datasets/{dataset}/data?filter={filter}",
     preprocessor = quote(processFile)
 )
 
-registerSimpleEndpoint("dataset", "samples",
-    logname = "samples", roxygen = "Dataset samples",
-    "getDatasetSamples",
-    preprocessor = quote(processSamples)
-)
 
-registerSimpleEndpoint("dataset", "platforms",
-    logname = "platforms", roxygen = "Dataset platforms",
-    "getDatasetPlatforms",
-    preprocessor = quote(processPlatforms)
-)
+registerEndpoint('datasets/{dataset}/samples',
+                 'getDatasetSamples',
+                 logname = 'samples',
+                 roxygen = "Dataset samples",
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processSamples))
 
-registerSimpleEndpoint("dataset", "annotations",
-    logname = "annotations", roxygen = "Dataset annotations",
-    "getDatasetAnnotations",
-    preprocessor = quote(processAnnotations)
-)
+registerEndpoint('datasets/{dataset}/platforms',
+                 'getDatasetPlatforms',
+                 logname = "platforms",
+                 roxygen = "Dataset platforms",
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processPlatforms))
 
-registerSimpleEndpoint("dataset", "design",
-    logname = "design", roxygen = "Dataset design",
-    "getDatasetDesign", isFile = TRUE,
-    preprocessor = quote(processFile)
-)
+registerEndpoint('datasets/{dataset}/annotations',
+                 'getDatasetAnnotations',
+                 logname = "annotations",
+                 roxygen = "Dataset annotations",
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processAnnotations))
 
-registerSimpleEndpoint("dataset", "analyses/differential",
-    logname = "differential", roxygen = "Dataset differential analysis",
-    "getDatasetDEA",
-    preprocessor = quote(processDEA)
-)
+
+registerEndpoint('datasets/{dataset}/design',
+                 'getDatasetDesign',
+                 logname = "design",
+                 isFile = TRUE,
+                 roxygen = "Dataset design",
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processFile))
+
+registerEndpoint('datasets/{dataset}/analyses/differential',
+                 'getDatasetDEA',
+                 logname = "differential",
+                 roxygen = "Dataset differential analysis",
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processDEA))
 
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
@@ -205,7 +246,7 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
     "getPlatformDatasets",
     logname = "datasets", roxygen = "Platform datasets", keyword = "platform",
     defaults = list(
-        platform = NA_character_,
+        platform = bquote(),
         offset = 0L,
         limit = 20L
     ),
@@ -221,7 +262,7 @@ registerEndpoint("platforms/{platform}/elements/{element}?offset={offset}&limit=
     "getPlatformElements",
     logname = "elements", roxygen = "Platform elements", keyword = "platform",
     defaults = list(
-        platform = NA_character_,
+        platform = bquote(),
         element = NA_character_,
         offset = 0L,
         limit = 20L
@@ -239,8 +280,8 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
     "getPlatformElementGenes",
     logname = "genes", roxygen = "Platform element genes", keyword = "platform",
     defaults = list(
-        platform = NA_character_,
-        element = NA_character_,
+        platform = bquote(),
+        element = bquote(),
         offset = 0L,
         limit = 20L
     ),
@@ -254,24 +295,34 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
 )
 
 # Gene endpoints ----
-registerSimpleEndpoint("genes", "",
-    logname = "genes", roxygen = "Genes", keyword = "gene",
-    "getGenesInfo",
-    validator = alist(genes = validateID),
-    preprocessor = quote(processGenes)
-)
+registerEndpoint('genes/{(genes)}/',
+                 'getGenesInfo',
+                 logname = "differential",
+                 roxygen = "Genes",
+                 keyword = 'gene',
+                 defaults = list(
+                     genes = bquote()
+                 ),
+                 validators = alist(genes = validateID),
+                 preprocessor = quote(processGenes))
 
-registerSimpleEndpoint("gene", "locations",
-    logname = "locations", roxygen = "Gene locations",
-    "getGeneLocation",
-    preprocessor = quote(processGeneLocation)
-)
+registerEndpoint('genes/{gene}/locations',
+                 'getGeneLocation',
+                 logname = "locations",
+                 roxygen = "Gene locations",
+                 keyword = 'gene',
+                 defaults = list(
+                     gene = bquote()
+                 ),
+                 validators = alist(gene = validateSingleID),
+                 preprocessor = quote(processGeneLocation))
+
 
 registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
     "getGeneProbes",
     logname = "probes", roxygen = "Gene probes", keyword = "gene",
     defaults = list(
-        gene = NA_character_,
+        gene = bquote(),
         offset = 0L,
         limit = 20L
     ),
@@ -283,17 +334,24 @@ registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
     preprocessor = quote(processElements)
 )
 
-registerSimpleEndpoint("gene", "goTerms",
-    logname = "goTerms", roxygen = "Gene goTerms",
-    "getGeneGO",
-    preprocessor = quote(processGO)
-)
+
+registerEndpoint('genes/{gene}/goTerms',
+                 'getGeneGO',
+                 logname = "goTerms",
+                 roxygen = "Gene goTerms",
+                 keyword = 'gene',
+                 defaults = list(
+                     gene = bquote()
+                 ),
+                 validators = alist(gene = validateSingleID),
+                 preprocessor = quote(processGO))
+
 
 registerEndpoint("annotations/{taxon}/search/{query}/datasets?&offset={offset}&limit={limit}&sort={sort}",
     "searchDatasets",
     logname = "datasets", roxygen = "Dataset search", keyword = "dataset",
     defaults = list(
-        query = NA_character_,
+        query = bquote(),
         taxon = NA_character_,
         offset = 0L,
         limit = 20L,
@@ -312,7 +370,7 @@ registerEndpoint("annotations/search/{query}",
     "searchAnnotations",
     roxygen = "Annotation search",
     keyword = "misc",
-    defaults = list(query = NA_character_),
+    defaults = list(query = bquote()),
     validators = alist(query = validateQuery),
     preprocessor = quote(processSearchAnnotations)
 )

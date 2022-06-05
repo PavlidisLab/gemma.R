@@ -136,50 +136,6 @@ registerEndpoint <- function(endpoint,
 
 
 
-#' Register a simple endpoint (ie. one that accepts no parameters) (internal use)
-#'
-#' @param root The type of endpoint (ie. dataset, platform, gene)
-#' @param query The last part of the endpoint URL
-#' @param fname The name of the function to create
-#' @param preprocessor The preprocessing function to run on the output
-#' @param validator The validator to run on the input. Defaults to validateSingleID
-#' @param logname The activating phrase in the category endpoint
-#' @param roxygen The name to pull roxygen information from
-#' @param keyword The category keyboard for use in documentation
-#' @param internal Whether the endpoint will be exposed to users
-#' @param where The environment to add the new function to
-#' @param plural If equal to FALSE (the default), assumes that this endpoint is pluralized by adding an "s". Otherwise, you can override this behavior by specifying the desired plural form.
-#' @param document A file to print information for pasting generating the package
-#' @param isFile Whether the endpoint is expected to return a gzipped file or not
-#' @param header Specific HTTP header for the request
-registerSimpleEndpoint <- function(root, query, fname, preprocessor, validator = NULL,
-                                   logname = fname, roxygen = NULL, keyword = root,
-                                   internal = FALSE, where = parent.env(environment()),
-                                   plural = FALSE, document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
-                                   isFile = FALSE, header = "") {
-    registerEndpoint(
-        ifelse(plural == FALSE, glue::glue('{ifelse(endsWith(root, "s"), root, paste0(root, "s"))}/{{{root}}}/{query}'),
-               glue::glue("{root}/{{{plural}}}")
-        ),
-        fname,
-        defaults = setNames(NA_character_, root),
-        validators = switch(is.null(validator) + 1,
-                            validator,
-                            alist(validateSingleID) %>% `names<-`(root)
-        ),
-        logname = logname,
-        roxygen = roxygen,
-        keyword = keyword,
-        internal = internal,
-        preprocessor = preprocessor,
-        where = where,
-        document = document,
-        isFile = isFile,
-        header = header
-    )
-}
-
-
 #' Log an endpoint for the currently active category endpoint
 #'
 #' @param fname The function name to call
@@ -262,12 +218,12 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
         } else if (arg == "resultSet") {
             mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
+        } else if (arg == 'element') {
+            mAdd = "<p>Required, part of the URL path. Can either be the probe name or ID."
         } else {
             mArg <- arg
             if (arg == "threshold") {
                 mArg <- "diffExThreshold"
-            } else if (arg == "element") {
-                mArg <- "probes"
             } else if (arg == "with") {
                 mArg <- "geneWith"
             } else if (arg == "start") {
