@@ -5,7 +5,7 @@
 \title{Genes}
 \usage{
 getGenesInfo(
-  genes = NA_character_,
+  genes,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),

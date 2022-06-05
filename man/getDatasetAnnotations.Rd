@@ -5,7 +5,7 @@
 \title{Dataset annotations}
 \usage{
 getDatasetAnnotations(
-  dataset = NA_character_,
+  dataset,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
   file = getOption("gemma.file", NA_character_),
