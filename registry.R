@@ -199,6 +199,7 @@ registerEndpoint('datasets/{dataset}/annotations',
 registerEndpoint('datasets/{dataset}/design',
                  'getDatasetDesign',
                  logname = "design",
+                 isFile = TRUE,
                  roxygen = "Dataset design",
                  keyword = 'dataset',
                  defaults = list(
