@@ -584,7 +584,7 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
-    isFile <- FALSE
+    isFile <- TRUE
     fname <- "getDatasetDesign"
     preprocessor <- processFile
     validators <- list(dataset = function(name, ...) {
