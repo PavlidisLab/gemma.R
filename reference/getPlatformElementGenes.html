@@ -70,8 +70,8 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getPlatformElementGenes</span><span class="op">(</span>
-  platform <span class="op">=</span> <span class="cn">NA_character_</span>,
-  element <span class="op">=</span> <span class="cn">NA_character_</span>,
+  <span class="va">platform</span>,
+  <span class="va">element</span>,
   offset <span class="op">=</span> <span class="fl">0L</span>,
   limit <span class="op">=</span> <span class="fl">20L</span>,
   raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
@@ -89,15 +89,7 @@ Can either be the platform ID or its short name (e.g: <code>GPL1355</code>)
 Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.</p></dd>
 <dt>element</dt>
-<dd><p>Optional, defaults to <code>empty</code>.
-Limits the result to entities with given identifiers.
-A list of identifiers, separated by commas (e.g:
-<code>AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at</code>).
-Can either be probes name or IDs.
-Do not combine different identifiers in one query.
-When
-using in scripts, remember to URL-encode any forward slashes in the
-probe name (see the compiled URL below).</p></dd>
+<dd><p>Required, part of the URL path. Can either be the probe name or ID.</p></dd>
 <dt>offset</dt>
 <dd><p>Optional, defaults to <code>0</code>.
 Skips the specified amount of objects when retrieving them from the
