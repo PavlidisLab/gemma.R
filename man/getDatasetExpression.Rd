@@ -5,7 +5,7 @@
 \title{getDatasetExpression}
 \usage{
 getDatasetExpression(
-  dataset = NA_character_,
+  dataset,
   filter = FALSE,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoise", FALSE),

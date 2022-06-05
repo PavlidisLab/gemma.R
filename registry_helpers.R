@@ -262,12 +262,12 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
         } else if (arg == "resultSet") {
             mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
+        } else if (arg == 'element') {
+            mAdd = "<p>Required, part of the URL path. Can either be the probe name or ID."
         } else {
             mArg <- arg
             if (arg == "threshold") {
                 mArg <- "diffExThreshold"
-            } else if (arg == "element") {
-                mArg <- "probes"
             } else if (arg == "with") {
                 mArg <- "geneWith"
             } else if (arg == "start") {

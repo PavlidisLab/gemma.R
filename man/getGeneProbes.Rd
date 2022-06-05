@@ -5,7 +5,7 @@
 \title{Gene probes}
 \usage{
 getGeneProbes(
-  gene = NA_character_,
+  gene,
   offset = 0L,
   limit = 20L,
   raw = getOption("gemma.raw", FALSE),

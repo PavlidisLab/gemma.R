@@ -5,7 +5,7 @@
 \title{Platform datasets}
 \usage{
 getPlatformDatasets(
-  platform = NA_character_,
+  platform,
   offset = 0L,
   limit = 20L,
   raw = getOption("gemma.raw", FALSE),

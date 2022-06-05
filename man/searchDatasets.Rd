@@ -5,7 +5,7 @@
 \title{Dataset search}
 \usage{
 searchDatasets(
-  query = NA_character_,
+  query,
   taxon = NA_character_,
   offset = 0L,
   limit = 20L,
