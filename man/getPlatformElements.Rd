@@ -5,7 +5,7 @@
 \title{Platform elements}
 \usage{
 getPlatformElements(
-  platform = NA_character_,
+  platform,
   element = NA_character_,
   offset = 0L,
   limit = 20L,
@@ -21,15 +21,7 @@ Can either be the platform ID or its short name (e.g: \code{GPL1355})
 Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.}
 
-\item{element}{Optional, defaults to \code{empty}.
-Limits the result to entities with given identifiers.
-A list of identifiers, separated by commas (e.g:
-\verb{AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at}).
-Can either be probes name or IDs.
-Do not combine different identifiers in one query.
-When
-using in scripts, remember to URL-encode any forward slashes in the
-probe name (see the compiled URL below).}
+\item{element}{Required, part of the URL path. Can either be the probe name or ID.}
 
 \item{offset}{Optional, defaults to \code{0}.
 Skips the specified amount of objects when retrieving them from the
