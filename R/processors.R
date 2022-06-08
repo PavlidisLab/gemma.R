@@ -104,6 +104,21 @@ encode <- function(url) {
     }
 }
 
+#' Replace missing data with NAs
+#' @param x Data
+#' @return Data or NA in case of an out of bounds error
+#'
+#' @keywords internal
+checkBounds = function(x){
+    tryCatch(x, error = function(e){
+        if(e$message == "subscript out of bounds"){
+            return(NA)
+        } else{
+            stop(e$message)
+        }
+    })
+}
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process
@@ -153,6 +168,8 @@ processGemmaArray <- function(d) {
     )
 }
 
+
+
 #' Processes JSON as a vector of datasets
 #'
 #' @param d The JSON to process
@@ -176,9 +193,9 @@ processDatasets <- function(d) {
                                 lubridate::ymd_hms(d[["lastUpdated"]]), # parse ISO 8601 format
                                 as.POSIXct(d[["lastUpdated"]] / 1e3, origin = "1970-01-01")),
         ee.batchEffect = d[["batchEffect"]],
-        geeq.batchCorrected = d[["geeq"]][["batchCorrected"]],
-        geeq.qScore = d[["geeq"]][["publicQualityScore"]],
-        geeq.sScore = d[["geeq"]][["publicSuitabilityScore"]],
+        geeq.batchCorrected = checkBounds(d[["geeq"]][["batchCorrected"]]),
+        geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
+        geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
         taxon.Name = d[["taxon"]],
         taxon.ID = d[["taxonId"]],
         technology.Type = d[["technologyType"]]
@@ -394,17 +411,17 @@ processFile <- function(content) {
 #' @keywords internal
 processSamples <- function(d) {
     data.table(
-        bioMaterial.Name = d[["sample"]][["name"]],
+        bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
         sample.Name = d[["name"]],
-        sample.ID = d[["sample"]][["id"]],
-        sample.Correspondence = d[["sample"]][["description"]],
+        sample.ID = checkBounds(d[["sample"]][["id"]]),
+        sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
         sample.Description = d[["description"]],
         sample.Outlier = d[["outlier"]],
-        sample.Accession = d[["accession"]][["accession"]],
-        sample.Database = d[["accession"]][["externalDatabase.name"]],
+        sample.Accession = checkBounds(d[["accession"]][["accession"]]),
+        sample.Database = checkBounds(d[["accession"]][["externalDatabase.name"]]),
         sample.Processed = d[["processingDate"]],
-        sample.Characteristics = lapply(d[["sample"]][["characteristics"]], processGemmaFactor),
-        sample.FactorValues = lapply(lapply(d[["sample"]][["factorValueObjects"]], "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x))),
+        sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
+        sample.FactorValues = lapply(lapply(checkBounds(d[["sample"]][["factorValueObjects"]]), "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x))),
         processGemmaArray(d[["arrayDesign"]])
     )
 }
@@ -487,7 +504,7 @@ processTaxon <- function(d) {
         taxon.Scientific = d[["scientificName"]],
         taxon.ID = d[["id"]],
         taxon.NCBI = d[["ncbiId"]],
-        taxon.Database.Name = d[["externalDatabase"]][["name"]],
+        taxon.Database.Name = checkBounds(d[["externalDatabase"]][["name"]]),
         taxon.Database.ID = d[["externalDatabase.ID"]]
     )
 }
