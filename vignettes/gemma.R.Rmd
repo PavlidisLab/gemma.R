@@ -81,13 +81,13 @@ It is a high-level wrapper that combines various
 endpoint calls to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-```{r load-expression, eval = FALSE}
+```{r load-expression, eval = TRUE}
 dat <- getDataset("GSE46416")
 ```
 
 ```{r include = FALSE}
 ## Pre-loads the summarized experiment to save time and pass vignette build
-dat <- readRDS("se.rds")
+# dat <- readRDS("se.rds")
 ```
 
 To show how subsetting works, we'll keep the manic phase data and the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
