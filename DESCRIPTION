@@ -24,6 +24,7 @@ License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
+BugReports: https://github.com/PavlidisLab/gemma.R/issues
 Imports:
     magrittr,
     glue,
