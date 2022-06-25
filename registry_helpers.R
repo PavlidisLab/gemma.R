@@ -98,9 +98,23 @@ registerEndpoint <- function(endpoint,
     # And our memoised function
     environment(f) <- where
 
+    # browser()
+
     # Make this function available in the parent environment...
     assign(fname, f, env = where)
     memF <- glue::glue("mem", fname)
+
+    memo_fun = function(){}
+
+    formals(memo_fun) = formals(f)
+    body(memo_fun) <- body(memo_fun) %>%
+        as.list() %>%
+        append(str2expression(glue::glue(
+            'mem_call<-memoise::memoise({fname}, cache = gemmaCache())
+            mem_call({memoise_args})'
+        ))) %>% as.call()
+
+
     assign(memF, memoise::memoise(f), where)
 
     if (!exists("forgetGemmaMemoised", envir = where, inherits = FALSE)) {
@@ -129,7 +143,8 @@ registerEndpoint <- function(endpoint,
         cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
         cat("\n\n", file = document, append = TRUE)
         cat(glue::glue("#' Memoise {fname}\n#'\n#' @noRd\n\n"), file = document, append = TRUE)
-        cat(glue::glue("mem{fname} <- memoise::memoise({fname}, cache = gemmaCache())"), file = document, append = TRUE)
+        cat(glue::glue("mem{fname} <-"), file = document, append = TRUE)
+        cat(deparse(memo_fun) %>% paste0(collapse = "\n"), file = document, append = TRUE)
         cat("\n\n", file = document, append = TRUE)
     }
 }
