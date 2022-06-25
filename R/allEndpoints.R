@@ -84,7 +84,19 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
 #' Memoise getDatasetsInfo
 #'
 #' @noRd
-memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
+memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
+    mem_call(
+        datasets = datasets, offset = offset, limit = limit,
+        sort = sort, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' .getResultSets
 #'
@@ -138,7 +150,22 @@ memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
 #' Memoise .getResultSets
 #'
 #' @noRd
-mem.getResultSets <- memoise::memoise(.getResultSets, cache = gemmaCache())
+mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(.getResultSets, cache = gemmaCache())
+    mem_call(
+        resultSet = resultSet, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' .getResultSetFactors
 #'
@@ -217,7 +244,20 @@ mem.getResultSets <- memoise::memoise(.getResultSets, cache = gemmaCache())
 #' Memoise .getResultSetFactors
 #'
 #' @noRd
-mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
+mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
+    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
+    mem_call(
+        resultSet = resultSet, dataset = dataset, offset = offset,
+        limit = limit, sort = sort, excludeResults = excludeResults,
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+    )
+}
 
 #' getDatasetResultSets
 #'
@@ -275,7 +315,19 @@ getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' Memoise getDatasetResultSets
 #'
 #' @noRd
-memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
+memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' getDatasetExpression
 #'
@@ -341,7 +393,22 @@ getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' Memoise getDatasetExpression
 #'
 #' @noRd
-memgetDatasetExpression <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
+memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, filter = filter, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Dataset samples
 #'
@@ -409,7 +476,19 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
 #' Memoise getDatasetSamples
 #'
 #' @noRd
-memgetDatasetSamples <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
+memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Dataset platforms
 #'
@@ -477,7 +556,19 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Memoise getDatasetPlatforms
 #'
 #' @noRd
-memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
+memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Dataset annotations
 #'
@@ -545,7 +636,19 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #' Memoise getDatasetAnnotations
 #'
 #' @noRd
-memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
+memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Dataset design
 #'
@@ -613,7 +716,19 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' Memoise getDatasetDesign
 #'
 #' @noRd
-memgetDatasetDesign <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
+memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Dataset differential analysis
 #'
@@ -682,7 +797,19 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
 #' Memoise getDatasetDEA
 #'
 #' @noRd
-memgetDatasetDEA <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
+memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
 
 #' Platforms
 #'
@@ -766,7 +893,19 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
 #' Memoise getPlatformsInfo
 #'
 #' @noRd
-memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
+memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
+    mem_call(
+        platforms = platforms, offset = offset, limit = limit,
+        sort = sort, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Platform datasets
 #'
@@ -839,7 +978,22 @@ getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOpt
 #' Memoise getPlatformDatasets
 #'
 #' @noRd
-memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
+memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
+    mem_call(
+        platform = platform, offset = offset, limit = limit,
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+    )
+}
 
 #' Platform elements
 #'
@@ -910,7 +1064,19 @@ getPlatformElements <- function(platform, element = NA_character_, offset = 0L, 
 #' Memoise getPlatformElements
 #'
 #' @noRd
-memgetPlatformElements <- memoise::memoise(getPlatformElements, cache = gemmaCache())
+memgetPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(getPlatformElements, cache = gemmaCache())
+    mem_call(
+        platform = platform, element = element, offset = offset,
+        limit = limit, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Platform element genes
 #'
@@ -984,7 +1150,23 @@ getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L,
 #' Memoise getPlatformElementGenes
 #'
 #' @noRd
-memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
+memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
+    mem_call(
+        platform = platform, element = element, offset = offset,
+        limit = limit, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Genes
 #'
@@ -1051,7 +1233,19 @@ getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #' Memoise getGenesInfo
 #'
 #' @noRd
-memgetGenesInfo <- memoise::memoise(getGenesInfo, cache = gemmaCache())
+memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getGenesInfo, cache = gemmaCache())
+    mem_call(
+        genes = genes, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Gene locations
 #'
@@ -1114,7 +1308,19 @@ getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised 
 #' Memoise getGeneLocation
 #'
 #' @noRd
-memgetGeneLocation <- memoise::memoise(getGeneLocation, cache = gemmaCache())
+memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getGeneLocation, cache = gemmaCache())
+    mem_call(
+        gene = gene, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Gene probes
 #'
@@ -1191,7 +1397,22 @@ getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' Memoise getGeneProbes
 #'
 #' @noRd
-memgetGeneProbes <- memoise::memoise(getGeneProbes, cache = gemmaCache())
+memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getGeneProbes, cache = gemmaCache())
+    mem_call(
+        gene = gene, offset = offset, limit = limit, raw = raw,
+        memoised = FALSE, file = file, overwrite = overwrite
+    )
+}
 
 #' Gene goTerms
 #'
@@ -1254,7 +1475,19 @@ getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getO
 #' Memoise getGeneGO
 #'
 #' @noRd
-memgetGeneGO <- memoise::memoise(getGeneGO, cache = gemmaCache())
+memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getGeneGO, cache = gemmaCache())
+    mem_call(
+        gene = gene, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Dataset search
 #'
@@ -1348,7 +1581,19 @@ searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20
 #' Memoise searchDatasets
 #'
 #' @noRd
-memsearchDatasets <- memoise::memoise(searchDatasets, cache = gemmaCache())
+memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(searchDatasets, cache = gemmaCache())
+    mem_call(
+        query = query, taxon = taxon, offset = offset, limit = limit,
+        sort = sort, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 #' Annotation search
 #'
@@ -1415,7 +1660,19 @@ searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memois
 #' Memoise searchAnnotations
 #'
 #' @noRd
-memsearchAnnotations <- memoise::memoise(searchAnnotations, cache = gemmaCache())
+memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoise",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(searchAnnotations, cache = gemmaCache())
+    mem_call(
+        query = query, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
 
 
 #' Clear gemma.R cache
