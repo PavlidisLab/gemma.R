@@ -5,7 +5,6 @@ source('registry_helpers.R')
 # To package the wrapper, just source this file after you're done making changes.
 # Functions will be written to allEndpoints.R
 # -------------------------------
-
 library(magrittr)
 
 options(gemmaAPI.document = 'R/allEndpoints.R')
@@ -385,7 +384,7 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     cat("#' @examples\n#' forgetGemmaMemoised()\n", file = document, append = TRUE)
     cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = TRUE)
     cat("forgetGemmaMemoised <- ", file = document, append = TRUE)
-    cat(deparse(get("forgetGemmaMemoised", envir = globalenv(), inherits = FALSE)) %>% paste0(collapse = "\n"), file = document, append = TRUE)
+    cat("forgetGemmaMemoised <- function(){mem = memoise::memoise(function(){},cache = gemmaCache());memoise::forget(mem)}", file = document, append = TRUE)
 
     rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
 

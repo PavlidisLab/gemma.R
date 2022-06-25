@@ -1685,25 +1685,7 @@ memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), mem
 #' @export
 #'
 #' @keywords misc
-forgetGemmaMemoised <- function() {
-    memoise::forget(memgetDatasetsInfo)
-    memoise::forget(mem.getResultSets)
-    memoise::forget(mem.getResultSetFactors)
-    memoise::forget(memgetDatasetResultSets)
-    memoise::forget(memgetDatasetExpression)
-    memoise::forget(memgetDatasetSamples)
-    memoise::forget(memgetDatasetPlatforms)
-    memoise::forget(memgetDatasetAnnotations)
-    memoise::forget(memgetDatasetDesign)
-    memoise::forget(memgetDatasetDEA)
-    memoise::forget(memgetPlatformsInfo)
-    memoise::forget(memgetPlatformDatasets)
-    memoise::forget(memgetPlatformElements)
-    memoise::forget(memgetPlatformElementGenes)
-    memoise::forget(memgetGenesInfo)
-    memoise::forget(memgetGeneLocation)
-    memoise::forget(memgetGeneProbes)
-    memoise::forget(memgetGeneGO)
-    memoise::forget(memsearchDatasets)
-    memoise::forget(memsearchAnnotations)
+forgetGemmaMemoised <- forgetGemmaMemoised <- function() {
+    mem <- memoise::memoise(function() {}, cache = gemmaCache())
+    memoise::forget(mem)
 }

@@ -121,14 +121,6 @@ registerEndpoint <- function(endpoint,
         assign("forgetGemmaMemoised", function() {}, envir = where)
     }
 
-    forgetMe <- get("forgetGemmaMemoised", envir = where, inherits = FALSE)
-
-    body(forgetMe) <- body(forgetMe) %>%
-        as.list() %>%
-        append(str2expression(glue::glue("memoise::forget({memF})"))) %>%
-        as.call()
-
-    assign("forgetGemmaMemoised", forgetMe, envir = where, inherits = FALSE)
 
     if (!is.null(document)) {
         # cat(glue::glue("#' {fname}\n"), file = document, append = T)
