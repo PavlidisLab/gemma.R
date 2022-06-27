@@ -1,4 +1,9 @@
-source('registry_helpers.R')
+library(here)
+devtools::load_all()
+setwd(here())
+
+source('inst/script/registry_helpers.R')
+
 # -------------------------------
 # You should define all endpoints in this file. This ensures everything is uniform
 # and prevents you from rewriting boilerplate.
@@ -44,7 +49,7 @@ endpoints <- httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/")$conten
     xml2::read_html() %>%
     xml2::xml_find_all(".//endpoint")
 
-examples <- readLines("examples.txt") %>%
+examples <- readLines("inst/script/examples.txt") %>%
     {
         gsub("# ", "", .)
     }
