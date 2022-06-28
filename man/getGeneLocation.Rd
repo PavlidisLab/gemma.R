@@ -25,8 +25,10 @@ specific taxon (see Taxon Endpoints).}
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.}
 
-\item{memoised}{Whether or not to cache results so future requests for the same data
-will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+\code{options(gemma.memoise = TRUE)} will ensure you are always using the
+cache. Use \code{forgetGemmaMemoised} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
 results to a file. If \code{raw == TRUE}, the output will be a JSON file.
