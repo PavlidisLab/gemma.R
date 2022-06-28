@@ -1,4 +1,4 @@
-test_that(' caches work',{
+test_that('caches work',{
   forgetGemmaMemoised()
 
   timeNonMemo =
@@ -40,6 +40,12 @@ test_that(' caches work',{
     getDataset("GSE46416", memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
+  options(gemma.memoised = TRUE)
+
+  optionMemo = microbenchmark::microbenchmark(
+    getDataset("GSE46416"),
+    times = 1, unit = 'ms') %>% summary
+
   forgetGemmaMemoised()
 
   timeForgot = microbenchmark::microbenchmark(
@@ -48,5 +54,24 @@ test_that(' caches work',{
 
   testthat::expect_lt(timeMemo$mean,timeForgot$mean)
   testthat::expect_lt(timeMemo$mean,timeNonMemo$mean)
+  testthat::expect_lt(optionMemo$mean,timeNonMemo$mean)
+
+  # test custom caches
+  non_default = tempfile()
+  options(gemma.cache = non_default)
+  forgetGemmaMemoised()
+
+  testthat::expect_true(length(list.files(non_default)) == 0)
+  result = getDataset("GSE46416", memoised = TRUE)
+
+  testthat::expect_true(length(list.files(non_default)) >= 0)
+  nonDefaultPath = microbenchmark::microbenchmark(
+    getDataset("GSE46416",memoised = TRUE),
+    times = 1, unit = 'ms') %>% summary
+
+  testthat::expect_lt(nonDefaultPath$mean,timeNonMemo$mean)
+
+  forgetGemmaMemoised()
+  testthat::expect_true(length(list.files(non_default)) == 0)
 
 })
