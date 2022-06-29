@@ -10,7 +10,7 @@ getPlatformsInfo(
   limit = 20L,
   sort = "+id",
   raw = getOption("gemma.raw", FALSE),
-  memoised = getOption("gemma.memoise", FALSE),
+  memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE)
 )
@@ -50,7 +50,7 @@ are omitted in the parsed results.}
 
 \item{memoised}{Whether or not to save to cache for future calls with the same inputs
 and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoise = TRUE)} will ensure you are always using the
+\code{options(gemma.memoised = TRUE)} will ensure you are always using the
 cache. Use \code{forgetGemmaMemoised} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write

@@ -31,7 +31,7 @@
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -54,7 +54,7 @@
 #' getDatasetsInfo(c("GSE2018", "GSE2872"))
 getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -88,7 +88,7 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
 #' @noRd
 memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -110,7 +110,7 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -124,7 +124,7 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 .getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -157,7 +157,7 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -203,7 +203,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -217,7 +217,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 .getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -253,7 +253,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -278,7 +278,7 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -293,7 +293,7 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' @examples
 #' getDatasetResultSets("GSE2018")
 getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -324,7 +324,7 @@ getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #'
 #' @noRd
 memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -353,7 +353,7 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -372,7 +372,7 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -406,7 +406,7 @@ getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -433,7 +433,7 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -450,7 +450,7 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' dat <- getDatasetSamples("GSE2018")
 #' head(dat)
 getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -489,7 +489,7 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
 #'
 #' @noRd
 memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -515,7 +515,7 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -532,7 +532,7 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' @examples
 #' getDatasetPlatforms("GSE2018")
 getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -571,7 +571,7 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #'
 #' @noRd
 memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -597,7 +597,7 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -614,7 +614,7 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @examples
 #' getDatasetAnnotations("GSE2018")
 getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -653,7 +653,7 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #'
 #' @noRd
 memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -679,7 +679,7 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -696,7 +696,7 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' dat <- getDatasetDesign("GSE2018")
 #' str(dat)
 getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -735,7 +735,7 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #'
 #' @noRd
 memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -761,7 +761,7 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -779,7 +779,7 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' @examples
 #' getDatasetDEA("GSE2018")
 getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -818,7 +818,7 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
 #'
 #' @noRd
 memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -864,7 +864,7 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -883,7 +883,7 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' getPlatformsInfo(c("GPL1355", "GPL96"))
 getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -917,7 +917,7 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
 #' @noRd
 memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -947,7 +947,7 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -967,7 +967,7 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1005,7 +1005,7 @@ getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOpt
 memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1038,7 +1038,7 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1058,7 +1058,7 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' str(dat, vec.len = 1, max.level = 1)
 getPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1092,7 +1092,7 @@ getPlatformElements <- function(platform, element = NA_character_, offset = 0L, 
 #' @noRd
 memgetPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1123,7 +1123,7 @@ memgetPlatformElements <- function(platform, element = NA_character_, offset = 0
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1143,7 +1143,7 @@ memgetPlatformElements <- function(platform, element = NA_character_, offset = 0
 getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1181,7 +1181,7 @@ getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L,
 memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1214,7 +1214,7 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1233,7 +1233,7 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' getGenesInfo("DYRK1A")
 #' getGenesInfo(c("DYRK1A", "PTEN"))
 getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1264,7 +1264,7 @@ getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #'
 #' @noRd
 memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1293,7 +1293,7 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1310,7 +1310,7 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' @examples
 #' getGeneLocation("DYRK1A")
 getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1341,7 +1341,7 @@ getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised 
 #'
 #' @noRd
 memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1375,7 +1375,7 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1396,7 +1396,7 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1434,7 +1434,7 @@ getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1464,7 +1464,7 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1481,7 +1481,7 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' @examples
 #' getGeneGO("DYRK1A")
 getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1512,7 +1512,7 @@ getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getO
 #'
 #' @noRd
 memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1563,7 +1563,7 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1587,7 +1587,7 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' str(dat)
 searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1621,7 +1621,7 @@ searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20
 #' @noRd
 memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1651,7 +1651,7 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' are omitted in the parsed results.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoise = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure you are always using the
 #' cache. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
@@ -1670,7 +1670,7 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' searchAnnotations("traumatic")
 #' }
 searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1701,7 +1701,7 @@ searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memois
 #'
 #' @noRd
 memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoise",
+        "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",

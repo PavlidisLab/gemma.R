@@ -231,7 +231,9 @@ Sometimes, you may wish to save results to a file for future inspection. You can
 You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite = TRUE` parameter.
 
 ## Memoise data
-To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call. By default this will create a cache in your local filesystem. 
+To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call whenever you want to refer to the cache, both to save data for future calls and use the saved data for repeated calls.
+
+By default this will create a cache in your local filesystem. 
 
 You can see
 the path to your cache by using `rappdirs::user_cache_dir(appname = "gemmaR")`. If you want to use a different directory, use
@@ -240,10 +242,12 @@ the path to your cache by using `rappdirs::user_cache_dir(appname = "gemmaR")`. 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
 ## Changing defaults
-We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoised = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoised = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. See below for examples.
 
 ```{r defaults}
-options(gemma.memoise = TRUE)
+options(gemma.memoised = TRUE) # always refer to cache
+options(gemma.overwrite = TRUE) # always overwrite when saving files
+options(gemma.raw = TRUE) # always recieve results as-is from Gemma
 ```
 
 # Session info

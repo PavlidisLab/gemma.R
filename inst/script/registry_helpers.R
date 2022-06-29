@@ -47,7 +47,7 @@ registerEndpoint <- function(endpoint,
     }
 
     fargs$raw <- quote(getOption("gemma.raw", FALSE))
-    fargs$memoised <- quote(getOption("gemma.memoise", FALSE))
+    fargs$memoised <- quote(getOption("gemma.memoised", FALSE))
     fargs$file <- quote(getOption("gemma.file", NA_character_))
     fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
 
@@ -206,7 +206,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         if (arg == "raw") {
             mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.</p>"
         } else if (arg == "memoised") {
-            mAdd <- "<p>Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing <code>options(gemma.memoise = TRUE)</code> will ensure you are always using the cache. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
+            mAdd <- "<p>Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing <code>options(gemma.memoised = TRUE)</code> will ensure you are always using the cache. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
         } else if (arg == "file") {
             mAdd <- "<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>"
         } else if (arg == "overwrite") {
