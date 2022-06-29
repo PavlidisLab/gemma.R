@@ -104,7 +104,7 @@ manic
 Let's check the expression for every sample to make sure they look OK:
 ```{r boxplot, fig.cap="Gene expression distributions of bipolar patients during manic phase and controls."}
 # Get Expression matrix
-manicExpr <- assays(manic)$counts
+manicExpr <- assay(manic, "counts")
 boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 ```
 
