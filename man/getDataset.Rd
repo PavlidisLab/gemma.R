@@ -22,7 +22,7 @@ SummarizedExperiments which are more recent. See the Summarized experiment
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 for more details.}
 
-\item{Whether}{or not to save to cache for future calls with the same inputs
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
 and use the result saved in cache if a result is already saved. Doing
 \code{options(gemma.memoised = TRUE)} will ensure you are always using the
 cache. Use \code{forgetGemmaMemoised} to clear the cache.}
