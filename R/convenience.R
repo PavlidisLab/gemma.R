@@ -22,8 +22,8 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @param overwrite Whether or not to overwrite an existing file
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure you are always using the
-#' cache. Use \code{orgetGemmaMemoised} to clear the cache.
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
@@ -133,7 +133,8 @@ memgetPlatformAnnotation <- memoise::memoise(getPlatformAnnotation, cache = gemm
 #' for more details.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure you are always using the
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #' cache. Use \code{forgetGemmaMemoised} to clear the cache.
 #'
 #' @return A SummarizedExperiment or ExpressionSet of the queried dataset.
@@ -216,8 +217,8 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure you are always using the
-#' cache. Use \code{forgetGemmaMemoised} to clear the cache.
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #'
 #' @return A tibble that combines the expression and design matrices.
 #' @keywords dataset
@@ -253,8 +254,8 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' @param all If TRUE, will download all differential expression resultSets for the dataset.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure you are always using the
-#' cache. Use \code{forgetGemmaMemoised} to clear the cache.
+#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #'
 #' @return A data table with differential expression values. If there are multiple
 #' resultSets and all = TRUE, a list of data tables with differential expression
