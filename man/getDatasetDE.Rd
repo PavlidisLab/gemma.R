@@ -20,8 +20,8 @@ getDatasetDE(
 
 \item{memoised}{Whether or not to save to cache for future calls with the same inputs
 and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure you are always using the
-cache. Use \code{forgetGemmaMemoised} to clear the cache.}
+\code{options(gemma.memoised = TRUE)} will ensure that the catche is always used.
+Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
 A data table with differential expression values. If there are multiple
