@@ -109,7 +109,7 @@ encode <- function(url) {
 #' @return Data or NA in case of an out of bounds error
 #'
 #' @keywords internal
-checkBounds = function(x){
+checkBounds <- function(x){
     tryCatch(x, error = function(e){
         if(e$message == "subscript out of bounds"){
             return(NA)
