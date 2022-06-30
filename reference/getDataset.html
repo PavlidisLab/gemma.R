@@ -73,39 +73,48 @@ the experimental design.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDataset</span><span class="op">(</span>
-  <span class="va">dataset</span>,
-  filter <span class="op">=</span> <span class="cn">FALSE</span>,
-  type <span class="op">=</span> <span class="st">"se"</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getDataset</span><span class="op">(</span></span>
+<span>  <span class="va">dataset</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"se"</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>A dataset identifier.</p></dd>
+
+
 <dt>filter</dt>
 <dd><p>The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 SummarizedExperiments which are more recent. See the Summarized experiment</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.
 <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link">vignette</a>
 or the ExpressionSet <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link">vignette</a>
 for more details.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A SummarizedExperiment or ExpressionSet of the queried dataset.</p>
+    
+
+<p>A SummarizedExperiment or ExpressionSet of the queried dataset.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu">getDataset</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu">getDataset</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 22283 34 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(8): title abstract ... GemmaSuitabilityScore taxon</span>
@@ -115,7 +124,7 @@ for more details.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> rowData names(3): GeneSymbol GeneName NCBIid</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colnames(34): BAL_47c_A0B1 BAL_47b_A0B1 ... BAL_15a_A0B1 BAL_37_A1B1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> colData names(2): diseaseState batch</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -130,7 +139,7 @@ for more details.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

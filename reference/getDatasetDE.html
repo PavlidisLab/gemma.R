@@ -75,36 +75,45 @@ directly if you know its ID beforehand.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getDatasetDE</span><span class="op">(</span>
-  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,
-  resultSet <span class="op">=</span> <span class="cn">NA_integer_</span>,
-  all <span class="op">=</span> <span class="cn">FALSE</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getDatasetDE</span><span class="op">(</span></span>
+<span>  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  resultSet <span class="op">=</span> <span class="cn">NA_integer_</span>,</span>
+<span>  all <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>A dataset identifier.</p></dd>
+
+
 <dt>resultSet</dt>
 <dd><p>A resultSet identifier.</p></dd>
+
+
 <dt>all</dt>
 <dd><p>If TRUE, will download all differential expression resultSets for the dataset.</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A data table with differential expression values. If there are multiple
+    
+
+<p>A data table with differential expression values. If there are multiple
 resultSets and all = TRUE, a list of data tables with differential expression
 values.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getDatasetDE</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">getDatasetDE</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some columns are type 'integer64' but package bit64 is not installed. Those columns will print as strange looking floating point data. There is no need to reload the data. Simply install.packages('bit64') to obtain the integer64 print method and print the data again.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Probe        NCBIid              GeneSymbol</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205105_at          4124                  MAN2A1</span>
@@ -192,7 +201,7 @@ values.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

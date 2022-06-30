@@ -69,16 +69,16 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getPlatformsInfo</span><span class="op">(</span>
-  platforms <span class="op">=</span> <span class="cn">NA_character_</span>,
-  offset <span class="op">=</span> <span class="fl">0L</span>,
-  limit <span class="op">=</span> <span class="fl">20L</span>,
-  sort <span class="op">=</span> <span class="st">"+id"</span>,
-  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getPlatformsInfo</span><span class="op">(</span></span>
+<span>  platforms <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
+<span>  sort <span class="op">=</span> <span class="st">"+id"</span>,</span>
+<span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,13 +91,19 @@ A list of identifiers, separated by commas (e.g:
 its short name. Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.
 Do not combine different identifiers in one query.</p></dd>
+
+
 <dt>offset</dt>
 <dd><p>Optional, defaults to <code>0</code>.
 Skips the specified amount of objects when retrieving them from the
 database.</p></dd>
+
+
 <dt>limit</dt>
 <dd><p>Optional, defaults to 20. Limits the result to specified amount of
 objects.</p></dd>
+
+
 <dt>sort</dt>
 <dd><p>Optional, defaults to <code>+id</code>.
 Sets the ordering property and direction.
@@ -111,30 +117,41 @@ E.g: <code>+curationDetails.lastTroubledEvent.date</code>
 When
 using in scripts, remember to URL-encode the '+' plus character (see
 the compiled URL below).</p></dd>
+
+
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be a JSON file.
 Otherwise, it will be a RDS file.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified filename.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An array of value objects representing the objects that matched the
+    
+
+<p>An array of value objects representing the objects that matched the
 query.
 Empty array if no objects matched.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">getPlatformsInfo</span><span class="op">(</span><span class="st">"GPL1355"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">getPlatformsInfo</span><span class="op">(</span><span class="st">"GPL1355"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    platform.ID platform.ShortName                                platform.Name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:           2            GPL1355 Affymetrix GeneChip Rat Genome 230 2.0 Array</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        platform.Description</span>
@@ -147,7 +164,7 @@ Empty array if no objects matched.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                      NA                    NA        rat        3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    technology.Type technology.Color</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:        ONECOLOR         ONECOLOR</span>
-<span class="r-in"><span class="fu">getPlatformsInfo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GPL1355"</span>, <span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">getPlatformsInfo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GPL1355"</span>, <span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    platform.ID platform.ShortName</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:           1              GPL96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:           2            GPL1355</span>
@@ -183,7 +200,7 @@ Empty array if no objects matched.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

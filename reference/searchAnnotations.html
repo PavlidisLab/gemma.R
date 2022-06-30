@@ -69,13 +69,13 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">searchAnnotations</span><span class="op">(</span>
-  <span class="va">query</span>,
-  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">searchAnnotations</span><span class="op">(</span></span>
+<span>  <span class="va">query</span>,</span>
+<span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,31 +90,42 @@ Can be multiple identifiers separated by commas.
 When
 using in scripts, remember to URL-encode any forward slashes in the
 phenotype value URIs (see the compiled URL below).</p></dd>
+
+
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be a JSON file.
 Otherwise, it will be a RDS file.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified filename.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An array of annotations (annotation search result value objects)
+    
+
+<p>An array of annotations (annotation search result value objects)
 matching the given identifiers.
 A <code>400 error</code> if required parameters are missing.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># \donttest{</span></span>
-<span class="r-in"><span class="fu">searchAnnotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># \donttest{</span></span></span>
+<span class="r-in"><span><span class="fu">searchAnnotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     category.Name                         category.URL</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:     treatment http://www.ebi.ac.uk/efo/EFO_0000727</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:     treatment http://www.ebi.ac.uk/efo/EFO_0000727</span>
@@ -160,7 +171,7 @@ A <code>400 error</code> if required parameters are missing.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                                                       &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                                       &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                                                       &lt;NA&gt;</span>
-<span class="r-in"><span class="co"># }</span></span>
+<span class="r-in"><span><span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -175,7 +186,7 @@ A <code>400 error</code> if required parameters are missing.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

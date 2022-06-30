@@ -69,15 +69,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getGeneProbes</span><span class="op">(</span>
-  <span class="va">gene</span>,
-  offset <span class="op">=</span> <span class="fl">0L</span>,
-  limit <span class="op">=</span> <span class="fl">20L</span>,
-  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getGeneProbes</span><span class="op">(</span></span>
+<span>  <span class="va">gene</span>,</span>
+<span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
+<span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
+<span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -90,30 +90,45 @@ NCBI ID is the most efficient (and guaranteed to be unique) identifier.
 Official
 symbol represents a gene homologue for a random taxon, unless used in a
 specific taxon (see Taxon Endpoints).</p></dd>
+
+
 <dt>offset</dt>
 <dd><p>Optional, defaults to <code>0</code>.
 Skips the specified amount of objects when retrieving them from the
 database.</p></dd>
+
+
 <dt>limit</dt>
 <dd><p>Optional, defaults to 20. Limits the result to specified amount of
 objects.</p></dd>
+
+
 <dt>raw</dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+
+
 <dt>file</dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be a JSON file.
 Otherwise, it will be a RDS file.</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified filename.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An array of probes (composite sequence value objects) that are mapped to
+    
+
+<p>An array of probes (composite sequence value objects) that are mapped to
 this gene. Note, that it is possible for probes to map to multiple
 genes.
 A <code>404 error</code> if the given identifier does not map to any object.</p>
@@ -121,8 +136,8 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getGeneProbes</span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span>, vec.len <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getGeneProbes</span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span>, vec.len <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	20 obs. of  2 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mapping.Name       : chr  "1639" "19904" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ mapping.Description: chr  " Dyrk1a" NA ...</span>
@@ -141,7 +156,7 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

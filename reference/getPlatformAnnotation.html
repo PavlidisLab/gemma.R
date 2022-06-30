@@ -69,41 +69,54 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">getPlatformAnnotation</span><span class="op">(</span>
-  <span class="va">platform</span>,
-  annotType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bioProcess"</span>, <span class="st">"noParents"</span>, <span class="st">"allParents"</span><span class="op">)</span>,
-  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,
-  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  unzip <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getPlatformAnnotation</span><span class="op">(</span></span>
+<span>  <span class="va">platform</span>,</span>
+<span>  annotType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bioProcess"</span>, <span class="st">"noParents"</span>, <span class="st">"allParents"</span><span class="op">)</span>,</span>
+<span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  unzip <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>platform</dt>
 <dd><p>A platform identifier @seealso getPlatforms</p></dd>
+
+
 <dt>annotType</dt>
 <dd><p>Which GO terms should the output include</p></dd>
+
+
 <dt>file</dt>
 <dd><p>Where to save the annotation file to, or empty to just load into memory</p></dd>
+
+
 <dt>overwrite</dt>
 <dd><p>Whether or not to overwrite an existing file</p></dd>
+
+
 <dt>memoised</dt>
 <dd><p>Whether or not to cache results so future requests for the same data
 will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+
+
 <dt>unzip</dt>
 <dd><p>Whether or not to unzip the file (if @param file is not empty)</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A table of annotations</p>
+    
+
+<p>A table of annotations</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getPlatformAnnotation</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">getPlatformAnnotation</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  6 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ProbeName  : chr  "211750_x_at" "216678_at" "216345_at" "207273_at" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneSymbols: chr  "TUBA1A|TUBA1C" "" "ZSWIM8" "" ...</span>
@@ -126,7 +139,7 @@ will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
