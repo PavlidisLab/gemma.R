@@ -225,9 +225,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #' @export
 #' @examples
 #'
-#' \donttest{
 #' getDatasetTidy("GSE2018")
-#' }
 getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoise", FALSE)) {
     design <- getDatasetDesign(dataset,memoised = memoised) %>%
         tibble::rownames_to_column("Sample")
