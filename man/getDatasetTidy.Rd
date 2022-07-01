@@ -29,8 +29,6 @@ tibble for easy visualization and exploration with ggplot and the rest of the ti
 }
 \examples{
 
-\donttest{
 getDatasetTidy("GSE2018")
-}
 }
 \keyword{dataset}

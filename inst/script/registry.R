@@ -1,4 +1,6 @@
 library(here)
+library(styler)
+library(biocthis)
 devtools::load_all()
 setwd(here())
 
