@@ -38,16 +38,6 @@ For detailed information on the curation process, read this [page](https://pavli
 
 # Installation instructions
 
-## Development
-
-The current development version of `gemma.R` can be installed with:
-
-```{r, eval = FALSE}
-if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("devtools")
-}
-devtools::install_github("PavlidisLab/gemma.R")
-```
 
 ## Bioconductor (not available yet)
 You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
@@ -58,6 +48,17 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 }
 
 BiocManager::install("gemma.R")
+```
+
+## Development
+
+The current development version of `gemma.R` can be installed with:
+
+```{r, eval = FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)) {
+    install.packages("devtools")
+}
+devtools::install_github("PavlidisLab/gemma.R")
 ```
 
 # Downloading expression data
