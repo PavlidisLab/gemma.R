@@ -23,7 +23,7 @@ URL: https://pavlidislab.github.io/gemma.R/, https://github.com/PavlidisLab/gemm
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 BugReports: https://github.com/PavlidisLab/gemma.R/issues
 Imports:
     magrittr,
@@ -41,7 +41,8 @@ Imports:
     tidyr,
     S4Vectors,
     httr,
-    rappdirs
+    rappdirs,
+    bit64
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
