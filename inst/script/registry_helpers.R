@@ -98,8 +98,6 @@ registerEndpoint <- function(endpoint,
     # And our memoised function
     environment(f) <- where
 
-    # browser()
-
     # Make this function available in the parent environment...
     assign(fname, f, env = where)
     memF <- glue::glue("mem", fname)
@@ -185,11 +183,12 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     node <- Filter(function(elem) {
         xml2::xml_attr(elem, ":name") == paste0("'", src, "'")
     }, endpoints)
-
+    
     if (length(node) == 0) {
         mName <- paste0("'", fname, "'")
         mDesc <- paste0("'", src, "'")
         mResp <- "Varies"
+        return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
     } else {
         mName <- xml2::xml_attr(node, ":name")
         mDesc <- xml2::xml_attr(node, ":description")
@@ -203,9 +202,9 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         # uses examples file as an override if provided
         if(!is.null(mExamples$value[[fname]])){
             
-            # remove quotes from examples file if needed. 
-            val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = '\n'))
-            
+            # remove quotes from examples file if needed.
+            val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = "\n#' "))
+
             return = glue::glue("#'\n#' @return {val}\n\n")
         }
     }
