@@ -199,6 +199,15 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         mResp <- get(xml2::xml_attr(node, ":response-description"),descriptions)
         
         return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
+        
+        # uses examples file as an override if provided
+        if(!is.null(mExamples$value[[fname]])){
+            
+            # remove quotes from examples file if needed. 
+            val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = '\n'))
+            
+            return = glue::glue("#'\n#' @return {val}\n\n")
+        }
     }
     
     # documentation overrides
