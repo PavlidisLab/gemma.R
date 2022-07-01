@@ -66,7 +66,7 @@ Empty array if no objects matched.
 A successful response may contain a sub-element with 'Geeq'
 information, which aims to provide a unified metric to measure
 experiments by the quality of their data, and their suitability for use
-in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}.
+in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}{target="_blank"}.
 }
 \description{
 Lists datasets filtered and organized by given parameters
