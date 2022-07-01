@@ -1,6 +1,7 @@
 library(here)
 library(styler)
 library(biocthis)
+rm(list = ls(all.names = T)) # a cleanup is needed because the script relies on environment variables to determine what is already processed
 devtools::load_all()
 setwd(here())
 
