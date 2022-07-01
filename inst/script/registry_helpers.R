@@ -197,7 +197,11 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         # scope. used to use global environment but wanted to clean that up
         # when debuggin -ogan
         mResp <- get(xml2::xml_attr(node, ":response-description"),descriptions)
+        
+        return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
     }
+    
+    # documentation overrides
 
     cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
     cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
@@ -244,10 +248,12 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             # when debuggin -ogan
             mAdd <- get(paste0(mArg, "Description"),descriptions)
         }
-
-        cat(glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n"), file = document, append = TRUE)
+      param = glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n")
+      
+      
+      cat(param, file = document, append = TRUE)
     }
 
-    cat(glue::glue("#'\n#' @return {pandoc(mResp)}\n\n"), file = document, append = TRUE)
+    cat(return, file = document, append = TRUE)
 }
 
