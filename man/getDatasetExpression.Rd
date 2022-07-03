@@ -39,7 +39,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-Varies
+If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
+If raw is TRUE, returns the binary file in raw form.
 }
 \description{
 Dataset expression

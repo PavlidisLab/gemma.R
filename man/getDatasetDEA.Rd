@@ -34,7 +34,9 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-Varies
+A data table with information about the differential expression analysis of the queried dataset. Note that this funciton does not return differential expression values themselves. Use getDatasetDE to get differential expression values (see examples).
+A \verb{404 error} if the given identifier does not map to any object.
+A \verb{400 error} if required parameters are missing.
 }
 \description{
 Dataset differential analysis details

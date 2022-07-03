@@ -45,8 +45,6 @@ A data table with annotations (annotation search result value objects) matching 
 Does a search for annotations based on the given string
 }
 \examples{
-\donttest{
-searchAnnotations("traumatic")
-}
+annots <- searchAnnotations("traumatic")
 }
 \keyword{misc}

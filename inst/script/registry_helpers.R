@@ -183,7 +183,6 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     node <- Filter(function(elem) {
         xml2::xml_attr(elem, ":name") == paste0("'", src, "'")
     }, endpoints)
-    
     if (length(node) == 0) {
         mName <- paste0("'", fname, "'")
         mDesc <- paste0("'", src, "'")
@@ -199,17 +198,16 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         
         return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
         
-        # uses examples file as an override if provided
-        if(!is.null(mExamples$value[[fname]])){
-            
-            # remove quotes from examples file if needed.
-            val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = "\n#' "))
-
-            return = glue::glue("#'\n#' @return {val}\n\n")
-        }
     }
-    
     # documentation overrides
+    # uses examples file as an override if provided
+    if(!is.null(mExamples$value[[fname]])){
+        
+        # remove quotes from examples file if needed.
+        val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = "\n#' "))
+        
+        return = glue::glue("#'\n#' @return {val}\n\n")
+    }
 
     cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
     cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
