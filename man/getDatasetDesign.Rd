@@ -34,8 +34,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-The design file for the given dataset.
-A \verb{404 error} if the given identifier does not map to any object.
+If raw is FALSE (default), a data table of the design matrix for the queried dataset.
+If raw is TRUE, returns the binary file in raw form.
 }
 \description{
 Retrieves the design for the given dataset

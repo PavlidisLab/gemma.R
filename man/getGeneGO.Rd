@@ -37,9 +37,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of GO terms (gene ontology term value objects) associated with
-the given gene.
-A \verb{404 error} if the given identifier does not map to any object.
+If raw is FALSE (default), a data table with information about the GO terms assigned to the queried gene.
+If raw is TRUE, a list with the same information. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the GO terms of the given gene

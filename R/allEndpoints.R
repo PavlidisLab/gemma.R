@@ -38,13 +38,12 @@
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of value objects representing the objects that matched the
-#' query.
-#' Empty array if no objects matched.
-#' A successful response may contain a sub-element with 'Geeq'
+#' @return If raw is FALSE (default), a data table with information about the queried dataset(s).
+#' If raw is TRUE, a list with the same information. Returns an empty list if no datasets matched.
+#' A successful response may contain 'Geeq'
 #' information, which aims to provide a unified metric to measure
 #' experiments by the quality of their data, and their suitability for use
-#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html){target="_blank"}.
+#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html)
 #' @export
 #'
 #' @keywords dataset
@@ -366,9 +365,7 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' @keywords dataset
 #'
 #' @examples
-#' \donttest{
 #' dat <- getDatasetExpression("GSE2018")
-#' }
 getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
@@ -440,8 +437,8 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of samples (bio assay value objects) in the given dataset.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the samples of the queried dataset.
+#' If raw is TRUE, a list with the same information. A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords dataset
@@ -522,9 +519,9 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of platforms (array design value objects) containing the given
-#' dataset.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the platform(s) of the queried dataset.
+#' If raw is TRUE, a list with the same information. Lists platforms used in the given
+#' dataset. A`404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords dataset
@@ -604,8 +601,8 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of annotations (annotation value objects) attached to the given
-#' dataset.
+#' @return If raw is FALSE (default), a data table with information about the annotations of the queried dataset.
+#' If raw is TRUE, a list with the same information.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
@@ -686,8 +683,8 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return The design file for the given dataset.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table of the design matrix for the queried dataset.
+#' If raw is TRUE, returns the binary file in raw form.
 #' @export
 #'
 #' @keywords dataset
@@ -768,8 +765,8 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of analyses (differential expression value objects) in the
-#' given dataset.
+#' @return If raw is FALSE (default), a data table with information about the differential expression analysis of the queried dataset.
+#' If raw is TRUE, a list with the same information.
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
@@ -871,9 +868,8 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of value objects representing the objects that matched the
-#' query.
-#' Empty array if no objects matched.
+#' @return If raw is FALSE (default), a data table with information about the queried platform(s).
+#' If raw is TRUE, a list with the same information.
 #' @export
 #'
 #' @keywords platform
@@ -954,8 +950,8 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of datasets (expression experiment value objects) that are on
-#' the given platform.
+#' @return If raw is FALSE (default), a data table with information about the datasets associated with the queried platform.
+#' If raw is TRUE, a list with the same information.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
@@ -1027,7 +1023,9 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' Can either be the platform ID or its short name (e.g: `GPL1355`)
 #' Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
-#' @param element Required, part of the URL path. Can either be the probe name or ID.
+#' @param elements Optional, defaults to empty. Limits the result to entities with given
+#' identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
+#' AFFX_Rat_Hexokinase_M_at)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -1045,10 +1043,8 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of elements (composite sequence value objects) of the given
-#' platform.
-#' Empty collection, if no elements matched the `elements` parameter.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the elements (probes or genes) used by the queried platform.
+#' If raw is TRUE, a list with the same information. A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords platform
@@ -1056,7 +1052,7 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' @examples
 #' dat <- getPlatformElements("GPL1355")
 #' str(dat, vec.len = 1, max.level = 1)
-getPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
+getPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -1069,13 +1065,13 @@ getPlatformElements <- function(platform, element = NA_character_, offset = 0L, 
     fname <- "getPlatformElements"
     preprocessor <- processElements
     validators <- list(
-        platform = validateSingleID, element = validateOptionalID,
+        platform = validateSingleID, elements = validateOptionalID,
         offset = validatePositiveInteger, limit = validateLimit
     )
-    endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
+    endpoint <- "platforms/{encode(platform)}/elements/{encode(elements)}?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         out <- memgetPlatformElements(
-            platform = platform, element = element,
+            platform = platform, elements = elements,
             offset = offset, limit = limit, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite
         )
@@ -1090,7 +1086,7 @@ getPlatformElements <- function(platform, element = NA_character_, offset = 0L, 
 #' Memoise getPlatformElements
 #'
 #' @noRd
-memgetPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
+memgetPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -1098,7 +1094,7 @@ memgetPlatformElements <- function(platform, element = NA_character_, offset = 0
     overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(getPlatformElements, cache = gemmaCache())
     mem_call(
-        platform = platform, element = element, offset = offset,
+        platform = platform, elements = elements, offset = offset,
         limit = limit, raw = raw, memoised = FALSE, file = file,
         overwrite = overwrite
     )
@@ -1130,10 +1126,8 @@ memgetPlatformElements <- function(platform, element = NA_character_, offset = 0
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of genes (gene value objects) aligned with the the given
-#' platform element.
-#' All identifiers must be valid.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the gene(s) on the queried platform element.
+#' If raw is TRUE, a list with the same information. A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords platform
@@ -1221,10 +1215,8 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of value objects representing the objects that matched the
-#' query.
-#' Empty array if no objects matched.
-#' A `400 error` if required parameters are missing.
+#' @return If raw is FALSE (default), a data table with information about the queried gene(s).
+#' If raw is TRUE, a list with the same information.
 #' @export
 #'
 #' @keywords gene
@@ -1300,9 +1292,8 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of locations (physical location value objects) of the given
-#' gene or gene homologues.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the physical location of the queried gene.
+#' If raw is TRUE, a list with the same information. A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords gene
@@ -1382,8 +1373,8 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of probes (composite sequence value objects) that are mapped to
-#' this gene. Note, that it is possible for probes to map to multiple
+#' @return If raw is FALSE (default), a data table with information about the probes that map to the queried gene.
+#' If raw is TRUE, a list with the same information. Note, that it is possible for probes to map to multiple
 #' genes.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
@@ -1471,9 +1462,8 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of GO terms (gene ontology term value objects) associated with
-#' the given gene.
-#' A `404 error` if the given identifier does not map to any object.
+#' @return If raw is FALSE (default), a data table with information about the GO terms assigned to the queried gene.
+#' If raw is TRUE, a list with the same information. A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords gene
@@ -1570,8 +1560,8 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of datasets (expression experiment value objects) that are
-#' annotated with the given ontology terms, or, in case of plaintext query,
+#' @return If raw is FALSE (default), a data table with information about matching datasets.
+#' If raw is TRUE, a list with the same information. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
 #' experiments that contain the given words (name, short name, accession,
 #' tags)
 #' If an ontology term URI is given, the results will also include datasets
@@ -1658,9 +1648,8 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return An array of annotations (annotation search result value objects)
-#' matching the given identifiers.
-#' A `400 error` if required parameters are missing.
+#' @return If raw is FALSE (default), a data table with information about the queried annotation).
+#' If raw is TRUE, a list with the same information.
 #' @export
 #'
 #' @keywords misc

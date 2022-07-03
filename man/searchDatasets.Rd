@@ -66,8 +66,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of datasets (expression experiment value objects) that are
-annotated with the given ontology terms, or, in case of plaintext query,
+If raw is FALSE (default), a data table with information about matching datasets.
+If raw is TRUE, a list with the same information. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
 experiments that contain the given words (name, short name, accession,
 tags)
 If an ontology term URI is given, the results will also include datasets

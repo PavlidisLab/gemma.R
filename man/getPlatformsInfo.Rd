@@ -60,9 +60,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of value objects representing the objects that matched the
-query.
-Empty array if no objects matched.
+If raw is FALSE (default), a data table with information about the queried platform(s).
+If raw is TRUE, a list with the same information.
 }
 \description{
 List platforms filtered and organized by given parameters

@@ -239,6 +239,8 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
         } else if (arg == 'element') {
             mAdd = "<p>Required, part of the URL path. Can either be the probe name or ID."
+        } else if (arg == 'elements'){
+            mAdd = "<p>Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)</p>"
         } else {
             mArg <- arg
             if (arg == "threshold") {
