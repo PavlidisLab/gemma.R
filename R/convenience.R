@@ -282,7 +282,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
         .getResultSets(x,memoised = memoised) %>%
             processDEcontrasts(x)
     })
-    names(rs) = resultSet
+    names(rs) <- resultSet
     
     rs
 }
