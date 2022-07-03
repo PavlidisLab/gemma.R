@@ -52,7 +52,8 @@ Suggests:
     ggplot2,
     ggrepel,
     BiocStyle,
-    microbenchmark
+    microbenchmark,
+    magick
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
