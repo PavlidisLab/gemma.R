@@ -12,7 +12,4 @@ A memoise filesystem
 \description{
 Gemma Cache
 }
-\examples{
-gemmaCache()
-}
 \keyword{internal}
