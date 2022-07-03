@@ -40,6 +40,7 @@ Varies
 Lists the available resultSets for the queried dataset.
 }
 \examples{
-getDatasetResultSets("GSE2018")
+resultSets <- getDatasetResultSets("GSE2018")
+getDatasetDE(resultSet = resultSets$resultSet.id)
 }
 \keyword{dataset}

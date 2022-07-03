@@ -46,8 +46,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-If raw is FALSE (default), a data table with information about the probes that map to the queried gene.
-If raw is TRUE, a list with the same information. Note, that it is possible for probes to map to multiple
+A data table with information about the probes that map to the queried gene. Note, that it is possible for probes to map to multiple
 genes.
 A \verb{404 error} if the given identifier does not map to any object.
 }
