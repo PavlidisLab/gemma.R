@@ -115,7 +115,7 @@ You can also use [`getDatasetExpression()`](https://pavlidislab.github.io/gemma.
 Gemma also contains precomputed differential expression analyses for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using [`getDatasetDE()`](https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html). From here on, we can explore and visualize the data to find the most differentially-expressed genes:
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
-de <- getDatasetDE("GSE46416")
+de <- getDatasetDE("GSE46416")[[1]]
 
 # Classify probes for plotting
 de$diffexpr <- "No"
