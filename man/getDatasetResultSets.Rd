@@ -34,7 +34,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-Varies
+A data table with the queried dataset's resultSet ID(s). Use getDatasetDE to get differential expression values (see examples).
 }
 \description{
 Lists the available resultSets for the queried dataset.

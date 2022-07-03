@@ -283,7 +283,7 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return Varies
+#' @return A data table with the queried dataset's resultSet ID(s). Use getDatasetDE to get differential expression values (see examples).
 #' @export
 #'
 #' @keywords dataset
@@ -359,7 +359,8 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return Varies
+#' @return If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
+#' If raw is TRUE, returns the binary file in raw form.
 #' @export
 #'
 #' @keywords dataset
@@ -760,7 +761,9 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return Varies
+#' @return A data table with information about the differential expression analysis of the queried dataset. Note that this funciton does not return differential expression values themselves. Use getDatasetDE to get differential expression values (see examples).
+#' A `404 error` if the given identifier does not map to any object.
+#' A `400 error` if required parameters are missing.
 #' @export
 #'
 #' @keywords dataset
@@ -1637,9 +1640,7 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' @keywords misc
 #'
 #' @examples
-#' \donttest{
-#' searchAnnotations("traumatic")
-#' }
+#' annots <- searchAnnotations("traumatic")
 searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
