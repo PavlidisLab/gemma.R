@@ -41,13 +41,10 @@ test_that("getDatasetTidy works properly", {
 })
 
 test_that("getDatasetDE works properly",{
-    dat <- getDatasetDE(1)
+    dat <- getDatasetDE(1)[[1]]
     expect_gt(nrow(dat), 10)
-    expect_error(getDatasetDE(2))
-    expect_error(getDatasetDE(2, 500184))
-    expect_error(getDataserDE(1))
-    dat <- getDatasetDE(resultSet = 500184)
+    dat <- getDatasetDE(resultSet = 500184)[[1]]
     expect_gt(nrow(dat), 10)
-    dat <- getDatasetDE(2, all = TRUE)
+    dat <- getDatasetDE(2)
     expect_equal(length(dat), 3)
 })

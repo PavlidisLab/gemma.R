@@ -241,26 +241,24 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' Dataset differential expression
 #'
 #' Retrieves the differential expression resultSet(s) associated with the dataset.
-#' If there is more than one resultSet, use [getDatasetResultSets()] to see
+#' If there is more than one resultSet, use [getDatasetResultSets()] or [getDatasetDEA()] to see
 #' the options and get the ID you want. Alternatively, you can query the resultSet
 #' directly if you know its ID beforehand.
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
-#' @param all If TRUE, will download all differential expression resultSets for the dataset.
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
 #' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
 #' Use \code{forgetGemmaMemoised} to clear the cache.
 #'
-#' @return A data table with differential expression values. If there are multiple
-#' resultSets and all = TRUE, a list of data tables with differential expression
-#' values.
+#' @return A list of data tables with differential expression
+#' values per result set.
 #' @keywords dataset
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all = FALSE, memoised = getOption("gemma.memoise", FALSE)) {
+getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoise", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
         rss <- getDatasetResultSets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
@@ -269,9 +267,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all =
     }
     else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
         rss <- getDatasetResultSets(dataset,memoised = memoised)
-        if (nrow(rss) > 1 && all == FALSE){
-            stop("There are multiple resultSets for this dataset. Check the available resultSets with `getDatasetResultSets()` or choose all = TRUE")
-        } else if (nrow(rss) > 1 && all == TRUE){
+         if (nrow(rss) > 1){
             resultSet <- rss$resultSet.id %>% unique()
         } else{
             resultSet <- rss$resultSet.id
@@ -286,8 +282,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all =
         .getResultSets(x,memoised = memoised) %>%
             processDEcontrasts(x)
     })
-    if (length(rs) == 1){
-        rs <- rs[[1]]
-    }
+    names(rs) = resultSet
+    
     rs
 }

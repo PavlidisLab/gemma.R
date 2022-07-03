@@ -220,7 +220,7 @@ registerEndpoint('datasets/{dataset}/design',
 registerEndpoint('datasets/{dataset}/analyses/differential',
                  'getDatasetDEA',
                  logname = "differential",
-                 roxygen = "Dataset differential analysis",
+                 roxygen = "Dataset differential analysis details",
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
