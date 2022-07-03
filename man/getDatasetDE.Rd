@@ -7,7 +7,6 @@
 getDatasetDE(
   dataset = NA_character_,
   resultSet = NA_integer_,
-  all = FALSE,
   memoised = getOption("gemma.memoise", FALSE)
 )
 }
@@ -16,21 +15,18 @@ getDatasetDE(
 
 \item{resultSet}{A resultSet identifier.}
 
-\item{all}{If TRUE, will download all differential expression resultSets for the dataset.}
-
 \item{memoised}{Whether or not to save to cache for future calls with the same inputs
 and use the result saved in cache if a result is already saved. Doing
 \code{options(gemma.memoised = TRUE)} will ensure that the catche is always used.
 Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
-A data table with differential expression values. If there are multiple
-resultSets and all = TRUE, a list of data tables with differential expression
-values.
+A list of data tables with differential expression
+values per result set.
 }
 \description{
 Retrieves the differential expression resultSet(s) associated with the dataset.
-If there is more than one resultSet, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} to see
+If there is more than one resultSet, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} or \code{\link[=getDatasetDEA]{getDatasetDEA()}} to see
 the options and get the ID you want. Alternatively, you can query the resultSet
 directly if you know its ID beforehand.
 }

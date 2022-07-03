@@ -46,8 +46,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-If raw is FALSE (default), a data table with information about the gene(s) on the queried platform element.
-If raw is TRUE, a list with the same information. A \verb{404 error} if the given identifier does not map to any object.
+A data table with information about the gene(s) on the queried platform element. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the genes on the given platform element

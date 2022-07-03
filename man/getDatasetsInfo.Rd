@@ -60,8 +60,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-If raw is FALSE (default), a data table with information about the queried dataset(s).
-If raw is TRUE, a list with the same information. Returns an empty list if no datasets matched.
+A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
 A successful response may contain 'Geeq'
 information, which aims to provide a unified metric to measure
 experiments by the quality of their data, and their suitability for use

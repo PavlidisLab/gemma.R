@@ -39,8 +39,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-If raw is FALSE (default), a data table with information about the queried gene(s).
-If raw is TRUE, a list with the same information.
+A data table with information about the queried gene(s).
 }
 \description{
 Retrieves all genes matching the identifiers

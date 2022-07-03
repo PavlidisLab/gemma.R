@@ -48,8 +48,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-If raw is FALSE (default), a data table with information about the elements (probes or genes) used by the queried platform.
-If raw is TRUE, a list with the same information. A \verb{404 error} if the given identifier does not map to any object.
+A data table with information about the elements (probes or genes) used by the queried platform. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the composite sequences (elements) for the given platform
