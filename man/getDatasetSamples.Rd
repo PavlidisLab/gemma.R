@@ -34,8 +34,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of samples (bio assay value objects) in the given dataset.
-A \verb{404 error} if the given identifier does not map to any object.
+If raw is FALSE (default), a data table with information about the samples of the queried dataset.
+If raw is TRUE, a list with the same information. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves samples for the given dataset

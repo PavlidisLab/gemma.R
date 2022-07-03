@@ -60,13 +60,12 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of value objects representing the objects that matched the
-query.
-Empty array if no objects matched.
-A successful response may contain a sub-element with 'Geeq'
+If raw is FALSE (default), a data table with information about the queried dataset(s).
+If raw is TRUE, a list with the same information. Returns an empty list if no datasets matched.
+A successful response may contain 'Geeq'
 information, which aims to provide a unified metric to measure
 experiments by the quality of their data, and their suitability for use
-in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}{target="_blank"}.
+in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}
 }
 \description{
 Lists datasets filtered and organized by given parameters

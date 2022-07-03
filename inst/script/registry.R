@@ -265,18 +265,18 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
     preprocessor = quote(processDatasets)
 )
 
-registerEndpoint("platforms/{platform}/elements/{element}?offset={offset}&limit={limit}",
+registerEndpoint("platforms/{platform}/elements/{elements}?offset={offset}&limit={limit}",
     "getPlatformElements",
     logname = "elements", roxygen = "Platform elements", keyword = "platform",
     defaults = list(
         platform = bquote(),
-        element = NA_character_,
+        elements = NA_character_,
         offset = 0L,
         limit = 20L
     ),
     validators = alist(
         platform = validateSingleID,
-        element = validateOptionalID,
+        elements = validateOptionalID,
         offset = validatePositiveInteger,
         limit = validateLimit
     ),

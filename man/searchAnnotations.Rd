@@ -39,9 +39,8 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of annotations (annotation search result value objects)
-matching the given identifiers.
-A \verb{400 error} if required parameters are missing.
+If raw is FALSE (default), a data table with information about the queried annotation).
+If raw is TRUE, a list with the same information.
 }
 \description{
 Does a search for annotations based on the given string
