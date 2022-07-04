@@ -58,6 +58,10 @@
         }
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
+            if (isFile && raw){
+                extension = '.gz'
+            }
+
             file <- paste0(tools::file_path_sans_ext(file), extension)
 
             if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
@@ -67,6 +71,8 @@
                     write(jsonlite::toJSON(mOut, pretty = 2), file)
                 } else if (extension == ".rds") {
                     saveRDS(mOut, file)
+                } else if (extension == '.gz'){
+                    writeBin(mOut,file)
                 } else {
                     utils::write.csv2(mOut, file, row.names = FALSE)
                 }
