@@ -32,6 +32,12 @@ test_that("getGeneProbes queries work", {
     expect_equal(getGeneProbes(1859, limit = 10) %>% nrow(), 10)
 })
 
+test_that('searchAnnotations work',{
+    annots = searchAnnotations("traumatic")
+    expect_s3_class(annots,'data.table')
+    expect_true(all(names(annots) %in% c("category.Name", "category.URL", "value.Name", "value.URL")))
+})
+
 test_that("getGeneGO queries work", {
     dat <- getGeneGO(1859)
     raw <- getGeneGO(1859, raw = TRUE)
