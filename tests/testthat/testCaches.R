@@ -74,4 +74,8 @@ test_that('caches work',{
   forgetGemmaMemoised()
   testthat::expect_true(length(list.files(non_default)) == 0)
 
+  # don't forget to unmemoise at the end
+  options(gemma.memoised = FALSE)
+
+
 })
