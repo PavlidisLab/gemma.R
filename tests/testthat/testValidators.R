@@ -14,7 +14,7 @@ test_that('validators work',{
     expect_true(gemma.R:::validateOptionalTaxon('taxon','mouse') == 'mouse')
 
     expect_error(gemma.R:::validateTaxon('taxon','mouse','human'),'specify only one')
-    expect_error(gemma.R::validateTaxon('taxon','bigfoot'),'must specify a valid taxon')
+    expect_error(gemma.R:::validateTaxon('taxon','bigfoot'),'must specify a valid taxon')
     expect_true(gemma.R:::validateTaxon('taxon','human') == 'human')
 
     expect_error(gemma.R:::validateQuery('query'),'specify a query')
