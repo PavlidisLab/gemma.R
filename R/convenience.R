@@ -297,3 +297,49 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
     
     rs
 }
+
+
+
+#' Get genome versions
+#' 
+#' Returns the genome version used within Gemma
+#' 
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' @return A data frame
+#' @export
+#' @examples
+#' getGenomeVersions()
+getGenomeVersions  = function(memoised = getOption("gemma.memoise", FALSE)){
+    LOOKUP_TABLE <- data.table(
+        id = c(1, 2, 3, 11, 12, 13, 14),
+        name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
+        scientific = c(
+            "Homo sapiens", "Mus musculus", "Rattus norvegicus",
+            "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
+            "Caenorhabditis elegans"
+        ),
+        ncbi = c(9606, 
+                 10090,
+                 10116, 
+                 4932,
+                 7955, 
+                 7227,
+                 6239),
+        example_gene = c(6125, # this list is created by picking a random gene with homologues in each species
+                         100503670,
+                         81763,
+                         855972,
+                         326961,
+                         3355124,
+                         174371)
+    )
+    
+    LOOKUP_TABLE$genome_version = sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
+        getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
+    })
+    
+    LOOKUP_TABLE %>% select(name,scientific,ncbi,genome_version)
+}
