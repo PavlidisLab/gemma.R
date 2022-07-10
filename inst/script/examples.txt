@@ -142,7 +142,7 @@ A `404 error` if the given identifier does not map to any object."
 # example
 getGeneGO("DYRK1A")
 # value
-"A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object."
+"A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object. Go terms were updated on June 10 2022"
 
 # getTaxa
 # example
