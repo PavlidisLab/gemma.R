@@ -251,6 +251,12 @@ options(gemma.overwrite = TRUE) # always overwrite when saving files
 options(gemma.raw = TRUE) # always recieve results as-is from Gemma
 ```
 
+
+```{r,include = FALSE}
+options(gemma.memoised = FALSE)
+
+```
+
 # Session info
 ```{r}
 sessionInfo()
