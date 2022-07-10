@@ -37,7 +37,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-A data table with information about the GO terms assigned to the queried gene. A \verb{404 error} if the given identifier does not map to any object.
+A data table with information about the GO terms assigned to the queried gene. A \verb{404 error} if the given identifier does not map to any object. Go terms were updated on June 10 2022
 }
 \description{
 Retrieves the GO terms of the given gene

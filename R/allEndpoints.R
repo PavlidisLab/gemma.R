@@ -1450,7 +1450,7 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object.
+#' @return A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object. Go terms were updated on June 10 2022
 #' @export
 #'
 #' @keywords gene
