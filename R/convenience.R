@@ -341,5 +341,5 @@ getGenomeVersions  = function(memoised = getOption("gemma.memoise", FALSE)){
         getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
     })
     
-    LOOKUP_TABLE %>% select(name,scientific,ncbi,genome_version)
+    LOOKUP_TABLE[,c('name','scientific','ncbi','genome_version')]
 }
