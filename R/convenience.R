@@ -115,7 +115,18 @@ getPlatformAnnotation <- function(platform,
 #' Memoise getPlatformAnnotation
 #'
 #' @noRd
-memgetPlatformAnnotation <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+memgetPlatformAnnotation <- function(platform,
+                                     annotType = c("bioProcess", "noParents", "allParents"),
+                                     file = getOption("gemma.file", NA_character_),
+                                     overwrite = getOption("gemma.overwrite", FALSE),
+                                     memoised = getOption("gemma.memoise", FALSE),
+                                     unzip = FALSE) {
+    mem_call <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+    mem_call(
+        platform = platform, annotType = annotType, memoised = FALSE, file = file,
+        overwrite = overwrite, unzip=unzip
+    )
+}
 
 
 #' Dataset expression and design
