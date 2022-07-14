@@ -83,7 +83,7 @@ endpoint calls to return an annotated [`SummarizedExperiment`](https://bioconduc
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
 ```{r load-expression, eval = TRUE}
-dat <- getDataset("GSE2018")
+dat <- getDataset("GSE46416")
 ```
 
 ```{r include = FALSE}
