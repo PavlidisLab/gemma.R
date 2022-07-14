@@ -235,7 +235,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #' @examples
 #'
 #' getDatasetTidy("GSE2018")
-getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoise", FALSE)) {
+getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoised", FALSE)) {
     design <- getDatasetDesign(dataset,memoised = memoised) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
@@ -271,7 +271,7 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoise", FALSE)) {
+getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
         rss <- getDatasetResultSets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
@@ -314,7 +314,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
 #' @export
 #' @examples
 #' getGenomeVersions()
-getGenomeVersions  = function(memoised = getOption("gemma.memoise", FALSE)){
+getGenomeVersions  = function(memoised = getOption("gemma.memoised", FALSE)){
     LOOKUP_TABLE <- data.table(
         id = c(1, 2, 3, 11, 12, 13, 14),
         name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
