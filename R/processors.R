@@ -569,7 +569,9 @@ processDesignMatrix <- function(m) {
 #'
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-    m <- dplyr::select(m, -.data$Sequence, -.data$GemmaId)
+    # this version is a bit more forgiving to missing data fields
+    m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
+    # m <- dplyr::select(m, -.data$Sequence, -.data$GemmaId)
     # Remove redundant strings from sample names
     colnames(m) <- stringr::str_extract(colnames(m), "(?<=Name=).*")
     m
@@ -583,7 +585,8 @@ processExpressionMatrix <- function(m) {
 #'
 #' @keywords internal
 processDEMatrix <- function(m) {
-    dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id, -.data$gene_name) %>%
+    m <- m[,!colnames(m) %in% c('id','probe_id','gene_id','gene_name'),with = FALSE]
+    m %>%
         dplyr::rename(
             Probe = .data$probe_name,
             GeneSymbol = .data$gene_official_symbol,
