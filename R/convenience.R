@@ -153,7 +153,7 @@ memgetPlatformAnnotation <- function(platform,
 #' @export
 #' @examples
 #' getDataset("GSE2018")
-getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoise", FALSE)) {
+getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se") {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
     }
