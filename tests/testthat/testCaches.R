@@ -29,27 +29,29 @@ test_that('caches work',{
   # testing caches for high level functions
   skip_on_ci()
   skip_on_bioc()
+  
+  test_gse = 'GSE2018'
 
   timeNonMemo = microbenchmark::microbenchmark(
-    getDataset("GSE46416", memoised = FALSE),
+    getDataset(test_gse, memoised = FALSE),
     times = 1, unit = 'ms') %>% summary
 
-  result = getDataset("GSE46416", memoised = TRUE)
+  result = getDataset(test_gse, memoised = TRUE)
 
   timeMemo = microbenchmark::microbenchmark(
-    getDataset("GSE46416", memoised = TRUE),
+    getDataset(test_gse, memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   options(gemma.memoised = TRUE)
 
   optionMemo = microbenchmark::microbenchmark(
-    getDataset("GSE46416"),
+    getDataset(test_gse),
     times = 1, unit = 'ms') %>% summary
 
   forgetGemmaMemoised()
 
   timeForgot = microbenchmark::microbenchmark(
-    getDataset("GSE46416", memoised = TRUE),
+    getDataset(test_gse, memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   testthat::expect_lt(timeMemo$mean,timeForgot$mean)
@@ -62,11 +64,11 @@ test_that('caches work',{
   forgetGemmaMemoised()
 
   testthat::expect_true(length(list.files(non_default)) == 0)
-  result = getDataset("GSE46416", memoised = TRUE)
+  result = getDataset(test_gse, memoised = TRUE)
 
   testthat::expect_true(length(list.files(non_default)) >= 0)
   nonDefaultPath = microbenchmark::microbenchmark(
-    getDataset("GSE46416",memoised = TRUE),
+    getDataset(test_gse,memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   testthat::expect_lt(nonDefaultPath$mean,timeNonMemo$mean)
