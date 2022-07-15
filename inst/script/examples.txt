@@ -1,0 +1,204 @@
+# getDatasetsInfo
+# example
+getDatasetsInfo("GSE2018")
+getDatasetsInfo(c("GSE2018", "GSE2872"))
+# value
+"A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
+A successful response may contain 'Geeq'
+information, which aims to provide a unified metric to measure
+experiments by the quality of their data, and their suitability for use
+in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html)"
+
+# searchDatasets
+# example
+dat <- searchDatasets("bipolar")
+str(dat)
+# value
+"A data table with information about matching datasets. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
+experiments that contain the given words (name, short name, accession,
+tags)
+If an ontology term URI is given, the results will also include datasets
+that are associated with the descendants of the term.
+The search only only checks the annotations value, not the category
+(which is also an ontology term)."
+
+# getDatasetPlatforms
+# example
+getDatasetPlatforms("GSE2018")
+# value
+"A data table with information about the platform(s) of the queried dataset. A`404 error` if the given identifier does not map to any object."
+
+# getDatasetSamples
+# example
+dat <- getDatasetSamples("GSE2018")
+head(dat)
+# value
+"A data table with information about the samples of the queried dataset. A `404 error` if the given identifier does not map to any object."
+
+# getDatasetDEA
+# example
+result = getDatasetDEA("GSE2018")
+getDatasetDE(resultSet = result$result.ID)
+# value
+"A data table with information about the differential expression analysis of the queried dataset. Note that this funciton does not return differential expression values themselves. Use getDatasetDE to get differential expression values (see examples).
+A `404 error` if the given identifier does not map to any object.
+A `400 error` if required parameters are missing."
+
+# getDatasetSVD
+# example
+dat <- getDatasetSVD("GSE2018")
+head(dat)
+# value
+"If raw is FALSE (default), a data table of the support vector decomposition of the queried dataset.
+If raw is TRUE, a list with the same information."
+
+# getDatasetAnnotations
+# example
+getDatasetAnnotations("GSE2018")
+# value
+"A data table with information about the annotations of the queried dataset.
+A `404 error` if the given identifier does not map to any object."
+
+# getDatasetExpression
+# example
+dat <- getDatasetExpression("GSE2018")
+# value
+"If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
+If raw is TRUE, returns the binary file in raw form."
+
+# getDatasetDesign
+# example
+dat <- getDatasetDesign("GSE2018")
+str(dat)
+# value
+"A data table of the design matrix for the queried dataset. A `404 error` if the given identifier does not map to any object."
+
+# getDatasetPCA
+# example
+dat <- getDatasetPCA("GSE2018")
+str(dat$expr)
+# value
+"If raw is FALSE (default), a data table with the expression values for the selected component.
+If raw is TRUE, a list with the same information."
+
+
+# getPlatformsInfo
+# example
+getPlatformsInfo("GPL1355")
+getPlatformsInfo(c("GPL1355", "GPL96"))
+# value
+"A data table with information about the queried platform(s)."
+
+# getPlatformDatasets
+# example
+dat <- getPlatformDatasets("GPL1355")
+str(dat, vec.len = 1)
+# value
+"A data table with information about the datasets associated with the queried platform. A `404 error` if the given identifier does not map to any object."
+
+# getPlatformElements
+# example
+dat <- getPlatformElements("GPL1355")
+str(dat, vec.len = 1, max.level = 1)
+# value
+"A data table with information about the elements (probes or genes) used by the queried platform. A `404 error` if the given identifier does not map to any object.
+
+# getPlatformElementGenes
+# example
+getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
+# value
+"A data table with information about the gene(s) on the queried platform element. A `404 error` if the given identifier does not map to any object."
+
+# getGenesInfo
+# example
+getGenesInfo("DYRK1A")
+getGenesInfo(c("DYRK1A", "PTEN"))
+# value
+"A data table with information about the queried gene(s)."
+
+# getGeneEvidence
+# example
+getGeneEvidence("DYRK1A")
+# value
+"If raw is FALSE (default), a data table with information about the disease linkage evidence of the queried gene.
+If raw is TRUE, a list with the same information."
+
+# getGeneLocation
+# example
+getGeneLocation("DYRK1A")
+# value
+"A data table with information about the physical location of the queried gene. A `404 error` if the given identifier does not map to any object."
+
+# getGeneProbes
+# example
+dat <- getGeneProbes("DYRK1A")
+str(dat, vec.len = 2)
+# value
+"A data table with information about the probes that map to the queried gene. Note, that it is possible for probes to map to multiple
+genes.
+A `404 error` if the given identifier does not map to any object."
+
+# getGeneGO
+# example
+getGeneGO("DYRK1A")
+# value
+"A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object. Go terms were updated on June 10 2022"
+
+# getTaxa
+# example
+getTaxa(1)
+getTaxa(c(1, 2))
+# value
+"If raw is FALSE (default), a data table with information about the queried taxon/taxa.
+If raw is TRUE, a list with the same information."
+
+# getTaxonDatasets
+# example
+dat <- getTaxonDatasets("human")
+str(dat, vec.len = 2)
+# value
+"If raw is FALSE (default), a data table with information about the datasets associated to the queried taxon.
+If raw is TRUE, a list with the same information."
+
+# getTaxonPhenotypeCandidates
+# example
+dat <- getTaxonPhenotypeCandidates("human", phenotypes = c("http://purl.obolibrary.org/obo/DOID_11934",
+                                                    "http://purl.obolibrary.org/obo/DOID_3119"))
+str(dat, vec.len = 2, max.level = 1)
+# value
+"If raw is FALSE (default), a data table with information about the genes associated with the queried phenotype(s) in the queried taxon.
+If raw is TRUE, a list with the same information."
+
+# getGeneOnTaxon
+# example
+getGeneOnTaxon("human", "DYRK1A")
+# value
+"If raw is FALSE (default), a data table with information about the queried gene in the queried taxon.
+If raw is TRUE, a list with the same information."
+
+# getGeneLocationOnTaxon
+# example
+getGeneLocationOnTaxon("human", "DYRK1A")
+# value
+"If raw is FALSE (default), a data table with information about the location of queried gene in the queried taxon.
+If raw is TRUE, a list with the same information."
+
+# getGenesAtLocation
+# example
+getGenesAtLocation("human", chromosome = 21, strand = '+', start = 2, size = 20000)
+# value
+"If raw is FALSE (default), a data table with information about the location gene(s) overlapping the queried region in the queried taxon.
+If raw is TRUE, a list with the same information."
+
+# searchAnnotations
+# example
+annots <- searchAnnotations("traumatic")
+# value
+"A data table with annotations (annotation search result value objects) matching the given identifiers. A `400 error` if required parameters are missing.
+
+# getDatasetResultSets
+# example
+resultSets <- getDatasetResultSets("GSE2018")
+getDatasetDE(resultSet =resultSets$resultSet.id)
+# value
+"A data table with the queried dataset's resultSet ID(s). Use getDatasetDE to get differential expression values (see examples)."

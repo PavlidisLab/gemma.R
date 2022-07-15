@@ -9,7 +9,7 @@ getPlatformDatasets(
   offset = 0L,
   limit = 20L,
   raw = getOption("gemma.raw", FALSE),
-  memoised = getOption("gemma.memoise", FALSE),
+  memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE)
 )
@@ -31,8 +31,10 @@ objects.}
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.}
 
-\item{memoised}{Whether or not to cache results so future requests for the same data
-will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+\code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \code{forgetGemmaMemoised} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
 results to a file. If \code{raw == TRUE}, the output will be a JSON file.
@@ -41,9 +43,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of datasets (expression experiment value objects) that are on
-the given platform.
-A \verb{404 error} if the given identifier does not map to any object.
+A data table with information about the datasets associated with the queried platform. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves experiments in the given platform

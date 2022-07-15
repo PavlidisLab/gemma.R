@@ -7,7 +7,7 @@
 getDatasetTidy(
   dataset,
   filter = FALSE,
-  memoised = getOption("gemma.memoise", FALSE)
+  memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{
@@ -15,8 +15,10 @@ getDatasetTidy(
 
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 
-\item{memoised}{Whether or not to cache results so future requests for the same data
-will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+\code{options(gemma.memoised = TRUE)} will ensure that the cache is always used.
+Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
 A tibble that combines the expression and design matrices.
@@ -27,8 +29,6 @@ tibble for easy visualization and exploration with ggplot and the rest of the ti
 }
 \examples{
 
-\donttest{
 getDatasetTidy("GSE2018")
-}
 }
 \keyword{dataset}
