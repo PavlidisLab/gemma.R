@@ -4,7 +4,7 @@
 \alias{getGenomeVersions}
 \title{Get genome versions}
 \usage{
-getGenomeVersions(memoised = getOption("gemma.memoise", FALSE))
+getGenomeVersions(memoised = getOption("gemma.memoised", FALSE))
 }
 \arguments{
 \item{memoised}{Whether or not to save to cache for future calls with the same inputs

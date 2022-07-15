@@ -7,7 +7,7 @@
 getDatasetTidy(
   dataset,
   filter = FALSE,
-  memoised = getOption("gemma.memoise", FALSE)
+  memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{
