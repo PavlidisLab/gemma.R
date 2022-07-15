@@ -314,23 +314,23 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
 #' @export
 #' @examples
 #' getGenomeVersions()
-getGenomeVersions  = function(memoised = getOption("gemma.memoised", FALSE)){
+getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
     LOOKUP_TABLE <- data.table(
-        id = c(1, 2, 3, 11, 12, 13, 14),
-        name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
-        scientific = c(
+        id <- c(1, 2, 3, 11, 12, 13, 14),
+        name <- c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
+        scientific <- c(
             "Homo sapiens", "Mus musculus", "Rattus norvegicus",
             "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
             "Caenorhabditis elegans"
         ),
-        ncbi = c(9606, 
+        ncbi <- c(9606, 
                  10090,
                  10116, 
                  4932,
                  7955, 
                  7227,
                  6239),
-        example_gene = c(6125, # this list is created by picking a random gene with homologues in each species
+        example_gene <- c(6125, # this list is created by picking a random gene with homologues in each species
                          100503670,
                          81763,
                          855972,
@@ -339,7 +339,7 @@ getGenomeVersions  = function(memoised = getOption("gemma.memoised", FALSE)){
                          174371)
     )
     
-    LOOKUP_TABLE$genome_version = sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
+    LOOKUP_TABLE$genome_version <- sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
         getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
     })
     
