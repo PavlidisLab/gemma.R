@@ -17,6 +17,7 @@ vignette: >
 ```{r, include = FALSE}
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE,gemma.memoised = TRUE)
+forgetGemmaMemoised() # to make sure local tests don't succeed because of history
 
 knitr::opts_chunk$set(
     comment = ""
