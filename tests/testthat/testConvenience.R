@@ -51,6 +51,6 @@ test_that("getDatasetDE works properly",{
 
 
 test_that('getGenomeVersions works properly',{
-    out = getGenomeVersions()
+    out <- getGenomeVersions()
     expect_true(!is.null(out$genome_version))
 })

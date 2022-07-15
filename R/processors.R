@@ -59,7 +59,7 @@
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
             if (isFile && raw){
-                extension = '.gz'
+                extension <- '.gz'
             }
 
             file <- paste0(tools::file_path_sans_ext(file), extension)
