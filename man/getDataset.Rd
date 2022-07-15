@@ -8,7 +8,7 @@ getDataset(
   dataset,
   filter = FALSE,
   type = "se",
-  memoised = getOption("gemma.memoise", FALSE)
+  memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{

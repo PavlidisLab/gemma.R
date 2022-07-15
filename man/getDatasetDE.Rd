@@ -7,7 +7,7 @@
 getDatasetDE(
   dataset = NA_character_,
   resultSet = NA_integer_,
-  memoised = getOption("gemma.memoise", FALSE)
+  memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{
