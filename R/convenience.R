@@ -20,8 +20,10 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @param annotType Which GO terms should the output include
 #' @param file Where to save the annotation file to, or empty to just load into memory
 #' @param overwrite Whether or not to overwrite an existing file
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
@@ -113,7 +115,18 @@ getPlatformAnnotation <- function(platform,
 #' Memoise getPlatformAnnotation
 #'
 #' @noRd
-memgetPlatformAnnotation <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+memgetPlatformAnnotation <- function(platform,
+                                     annotType = c("bioProcess", "noParents", "allParents"),
+                                     file = getOption("gemma.file", NA_character_),
+                                     overwrite = getOption("gemma.overwrite", FALSE),
+                                     memoised = getOption("gemma.memoise", FALSE),
+                                     unzip = FALSE) {
+    mem_call <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+    mem_call(
+        platform = platform, annotType = annotType, memoised = FALSE, file = file,
+        overwrite = overwrite, unzip=unzip
+    )
+}
 
 
 #' Dataset expression and design
@@ -126,20 +139,21 @@ memgetPlatformAnnotation <- memoise::memoise(getPlatformAnnotation, cache = gemm
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' cache. Use \code{forgetGemmaMemoised} to clear the cache.
 #'
 #' @return A SummarizedExperiment or ExpressionSet of the queried dataset.
 #' @keywords dataset
 #' @export
 #' @examples
-#' \donttest{
 #' getDataset("GSE2018")
-#' }
-getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoise", FALSE)) {
+getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se") {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
     }
@@ -210,18 +224,18 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #'
 #' @return A tibble that combines the expression and design matrices.
 #' @keywords dataset
 #' @export
 #' @examples
 #'
-#' \donttest{
 #' getDatasetTidy("GSE2018")
-#' }
-getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoise", FALSE)) {
+getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoised", FALSE)) {
     design <- getDatasetDesign(dataset,memoised = memoised) %>%
         tibble::rownames_to_column("Sample")
     # Get expression data, convert to long format and add exp. design
@@ -238,24 +252,26 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' Dataset differential expression
 #'
 #' Retrieves the differential expression resultSet(s) associated with the dataset.
-#' If there is more than one resultSet, use [getDatasetResultSets()] to see
+#' If there is more than one resultSet, use [getDatasetResultSets()] or [getDatasetDEA()] to see
 #' the options and get the ID you want. Alternatively, you can query the resultSet
 #' directly if you know its ID beforehand.
+#' 
+#' Methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10 000 transcriptomic studies to enable data reuse}. Specifically, "differential expression analysis is performed on the dataset based on the annotated experimental design. In cases where certain terms are used (e.g. ‘reference substance role’ (OBI_0000025), ‘reference subject role’ (OBI_0000220), ‘initial time point’ (EFO_0004425), ‘wild type genotype’ (EFO_0005168), ‘control’ (EFO_0001461), etc.), Gemma automatically assigns these conditions as the baseline control group; in absence of a clear control condition, a baseline is arbitrarily selected. To perform the analysis, a generalized linear model is fit to the data for each platform element (probe/gene). For RNA-seq data, we use weighted regression, using an in-house implementation of the voom algorithm to compute weights from the mean–variance relationship of the data. Contrasts of each condition are then compared to the selected baseline. In datasets where the ‘batch’ factor is confounded with another factor, separate differential expression analyses are performed on subsets of the data; the subsets being determined by the levels of the confounding factor."
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
-#' @param all If TRUE, will download all differential expression resultSets for the dataset.
-#' @param memoised Whether or not to cache results so future requests for the same data
-#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
 #'
-#' @return A data table with differential expression values. If there are multiple
-#' resultSets and all = TRUE, a list of data tables with differential expression
-#' values.
+#' @return A list of data tables with differential expression
+#' values per result set.
 #' @keywords dataset
 #' @export
 #' @examples
 #' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all = FALSE, memoised = getOption("gemma.memoise", FALSE)) {
+getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
         rss <- getDatasetResultSets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
@@ -264,9 +280,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all =
     }
     else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
         rss <- getDatasetResultSets(dataset,memoised = memoised)
-        if (nrow(rss) > 1 && all == FALSE){
-            stop("There are multiple resultSets for this dataset. Check the available resultSets with `getDatasetResultSets()` or choose all = TRUE")
-        } else if (nrow(rss) > 1 && all == TRUE){
+         if (nrow(rss) > 1){
             resultSet <- rss$resultSet.id %>% unique()
         } else{
             resultSet <- rss$resultSet.id
@@ -281,8 +295,53 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, all =
         .getResultSets(x,memoised = memoised) %>%
             processDEcontrasts(x)
     })
-    if (length(rs) == 1){
-        rs <- rs[[1]]
-    }
+    names(rs) <- resultSet
+    
     rs
+}
+
+
+
+#' Get genome versions
+#' 
+#' Returns the genome version used within Gemma
+#' 
+#' @param memoised Whether or not to save to cache for future calls with the same inputs
+#' and use the result saved in cache if a result is already saved. Doing
+#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
+#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' @return A data frame
+#' @export
+#' @examples
+#' getGenomeVersions()
+getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
+    LOOKUP_TABLE <- data.table(
+        id = c(1, 2, 3, 11, 12, 13, 14),
+        name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
+        scientific = c(
+            "Homo sapiens", "Mus musculus", "Rattus norvegicus",
+            "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
+            "Caenorhabditis elegans"
+        ),
+        ncbi = c(9606, 
+                 10090,
+                 10116, 
+                 4932,
+                 7955, 
+                 7227,
+                 6239),
+        example_gene = c(6125, # this list is created by picking a random gene with homologues in each species
+                         100503670,
+                         81763,
+                         855972,
+                         326961,
+                         3355124,
+                         174371)
+    )
+    
+    LOOKUP_TABLE$genome_version <- sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
+        getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
+    })
+    
+    LOOKUP_TABLE[,c('name','scientific','ncbi','genome_version')]
 }

@@ -6,11 +6,11 @@
 \usage{
 getPlatformElements(
   platform,
-  element = NA_character_,
+  elements = NA_character_,
   offset = 0L,
   limit = 20L,
   raw = getOption("gemma.raw", FALSE),
-  memoised = getOption("gemma.memoise", FALSE),
+  memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE)
 )
@@ -21,7 +21,9 @@ Can either be the platform ID or its short name (e.g: \code{GPL1355})
 Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.}
 
-\item{element}{Required, part of the URL path. Can either be the probe name or ID.}
+\item{elements}{Optional, defaults to empty. Limits the result to entities with given
+identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
+AFFX_Rat_Hexokinase_M_at)}
 
 \item{offset}{Optional, defaults to \code{0}.
 Skips the specified amount of objects when retrieving them from the
@@ -34,8 +36,10 @@ objects.}
 parsing. Raw results usually contain additional fields and flags that
 are omitted in the parsed results.}
 
-\item{memoised}{Whether or not to cache results so future requests for the same data
-will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+\code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \code{forgetGemmaMemoised} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
 results to a file. If \code{raw == TRUE}, the output will be a JSON file.
@@ -44,10 +48,7 @@ Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-An array of elements (composite sequence value objects) of the given
-platform.
-Empty collection, if no elements matched the \code{elements} parameter.
-A \verb{404 error} if the given identifier does not map to any object.
+A data table with information about the elements (probes or genes) used by the queried platform. A \verb{404 error} if the given identifier does not map to any object.
 }
 \description{
 Retrieves the composite sequences (elements) for the given platform
