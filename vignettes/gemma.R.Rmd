@@ -8,6 +8,8 @@ author:
 package: gemma.R
 output:
     BiocStyle::html_document
+header-includes:
+    - DeclareUnicodeCharacter{2009}{\,} 
 vignette: >
     %\VignetteIndexEntry{Accessing curated gene expression data with gemma.R}
     %\VignetteEngine{knitr::rmarkdown}
@@ -16,7 +18,7 @@ vignette: >
 
 ```{r, include = FALSE}
 # Prevent certificate issues for GitHub actions
-options(gemma.SSL = FALSE)
+options(gemma.SSL = FALSE,gemma.memoised = TRUE)
 
 knitr::opts_chunk$set(
     comment = ""
@@ -30,6 +32,9 @@ library(ggplot2)
 library(ggrepel)
 library(SummarizedExperiment)
 ```
+```{r, include = FALSE}
+forgetGemmaMemoised() # to make sure local tests don't succeed because of history
+```
 
 # About Gemma
 [Gemma](https://gemma.msl.ubc.ca/) is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.
@@ -38,16 +43,6 @@ For detailed information on the curation process, read this [page](https://pavli
 
 # Installation instructions
 
-## Development
-
-The current development version of `gemma.R` can be installed with:
-
-```{r, eval = FALSE}
-if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("devtools")
-}
-devtools::install_github("PavlidisLab/gemma.R")
-```
 
 ## Bioconductor (not available yet)
 You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
@@ -58,6 +53,17 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 }
 
 BiocManager::install("gemma.R")
+```
+
+## Development
+
+The current development version of `gemma.R` can be installed with:
+
+```{r, eval = FALSE}
+if (!requireNamespace("devtools", quietly = TRUE)) {
+    install.packages("devtools")
+}
+devtools::install_github("PavlidisLab/gemma.R")
 ```
 
 # Downloading expression data
@@ -81,13 +87,13 @@ It is a high-level wrapper that combines various
 endpoint calls to return an annotated [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html) or [`ExpressionSet`](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf) of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with
 the experimental design, and ensure the sample names match between both when transforming/subsetting data. 
 
-```{r load-expression, eval = FALSE}
+```{r load-expression, eval = TRUE}
 dat <- getDataset("GSE46416")
 ```
 
 ```{r include = FALSE}
 ## Pre-loads the summarized experiment to save time and pass vignette build
-dat <- readRDS("se.rds")
+# dat <- readRDS("se.rds")
 ```
 
 To show how subsetting works, we'll keep the manic phase data and the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
@@ -104,7 +110,7 @@ manic
 Let's check the expression for every sample to make sure they look OK:
 ```{r boxplot, fig.cap="Gene expression distributions of bipolar patients during manic phase and controls."}
 # Get Expression matrix
-manicExpr <- assays(manic)$counts
+manicExpr <- assay(manic, "counts")
 boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
 ```
 
@@ -160,20 +166,6 @@ ggplot(
     theme_minimal()
 ```
 
-Since there are some datasets that have more than one ResultSet associated with them,
-you will get an error if you try to fetch that data directly:
-```{r, error = TRUE}
-getDatasetDE("GSE2872")
-```
-
-In this case, you can check the available resultSets to get the ID you need,
-or use `all = TRUE` to get a list containing all the resultSets.
-```{r, warning=FALSE}
-getDatasetResultSets("GSE2872")
-
-de <- getDatasetDE("GSE2872", resultSet = 500185)
-head(de)
-```
 
 ## Larger queries
 The `*Info()` endpoints accept multiple identifiers in a single function call. 
@@ -231,22 +223,33 @@ Sometimes, you may wish to save results to a file for future inspection. You can
 You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the `overwrite = TRUE` parameter.
 
 ## Memoise data
-To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call. By default this will create a cache in your local filesystem. 
+To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the [`memoise`](https://github.com/r-lib/memoise) package. To enable memoisation, simply set `memoised = TRUE` in the function call whenever you want to refer to the cache, both to save data for future calls and use the saved data for repeated calls.
+
+By default this will create a cache in your local filesystem. 
 
 You can see
-the path to your cache by using `tools::R_user_dir('gemmaR', which="cache")`. If you want to use a different directory, use
-`options(gemma.cache = 'path')` and reload the package
+the path to your cache by using `rappdirs::user_cache_dir(appname = "gemmaR")`. If you want to use a different directory, use
+`options(gemma.cache = 'path')`.
 
 If you're done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you're getting up-to-date data from Gemma, you can clear the cache using [`forgetGemmaMemoised()`](https://pavlidislab.github.io/gemma.R/reference/forgetGemmaMemoised.html).
 
 ## Changing defaults
-We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoised = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. For example, if you want to memoise results by default, you can use:
+We've seen how to change `raw = TRUE`, `overwrite = TRUE` and `memoised = TRUE` in individual function calls. It's possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. See below for examples.
 
-```{r defaults}
-options(gemma.memoise = TRUE)
+```{r defaults, eval = FALSE}
+options(gemma.memoised = TRUE) # always refer to cache
+options(gemma.overwrite = TRUE) # always overwrite when saving files
+options(gemma.raw = TRUE) # always recieve results as-is from Gemma
+```
+
+
+```{r,include = FALSE}
+options(gemma.memoised = FALSE)
+
 ```
 
 # Session info
 ```{r}
 sessionInfo()
 ```
+
