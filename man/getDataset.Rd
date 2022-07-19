@@ -8,7 +8,7 @@ getDataset(
   dataset,
   filter = FALSE,
   type = "se",
-  memoised = getOption("gemma.memoise", FALSE)
+  memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{
@@ -17,13 +17,16 @@ getDataset(
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 
 \item{type}{"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
-SummarizedExperiments which are more recent. See the Summarized experiment}
-
-\item{memoised}{Whether or not to cache results so future requests for the same data
-will be faster. Use \code{forgetGemmaMemoised} to clear the cache.
+SummarizedExperiments which are more recent. See the Summarized experiment
 \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 for more details.}
+
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+\code{options(gemma.memoised = TRUE)} will ensure that the cache is always used.
+Use \code{forgetGemmaMemoised} to clear the cache.
+cache. Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
 A SummarizedExperiment or ExpressionSet of the queried dataset.
@@ -34,8 +37,6 @@ data structure of the queried dataset, including expression data and
 the experimental design.
 }
 \examples{
-\donttest{
 getDataset("GSE2018")
-}
 }
 \keyword{dataset}

@@ -58,6 +58,10 @@
         }
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
+            if (isFile && raw){
+                extension <- '.gz'
+            }
+
             file <- paste0(tools::file_path_sans_ext(file), extension)
 
             if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
@@ -67,6 +71,8 @@
                     write(jsonlite::toJSON(mOut, pretty = 2), file)
                 } else if (extension == ".rds") {
                     saveRDS(mOut, file)
+                } else if (extension == '.gz'){
+                    writeBin(mOut,file)
                 } else {
                     utils::write.csv2(mOut, file, row.names = FALSE)
                 }
@@ -109,7 +115,7 @@ encode <- function(url) {
 #' @return Data or NA in case of an out of bounds error
 #'
 #' @keywords internal
-checkBounds = function(x){
+checkBounds <- function(x){
     tryCatch(x, error = function(e){
         if(e$message == "subscript out of bounds"){
             return(NA)
@@ -563,7 +569,9 @@ processDesignMatrix <- function(m) {
 #'
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-    m <- dplyr::select(m, -.data$Sequence, -.data$GemmaId)
+    # this version is a bit more forgiving to missing data fields
+    m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
+    # m <- dplyr::select(m, -.data$Sequence, -.data$GemmaId)
     # Remove redundant strings from sample names
     colnames(m) <- stringr::str_extract(colnames(m), "(?<=Name=).*")
     m
@@ -577,7 +585,8 @@ processExpressionMatrix <- function(m) {
 #'
 #' @keywords internal
 processDEMatrix <- function(m) {
-    dplyr::select(m, -.data$id, -.data$probe_id, -.data$gene_id, -.data$gene_name) %>%
+    m <- m[,!colnames(m) %in% c('id','probe_id','gene_id','gene_name'),with = FALSE]
+    m %>%
         dplyr::rename(
             Probe = .data$probe_name,
             GeneSymbol = .data$gene_official_symbol,
