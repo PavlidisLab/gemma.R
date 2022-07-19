@@ -29,20 +29,20 @@
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
-#' A successful response may contain 'Geeq'
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
+#' A successful response may contain a sub-element with 'Geeq'
 #' information, which aims to provide a unified metric to measure
 #' experiments by the quality of their data, and their suitability for use
-#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html)
+#' in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html).
 #' @export
 #'
 #' @keywords dataset
@@ -52,7 +52,7 @@
 #' getDatasetsInfo(c("GSE2018", "GSE2872"))
 getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -84,19 +84,7 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
 #' Memoise getDatasetsInfo
 #'
 #' @noRd
-memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
-    mem_call(
-        datasets = datasets, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetDatasetsInfo <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
 
 #' .getResultSets
 #'
@@ -106,10 +94,8 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
@@ -122,7 +108,7 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 .getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -152,22 +138,7 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 #' Memoise .getResultSets
 #'
 #' @noRd
-mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(.getResultSets, cache = gemmaCache())
-    mem_call(
-        resultSet = resultSet, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+mem.getResultSets <- memoise::memoise(.getResultSets, cache = gemmaCache())
 
 #' .getResultSetFactors
 #'
@@ -199,10 +170,8 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
@@ -215,7 +184,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 .getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
     offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -248,20 +217,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' Memoise .getResultSetFactors
 #'
 #' @noRd
-mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
-    mem_call(
-        resultSet = resultSet, dataset = dataset, offset = offset,
-        limit = limit, sort = sort, excludeResults = excludeResults,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
-    )
-}
+mem.getResultSetFactors <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
 
 #' getDatasetResultSets
 #'
@@ -274,25 +230,22 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with the queried dataset's resultSet ID(s). Use getDatasetDE to get differential expression values (see examples).
+#' @return Varies
 #' @export
 #'
 #' @keywords dataset
 #'
 #' @examples
-#' resultSets <- getDatasetResultSets("GSE2018")
-#' getDatasetDE(resultSet = resultSets$resultSet.id)
+#' getDatasetResultSets("GSE2018")
 getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -322,19 +275,7 @@ getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' Memoise getDatasetResultSets
 #'
 #' @noRd
-memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetResultSets <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
 
 #' getDatasetExpression
 #'
@@ -350,27 +291,26 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
-#' If raw is TRUE, returns the binary file in raw form.
+#' @return Varies
 #' @export
 #'
 #' @keywords dataset
 #'
 #' @examples
+#' \donttest{
 #' dat <- getDatasetExpression("GSE2018")
+#' }
 getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -401,22 +341,7 @@ getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' Memoise getDatasetExpression
 #'
 #' @noRd
-memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, filter = filter, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetExpression <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
 
 #' Dataset samples
 #'
@@ -429,16 +354,15 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the samples of the queried dataset. A `404 error` if the given identifier does not map to any object.
+#' @return An array of samples (bio assay value objects) in the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords dataset
@@ -447,7 +371,7 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' dat <- getDatasetSamples("GSE2018")
 #' head(dat)
 getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -485,19 +409,7 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
 #' Memoise getDatasetSamples
 #'
 #' @noRd
-memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetSamples <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
 
 #' Dataset platforms
 #'
@@ -510,16 +422,16 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the platform(s) of the queried dataset. A`404 error` if the given identifier does not map to any object.
+#' @return An array of platforms (array design value objects) containing the given
+#' dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords dataset
@@ -527,7 +439,7 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' @examples
 #' getDatasetPlatforms("GSE2018")
 getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -565,19 +477,7 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Memoise getDatasetPlatforms
 #'
 #' @noRd
-memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetPlatforms <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
 
 #' Dataset annotations
 #'
@@ -590,16 +490,15 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the annotations of the queried dataset.
+#' @return An array of annotations (annotation value objects) attached to the given
+#' dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
@@ -608,7 +507,7 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @examples
 #' getDatasetAnnotations("GSE2018")
 getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -646,19 +545,7 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #' Memoise getDatasetAnnotations
 #'
 #' @noRd
-memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetAnnotations <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
 
 #' Dataset design
 #'
@@ -671,16 +558,15 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table of the design matrix for the queried dataset. A `404 error` if the given identifier does not map to any object.
+#' @return The design file for the given dataset.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords dataset
@@ -689,7 +575,7 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' dat <- getDatasetDesign("GSE2018")
 #' str(dat)
 getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -727,23 +613,11 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' Memoise getDatasetDesign
 #'
 #' @noRd
-memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetDesign <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
 
-#' getDatasetDEA
+#' Dataset differential analysis
 #'
-#' Dataset differential analysis details
+#' Retrieves the differential analysis results for the given dataset
 #'
 #' @param dataset Required, part of the URL path.
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
@@ -752,16 +626,15 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the differential expression analysis of the queried dataset. Note that this funciton does not return differential expression values themselves. Use getDatasetDE to get differential expression values (see examples).
+#' @return An array of analyses (differential expression value objects) in the
+#' given dataset.
 #' A `404 error` if the given identifier does not map to any object.
 #' A `400 error` if required parameters are missing.
 #' @export
@@ -769,10 +642,9 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' @keywords dataset
 #'
 #' @examples
-#' result <- getDatasetDEA("GSE2018")
-#' getDatasetDE(resultSet = result$result.ID)
+#' getDatasetDEA("GSE2018")
 getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -810,19 +682,7 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
 #' Memoise getDatasetDEA
 #'
 #' @noRd
-memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
+memgetDatasetDEA <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
 
 #' Platforms
 #'
@@ -855,16 +715,16 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the queried platform(s).
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
 #' @export
 #'
 #' @keywords platform
@@ -874,7 +734,7 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' getPlatformsInfo(c("GPL1355", "GPL96"))
 getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -906,19 +766,7 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
 #' Memoise getPlatformsInfo
 #'
 #' @noRd
-memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
-    mem_call(
-        platforms = platforms, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetPlatformsInfo <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
 
 #' Platform datasets
 #'
@@ -936,16 +784,16 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the datasets associated with the queried platform. A `404 error` if the given identifier does not map to any object.
+#' @return An array of datasets (expression experiment value objects) that are on
+#' the given platform.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords platform
@@ -956,7 +804,7 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -991,22 +839,7 @@ getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOpt
 #' Memoise getPlatformDatasets
 #'
 #' @noRd
-memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
-    mem_call(
-        platform = platform, offset = offset, limit = limit,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
-    )
-}
+memgetPlatformDatasets <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
 
 #' Platform elements
 #'
@@ -1016,9 +849,7 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' Can either be the platform ID or its short name (e.g: `GPL1355`)
 #' Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
-#' @param elements Optional, defaults to empty. Limits the result to entities with given
-#' identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
-#' AFFX_Rat_Hexokinase_M_at)
+#' @param element Required, part of the URL path. Can either be the probe name or ID.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
@@ -1027,16 +858,17 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the elements (probes or genes) used by the queried platform. A `404 error` if the given identifier does not map to any object.
+#' @return An array of elements (composite sequence value objects) of the given
+#' platform.
+#' Empty collection, if no elements matched the `elements` parameter.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords platform
@@ -1044,9 +876,9 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' @examples
 #' dat <- getPlatformElements("GPL1355")
 #' str(dat, vec.len = 1, max.level = 1)
-getPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
+getPlatformElements <- function(platform, element = NA_character_, offset = 0L, limit = 20L,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1057,13 +889,13 @@ getPlatformElements <- function(platform, elements = NA_character_, offset = 0L,
     fname <- "getPlatformElements"
     preprocessor <- processElements
     validators <- list(
-        platform = validateSingleID, elements = validateOptionalID,
+        platform = validateSingleID, element = validateOptionalID,
         offset = validatePositiveInteger, limit = validateLimit
     )
-    endpoint <- "platforms/{encode(platform)}/elements/{encode(elements)}?offset={encode(offset)}&limit={encode(limit)}"
+    endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         out <- memgetPlatformElements(
-            platform = platform, elements = elements,
+            platform = platform, element = element,
             offset = offset, limit = limit, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite
         )
@@ -1078,19 +910,7 @@ getPlatformElements <- function(platform, elements = NA_character_, offset = 0L,
 #' Memoise getPlatformElements
 #'
 #' @noRd
-memgetPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(getPlatformElements, cache = gemmaCache())
-    mem_call(
-        platform = platform, elements = elements, offset = offset,
-        limit = limit, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetPlatformElements <- memoise::memoise(getPlatformElements, cache = gemmaCache())
 
 #' Platform element genes
 #'
@@ -1109,16 +929,17 @@ memgetPlatformElements <- function(platform, elements = NA_character_, offset = 
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the gene(s) on the queried platform element. A `404 error` if the given identifier does not map to any object.
+#' @return An array of genes (gene value objects) aligned with the the given
+#' platform element.
+#' All identifiers must be valid.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords platform
@@ -1128,7 +949,7 @@ memgetPlatformElements <- function(platform, elements = NA_character_, offset = 
 getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1163,23 +984,7 @@ getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L,
 #' Memoise getPlatformElementGenes
 #'
 #' @noRd
-memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
-    mem_call(
-        platform = platform, element = element, offset = offset,
-        limit = limit, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetPlatformElementGenes <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
 
 #' Genes
 #'
@@ -1197,16 +1002,17 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the queried gene(s).
+#' @return An array of value objects representing the objects that matched the
+#' query.
+#' Empty array if no objects matched.
+#' A `400 error` if required parameters are missing.
 #' @export
 #'
 #' @keywords gene
@@ -1215,7 +1021,7 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' getGenesInfo("DYRK1A")
 #' getGenesInfo(c("DYRK1A", "PTEN"))
 getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1245,19 +1051,7 @@ getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #' Memoise getGenesInfo
 #'
 #' @noRd
-memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getGenesInfo, cache = gemmaCache())
-    mem_call(
-        genes = genes, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetGenesInfo <- memoise::memoise(getGenesInfo, cache = gemmaCache())
 
 #' Gene locations
 #'
@@ -1273,16 +1067,16 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the physical location of the queried gene. A `404 error` if the given identifier does not map to any object.
+#' @return An array of locations (physical location value objects) of the given
+#' gene or gene homologues.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords gene
@@ -1290,7 +1084,7 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' @examples
 #' getGeneLocation("DYRK1A")
 getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1320,19 +1114,7 @@ getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised 
 #' Memoise getGeneLocation
 #'
 #' @noRd
-memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getGeneLocation, cache = gemmaCache())
-    mem_call(
-        gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetGeneLocation <- memoise::memoise(getGeneLocation, cache = gemmaCache())
 
 #' Gene probes
 #'
@@ -1353,16 +1135,15 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the probes that map to the queried gene. Note, that it is possible for probes to map to multiple
+#' @return An array of probes (composite sequence value objects) that are mapped to
+#' this gene. Note, that it is possible for probes to map to multiple
 #' genes.
 #' A `404 error` if the given identifier does not map to any object.
 #' @export
@@ -1375,7 +1156,7 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         "gemma.raw",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+    ), memoised = getOption("gemma.memoise", FALSE), file = getOption(
         "gemma.file",
         NA_character_
     ), overwrite = getOption(
@@ -1410,22 +1191,7 @@ getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' Memoise getGeneProbes
 #'
 #' @noRd
-memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getGeneProbes, cache = gemmaCache())
-    mem_call(
-        gene = gene, offset = offset, limit = limit, raw = raw,
-        memoised = FALSE, file = file, overwrite = overwrite
-    )
-}
+memgetGeneProbes <- memoise::memoise(getGeneProbes, cache = gemmaCache())
 
 #' Gene goTerms
 #'
@@ -1441,16 +1207,16 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object. Go terms were updated on June 10 2022
+#' @return An array of GO terms (gene ontology term value objects) associated with
+#' the given gene.
+#' A `404 error` if the given identifier does not map to any object.
 #' @export
 #'
 #' @keywords gene
@@ -1458,7 +1224,7 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' @examples
 #' getGeneGO("DYRK1A")
 getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1488,19 +1254,7 @@ getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getO
 #' Memoise getGeneGO
 #'
 #' @noRd
-memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(getGeneGO, cache = gemmaCache())
-    mem_call(
-        gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memgetGeneGO <- memoise::memoise(getGeneGO, cache = gemmaCache())
 
 #' Dataset search
 #'
@@ -1538,16 +1292,15 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with information about matching datasets. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
+#' @return An array of datasets (expression experiment value objects) that are
+#' annotated with the given ontology terms, or, in case of plaintext query,
 #' experiments that contain the given words (name, short name, accession,
 #' tags)
 #' If an ontology term URI is given, the results will also include datasets
@@ -1563,7 +1316,7 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' str(dat)
 searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
@@ -1595,19 +1348,7 @@ searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20
 #' Memoise searchDatasets
 #'
 #' @noRd
-memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(searchDatasets, cache = gemmaCache())
-    mem_call(
-        query = query, taxon = taxon, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memsearchDatasets <- memoise::memoise(searchDatasets, cache = gemmaCache())
 
 #' Annotation search
 #'
@@ -1625,24 +1366,26 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that
 #' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
+#' @param memoised Whether or not to cache results so future requests for the same data
+#' will be faster. Use `forgetGemmaMemoised` to clear the cache.
 #' @param file The name of a file to save the results to, or `NULL` to not write
 #' results to a file. If `raw == TRUE`, the output will be a JSON file.
 #' Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
-#' @return A data table with annotations (annotation search result value objects) matching the given identifiers. A `400 error` if required parameters are missing.
+#' @return An array of annotations (annotation search result value objects)
+#' matching the given identifiers.
+#' A `400 error` if required parameters are missing.
 #' @export
 #'
 #' @keywords misc
 #'
 #' @examples
-#' annots <- searchAnnotations("traumatic")
+#' \donttest{
+#' searchAnnotations("traumatic")
+#' }
 searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+        "gemma.memoise",
         FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
@@ -1672,19 +1415,7 @@ searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memois
 #' Memoise searchAnnotations
 #'
 #' @noRd
-memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(searchAnnotations, cache = gemmaCache())
-    mem_call(
-        query = query, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite
-    )
-}
+memsearchAnnotations <- memoise::memoise(searchAnnotations, cache = gemmaCache())
 
 
 #' Clear gemma.R cache
@@ -1697,7 +1428,25 @@ memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), mem
 #' @export
 #'
 #' @keywords misc
-forgetGemmaMemoised <- forgetGemmaMemoised <- function() {
-    mem <- memoise::memoise(function() {}, cache = gemmaCache())
-    memoise::forget(mem)
+forgetGemmaMemoised <- function() {
+    memoise::forget(memgetDatasetsInfo)
+    memoise::forget(mem.getResultSets)
+    memoise::forget(mem.getResultSetFactors)
+    memoise::forget(memgetDatasetResultSets)
+    memoise::forget(memgetDatasetExpression)
+    memoise::forget(memgetDatasetSamples)
+    memoise::forget(memgetDatasetPlatforms)
+    memoise::forget(memgetDatasetAnnotations)
+    memoise::forget(memgetDatasetDesign)
+    memoise::forget(memgetDatasetDEA)
+    memoise::forget(memgetPlatformsInfo)
+    memoise::forget(memgetPlatformDatasets)
+    memoise::forget(memgetPlatformElements)
+    memoise::forget(memgetPlatformElementGenes)
+    memoise::forget(memgetGenesInfo)
+    memoise::forget(memgetGeneLocation)
+    memoise::forget(memgetGeneProbes)
+    memoise::forget(memgetGeneGO)
+    memoise::forget(memsearchDatasets)
+    memoise::forget(memsearchAnnotations)
 }

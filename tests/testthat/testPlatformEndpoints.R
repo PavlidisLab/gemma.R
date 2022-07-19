@@ -35,8 +35,8 @@ test_that("getPlatformElements queries work", {
         dat[, c(mapping.Name, mapping.Description)],
         c(raw$name, raw$description)
     )
-    dat <- getPlatformElements("GPL1355", elements = "AFFX_Rat_beta-actin_M_at")
-    raw <- getPlatformElements("GPL1355", elements = "AFFX_Rat_beta-actin_M_at", raw = TRUE)
+    dat <- getPlatformElements("GPL1355", element = "AFFX_Rat_beta-actin_M_at")
+    raw <- getPlatformElements("GPL1355", element = "AFFX_Rat_beta-actin_M_at", raw = TRUE)
     expect_equal(
         dat[, c(mapping.Name, mapping.Description)],
         c(raw$name, raw$description)

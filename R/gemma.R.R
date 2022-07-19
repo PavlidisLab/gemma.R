@@ -32,7 +32,6 @@
 #' @name gemma.R
 #'
 #' @import data.table
-#' @import bit64
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 NULL
