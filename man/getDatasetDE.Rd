@@ -7,7 +7,8 @@
 getDatasetDE(
   dataset = NA_character_,
   resultSet = NA_integer_,
-  memoised = getOption("gemma.memoised", FALSE)
+  all = FALSE,
+  memoised = getOption("gemma.memoise", FALSE)
 )
 }
 \arguments{
@@ -15,23 +16,21 @@ getDatasetDE(
 
 \item{resultSet}{A resultSet identifier.}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the catche is always used.
-Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{all}{If TRUE, will download all differential expression resultSets for the dataset.}
+
+\item{memoised}{Whether or not to cache results so future requests for the same data
+will be faster. Use \code{forgetGemmaMemoised} to clear the cache.}
 }
 \value{
-A list of data tables with differential expression
-values per result set.
+A data table with differential expression values. If there are multiple
+resultSets and all = TRUE, a list of data tables with differential expression
+values.
 }
 \description{
 Retrieves the differential expression resultSet(s) associated with the dataset.
-If there is more than one resultSet, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} or \code{\link[=getDatasetDEA]{getDatasetDEA()}} to see
+If there is more than one resultSet, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} to see
 the options and get the ID you want. Alternatively, you can query the resultSet
 directly if you know its ID beforehand.
-}
-\details{
-Methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10 000 transcriptomic studies to enable data reuse}. Specifically, "differential expression analysis is performed on the dataset based on the annotated experimental design. In cases where certain terms are used (e.g. ‘reference substance role’ (OBI_0000025), ‘reference subject role’ (OBI_0000220), ‘initial time point’ (EFO_0004425), ‘wild type genotype’ (EFO_0005168), ‘control’ (EFO_0001461), etc.), Gemma automatically assigns these conditions as the baseline control group; in absence of a clear control condition, a baseline is arbitrarily selected. To perform the analysis, a generalized linear model is fit to the data for each platform element (probe/gene). For RNA-seq data, we use weighted regression, using an in-house implementation of the voom algorithm to compute weights from the mean–variance relationship of the data. Contrasts of each condition are then compared to the selected baseline. In datasets where the ‘batch’ factor is confounded with another factor, separate differential expression analyses are performed on subsets of the data; the subsets being determined by the levels of the confounding factor."
 }
 \examples{
 getDatasetDE("GSE2018")
