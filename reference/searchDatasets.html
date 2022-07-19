@@ -24,7 +24,7 @@ name matching the given string"><meta property="og:image" content="/logo.png"><!
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.23</span>
       </span>
     </div>
 
@@ -78,7 +78,7 @@ name matching the given string</p>
 <span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"+id"</span>,</span>
 <span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -136,8 +136,10 @@ are omitted in the parsed results.</p></dd>
 
 
 <dt>memoised</dt>
-<dd><p>Whether or not to cache results so future requests for the same data
-will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+<dd><p>Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+<code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
+used. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
 
 
 <dt>file</dt>
@@ -154,8 +156,7 @@ Otherwise, it will be a RDS file.</p></dd>
     <h2>Value</h2>
     
 
-<p>An array of datasets (expression experiment value objects) that are
-annotated with the given ontology terms, or, in case of plaintext query,
+<p>A data table with information about matching datasets. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
 experiments that contain the given words (name, short name, accession,
 tags)
 If an ontology term URI is given, the results will also include datasets
@@ -201,7 +202,7 @@ The search only only checks the annotations value, not the category
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

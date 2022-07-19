@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.23</span>
       </span>
     </div>
 
@@ -71,11 +71,11 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">getPlatformElements</span><span class="op">(</span></span>
 <span>  <span class="va">platform</span>,</span>
-<span>  element <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  elements <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoise"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -90,8 +90,10 @@ Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.</p></dd>
 
 
-<dt>element</dt>
-<dd><p>Required, part of the URL path. Can either be the probe name or ID.</p></dd>
+<dt>elements</dt>
+<dd><p>Optional, defaults to empty. Limits the result to entities with given
+identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
+AFFX_Rat_Hexokinase_M_at)</p></dd>
 
 
 <dt>offset</dt>
@@ -112,8 +114,10 @@ are omitted in the parsed results.</p></dd>
 
 
 <dt>memoised</dt>
-<dd><p>Whether or not to cache results so future requests for the same data
-will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+<dd><p>Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+<code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
+used. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
 
 
 <dt>file</dt>
@@ -130,10 +134,7 @@ Otherwise, it will be a RDS file.</p></dd>
     <h2>Value</h2>
     
 
-<p>An array of elements (composite sequence value objects) of the given
-platform.
-Empty collection, if no elements matched the <code>elements</code> parameter.
-A <code>404 error</code> if the given identifier does not map to any object.</p>
+<p>A data table with information about the elements (probes or genes) used by the queried platform. A <code>404 error</code> if the given identifier does not map to any object.</p>
     </div>
 
     <div id="ref-examples">
@@ -158,7 +159,7 @@ A <code>404 error</code> if the given identifier does not map to any object.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

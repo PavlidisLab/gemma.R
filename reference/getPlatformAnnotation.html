@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.23</span>
       </span>
     </div>
 
@@ -98,8 +98,10 @@
 
 
 <dt>memoised</dt>
-<dd><p>Whether or not to cache results so future requests for the same data
-will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+<dd><p>Whether or not to save to cache for future calls with the same inputs
+and use the result saved in cache if a result is already saved. Doing
+<code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always used.
+Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
 
 
 <dt>unzip</dt>
@@ -119,11 +121,11 @@ will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  6 variables:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  $ ProbeName  : chr  "211750_x_at" "216678_at" "216345_at" "207273_at" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneSymbols: chr  "TUBA1A|TUBA1C" "" "ZSWIM8" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneNames  : chr  "tubulin alpha 1a|tubulin alpha 1c" "" "zinc finger SWIM-type containing 8" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GOTerms    : chr  "GO:0000226|GO:0007017|GO:0050807|GO:0051301|GO:0000278|GO:0030705" "" "GO:0043161|GO:0016567|GO:2000627" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GemmaIDs   : chr  "172797|360802" "" "235733" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NCBIids    : chr  "7846|84790" "" "23053" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneSymbols: chr  "TUBA1C|TUBA1A" "" "ZSWIM8" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneNames  : chr  "tubulin alpha 1c|tubulin alpha 1a" "" "zinc finger SWIM-type containing 8" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GOTerms    : chr  "GO:0051301|GO:0000226|GO:0007017|GO:0000278|GO:0030705|GO:0050807" "" "GO:0043161|GO:0016567|GO:2000627" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GemmaIDs   : chr  "360802|172797" "" "235733" "" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NCBIids    : chr  "84790|7846" "" "23053" "" ...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
 </code></pre></div>
     </div>
@@ -139,7 +141,7 @@ will be faster. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
