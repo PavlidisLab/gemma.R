@@ -9,8 +9,7 @@ package: gemma.R
 output:
     BiocStyle::html_document
 header-includes:
-    - \usepackage[utf8]{inputenc}
-    - DeclareUnicodeCharacter{2009}{ } 
+    - \DeclareUnicodeCharacter{2009}{ } 
 vignette: >
     %\VignetteIndexEntry{Accessing curated gene expression data with gemma.R}
     %\VignetteEngine{knitr::rmarkdown}
