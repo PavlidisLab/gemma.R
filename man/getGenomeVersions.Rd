@@ -21,3 +21,4 @@ Returns the genome version used within Gemma
 \examples{
 getGenomeVersions()
 }
+\keyword{misc}

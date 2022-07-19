@@ -311,6 +311,7 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
 #' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
 #' Use \code{forgetGemmaMemoised} to clear the cache.
 #' @return A data frame
+#' @keywords misc
 #' @export
 #' @examples
 #' getGenomeVersions()
