@@ -39,7 +39,7 @@
     
     # if 429. wait a bit and re-try.
     i = 0
-    while(i<3 && response&status_code == 429){
+    while(i<3 && response$status_code == 429){
         i = i + 1
         Sys.sleep(5)
         response <- eval(requestExpr, envir = envWhere)
