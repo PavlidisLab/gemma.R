@@ -36,6 +36,13 @@
     response <- eval(requestExpr, envir = envWhere)
     ## Uncomment for debugging
     # print(response$url)
+    
+    # if 429. wait a bit and re-try.
+    if(response$status_code == 429) {
+        Sys.sleep(5)
+        response <- eval(requestExpr, envir = envWhere)
+    }
+    
     if (response$status_code == 200) {
         mData <- tryCatch(
             {
