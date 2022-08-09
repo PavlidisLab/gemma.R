@@ -43,7 +43,7 @@ For detailed information on the curation process, read this [page](https://pavli
 # Installation instructions
 
 
-## Bioconductor (not available yet)
+## Bioconductor
 You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
 
 ```{r 'install', eval = FALSE}
@@ -54,16 +54,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("gemma.R")
 ```
 
-## Development
-
-The current development version of `gemma.R` can be installed with:
-
-```{r, eval = FALSE}
-if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("devtools")
-}
-devtools::install_github("PavlidisLab/gemma.R")
-```
 
 # Downloading expression data
 The main goal of this wrapper is to enable easy access to Gemma's curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we'll subset our results to datasets that have been batch corrected.

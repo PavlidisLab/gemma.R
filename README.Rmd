@@ -28,28 +28,17 @@ This is an R wrapper for [Gemma](http://gemma.msl.ubc.ca)’s RESTful [API](http
 ## Installation instructions
 
 
-### Bioconductor (not available yet)
+### Bioconductor
 You can install `gemma.R` through [Bioconductor](http://bioconductor.org/) with the following code:
 
 ```{r 'install', eval = FALSE}
-# if (!requireNamespace("BiocManager", quietly = TRUE)) {
-#     install.packages("BiocManager")
-# }
-# 
-# BiocManager::install("gemma.R")
-```
-
-
-### Development
-
-The current development version of `gemma.R` can be installed with:
-
-```{r, eval = FALSE}
-if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("devtools")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
 }
-devtools::install_github("PavlidisLab/gemma.R")
+
+BiocManager::install("gemma.R")
 ```
+
 
 ## Usage
 
