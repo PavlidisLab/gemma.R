@@ -121,7 +121,7 @@
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
 <div class="section level3">
-<h3 id="bioconductor-not-available-yet">Bioconductor (not available yet)<a class="anchor" aria-label="anchor" href="#bioconductor-not-available-yet"></a>
+<h3 id="bioconductor">Bioconductor<a class="anchor" aria-label="anchor" href="#bioconductor"></a>
 </h3>
 <p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> with the following code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -131,22 +131,12 @@
 <span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"gemma.R"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level3">
-<h3 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
-</h3>
-<p>The current development version of <code>gemma.R</code> can be installed with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PavlidisLab/gemma.R"</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 <div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
 </h2>
 <p>The main goal of this wrapper is to enable easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/searchDatasets.html">searchDatasets</a></span><span class="op">(</span><span class="st">"bipolar"</span>, limit <span class="op">=</span> <span class="fl">100</span>, taxon <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Samples</span><span class="op">)</span></span></code></pre></div>
@@ -157,7 +147,7 @@
 1:  5939     GSE35974        144
 2:  8997     GSE46416         32</code></pre>
 <p>We are left with two datasets. For simplicity, we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997" class="external-link">GSE46416</a> since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getDatasetsInfo.html">getDatasetsInfo</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Description</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ee.ShortName                                                         ee.Name
@@ -167,15 +157,15 @@
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ee.Description
 1: Gene expression profiles of bipolar disorder (BD) patients were assessed during both a manic and a euthymic phase and compared both intra-individually, and with the gene expression profiles of controls.\nLast Updated (by provider): Sep 05 2014\nContributors:  Christian C Witt Benedikt Brors Dilafruz Juraeva Jens Treutlein Carsten Sticht Stephanie H Witt Jana Strohmaier Helene Dukal Josef Frank Franziska Degenhardt Markus M Nöthen Sven Cichon Maren Lang Marcella Rietschel Sandra Meier Manuel Mattheisen</code></pre>
 <p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/getDataset.html" class="external-link"><code>getDataset()</code></a>. It is a high-level wrapper that combines various endpoint calls to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> of the queried dataset that is compatible with other Bioconductor packages for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDataset.html">getDataset</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span></span></code></pre></div>
 <p>To show how subsetting works, we’ll keep the manic phase data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "reference_subject_role"              "euthymic_phase_|_Bipolar_Disorder_|"
 [3] "bipolar_disorder_|_manic_phase_|"   </code></pre>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
 <span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar_disorder_|_manic_phase_|"</span> <span class="op">|</span> </span>
 <span>        <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference_subject_role"</span><span class="op">]</span></span>
@@ -191,7 +181,7 @@ colnames(21): Control,1_DE50 Control,12 ...
   Bipolardisorderpatientmanicphase,21
 colData names(2): batch disease</code></pre>
 <p>Let’s check the expression for every sample to make sure they look OK:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
 <span><span class="va">manicExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">manic</span>, <span class="st">"counts"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">manicExpr</span>, pch <span class="op">=</span> <span class="st">"."</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"Sample"</span>, ylab <span class="op">=</span> <span class="st">"Expression"</span><span class="op">)</span></span></code></pre></div>
@@ -205,7 +195,7 @@ Gene expression distributions of bipolar patients during manic phase and control
 <h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
 </h3>
 <p>Gemma also contains precomputed differential expression analyses for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/getDatasetDE.html" class="external-link"><code>getDatasetDE()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getDatasetDE.html">getDatasetDE</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Classify probes for plotting</span></span>
@@ -243,7 +233,7 @@ Gene expression distributions of bipolar patients during manic phase and control
  8:                                                1.026
  9:                                                1.080
 10:                                                1.205</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Downregulated probes</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">de</span>, <span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Down"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_bipolar disorder, manic phase_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -272,7 +262,7 @@ Gene expression distributions of bipolar patients during manic phase and control
  8:                                               -1.071
  9:                                               -1.405
 10:                                               -1.003</code></pre>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add gene symbols as labels to DE genes</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">de</span><span class="op">$</span><span class="va">GeneSymbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span></span>
@@ -304,7 +294,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <h3 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
 </h3>
 <p>The <code>*Info()</code> endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getDatasetsInfo.html">getDatasetsInfo</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Samples</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ee.ShortName                                                         ee.Name
@@ -314,7 +304,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 1:  5939     GSE35974        144      human
 2:  8997     GSE46416         32      human</code></pre>
 <p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s). For simplicity, this example shows how pagination works with 5 entries per query.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">10</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/getPlatformsInfo.html">getPlatformsInfo</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">5</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.ShortName</span>, <span class="va">taxon.Name</span><span class="op">)</span></span>
@@ -343,11 +333,11 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 4:          14            GPL1073      mouse
 5:          16             GPL369      mouse</code></pre>
 <p>The rest of the endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error: Please specify one valid identifier for dataset.</code></pre>
 <p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/getDatasetAnnotations.html">getDatasetAnnotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ee.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -377,7 +367,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
 </h3>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = TRUE</code>. Instead of a data table, you’ll usually be served a list that represents the underlying JSON response.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getGeneLocation.html">getGeneLocation</a></span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   chromosome strand bin nucleotide length taxon.Name  taxon.Scientific
 1:         11      + 105   33890705 118714        rat Rattus norvegicus
@@ -387,7 +377,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 1:        3      10116                 rn6
 2:        1       9606                hg38
 3:        2      10090                mm10</code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getGeneLocation.html">getGeneLocation</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  id nucleotide nucleotideLength strand bin chromosome taxon.id
 1 NA   33890705           118714      + 105         11        3
@@ -433,7 +423,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
 <p>We’ve seen how to change <code>raw = TRUE</code>, <code>overwrite = TRUE</code> and <code>memoised = TRUE</code> in individual function calls. It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. See below for examples.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always refer to cache</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always overwrite when saving files</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always recieve results as-is from Gemma</span></span></code></pre></div>
@@ -442,7 +432,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -476,8 +466,8 @@ loaded via a namespace (and not attached):
 [13] glue_1.6.2             digest_0.6.29          XVector_0.36.0        
 [16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.4-1          
 [19] pkgconfig_2.0.3        bookdown_0.27          zlibbioc_1.42.0       
-[22] purrr_0.3.4            scales_1.2.0           tibble_3.1.7          
-[25] generics_0.1.3         farver_2.1.1           ellipsis_0.3.2        
+[22] purrr_0.3.4            scales_1.2.0           tibble_3.1.8          
+[25] farver_2.1.1           generics_0.1.3         ellipsis_0.3.2        
 [28] cachem_1.0.6           withr_2.5.0            cli_3.3.0             
 [31] magrittr_2.0.3         crayon_1.5.1           memoise_2.0.1         
 [34] evaluate_0.15          fs_1.5.2               fansi_1.0.3           
@@ -485,7 +475,7 @@ loaded via a namespace (and not attached):
 [40] lifecycle_1.0.1        stringr_1.4.0          munsell_0.5.0         
 [43] DelayedArray_0.22.0    compiler_4.2.1         pkgdown_2.0.6         
 [46] jquerylib_0.1.4        systemfonts_1.0.4      rlang_1.0.4           
-[49] grid_4.2.1             RCurl_1.98-1.7         rappdirs_0.3.3        
+[49] grid_4.2.1             RCurl_1.98-1.8         rappdirs_0.3.3        
 [52] bitops_1.0-7           labeling_0.4.2         rmarkdown_2.14        
 [55] gtable_0.3.0           curl_4.3.2             R6_2.5.1              
 [58] knitr_1.39             fastmap_1.1.0          bit_4.0.4             

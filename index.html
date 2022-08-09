@@ -103,25 +103,15 @@
 <h2 id="installation-instructions">Installation instructions<a class="anchor" aria-label="anchor" href="#installation-instructions"></a>
 </h2>
 <div class="section level3">
-<h3 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
-</h3>
-<p>The current development version of <code>gemma.R</code> can be installed with:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"devtools"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"PavlidisLab/gemma.R"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level3">
-<h3 id="bioconductor-not-available-yet">Bioconductor (not available yet)<a class="anchor" aria-label="anchor" href="#bioconductor-not-available-yet"></a>
+<h3 id="bioconductor">Bioconductor<a class="anchor" aria-label="anchor" href="#bioconductor"></a>
 </h3>
 <p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> with the following code:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># if (!requireNamespace("BiocManager", quietly = TRUE)) {</span></span>
-<span><span class="co">#     install.packages("BiocManager")</span></span>
-<span><span class="co"># }</span></span>
-<span><span class="co"># </span></span>
-<span><span class="co"># BiocManager::install("gemma.R")</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"gemma.R"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
