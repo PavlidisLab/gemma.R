@@ -19,28 +19,17 @@ referencing thousands of published papers.
 
 ## Installation instructions
 
-### Development
-
-The current development version of `gemma.R` can be installed with:
-
-``` r
-if (!requireNamespace("devtools", quietly = TRUE)) {
-    install.packages("devtools")
-}
-devtools::install_github("PavlidisLab/gemma.R")
-```
-
-### Bioconductor (not available yet)
+### Bioconductor
 
 You can install `gemma.R` through
 [Bioconductor](http://bioconductor.org/) with the following code:
 
 ``` r
-# if (!requireNamespace("BiocManager", quietly = TRUE)) {
-#     install.packages("BiocManager")
-# }
-# 
-# BiocManager::install("gemma.R")
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+
+BiocManager::install("gemma.R")
 ```
 
 ## Usage
