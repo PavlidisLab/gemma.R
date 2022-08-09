@@ -90,10 +90,6 @@ the experimental design, and ensure the sample names match between both when tra
 dat <- getDataset("GSE46416")
 ```
 
-```{r include = FALSE}
-## Pre-loads the summarized experiment to save time and pass vignette build
-# dat <- readRDS("se.rds")
-```
 
 To show how subsetting works, we'll keep the manic phase data and the `reference_subject_role`s, which refers to the control samples in Gemma datasets.
 ```{r}
