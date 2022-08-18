@@ -6,7 +6,7 @@ Authors@R:
              role = c("aut"), email = "javiercastilloar@gmail.com",
              comment = c(ORCID = "0000-0002-5626-9004")),
       person(given = "Jordan", family = "Sicherman", 
-             role = c("cre","aut"), email = "jordan.sicherman@msl.ubc.ca",
+             role = c("aut"), email = "jordan.sicherman@msl.ubc.ca",
              comment = c(ORCID = "0000-0001-8160-4567")),
       person(given = "Ogan", family = "Mancarci", 
              role = c("cre", "aut"), email = "ogan.mancarci@gmail.com",
