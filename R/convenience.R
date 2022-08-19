@@ -5,6 +5,7 @@
 #' @param username Your username (or empty, if logging out)
 #' @param password Your password (or empty, if logging out)
 #'
+#' @keywords misc
 #' @return None
 #' @export
 setGemmaUser <- function(username = NULL, password = NULL) {

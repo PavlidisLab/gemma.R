@@ -17,3 +17,4 @@ None
 \description{
 Allows the user to access information that requires logging in to Gemma. To log out, run \code{setGemmaUser} without specifying the username or password.
 }
+\keyword{misc}
