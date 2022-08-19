@@ -30,13 +30,23 @@
         }
     }
     # Generate request
-    requestExpr <- quote(httr::GET(
-        paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
-        httr::add_headers(header)))
+    if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
+        requestExpr <- quote(httr::GET(
+            paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+            c(httr::authenticate(getOption('gemma.username'),
+                                 getOption("gemma.password")),
+              httr::add_headers(header))))
+    } else{
+        requestExpr <- quote(httr::GET(
+            paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+              httr::add_headers(header)))
+    }
+
+
     response <- eval(requestExpr, envir = envWhere)
     ## Uncomment for debugging
     # print(response$url)
-    
+
     # if 429. wait a bit and re-try.
     i = 0
     while(i<3 && (is.null(response$status_code) || response$status_code == 429)){
@@ -44,7 +54,7 @@
         Sys.sleep(5)
         response <- eval(requestExpr, envir = envWhere)
     }
-    
+
     if (response$status_code == 200) {
         mData <- tryCatch(
             {

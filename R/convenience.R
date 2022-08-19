@@ -6,7 +6,7 @@
 #' @param password Your password (or empty, if logging out)
 #'
 #' @return None
-#' @keywords internal
+#' @export
 setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
@@ -255,7 +255,7 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' If there is more than one resultSet, use [getDatasetResultSets()] or [getDatasetDEA()] to see
 #' the options and get the ID you want. Alternatively, you can query the resultSet
 #' directly if you know its ID beforehand.
-#' 
+#'
 #' Methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10000 transcriptomic studies to enable data reuse}. Specifically, "differential expression analysis is performed on the dataset based on the annotated experimental design. In cases where certain terms are used (e.g. ‘reference substance role’ (OBI_0000025), ‘reference subject role’ (OBI_0000220), ‘initial time point’ (EFO_0004425), ‘wild type genotype’ (EFO_0005168), ‘control’ (EFO_0001461), etc.), Gemma automatically assigns these conditions as the baseline control group; in absence of a clear control condition, a baseline is arbitrarily selected. To perform the analysis, a generalized linear model is fit to the data for each platform element (probe/gene). For RNA-seq data, we use weighted regression, using an in-house implementation of the voom algorithm to compute weights from the mean–variance relationship of the data. Contrasts of each condition are then compared to the selected baseline. In datasets where the ‘batch’ factor is confounded with another factor, separate differential expression analyses are performed on subsets of the data; the subsets being determined by the levels of the confounding factor."
 #'
 #' @param dataset A dataset identifier.
@@ -296,16 +296,16 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
             processDEcontrasts(x)
     })
     names(rs) <- resultSet
-    
+
     rs
 }
 
 
 
 #' Get genome versions
-#' 
+#'
 #' Returns the genome version used within Gemma
-#' 
+#'
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
 #' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
@@ -324,11 +324,11 @@ getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
             "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
             "Caenorhabditis elegans"
         ),
-        ncbi = c(9606, 
+        ncbi = c(9606,
                  10090,
-                 10116, 
+                 10116,
                  4932,
-                 7955, 
+                 7955,
                  7227,
                  6239),
         example_gene = c(6125, # this list is created by picking a random gene with homologues in each species
@@ -339,10 +339,10 @@ getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
                          3355124,
                          174371)
     )
-    
+
     LOOKUP_TABLE$genome_version <- sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
         getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
     })
-    
+
     LOOKUP_TABLE[,c('name','scientific','ncbi','genome_version')]
 }
