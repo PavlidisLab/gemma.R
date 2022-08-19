@@ -18,18 +18,11 @@ Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
 Retrieval by ID is more efficient.
 Only datasets that user has access to will be available}
 
-\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-parsing. Raw results usually contain additional fields and flags that
-are omitted in the parsed results.}
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-used. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.}
 
-\item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file.
-Otherwise, it will be a RDS file.}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }

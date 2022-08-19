@@ -12,8 +12,7 @@
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -26,16 +25,9 @@
 #' When
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
@@ -103,16 +95,9 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 #' Lists resultSets filtered and organized by given parameters.
 #'
 #' @param resultSet Optional, defaults to empty. A single resultSet identifier (ex. 423176)
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return Varies
@@ -181,8 +166,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -196,16 +180,9 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
 #' @param excludeResults Only keep factor values and exclude numerical results from resultSets.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return Varies
@@ -271,16 +248,9 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with the queried dataset's resultSet ID(s). Use getDatasetDE to get differential expression values (see examples).
@@ -344,19 +314,10 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param filter The filtered version (`filter = TRUE`) corresponds to what is used in
-#' most Gemma analyses, removing some probes/elements. Unfiltered includes
-#' all elements.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param filter The filtered version (`filter = TRUE`) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
@@ -426,16 +387,9 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the samples of the queried dataset. A `404 error` if the given identifier does not map to any object.
@@ -507,16 +461,9 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the platform(s) of the queried dataset. A`404 error` if the given identifier does not map to any object.
@@ -587,16 +534,9 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the annotations of the queried dataset.
@@ -668,16 +608,9 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table of the design matrix for the queried dataset. A `404 error` if the given identifier does not map to any object.
@@ -749,16 +682,9 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Can either be the dataset ID or its short name (e.g. `GSE1234`).
 #' Retrieval by ID is more efficient.
 #' Only datasets that user has access to will be available
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the differential expression analysis of the queried dataset. Note that this funciton does not return differential expression values themselves. Use getDatasetDE to get differential expression values (see examples).
@@ -838,8 +764,7 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -852,16 +777,9 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' When
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the queried platform(s).
@@ -931,18 +849,10 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the datasets associated with the queried platform. A `404 error` if the given identifier does not map to any object.
@@ -1016,24 +926,14 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' Can either be the platform ID or its short name (e.g: `GPL1355`)
 #' Retrieval by ID is more efficient.
 #' Only platforms that user has access to will be available.
-#' @param elements Optional, defaults to empty. Limits the result to entities with given
-#' identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
-#' AFFX_Rat_Hexokinase_M_at)
+#' @param elements Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the elements (probes or genes) used by the queried platform. A `404 error` if the given identifier does not map to any object.
@@ -1104,18 +1004,10 @@ memgetPlatformElements <- function(platform, elements = NA_character_, offset = 
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the gene(s) on the queried platform element. A `404 error` if the given identifier does not map to any object.
@@ -1194,16 +1086,9 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
 #' Do not combine different identifiers in one query.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the queried gene(s).
@@ -1270,16 +1155,9 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the physical location of the queried gene. A `404 error` if the given identifier does not map to any object.
@@ -1348,18 +1226,10 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the probes that map to the queried gene. Note, that it is possible for probes to map to multiple
@@ -1438,16 +1308,9 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' Official
 #' symbol represents a gene homologue for a random taxon, unless used in a
 #' specific taxon (see Taxon Endpoints).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about the GO terms assigned to the queried gene. A `404 error` if the given identifier does not map to any object. Go terms were updated on June 10 2022
@@ -1516,13 +1379,11 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
-#' @param taxon Not required, part of the URL path. can either be Taxon ID, Taxon NCBI
-#' ID, or one of its string identifiers: scientific name, common name.
+#' @param taxon Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' @param offset Optional, defaults to `0`.
 #' Skips the specified amount of objects when retrieving them from the
 #' database.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount of
-#' objects.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
 #' @param sort Optional, defaults to `+id`.
 #' Sets the ordering property and direction.
 #' Format is `[+,-][property name]`. E.g. `-accession` will translate to
@@ -1535,16 +1396,9 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' When
 #' using in scripts, remember to URL-encode the '+' plus character (see
 #' the compiled URL below).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with information about matching datasets. Returns an empty list if no datasets found. Lists dataset (expression experiment value objects) that are annotated with the given ontology terms, or, in case of plaintext query,
@@ -1622,16 +1476,9 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' When
 #' using in scripts, remember to URL-encode any forward slashes in the
 #' phenotype value URIs (see the compiled URL below).
-#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
-#' parsing. Raw results usually contain additional fields and flags that
-#' are omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always
-#' used. Use `forgetGemmaMemoised` to clear the cache.
-#' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file.
-#' Otherwise, it will be a RDS file.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
 #'
 #' @return A data table with annotations (annotation search result value objects) matching the given identifiers. A `400 error` if required parameters are missing.

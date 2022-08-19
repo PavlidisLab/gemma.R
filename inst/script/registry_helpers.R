@@ -214,31 +214,31 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
 
     for (arg in parameters) {
         if (arg == "raw") {
-            mAdd <- "<p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.</p>"
+            mAdd <- "`TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results."
         } else if (arg == "memoised") {
-            mAdd <- "<p>Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always used. Use <code>forgetGemmaMemoised</code> to clear the cache.</p>"
+            mAdd <- "Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache."
         } else if (arg == "file") {
-            mAdd <- "<p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p>"
+            mAdd <- "The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file."
         } else if (arg == "overwrite") {
-            mAdd <- "<p>Whether or not to overwrite if a file exists at the specified filename.</p>"
+            mAdd <- "Whether or not to overwrite if a file exists at the specified filename."
         } else if (arg == "request") {
-            mAdd <- "<p>Which specific endpoint to request.</p>"
+            mAdd <- "Which specific endpoint to request."
         } else if (arg == "taxon") {
-            mAdd <- "<p>Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.<p>"
+            mAdd <- "Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name."
         } else if (arg == "...") {
-            mAdd <- "<p>Parameters to forward to the endpoint selected in <code>request</code>.</p>"
+            mAdd <- "Parameters to forward to the endpoint selected in `request`."
         } else if (arg == "filter") {
-            mAdd <- "<p>The filtered version (<code>filter = TRUE</code>) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.<p>"
+            mAdd <- "The filtered version (`filter = TRUE`) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements."
         } else if (arg == "excludeResults") {
-            mAdd <- "<p>Only keep factor values and exclude numerical results from resultSets.<p>"
+            mAdd <- "Only keep factor values and exclude numerical results from resultSets."
         } else if (arg == "limit") {
-            mAdd <- "<p>Optional, defaults to 20. Limits the result to specified amount of objects.<p>"
+            mAdd <- "Optional, defaults to 20. Limits the result to specified amount of objects."
         } else if (arg == "resultSet") {
-            mAdd <- "<p>Optional, defaults to empty. A single resultSet identifier (ex. 423176)<p>"
+            mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
         } else if (arg == 'element') {
-            mAdd = "<p>Required, part of the URL path. Can either be the probe name or ID."
+            mAdd = "Required, part of the URL path. Can either be the probe name or ID."
         } else if (arg == 'elements'){
-            mAdd = "<p>Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)</p>"
+            mAdd = "Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)"
         } else {
             mArg <- arg
             if (arg == "threshold") {
@@ -254,9 +254,9 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             # this reads the descriptions environment defined in the global
             # scope. used to use global environment but wanted to clean that up
             # when debuggin -ogan
-            mAdd <- get(paste0(mArg, "Description"),descriptions)
+            mAdd <- pandoc(get(paste0(mArg, "Description"),descriptions))
         }
-      param = glue::glue("#' @param {arg} {pandoc(mAdd)}\n\n")
+      param = glue::glue("#' @param {arg} {mAdd}\n\n")
       
       
       cat(param, file = document, append = TRUE)
