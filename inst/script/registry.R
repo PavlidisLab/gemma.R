@@ -1,6 +1,5 @@
 library(here)
 library(styler)
-library
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
 rm(list = ls(all.names = T)) 
 devtools::load_all()
@@ -383,7 +382,19 @@ registerEndpoint("annotations/search/{query}",
     preprocessor = quote(processSearchAnnotations)
 )
 
-# Clean up
+# taxon endpoints --------------
+
+# registerEndpoint("taxa/{taxa}",
+#                  "getTaxonInfo",
+#                  roxygen = "Annotation search",
+#                  keyword = "taxon",
+#                  defaults = list(taxa = bquote()),
+#                  validators = alist(taxa = validateTaxa),
+#                  preprocessor = quote(processTaxon)
+# )
+
+
+# Clean up -----------
 doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
     cat("\n", file = document, append = TRUE)
     cat(glue::glue("#' Clear gemma.R cache\n\n"), file = document, append = TRUE)

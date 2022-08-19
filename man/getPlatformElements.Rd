@@ -21,29 +21,19 @@ Can either be the platform ID or its short name (e.g: \code{GPL1355})
 Retrieval by ID is more efficient.
 Only platforms that user has access to will be available.}
 
-\item{elements}{Optional, defaults to empty. Limits the result to entities with given
-identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at,
-AFFX_Rat_Hexokinase_M_at)}
+\item{elements}{Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)}
 
 \item{offset}{Optional, defaults to \code{0}.
 Skips the specified amount of objects when retrieving them from the
 database.}
 
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount of
-objects.}
+\item{limit}{Optional, defaults to 20. Limits the result to specified amount of objects.}
 
-\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-parsing. Raw results usually contain additional fields and flags that
-are omitted in the parsed results.}
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-used. Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.}
 
-\item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file.
-Otherwise, it will be a RDS file.}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
