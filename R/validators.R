@@ -97,6 +97,35 @@ validateTaxon <- function(name, ...) {
     paste0(taxa, collapse = ",")
 }
 
+#' Validate taxa using the acceptable taxa entries
+#'
+#' @param name The variable name
+#' @param ... Any taxa to validate
+#'
+#' @return The validated taxa, or stop with an error message
+#'
+#' @keywords internal
+validateTaxa <- function(name, ...){
+    taxa <- as.character(unlist(list(...)))
+    LOOKUP_TABLE <- data.table(
+        id = c(1, 2, 3, 11, 12, 13, 14),
+        name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
+        scientific = c(
+            "Homo sapiens", "Mus musculus", "Rattus norvegicus",
+            "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
+            "Caenorhabditis elegans"
+        ),
+        ncbi = c(9606, 10090, 10116, 4932, 7955, 7227, 6239)
+    )
+    if (!all(taxa %in% c("", unlist(LOOKUP_TABLE)))) {
+        stop("You must specify a valid taxon. The available taxa are:
+            human, mouse, rat, yeast, zebrafish, fly and worm.",
+             call. = FALSE)
+    }
+    paste0(taxa, collapse = ",")
+    
+}
+
 #' Validate a query
 #'
 #' @param name The variable name
