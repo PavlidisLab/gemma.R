@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.25</span>
       </span>
     </div>
 
@@ -89,28 +89,19 @@ Only datasets that user has access to will be available</p></dd>
 
 
 <dt>filter</dt>
-<dd><p>The filtered version (<code>filter = TRUE</code>) corresponds to what is used in
-most Gemma analyses, removing some probes/elements. Unfiltered includes
-all elements.</p></dd>
+<dd><p>The filtered version (<code>filter = TRUE</code>) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.</p></dd>
 
 
 <dt>raw</dt>
-<dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
-parsing. Raw results usually contain additional fields and flags that
-are omitted in the parsed results.</p></dd>
+<dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.</p></dd>
 
 
 <dt>memoised</dt>
-<dd><p>Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-<code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
-used. Use <code>forgetGemmaMemoised</code> to clear the cache.</p></dd>
+<dd><p>Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always used. Use <code><a href="forgetGemmaMemoised.html">forgetGemmaMemoised</a></code> to clear the cache.</p></dd>
 
 
 <dt>file</dt>
-<dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
-results to a file. If <code>raw == TRUE</code>, the output will be a JSON file.
-Otherwise, it will be a RDS file.</p></dd>
+<dd><p>The name of a file to save the results to, or <code>NULL</code> to not write results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise, it will be a RDS file.</p></dd>
 
 
 <dt>overwrite</dt>

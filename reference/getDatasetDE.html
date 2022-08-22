@@ -26,7 +26,7 @@ directly if you know its ID beforehand."><meta property="og:image" content="/log
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.24</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.25</span>
       </span>
     </div>
 
@@ -114,79 +114,79 @@ values per result set.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">getDatasetDE</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`500184`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe        NCBIid              GeneSymbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205105_at          4124                  MAN2A1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   217563_at                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   206819_at                                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   219446_at         55188                   RIC8B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   206630_at          7299                     TYR</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:   213691_at     101928378               PTOV1-AS2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268: 211485_s_at          8817                   FGF18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269: 220936_s_at         55766                    H2AJ</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: 205013_s_at 135|101730217 ADORA2A|SPECC1L-ADORA2A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:   220392_at         64641                    EBF2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                  GeneName</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                mannosidase alpha class 2A member 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                          RIC8 guanine nucleotide exchange factor B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                         tyrosinase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                              PTOV1 antisense RNA 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                        fibroblast growth factor 18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                      H2A.J histone</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: adenosine A2a receptor|SPECC1L-ADORA2A readthrough (NMD candidate)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                         EBF transcription factor 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          pvalue corrected_pvalue    rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 0.691200           0.8827 0.78310</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 0.023940           0.2607 0.09178</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 0.029350           0.2801 0.10470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 0.680000           0.8786 0.77400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 0.416300           0.7360 0.56560</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267: 0.160400           0.5186 0.30930</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268: 0.154700           0.5131 0.30150</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269: 0.375100           0.7092 0.52890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270: 0.373800           0.7085 0.52760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271: 0.001836           0.1074 0.01702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`525879`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205680_at   4319      MMP10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   202890_at   9053       MAP7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   207753_at  57343     ZNF304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 218612_s_at  10078      TSSC4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 211883_x_at    634    CEACAM1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246: 210744_s_at   3568      IL5RA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:   204693_at  11135   CDC42EP1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248: 205324_s_at  24140      FTSJ1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249: 200843_s_at   2058      EPRS1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:    36936_at   7264       GFUS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             GeneName  pvalue corrected_pvalue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    matrix metallopeptidase 10 0.84060           0.9423</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:              microtubule associated protein 7 0.64770           0.8647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                       zinc finger protein 304 0.85960           0.9508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: tumor suppressing subtransferable candidate 4 0.12460           0.4740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                  CEA cell adhesion molecule 1 0.80960           0.9306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246:          interleukin 5 receptor subunit alpha 0.50000           0.7889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:                      CDC42 effector protein 1 0.62570           0.8557</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248:             FtsJ RNA 2'-O-methyltransferase 1 0.39720           0.7232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249:             glutamyl-prolyl-tRNA synthetase 1 0.51230           0.7959</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:                         GDP-L-fucose synthase 0.01474           0.2203</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 0.89210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 0.74910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 0.90410</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 0.26290</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 0.86990</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246: 0.63360</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247: 0.73110</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248: 0.54920</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249: 0.64370</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250: 0.06688</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_logFoldChange</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                                 0.07823</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                 0.17390</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                                 0.14450</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                                -0.05527</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                                -0.06343</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                                -0.01328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                 0.04313</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                                 0.02816</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                                -0.12190</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                                 0.02672</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                                                -0.14890</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                                                -0.09667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                                 0.05851</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270:                                                                 0.20720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                                                -0.16590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246:                                                                 0.06279</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:                                                                 0.04890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248:                                                                -0.12670</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249:                                                                -0.05590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:                                                                -0.28510</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_tstat</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                          0.4009</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                          2.3750</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                          2.2840</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                         -0.4163</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                         -0.8240</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                         -0.2026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                          0.4610</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                          0.1782</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                         -1.5740</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                          0.2429</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                                         -1.4380</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                                         -1.4590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                          0.8999</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270:                                                          0.9023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                                         -3.4070</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246:                                                          0.6818</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:                                                          0.4922</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248:                                                         -0.8574</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249:                                                         -0.6622</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:                                                         -2.5690</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_Transplanted Organ Complication, Acute rejection_pvalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                         0.691200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                         0.023940</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                         0.029350</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                         0.680000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                         0.416300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                          0.84060</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                          0.64770</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                          0.85960</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                          0.12460</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                          0.80960</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22267:                                                         0.160400</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22268:                                                         0.154700</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22269:                                                         0.375100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22270:                                                         0.373800</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22271:                                                         0.001836</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22246:                                                          0.50000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:                                                          0.62570</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22248:                                                          0.39720</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22249:                                                          0.51230</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:                                                          0.01474</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>

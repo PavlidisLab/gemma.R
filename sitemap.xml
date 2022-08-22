@@ -106,6 +106,12 @@
     <loc>/reference/getPlatformsInfo.html</loc>
   </url>
   <url>
+    <loc>/reference/getTaxonDatasets.html</loc>
+  </url>
+  <url>
+    <loc>/reference/getTaxonInfo.html</loc>
+  </url>
+  <url>
     <loc>/reference/index.html</loc>
   </url>
   <url>
@@ -203,6 +209,9 @@
   </url>
   <url>
     <loc>/reference/validateSort.html</loc>
+  </url>
+  <url>
+    <loc>/reference/validateTaxa.html</loc>
   </url>
   <url>
     <loc>/reference/validateTaxon.html</loc>
