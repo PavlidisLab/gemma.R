@@ -68,7 +68,5 @@ Taxon dataset search
 }
 \examples{
 getTaxonDatasets("human")
-dat <- getTaxonDatasets("human")
-str(dat, vec.len = 2)
 }
 \keyword{taxon}
