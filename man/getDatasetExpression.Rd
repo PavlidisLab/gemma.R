@@ -10,7 +10,8 @@ getDatasetExpression(
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", FALSE)
+  overwrite = getOption("gemma.overwrite", FALSE),
+  attributes = getOption("gemma.attributes", TRUE)
 )
 }
 \arguments{
@@ -21,13 +22,24 @@ Only datasets that user has access to will be available}
 
 \item{filter}{The filtered version (\code{filter = TRUE}) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 
-\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.}
+\item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+parsing. Raw results usually contain additional fields and flags that are
+omitted in the parsed results.}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the
+same inputs and use the result saved in cache if a result is already saved.
+Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache.}
 
-\item{file}{The name of a file to save the results to, or \code{NULL} to not write results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise, it will be a RDS file.}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
+it will be a RDS file.}
 
-\item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified
+filename.}
+
+\item{attributes}{If \code{TRUE} additional information from the call will be added
+into the output object's attributes such as offset and available elements.}
 }
 \value{
 If raw is FALSE (default), a data table of the expression matrix for the queried dataset.

@@ -15,7 +15,7 @@
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, .call) {
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes, .call) {
 
     # Set header
     if (header == "text/tab-separated-values") {
@@ -61,7 +61,13 @@
                 if (isFile) {
                     response$content
                 } else {
-                    jsonlite::fromJSON(rawToChar(response$content))$data
+                    data <- jsonlite::fromJSON(rawToChar(response$content))
+                    out <- data$data
+                    if (attributes){
+                        attributes(out) <-
+                            c(attributes(out),data[!names(data) %in% 'data'])
+                    }
+                    out
                 }
             },
             error = function(e) {
@@ -74,6 +80,10 @@
             mOut <- mData
         } else {
             mOut <- eval(quote(eval(preprocessor)(mData)), envir = envWhere)
+            if (attributes){
+                attributes(mOut) <-
+                    c(attributes(mOut), attributes(mData)[!names(attributes(mData)) %in% c('names','class','row.names')])
+            }
         }
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
