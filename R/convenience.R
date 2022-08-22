@@ -91,7 +91,7 @@ getPlatformAnnotation <- function(platform,
                     sep = "\t", quote = FALSE, row.names = FALSE)
             }
 
-            if (is.tmp || !unzip) {
+            if (is.tmp || unzip) {
                 unlink(file)
             }
 
