@@ -15,6 +15,10 @@ reference:
   desc: Endpoints accessing genes (non taxon-specific).
   contents:
   - has_keyword("gene")
+- title: Taxon endpoints
+  desc: Endpoints accessing taxons.
+  contents:
+  - has_keyword('taxon')
 - title: Other functions
   desc: Remaining endpoints and helper functions.
   contents:
