@@ -62,4 +62,18 @@ NULL
 NULL
 
 #' generic_params
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always
+#' used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache.
+#' @param attributes If `TRUE` additional information from the call will be added
+#' into the output object's attributes such as offset and available elements.
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise,
+#' it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
 NULL

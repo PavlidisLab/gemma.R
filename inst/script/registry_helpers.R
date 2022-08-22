@@ -80,10 +80,11 @@ registerEndpoint <- function(endpoint,
     fargs$memoised <- quote(getOption("gemma.memoised", FALSE))
     fargs$file <- quote(getOption("gemma.file", NA_character_))
     fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
+    fargs$attributes <- quote(getOption("gemma.attributes", TRUE))
 
     formals(f) <- fargs
     body(f) <- quote({
-        .body(fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, match.call())
+        .body(fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, attributes, match.call())
     })
 
     # here we create a call for the memoised version of the function that simply
@@ -279,15 +280,7 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         if (arg %in% overridden_params){
             mAdd <- overrides[[fname]]$tags[param_override][[which(overridden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
         } else if (arg %in% generic_overriden_params){
-            mAdd <- overrides[[fname]]$tags[generic_param_override][[which(generic_overriden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
-        }else if (arg == "raw") {
-            mAdd <- "`TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results."
-        } else if (arg == "memoised") {
-            mAdd <- "Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache."
-        } else if (arg == "file") {
-            mAdd <- "The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file."
-        } else if (arg == "overwrite") {
-            mAdd <- "Whether or not to overwrite if a file exists at the specified filename."
+            mAdd <- overrides$generic_params$tags[generic_param_override][[which(generic_overriden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
         } else if (arg == "request") {
             mAdd <- "Which specific endpoint to request."
         } else if (arg == "taxon") {

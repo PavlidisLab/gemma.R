@@ -23,7 +23,7 @@ test_that("getPlatformDatasets queries work", {
         c(raw$shortName, raw$name, raw$bioAssayCount, raw$geeq$publicQualityScore)
     )
     expect_equal(getPlatformDatasets(1, limit = 10) %>% nrow(), 10)
-    expect_equal(getPlatformDatasets(1, offset = 0)[2, ], getPlatformDatasets(1, offset = 1)[1, ])
+    expect_equal(getPlatformDatasets(1, offset = 0,attributes = FALSE)[2, ], getPlatformDatasets(1, offset = 1,attributes = FALSE)[1, ])
 })
 
 test_that("getPlatformElements queries work", {
@@ -43,7 +43,7 @@ test_that("getPlatformElements queries work", {
     )
 
     expect_equal(getPlatformElements(1, limit = 10) %>% nrow(), 10)
-    expect_equal(getPlatformElements(1, offset = 2)[1, 1], getPlatformElements(1, offset = 0)[3, 1])
+    expect_equal(getPlatformElements(1, offset = 2,attributes = FALSE)[1, 1], getPlatformElements(1, offset = 0,attributes = FALSE)[3, 1])
 })
 
 test_that("getPlatformElementsGenes queries work", {

@@ -1,7 +1,7 @@
 library(here)
 library(styler)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
-rm(list = ls(all.names = T))
+rm(list = ls(all.names = TRUE))
 options(gemmaAPI.document = 'R/allEndpoints.R')
 
 
