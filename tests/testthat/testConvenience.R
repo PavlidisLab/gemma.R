@@ -41,9 +41,9 @@ test_that("getDatasetTidy works properly", {
 })
 
 test_that("getDatasetDE works properly",{
-    dat <- getDatasetDE(1)[[1]]
-    expect_gt(nrow(dat), 10)
-    dat <- getDatasetDE(resultSet = 500184)[[1]]
+    dat <- getDatasetDE(1)
+    expect_gt(nrow(dat[[1]]), 10)
+    dat <- getDatasetDE(resultSet = names(dat))[[1]]
     expect_gt(nrow(dat), 10)
     dat <- getDatasetDE(2)
     expect_equal(length(dat), 3)

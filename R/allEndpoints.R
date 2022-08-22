@@ -1657,15 +1657,12 @@ memgetTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
 #' @return "A data table with information about the datasets associated with
 #' the queried taxon. A \verb{404 error} if the given identifier does not map
 #' to any object."
-#' @examples
-#' getTaxonDatasets("human")
 #' @export
 #'
 #' @keywords taxon
 #'
 #' @examples
-#' dat <- getTaxonDatasets("human")
-#' str(dat, vec.len = 2)
+#' getTaxonDatasets("human")
 getTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption(
         "gemma.raw",
         FALSE
@@ -1684,7 +1681,7 @@ getTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw =
     preprocessor <- processDatasets
     validators <- list(
         taxon = validateTaxon, offset = validatePositiveInteger,
-        limit = validatePositiveInteger, xzcxz = validateSort
+        limit = validatePositiveInteger, sort = validateSort
     )
     endpoint <- "taxa/{encode(taxon)}/datasets/?offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {

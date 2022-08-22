@@ -417,7 +417,7 @@ registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sor
                  validators = alist(taxon = validateTaxon,
                                     offset = validatePositiveInteger,
                                     limit = validatePositiveInteger,
-                                    xzcxz = validateSort),
+                                    sort = validateSort),
                  preprocessor = quote(processDatasets)
 )
 
