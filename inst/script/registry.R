@@ -1,7 +1,14 @@
 library(here)
 library(styler)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
-rm(list = ls(all.names = T)) 
+rm(list = ls(all.names = T))
+options(gemmaAPI.document = 'R/allEndpoints.R')
+
+
+if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
+    file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
+}
+
 devtools::load_all()
 setwd(here())
 
@@ -15,12 +22,6 @@ source('inst/script/registry_helpers.R')
 # -------------------------------
 library(magrittr)
 
-options(gemmaAPI.document = 'R/allEndpoints.R')
-
-
-if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
-    file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
-}
 
 file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 
@@ -72,6 +73,18 @@ for (i in examples) {
         }
     }
 }
+
+# load overrides, for custom documentation elements.
+# should replace the examples file above eventually. currently has higher priority
+# than the examples file. this change is made to allow easier overrides of every
+# documentation element. -ogan
+overrides = roxygen2::parse_file('inst/script/overrides.R')
+names(overrides) = overrides %>% sapply(function(x){
+    title = x$tags %>% purrr::map(class) %>% purrr::map_lgl(function(y){'roxy_tag_title' %in% y})
+    x$tags[[which(title)]]$val
+})
+
+
 
 
 # Dataset endpoints ----
