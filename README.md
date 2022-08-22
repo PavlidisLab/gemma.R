@@ -29,6 +29,11 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
 
+# The following initializes usage of Bioc devel
+# it won't be necessary with the next version
+# of Bioconductor
+BiocManager::install(version='devel')
+
 BiocManager::install("gemma.R")
 ```
 
