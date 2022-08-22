@@ -3,11 +3,12 @@
 # https://cran.r-project.org/web/packages/roxygen2/vignettes/formatting.html
 #' Roxygen table maker
 #'
+#' Use to create tables to fit inside documentation
+#'
 #' @param df data.frame
 #' @param col.names logical. If colnames should be included
 #' @param ... variables for format function
 #'
-#' @export
 roxygenTabular <- function(df,col.names= TRUE,  ...) {
     stopifnot(is.data.frame(df))
 
@@ -259,8 +260,27 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
     cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
     cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
 
+
+    overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_param')
+    }) -> param_override
+    overridden_params = overrides[[fname]]$tags[param_override] %>% sapply(function(x){
+        x$val$name
+    })
+
+    overrides[['generic_params']]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_param')
+    }) -> generic_param_override
+    generic_overriden_params = overrides[['generic_params']]$tags[generic_param_override] %>% sapply(function(x){
+        x$val$name
+    })
+
     for (arg in parameters) {
-        if (arg == "raw") {
+        if (arg %in% overridden_params){
+            mAdd <- overrides[[fname]]$tags[param_override][[which(overridden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
+        } else if (arg %in% generic_overriden_params){
+            mAdd <- overrides[[fname]]$tags[generic_param_override][[which(generic_overriden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
+        }else if (arg == "raw") {
             mAdd <- "`TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results."
         } else if (arg == "memoised") {
             mAdd <- "Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache."

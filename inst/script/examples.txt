@@ -1,14 +1,3 @@
-# getDatasetsInfo
-# example
-getDatasetsInfo("GSE2018")
-getDatasetsInfo(c("GSE2018", "GSE2872"))
-# value
-"A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
-A successful response may contain 'Geeq'
-information, which aims to provide a unified metric to measure
-experiments by the quality of their data, and their suitability for use
-in Gemma. You can [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html)"
-
 # searchDatasets
 # example
 dat <- searchDatasets("bipolar")

@@ -397,14 +397,14 @@ registerEndpoint("annotations/search/{query}",
 
 # taxon endpoints --------------
 
-# registerEndpoint("taxa/{taxa}",
-#                  "getTaxonInfo",
-#                  roxygen = "Annotation search",
-#                  keyword = "taxon",
-#                  defaults = list(taxa = bquote()),
-#                  validators = alist(taxa = validateTaxa),
-#                  preprocessor = quote(processTaxon)
-# )
+registerEndpoint("taxa/{taxa}",
+                 "getTaxonInfo",
+                 roxygen = "Annotation search",
+                 keyword = "taxon",
+                 defaults = list(taxa = bquote()),
+                 validators = alist(taxa = validateTaxa),
+                 preprocessor = quote(processTaxon)
+)
 
 
 # Clean up -----------

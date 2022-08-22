@@ -52,11 +52,11 @@ the compiled URL below).}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified filename.}
 }
 \value{
-A data table with information about the queried dataset(s). Returns an empty list if no datasets matched.
-A successful response may contain 'Geeq'
-information, which aims to provide a unified metric to measure
-experiments by the quality of their data, and their suitability for use
-in Gemma. You can \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}
+A data table with information about the queried dataset(s). Returns
+an empty list if no datasets matched. A successful response may contain 'Geeq'
+information, which aims to provide a unified metric to measure experiments by
+the quality of their data, and their suitability for use in Gemma. You can
+\href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}
 }
 \description{
 Lists datasets filtered and organized by given parameters
