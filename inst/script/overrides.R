@@ -55,10 +55,10 @@ NULL
 #'    14           \tab worm                \tab Caenorhabditis elegans   \tab 6239
 #'}
 #' @return "A data table with information about the datasets associated with
-#'  the queried taxon. A `404 error` if the given identifier does not map
-#'  to any object."
-#'  @examples
-#'  getTaxonDatasets('human')
+#' the queried taxon. A `404 error` if the given identifier does not map
+#' to any object."
+#' @examples
+#' getTaxonDatasets('human')
 NULL
 
 #' generic_params
