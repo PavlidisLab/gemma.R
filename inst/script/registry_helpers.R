@@ -1,3 +1,32 @@
+
+# adapted from
+# https://cran.r-project.org/web/packages/roxygen2/vignettes/formatting.html
+#' Roxygen table maker
+#'
+#' @param df data.frame
+#' @param col.names logical. If colnames should be included
+#' @param ... variables for format function
+#'
+#' @export
+roxygenTabular <- function(df,col.names= TRUE,  ...) {
+    stopifnot(is.data.frame(df))
+
+    align <- function(x) if (is.numeric(x)) "r" else "l"
+    col_align <- vapply(df, align, character(1))
+
+    if(col.names){
+        df = rbind(paste0('\\strong{',colnames(df),'}'),df)
+    }
+
+    cols <- lapply(df, format, ...)
+    contents <- do.call("paste",
+                        c(cols, list(sep = " \\tab ", collapse = "\\cr\n  ")))
+
+    paste("\\tabular{", paste(col_align, collapse = ""), "}{\n  ",
+          contents, "\n}\n", sep = "")
+}
+
+
 #' Register an API endpoint (internal use)
 #'
 #' @param endpoint The API endpoint URL with parameters in glue formatting
@@ -128,7 +157,17 @@ registerEndpoint <- function(endpoint,
         } else {
             cat(glue::glue("#' @export\n#'\n#' @keywords {keyword}\n#' \n#' @examples\n\n"), file = document, append = TRUE)
         }
-        cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
+
+        overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+            any(x %in% 'roxy_tag_examples')
+        }) -> example_override
+        if(any(example_override)){
+            assertthat::assert_that(sum(example_override) == 1)
+            val = overrides[[fname]]$tags[[which(example_override)]]$val %>% strsplit('\n') %>% {.[[1]]}
+            cat(paste0("#' ", val, "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
+        } else{
+            cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
+        }
         cat(glue::glue("{fname} <- "), file = document, append = TRUE)
         cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
         cat("\n\n", file = document, append = TRUE)
@@ -195,17 +234,25 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         # scope. used to use global environment but wanted to clean that up
         # when debuggin -ogan
         mResp <- get(xml2::xml_attr(node, ":response-description"),descriptions)
-        
+
         return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
-        
+
     }
     # documentation overrides
     # uses examples file as an override if provided
-    if(!is.null(mExamples$value[[fname]])){
-        
+
+    overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_return')
+    }) -> return_override
+
+    if (any(return_override)){
+        assertthat::assert_that(sum(return_override)==1)
+        val = overrides[[fname]]$tags[[which(return_override)]]$val %>% stringr::str_replace_all('\n',"\n#' ")
+        return = glue::glue("#'\n#' @return {val}\n\n")
+
+    } else if(!is.null(mExamples$value[[fname]])){ # to be deprecated old example file
         # remove quotes from examples file if needed.
         val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = "\n#' "))
-        
         return = glue::glue("#'\n#' @return {val}\n\n")
     }
 
@@ -256,10 +303,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             # when debuggin -ogan
             mAdd <- pandoc(get(paste0(mArg, "Description"),descriptions))
         }
-      param = glue::glue("#' @param {arg} {mAdd}\n\n")
-      
-      
-      cat(param, file = document, append = TRUE)
+        param = glue::glue("#' @param {arg} {mAdd}\n\n")
+
+
+        cat(param, file = document, append = TRUE)
     }
 
     cat(return, file = document, append = TRUE)
