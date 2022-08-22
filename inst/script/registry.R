@@ -399,11 +399,26 @@ registerEndpoint("annotations/search/{query}",
 
 registerEndpoint("taxa/{taxa}",
                  "getTaxonInfo",
-                 roxygen = "Annotation search",
+                 roxygen = "Taxon search",
                  keyword = "taxon",
                  defaults = list(taxa = bquote()),
                  validators = alist(taxa = validateTaxa),
                  preprocessor = quote(processTaxon)
+)
+
+registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sort}",
+                 "getTaxonDatasets",
+                 roxygen = "Taxon dataset search",
+                 keyword = "taxon",
+                 defaults = list(taxon = bquote(),
+                                 offset = 0L,
+                                 limit = 20,
+                                 sort = "+id"),
+                 validators = alist(taxon = validateTaxon,
+                                    offset = validatePositiveInteger,
+                                    limit = validatePositiveInteger,
+                                    xzcxz = validateSort),
+                 preprocessor = quote(processDatasets)
 )
 
 
