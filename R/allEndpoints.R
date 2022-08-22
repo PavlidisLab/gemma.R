@@ -1533,9 +1533,9 @@ memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), mem
     )
 }
 
-#' Annotation search
+#' getTaxonInfo
 #'
-#' Does a search for annotations based on the given string
+#' Taxon search
 #'
 #' @param taxa Limits the result to entities with given identifiers.
 #' A vector of identifiers.
@@ -1612,6 +1612,112 @@ memgetTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
     mem_call(
         taxa = taxa, raw = raw, memoised = FALSE, file = file,
         overwrite = overwrite
+    )
+}
+
+#' getTaxonDatasets
+#'
+#' Taxon dataset search
+#'
+#' @param taxon can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
+#' It is recommended to use Taxon ID for efficiency.
+#' Please note, that not all taxa have all the possible identifiers available.
+#' Use the \code{\link{getTaxonInfo}} function to retrieve the necessary information. For convenience, below is a list of officially supported taxa:
+#' \tabular{rllr}{
+#' \strong{ID} \tab \strong{Comm.name} \tab \strong{Scient.name}    \tab \strong{NcbiID}\cr
+#' 1            \tab human               \tab Homo sapiens             \tab 9606            \cr
+#' 2            \tab mouse               \tab Mus musculus             \tab 10090           \cr
+#' 3            \tab rat                 \tab Rattus norvegicus        \tab 10116           \cr
+#' 11           \tab yeast               \tab Saccharomyces cerevisiae \tab 4932            \cr
+#' 12           \tab zebrafish           \tab Danio rerio              \tab 7955            \cr
+#' 13           \tab fly                 \tab Drosophila melanogaster  \tab 7227            \cr
+#' 14           \tab worm                \tab Caenorhabditis elegans   \tab 6239
+#' }
+#' @param offset Optional, defaults to `0`.
+#' Skips the specified amount of objects when retrieving them from the
+#' database.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
+#' @param sort Optional, defaults to `+id`.
+#' Sets the ordering property and direction.
+#' Format is `[+,-][property name]`. E.g. `-accession` will translate to
+#' descending ordering by the 'Accession' property.
+#' Note that this does [not guarantee the order of the returned
+#' entities!]{.description-imp} This is merely a signal to how the data
+#' should be pre-sorted before the limit and offset are applied.
+#' Nested properties are also supported (recursively).
+#' E.g: `+curationDetails.lastTroubledEvent.date`
+#' When
+#' using in scripts, remember to URL-encode the '+' plus character (see
+#' the compiled URL below).
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable parsing. Raw results usually contain additional fields and flags that are omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the same inputs and use the result saved in cache if a result is already saved. Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always used. Use \code{\link{forgetGemmaMemoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified filename.
+#'
+#' @return "A data table with information about the datasets associated with
+#' the queried taxon. A \verb{404 error} if the given identifier does not map
+#' to any object."
+#' @examples
+#' getTaxonDatasets("human")
+#' @export
+#'
+#' @keywords taxon
+#'
+#' @examples
+#' dat <- getTaxonDatasets("human")
+#' str(dat, vec.len = 2)
+getTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    internal <- FALSE
+    keyword <- "taxon"
+    header <- ""
+    isFile <- FALSE
+    fname <- "getTaxonDatasets"
+    preprocessor <- processDatasets
+    validators <- list(
+        taxon = validateTaxon, offset = validatePositiveInteger,
+        limit = validatePositiveInteger, xzcxz = validateSort
+    )
+    endpoint <- "taxa/{encode(taxon)}/datasets/?offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        out <- memgetTaxonDatasets(
+            taxon = taxon, offset = offset,
+            limit = limit, sort = sort, raw = raw, memoised = FALSE,
+            file = file, overwrite = overwrite
+        )
+        return(out)
+    }
+    .body(
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, match.call()
+    )
+}
+
+#' Memoise getTaxonDatasets
+#'
+#' @noRd
+memgetTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
+        "gemma.file",
+        NA_character_
+    ), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(getTaxonDatasets, cache = gemmaCache())
+    mem_call(
+        taxon = taxon, offset = offset, limit = limit, sort = sort,
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
     )
 }
 
