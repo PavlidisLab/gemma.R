@@ -61,6 +61,13 @@ NULL
 #' getTaxonDatasets('human')
 NULL
 
+#' getDatasetSVD
+#' @return A data frame containing the singular value decomposition values for
+#' the dataset
+#' @examples 
+#' getDatasetSVD(1)
+NULL
+
 #' generic_params
 #' @param memoised Whether or not to save to cache for future calls with the
 #' same inputs and use the result saved in cache if a result is already saved.
@@ -76,4 +83,5 @@ NULL
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount of objects.
 NULL

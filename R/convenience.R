@@ -347,3 +347,25 @@ getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
 
     LOOKUP_TABLE[,c('name','scientific','ncbi','genome_version')]
 }
+
+#' Custom gemma call
+#' 
+#' A minimal function to create custom calls. Can be used to acquire unimplemented 
+#' endpoints and/or raw output without any processing. Refer to the
+#' \href{https://gemma.msl.ubc.ca/resources/restapidocs/}{API documentation}.
+#' @param call Gemma API endpoint.
+#' @param ... parameters included in the call
+#' @param json If `TRUE` will parse the content as a list 
+#' @keywords misc
+#' @return A list if `json = TRUE` and an httr response if `FALSE`
+#' @examples 
+#' # get singular value decomposition for the dataset
+#' gemmaCall('datasets/{dataset}/svd',dataset = 1)
+gemmaCall <- function(call,...,json = TRUE){
+    attach(list(...),warn.conflicts = FALSE)
+    out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
+    if(json){
+        out <- jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
+    }
+    return(out)
+}
