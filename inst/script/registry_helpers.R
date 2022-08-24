@@ -281,8 +281,6 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- overrides[[fname]]$tags[param_override][[which(overridden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
         } else if (arg %in% generic_overriden_params){
             mAdd <- overrides$generic_params$tags[generic_param_override][[which(generic_overriden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
-        } else if (arg == "request") {
-            mAdd <- "Which specific endpoint to request."
         } else if (arg == "taxon") {
             mAdd <- "Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name."
         } else if (arg == "...") {
