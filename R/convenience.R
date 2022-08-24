@@ -6,11 +6,12 @@
 #' @param password Your password (or empty, if logging out)
 #'
 #' @keywords misc
-#' @return None
+#' @return NULL
 #' @export
 setGemmaUser <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
+    NULL
 }
 
 #' Gemma platform annotations
@@ -365,7 +366,7 @@ gemmaCall <- function(call,...,json = TRUE){
     attach(list(...),warn.conflicts = FALSE)
     out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
     if(json){
-        out <- jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
+        jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
     }
     return(out)
 }
