@@ -1,3 +1,9 @@
+#' Get gemma path
+#' @keywords internal
+gemmaPath <- function(){
+    getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/")
+}
+
 #' Prototype function body
 #'
 #' This should not be called directly, but is called from the API functions.
@@ -30,19 +36,21 @@
         }
     }
     # Generate request
+    call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
+    
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         requestExpr <- quote(httr::GET(
-            paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+            call,
             c(httr::authenticate(getOption('gemma.username'),
                                  getOption("gemma.password")),
               httr::add_headers(header))))
     } else{
         requestExpr <- quote(httr::GET(
-            paste0(getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/"), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint))))),
+            call,
               httr::add_headers(header)))
     }
 
-
+    envWhere$call <- call
     response <- eval(requestExpr, envir = envWhere)
     ## Uncomment for debugging
     # print(response$url)
@@ -65,7 +73,7 @@
                     out <- data$data
                     if (attributes){
                         attributes(out) <-
-                            c(attributes(out),data[!names(data) %in% 'data'])
+                            c(attributes(out),data[!names(data) %in% 'data'],call=call)
                     }
                     out
                 }
@@ -641,3 +649,7 @@ processDEcontrasts <- function(rs, rsID) {
     rs
 }
 
+# processSVD <- function(d){
+#     d$vMatrix$rawMatrix
+#     browser()
+# }

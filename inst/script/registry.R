@@ -243,6 +243,18 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  ),
                  preprocessor = quote(processDEA))
 
+# registerEndpoint('datasets/{dataset}/svd',
+#                  'getDatasetSVD',
+#                  logname = 'svd',
+#                  roxygen = "Dataset singular value decomposition",
+#                  keyword = 'dataset',
+#                  defaults = list(dataset = bquote()),
+#                  validators = list(dataset = validateSingleID),
+#                  preprocessor = quote(processSVD)
+#     
+# )
+
+
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
     "getPlatformsInfo",

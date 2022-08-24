@@ -289,8 +289,6 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- "The filtered version (`filter = TRUE`) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements."
         } else if (arg == "excludeResults") {
             mAdd <- "Only keep factor values and exclude numerical results from resultSets."
-        } else if (arg == "limit") {
-            mAdd <- "Optional, defaults to 20. Limits the result to specified amount of objects."
         } else if (arg == "resultSet") {
             mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
         } else if (arg == 'element') {

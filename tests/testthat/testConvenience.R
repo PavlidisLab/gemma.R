@@ -54,3 +54,8 @@ test_that('getGenomeVersions works properly',{
     out <- getGenomeVersions()
     expect_true(!is.null(out$genome_version))
 })
+
+test_that('gemmaCall works properly',{
+    out<- gemmaCall('datasets/{dataset}/svd',dataset = 1)
+    expect_is(out,'list')
+})
