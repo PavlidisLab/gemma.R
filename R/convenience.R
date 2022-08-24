@@ -362,6 +362,7 @@ getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @examples 
 #' # get singular value decomposition for the dataset
 #' gemmaCall('datasets/{dataset}/svd',dataset = 1)
+#' @export
 gemmaCall <- function(call,...,json = TRUE){
     attach(list(...),warn.conflicts = FALSE)
     out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
