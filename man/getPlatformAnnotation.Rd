@@ -33,7 +33,7 @@ Use \code{forgetGemmaMemoised} to clear the cache.}
 A table of annotations
 }
 \description{
-Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+Gets Gemma's platform annotations including mappings of microarray probes to genes.
 }
 \examples{
 dat <- getPlatformAnnotation("GPL96")
