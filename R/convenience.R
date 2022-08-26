@@ -16,7 +16,7 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 
 #' Gemma platform annotations
 #'
-#' Gets Gemma's platform annotation files that can be accessed from https://gemma.msl.ubc.ca/annots/
+#' Gets Gemma's platform annotations including mappings of microarray probes to genes.
 #'
 #' @param platform A platform identifier @seealso getPlatforms
 #' @param annotType Which GO terms should the output include
@@ -131,9 +131,9 @@ memgetPlatformAnnotation <- function(platform,
 }
 
 
-#' Dataset expression and design
+#' Access gene expression data and metadata
 #'
-#' Combines various endpoint calls to return an annotated Bioconductor-compatible
+#' Return an annotated Bioconductor-compatible
 #' data structure of the queried dataset, including expression data and
 #' the experimental design.
 #'
@@ -251,14 +251,30 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
         dplyr::rename(sample = .data$Sample, probe = .data$Probe)
 }
 
-#' Dataset differential expression
+#' Retrieve differential expression results
 #'
-#' Retrieves the differential expression resultSet(s) associated with the dataset.
-#' If there is more than one resultSet, use [getDatasetResultSets()] or [getDatasetDEA()] to see
-#' the options and get the ID you want. Alternatively, you can query the resultSet
+#' Retrieves the differential expression result set(s) associated with the dataset.
+#' If there is more than one result set, use [getDatasetResultSets()] or [getDatasetDEA()] to see
+#' the options and get the ID you want. Alternatively, you can query the resultset
 #' directly if you know its ID beforehand.
+#' 
+#' In Gemma each result set corresponds to 
+#' the estimated effects associated with a single factor in the design, and each can have multiple contrasts (for each level compared to baseline).
+#' Thus a dataset with a 2x3 factorial design will have two result sets, one of which will have one contrast, and one having two contrasts.
 #'
-#' Methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10000 transcriptomic studies to enable data reuse}. Specifically, "differential expression analysis is performed on the dataset based on the annotated experimental design. In cases where certain terms are used (e.g. ‘reference substance role’ (OBI_0000025), ‘reference subject role’ (OBI_0000220), ‘initial time point’ (EFO_0004425), ‘wild type genotype’ (EFO_0005168), ‘control’ (EFO_0001461), etc.), Gemma automatically assigns these conditions as the baseline control group; in absence of a clear control condition, a baseline is arbitrarily selected. To perform the analysis, a generalized linear model is fit to the data for each platform element (probe/gene). For RNA-seq data, we use weighted regression, using an in-house implementation of the voom algorithm to compute weights from the mean–variance relationship of the data. Contrasts of each condition are then compared to the selected baseline. In datasets where the ‘batch’ factor is confounded with another factor, separate differential expression analyses are performed on subsets of the data; the subsets being determined by the levels of the confounding factor."
+#' The methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10000 transcriptomic studies to enable data reuse}. 
+#' Briefly, differential expression analysis is performed on the dataset based on the annotated 
+#' experimental design with up two three potentially nested factors. 
+#' Gemma attempts to automatically assign baseline conditions for each factor. 
+#' In the absence of a clear control condition, a baseline is arbitrarily selected. 
+#' A generalized linear model with empirical Bayes shrinkage of t-statistics is fit to the data 
+#' for each platform element (probe/gene) using an implementation of the limma algorithm. For RNA-seq data, 
+#' we use weighted regression, applying the 
+#' voom algorithm to compute weights from the mean–variance relationship of the data. 
+#' Contrasts of each condition are then computed compared to the selected baseline. 
+#' In some situations, Gemma will split the data into subsets for analysis. 
+#' A typical such situation is when a ‘batch’ factor is present and confounded with another factor, 
+#' the subsets being determined by the levels of the confounding factor.
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.

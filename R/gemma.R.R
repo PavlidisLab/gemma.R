@@ -1,8 +1,8 @@
-#' gemma.R package: Access curated gene expression data
+#' gemma.R package: Access curated gene expression data and differential expression analyses
 #'
-#' This package containts low- and high-level wrappers for Gemma's RESTful API
+#' This package contains wrappers and convenience function for Gemma's RESTful API
 #' that enable access to curated expression and differential expression data
-#' from over 10,000 published studies. Gemma is a web site, database and a set
+#' from over 15,000 published studies (as of mid-2022). Gemma (https://gemma.msl.ubc.ca) is a web site, database and a set
 #' of tools for the meta-analysis, re-use and sharing of genomics data,
 #' currently primarily targeted at the analysis of gene expression profiles.
 #'
@@ -12,6 +12,9 @@
 #' \item Platform endpoints: Access microarray or sequencing platforms and their associated properties and files.
 #' \item Gene endpoints: Access information about specific genes.
 #' }
+#'
+#' Most users will want to start with the high-level functions getDataset, getDatasetDE and getPlatformAnnotations.
+#' Additional lower-level methods are available that directly map to the Gemma RESTful API methods.
 #'
 #' For more information and detailed usage instructions check the
 #' \href{https://pavlidislab.github.io/gemma.R/index.html}{README}, the
