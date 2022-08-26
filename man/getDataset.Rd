@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{getDataset}
 \alias{getDataset}
-\title{Dataset expression and design}
+\title{Access gene expression data and metadata}
 \usage{
 getDataset(
   dataset,
@@ -32,7 +32,7 @@ cache. Use \code{forgetGemmaMemoised} to clear the cache.}
 A SummarizedExperiment or ExpressionSet of the queried dataset.
 }
 \description{
-Combines various endpoint calls to return an annotated Bioconductor-compatible
+Return an annotated Bioconductor-compatible
 data structure of the queried dataset, including expression data and
 the experimental design.
 }
