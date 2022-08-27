@@ -5,7 +5,7 @@ test_that("getTaxonInfo queries work", {
     expect_type(raw, "list")
     expect_equal(
         dat$taxon.Scientific,
-        raw$scientificName
+        raw %>% purrr::map_chr('scientificName')
     )
     expect_true(nrow(dat)==2)
 })
@@ -17,7 +17,7 @@ test_that("getTaxonDatasets queries work", {
     expect_type(raw, "list")
     expect_equal(
         dat$ee.Name,
-        raw$name
+        raw %>% purrr::map_chr('name')
     )
     expect_true(nrow(dat)==20)
 })

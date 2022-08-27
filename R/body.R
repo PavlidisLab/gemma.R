@@ -22,13 +22,13 @@ gemmaPath <- function(){
 #'
 #' @noRd
 .body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes, .call) {
-    
+
     # Set header
     if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
     }
     envWhere$header <- header
-    
+
     # Validate arguments
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -37,7 +37,7 @@ gemmaPath <- function(){
     }
     # Generate request
     call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
-    
+
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         requestExpr <- quote(httr::GET(
             call,
@@ -49,12 +49,12 @@ gemmaPath <- function(){
             call,
             httr::add_headers(header)))
     }
-    
+
     envWhere$call <- call
     response <- eval(requestExpr, envir = envWhere)
     ## Uncomment for debugging
     # print(response$url)
-    
+
     # if 429. wait a bit and re-try.
     i = 0
     while(i<3 && (is.null(response$status_code) || response$status_code == 429)){
@@ -62,14 +62,14 @@ gemmaPath <- function(){
         Sys.sleep(5)
         response <- eval(requestExpr, envir = envWhere)
     }
-    
+
     if (response$status_code == 200) {
         mData <- tryCatch(
             {
                 if (isFile) {
                     response$content
                 } else {
-                    data <- jsonlite::fromJSON(rawToChar(response$content))
+                    data <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
                     out <- data$data
                     if (attributes){
                         attributes(out) <-
@@ -93,14 +93,15 @@ gemmaPath <- function(){
                     c(attributes(mOut), attributes(mData)[!names(attributes(mData)) %in% c('names','class','row.names')])
             }
         }
+
         if (!is.null(file) && !is.na(file)) {
             extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
             if (isFile && raw){
                 extension <- '.gz'
             }
-            
+
             file <- paste0(tools::file_path_sans_ext(file), extension)
-            
+
             if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
                 warning(file, " exists. Not overwriting.")
             } else {

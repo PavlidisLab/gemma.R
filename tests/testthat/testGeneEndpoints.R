@@ -1,6 +1,6 @@
 test_that("getGenesInfo queries work", {
     dat <- getGenesInfo(1859)
-    raw <- getGenesInfo(1859, raw = TRUE)
+    raw <- getGenesInfo(1859, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -11,7 +11,7 @@ test_that("getGenesInfo queries work", {
 
 test_that("getGeneLocation queries work", {
     dat <- getGeneLocation(1859)
-    raw <- getGeneLocation(1859, raw = TRUE)
+    raw <- getGeneLocation(1859, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -22,7 +22,7 @@ test_that("getGeneLocation queries work", {
 
 test_that("getGeneProbes queries work", {
     dat <- getGeneProbes(1859)
-    raw <- getGeneProbes(1859, raw = TRUE)
+    raw <- getGeneProbes(1859, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -40,7 +40,7 @@ test_that('searchAnnotations work',{
 
 test_that("getGeneGO queries work", {
     dat <- getGeneGO(1859)
-    raw <- getGeneGO(1859, raw = TRUE)
+    raw <- getGeneGO(1859, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(

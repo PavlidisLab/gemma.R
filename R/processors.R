@@ -23,6 +23,7 @@ checkBounds <- function(x){
 #'
 #' @keywords internal
 processGemmaFactor <- function(d) {
+    d <- jsonlite:::simplify(d)
     if (all(is.na(d))) {
         data.table(
             name = NA_character_, URL = NA_character_,
@@ -53,6 +54,7 @@ processGemmaFactor <- function(d) {
 #'
 #' @keywords internal
 processGemmaArray <- function(d) {
+    d <- jsonlite:::simplify(d)
     data.table(
         array.ShortName = d[["shortName"]],
         array.Name = d[["name"]],
@@ -74,6 +76,7 @@ processGemmaArray <- function(d) {
 #'
 #' @keywords internal
 processDatasets <- function(d) {
+    d <- jsonlite:::simplify(d)
     data.table(
         ee.ShortName = d[["shortName"]],
         ee.Name = d[["name"]],
@@ -106,6 +109,8 @@ processDatasets <- function(d) {
 #'
 #' @keywords internal
 processSearchAnnotations <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         category.Name = d[["category"]],
         category.URL = d[["categoryUri"]],
@@ -122,6 +127,8 @@ processSearchAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     # Initialize internal variables to avoid R CMD check notes
     resultIds <- factor.ID <- cf.Baseline <- factorValue <- valueUri <- NULL
     factorId <- id <- result.ID <- analysis.Id <- ee.ID <- cf.Cat <- NULL
@@ -211,6 +218,8 @@ processDEA <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     lapply(
         d$experimentalFactors$values,
         dplyr::select, c("id", "factorValue", "category")
@@ -226,6 +235,8 @@ processResultSetFactors <- function(d) {
 #'
 #' @keywords internal
 processDatasetResultSets <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         resultSet.id = d$id,
         # analysis.id = d$analysis$id,
@@ -256,6 +267,8 @@ processDatasetResultSets <- function(d) {
 #'
 #' @keywords internal
 processAnnotations <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         class.Type = d[["objectClass"]],
         class.Name = d[["className"]],
@@ -306,6 +319,8 @@ processFile <- function(content) {
 #'
 #' @keywords internal
 processSamples <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
         sample.Name = d[["name"]],
@@ -330,6 +345,8 @@ processSamples <- function(d) {
 #'
 #' @keywords internal
 processPlatforms <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         platform.ID = d[["id"]],
         platform.ShortName = d[["shortName"]],
@@ -357,6 +374,8 @@ processPlatforms <- function(d) {
 #'
 #' @keywords internal
 processElements <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         mapping.Name = d[["name"]],
         mapping.Description = d[["description"]]
@@ -371,6 +390,8 @@ processElements <- function(d) {
 #'
 #' @keywords internal
 processGenes <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         gene.Symbol = d[["officialSymbol"]],
         gene.Ensembl = d[["ensemblId"]],
@@ -395,6 +416,8 @@ processGenes <- function(d) {
 #'
 #' @keywords internal
 processTaxon <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         taxon.Name = d[["commonName"]],
         taxon.Scientific = d[["scientificName"]],
@@ -413,6 +436,8 @@ processTaxon <- function(d) {
 #'
 #' @keywords internal
 processGeneLocation <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         chromosome = d[["chromosome"]],
         strand = d[["strand"]],
@@ -431,6 +456,8 @@ processGeneLocation <- function(d) {
 #'
 #' @keywords internal
 processGO <- function(d) {
+    d <- jsonlite:::simplify(d)
+
     data.table(
         term.Name = d[["term"]],
         term.ID = d[["goId"]],
