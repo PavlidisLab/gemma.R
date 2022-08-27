@@ -1,6 +1,6 @@
 Package: gemma.R
 Title: A Wrapper for Gemma's Restful API
-Version: 0.99.30
+Version: 0.99.31
 Authors@R: 
     c(person(given = "Javier", family = "Castillo-Arnemann", 
              role = c("aut"), email = "javiercastilloar@gmail.com",
@@ -53,7 +53,8 @@ Suggests:
     ggrepel,
     BiocStyle,
     microbenchmark,
-    magick
+    magick,
+    purrr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 

@@ -29,7 +29,7 @@ test_that('caches work',{
   # testing caches for high level functions
   skip_on_ci()
   skip_on_bioc()
-  
+
   test_gse = 'GSE2018'
 
   timeNonMemo = microbenchmark::microbenchmark(
@@ -75,6 +75,8 @@ test_that('caches work',{
 
   forgetGemmaMemoised()
   testthat::expect_true(length(list.files(non_default)) == 0)
+
+  expect_warning(getPlatformsInfo(1,file = file,memoised = TRUE),'Saving to files is not supported')
 
   # don't forget to unmemoise at the end
   options(gemma.memoised = FALSE)

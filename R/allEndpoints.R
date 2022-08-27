@@ -73,6 +73,9 @@ getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
     )
     endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetsInfo(
             datasets = datasets, offset = offset,
             limit = limit, sort = sort, raw = raw, memoised = FALSE,
@@ -148,6 +151,9 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
     validators <- list(resultSet = validateOptionalID)
     endpoint <- "resultSets/{encode(resultSet)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- mem.getResultSets(
             resultSet = resultSet, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -248,6 +254,9 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
     )
     endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- mem.getResultSetFactors(
             resultSet = resultSet,
             dataset = dataset, offset = offset, limit = limit,
@@ -332,6 +341,9 @@ getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), m
     validators <- list(dataset = validateID)
     endpoint <- "resultSets?datasets={encode(dataset)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetResultSets(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -413,6 +425,9 @@ getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
     validators <- list(dataset = validateID, filter = validateBoolean)
     endpoint <- "datasets/{encode(dataset)}/data?filter={encode(filter)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetExpression(
             dataset = dataset, filter = filter,
             raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
@@ -501,6 +516,9 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
     })
     endpoint <- "datasets/{encode(dataset)}/samples"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetSamples(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -585,6 +603,9 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
     })
     endpoint <- "datasets/{encode(dataset)}/platforms"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetPlatforms(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -670,6 +691,9 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     })
     endpoint <- "datasets/{encode(dataset)}/annotations"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetAnnotations(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -755,6 +779,9 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
     })
     endpoint <- "datasets/{encode(dataset)}/design"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetDesign(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -842,6 +869,9 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
     })
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetDatasetDEA(
             dataset = dataset, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -943,6 +973,9 @@ getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L
     )
     endpoint <- "platforms/{encode(platforms)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetPlatformsInfo(
             platforms = platforms, offset = offset,
             limit = limit, sort = sort, raw = raw, memoised = FALSE,
@@ -1033,6 +1066,9 @@ getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOpt
     )
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetPlatformDatasets(
             platform = platform, offset = offset,
             limit = limit, raw = raw, memoised = FALSE, file = file,
@@ -1124,6 +1160,9 @@ getPlatformElements <- function(platform, elements = NA_character_, offset = 0L,
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(elements)}?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetPlatformElements(
             platform = platform, elements = elements,
             offset = offset, limit = limit, raw = raw, memoised = FALSE,
@@ -1214,6 +1253,9 @@ getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L,
     )
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetPlatformElementGenes(
             platform = platform,
             element = element, offset = offset, limit = limit,
@@ -1301,6 +1343,9 @@ getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
     validators <- list(genes = validateID)
     endpoint <- "genes/{encode((genes))}/"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetGenesInfo(
             genes = genes, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite, attributes = attributes
@@ -1379,6 +1424,9 @@ getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised 
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/locations"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetGeneLocation(
             gene = gene, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite, attributes = attributes
@@ -1470,6 +1518,9 @@ getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     )
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetGeneProbes(
             gene = gene, offset = offset,
             limit = limit, raw = raw, memoised = FALSE, file = file,
@@ -1553,6 +1604,9 @@ getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getO
     validators <- list(gene = validateSingleID)
     endpoint <- "genes/{encode(gene)}/goTerms"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetGeneGO(
             gene = gene, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite, attributes = attributes
@@ -1663,6 +1717,9 @@ searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20
     )
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memsearchDatasets(
             query = query, taxon = taxon,
             offset = offset, limit = limit, sort = sort, raw = raw,
@@ -1748,6 +1805,9 @@ searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memois
     validators <- list(query = validateQuery)
     endpoint <- "annotations/search/{encode(query)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memsearchAnnotations(
             query = query, raw = raw,
             memoised = FALSE, file = file, overwrite = overwrite,
@@ -1841,6 +1901,9 @@ getTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised = g
     validators <- list(taxa = validateTaxa)
     endpoint <- "taxa/{encode(taxa)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetTaxonInfo(
             taxa = taxa, raw = raw, memoised = FALSE,
             file = file, overwrite = overwrite, attributes = attributes
@@ -1950,6 +2013,9 @@ getTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw =
     )
     endpoint <- "taxa/{encode(taxon)}/datasets/?offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- memgetTaxonDatasets(
             taxon = taxon, offset = offset,
             limit = limit, sort = sort, raw = raw, memoised = FALSE,
