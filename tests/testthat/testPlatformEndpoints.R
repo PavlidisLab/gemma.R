@@ -5,7 +5,7 @@ test_that("getPlatformsInfo queries work", {
     expect_type(raw, "list")
     expect_equal(
         dat[, c(platform.ID, platform.ShortName, platform.Name, platform.Description, platform.ExperimentCount)] %>% paste0(collapse = ""),
-        raw[, c("id", "shortName", "name", "description", "expressionExperimentCount")] %>% paste0(collapse = "")
+        c(raw[[1]]$"id", raw[[1]]$"shortName", raw[[1]]$"name", raw[[1]]$"description", raw[[1]]$"expressionExperimentCount") %>% paste0(collapse = "")
     )
     expect_equal(getPlatformsInfo(c(1, 2)) %>% nrow(), 2)
     expect_equal(getPlatformsInfo(limit = 10) %>% nrow(), 10)
@@ -19,16 +19,18 @@ test_that("getPlatformDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.Name, ee.Samples, geeq.qScore)],
-        c(raw$shortName, raw$name, raw$bioAssayCount, raw$geeq$publicQualityScore)
-    )
+        dat[, c(ee.ShortName, ee.Name, ee.Samples)],
+        c(raw %>% purrr::map_chr('shortName'),
+          raw %>% purrr::map_chr('name'),
+          raw %>% purrr::map_chr('bioAssayCount')
+    ))
     expect_equal(getPlatformDatasets(1, limit = 10) %>% nrow(), 10)
     expect_equal(getPlatformDatasets(1, offset = 0,attributes = FALSE)[2, ], getPlatformDatasets(1, offset = 1,attributes = FALSE)[1, ])
 })
 
 test_that("getPlatformElements queries work", {
     dat <- getPlatformElements(1)
-    raw <- getPlatformElements(1, raw = TRUE)
+    raw <- getPlatformElements(1, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -36,7 +38,7 @@ test_that("getPlatformElements queries work", {
         c(raw$name, raw$description)
     )
     dat <- getPlatformElements("GPL1355", elements = "AFFX_Rat_beta-actin_M_at")
-    raw <- getPlatformElements("GPL1355", elements = "AFFX_Rat_beta-actin_M_at", raw = TRUE)
+    raw <- getPlatformElements("GPL1355", elements = "AFFX_Rat_beta-actin_M_at", raw = TRUE) %>% jsonlite:::simplify()
     expect_equal(
         dat[, c(mapping.Name, mapping.Description)],
         c(raw$name, raw$description)
@@ -48,7 +50,7 @@ test_that("getPlatformElements queries work", {
 
 test_that("getPlatformElementsGenes queries work", {
     dat <- getPlatformElementGenes("GPL1355", element = "AFFX_Rat_beta-actin_M_at")
-    raw <- getPlatformElementGenes("GPL1355", element = "AFFX_Rat_beta-actin_M_at", raw = TRUE)
+    raw <- getPlatformElementGenes("GPL1355", element = "AFFX_Rat_beta-actin_M_at", raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(

@@ -177,7 +177,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
     # Experiment description
-    dat <- getDatasetsInfo(dataset, raw = TRUE,memoised = memoised)
+    dat <- getDatasetsInfo(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
     other <- list(
         database = dat$externalDatabase,
         accesion = dat$accession,
@@ -257,23 +257,23 @@ getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma
 #' If there is more than one result set, use [getDatasetResultSets()] or [getDatasetDEA()] to see
 #' the options and get the ID you want. Alternatively, you can query the resultset
 #' directly if you know its ID beforehand.
-#' 
-#' In Gemma each result set corresponds to 
+#'
+#' In Gemma each result set corresponds to
 #' the estimated effects associated with a single factor in the design, and each can have multiple contrasts (for each level compared to baseline).
 #' Thus a dataset with a 2x3 factorial design will have two result sets, one of which will have one contrast, and one having two contrasts.
 #'
-#' The methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10000 transcriptomic studies to enable data reuse}. 
-#' Briefly, differential expression analysis is performed on the dataset based on the annotated 
-#' experimental design with up two three potentially nested factors. 
-#' Gemma attempts to automatically assign baseline conditions for each factor. 
-#' In the absence of a clear control condition, a baseline is arbitrarily selected. 
-#' A generalized linear model with empirical Bayes shrinkage of t-statistics is fit to the data 
-#' for each platform element (probe/gene) using an implementation of the limma algorithm. For RNA-seq data, 
-#' we use weighted regression, applying the 
-#' voom algorithm to compute weights from the mean–variance relationship of the data. 
-#' Contrasts of each condition are then computed compared to the selected baseline. 
-#' In some situations, Gemma will split the data into subsets for analysis. 
-#' A typical such situation is when a ‘batch’ factor is present and confounded with another factor, 
+#' The methodology for differential expression is explained in \href{https://doi.org/10.1093/database/baab006}{Curation of over 10000 transcriptomic studies to enable data reuse}.
+#' Briefly, differential expression analysis is performed on the dataset based on the annotated
+#' experimental design with up two three potentially nested factors.
+#' Gemma attempts to automatically assign baseline conditions for each factor.
+#' In the absence of a clear control condition, a baseline is arbitrarily selected.
+#' A generalized linear model with empirical Bayes shrinkage of t-statistics is fit to the data
+#' for each platform element (probe/gene) using an implementation of the limma algorithm. For RNA-seq data,
+#' we use weighted regression, applying the
+#' voom algorithm to compute weights from the mean–variance relationship of the data.
+#' Contrasts of each condition are then computed compared to the selected baseline.
+#' In some situations, Gemma will split the data into subsets for analysis.
+#' A typical such situation is when a ‘batch’ factor is present and confounded with another factor,
 #' the subsets being determined by the levels of the confounding factor.
 #'
 #' @param dataset A dataset identifier.
