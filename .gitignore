@@ -6,3 +6,4 @@ docs
 .Rproj.user
 /doc/
 /Meta/
+inst/script/auto_gen_code

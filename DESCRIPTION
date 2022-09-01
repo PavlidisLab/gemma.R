@@ -42,7 +42,9 @@ Imports:
     S4Vectors,
     httr,
     rappdirs,
-    bit64
+    bit64,
+    R6,
+    base64enc
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,

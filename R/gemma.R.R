@@ -36,6 +36,11 @@
 #'
 #' @import data.table
 #' @import bit64
+#' @import R6
+#' @import jsonlite
+#' @import httr
+#' @import base64enc
+#' @import stringr
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 NULL
