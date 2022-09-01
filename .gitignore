@@ -7,3 +7,4 @@ docs
 /doc/
 /Meta/
 inst/script/auto_gen_code
+inst/script/openapi-generator.jar
