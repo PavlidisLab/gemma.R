@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.31</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.30</span>
       </span>
     </div>
 
@@ -379,161 +379,22 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 3:        2      10090                mm10</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/getGeneLocation.html">getGeneLocation</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[[1]]
-[[1]]$id
-NULL
-
-[[1]]$nucleotide
-[1] 33890705
-
-[[1]]$nucleotideLength
-[1] 118714
-
-[[1]]$strand
-[1] "+"
-
-[[1]]$bin
-[1] 105
-
-[[1]]$chromosome
-[1] "11"
-
-[[1]]$taxon
-[[1]]$taxon$id
-[1] 3
-
-[[1]]$taxon$scientificName
-[1] "Rattus norvegicus"
-
-[[1]]$taxon$commonName
-[1] "rat"
-
-[[1]]$taxon$ncbiId
-[1] 10116
-
-[[1]]$taxon$isSpecies
-NULL
-
-[[1]]$taxon$isGenesUsable
-[1] TRUE
-
-[[1]]$taxon$externalDatabase
-[[1]]$taxon$externalDatabase$name
-[1] "rn6"
-
-[[1]]$taxon$externalDatabase$id
-[1] 86
-
-[[1]]$taxon$externalDatabase$checked
-[1] FALSE
-
-
-
-
-[[2]]
-[[2]]$id
-NULL
-
-[[2]]$nucleotide
-[1] 37365572
-
-[[2]]$nucleotideLength
-[1] 160785
-
-[[2]]$strand
-[1] "+"
-
-[[2]]$bin
-[1] 108
-
-[[2]]$chromosome
-[1] "21"
-
-[[2]]$taxon
-[[2]]$taxon$id
-[1] 1
-
-[[2]]$taxon$scientificName
-[1] "Homo sapiens"
-
-[[2]]$taxon$commonName
-[1] "human"
-
-[[2]]$taxon$ncbiId
-[1] 9606
-
-[[2]]$taxon$isSpecies
-NULL
-
-[[2]]$taxon$isGenesUsable
-[1] TRUE
-
-[[2]]$taxon$externalDatabase
-[[2]]$taxon$externalDatabase$name
-[1] "hg38"
-
-[[2]]$taxon$externalDatabase$id
-[1] 87
-
-[[2]]$taxon$externalDatabase$checked
-[1] FALSE
-
-
-
-
-[[3]]
-[[3]]$id
-NULL
-
-[[3]]$nucleotide
-[1] 94370636
-
-[[3]]$nucleotideLength
-[1] 125741
-
-[[3]]$strand
-[1] "+"
-
-[[3]]$bin
-[1] 20
-
-[[3]]$chromosome
-[1] "16"
-
-[[3]]$taxon
-[[3]]$taxon$id
-[1] 2
-
-[[3]]$taxon$scientificName
-[1] "Mus musculus"
-
-[[3]]$taxon$commonName
-[1] "mouse"
-
-[[3]]$taxon$ncbiId
-[1] 10090
-
-[[3]]$taxon$isSpecies
-NULL
-
-[[3]]$taxon$isGenesUsable
-[1] TRUE
-
-[[3]]$taxon$externalDatabase
-[[3]]$taxon$externalDatabase$name
-[1] "mm10"
-
-[[3]]$taxon$externalDatabase$id
-[1] 81
-
-[[3]]$taxon$externalDatabase$checked
-[1] FALSE
-
-
-
-
-attr(,"call")
-[1] "https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/locations"</code></pre>
+<pre><code>  id nucleotide nucleotideLength strand bin chromosome taxon.id
+1 NA   33890705           118714      + 105         11        3
+2 NA   37365572           160785      + 108         21        1
+3 NA   94370636           125741      +  20         16        2
+  taxon.scientificName taxon.commonName taxon.ncbiId taxon.isSpecies
+1    Rattus norvegicus              rat        10116              NA
+2         Homo sapiens            human         9606              NA
+3         Mus musculus            mouse        10090              NA
+  taxon.isGenesUsable taxon.externalDatabase.name taxon.externalDatabase.id
+1                TRUE                         rn6                        86
+2                TRUE                        hg38                        87
+3                TRUE                        mm10                        81
+  taxon.externalDatabase.checked
+1                          FALSE
+2                          FALSE
+3                          FALSE</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -595,7 +456,7 @@ other attached packages:
  [7] BiocGenerics_0.42.0         MatrixGenerics_1.8.1       
  [9] matrixStats_0.62.0          ggrepel_0.9.1              
 [11] ggplot2_3.3.6               dplyr_1.0.9                
-[13] gemma.R_0.99.31             BiocStyle_2.24.0           
+[13] gemma.R_0.99.30             BiocStyle_2.24.0           
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.4             sass_0.4.2             tidyr_1.2.0           
@@ -606,21 +467,21 @@ loaded via a namespace (and not attached):
 [16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.4-1          
 [19] pkgconfig_2.0.3        bookdown_0.28          zlibbioc_1.42.0       
 [22] purrr_0.3.4            scales_1.2.1           tibble_3.1.8          
-[25] farver_2.1.1           generics_0.1.3         ellipsis_0.3.2        
+[25] generics_0.1.3         farver_2.1.1           ellipsis_0.3.2        
 [28] cachem_1.0.6           withr_2.5.0            cli_3.3.0             
-[31] magrittr_2.0.3         crayon_1.5.1           memoise_2.0.1         
-[34] evaluate_0.16          fs_1.5.2               fansi_1.0.3           
-[37] textshaping_0.3.6      tools_4.2.1            data.table_1.14.2     
-[40] lifecycle_1.0.1        stringr_1.4.1          munsell_0.5.0         
-[43] DelayedArray_0.22.0    compiler_4.2.1         pkgdown_2.0.6         
-[46] jquerylib_0.1.4        systemfonts_1.0.4      rlang_1.0.4           
-[49] grid_4.2.1             RCurl_1.98-1.8         rappdirs_0.3.3        
-[52] bitops_1.0-7           labeling_0.4.2         rmarkdown_2.16        
-[55] gtable_0.3.0           curl_4.3.2             R6_2.5.1              
-[58] knitr_1.40             fastmap_1.1.0          bit_4.0.4             
-[61] utf8_1.2.2             rprojroot_2.0.3        ragg_1.2.2            
-[64] desc_1.4.1             stringi_1.7.8          Rcpp_1.0.9            
-[67] vctrs_0.4.1            tidyselect_1.1.2       xfun_0.32             </code></pre>
+[31] magrittr_2.0.3         memoise_2.0.1          evaluate_0.16         
+[34] fs_1.5.2               fansi_1.0.3            textshaping_0.3.6     
+[37] tools_4.2.1            data.table_1.14.2      lifecycle_1.0.1       
+[40] stringr_1.4.1          munsell_0.5.0          DelayedArray_0.22.0   
+[43] compiler_4.2.1         pkgdown_2.0.6          jquerylib_0.1.4       
+[46] systemfonts_1.0.4      rlang_1.0.5            grid_4.2.1            
+[49] RCurl_1.98-1.8         rappdirs_0.3.3         bitops_1.0-7          
+[52] labeling_0.4.2         rmarkdown_2.16         gtable_0.3.1          
+[55] curl_4.3.2             R6_2.5.1               knitr_1.40            
+[58] fastmap_1.1.0          bit_4.0.4              utf8_1.2.2            
+[61] rprojroot_2.0.3        ragg_1.2.2             desc_1.4.1            
+[64] stringi_1.7.8          Rcpp_1.0.9             vctrs_0.4.1           
+[67] tidyselect_1.1.2       xfun_0.32             </code></pre>
 </div>
   </div>
 
