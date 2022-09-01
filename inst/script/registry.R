@@ -1,16 +1,22 @@
 library(here)
 library(styler)
+library(snakecase)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
 rm(list = ls(all.names = TRUE))
-options(gemmaAPI.document = 'R/allEndpoints.R')
+options(gemmaAPI.document = 'R/ab_allEndpoints.R')
 
 
-if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
-    file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
+if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
+    file.remove(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
 }
 
 devtools::load_all()
 setwd(here())
+
+
+api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
+api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
+
 
 source('inst/script/registry_helpers.R')
 
@@ -23,7 +29,8 @@ source('inst/script/registry_helpers.R')
 library(magrittr)
 
 
-file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
+
+file.create(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
 
 
 
@@ -251,7 +258,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 #                  defaults = list(dataset = bquote()),
 #                  validators = list(dataset = validateSingleID),
 #                  preprocessor = quote(processSVD)
-#     
+#
 # )
 
 

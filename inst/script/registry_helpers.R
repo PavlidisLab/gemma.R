@@ -98,6 +98,9 @@ registerEndpoint <- function(endpoint,
     }) %>% paste(collapse= ',\n')
 
     memoise_call = str2expression(glue::glue('if(memoised){
+        if (!is.na(file)){
+            warning("Saving to files is not supported with memoisation.")
+        }
         out <- mem[fname]([memoise_args])
         return(out)
     }',.open = '[',.close = ']'))

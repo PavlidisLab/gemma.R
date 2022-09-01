@@ -1,6 +1,10 @@
 test_that("getDatasetsInfo queries work", {
     dat <- getDatasetsInfo(1)
+<<<<<<< HEAD
     raw <- getDatasetsInfo(1, raw = TRUE)
+=======
+    raw <- getDatasetsInfo(1, raw = TRUE) %>% jsonlite:::simplify()
+>>>>>>> 2ed8842868deb6c782bd1ff660324f476b8cbbf2
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -16,7 +20,11 @@ test_that("getDatasetsInfo queries work", {
 
 test_that("searchDatasets queries work", {
     dat <- searchDatasets("bipolar", limit = 20)
+<<<<<<< HEAD
     raw <- searchDatasets("bipolar", limit = 20, raw = TRUE)
+=======
+    raw <- searchDatasets("bipolar", limit = 20, raw = TRUE) %>% jsonlite:::simplify()
+>>>>>>> 2ed8842868deb6c782bd1ff660324f476b8cbbf2
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -32,7 +40,11 @@ test_that("searchDatasets queries work", {
 
 test_that("datasetPlatforms queries work", {
     dat <- getDatasetPlatforms(1)
+<<<<<<< HEAD
     raw <- getDatasetPlatforms(1, raw = TRUE)
+=======
+    raw <- getDatasetPlatforms(1, raw = TRUE) %>% jsonlite:::simplify()
+>>>>>>> 2ed8842868deb6c782bd1ff660324f476b8cbbf2
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -43,7 +55,11 @@ test_that("datasetPlatforms queries work", {
 
 test_that("datasetSamples queries work", {
     dat <- getDatasetSamples(1)
+<<<<<<< HEAD
     raw <- getDatasetSamples(1, raw = TRUE)
+=======
+    raw <- getDatasetSamples(1, raw = TRUE) %>% jsonlite:::simplify()
+>>>>>>> 2ed8842868deb6c782bd1ff660324f476b8cbbf2
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -54,7 +70,7 @@ test_that("datasetSamples queries work", {
 
 test_that("datasetDEA queries work", {
     dat <- getDatasetDEA(1)
-    raw <- getDatasetDEA(1, raw = TRUE)
+    raw <- getDatasetDEA(1, raw = TRUE) %>% jsonlite:::simplify()
     rs <- raw$resultSets[[1]]
     expect_type(dat, "list")
     expect_type(raw, "list")
@@ -66,7 +82,7 @@ test_that("datasetDEA queries work", {
 
 test_that("datasetAnnotations queries work", {
     dat <- getDatasetAnnotations(1)
-    raw <- getDatasetAnnotations(1, raw = TRUE)
+    raw <- getDatasetAnnotations(1, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -86,5 +102,5 @@ test_that("getDatasetExpression queries work", {
 
 test_that("datasetDesign queries work", {
     expect_type(getDatasetDesign("GSE2018"), "list")
-    expect_type(getDatasetDesign("GSE2018", raw = TRUE), "raw")
+    expect_type(getDatasetDesign("GSE2018", raw = TRUE), "raw") %>% jsonlite:::simplify()
 })
