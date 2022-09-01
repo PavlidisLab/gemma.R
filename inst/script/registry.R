@@ -2,11 +2,11 @@ library(here)
 library(styler)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
 rm(list = ls(all.names = TRUE))
-options(gemmaAPI.document = 'R/allEndpoints.R')
+options(gemmaAPI.document = 'R/ab_allEndpoints.R')
 
 
-if (file.exists(getOption("gemmaAPI.document", "R/allEndpoints.R"))) {
-    file.remove(getOption("gemmaAPI.document", "R/allEndpoints.R"))
+if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
+    file.remove(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
 }
 
 devtools::load_all()

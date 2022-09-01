@@ -2,6 +2,7 @@
 
 export(forgetGemmaMemoised)
 export(gemmaCall)
+export(gemma_api)
 export(getDataset)
 export(getDatasetAnnotations)
 export(getDatasetDE)
