@@ -19,4 +19,16 @@ for (f in R_files){
     writeLines(file,f)
 }
 
+# remove forced authentication
+default = readLines('R/default_api.R')
+auth_code = grepl("# HTTP basic auth",default)
+for (i in which(auth_code)){
+    default[i+1] = default[i+1]  %>% 
+        gsub('is.null','!is.null',.)
+    default[i+2] = paste0("  ",default[i+4])
+    default[i+4] = ""
+}
+
+writeLines(default,'R/default_api.R')
+
 devtools::document()
