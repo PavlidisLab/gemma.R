@@ -53,21 +53,21 @@ Create a new CurationDetails
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{lastUpdated}}{character \link{optional}}
+\item{\code{lastUpdated}}{character optional}
 
-\item{\code{lastNeedsAttentionEvent}}{\link{AuditEvent} \link{optional}}
+\item{\code{lastNeedsAttentionEvent}}{\link{AuditEvent} optional}
 
-\item{\code{needsAttention}}{character \link{optional}}
+\item{\code{needsAttention}}{character optional}
 
-\item{\code{lastTroubledEvent}}{\link{AuditEvent} \link{optional}}
+\item{\code{lastTroubledEvent}}{\link{AuditEvent} optional}
 
-\item{\code{troubled}}{character \link{optional}}
+\item{\code{troubled}}{character optional}
 
-\item{\code{lastNoteUpdateEvent}}{\link{AuditEvent} \link{optional}}
+\item{\code{lastNoteUpdateEvent}}{\link{AuditEvent} optional}
 
-\item{\code{curationNote}}{character \link{optional}}
+\item{\code{curationNote}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

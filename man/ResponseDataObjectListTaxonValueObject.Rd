@@ -53,7 +53,7 @@ Create a new ResponseDataObjectListTaxonValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{TaxonValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{TaxonValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

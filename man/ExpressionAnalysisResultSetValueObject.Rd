@@ -53,13 +53,13 @@ Create a new ExpressionAnalysisResultSetValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{analysis}}{\link{DifferentialExpressionAnalysisValueObject} \link{optional}}
+\item{\code{analysis}}{\link{DifferentialExpressionAnalysisValueObject} optional}
 
-\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) \link{optional}}
+\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) optional}
 
-\item{\code{results}}{list(\link{DifferentialExpressionAnalysisResultValueObject}) \link{optional}}
+\item{\code{results}}{list(\link{DifferentialExpressionAnalysisResultValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

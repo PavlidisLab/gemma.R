@@ -7,10 +7,10 @@
 #' @title Analysis
 #' @description Analysis Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field protocol  \link{Protocol} [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field protocol  \link{Protocol} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

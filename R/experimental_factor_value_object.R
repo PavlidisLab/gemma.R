@@ -7,15 +7,15 @@
 #' @title ExperimentalFactorValueObject
 #' @description ExperimentalFactorValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field category  character [optional]
-#' @field categoryUri  character [optional]
-#' @field description  character [optional]
-#' @field factorValues  character [optional]
-#' @field name  character [optional]
-#' @field numValues  integer [optional]
-#' @field type  character [optional]
-#' @field values  list(\link{FactorValueValueObject}) [optional]
+#' @field id  integer optional
+#' @field category  character optional
+#' @field categoryUri  character optional
+#' @field description  character optional
+#' @field factorValues  character optional
+#' @field name  character optional
+#' @field numValues  integer optional
+#' @field type  character optional
+#' @field values  list(\link{FactorValueValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -7,16 +7,16 @@
 #' @title JobInfo
 #' @description JobInfo Class
 #' @format An \code{R6Class} generator object
-#' @field runningStatus  character [optional]
-#' @field failedMessage  character [optional]
-#' @field startTime  character [optional]
-#' @field endTime  character [optional]
-#' @field phases  integer [optional]
-#' @field description  character [optional]
-#' @field messages  character [optional]
-#' @field taskId  character [optional]
-#' @field id  integer [optional]
-#' @field user  \link{User} [optional]
+#' @field runningStatus  character optional
+#' @field failedMessage  character optional
+#' @field startTime  character optional
+#' @field endTime  character optional
+#' @field phases  integer optional
+#' @field description  character optional
+#' @field messages  character optional
+#' @field taskId  character optional
+#' @field id  integer optional
+#' @field user  \link{User} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

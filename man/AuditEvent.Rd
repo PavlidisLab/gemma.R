@@ -53,19 +53,19 @@ Create a new AuditEvent
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{action}}{\link{AuditAction} \link{optional}}
+\item{\code{action}}{\link{AuditAction} optional}
 
-\item{\code{date}}{character \link{optional}}
+\item{\code{date}}{character optional}
 
-\item{\code{detail}}{character \link{optional}}
+\item{\code{detail}}{character optional}
 
-\item{\code{eventType}}{\link{AuditEventType} \link{optional}}
+\item{\code{eventType}}{\link{AuditEventType} optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{note}}{character \link{optional}}
+\item{\code{note}}{character optional}
 
-\item{\code{performer}}{\link{User} \link{optional}}
+\item{\code{performer}}{\link{User} optional}
 }
 \if{html}{\out{</div>}}
 }

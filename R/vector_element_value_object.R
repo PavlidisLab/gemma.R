@@ -7,8 +7,8 @@
 #' @title VectorElementValueObject
 #' @description VectorElementValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field designElementName  character [optional]
-#' @field bioAssayExpressionLevels  named list(numeric) [optional]
+#' @field designElementName  character optional
+#' @field bioAssayExpressionLevels  named list(numeric) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

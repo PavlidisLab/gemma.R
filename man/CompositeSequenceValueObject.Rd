@@ -53,15 +53,15 @@ Create a new CompositeSequenceValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{arrayDesign}}{\link{ArrayDesignValueObject} \link{optional}}
+\item{\code{arrayDesign}}{\link{ArrayDesignValueObject} optional}
 
-\item{\code{geneMappingSummaries}}{list(\link{GeneMappingSummary}) \link{optional}}
+\item{\code{geneMappingSummaries}}{list(\link{GeneMappingSummary}) optional}
 }
 \if{html}{\out{</div>}}
 }

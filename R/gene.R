@@ -7,21 +7,21 @@
 #' @title Gene
 #' @description Gene Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field previousNcbiId  character [optional]
-#' @field physicalLocation  \link{PhysicalLocation} [optional]
-#' @field officialSymbol  character [optional]
-#' @field officialName  character [optional]
-#' @field ncbiGeneId  integer [optional]
-#' @field ensemblId  character [optional]
-#' @field products  list(\link{GeneProduct}) [optional]
-#' @field aliases  list(\link{GeneAlias}) [optional]
-#' @field taxon  \link{Taxon} [optional]
-#' @field accessions  list(\link{DatabaseEntry}) [optional]
-#' @field multifunctionality  \link{Multifunctionality} [optional]
-#' @field phenotypeAssociations  list(\link{PhenotypeAssociation}) [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field previousNcbiId  character optional
+#' @field physicalLocation  \link{PhysicalLocation} optional
+#' @field officialSymbol  character optional
+#' @field officialName  character optional
+#' @field ncbiGeneId  integer optional
+#' @field ensemblId  character optional
+#' @field products  list(\link{GeneProduct}) optional
+#' @field aliases  list(\link{GeneAlias}) optional
+#' @field taxon  \link{Taxon} optional
+#' @field accessions  list(\link{DatabaseEntry}) optional
+#' @field multifunctionality  \link{Multifunctionality} optional
+#' @field phenotypeAssociations  list(\link{PhenotypeAssociation}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -7,11 +7,11 @@
 #' @title PaginatedResponseDataObjectGeneValueObject
 #' @description PaginatedResponseDataObjectGeneValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  list(\link{GeneValueObject}) [optional]
-#' @field offset  integer [optional]
-#' @field limit  integer [optional]
-#' @field sort  \link{SortValueObject} [optional]
-#' @field totalElements  integer [optional]
+#' @field data  list(\link{GeneValueObject}) optional
+#' @field offset  integer optional
+#' @field limit  integer optional
+#' @field sort  \link{SortValueObject} optional
+#' @field totalElements  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

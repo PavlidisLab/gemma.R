@@ -7,24 +7,24 @@
 #' @title ArrayDesign
 #' @description ArrayDesign Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field auditTrail  \link{AuditTrail} [optional]
-#' @field advertisedNumberOfDesignElements  integer [optional]
-#' @field alternateNames  list(\link{AlternateName}) [optional]
-#' @field alternativeTo  \link{ArrayDesign} [optional]
-#' @field compositeSequences  list(\link{CompositeSequence}) [optional]
-#' @field curationDetails  \link{CurationDetails} [optional]
-#' @field designProvider  \link{Contact} [optional]
-#' @field externalReferences  list(\link{DatabaseEntry}) [optional]
-#' @field mergedInto  \link{ArrayDesign} [optional]
-#' @field mergees  list(\link{ArrayDesign}) [optional]
-#' @field primaryTaxon  \link{Taxon} [optional]
-#' @field shortName  character [optional]
-#' @field subsumedArrayDesigns  list(\link{ArrayDesign}) [optional]
-#' @field subsumingArrayDesign  \link{ArrayDesign} [optional]
-#' @field technologyType  \link{TechnologyType} [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field auditTrail  \link{AuditTrail} optional
+#' @field advertisedNumberOfDesignElements  integer optional
+#' @field alternateNames  list(\link{AlternateName}) optional
+#' @field alternativeTo  \link{ArrayDesign} optional
+#' @field compositeSequences  list(\link{CompositeSequence}) optional
+#' @field curationDetails  \link{CurationDetails} optional
+#' @field designProvider  \link{Contact} optional
+#' @field externalReferences  list(\link{DatabaseEntry}) optional
+#' @field mergedInto  \link{ArrayDesign} optional
+#' @field mergees  list(\link{ArrayDesign}) optional
+#' @field primaryTaxon  \link{Taxon} optional
+#' @field shortName  character optional
+#' @field subsumedArrayDesigns  list(\link{ArrayDesign}) optional
+#' @field subsumingArrayDesign  \link{ArrayDesign} optional
+#' @field technologyType  \link{TechnologyType} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -7,28 +7,28 @@
 #' @title BibliographicReference
 #' @description BibliographicReference Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field authorList  character [optional]
-#' @field title  character [optional]
-#' @field publisher  character [optional]
-#' @field editor  character [optional]
-#' @field volume  character [optional]
-#' @field issue  character [optional]
-#' @field pages  character [optional]
-#' @field publication  character [optional]
-#' @field fullTextUri  character [optional]
-#' @field abstractText  character [optional]
-#' @field citation  character [optional]
-#' @field publicationDate  character [optional]
-#' @field annotatedAbstract  character [optional]
-#' @field pubAccession  \link{DatabaseEntry} [optional]
-#' @field retracted  character [optional]
-#' @field annotations  list(\link{Characteristic}) [optional]
-#' @field meshTerms  list(\link{MedicalSubjectHeading}) [optional]
-#' @field keywords  list(\link{Keyword}) [optional]
-#' @field chemicals  list(\link{Compound}) [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field authorList  character optional
+#' @field title  character optional
+#' @field publisher  character optional
+#' @field editor  character optional
+#' @field volume  character optional
+#' @field issue  character optional
+#' @field pages  character optional
+#' @field publication  character optional
+#' @field fullTextUri  character optional
+#' @field abstractText  character optional
+#' @field citation  character optional
+#' @field publicationDate  character optional
+#' @field annotatedAbstract  character optional
+#' @field pubAccession  \link{DatabaseEntry} optional
+#' @field retracted  character optional
+#' @field annotations  list(\link{Characteristic}) optional
+#' @field meshTerms  list(\link{MedicalSubjectHeading}) optional
+#' @field keywords  list(\link{Keyword}) optional
+#' @field chemicals  list(\link{Compound}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

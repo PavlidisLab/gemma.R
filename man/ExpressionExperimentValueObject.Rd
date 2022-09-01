@@ -53,75 +53,75 @@ Create a new ExpressionExperimentValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{lastUpdated}}{character \link{optional}}
+\item{\code{lastUpdated}}{character optional}
 
-\item{\code{troubled}}{character \link{optional}}
+\item{\code{troubled}}{character optional}
 
-\item{\code{lastTroubledEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastTroubledEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{needsAttention}}{character \link{optional}}
+\item{\code{needsAttention}}{character optional}
 
-\item{\code{lastNeedsAttentionEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastNeedsAttentionEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{curationNote}}{character \link{optional}}
+\item{\code{curationNote}}{character optional}
 
-\item{\code{lastNoteUpdateEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastNoteUpdateEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{bioAssayCount}}{integer \link{optional}}
+\item{\code{bioAssayCount}}{integer optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{accession}}{character \link{optional}}
+\item{\code{accession}}{character optional}
 
-\item{\code{arrayDesignCount}}{integer \link{optional}}
+\item{\code{arrayDesignCount}}{integer optional}
 
-\item{\code{batchConfound}}{character \link{optional}}
+\item{\code{batchConfound}}{character optional}
 
-\item{\code{batchEffect}}{character \link{optional}}
+\item{\code{batchEffect}}{character optional}
 
-\item{\code{bioMaterialCount}}{integer \link{optional}}
+\item{\code{bioMaterialCount}}{integer optional}
 
-\item{\code{currentUserHasWritePermission}}{character \link{optional}}
+\item{\code{currentUserHasWritePermission}}{character optional}
 
-\item{\code{currentUserIsOwner}}{character \link{optional}}
+\item{\code{currentUserIsOwner}}{character optional}
 
-\item{\code{experimentalDesign}}{integer \link{optional}}
+\item{\code{experimentalDesign}}{integer optional}
 
-\item{\code{externalDatabase}}{character \link{optional}}
+\item{\code{externalDatabase}}{character optional}
 
-\item{\code{externalUri}}{character \link{optional}}
+\item{\code{externalUri}}{character optional}
 
-\item{\code{geeq}}{\link{GeeqValueObject} \link{optional}}
+\item{\code{geeq}}{\link{GeeqValueObject} optional}
 
-\item{\code{isPublic}}{character \link{optional}}
+\item{\code{isPublic}}{character optional}
 
-\item{\code{isShared}}{character \link{optional}}
+\item{\code{isShared}}{character optional}
 
-\item{\code{metadata}}{character \link{optional}}
+\item{\code{metadata}}{character optional}
 
-\item{\code{processedExpressionVectorCount}}{integer \link{optional}}
+\item{\code{processedExpressionVectorCount}}{integer optional}
 
-\item{\code{shortName}}{character \link{optional}}
+\item{\code{shortName}}{character optional}
 
-\item{\code{source}}{character \link{optional}}
+\item{\code{source}}{character optional}
 
-\item{\code{suitableForDEA}}{character \link{optional}}
+\item{\code{suitableForDEA}}{character optional}
 
-\item{\code{taxon}}{character \link{optional}}
+\item{\code{taxon}}{character optional}
 
-\item{\code{taxonId}}{integer \link{optional}}
+\item{\code{taxonId}}{integer optional}
 
-\item{\code{technologyType}}{character \link{optional}}
+\item{\code{technologyType}}{character optional}
 
-\item{\code{userOwned}}{character \link{optional}}
+\item{\code{userOwned}}{character optional}
 
-\item{\code{userCanWrite}}{character \link{optional}}
+\item{\code{userCanWrite}}{character optional}
 
-\item{\code{troubleDetails}}{character \link{optional}}
+\item{\code{troubleDetails}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -7,22 +7,22 @@
 #' @title DiffExResultSetSummaryValueObject
 #' @description DiffExResultSetSummaryValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field analysisId  integer [optional]
-#' @field arrayDesignsUsed  list(integer) [optional]
-#' @field baselineGroup  \link{FactorValueValueObject} [optional]
-#' @field downregulatedCount  integer [optional]
-#' @field experimentalFactors  list(\link{ExperimentalFactorValueObject}) [optional]
-#' @field factorIds  list(integer) [optional]
-#' @field numberOfDiffExpressedProbes  integer [optional]
-#' @field numberOfGenesAnalyzed  integer [optional]
-#' @field numberOfProbesAnalyzed  integer [optional]
-#' @field threshold  numeric [optional]
-#' @field upregulatedCount  integer [optional]
-#' @field bioAssaySetAnalyzedId  integer [optional]
-#' @field resultSetId  integer [optional]
-#' @field qvalue  numeric [optional]
-#' @field experimentalFactorsByValueObject  list(\link{ExperimentalFactorValueObject}) [optional]
+#' @field id  integer optional
+#' @field analysisId  integer optional
+#' @field arrayDesignsUsed  list(integer) optional
+#' @field baselineGroup  \link{FactorValueValueObject} optional
+#' @field downregulatedCount  integer optional
+#' @field experimentalFactors  list(\link{ExperimentalFactorValueObject}) optional
+#' @field factorIds  list(integer) optional
+#' @field numberOfDiffExpressedProbes  integer optional
+#' @field numberOfGenesAnalyzed  integer optional
+#' @field numberOfProbesAnalyzed  integer optional
+#' @field threshold  numeric optional
+#' @field upregulatedCount  integer optional
+#' @field bioAssaySetAnalyzedId  integer optional
+#' @field resultSetId  integer optional
+#' @field qvalue  numeric optional
+#' @field experimentalFactorsByValueObject  list(\link{ExperimentalFactorValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

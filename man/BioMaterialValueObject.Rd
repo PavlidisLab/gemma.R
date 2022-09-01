@@ -53,31 +53,31 @@ Create a new BioMaterialValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{assayDescription}}{character \link{optional}}
+\item{\code{assayDescription}}{character optional}
 
-\item{\code{assayName}}{character \link{optional}}
+\item{\code{assayName}}{character optional}
 
-\item{\code{bioAssays}}{list(integer) \link{optional}}
+\item{\code{bioAssays}}{list(integer) optional}
 
-\item{\code{characteristics}}{list(\link{CharacteristicValueObject}) \link{optional}}
+\item{\code{characteristics}}{list(\link{CharacteristicValueObject}) optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{factorIdToFactorValueId}}{named list(character) \link{optional}}
+\item{\code{factorIdToFactorValueId}}{named list(character) optional}
 
-\item{\code{factors}}{named list(character) \link{optional}}
+\item{\code{factors}}{named list(character) optional}
 
-\item{\code{factorValueObjects}}{list(\link{IdentifiableValueObject}) \link{optional}}
+\item{\code{factorValueObjects}}{list(\link{IdentifiableValueObject}) optional}
 
-\item{\code{factorValues}}{named list(character) \link{optional}}
+\item{\code{factorValues}}{named list(character) optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{assayProcessingDate}}{character \link{optional}}
+\item{\code{assayProcessingDate}}{character optional}
 
-\item{\code{characteristicValues}}{named list(character) \link{optional}}
+\item{\code{characteristicValues}}{named list(character) optional}
 }
 \if{html}{\out{</div>}}
 }

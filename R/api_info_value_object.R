@@ -7,9 +7,9 @@
 #' @title ApiInfoValueObject
 #' @description ApiInfoValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field welcome  character [optional]
-#' @field version  character [optional]
-#' @field docs  character [optional]
+#' @field welcome  character optional
+#' @field version  character optional
+#' @field docs  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

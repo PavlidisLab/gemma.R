@@ -7,12 +7,12 @@
 #' @title ContrastResultValueObject
 #' @description ContrastResultValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field pvalue  numeric [optional]
-#' @field coefficient  numeric [optional]
-#' @field logFoldChange  numeric [optional]
-#' @field factorValue  \link{FactorValueBasicValueObject} [optional]
-#' @field secondFactorValue  \link{FactorValueBasicValueObject} [optional]
-#' @field tstat  numeric [optional]
+#' @field pvalue  numeric optional
+#' @field coefficient  numeric optional
+#' @field logFoldChange  numeric optional
+#' @field factorValue  \link{FactorValueBasicValueObject} optional
+#' @field secondFactorValue  \link{FactorValueBasicValueObject} optional
+#' @field tstat  numeric optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

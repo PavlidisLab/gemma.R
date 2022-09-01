@@ -7,17 +7,17 @@
 #' @title GeneSetValueObject
 #' @description GeneSetValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field description  character [optional]
-#' @field geneIds  list(integer) [optional]
-#' @field isPublic  character [optional]
-#' @field isShared  character [optional]
-#' @field name  character [optional]
-#' @field size  integer [optional]
-#' @field taxonId  integer [optional]
-#' @field taxonName  character [optional]
-#' @field userOwned  character [optional]
-#' @field userCanWrite  character [optional]
+#' @field id  integer optional
+#' @field description  character optional
+#' @field geneIds  list(integer) optional
+#' @field isPublic  character optional
+#' @field isShared  character optional
+#' @field name  character optional
+#' @field size  integer optional
+#' @field taxonId  integer optional
+#' @field taxonName  character optional
+#' @field userOwned  character optional
+#' @field userCanWrite  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

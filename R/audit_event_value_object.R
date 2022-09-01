@@ -7,15 +7,15 @@
 #' @title AuditEventValueObject
 #' @description AuditEventValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field performer  character [optional]
-#' @field date  character [optional]
-#' @field action  character [optional]
-#' @field note  character [optional]
-#' @field detail  character [optional]
-#' @field eventType  \link{AuditEventType} [optional]
-#' @field actionName  character [optional]
-#' @field eventTypeName  character [optional]
+#' @field id  integer optional
+#' @field performer  character optional
+#' @field date  character optional
+#' @field action  character optional
+#' @field note  character optional
+#' @field detail  character optional
+#' @field eventType  \link{AuditEventType} optional
+#' @field actionName  character optional
+#' @field eventTypeName  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

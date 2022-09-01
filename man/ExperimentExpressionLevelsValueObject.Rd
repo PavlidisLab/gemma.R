@@ -53,9 +53,9 @@ Create a new ExperimentExpressionLevelsValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{datasetId}}{integer \link{optional}}
+\item{\code{datasetId}}{integer optional}
 
-\item{\code{geneExpressionLevels}}{list(\link{GeneElementExpressionsValueObject}) \link{optional}}
+\item{\code{geneExpressionLevels}}{list(\link{GeneElementExpressionsValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

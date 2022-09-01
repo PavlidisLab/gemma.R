@@ -53,9 +53,9 @@ Create a new VectorElementValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{designElementName}}{character \link{optional}}
+\item{\code{designElementName}}{character optional}
 
-\item{\code{bioAssayExpressionLevels}}{named list(numeric) \link{optional}}
+\item{\code{bioAssayExpressionLevels}}{named list(numeric) optional}
 }
 \if{html}{\out{</div>}}
 }

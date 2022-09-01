@@ -53,13 +53,13 @@ Create a new SearchResultValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{resultId}}{integer \link{optional}}
+\item{\code{resultId}}{integer optional}
 
-\item{\code{resultType}}{character \link{optional}}
+\item{\code{resultType}}{character optional}
 
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{resultObject}}{\link{IdentifiableValueObjectIdentifiable} \link{optional}}
+\item{\code{resultObject}}{\link{IdentifiableValueObjectIdentifiable} optional}
 }
 \if{html}{\out{</div>}}
 }

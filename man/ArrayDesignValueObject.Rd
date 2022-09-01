@@ -53,79 +53,79 @@ Create a new ArrayDesignValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{lastUpdated}}{character \link{optional}}
+\item{\code{lastUpdated}}{character optional}
 
-\item{\code{troubled}}{character \link{optional}}
+\item{\code{troubled}}{character optional}
 
-\item{\code{lastTroubledEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastTroubledEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{needsAttention}}{character \link{optional}}
+\item{\code{needsAttention}}{character optional}
 
-\item{\code{lastNeedsAttentionEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastNeedsAttentionEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{curationNote}}{character \link{optional}}
+\item{\code{curationNote}}{character optional}
 
-\item{\code{lastNoteUpdateEvent}}{\link{AuditEventValueObject} \link{optional}}
+\item{\code{lastNoteUpdateEvent}}{\link{AuditEventValueObject} optional}
 
-\item{\code{blackListed}}{character \link{optional}}
+\item{\code{blackListed}}{character optional}
 
-\item{\code{color}}{character \link{optional}}
+\item{\code{color}}{character optional}
 
-\item{\code{dateCached}}{character \link{optional}}
+\item{\code{dateCached}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{designElementCount}}{integer \link{optional}}
+\item{\code{designElementCount}}{integer optional}
 
-\item{\code{expressionExperimentCount}}{integer \link{optional}}
+\item{\code{expressionExperimentCount}}{integer optional}
 
-\item{\code{hasBlatAssociations}}{character \link{optional}}
+\item{\code{hasBlatAssociations}}{character optional}
 
-\item{\code{hasGeneAssociations}}{character \link{optional}}
+\item{\code{hasGeneAssociations}}{character optional}
 
-\item{\code{hasSequenceAssociations}}{character \link{optional}}
+\item{\code{hasSequenceAssociations}}{character optional}
 
-\item{\code{isAffymetrixAltCdf}}{character \link{optional}}
+\item{\code{isAffymetrixAltCdf}}{character optional}
 
-\item{\code{isMerged}}{character \link{optional}}
+\item{\code{isMerged}}{character optional}
 
-\item{\code{isMergee}}{character \link{optional}}
+\item{\code{isMergee}}{character optional}
 
-\item{\code{isSubsumed}}{character \link{optional}}
+\item{\code{isSubsumed}}{character optional}
 
-\item{\code{isSubsumer}}{character \link{optional}}
+\item{\code{isSubsumer}}{character optional}
 
-\item{\code{lastGeneMapping}}{character \link{optional}}
+\item{\code{lastGeneMapping}}{character optional}
 
-\item{\code{lastRepeatMask}}{character \link{optional}}
+\item{\code{lastRepeatMask}}{character optional}
 
-\item{\code{lastSequenceAnalysis}}{character \link{optional}}
+\item{\code{lastSequenceAnalysis}}{character optional}
 
-\item{\code{lastSequenceUpdate}}{character \link{optional}}
+\item{\code{lastSequenceUpdate}}{character optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{numGenes}}{character \link{optional}}
+\item{\code{numGenes}}{character optional}
 
-\item{\code{numProbeAlignments}}{character \link{optional}}
+\item{\code{numProbeAlignments}}{character optional}
 
-\item{\code{numProbeSequences}}{character \link{optional}}
+\item{\code{numProbeSequences}}{character optional}
 
-\item{\code{numProbesToGenes}}{character \link{optional}}
+\item{\code{numProbesToGenes}}{character optional}
 
-\item{\code{shortName}}{character \link{optional}}
+\item{\code{shortName}}{character optional}
 
-\item{\code{switchedExpressionExperimentCount}}{integer \link{optional}}
+\item{\code{switchedExpressionExperimentCount}}{integer optional}
 
-\item{\code{taxon}}{character \link{optional}}
+\item{\code{taxon}}{character optional}
 
-\item{\code{taxonID}}{integer \link{optional}}
+\item{\code{taxonID}}{integer optional}
 
-\item{\code{technologyType}}{character \link{optional}}
+\item{\code{technologyType}}{character optional}
 
-\item{\code{troubleDetails}}{character \link{optional}}
+\item{\code{troubleDetails}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,35 +53,35 @@ Create a new Gene
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{previousNcbiId}}{character \link{optional}}
+\item{\code{previousNcbiId}}{character optional}
 
-\item{\code{physicalLocation}}{\link{PhysicalLocation} \link{optional}}
+\item{\code{physicalLocation}}{\link{PhysicalLocation} optional}
 
-\item{\code{officialSymbol}}{character \link{optional}}
+\item{\code{officialSymbol}}{character optional}
 
-\item{\code{officialName}}{character \link{optional}}
+\item{\code{officialName}}{character optional}
 
-\item{\code{ncbiGeneId}}{integer \link{optional}}
+\item{\code{ncbiGeneId}}{integer optional}
 
-\item{\code{ensemblId}}{character \link{optional}}
+\item{\code{ensemblId}}{character optional}
 
-\item{\code{products}}{list(\link{GeneProduct}) \link{optional}}
+\item{\code{products}}{list(\link{GeneProduct}) optional}
 
-\item{\code{aliases}}{list(\link{GeneAlias}) \link{optional}}
+\item{\code{aliases}}{list(\link{GeneAlias}) optional}
 
-\item{\code{taxon}}{\link{Taxon} \link{optional}}
+\item{\code{taxon}}{\link{Taxon} optional}
 
-\item{\code{accessions}}{list(\link{DatabaseEntry}) \link{optional}}
+\item{\code{accessions}}{list(\link{DatabaseEntry}) optional}
 
-\item{\code{multifunctionality}}{\link{Multifunctionality} \link{optional}}
+\item{\code{multifunctionality}}{\link{Multifunctionality} optional}
 
-\item{\code{phenotypeAssociations}}{list(\link{PhenotypeAssociation}) \link{optional}}
+\item{\code{phenotypeAssociations}}{list(\link{PhenotypeAssociation}) optional}
 }
 \if{html}{\out{</div>}}
 }

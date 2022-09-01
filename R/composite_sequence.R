@@ -7,11 +7,11 @@
 #' @title CompositeSequence
 #' @description CompositeSequence Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field biologicalCharacteristic  \link{BioSequence} [optional]
-#' @field arrayDesign  \link{ArrayDesign} [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field biologicalCharacteristic  \link{BioSequence} optional
+#' @field arrayDesign  \link{ArrayDesign} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

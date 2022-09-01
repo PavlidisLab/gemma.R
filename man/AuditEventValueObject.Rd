@@ -53,23 +53,23 @@ Create a new AuditEventValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{performer}}{character \link{optional}}
+\item{\code{performer}}{character optional}
 
-\item{\code{date}}{character \link{optional}}
+\item{\code{date}}{character optional}
 
-\item{\code{action}}{character \link{optional}}
+\item{\code{action}}{character optional}
 
-\item{\code{note}}{character \link{optional}}
+\item{\code{note}}{character optional}
 
-\item{\code{detail}}{character \link{optional}}
+\item{\code{detail}}{character optional}
 
-\item{\code{eventType}}{\link{AuditEventType} \link{optional}}
+\item{\code{eventType}}{\link{AuditEventType} optional}
 
-\item{\code{actionName}}{character \link{optional}}
+\item{\code{actionName}}{character optional}
 
-\item{\code{eventTypeName}}{character \link{optional}}
+\item{\code{eventTypeName}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -54,7 +54,7 @@ Create a new ResponseDataObjectListPhysicalLocationValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{PhysicalLocationValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{PhysicalLocationValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,11 +53,11 @@ Create a new PhenotypeAssociationPublication
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{type}}{character \link{optional}}
+\item{\code{type}}{character optional}
 
-\item{\code{citation}}{\link{BibliographicReference} \link{optional}}
+\item{\code{citation}}{\link{BibliographicReference} optional}
 }
 \if{html}{\out{</div>}}
 }

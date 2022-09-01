@@ -7,14 +7,14 @@
 #' @title FactorValueBasicValueObject
 #' @description FactorValueBasicValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field characteristics  list(\link{CharacteristicBasicValueObject}) [optional]
-#' @field experimentalFactorCategory  \link{CharacteristicBasicValueObject} [optional]
-#' @field measurement  \link{MeasurementValueObject} [optional]
-#' @field fvValue  character [optional]
-#' @field fvSummary  character [optional]
-#' @field experimentalFactorId  integer [optional]
-#' @field baseline  character [optional]
+#' @field id  integer optional
+#' @field characteristics  list(\link{CharacteristicBasicValueObject}) optional
+#' @field experimentalFactorCategory  \link{CharacteristicBasicValueObject} optional
+#' @field measurement  \link{MeasurementValueObject} optional
+#' @field fvValue  character optional
+#' @field fvSummary  character optional
+#' @field experimentalFactorId  integer optional
+#' @field baseline  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

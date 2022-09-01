@@ -53,11 +53,11 @@ Create a new Protocol
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

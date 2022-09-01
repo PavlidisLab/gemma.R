@@ -53,31 +53,31 @@ Create a new CoexpressionValueObjectExt
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{containsMyData}}{character \link{optional}}
+\item{\code{containsMyData}}{character optional}
 
-\item{\code{foundGene}}{\link{GeneValueObject} \link{optional}}
+\item{\code{foundGene}}{\link{GeneValueObject} optional}
 
-\item{\code{foundGeneNodeDegree}}{integer \link{optional}}
+\item{\code{foundGeneNodeDegree}}{integer optional}
 
-\item{\code{foundGeneNodeDegreeRank}}{numeric \link{optional}}
+\item{\code{foundGeneNodeDegreeRank}}{numeric optional}
 
-\item{\code{negSupp}}{integer \link{optional}}
+\item{\code{negSupp}}{integer optional}
 
-\item{\code{numTestedIn}}{integer \link{optional}}
+\item{\code{numTestedIn}}{integer optional}
 
-\item{\code{posSupp}}{integer \link{optional}}
+\item{\code{posSupp}}{integer optional}
 
-\item{\code{queryGene}}{\link{GeneValueObject} \link{optional}}
+\item{\code{queryGene}}{\link{GeneValueObject} optional}
 
-\item{\code{queryGeneNodeDegree}}{integer \link{optional}}
+\item{\code{queryGeneNodeDegree}}{integer optional}
 
-\item{\code{queryGeneNodeDegreeRank}}{numeric \link{optional}}
+\item{\code{queryGeneNodeDegreeRank}}{numeric optional}
 
-\item{\code{sortKey}}{character \link{optional}}
+\item{\code{sortKey}}{character optional}
 
-\item{\code{supportingExperiments}}{list(integer) \link{optional}}
+\item{\code{supportingExperiments}}{list(integer) optional}
 
-\item{\code{support}}{integer \link{optional}}
+\item{\code{support}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,31 +53,31 @@ Create a new User
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{email}}{character \link{optional}}
+\item{\code{email}}{character optional}
 
-\item{\code{lastName}}{character \link{optional}}
+\item{\code{lastName}}{character optional}
 
-\item{\code{userName}}{character \link{optional}}
+\item{\code{userName}}{character optional}
 
-\item{\code{password}}{character \link{optional}}
+\item{\code{password}}{character optional}
 
-\item{\code{passwordHint}}{character \link{optional}}
+\item{\code{passwordHint}}{character optional}
 
-\item{\code{enabled}}{character \link{optional}}
+\item{\code{enabled}}{character optional}
 
-\item{\code{signupToken}}{character \link{optional}}
+\item{\code{signupToken}}{character optional}
 
-\item{\code{signupTokenDatestamp}}{character \link{optional}}
+\item{\code{signupTokenDatestamp}}{character optional}
 
-\item{\code{jobs}}{list(\link{JobInfo}) \link{optional}}
+\item{\code{jobs}}{list(\link{JobInfo}) optional}
 
-\item{\code{fullName}}{character \link{optional}}
+\item{\code{fullName}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

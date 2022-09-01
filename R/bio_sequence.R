@@ -7,19 +7,19 @@
 #' @title BioSequence
 #' @description BioSequence Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field length  integer [optional]
-#' @field sequence  character [optional]
-#' @field isApproximateLength  character [optional]
-#' @field isCircular  character [optional]
-#' @field polymerType  \link{PolymerType} [optional]
-#' @field type  \link{SequenceType} [optional]
-#' @field fractionRepeats  numeric [optional]
-#' @field sequenceDatabaseEntry  \link{DatabaseEntry} [optional]
-#' @field taxon  \link{Taxon} [optional]
-#' @field bioSequence2GeneProduct  list(\link{BioSequence2GeneProduct}) [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field length  integer optional
+#' @field sequence  character optional
+#' @field isApproximateLength  character optional
+#' @field isCircular  character optional
+#' @field polymerType  \link{PolymerType} optional
+#' @field type  \link{SequenceType} optional
+#' @field fractionRepeats  numeric optional
+#' @field sequenceDatabaseEntry  \link{DatabaseEntry} optional
+#' @field taxon  \link{Taxon} optional
+#' @field bioSequence2GeneProduct  list(\link{BioSequence2GeneProduct}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

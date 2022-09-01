@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectExpressionAnalysisResultSetValueObject
 #' @description ResponseDataObjectExpressionAnalysisResultSetValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  \link{ExpressionAnalysisResultSetValueObject} [optional]
+#' @field data  \link{ExpressionAnalysisResultSetValueObject} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

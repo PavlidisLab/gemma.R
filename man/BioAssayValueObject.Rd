@@ -53,35 +53,35 @@ Create a new BioAssayValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{accession}}{\link{DatabaseEntryValueObject} \link{optional}}
+\item{\code{accession}}{\link{DatabaseEntryValueObject} optional}
 
-\item{\code{arrayDesign}}{\link{ArrayDesignValueObject} \link{optional}}
+\item{\code{arrayDesign}}{\link{ArrayDesignValueObject} optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{metadata}}{character \link{optional}}
+\item{\code{metadata}}{character optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{originalPlatform}}{\link{ArrayDesignValueObject} \link{optional}}
+\item{\code{originalPlatform}}{\link{ArrayDesignValueObject} optional}
 
-\item{\code{outlier}}{character \link{optional}}
+\item{\code{outlier}}{character optional}
 
-\item{\code{predictedOutlier}}{character \link{optional}}
+\item{\code{predictedOutlier}}{character optional}
 
-\item{\code{processingDate}}{character \link{optional}}
+\item{\code{processingDate}}{character optional}
 
-\item{\code{sample}}{\link{BioMaterialValueObject} \link{optional}}
+\item{\code{sample}}{\link{BioMaterialValueObject} optional}
 
-\item{\code{sequencePairedReads}}{character \link{optional}}
+\item{\code{sequencePairedReads}}{character optional}
 
-\item{\code{sequenceReadCount}}{integer \link{optional}}
+\item{\code{sequenceReadCount}}{integer optional}
 
-\item{\code{sequenceReadLength}}{integer \link{optional}}
+\item{\code{sequenceReadLength}}{integer optional}
 
-\item{\code{userFlaggedOutlier}}{character \link{optional}}
+\item{\code{userFlaggedOutlier}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

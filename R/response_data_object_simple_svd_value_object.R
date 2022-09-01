@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectSimpleSVDValueObject
 #' @description ResponseDataObjectSimpleSVDValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  \link{SimpleSVDValueObject} [optional]
+#' @field data  \link{SimpleSVDValueObject} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

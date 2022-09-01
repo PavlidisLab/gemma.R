@@ -53,33 +53,33 @@ Create a new AnnotationValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{classUri}}{character \link{optional}}
+\item{\code{classUri}}{character optional}
 
-\item{\code{className}}{character \link{optional}}
+\item{\code{className}}{character optional}
 
-\item{\code{termUri}}{character \link{optional}}
+\item{\code{termUri}}{character optional}
 
-\item{\code{termName}}{character \link{optional}}
+\item{\code{termName}}{character optional}
 
-\item{\code{parentName}}{character \link{optional}}
+\item{\code{parentName}}{character optional}
 
-\item{\code{parentDescription}}{character \link{optional}}
+\item{\code{parentDescription}}{character optional}
 
-\item{\code{parentLink}}{character \link{optional}}
+\item{\code{parentLink}}{character optional}
 
-\item{\code{parentOfParentName}}{character \link{optional}}
+\item{\code{parentOfParentName}}{character optional}
 
-\item{\code{parentOfParentDescription}}{character \link{optional}}
+\item{\code{parentOfParentDescription}}{character optional}
 
-\item{\code{parentOfParentLink}}{character \link{optional}}
+\item{\code{parentOfParentLink}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{evidenceCode}}{character \link{optional}}
+\item{\code{evidenceCode}}{character optional}
 
-\item{\code{objectClass}}{character \link{optional}}
+\item{\code{objectClass}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

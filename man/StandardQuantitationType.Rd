@@ -53,7 +53,7 @@ Create a new StandardQuantitationType
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

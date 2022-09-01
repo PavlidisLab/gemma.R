@@ -7,15 +7,15 @@
 #' @title DifferentialExpressionAnalysisValueObject
 #' @description DifferentialExpressionAnalysisValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field factorValuesUsed  named list(list(\link{FactorValueValueObject})) [optional]
-#' @field resultSets  list(\link{DiffExResultSetSummaryValueObject}) [optional]
-#' @field arrayDesignsUsed  list(integer) [optional]
-#' @field bioAssaySetId  integer [optional]
-#' @field sourceExperiment  integer [optional]
-#' @field subsetFactor  \link{ExperimentalFactorValueObject} [optional]
-#' @field subsetFactorValue  \link{FactorValueValueObject} [optional]
-#' @field subset  character [optional]
+#' @field id  integer optional
+#' @field factorValuesUsed  named list(list(\link{FactorValueValueObject})) optional
+#' @field resultSets  list(\link{DiffExResultSetSummaryValueObject}) optional
+#' @field arrayDesignsUsed  list(integer) optional
+#' @field bioAssaySetId  integer optional
+#' @field sourceExperiment  integer optional
+#' @field subsetFactor  \link{ExperimentalFactorValueObject} optional
+#' @field subsetFactorValue  \link{FactorValueValueObject} optional
+#' @field subset  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

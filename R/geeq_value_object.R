@@ -7,30 +7,30 @@
 #' @title GeeqValueObject
 #' @description GeeqValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field publicQualityScore  numeric [optional]
-#' @field publicSuitabilityScore  numeric [optional]
-#' @field getsScorePublication  numeric [optional]
-#' @field getsScorePlatformAmount  numeric [optional]
-#' @field getsScorePlatformsTechMulti  numeric [optional]
-#' @field getsScoreAvgPlatformPopularity  numeric [optional]
-#' @field getsScoreAvgPlatformSize  numeric [optional]
-#' @field getsScoreSampleSize  numeric [optional]
-#' @field getsScoreRawData  numeric [optional]
-#' @field getsScoreMissingValues  numeric [optional]
-#' @field getqScoreOutliers  numeric [optional]
-#' @field getqScoreSampleMeanCorrelation  numeric [optional]
-#' @field getqScoreSampleMedianCorrelation  numeric [optional]
-#' @field getqScoreSampleCorrelationVariance  numeric [optional]
-#' @field getqScorePlatformsTech  numeric [optional]
-#' @field getqScoreReplicates  numeric [optional]
-#' @field getqScoreBatchInfo  numeric [optional]
-#' @field getqScorePublicBatchEffect  numeric [optional]
-#' @field getqScorePublicBatchConfound  numeric [optional]
-#' @field noVectors  character [optional]
-#' @field corrMatIssues  character [optional]
-#' @field replicatesIssues  character [optional]
-#' @field batchCorrected  character [optional]
+#' @field id  integer optional
+#' @field publicQualityScore  numeric optional
+#' @field publicSuitabilityScore  numeric optional
+#' @field getsScorePublication  numeric optional
+#' @field getsScorePlatformAmount  numeric optional
+#' @field getsScorePlatformsTechMulti  numeric optional
+#' @field getsScoreAvgPlatformPopularity  numeric optional
+#' @field getsScoreAvgPlatformSize  numeric optional
+#' @field getsScoreSampleSize  numeric optional
+#' @field getsScoreRawData  numeric optional
+#' @field getsScoreMissingValues  numeric optional
+#' @field getqScoreOutliers  numeric optional
+#' @field getqScoreSampleMeanCorrelation  numeric optional
+#' @field getqScoreSampleMedianCorrelation  numeric optional
+#' @field getqScoreSampleCorrelationVariance  numeric optional
+#' @field getqScorePlatformsTech  numeric optional
+#' @field getqScoreReplicates  numeric optional
+#' @field getqScoreBatchInfo  numeric optional
+#' @field getqScorePublicBatchEffect  numeric optional
+#' @field getqScorePublicBatchConfound  numeric optional
+#' @field noVectors  character optional
+#' @field corrMatIssues  character optional
+#' @field replicatesIssues  character optional
+#' @field batchCorrected  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

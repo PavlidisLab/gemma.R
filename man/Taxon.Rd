@@ -53,19 +53,19 @@ Create a new Taxon
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{scientificName}}{character \link{optional}}
+\item{\code{scientificName}}{character optional}
 
-\item{\code{commonName}}{character \link{optional}}
+\item{\code{commonName}}{character optional}
 
-\item{\code{ncbiId}}{integer \link{optional}}
+\item{\code{ncbiId}}{integer optional}
 
-\item{\code{isGenesUsable}}{character \link{optional}}
+\item{\code{isGenesUsable}}{character optional}
 
-\item{\code{secondaryNcbiId}}{integer \link{optional}}
+\item{\code{secondaryNcbiId}}{integer optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{externalDatabase}}{\link{ExternalDatabase} \link{optional}}
+\item{\code{externalDatabase}}{\link{ExternalDatabase} optional}
 }
 \if{html}{\out{</div>}}
 }

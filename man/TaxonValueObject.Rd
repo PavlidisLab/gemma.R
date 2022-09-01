@@ -53,19 +53,19 @@ Create a new TaxonValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{scientificName}}{character \link{optional}}
+\item{\code{scientificName}}{character optional}
 
-\item{\code{commonName}}{character \link{optional}}
+\item{\code{commonName}}{character optional}
 
-\item{\code{ncbiId}}{integer \link{optional}}
+\item{\code{ncbiId}}{integer optional}
 
-\item{\code{isSpecies}}{character \link{optional}}
+\item{\code{isSpecies}}{character optional}
 
-\item{\code{isGenesUsable}}{character \link{optional}}
+\item{\code{isGenesUsable}}{character optional}
 
-\item{\code{externalDatabase}}{\link{ExternalDatabaseValueObject} \link{optional}}
+\item{\code{externalDatabase}}{\link{ExternalDatabaseValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -54,7 +54,7 @@ Create a new ResponseDataObjectExpressionAnalysisResultSetValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{\link{ExpressionAnalysisResultSetValueObject} \link{optional}}
+\item{\code{data}}{\link{ExpressionAnalysisResultSetValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

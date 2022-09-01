@@ -7,19 +7,19 @@
 #' @title User
 #' @description User Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field email  character [optional]
-#' @field lastName  character [optional]
-#' @field userName  character [optional]
-#' @field password  character [optional]
-#' @field passwordHint  character [optional]
-#' @field enabled  character [optional]
-#' @field signupToken  character [optional]
-#' @field signupTokenDatestamp  character [optional]
-#' @field jobs  list(\link{JobInfo}) [optional]
-#' @field fullName  character [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field email  character optional
+#' @field lastName  character optional
+#' @field userName  character optional
+#' @field password  character optional
+#' @field passwordHint  character optional
+#' @field enabled  character optional
+#' @field signupToken  character optional
+#' @field signupTokenDatestamp  character optional
+#' @field jobs  list(\link{JobInfo}) optional
+#' @field fullName  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

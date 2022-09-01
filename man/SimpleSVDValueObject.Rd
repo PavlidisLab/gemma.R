@@ -53,11 +53,11 @@ Create a new SimpleSVDValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{bioMaterialIds}}{list(integer) \link{optional}}
+\item{\code{bioMaterialIds}}{list(integer) optional}
 
-\item{\code{variances}}{list(numeric) \link{optional}}
+\item{\code{variances}}{list(numeric) optional}
 
-\item{\code{getvMatrix}}{\link{DoubleMatrixLongInteger} \link{optional}}
+\item{\code{getvMatrix}}{\link{DoubleMatrixLongInteger} optional}
 }
 \if{html}{\out{</div>}}
 }

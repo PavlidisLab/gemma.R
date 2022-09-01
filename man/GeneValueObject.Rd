@@ -53,51 +53,51 @@ Create a new GeneValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{aliases}}{list(character) \link{optional}}
+\item{\code{aliases}}{list(character) optional}
 
-\item{\code{associatedExperimentCount}}{integer \link{optional}}
+\item{\code{associatedExperimentCount}}{integer optional}
 
-\item{\code{compositeSequenceCount}}{integer \link{optional}}
+\item{\code{compositeSequenceCount}}{integer optional}
 
-\item{\code{geneSets}}{list(\link{GeneSetValueObject}) \link{optional}}
+\item{\code{geneSets}}{list(\link{GeneSetValueObject}) optional}
 
-\item{\code{homologues}}{list(\link{GeneValueObject}) \link{optional}}
+\item{\code{homologues}}{list(\link{GeneValueObject}) optional}
 
-\item{\code{isQuery}}{character \link{optional}}
+\item{\code{isQuery}}{character optional}
 
-\item{\code{multifunctionalityRank}}{numeric \link{optional}}
+\item{\code{multifunctionalityRank}}{numeric optional}
 
-\item{\code{ncbiId}}{integer \link{optional}}
+\item{\code{ncbiId}}{integer optional}
 
-\item{\code{ensemblId}}{character \link{optional}}
+\item{\code{ensemblId}}{character optional}
 
-\item{\code{nodeDegreeNegRanks}}{list(numeric) \link{optional}}
+\item{\code{nodeDegreeNegRanks}}{list(numeric) optional}
 
-\item{\code{nodeDegreePosRanks}}{list(numeric) \link{optional}}
+\item{\code{nodeDegreePosRanks}}{list(numeric) optional}
 
-\item{\code{nodeDegreesNeg}}{list(integer) \link{optional}}
+\item{\code{nodeDegreesNeg}}{list(integer) optional}
 
-\item{\code{nodeDegreesPos}}{list(integer) \link{optional}}
+\item{\code{nodeDegreesPos}}{list(integer) optional}
 
-\item{\code{numGoTerms}}{integer \link{optional}}
+\item{\code{numGoTerms}}{integer optional}
 
-\item{\code{officialName}}{character \link{optional}}
+\item{\code{officialName}}{character optional}
 
-\item{\code{officialSymbol}}{character \link{optional}}
+\item{\code{officialSymbol}}{character optional}
 
-\item{\code{phenotypes}}{list(\link{CharacteristicValueObject}) \link{optional}}
+\item{\code{phenotypes}}{list(\link{CharacteristicValueObject}) optional}
 
-\item{\code{platformCount}}{integer \link{optional}}
+\item{\code{platformCount}}{integer optional}
 
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{taxonCommonName}}{character \link{optional}}
+\item{\code{taxonCommonName}}{character optional}
 
-\item{\code{taxonId}}{integer \link{optional}}
+\item{\code{taxonId}}{integer optional}
 
-\item{\code{taxonScientificName}}{character \link{optional}}
+\item{\code{taxonScientificName}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

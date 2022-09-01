@@ -53,9 +53,9 @@ Create a new GeneAlias
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{alias}}{character \link{optional}}
+\item{\code{alias}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,49 +53,49 @@ Create a new BibliographicReference
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{authorList}}{character \link{optional}}
+\item{\code{authorList}}{character optional}
 
-\item{\code{title}}{character \link{optional}}
+\item{\code{title}}{character optional}
 
-\item{\code{publisher}}{character \link{optional}}
+\item{\code{publisher}}{character optional}
 
-\item{\code{editor}}{character \link{optional}}
+\item{\code{editor}}{character optional}
 
-\item{\code{volume}}{character \link{optional}}
+\item{\code{volume}}{character optional}
 
-\item{\code{issue}}{character \link{optional}}
+\item{\code{issue}}{character optional}
 
-\item{\code{pages}}{character \link{optional}}
+\item{\code{pages}}{character optional}
 
-\item{\code{publication}}{character \link{optional}}
+\item{\code{publication}}{character optional}
 
-\item{\code{fullTextUri}}{character \link{optional}}
+\item{\code{fullTextUri}}{character optional}
 
-\item{\code{abstractText}}{character \link{optional}}
+\item{\code{abstractText}}{character optional}
 
-\item{\code{citation}}{character \link{optional}}
+\item{\code{citation}}{character optional}
 
-\item{\code{publicationDate}}{character \link{optional}}
+\item{\code{publicationDate}}{character optional}
 
-\item{\code{annotatedAbstract}}{character \link{optional}}
+\item{\code{annotatedAbstract}}{character optional}
 
-\item{\code{pubAccession}}{\link{DatabaseEntry} \link{optional}}
+\item{\code{pubAccession}}{\link{DatabaseEntry} optional}
 
-\item{\code{retracted}}{character \link{optional}}
+\item{\code{retracted}}{character optional}
 
-\item{\code{annotations}}{list(\link{Characteristic}) \link{optional}}
+\item{\code{annotations}}{list(\link{Characteristic}) optional}
 
-\item{\code{meshTerms}}{list(\link{MedicalSubjectHeading}) \link{optional}}
+\item{\code{meshTerms}}{list(\link{MedicalSubjectHeading}) optional}
 
-\item{\code{keywords}}{list(\link{Keyword}) \link{optional}}
+\item{\code{keywords}}{list(\link{Keyword}) optional}
 
-\item{\code{chemicals}}{list(\link{Compound}) \link{optional}}
+\item{\code{chemicals}}{list(\link{Compound}) optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -7,13 +7,13 @@
 #' @title Taxon
 #' @description Taxon Class
 #' @format An \code{R6Class} generator object
-#' @field scientificName  character [optional]
-#' @field commonName  character [optional]
-#' @field ncbiId  integer [optional]
-#' @field isGenesUsable  character [optional]
-#' @field secondaryNcbiId  integer [optional]
-#' @field id  integer [optional]
-#' @field externalDatabase  \link{ExternalDatabase} [optional]
+#' @field scientificName  character optional
+#' @field commonName  character optional
+#' @field ncbiId  integer optional
+#' @field isGenesUsable  character optional
+#' @field secondaryNcbiId  integer optional
+#' @field id  integer optional
+#' @field externalDatabase  \link{ExternalDatabase} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

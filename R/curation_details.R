@@ -7,14 +7,14 @@
 #' @title CurationDetails
 #' @description CurationDetails Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field lastUpdated  character [optional]
-#' @field lastNeedsAttentionEvent  \link{AuditEvent} [optional]
-#' @field needsAttention  character [optional]
-#' @field lastTroubledEvent  \link{AuditEvent} [optional]
-#' @field troubled  character [optional]
-#' @field lastNoteUpdateEvent  \link{AuditEvent} [optional]
-#' @field curationNote  character [optional]
+#' @field id  integer optional
+#' @field lastUpdated  character optional
+#' @field lastNeedsAttentionEvent  \link{AuditEvent} optional
+#' @field needsAttention  character optional
+#' @field lastTroubledEvent  \link{AuditEvent} optional
+#' @field troubled  character optional
+#' @field lastNoteUpdateEvent  \link{AuditEvent} optional
+#' @field curationNote  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

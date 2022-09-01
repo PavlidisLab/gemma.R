@@ -54,15 +54,15 @@ Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{CompositeSequenceValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{CompositeSequenceValueObject}) optional}
 
-\item{\code{offset}}{integer \link{optional}}
+\item{\code{offset}}{integer optional}
 
-\item{\code{limit}}{integer \link{optional}}
+\item{\code{limit}}{integer optional}
 
-\item{\code{sort}}{\link{SortValueObject} \link{optional}}
+\item{\code{sort}}{\link{SortValueObject} optional}
 
-\item{\code{totalElements}}{integer \link{optional}}
+\item{\code{totalElements}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

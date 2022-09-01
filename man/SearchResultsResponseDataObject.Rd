@@ -53,9 +53,9 @@ Create a new SearchResultsResponseDataObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{SearchResultValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{SearchResultValueObject}) optional}
 
-\item{\code{searchSettings}}{\link{SearchSettingsValueObject} \link{optional}}
+\item{\code{searchSettings}}{\link{SearchSettingsValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

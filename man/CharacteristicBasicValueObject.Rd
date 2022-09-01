@@ -53,15 +53,15 @@ Create a new CharacteristicBasicValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 
-\item{\code{valueUri}}{character \link{optional}}
+\item{\code{valueUri}}{character optional}
 
-\item{\code{category}}{character \link{optional}}
+\item{\code{category}}{character optional}
 
-\item{\code{categoryUri}}{character \link{optional}}
+\item{\code{categoryUri}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -7,9 +7,9 @@
 #' @title SimpleSVDValueObject
 #' @description SimpleSVDValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field bioMaterialIds  list(integer) [optional]
-#' @field variances  list(numeric) [optional]
-#' @field getvMatrix  \link{DoubleMatrixLongInteger} [optional]
+#' @field bioMaterialIds  list(integer) optional
+#' @field variances  list(numeric) optional
+#' @field getvMatrix  \link{DoubleMatrixLongInteger} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

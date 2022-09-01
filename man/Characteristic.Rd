@@ -53,23 +53,23 @@ Create a new Characteristic
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{category}}{character \link{optional}}
+\item{\code{category}}{character optional}
 
-\item{\code{categoryUri}}{character \link{optional}}
+\item{\code{categoryUri}}{character optional}
 
-\item{\code{evidenceCode}}{\link{GOEvidenceCode} \link{optional}}
+\item{\code{evidenceCode}}{\link{GOEvidenceCode} optional}
 
-\item{\code{originalValue}}{character \link{optional}}
+\item{\code{originalValue}}{character optional}
 
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 
-\item{\code{valueUri}}{character \link{optional}}
+\item{\code{valueUri}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

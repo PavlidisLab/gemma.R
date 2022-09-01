@@ -53,21 +53,21 @@ Create a new GeneProductValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{ncbiId}}{character \link{optional}}
+\item{\code{ncbiId}}{character optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{geneId}}{integer \link{optional}}
+\item{\code{geneId}}{integer optional}
 
-\item{\code{chromosome}}{character \link{optional}}
+\item{\code{chromosome}}{character optional}
 
-\item{\code{strand}}{character \link{optional}}
+\item{\code{strand}}{character optional}
 
-\item{\code{nucleotideStart}}{integer \link{optional}}
+\item{\code{nucleotideStart}}{integer optional}
 
-\item{\code{nucleotideEnd}}{integer \link{optional}}
+\item{\code{nucleotideEnd}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

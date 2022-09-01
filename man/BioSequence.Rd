@@ -53,31 +53,31 @@ Create a new BioSequence
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{length}}{integer \link{optional}}
+\item{\code{length}}{integer optional}
 
-\item{\code{sequence}}{character \link{optional}}
+\item{\code{sequence}}{character optional}
 
-\item{\code{isApproximateLength}}{character \link{optional}}
+\item{\code{isApproximateLength}}{character optional}
 
-\item{\code{isCircular}}{character \link{optional}}
+\item{\code{isCircular}}{character optional}
 
-\item{\code{polymerType}}{\link{PolymerType} \link{optional}}
+\item{\code{polymerType}}{\link{PolymerType} optional}
 
-\item{\code{type}}{\link{SequenceType} \link{optional}}
+\item{\code{type}}{\link{SequenceType} optional}
 
-\item{\code{fractionRepeats}}{numeric \link{optional}}
+\item{\code{fractionRepeats}}{numeric optional}
 
-\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntry} \link{optional}}
+\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntry} optional}
 
-\item{\code{taxon}}{\link{Taxon} \link{optional}}
+\item{\code{taxon}}{\link{Taxon} optional}
 
-\item{\code{bioSequence2GeneProduct}}{list(\link{BioSequence2GeneProduct}) \link{optional}}
+\item{\code{bioSequence2GeneProduct}}{list(\link{BioSequence2GeneProduct}) optional}
 }
 \if{html}{\out{</div>}}
 }

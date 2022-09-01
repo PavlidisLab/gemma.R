@@ -53,23 +53,23 @@ Create a new BioSequence2GeneProduct
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{sourceAnalysis}}{\link{Analysis} \link{optional}}
+\item{\code{sourceAnalysis}}{\link{Analysis} optional}
 
-\item{\code{overlap}}{integer \link{optional}}
+\item{\code{overlap}}{integer optional}
 
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{threePrimeDistance}}{integer \link{optional}}
+\item{\code{threePrimeDistance}}{integer optional}
 
-\item{\code{threePrimeDistanceMeasurementMethod}}{\link{ThreePrimeDistanceMethod} \link{optional}}
+\item{\code{threePrimeDistanceMeasurementMethod}}{\link{ThreePrimeDistanceMethod} optional}
 
-\item{\code{specificity}}{numeric \link{optional}}
+\item{\code{specificity}}{numeric optional}
 
-\item{\code{bioSequence}}{\link{BioSequence} \link{optional}}
+\item{\code{bioSequence}}{\link{BioSequence} optional}
 
-\item{\code{geneProduct}}{\link{GeneProduct} \link{optional}}
+\item{\code{geneProduct}}{\link{GeneProduct} optional}
 }
 \if{html}{\out{</div>}}
 }

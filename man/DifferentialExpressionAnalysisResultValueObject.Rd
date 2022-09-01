@@ -54,19 +54,19 @@ Create a new DifferentialExpressionAnalysisResultValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{probeId}}{integer \link{optional}}
+\item{\code{probeId}}{integer optional}
 
-\item{\code{probeName}}{character \link{optional}}
+\item{\code{probeName}}{character optional}
 
-\item{\code{genes}}{list(\link{GeneValueObject}) \link{optional}}
+\item{\code{genes}}{list(\link{GeneValueObject}) optional}
 
-\item{\code{correctedPvalue}}{numeric \link{optional}}
+\item{\code{correctedPvalue}}{numeric optional}
 
-\item{\code{rank}}{numeric \link{optional}}
+\item{\code{rank}}{numeric optional}
 
-\item{\code{contrasts}}{list(\link{ContrastResultValueObject}) \link{optional}}
+\item{\code{contrasts}}{list(\link{ContrastResultValueObject}) optional}
 
-\item{\code{pvalue}}{numeric \link{optional}}
+\item{\code{pvalue}}{numeric optional}
 }
 \if{html}{\out{</div>}}
 }

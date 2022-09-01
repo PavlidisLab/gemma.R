@@ -53,11 +53,11 @@ Create a new ApiInfoValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{welcome}}{character \link{optional}}
+\item{\code{welcome}}{character optional}
 
-\item{\code{version}}{character \link{optional}}
+\item{\code{version}}{character optional}
 
-\item{\code{docs}}{character \link{optional}}
+\item{\code{docs}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

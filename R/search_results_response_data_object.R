@@ -7,8 +7,8 @@
 #' @title SearchResultsResponseDataObject
 #' @description SearchResultsResponseDataObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  list(\link{SearchResultValueObject}) [optional]
-#' @field searchSettings  \link{SearchSettingsValueObject} [optional]
+#' @field data  list(\link{SearchResultValueObject}) optional
+#' @field searchSettings  \link{SearchSettingsValueObject} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

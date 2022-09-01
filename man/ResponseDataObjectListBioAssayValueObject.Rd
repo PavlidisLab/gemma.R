@@ -54,7 +54,7 @@ Create a new ResponseDataObjectListBioAssayValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{BioAssayValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{BioAssayValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

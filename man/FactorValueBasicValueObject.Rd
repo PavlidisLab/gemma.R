@@ -53,21 +53,21 @@ Create a new FactorValueBasicValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{characteristics}}{list(\link{CharacteristicBasicValueObject}) \link{optional}}
+\item{\code{characteristics}}{list(\link{CharacteristicBasicValueObject}) optional}
 
-\item{\code{experimentalFactorCategory}}{\link{CharacteristicBasicValueObject} \link{optional}}
+\item{\code{experimentalFactorCategory}}{\link{CharacteristicBasicValueObject} optional}
 
-\item{\code{measurement}}{\link{MeasurementValueObject} \link{optional}}
+\item{\code{measurement}}{\link{MeasurementValueObject} optional}
 
-\item{\code{fvValue}}{character \link{optional}}
+\item{\code{fvValue}}{character optional}
 
-\item{\code{fvSummary}}{character \link{optional}}
+\item{\code{fvSummary}}{character optional}
 
-\item{\code{experimentalFactorId}}{integer \link{optional}}
+\item{\code{experimentalFactorId}}{integer optional}
 
-\item{\code{baseline}}{character \link{optional}}
+\item{\code{baseline}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

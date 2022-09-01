@@ -7,20 +7,20 @@
 #' @title AnnotationValueObject
 #' @description AnnotationValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field classUri  character [optional]
-#' @field className  character [optional]
-#' @field termUri  character [optional]
-#' @field termName  character [optional]
-#' @field parentName  character [optional]
-#' @field parentDescription  character [optional]
-#' @field parentLink  character [optional]
-#' @field parentOfParentName  character [optional]
-#' @field parentOfParentDescription  character [optional]
-#' @field parentOfParentLink  character [optional]
-#' @field description  character [optional]
-#' @field evidenceCode  character [optional]
-#' @field objectClass  character [optional]
+#' @field id  integer optional
+#' @field classUri  character optional
+#' @field className  character optional
+#' @field termUri  character optional
+#' @field termName  character optional
+#' @field parentName  character optional
+#' @field parentDescription  character optional
+#' @field parentLink  character optional
+#' @field parentOfParentName  character optional
+#' @field parentOfParentDescription  character optional
+#' @field parentOfParentLink  character optional
+#' @field description  character optional
+#' @field evidenceCode  character optional
+#' @field objectClass  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,37 +53,37 @@ Create a new DiffExResultSetSummaryValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{analysisId}}{integer \link{optional}}
+\item{\code{analysisId}}{integer optional}
 
-\item{\code{arrayDesignsUsed}}{list(integer) \link{optional}}
+\item{\code{arrayDesignsUsed}}{list(integer) optional}
 
-\item{\code{baselineGroup}}{\link{FactorValueValueObject} \link{optional}}
+\item{\code{baselineGroup}}{\link{FactorValueValueObject} optional}
 
-\item{\code{downregulatedCount}}{integer \link{optional}}
+\item{\code{downregulatedCount}}{integer optional}
 
-\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) \link{optional}}
+\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) optional}
 
-\item{\code{factorIds}}{list(integer) \link{optional}}
+\item{\code{factorIds}}{list(integer) optional}
 
-\item{\code{numberOfDiffExpressedProbes}}{integer \link{optional}}
+\item{\code{numberOfDiffExpressedProbes}}{integer optional}
 
-\item{\code{numberOfGenesAnalyzed}}{integer \link{optional}}
+\item{\code{numberOfGenesAnalyzed}}{integer optional}
 
-\item{\code{numberOfProbesAnalyzed}}{integer \link{optional}}
+\item{\code{numberOfProbesAnalyzed}}{integer optional}
 
-\item{\code{threshold}}{numeric \link{optional}}
+\item{\code{threshold}}{numeric optional}
 
-\item{\code{upregulatedCount}}{integer \link{optional}}
+\item{\code{upregulatedCount}}{integer optional}
 
-\item{\code{bioAssaySetAnalyzedId}}{integer \link{optional}}
+\item{\code{bioAssaySetAnalyzedId}}{integer optional}
 
-\item{\code{resultSetId}}{integer \link{optional}}
+\item{\code{resultSetId}}{integer optional}
 
-\item{\code{qvalue}}{numeric \link{optional}}
+\item{\code{qvalue}}{numeric optional}
 
-\item{\code{experimentalFactorsByValueObject}}{list(\link{ExperimentalFactorValueObject}) \link{optional}}
+\item{\code{experimentalFactorsByValueObject}}{list(\link{ExperimentalFactorValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

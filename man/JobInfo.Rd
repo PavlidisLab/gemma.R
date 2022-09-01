@@ -53,25 +53,25 @@ Create a new JobInfo
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{runningStatus}}{character \link{optional}}
+\item{\code{runningStatus}}{character optional}
 
-\item{\code{failedMessage}}{character \link{optional}}
+\item{\code{failedMessage}}{character optional}
 
-\item{\code{startTime}}{character \link{optional}}
+\item{\code{startTime}}{character optional}
 
-\item{\code{endTime}}{character \link{optional}}
+\item{\code{endTime}}{character optional}
 
-\item{\code{phases}}{integer \link{optional}}
+\item{\code{phases}}{integer optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{messages}}{character \link{optional}}
+\item{\code{messages}}{character optional}
 
-\item{\code{taskId}}{character \link{optional}}
+\item{\code{taskId}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{user}}{\link{User} \link{optional}}
+\item{\code{user}}{\link{User} optional}
 }
 \if{html}{\out{</div>}}
 }

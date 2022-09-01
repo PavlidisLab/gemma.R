@@ -53,9 +53,9 @@ Create a new PhenotypeMappingType
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 
-\item{\code{mutable}}{character \link{optional}}
+\item{\code{mutable}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

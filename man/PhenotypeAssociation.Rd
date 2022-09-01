@@ -53,41 +53,41 @@ Create a new PhenotypeAssociation
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{auditTrail}}{\link{AuditTrail} \link{optional}}
+\item{\code{auditTrail}}{\link{AuditTrail} optional}
 
-\item{\code{evidenceCode}}{\link{GOEvidenceCode} \link{optional}}
+\item{\code{evidenceCode}}{\link{GOEvidenceCode} optional}
 
-\item{\code{isNegativeEvidence}}{character \link{optional}}
+\item{\code{isNegativeEvidence}}{character optional}
 
-\item{\code{score}}{character \link{optional}}
+\item{\code{score}}{character optional}
 
-\item{\code{strength}}{numeric \link{optional}}
+\item{\code{strength}}{numeric optional}
 
-\item{\code{gene}}{\link{Gene} \link{optional}}
+\item{\code{gene}}{\link{Gene} optional}
 
-\item{\code{phenotypes}}{list(\link{Characteristic}) \link{optional}}
+\item{\code{phenotypes}}{list(\link{Characteristic}) optional}
 
-\item{\code{associationType}}{\link{Characteristic} \link{optional}}
+\item{\code{associationType}}{\link{Characteristic} optional}
 
-\item{\code{evidenceSource}}{\link{DatabaseEntry} \link{optional}}
+\item{\code{evidenceSource}}{\link{DatabaseEntry} optional}
 
-\item{\code{scoreType}}{\link{QuantitationType} \link{optional}}
+\item{\code{scoreType}}{\link{QuantitationType} optional}
 
-\item{\code{phenotypeAssociationPublications}}{list(\link{PhenotypeAssociationPublication}) \link{optional}}
+\item{\code{phenotypeAssociationPublications}}{list(\link{PhenotypeAssociationPublication}) optional}
 
-\item{\code{mappingType}}{\link{PhenotypeMappingType} \link{optional}}
+\item{\code{mappingType}}{\link{PhenotypeMappingType} optional}
 
-\item{\code{originalPhenotype}}{character \link{optional}}
+\item{\code{originalPhenotype}}{character optional}
 
-\item{\code{relationship}}{character \link{optional}}
+\item{\code{relationship}}{character optional}
 
-\item{\code{lastUpdated}}{character \link{optional}}
+\item{\code{lastUpdated}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

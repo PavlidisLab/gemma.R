@@ -54,7 +54,7 @@ Create a new ResponseDataObjectSetAnnotationValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{AnnotationValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{AnnotationValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

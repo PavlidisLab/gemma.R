@@ -53,19 +53,19 @@ Create a new PhysicalLocationValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{nucleotide}}{integer \link{optional}}
+\item{\code{nucleotide}}{integer optional}
 
-\item{\code{nucleotideLength}}{integer \link{optional}}
+\item{\code{nucleotideLength}}{integer optional}
 
-\item{\code{strand}}{character \link{optional}}
+\item{\code{strand}}{character optional}
 
-\item{\code{bin}}{integer \link{optional}}
+\item{\code{bin}}{integer optional}
 
-\item{\code{chromosome}}{character \link{optional}}
+\item{\code{chromosome}}{character optional}
 
-\item{\code{taxon}}{\link{TaxonValueObject} \link{optional}}
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

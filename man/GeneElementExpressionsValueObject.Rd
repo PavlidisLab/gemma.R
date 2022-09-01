@@ -53,11 +53,11 @@ Create a new GeneElementExpressionsValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{geneOfficialSymbol}}{character \link{optional}}
+\item{\code{geneOfficialSymbol}}{character optional}
 
-\item{\code{geneNcbiId}}{integer \link{optional}}
+\item{\code{geneNcbiId}}{integer optional}
 
-\item{\code{vectors}}{list(\link{VectorElementValueObject}) \link{optional}}
+\item{\code{vectors}}{list(\link{VectorElementValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

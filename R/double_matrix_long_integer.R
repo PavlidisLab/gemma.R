@@ -7,11 +7,11 @@
 #' @title DoubleMatrixLongInteger
 #' @description DoubleMatrixLongInteger Class
 #' @format An \code{R6Class} generator object
-#' @field colNames  list(integer) [optional]
-#' @field rowNames  list(integer) [optional]
-#' @field rawMatrix  list(list(numeric)) [optional]
-#' @field columnNames  list(integer) [optional]
-#' @field rowNameMapIterator  object [optional]
+#' @field colNames  list(integer) optional
+#' @field rowNames  list(integer) optional
+#' @field rawMatrix  list(list(numeric)) optional
+#' @field columnNames  list(integer) optional
+#' @field rowNameMapIterator  object optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

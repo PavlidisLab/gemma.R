@@ -7,13 +7,13 @@
 #' @title PhysicalLocationValueObject
 #' @description PhysicalLocationValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field nucleotide  integer [optional]
-#' @field nucleotideLength  integer [optional]
-#' @field strand  character [optional]
-#' @field bin  integer [optional]
-#' @field chromosome  character [optional]
-#' @field taxon  \link{TaxonValueObject} [optional]
+#' @field id  integer optional
+#' @field nucleotide  integer optional
+#' @field nucleotideLength  integer optional
+#' @field strand  character optional
+#' @field bin  integer optional
+#' @field chromosome  character optional
+#' @field taxon  \link{TaxonValueObject} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

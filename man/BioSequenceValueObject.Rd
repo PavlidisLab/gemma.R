@@ -53,23 +53,23 @@ Create a new BioSequenceValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{fractionRepeats}}{numeric \link{optional}}
+\item{\code{fractionRepeats}}{numeric optional}
 
-\item{\code{length}}{integer \link{optional}}
+\item{\code{length}}{integer optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{sequence}}{character \link{optional}}
+\item{\code{sequence}}{character optional}
 
-\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntryValueObject} \link{optional}}
+\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntryValueObject} optional}
 
-\item{\code{taxon}}{\link{TaxonValueObject} \link{optional}}
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
 
-\item{\code{type}}{\link{SequenceType} \link{optional}}
+\item{\code{type}}{\link{SequenceType} optional}
 }
 \if{html}{\out{</div>}}
 }

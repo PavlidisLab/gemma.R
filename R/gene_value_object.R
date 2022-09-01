@@ -7,29 +7,29 @@
 #' @title GeneValueObject
 #' @description GeneValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field aliases  list(character) [optional]
-#' @field associatedExperimentCount  integer [optional]
-#' @field compositeSequenceCount  integer [optional]
-#' @field geneSets  list(\link{GeneSetValueObject}) [optional]
-#' @field homologues  list(\link{GeneValueObject}) [optional]
-#' @field isQuery  character [optional]
-#' @field multifunctionalityRank  numeric [optional]
-#' @field ncbiId  integer [optional]
-#' @field ensemblId  character [optional]
-#' @field nodeDegreeNegRanks  list(numeric) [optional]
-#' @field nodeDegreePosRanks  list(numeric) [optional]
-#' @field nodeDegreesNeg  list(integer) [optional]
-#' @field nodeDegreesPos  list(integer) [optional]
-#' @field numGoTerms  integer [optional]
-#' @field officialName  character [optional]
-#' @field officialSymbol  character [optional]
-#' @field phenotypes  list(\link{CharacteristicValueObject}) [optional]
-#' @field platformCount  integer [optional]
-#' @field score  numeric [optional]
-#' @field taxonCommonName  character [optional]
-#' @field taxonId  integer [optional]
-#' @field taxonScientificName  character [optional]
+#' @field id  integer optional
+#' @field aliases  list(character) optional
+#' @field associatedExperimentCount  integer optional
+#' @field compositeSequenceCount  integer optional
+#' @field geneSets  list(\link{GeneSetValueObject}) optional
+#' @field homologues  list(\link{GeneValueObject}) optional
+#' @field isQuery  character optional
+#' @field multifunctionalityRank  numeric optional
+#' @field ncbiId  integer optional
+#' @field ensemblId  character optional
+#' @field nodeDegreeNegRanks  list(numeric) optional
+#' @field nodeDegreePosRanks  list(numeric) optional
+#' @field nodeDegreesNeg  list(integer) optional
+#' @field nodeDegreesPos  list(integer) optional
+#' @field numGoTerms  integer optional
+#' @field officialName  character optional
+#' @field officialSymbol  character optional
+#' @field phenotypes  list(\link{CharacteristicValueObject}) optional
+#' @field platformCount  integer optional
+#' @field score  numeric optional
+#' @field taxonCommonName  character optional
+#' @field taxonId  integer optional
+#' @field taxonScientificName  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,23 +53,23 @@ Create a new GeneMappingSummary
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{geneProductIdMap}}{named list(\link{GeneProductValueObject}) \link{optional}}
+\item{\code{geneProductIdMap}}{named list(\link{GeneProductValueObject}) optional}
 
-\item{\code{geneProductIdGeneMap}}{named list(\link{GeneValueObject}) \link{optional}}
+\item{\code{geneProductIdGeneMap}}{named list(\link{GeneValueObject}) optional}
 
-\item{\code{blatResult}}{\link{BlatResultValueObject} \link{optional}}
+\item{\code{blatResult}}{\link{BlatResultValueObject} optional}
 
-\item{\code{geneProductMap}}{named list(\link{GeneValueObject}) \link{optional}}
+\item{\code{geneProductMap}}{named list(\link{GeneValueObject}) optional}
 
-\item{\code{compositeSequence}}{\link{CompositeSequenceValueObject} \link{optional}}
+\item{\code{compositeSequence}}{\link{CompositeSequenceValueObject} optional}
 
-\item{\code{identity}}{numeric \link{optional}}
+\item{\code{identity}}{numeric optional}
 
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{blatResultId}}{character \link{optional}}
+\item{\code{blatResultId}}{character optional}
 
-\item{\code{geneProducts}}{list(\link{GeneProductValueObject}) \link{optional}}
+\item{\code{geneProducts}}{list(\link{GeneProductValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

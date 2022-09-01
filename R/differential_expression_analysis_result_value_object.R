@@ -7,13 +7,13 @@
 #' @title DifferentialExpressionAnalysisResultValueObject
 #' @description DifferentialExpressionAnalysisResultValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field probeId  integer [optional]
-#' @field probeName  character [optional]
-#' @field genes  list(\link{GeneValueObject}) [optional]
-#' @field correctedPvalue  numeric [optional]
-#' @field rank  numeric [optional]
-#' @field contrasts  list(\link{ContrastResultValueObject}) [optional]
-#' @field pvalue  numeric [optional]
+#' @field probeId  integer optional
+#' @field probeName  character optional
+#' @field genes  list(\link{GeneValueObject}) optional
+#' @field correctedPvalue  numeric optional
+#' @field rank  numeric optional
+#' @field contrasts  list(\link{ContrastResultValueObject}) optional
+#' @field pvalue  numeric optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

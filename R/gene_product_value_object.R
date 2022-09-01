@@ -7,14 +7,14 @@
 #' @title GeneProductValueObject
 #' @description GeneProductValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field ncbiId  character [optional]
-#' @field name  character [optional]
-#' @field geneId  integer [optional]
-#' @field chromosome  character [optional]
-#' @field strand  character [optional]
-#' @field nucleotideStart  integer [optional]
-#' @field nucleotideEnd  integer [optional]
+#' @field id  integer optional
+#' @field ncbiId  character optional
+#' @field name  character optional
+#' @field geneId  integer optional
+#' @field chromosome  character optional
+#' @field strand  character optional
+#' @field nucleotideStart  integer optional
+#' @field nucleotideEnd  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

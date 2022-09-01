@@ -15,6 +15,8 @@ for (f in R_files){
     file = readLines(glue::glue('inst/script/auto_gen_code/{f}'))
     
     file[grepl('@export',file)] %<>% gsub("#' @export","#' @keywords internal",.)
+    file[grepl('[optional]',file,fixed = TRUE)] %<>% 
+        gsub('[optional]','optional',x=.,fixed = TRUE)
     
     writeLines(file,f)
 }

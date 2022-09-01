@@ -7,7 +7,7 @@
 #' @title IdentifiableValueObjectIdentifiable
 #' @description IdentifiableValueObjectIdentifiable Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
+#' @field id  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

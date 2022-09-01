@@ -53,17 +53,17 @@ Create a new MeasurementValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 
-\item{\code{unit}}{character \link{optional}}
+\item{\code{unit}}{character optional}
 
-\item{\code{unitId}}{integer \link{optional}}
+\item{\code{unitId}}{integer optional}
 
-\item{\code{type}}{character \link{optional}}
+\item{\code{type}}{character optional}
 
-\item{\code{representation}}{character \link{optional}}
+\item{\code{representation}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

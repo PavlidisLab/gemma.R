@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectListArrayDesignValueObject
 #' @description ResponseDataObjectListArrayDesignValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  list(\link{ArrayDesignValueObject}) [optional]
+#' @field data  list(\link{ArrayDesignValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,23 +53,23 @@ Create a new DifferentialExpressionAnalysisValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{factorValuesUsed}}{named list(list(\link{FactorValueValueObject})) \link{optional}}
+\item{\code{factorValuesUsed}}{named list(list(\link{FactorValueValueObject})) optional}
 
-\item{\code{resultSets}}{list(\link{DiffExResultSetSummaryValueObject}) \link{optional}}
+\item{\code{resultSets}}{list(\link{DiffExResultSetSummaryValueObject}) optional}
 
-\item{\code{arrayDesignsUsed}}{list(integer) \link{optional}}
+\item{\code{arrayDesignsUsed}}{list(integer) optional}
 
-\item{\code{bioAssaySetId}}{integer \link{optional}}
+\item{\code{bioAssaySetId}}{integer optional}
 
-\item{\code{sourceExperiment}}{integer \link{optional}}
+\item{\code{sourceExperiment}}{integer optional}
 
-\item{\code{subsetFactor}}{\link{ExperimentalFactorValueObject} \link{optional}}
+\item{\code{subsetFactor}}{\link{ExperimentalFactorValueObject} optional}
 
-\item{\code{subsetFactorValue}}{\link{FactorValueValueObject} \link{optional}}
+\item{\code{subsetFactorValue}}{\link{FactorValueValueObject} optional}
 
-\item{\code{subset}}{character \link{optional}}
+\item{\code{subset}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

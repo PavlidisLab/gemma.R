@@ -7,9 +7,9 @@
 #' @title WellComposedErrorBody
 #' @description WellComposedErrorBody Class
 #' @format An \code{R6Class} generator object
-#' @field code  integer [optional]
-#' @field message  character [optional]
-#' @field errors  named list(character) [optional]
+#' @field code  integer optional
+#' @field message  character optional
+#' @field errors  named list(character) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

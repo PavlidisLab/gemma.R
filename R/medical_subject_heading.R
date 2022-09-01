@@ -7,9 +7,9 @@
 #' @title MedicalSubjectHeading
 #' @description MedicalSubjectHeading Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field isMajorTopic  character [optional]
-#' @field term  character [optional]
+#' @field id  integer optional
+#' @field isMajorTopic  character optional
+#' @field term  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

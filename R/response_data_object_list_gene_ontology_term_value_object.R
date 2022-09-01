@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectListGeneOntologyTermValueObject
 #' @description ResponseDataObjectListGeneOntologyTermValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  list(\link{GeneOntologyTermValueObject}) [optional]
+#' @field data  list(\link{GeneOntologyTermValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

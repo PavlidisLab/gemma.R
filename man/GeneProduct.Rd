@@ -53,23 +53,23 @@ Create a new GeneProduct
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{previousNcbiId}}{character \link{optional}}
+\item{\code{previousNcbiId}}{character optional}
 
-\item{\code{physicalLocation}}{\link{PhysicalLocation} \link{optional}}
+\item{\code{physicalLocation}}{\link{PhysicalLocation} optional}
 
-\item{\code{ncbiGi}}{character \link{optional}}
+\item{\code{ncbiGi}}{character optional}
 
-\item{\code{accessions}}{list(\link{DatabaseEntry}) \link{optional}}
+\item{\code{accessions}}{list(\link{DatabaseEntry}) optional}
 
-\item{\code{exons}}{list(\link{PhysicalLocation}) \link{optional}}
+\item{\code{exons}}{list(\link{PhysicalLocation}) optional}
 
-\item{\code{gene}}{\link{Gene} \link{optional}}
+\item{\code{gene}}{\link{Gene} optional}
 }
 \if{html}{\out{</div>}}
 }

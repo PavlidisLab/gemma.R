@@ -7,10 +7,10 @@
 #' @title Contact
 #' @description Contact Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field email  character [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field email  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

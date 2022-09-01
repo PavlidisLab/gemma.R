@@ -7,21 +7,21 @@
 #' @title QuantitationType
 #' @description QuantitationType Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field isBackground  character [optional]
-#' @field isBackgroundSubtracted  character [optional]
-#' @field isBatchCorrected  character [optional]
-#' @field isMaskedPreferred  character [optional]
-#' @field isNormalized  character [optional]
-#' @field isPreferred  character [optional]
-#' @field isRecomputedFromRawData  character [optional]
-#' @field isRatio  character [optional]
-#' @field generalType  \link{GeneralType} [optional]
-#' @field representation  \link{PrimitiveType} [optional]
-#' @field scale  \link{ScaleType} [optional]
-#' @field type  \link{StandardQuantitationType} [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field isBackground  character optional
+#' @field isBackgroundSubtracted  character optional
+#' @field isBatchCorrected  character optional
+#' @field isMaskedPreferred  character optional
+#' @field isNormalized  character optional
+#' @field isPreferred  character optional
+#' @field isRecomputedFromRawData  character optional
+#' @field isRatio  character optional
+#' @field generalType  \link{GeneralType} optional
+#' @field representation  \link{PrimitiveType} optional
+#' @field scale  \link{ScaleType} optional
+#' @field type  \link{StandardQuantitationType} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

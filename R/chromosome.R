@@ -7,11 +7,11 @@
 #' @title Chromosome
 #' @description Chromosome Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field assemblyDatabase  \link{ExternalDatabase} [optional]
-#' @field sequence  \link{BioSequence} [optional]
-#' @field taxon  \link{Taxon} [optional]
-#' @field id  integer [optional]
+#' @field name  character optional
+#' @field assemblyDatabase  \link{ExternalDatabase} optional
+#' @field sequence  \link{BioSequence} optional
+#' @field taxon  \link{Taxon} optional
+#' @field id  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

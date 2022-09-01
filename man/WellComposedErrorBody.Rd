@@ -53,11 +53,11 @@ Create a new WellComposedErrorBody
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{code}}{integer \link{optional}}
+\item{\code{code}}{integer optional}
 
-\item{\code{message}}{character \link{optional}}
+\item{\code{message}}{character optional}
 
-\item{\code{errors}}{named list(character) \link{optional}}
+\item{\code{errors}}{named list(character) optional}
 }
 \if{html}{\out{</div>}}
 }

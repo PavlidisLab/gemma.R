@@ -53,7 +53,7 @@ Create a new ResponseDataObjectSimpleSVDValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{\link{SimpleSVDValueObject} \link{optional}}
+\item{\code{data}}{\link{SimpleSVDValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

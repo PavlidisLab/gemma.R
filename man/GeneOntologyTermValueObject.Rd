@@ -53,19 +53,19 @@ Create a new GeneOntologyTermValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{goId}}{character \link{optional}}
+\item{\code{goId}}{character optional}
 
-\item{\code{label}}{character \link{optional}}
+\item{\code{label}}{character optional}
 
-\item{\code{uri}}{character \link{optional}}
+\item{\code{uri}}{character optional}
 
-\item{\code{comment}}{character \link{optional}}
+\item{\code{comment}}{character optional}
 
-\item{\code{localName}}{character \link{optional}}
+\item{\code{localName}}{character optional}
 
-\item{\code{term}}{character \link{optional}}
+\item{\code{term}}{character optional}
 
-\item{\code{obsolete}}{character \link{optional}}
+\item{\code{obsolete}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

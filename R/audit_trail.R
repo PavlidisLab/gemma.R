@@ -7,10 +7,10 @@
 #' @title AuditTrail
 #' @description AuditTrail Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field events  list(\link{AuditEvent}) [optional]
-#' @field creationEvent  \link{AuditEvent} [optional]
-#' @field last  \link{AuditEvent} [optional]
+#' @field id  integer optional
+#' @field events  list(\link{AuditEvent}) optional
+#' @field creationEvent  \link{AuditEvent} optional
+#' @field last  \link{AuditEvent} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

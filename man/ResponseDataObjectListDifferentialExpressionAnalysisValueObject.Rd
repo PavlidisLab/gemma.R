@@ -54,7 +54,7 @@ Create a new ResponseDataObjectListDifferentialExpressionAnalysisValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{DifferentialExpressionAnalysisValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{DifferentialExpressionAnalysisValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,7 +53,7 @@ Create a new ResponseDataObjectListGeneValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{GeneValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{GeneValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

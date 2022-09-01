@@ -53,9 +53,9 @@ Create a new ResponseErrorObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{error}}{\link{WellComposedErrorBody} \link{optional}}
+\item{\code{error}}{\link{WellComposedErrorBody} optional}
 
-\item{\code{apiVersion}}{character \link{optional}}
+\item{\code{apiVersion}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

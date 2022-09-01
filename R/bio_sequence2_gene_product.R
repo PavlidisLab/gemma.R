@@ -7,15 +7,15 @@
 #' @title BioSequence2GeneProduct
 #' @description BioSequence2GeneProduct Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field sourceAnalysis  \link{Analysis} [optional]
-#' @field overlap  integer [optional]
-#' @field score  numeric [optional]
-#' @field threePrimeDistance  integer [optional]
-#' @field threePrimeDistanceMeasurementMethod  \link{ThreePrimeDistanceMethod} [optional]
-#' @field specificity  numeric [optional]
-#' @field bioSequence  \link{BioSequence} [optional]
-#' @field geneProduct  \link{GeneProduct} [optional]
+#' @field id  integer optional
+#' @field sourceAnalysis  \link{Analysis} optional
+#' @field overlap  integer optional
+#' @field score  numeric optional
+#' @field threePrimeDistance  integer optional
+#' @field threePrimeDistanceMeasurementMethod  \link{ThreePrimeDistanceMethod} optional
+#' @field specificity  numeric optional
+#' @field bioSequence  \link{BioSequence} optional
+#' @field geneProduct  \link{GeneProduct} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

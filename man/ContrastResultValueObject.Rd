@@ -53,17 +53,17 @@ Create a new ContrastResultValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{pvalue}}{numeric \link{optional}}
+\item{\code{pvalue}}{numeric optional}
 
-\item{\code{coefficient}}{numeric \link{optional}}
+\item{\code{coefficient}}{numeric optional}
 
-\item{\code{logFoldChange}}{numeric \link{optional}}
+\item{\code{logFoldChange}}{numeric optional}
 
-\item{\code{factorValue}}{\link{FactorValueBasicValueObject} \link{optional}}
+\item{\code{factorValue}}{\link{FactorValueBasicValueObject} optional}
 
-\item{\code{secondFactorValue}}{\link{FactorValueBasicValueObject} \link{optional}}
+\item{\code{secondFactorValue}}{\link{FactorValueBasicValueObject} optional}
 
-\item{\code{tstat}}{numeric \link{optional}}
+\item{\code{tstat}}{numeric optional}
 }
 \if{html}{\out{</div>}}
 }

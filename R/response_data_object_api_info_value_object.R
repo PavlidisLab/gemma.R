@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectApiInfoValueObject
 #' @description ResponseDataObjectApiInfoValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  \link{ApiInfoValueObject} [optional]
+#' @field data  \link{ApiInfoValueObject} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

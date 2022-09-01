@@ -53,13 +53,13 @@ Create a new AuditTrail
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{events}}{list(\link{AuditEvent}) \link{optional}}
+\item{\code{events}}{list(\link{AuditEvent}) optional}
 
-\item{\code{creationEvent}}{\link{AuditEvent} \link{optional}}
+\item{\code{creationEvent}}{\link{AuditEvent} optional}
 
-\item{\code{last}}{\link{AuditEvent} \link{optional}}
+\item{\code{last}}{\link{AuditEvent} optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -7,8 +7,8 @@
 #' @title ExperimentExpressionLevelsValueObject
 #' @description ExperimentExpressionLevelsValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field datasetId  integer [optional]
-#' @field geneExpressionLevels  list(\link{GeneElementExpressionsValueObject}) [optional]
+#' @field datasetId  integer optional
+#' @field geneExpressionLevels  list(\link{GeneElementExpressionsValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

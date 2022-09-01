@@ -7,11 +7,11 @@
 #' @title SearchSettingsValueObject
 #' @description SearchSettingsValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field query  character [optional]
-#' @field resultTypes  list(character) [optional]
-#' @field taxon  \link{TaxonValueObject} [optional]
-#' @field platform  \link{ArrayDesignValueObject} [optional]
-#' @field maxResults  integer [optional]
+#' @field query  character optional
+#' @field resultTypes  list(character) optional
+#' @field taxon  \link{TaxonValueObject} optional
+#' @field platform  \link{ArrayDesignValueObject} optional
+#' @field maxResults  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

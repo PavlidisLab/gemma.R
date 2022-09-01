@@ -7,21 +7,21 @@
 #' @title CharacteristicValueObject
 #' @description CharacteristicValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field urlId  character [optional]
-#' @field alreadyPresentInDatabase  character [optional]
-#' @field alreadyPresentOnGene  character [optional]
-#' @field category  character [optional]
-#' @field categoryUri  character [optional]
-#' @field child  character [optional]
-#' @field numTimesUsed  integer [optional]
-#' @field ontologyUsed  character [optional]
-#' @field privateGeneCount  integer [optional]
-#' @field publicGeneCount  integer [optional]
-#' @field root  character [optional]
-#' @field taxon  character [optional]
-#' @field value  character [optional]
-#' @field valueUri  character [optional]
+#' @field id  integer optional
+#' @field urlId  character optional
+#' @field alreadyPresentInDatabase  character optional
+#' @field alreadyPresentOnGene  character optional
+#' @field category  character optional
+#' @field categoryUri  character optional
+#' @field child  character optional
+#' @field numTimesUsed  integer optional
+#' @field ontologyUsed  character optional
+#' @field privateGeneCount  integer optional
+#' @field publicGeneCount  integer optional
+#' @field root  character optional
+#' @field taxon  character optional
+#' @field value  character optional
+#' @field valueUri  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

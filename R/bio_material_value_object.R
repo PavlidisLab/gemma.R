@@ -7,19 +7,19 @@
 #' @title BioMaterialValueObject
 #' @description BioMaterialValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field assayDescription  character [optional]
-#' @field assayName  character [optional]
-#' @field bioAssays  list(integer) [optional]
-#' @field characteristics  list(\link{CharacteristicValueObject}) [optional]
-#' @field description  character [optional]
-#' @field factorIdToFactorValueId  named list(character) [optional]
-#' @field factors  named list(character) [optional]
-#' @field factorValueObjects  list(\link{IdentifiableValueObject}) [optional]
-#' @field factorValues  named list(character) [optional]
-#' @field name  character [optional]
-#' @field assayProcessingDate  character [optional]
-#' @field characteristicValues  named list(character) [optional]
+#' @field id  integer optional
+#' @field assayDescription  character optional
+#' @field assayName  character optional
+#' @field bioAssays  list(integer) optional
+#' @field characteristics  list(\link{CharacteristicValueObject}) optional
+#' @field description  character optional
+#' @field factorIdToFactorValueId  named list(character) optional
+#' @field factors  named list(character) optional
+#' @field factorValueObjects  list(\link{IdentifiableValueObject}) optional
+#' @field factorValues  named list(character) optional
+#' @field name  character optional
+#' @field assayProcessingDate  character optional
+#' @field characteristicValues  named list(character) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,35 +53,35 @@ Create a new CharacteristicValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{urlId}}{character \link{optional}}
+\item{\code{urlId}}{character optional}
 
-\item{\code{alreadyPresentInDatabase}}{character \link{optional}}
+\item{\code{alreadyPresentInDatabase}}{character optional}
 
-\item{\code{alreadyPresentOnGene}}{character \link{optional}}
+\item{\code{alreadyPresentOnGene}}{character optional}
 
-\item{\code{category}}{character \link{optional}}
+\item{\code{category}}{character optional}
 
-\item{\code{categoryUri}}{character \link{optional}}
+\item{\code{categoryUri}}{character optional}
 
-\item{\code{child}}{character \link{optional}}
+\item{\code{child}}{character optional}
 
-\item{\code{numTimesUsed}}{integer \link{optional}}
+\item{\code{numTimesUsed}}{integer optional}
 
-\item{\code{ontologyUsed}}{character \link{optional}}
+\item{\code{ontologyUsed}}{character optional}
 
-\item{\code{privateGeneCount}}{integer \link{optional}}
+\item{\code{privateGeneCount}}{integer optional}
 
-\item{\code{publicGeneCount}}{integer \link{optional}}
+\item{\code{publicGeneCount}}{integer optional}
 
-\item{\code{root}}{character \link{optional}}
+\item{\code{root}}{character optional}
 
-\item{\code{taxon}}{character \link{optional}}
+\item{\code{taxon}}{character optional}
 
-\item{\code{value}}{character \link{optional}}
+\item{\code{value}}{character optional}
 
-\item{\code{valueUri}}{character \link{optional}}
+\item{\code{valueUri}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

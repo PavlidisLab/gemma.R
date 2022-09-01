@@ -7,24 +7,24 @@
 #' @title PhenotypeAssociation
 #' @description PhenotypeAssociation Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field auditTrail  \link{AuditTrail} [optional]
-#' @field evidenceCode  \link{GOEvidenceCode} [optional]
-#' @field isNegativeEvidence  character [optional]
-#' @field score  character [optional]
-#' @field strength  numeric [optional]
-#' @field gene  \link{Gene} [optional]
-#' @field phenotypes  list(\link{Characteristic}) [optional]
-#' @field associationType  \link{Characteristic} [optional]
-#' @field evidenceSource  \link{DatabaseEntry} [optional]
-#' @field scoreType  \link{QuantitationType} [optional]
-#' @field phenotypeAssociationPublications  list(\link{PhenotypeAssociationPublication}) [optional]
-#' @field mappingType  \link{PhenotypeMappingType} [optional]
-#' @field originalPhenotype  character [optional]
-#' @field relationship  character [optional]
-#' @field lastUpdated  character [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field auditTrail  \link{AuditTrail} optional
+#' @field evidenceCode  \link{GOEvidenceCode} optional
+#' @field isNegativeEvidence  character optional
+#' @field score  character optional
+#' @field strength  numeric optional
+#' @field gene  \link{Gene} optional
+#' @field phenotypes  list(\link{Characteristic}) optional
+#' @field associationType  \link{Characteristic} optional
+#' @field evidenceSource  \link{DatabaseEntry} optional
+#' @field scoreType  \link{QuantitationType} optional
+#' @field phenotypeAssociationPublications  list(\link{PhenotypeAssociationPublication}) optional
+#' @field mappingType  \link{PhenotypeMappingType} optional
+#' @field originalPhenotype  character optional
+#' @field relationship  character optional
+#' @field lastUpdated  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

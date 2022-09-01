@@ -53,35 +53,35 @@ Create a new QuantitationType
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{isBackground}}{character \link{optional}}
+\item{\code{isBackground}}{character optional}
 
-\item{\code{isBackgroundSubtracted}}{character \link{optional}}
+\item{\code{isBackgroundSubtracted}}{character optional}
 
-\item{\code{isBatchCorrected}}{character \link{optional}}
+\item{\code{isBatchCorrected}}{character optional}
 
-\item{\code{isMaskedPreferred}}{character \link{optional}}
+\item{\code{isMaskedPreferred}}{character optional}
 
-\item{\code{isNormalized}}{character \link{optional}}
+\item{\code{isNormalized}}{character optional}
 
-\item{\code{isPreferred}}{character \link{optional}}
+\item{\code{isPreferred}}{character optional}
 
-\item{\code{isRecomputedFromRawData}}{character \link{optional}}
+\item{\code{isRecomputedFromRawData}}{character optional}
 
-\item{\code{isRatio}}{character \link{optional}}
+\item{\code{isRatio}}{character optional}
 
-\item{\code{generalType}}{\link{GeneralType} \link{optional}}
+\item{\code{generalType}}{\link{GeneralType} optional}
 
-\item{\code{representation}}{\link{PrimitiveType} \link{optional}}
+\item{\code{representation}}{\link{PrimitiveType} optional}
 
-\item{\code{scale}}{\link{ScaleType} \link{optional}}
+\item{\code{scale}}{\link{ScaleType} optional}
 
-\item{\code{type}}{\link{StandardQuantitationType} \link{optional}}
+\item{\code{type}}{\link{StandardQuantitationType} optional}
 }
 \if{html}{\out{</div>}}
 }

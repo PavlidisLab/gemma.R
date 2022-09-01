@@ -7,13 +7,13 @@
 #' @title GeneOntologyTermValueObject
 #' @description GeneOntologyTermValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field goId  character [optional]
-#' @field label  character [optional]
-#' @field uri  character [optional]
-#' @field comment  character [optional]
-#' @field localName  character [optional]
-#' @field term  character [optional]
-#' @field obsolete  character [optional]
+#' @field goId  character optional
+#' @field label  character optional
+#' @field uri  character optional
+#' @field comment  character optional
+#' @field localName  character optional
+#' @field term  character optional
+#' @field obsolete  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

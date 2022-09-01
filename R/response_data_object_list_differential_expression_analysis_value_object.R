@@ -7,7 +7,7 @@
 #' @title ResponseDataObjectListDifferentialExpressionAnalysisValueObject
 #' @description ResponseDataObjectListDifferentialExpressionAnalysisValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field data  list(\link{DifferentialExpressionAnalysisValueObject}) [optional]
+#' @field data  list(\link{DifferentialExpressionAnalysisValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

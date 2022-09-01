@@ -7,8 +7,8 @@
 #' @title PhenotypeMappingType
 #' @description PhenotypeMappingType Class
 #' @format An \code{R6Class} generator object
-#' @field value  character [optional]
-#' @field mutable  character [optional]
+#' @field value  character optional
+#' @field mutable  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

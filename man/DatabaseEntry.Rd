@@ -53,15 +53,15 @@ Create a new DatabaseEntry
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{accession}}{character \link{optional}}
+\item{\code{accession}}{character optional}
 
-\item{\code{accessionVersion}}{character \link{optional}}
+\item{\code{accessionVersion}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{externalDatabase}}{\link{ExternalDatabase} \link{optional}}
+\item{\code{externalDatabase}}{\link{ExternalDatabase} optional}
 
-\item{\code{uri}}{character \link{optional}}
+\item{\code{uri}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

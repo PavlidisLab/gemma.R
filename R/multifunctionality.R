@@ -7,10 +7,10 @@
 #' @title Multifunctionality
 #' @description Multifunctionality Class
 #' @format An \code{R6Class} generator object
-#' @field score  numeric [optional]
-#' @field rank  numeric [optional]
-#' @field numGoTerms  integer [optional]
-#' @field id  integer [optional]
+#' @field score  numeric optional
+#' @field rank  numeric optional
+#' @field numGoTerms  integer optional
+#' @field id  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

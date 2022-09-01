@@ -53,53 +53,53 @@ Create a new GeeqValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{publicQualityScore}}{numeric \link{optional}}
+\item{\code{publicQualityScore}}{numeric optional}
 
-\item{\code{publicSuitabilityScore}}{numeric \link{optional}}
+\item{\code{publicSuitabilityScore}}{numeric optional}
 
-\item{\code{getsScorePublication}}{numeric \link{optional}}
+\item{\code{getsScorePublication}}{numeric optional}
 
-\item{\code{getsScorePlatformAmount}}{numeric \link{optional}}
+\item{\code{getsScorePlatformAmount}}{numeric optional}
 
-\item{\code{getsScorePlatformsTechMulti}}{numeric \link{optional}}
+\item{\code{getsScorePlatformsTechMulti}}{numeric optional}
 
-\item{\code{getsScoreAvgPlatformPopularity}}{numeric \link{optional}}
+\item{\code{getsScoreAvgPlatformPopularity}}{numeric optional}
 
-\item{\code{getsScoreAvgPlatformSize}}{numeric \link{optional}}
+\item{\code{getsScoreAvgPlatformSize}}{numeric optional}
 
-\item{\code{getsScoreSampleSize}}{numeric \link{optional}}
+\item{\code{getsScoreSampleSize}}{numeric optional}
 
-\item{\code{getsScoreRawData}}{numeric \link{optional}}
+\item{\code{getsScoreRawData}}{numeric optional}
 
-\item{\code{getsScoreMissingValues}}{numeric \link{optional}}
+\item{\code{getsScoreMissingValues}}{numeric optional}
 
-\item{\code{getqScoreOutliers}}{numeric \link{optional}}
+\item{\code{getqScoreOutliers}}{numeric optional}
 
-\item{\code{getqScoreSampleMeanCorrelation}}{numeric \link{optional}}
+\item{\code{getqScoreSampleMeanCorrelation}}{numeric optional}
 
-\item{\code{getqScoreSampleMedianCorrelation}}{numeric \link{optional}}
+\item{\code{getqScoreSampleMedianCorrelation}}{numeric optional}
 
-\item{\code{getqScoreSampleCorrelationVariance}}{numeric \link{optional}}
+\item{\code{getqScoreSampleCorrelationVariance}}{numeric optional}
 
-\item{\code{getqScorePlatformsTech}}{numeric \link{optional}}
+\item{\code{getqScorePlatformsTech}}{numeric optional}
 
-\item{\code{getqScoreReplicates}}{numeric \link{optional}}
+\item{\code{getqScoreReplicates}}{numeric optional}
 
-\item{\code{getqScoreBatchInfo}}{numeric \link{optional}}
+\item{\code{getqScoreBatchInfo}}{numeric optional}
 
-\item{\code{getqScorePublicBatchEffect}}{numeric \link{optional}}
+\item{\code{getqScorePublicBatchEffect}}{numeric optional}
 
-\item{\code{getqScorePublicBatchConfound}}{numeric \link{optional}}
+\item{\code{getqScorePublicBatchConfound}}{numeric optional}
 
-\item{\code{noVectors}}{character \link{optional}}
+\item{\code{noVectors}}{character optional}
 
-\item{\code{corrMatIssues}}{character \link{optional}}
+\item{\code{corrMatIssues}}{character optional}
 
-\item{\code{replicatesIssues}}{character \link{optional}}
+\item{\code{replicatesIssues}}{character optional}
 
-\item{\code{batchCorrected}}{character \link{optional}}
+\item{\code{batchCorrected}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

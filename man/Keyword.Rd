@@ -53,11 +53,11 @@ Create a new Keyword
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{isMajorTopic}}{character \link{optional}}
+\item{\code{isMajorTopic}}{character optional}
 
-\item{\code{term}}{character \link{optional}}
+\item{\code{term}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

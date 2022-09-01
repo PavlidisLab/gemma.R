@@ -7,19 +7,19 @@
 #' @title CoexpressionValueObjectExt
 #' @description CoexpressionValueObjectExt Class
 #' @format An \code{R6Class} generator object
-#' @field containsMyData  character [optional]
-#' @field foundGene  \link{GeneValueObject} [optional]
-#' @field foundGeneNodeDegree  integer [optional]
-#' @field foundGeneNodeDegreeRank  numeric [optional]
-#' @field negSupp  integer [optional]
-#' @field numTestedIn  integer [optional]
-#' @field posSupp  integer [optional]
-#' @field queryGene  \link{GeneValueObject} [optional]
-#' @field queryGeneNodeDegree  integer [optional]
-#' @field queryGeneNodeDegreeRank  numeric [optional]
-#' @field sortKey  character [optional]
-#' @field supportingExperiments  list(integer) [optional]
-#' @field support  integer [optional]
+#' @field containsMyData  character optional
+#' @field foundGene  \link{GeneValueObject} optional
+#' @field foundGeneNodeDegree  integer optional
+#' @field foundGeneNodeDegreeRank  numeric optional
+#' @field negSupp  integer optional
+#' @field numTestedIn  integer optional
+#' @field posSupp  integer optional
+#' @field queryGene  \link{GeneValueObject} optional
+#' @field queryGeneNodeDegree  integer optional
+#' @field queryGeneNodeDegreeRank  numeric optional
+#' @field sortKey  character optional
+#' @field supportingExperiments  list(integer) optional
+#' @field support  integer optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

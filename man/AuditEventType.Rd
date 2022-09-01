@@ -53,7 +53,7 @@ Create a new AuditEventType
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,9 +53,9 @@ Create a new SortValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{orderBy}}{character \link{optional}}
+\item{\code{orderBy}}{character optional}
 
-\item{\code{direction}}{character \link{optional}}
+\item{\code{direction}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

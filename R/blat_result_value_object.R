@@ -7,30 +7,30 @@
 #' @title BlatResultValueObject
 #' @description BlatResultValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field blockCount  integer [optional]
-#' @field blockSizes  character [optional]
-#' @field identity  numeric [optional]
-#' @field matches  integer [optional]
-#' @field mismatches  integer [optional]
-#' @field ns  integer [optional]
-#' @field queryEnd  integer [optional]
-#' @field queryGapBases  integer [optional]
-#' @field queryGapCount  integer [optional]
-#' @field querySequence  \link{BioSequenceValueObject} [optional]
-#' @field queryStart  integer [optional]
-#' @field queryStarts  character [optional]
-#' @field repMatches  integer [optional]
-#' @field score  numeric [optional]
-#' @field strand  character [optional]
-#' @field targetChromosomeName  character [optional]
-#' @field targetDatabase  character [optional]
-#' @field taxon  \link{TaxonValueObject} [optional]
-#' @field targetEnd  integer [optional]
-#' @field targetGapBases  integer [optional]
-#' @field targetGapCount  integer [optional]
-#' @field targetStart  integer [optional]
-#' @field targetStarts  character [optional]
+#' @field id  integer optional
+#' @field blockCount  integer optional
+#' @field blockSizes  character optional
+#' @field identity  numeric optional
+#' @field matches  integer optional
+#' @field mismatches  integer optional
+#' @field ns  integer optional
+#' @field queryEnd  integer optional
+#' @field queryGapBases  integer optional
+#' @field queryGapCount  integer optional
+#' @field querySequence  \link{BioSequenceValueObject} optional
+#' @field queryStart  integer optional
+#' @field queryStarts  character optional
+#' @field repMatches  integer optional
+#' @field score  numeric optional
+#' @field strand  character optional
+#' @field targetChromosomeName  character optional
+#' @field targetDatabase  character optional
+#' @field taxon  \link{TaxonValueObject} optional
+#' @field targetEnd  integer optional
+#' @field targetGapBases  integer optional
+#' @field targetGapCount  integer optional
+#' @field targetStart  integer optional
+#' @field targetStarts  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

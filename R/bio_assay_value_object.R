@@ -7,21 +7,21 @@
 #' @title BioAssayValueObject
 #' @description BioAssayValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field accession  \link{DatabaseEntryValueObject} [optional]
-#' @field arrayDesign  \link{ArrayDesignValueObject} [optional]
-#' @field description  character [optional]
-#' @field metadata  character [optional]
-#' @field name  character [optional]
-#' @field originalPlatform  \link{ArrayDesignValueObject} [optional]
-#' @field outlier  character [optional]
-#' @field predictedOutlier  character [optional]
-#' @field processingDate  character [optional]
-#' @field sample  \link{BioMaterialValueObject} [optional]
-#' @field sequencePairedReads  character [optional]
-#' @field sequenceReadCount  integer [optional]
-#' @field sequenceReadLength  integer [optional]
-#' @field userFlaggedOutlier  character [optional]
+#' @field id  integer optional
+#' @field accession  \link{DatabaseEntryValueObject} optional
+#' @field arrayDesign  \link{ArrayDesignValueObject} optional
+#' @field description  character optional
+#' @field metadata  character optional
+#' @field name  character optional
+#' @field originalPlatform  \link{ArrayDesignValueObject} optional
+#' @field outlier  character optional
+#' @field predictedOutlier  character optional
+#' @field processingDate  character optional
+#' @field sample  \link{BioMaterialValueObject} optional
+#' @field sequencePairedReads  character optional
+#' @field sequenceReadCount  integer optional
+#' @field sequenceReadLength  integer optional
+#' @field userFlaggedOutlier  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

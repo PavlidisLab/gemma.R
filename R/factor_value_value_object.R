@@ -7,17 +7,17 @@
 #' @title FactorValueValueObject
 #' @description FactorValueValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field category  character [optional]
-#' @field categoryUri  character [optional]
-#' @field description  character [optional]
-#' @field value  character [optional]
-#' @field valueUri  character [optional]
-#' @field charId  integer [optional]
-#' @field factorId  integer [optional]
-#' @field isBaseline  character [optional]
-#' @field measurement  character [optional]
-#' @field factorValue  character [optional]
+#' @field id  integer optional
+#' @field category  character optional
+#' @field categoryUri  character optional
+#' @field description  character optional
+#' @field value  character optional
+#' @field valueUri  character optional
+#' @field charId  integer optional
+#' @field factorId  integer optional
+#' @field isBaseline  character optional
+#' @field measurement  character optional
+#' @field factorValue  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

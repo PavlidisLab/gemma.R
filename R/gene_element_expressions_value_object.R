@@ -7,9 +7,9 @@
 #' @title GeneElementExpressionsValueObject
 #' @description GeneElementExpressionsValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field geneOfficialSymbol  character [optional]
-#' @field geneNcbiId  integer [optional]
-#' @field vectors  list(\link{VectorElementValueObject}) [optional]
+#' @field geneOfficialSymbol  character optional
+#' @field geneNcbiId  integer optional
+#' @field vectors  list(\link{VectorElementValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

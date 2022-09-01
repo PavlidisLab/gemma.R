@@ -53,53 +53,53 @@ Create a new BlatResultValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{blockCount}}{integer \link{optional}}
+\item{\code{blockCount}}{integer optional}
 
-\item{\code{blockSizes}}{character \link{optional}}
+\item{\code{blockSizes}}{character optional}
 
-\item{\code{identity}}{numeric \link{optional}}
+\item{\code{identity}}{numeric optional}
 
-\item{\code{matches}}{integer \link{optional}}
+\item{\code{matches}}{integer optional}
 
-\item{\code{mismatches}}{integer \link{optional}}
+\item{\code{mismatches}}{integer optional}
 
-\item{\code{ns}}{integer \link{optional}}
+\item{\code{ns}}{integer optional}
 
-\item{\code{queryEnd}}{integer \link{optional}}
+\item{\code{queryEnd}}{integer optional}
 
-\item{\code{queryGapBases}}{integer \link{optional}}
+\item{\code{queryGapBases}}{integer optional}
 
-\item{\code{queryGapCount}}{integer \link{optional}}
+\item{\code{queryGapCount}}{integer optional}
 
-\item{\code{querySequence}}{\link{BioSequenceValueObject} \link{optional}}
+\item{\code{querySequence}}{\link{BioSequenceValueObject} optional}
 
-\item{\code{queryStart}}{integer \link{optional}}
+\item{\code{queryStart}}{integer optional}
 
-\item{\code{queryStarts}}{character \link{optional}}
+\item{\code{queryStarts}}{character optional}
 
-\item{\code{repMatches}}{integer \link{optional}}
+\item{\code{repMatches}}{integer optional}
 
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{strand}}{character \link{optional}}
+\item{\code{strand}}{character optional}
 
-\item{\code{targetChromosomeName}}{character \link{optional}}
+\item{\code{targetChromosomeName}}{character optional}
 
-\item{\code{targetDatabase}}{character \link{optional}}
+\item{\code{targetDatabase}}{character optional}
 
-\item{\code{taxon}}{\link{TaxonValueObject} \link{optional}}
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
 
-\item{\code{targetEnd}}{integer \link{optional}}
+\item{\code{targetEnd}}{integer optional}
 
-\item{\code{targetGapBases}}{integer \link{optional}}
+\item{\code{targetGapBases}}{integer optional}
 
-\item{\code{targetGapCount}}{integer \link{optional}}
+\item{\code{targetGapCount}}{integer optional}
 
-\item{\code{targetStart}}{integer \link{optional}}
+\item{\code{targetStart}}{integer optional}
 
-\item{\code{targetStarts}}{character \link{optional}}
+\item{\code{targetStarts}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

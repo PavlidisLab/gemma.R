@@ -7,8 +7,8 @@
 #' @title SortValueObject
 #' @description SortValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field orderBy  character [optional]
-#' @field direction  character [optional]
+#' @field orderBy  character optional
+#' @field direction  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

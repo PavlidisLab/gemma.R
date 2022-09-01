@@ -7,10 +7,10 @@
 #' @title ExpressionAnalysisResultSetValueObject
 #' @description ExpressionAnalysisResultSetValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field analysis  \link{DifferentialExpressionAnalysisValueObject} [optional]
-#' @field experimentalFactors  list(\link{ExperimentalFactorValueObject}) [optional]
-#' @field results  list(\link{DifferentialExpressionAnalysisResultValueObject}) [optional]
+#' @field id  integer optional
+#' @field analysis  \link{DifferentialExpressionAnalysisValueObject} optional
+#' @field experimentalFactors  list(\link{ExperimentalFactorValueObject}) optional
+#' @field results  list(\link{DifferentialExpressionAnalysisResultValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

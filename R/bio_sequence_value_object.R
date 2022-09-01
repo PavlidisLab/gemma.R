@@ -7,15 +7,15 @@
 #' @title BioSequenceValueObject
 #' @description BioSequenceValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field description  character [optional]
-#' @field fractionRepeats  numeric [optional]
-#' @field length  integer [optional]
-#' @field name  character [optional]
-#' @field sequence  character [optional]
-#' @field sequenceDatabaseEntry  \link{DatabaseEntryValueObject} [optional]
-#' @field taxon  \link{TaxonValueObject} [optional]
-#' @field type  \link{SequenceType} [optional]
+#' @field id  integer optional
+#' @field description  character optional
+#' @field fractionRepeats  numeric optional
+#' @field length  integer optional
+#' @field name  character optional
+#' @field sequence  character optional
+#' @field sequenceDatabaseEntry  \link{DatabaseEntryValueObject} optional
+#' @field taxon  \link{TaxonValueObject} optional
+#' @field type  \link{SequenceType} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

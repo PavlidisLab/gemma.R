@@ -53,15 +53,15 @@ Create a new DoubleMatrixLongInteger
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{colNames}}{list(integer) \link{optional}}
+\item{\code{colNames}}{list(integer) optional}
 
-\item{\code{rowNames}}{list(integer) \link{optional}}
+\item{\code{rowNames}}{list(integer) optional}
 
-\item{\code{rawMatrix}}{list(list(numeric)) \link{optional}}
+\item{\code{rawMatrix}}{list(list(numeric)) optional}
 
-\item{\code{columnNames}}{list(integer) \link{optional}}
+\item{\code{columnNames}}{list(integer) optional}
 
-\item{\code{rowNameMapIterator}}{object \link{optional}}
+\item{\code{rowNameMapIterator}}{object optional}
 }
 \if{html}{\out{</div>}}
 }

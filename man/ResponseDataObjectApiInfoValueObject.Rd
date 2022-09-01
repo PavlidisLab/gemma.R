@@ -53,7 +53,7 @@ Create a new ResponseDataObjectApiInfoValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{\link{ApiInfoValueObject} \link{optional}}
+\item{\code{data}}{\link{ApiInfoValueObject} optional}
 }
 \if{html}{\out{</div>}}
 }

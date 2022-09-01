@@ -7,15 +7,15 @@
 #' @title GeneMappingSummary
 #' @description GeneMappingSummary Class
 #' @format An \code{R6Class} generator object
-#' @field geneProductIdMap  named list(\link{GeneProductValueObject}) [optional]
-#' @field geneProductIdGeneMap  named list(\link{GeneValueObject}) [optional]
-#' @field blatResult  \link{BlatResultValueObject} [optional]
-#' @field geneProductMap  named list(\link{GeneValueObject}) [optional]
-#' @field compositeSequence  \link{CompositeSequenceValueObject} [optional]
-#' @field identity  numeric [optional]
-#' @field score  numeric [optional]
-#' @field blatResultId  character [optional]
-#' @field geneProducts  list(\link{GeneProductValueObject}) [optional]
+#' @field geneProductIdMap  named list(\link{GeneProductValueObject}) optional
+#' @field geneProductIdGeneMap  named list(\link{GeneValueObject}) optional
+#' @field blatResult  \link{BlatResultValueObject} optional
+#' @field geneProductMap  named list(\link{GeneValueObject}) optional
+#' @field compositeSequence  \link{CompositeSequenceValueObject} optional
+#' @field identity  numeric optional
+#' @field score  numeric optional
+#' @field blatResultId  character optional
+#' @field geneProducts  list(\link{GeneProductValueObject}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,15 +53,15 @@ Create a new SearchSettingsValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{query}}{character \link{optional}}
+\item{\code{query}}{character optional}
 
-\item{\code{resultTypes}}{list(character) \link{optional}}
+\item{\code{resultTypes}}{list(character) optional}
 
-\item{\code{taxon}}{\link{TaxonValueObject} \link{optional}}
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
 
-\item{\code{platform}}{\link{ArrayDesignValueObject} \link{optional}}
+\item{\code{platform}}{\link{ArrayDesignValueObject} optional}
 
-\item{\code{maxResults}}{integer \link{optional}}
+\item{\code{maxResults}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }

@@ -53,27 +53,27 @@ Create a new GeneSetValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{geneIds}}{list(integer) \link{optional}}
+\item{\code{geneIds}}{list(integer) optional}
 
-\item{\code{isPublic}}{character \link{optional}}
+\item{\code{isPublic}}{character optional}
 
-\item{\code{isShared}}{character \link{optional}}
+\item{\code{isShared}}{character optional}
 
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{size}}{integer \link{optional}}
+\item{\code{size}}{integer optional}
 
-\item{\code{taxonId}}{integer \link{optional}}
+\item{\code{taxonId}}{integer optional}
 
-\item{\code{taxonName}}{character \link{optional}}
+\item{\code{taxonName}}{character optional}
 
-\item{\code{userOwned}}{character \link{optional}}
+\item{\code{userOwned}}{character optional}
 
-\item{\code{userCanWrite}}{character \link{optional}}
+\item{\code{userCanWrite}}{character optional}
 }
 \if{html}{\out{</div>}}
 }

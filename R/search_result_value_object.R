@@ -7,10 +7,10 @@
 #' @title SearchResultValueObject
 #' @description SearchResultValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field resultId  integer [optional]
-#' @field resultType  character [optional]
-#' @field score  numeric [optional]
-#' @field resultObject  \link{IdentifiableValueObjectIdentifiable} [optional]
+#' @field resultId  integer optional
+#' @field resultType  character optional
+#' @field score  numeric optional
+#' @field resultObject  \link{IdentifiableValueObjectIdentifiable} optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

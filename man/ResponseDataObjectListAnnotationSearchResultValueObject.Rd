@@ -54,7 +54,7 @@ Create a new ResponseDataObjectListAnnotationSearchResultValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{AnnotationSearchResultValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{AnnotationSearchResultValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

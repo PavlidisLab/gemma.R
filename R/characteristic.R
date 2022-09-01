@@ -7,15 +7,15 @@
 #' @title Characteristic
 #' @description Characteristic Class
 #' @format An \code{R6Class} generator object
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field id  integer [optional]
-#' @field category  character [optional]
-#' @field categoryUri  character [optional]
-#' @field evidenceCode  \link{GOEvidenceCode} [optional]
-#' @field originalValue  character [optional]
-#' @field value  character [optional]
-#' @field valueUri  character [optional]
+#' @field name  character optional
+#' @field description  character optional
+#' @field id  integer optional
+#' @field category  character optional
+#' @field categoryUri  character optional
+#' @field evidenceCode  \link{GOEvidenceCode} optional
+#' @field originalValue  character optional
+#' @field value  character optional
+#' @field valueUri  character optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

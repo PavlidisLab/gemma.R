@@ -54,7 +54,7 @@ Create a new ResponseDataObjectListArrayDesignValueObject
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{data}}{list(\link{ArrayDesignValueObject}) \link{optional}}
+\item{\code{data}}{list(\link{ArrayDesignValueObject}) optional}
 }
 \if{html}{\out{</div>}}
 }

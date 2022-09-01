@@ -53,41 +53,41 @@ Create a new ArrayDesign
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{name}}{character \link{optional}}
+\item{\code{name}}{character optional}
 
-\item{\code{description}}{character \link{optional}}
+\item{\code{description}}{character optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 
-\item{\code{auditTrail}}{\link{AuditTrail} \link{optional}}
+\item{\code{auditTrail}}{\link{AuditTrail} optional}
 
-\item{\code{advertisedNumberOfDesignElements}}{integer \link{optional}}
+\item{\code{advertisedNumberOfDesignElements}}{integer optional}
 
-\item{\code{alternateNames}}{list(\link{AlternateName}) \link{optional}}
+\item{\code{alternateNames}}{list(\link{AlternateName}) optional}
 
-\item{\code{alternativeTo}}{\link{ArrayDesign} \link{optional}}
+\item{\code{alternativeTo}}{\link{ArrayDesign} optional}
 
-\item{\code{compositeSequences}}{list(\link{CompositeSequence}) \link{optional}}
+\item{\code{compositeSequences}}{list(\link{CompositeSequence}) optional}
 
-\item{\code{curationDetails}}{\link{CurationDetails} \link{optional}}
+\item{\code{curationDetails}}{\link{CurationDetails} optional}
 
-\item{\code{designProvider}}{\link{Contact} \link{optional}}
+\item{\code{designProvider}}{\link{Contact} optional}
 
-\item{\code{externalReferences}}{list(\link{DatabaseEntry}) \link{optional}}
+\item{\code{externalReferences}}{list(\link{DatabaseEntry}) optional}
 
-\item{\code{mergedInto}}{\link{ArrayDesign} \link{optional}}
+\item{\code{mergedInto}}{\link{ArrayDesign} optional}
 
-\item{\code{mergees}}{list(\link{ArrayDesign}) \link{optional}}
+\item{\code{mergees}}{list(\link{ArrayDesign}) optional}
 
-\item{\code{primaryTaxon}}{\link{Taxon} \link{optional}}
+\item{\code{primaryTaxon}}{\link{Taxon} optional}
 
-\item{\code{shortName}}{character \link{optional}}
+\item{\code{shortName}}{character optional}
 
-\item{\code{subsumedArrayDesigns}}{list(\link{ArrayDesign}) \link{optional}}
+\item{\code{subsumedArrayDesigns}}{list(\link{ArrayDesign}) optional}
 
-\item{\code{subsumingArrayDesign}}{\link{ArrayDesign} \link{optional}}
+\item{\code{subsumingArrayDesign}}{\link{ArrayDesign} optional}
 
-\item{\code{technologyType}}{\link{TechnologyType} \link{optional}}
+\item{\code{technologyType}}{\link{TechnologyType} optional}
 }
 \if{html}{\out{</div>}}
 }

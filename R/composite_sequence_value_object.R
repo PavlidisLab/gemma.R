@@ -7,11 +7,11 @@
 #' @title CompositeSequenceValueObject
 #' @description CompositeSequenceValueObject Class
 #' @format An \code{R6Class} generator object
-#' @field id  integer [optional]
-#' @field name  character [optional]
-#' @field description  character [optional]
-#' @field arrayDesign  \link{ArrayDesignValueObject} [optional]
-#' @field geneMappingSummaries  list(\link{GeneMappingSummary}) [optional]
+#' @field id  integer optional
+#' @field name  character optional
+#' @field description  character optional
+#' @field arrayDesign  \link{ArrayDesignValueObject} optional
+#' @field geneMappingSummaries  list(\link{GeneMappingSummary}) optional
 #' @importFrom R6 R6Class
 #' @importFrom jsonlite fromJSON toJSON
 #' @keywords internal

@@ -53,13 +53,13 @@ Create a new Multifunctionality
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{score}}{numeric \link{optional}}
+\item{\code{score}}{numeric optional}
 
-\item{\code{rank}}{numeric \link{optional}}
+\item{\code{rank}}{numeric optional}
 
-\item{\code{numGoTerms}}{integer \link{optional}}
+\item{\code{numGoTerms}}{integer optional}
 
-\item{\code{id}}{integer \link{optional}}
+\item{\code{id}}{integer optional}
 }
 \if{html}{\out{</div>}}
 }
