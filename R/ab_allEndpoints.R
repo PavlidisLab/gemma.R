@@ -48,65 +48,51 @@
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' getDatasetsInfo("GSE2018")
 #' getDatasetsInfo(c("GSE2018", "GSE2872"))
-getDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+getDatasetsInfo <- function (datasets = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
     fname <- "getDatasetsInfo"
     preprocessor <- processDatasets
-    validators <- list(
-        datasets = validateOptionalID, offset = validatePositiveInteger,
-        limit = validateLimit, sort = validateSort
-    )
+    validators <- list(datasets = validateOptionalID, offset = validatePositiveInteger, 
+        limit = validateLimit, sort = validateSort)
     endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetsInfo(
-            datasets = datasets, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetDatasetsInfo(datasets = datasets, offset = offset, 
+            limit = limit, sort = sort, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetsInfo
 #'
 #' @noRd
-memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+memgetDatasetsInfo <-function (datasets = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetsInfo, cache = gemmaCache())
-    mem_call(
-        datasets = datasets, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(datasets = datasets, offset = offset, limit = limit, 
+        sort = sort, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' .getResultSets
@@ -131,18 +117,14 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
 #'
 #' @return Varies
 #' @keywords internal
-#'
+#' 
 #' @examples
-.getResultSets <- function(resultSet = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+#' 
+.getResultSets <- function (resultSet = NA_character_, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -154,37 +136,26 @@ memgetDatasetsInfo <- function(datasets = NA_character_, offset = 0L, limit = 20
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- mem.getResultSets(
-            resultSet = resultSet, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- mem.getResultSets(resultSet = resultSet, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise .getResultSets
 #'
 #' @noRd
-mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+mem.getResultSets <-function (resultSet = NA_character_, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(.getResultSets, cache = gemmaCache())
-    mem_call(
-        resultSet = resultSet, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(resultSet = resultSet, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' .getResultSetFactors
@@ -230,68 +201,55 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #'
 #' @return Varies
 #' @keywords internal
-#'
+#' 
 #' @examples
-.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+#' 
+.getResultSetFactors <- function (resultSet = NA_character_, dataset = NA_character_, 
+    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE, 
+    raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     internal <- TRUE
     header <- ""
     isFile <- FALSE
     fname <- ".getResultSetFactors"
     preprocessor <- processResultSetFactors
-    validators <- list(
-        resultSet = validateOptionalID, dataset = validateOptionalID,
-        offset = validatePositiveInteger, limit = validateLimit,
-        sort = validateSort
-    )
+    validators <- list(resultSet = validateOptionalID, dataset = validateOptionalID, 
+        offset = validatePositiveInteger, limit = validateLimit, 
+        sort = validateSort)
     endpoint <- "resultSets/{encode(resultSet)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&excludeResults={encode(excludeResults)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- mem.getResultSetFactors(
-            resultSet = resultSet,
-            dataset = dataset, offset = offset, limit = limit,
-            sort = sort, excludeResults = excludeResults, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- mem.getResultSetFactors(resultSet = resultSet, 
+            dataset = dataset, offset = offset, limit = limit, 
+            sort = sort, excludeResults = excludeResults, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise .getResultSetFactors
 #'
 #' @noRd
-mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_character_,
-    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+mem.getResultSetFactors <-function (resultSet = NA_character_, dataset = NA_character_, 
+    offset = 0L, limit = 20L, sort = "+id", excludeResults = TRUE, 
+    raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     mem_call <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
-    mem_call(
-        resultSet = resultSet, dataset = dataset, offset = offset,
-        limit = limit, sort = sort, excludeResults = excludeResults,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
-    )
+    mem_call(resultSet = resultSet, dataset = dataset, offset = offset, 
+        limit = limit, sort = sort, excludeResults = excludeResults, 
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite, 
+        attributes = attributes)
 }
 
 #' getDatasetResultSets
@@ -321,17 +279,14 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, dataset = NA_char
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' resultSets <- getDatasetResultSets("GSE2018")
-#' getDatasetDE(resultSet = resultSets$resultSet.id)
-getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+#' getDatasetDE(resultSet =resultSets$resultSet.id)
+getDatasetResultSets <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -344,34 +299,25 @@ getDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), m
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetResultSets(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetResultSets(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetResultSets
 #'
 #' @noRd
-memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetResultSets <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetResultSets, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' getDatasetExpression
@@ -403,19 +349,14 @@ memgetDatasetResultSets <- function(dataset, raw = getOption("gemma.raw", FALSE)
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' dat <- getDatasetExpression("GSE2018")
-getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetExpression <- function (dataset, filter = FALSE, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -428,37 +369,26 @@ getDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetExpression(
-            dataset = dataset, filter = filter,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetExpression(dataset = dataset, filter = filter, 
+            raw = raw, memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetExpression
 #'
 #' @noRd
-memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetExpression <-function (dataset, filter = FALSE, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetExpression, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, filter = filter, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, filter = filter, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' Dataset samples
@@ -488,17 +418,14 @@ memgetDatasetExpression <- function(dataset, filter = FALSE, raw = getOption(
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' dat <- getDatasetSamples("GSE2018")
 #' head(dat)
-getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetSamples <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -508,9 +435,8 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
+            stop(glue::glue("Please specify one valid identifier for {name}."), 
+                call. = FALSE)
         }
         validateID(name, ...)
     })
@@ -519,34 +445,25 @@ getDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memo
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetSamples(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetSamples(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetSamples
 #'
 #' @noRd
-memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetSamples <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetSamples, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' Dataset platforms
@@ -576,16 +493,13 @@ memgetDatasetSamples <- function(dataset, raw = getOption("gemma.raw", FALSE), m
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' getDatasetPlatforms("GSE2018")
-getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetPlatforms <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -595,9 +509,8 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
+            stop(glue::glue("Please specify one valid identifier for {name}."), 
+                call. = FALSE)
         }
         validateID(name, ...)
     })
@@ -606,34 +519,25 @@ getDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetPlatforms(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetPlatforms(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetPlatforms
 #'
 #' @noRd
-memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetPlatforms <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetPlatforms, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' Dataset annotations
@@ -664,16 +568,13 @@ memgetDatasetPlatforms <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' getDatasetAnnotations("GSE2018")
-getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetAnnotations <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -683,9 +584,8 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
+            stop(glue::glue("Please specify one valid identifier for {name}."), 
+                call. = FALSE)
         }
         validateID(name, ...)
     })
@@ -694,34 +594,25 @@ getDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetAnnotations(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetAnnotations(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetAnnotations
 #'
 #' @noRd
-memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetAnnotations <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetAnnotations, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' Dataset design
@@ -751,17 +642,14 @@ memgetDatasetAnnotations <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' dat <- getDatasetDesign("GSE2018")
 #' str(dat)
-getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetDesign <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -771,9 +659,8 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
+            stop(glue::glue("Please specify one valid identifier for {name}."), 
+                call. = FALSE)
         }
         validateID(name, ...)
     })
@@ -782,34 +669,25 @@ getDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetDesign(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetDesign(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetDesign
 #'
 #' @noRd
-memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetDesign <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetDesign, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' getDatasetDEA
@@ -841,17 +719,14 @@ memgetDatasetDesign <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
-#' result <- getDatasetDEA("GSE2018")
+#' result = getDatasetDEA("GSE2018")
 #' getDatasetDE(resultSet = result$result.ID)
-getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getDatasetDEA <- function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -861,9 +736,8 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
+            stop(glue::glue("Please specify one valid identifier for {name}."), 
+                call. = FALSE)
         }
         validateID(name, ...)
     })
@@ -872,34 +746,25 @@ getDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetDatasetDEA(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetDatasetDEA(dataset = dataset, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getDatasetDEA
 #'
 #' @noRd
-memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetDatasetDEA <-function (dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getDatasetDEA, cache = gemmaCache())
-    mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
-    )
+    mem_call(dataset = dataset, raw = raw, memoised = FALSE, 
+        file = file, overwrite = overwrite, attributes = attributes)
 }
 
 #' Platforms
@@ -948,65 +813,51 @@ memgetDatasetDEA <- function(dataset, raw = getOption("gemma.raw", FALSE), memoi
 #' @export
 #'
 #' @keywords platform
-#'
+#' 
 #' @examples
 #' getPlatformsInfo("GPL1355")
 #' getPlatformsInfo(c("GPL1355", "GPL96"))
-getPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+getPlatformsInfo <- function (platforms = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
     fname <- "getPlatformsInfo"
     preprocessor <- processPlatforms
-    validators <- list(
-        platforms = validateOptionalID, offset = validatePositiveInteger,
-        limit = validateLimit, sort = validateSort
-    )
+    validators <- list(platforms = validateOptionalID, offset = validatePositiveInteger, 
+        limit = validateLimit, sort = validateSort)
     endpoint <- "platforms/{encode(platforms)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetPlatformsInfo(
-            platforms = platforms, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetPlatformsInfo(platforms = platforms, offset = offset, 
+            limit = limit, sort = sort, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getPlatformsInfo
 #'
 #' @noRd
-memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+memgetPlatformsInfo <-function (platforms = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     mem_call <- memoise::memoise(getPlatformsInfo, cache = gemmaCache())
-    mem_call(
-        platforms = platforms, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(platforms = platforms, offset = offset, limit = limit, 
+        sort = sort, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Platform datasets
@@ -1040,67 +891,49 @@ memgetPlatformsInfo <- function(platforms = NA_character_, offset = 0L, limit = 
 #' @export
 #'
 #' @keywords platform
-#'
+#' 
 #' @examples
 #' dat <- getPlatformDatasets("GPL1355")
 #' str(dat, vec.len = 1)
-getPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getPlatformDatasets <- function (platform, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
     fname <- "getPlatformDatasets"
     preprocessor <- processDatasets
-    validators <- list(
-        platform = validateSingleID, offset = validatePositiveInteger,
-        limit = validateLimit
-    )
+    validators <- list(platform = validateSingleID, offset = validatePositiveInteger, 
+        limit = validateLimit)
     endpoint <- "platforms/{encode(platform)}/datasets?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetPlatformDatasets(
-            platform = platform, offset = offset,
-            limit = limit, raw = raw, memoised = FALSE, file = file,
-            overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetPlatformDatasets(platform = platform, offset = offset, 
+            limit = limit, raw = raw, memoised = FALSE, file = file, 
+            overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getPlatformDatasets
 #'
 #' @noRd
-memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetPlatformDatasets <-function (platform, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getPlatformDatasets, cache = gemmaCache())
-    mem_call(
-        platform = platform, offset = offset, limit = limit,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
-    )
+    mem_call(platform = platform, offset = offset, limit = limit, 
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite, 
+        attributes = attributes)
 }
 
 #' Platform elements
@@ -1135,65 +968,51 @@ memgetPlatformDatasets <- function(platform, offset = 0L, limit = 20L, raw = get
 #' @export
 #'
 #' @keywords platform
-#'
+#' 
 #' @examples
 #' dat <- getPlatformElements("GPL1355")
 #' str(dat, vec.len = 1, max.level = 1)
-getPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+getPlatformElements <- function (platform, elements = NA_character_, offset = 0L, limit = 20L, 
+    raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
     fname <- "getPlatformElements"
     preprocessor <- processElements
-    validators <- list(
-        platform = validateSingleID, elements = validateOptionalID,
-        offset = validatePositiveInteger, limit = validateLimit
-    )
+    validators <- list(platform = validateSingleID, elements = validateOptionalID, 
+        offset = validatePositiveInteger, limit = validateLimit)
     endpoint <- "platforms/{encode(platform)}/elements/{encode(elements)}?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetPlatformElements(
-            platform = platform, elements = elements,
-            offset = offset, limit = limit, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetPlatformElements(platform = platform, elements = elements, 
+            offset = offset, limit = limit, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getPlatformElements
 #'
 #' @noRd
-memgetPlatformElements <- function(platform, elements = NA_character_, offset = 0L, limit = 20L,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+memgetPlatformElements <-function (platform, elements = NA_character_, offset = 0L, limit = 20L, 
+    raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     mem_call <- memoise::memoise(getPlatformElements, cache = gemmaCache())
-    mem_call(
-        platform = platform, elements = elements, offset = offset,
-        limit = limit, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(platform = platform, elements = elements, offset = offset, 
+        limit = limit, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Platform element genes
@@ -1228,67 +1047,49 @@ memgetPlatformElements <- function(platform, elements = NA_character_, offset = 
 #' @export
 #'
 #' @keywords platform
-#'
+#' 
 #' @examples
 #' getPlatformElementGenes("GPL1355", "AFFX_Rat_beta-actin_M_at")
-getPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getPlatformElementGenes <- function (platform, element, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
     fname <- "getPlatformElementGenes"
     preprocessor <- processGenes
-    validators <- list(
-        platform = validateSingleID, element = validateSingleID,
-        offset = validatePositiveInteger, limit = validateLimit
-    )
+    validators <- list(platform = validateSingleID, element = validateSingleID, 
+        offset = validatePositiveInteger, limit = validateLimit)
     endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetPlatformElementGenes(
-            platform = platform,
-            element = element, offset = offset, limit = limit,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memgetPlatformElementGenes(platform = platform, 
+            element = element, offset = offset, limit = limit, 
+            raw = raw, memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getPlatformElementGenes
 #'
 #' @noRd
-memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetPlatformElementGenes <-function (platform, element, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getPlatformElementGenes, cache = gemmaCache())
-    mem_call(
-        platform = platform, element = element, offset = offset,
-        limit = limit, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(platform = platform, element = element, offset = offset, 
+        limit = limit, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Genes
@@ -1323,17 +1124,14 @@ memgetPlatformElementGenes <- function(platform, element, offset = 0L, limit = 2
 #' @export
 #'
 #' @keywords gene
-#'
+#' 
 #' @examples
 #' getGenesInfo("DYRK1A")
 #' getGenesInfo(c("DYRK1A", "PTEN"))
-getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getGenesInfo <- function (genes, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1346,33 +1144,24 @@ getGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetGenesInfo(
-            genes = genes, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetGenesInfo(genes = genes, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getGenesInfo
 #'
 #' @noRd
-memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetGenesInfo <-function (genes, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getGenesInfo, cache = gemmaCache())
-    mem_call(
-        genes = genes, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(genes = genes, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Gene locations
@@ -1405,16 +1194,13 @@ memgetGenesInfo <- function(genes, raw = getOption("gemma.raw", FALSE), memoised
 #' @export
 #'
 #' @keywords gene
-#'
+#' 
 #' @examples
 #' getGeneLocation("DYRK1A")
-getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getGeneLocation <- function (gene, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1427,33 +1213,24 @@ getGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetGeneLocation(
-            gene = gene, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetGeneLocation(gene = gene, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getGeneLocation
 #'
 #' @noRd
-memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetGeneLocation <-function (gene, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getGeneLocation, cache = gemmaCache())
-    mem_call(
-        gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(gene = gene, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Gene probes
@@ -1492,67 +1269,49 @@ memgetGeneLocation <- function(gene, raw = getOption("gemma.raw", FALSE), memois
 #' @export
 #'
 #' @keywords gene
-#'
+#' 
 #' @examples
 #' dat <- getGeneProbes("DYRK1A")
 #' str(dat, vec.len = 2)
-getGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getGeneProbes <- function (gene, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "gene"
     header <- ""
     isFile <- FALSE
     fname <- "getGeneProbes"
     preprocessor <- processElements
-    validators <- list(
-        gene = validateSingleID, offset = validatePositiveInteger,
-        limit = validateLimit
-    )
+    validators <- list(gene = validateSingleID, offset = validatePositiveInteger, 
+        limit = validateLimit)
     endpoint <- "genes/{encode(gene)}/probes?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetGeneProbes(
-            gene = gene, offset = offset,
-            limit = limit, raw = raw, memoised = FALSE, file = file,
-            overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetGeneProbes(gene = gene, offset = offset, 
+            limit = limit, raw = raw, memoised = FALSE, file = file, 
+            overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getGeneProbes
 #'
 #' @noRd
-memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetGeneProbes <-function (gene, offset = 0L, limit = 20L, raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getGeneProbes, cache = gemmaCache())
-    mem_call(
-        gene = gene, offset = offset, limit = limit, raw = raw,
-        memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
-    )
+    mem_call(gene = gene, offset = offset, limit = limit, raw = raw, 
+        memoised = FALSE, file = file, overwrite = overwrite, 
+        attributes = attributes)
 }
 
 #' Gene goTerms
@@ -1585,16 +1344,13 @@ memgetGeneProbes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' @export
 #'
 #' @keywords gene
-#'
+#' 
 #' @examples
 #' getGeneGO("DYRK1A")
-getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+getGeneGO <- function (gene, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1607,33 +1363,24 @@ getGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getO
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetGeneGO(
-            gene = gene, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetGeneGO(gene = gene, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getGeneGO
 #'
 #' @noRd
-memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetGeneGO <-function (gene, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getGeneGO, cache = gemmaCache())
-    mem_call(
-        gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(gene = gene, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Dataset search
@@ -1692,66 +1439,52 @@ memgetGeneGO <- function(gene, raw = getOption("gemma.raw", FALSE), memoised = g
 #' @export
 #'
 #' @keywords dataset
-#'
+#' 
 #' @examples
 #' dat <- searchDatasets("bipolar")
 #' str(dat)
-searchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+searchDatasets <- function (query, taxon = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
     fname <- "searchDatasets"
     preprocessor <- processDatasets
-    validators <- list(
-        query = validateQuery, taxon = validateOptionalTaxon,
-        limit = validateLimit, sort = validateSort
-    )
+    validators <- list(query = validateQuery, taxon = validateOptionalTaxon, 
+        limit = validateLimit, sort = validateSort)
     endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memsearchDatasets(
-            query = query, taxon = taxon,
-            offset = offset, limit = limit, sort = sort, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memsearchDatasets(query = query, taxon = taxon, 
+            offset = offset, limit = limit, sort = sort, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise searchDatasets
 #'
 #' @noRd
-memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
+memsearchDatasets <-function (query, taxon = NA_character_, offset = 0L, limit = 20L, 
+    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+        FALSE), file = getOption("gemma.file", NA_character_), 
+    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption("gemma.attributes", 
+        TRUE)) 
+{
     mem_call <- memoise::memoise(searchDatasets, cache = gemmaCache())
-    mem_call(
-        query = query, taxon = taxon, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(query = query, taxon = taxon, offset = offset, limit = limit, 
+        sort = sort, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' Annotation search
@@ -1786,16 +1519,13 @@ memsearchDatasets <- function(query, taxon = NA_character_, offset = 0L, limit =
 #' @export
 #'
 #' @keywords misc
-#'
+#' 
 #' @examples
 #' annots <- searchAnnotations("traumatic")
-searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+searchAnnotations <- function (query, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "misc"
     header <- ""
@@ -1808,34 +1538,25 @@ searchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memois
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memsearchAnnotations(
-            query = query, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
+        out <- memsearchAnnotations(query = query, raw = raw, 
+            memoised = FALSE, file = file, overwrite = overwrite, 
+            attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise searchAnnotations
 #'
 #' @noRd
-memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memsearchAnnotations <-function (query, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(searchAnnotations, cache = gemmaCache())
-    mem_call(
-        query = query, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(query = query, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' getTaxonInfo
@@ -1882,16 +1603,13 @@ memsearchAnnotations <- function(query, raw = getOption("gemma.raw", FALSE), mem
 #' @export
 #'
 #' @keywords taxon
-#'
+#' 
 #' @examples
-#' getTaxonInfo(c("mouse", "human"))
-getTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+#' getTaxonInfo(c('mouse','human'))
+getTaxonInfo <- function (taxa, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "taxon"
     header <- ""
@@ -1904,33 +1622,24 @@ getTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised = g
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetTaxonInfo(
-            taxa = taxa, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetTaxonInfo(taxa = taxa, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getTaxonInfo
 #'
 #' @noRd
-memgetTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetTaxonInfo <-function (taxa, raw = getOption("gemma.raw", FALSE), memoised = getOption("gemma.memoised", 
+    FALSE), file = getOption("gemma.file", NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getTaxonInfo, cache = gemmaCache())
-    mem_call(
-        taxa = taxa, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
+    mem_call(taxa = taxa, raw = raw, memoised = FALSE, file = file, 
+        overwrite = overwrite, attributes = attributes)
 }
 
 #' getTaxonDatasets
@@ -1988,66 +1697,48 @@ memgetTaxonInfo <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
 #' @export
 #'
 #' @keywords taxon
-#'
+#' 
 #' @examples
-#' getTaxonDatasets("human")
-getTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+#' getTaxonDatasets('human')
+getTaxonDatasets <- function (taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     internal <- FALSE
     keyword <- "taxon"
     header <- ""
     isFile <- FALSE
     fname <- "getTaxonDatasets"
     preprocessor <- processDatasets
-    validators <- list(
-        taxon = validateTaxon, offset = validatePositiveInteger,
-        limit = validatePositiveInteger, sort = validateSort
-    )
+    validators <- list(taxon = validateTaxon, offset = validatePositiveInteger, 
+        limit = validatePositiveInteger, sort = validateSort)
     endpoint <- "taxa/{encode(taxon)}/datasets/?offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetTaxonDatasets(
-            taxon = taxon, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
+        out <- memgetTaxonDatasets(taxon = taxon, offset = offset, 
+            limit = limit, sort = sort, raw = raw, memoised = FALSE, 
+            file = file, overwrite = overwrite, attributes = attributes)
         return(out)
     }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
+    .body(fname, validators, endpoint, environment(), isFile, 
+        header, raw, overwrite, file, attributes, match.call())
 }
 
 #' Memoise getTaxonDatasets
 #'
 #' @noRd
-memgetTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+memgetTaxonDatasets <-function (taxon, offset = 0L, limit = 20, sort = "+id", raw = getOption("gemma.raw", 
+    FALSE), memoised = getOption("gemma.memoised", FALSE), file = getOption("gemma.file", 
+    NA_character_), overwrite = getOption("gemma.overwrite", 
+    FALSE), attributes = getOption("gemma.attributes", TRUE)) 
+{
     mem_call <- memoise::memoise(getTaxonDatasets, cache = gemmaCache())
-    mem_call(
-        taxon = taxon, offset = offset, limit = limit, sort = sort,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
-    )
+    mem_call(taxon = taxon, offset = offset, limit = limit, sort = sort, 
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite, 
+        attributes = attributes)
 }
 
 
@@ -2061,7 +1752,4 @@ memgetTaxonDatasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", ra
 #' @export
 #'
 #' @keywords misc
-forgetGemmaMemoised <- forgetGemmaMemoised <- function() {
-    mem <- memoise::memoise(function() {}, cache = gemmaCache())
-    memoise::forget(mem)
-}
+forgetGemmaMemoised <- forgetGemmaMemoised <- function(){mem = memoise::memoise(function(){},cache = gemmaCache());memoise::forget(mem)}

@@ -12,6 +12,9 @@ if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
 devtools::load_all()
 setwd(here())
 
+api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
+
+
 source('inst/script/registry_helpers.R')
 
 # -------------------------------
@@ -23,7 +26,7 @@ source('inst/script/registry_helpers.R')
 library(magrittr)
 
 
-file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
+file.create(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
 
 
 
