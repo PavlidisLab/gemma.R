@@ -72,9 +72,7 @@ test_that('caches work',{
     times = 1, unit = 'ms') %>% summary
 
   testthat::expect_lt(nonDefaultPath$mean,timeNonMemo$mean)
-  
   forgetGemmaMemoised()
-  
   testthat::expect_true(length(list.files(non_default)) == 0)
 
   expect_warning(getPlatformsInfo(1,file = tempfile(),memoised = TRUE),'Saving to files is not supported')
