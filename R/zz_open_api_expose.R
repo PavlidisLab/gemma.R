@@ -11,4 +11,5 @@
 #' 
 #' @examples
 #' 
-gemma_api = DefaultApi
+gemma_api = DefaultApi$new()
+gemma_api$api_client$base_path = gsub('/$','',gemmaPath())

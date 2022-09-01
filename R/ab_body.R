@@ -4,6 +4,14 @@ gemmaPath <- function(){
     getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/")
 }
 
+.openapi_body = function(name){
+    api_instance = DefaultApi$new()
+    api_instance$api_client$base_path = gsub('/$','',gemmaPath())
+    
+    
+    
+}
+
 #' Prototype function body
 #'
 #' This should not be called directly, but is called from the API functions.

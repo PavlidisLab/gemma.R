@@ -3,7 +3,7 @@ library(styler)
 library(snakecase)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
 rm(list = ls(all.names = TRUE))
-options(gemmaAPI.document = 'R/ab_allEndpoints.R')
+options(gemmaAPI.document = 'testttt.R')
 
 
 if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
@@ -14,12 +14,14 @@ devtools::load_all()
 setwd(here())
 
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
+# currently assuming function names in R will match the names in specification for low level funs
+# can set a different name using this object
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
 
 
 
 source('inst/script/registry_helpers.R')
-
+source('inst/script/registry_openapi.R')
 # -------------------------------
 # You should define all endpoints in this file. This ensures everything is uniform
 # and prevents you from rewriting boilerplate.
@@ -94,6 +96,15 @@ names(overrides) = overrides %>% sapply(function(x){
 
 
 # Dataset endpoints ----
+register_openapi('get_datasets_by_ids',
+                 validators = alist(
+                     datasets = validateOptionalID,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
+                 ),
+                 keyword = 'dataset')
+
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
     "getDatasetsInfo",
     logname = "datasets", roxygen = "Datasets", keyword = "dataset",
