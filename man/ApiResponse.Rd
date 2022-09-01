@@ -13,7 +13,7 @@ ApiResponse Class
 \details{
 Gemma RESTful API
 
-This website documents the usage of the \href{https://gemma.msl.ubc.ca/rest/v2/}{Gemma REST API}. Here you can find example script usage of the API, as well as graphical interface for each endpoint, with description of its parameters and the endpoint URL.  The documentation of the underlying java code can be found \href{https://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/web/services/rest/package-summary.html}{here}. See the \href{https://gemma.msl.ubc.ca/resources/restapidocs/#footer}{links section} in the footer of this page for other relevant links.  Use of this webpage and Gemma web services, including the REST API, is subject to \href{https://pavlidislab.github.io/Gemma/terms.html}{these terms and conditions}. Please read these in full before continuing to use this webpage or any other part of the Gemma system.
+This website documents the usage of the Gemma REST API(https://gemma.msl.ubc.ca/rest/v2/). Here you can find example script usage of the API, as well as graphical interface for each endpoint, with description of its parameters and the endpoint URL.  The documentation of the underlying java code can be found here(https://gemma.msl.ubc.ca/resources/apidocs/ubic/gemma/web/services/rest/package-summary.html). See the links section(https://gemma.msl.ubc.ca/resources/restapidocs/#footer) in the footer of this page for other relevant links.  Use of this webpage and Gemma web services, including the REST API, is subject to these terms and conditions(https://pavlidislab.github.io/Gemma/terms.html). Please read these in full before continuing to use this webpage or any other part of the Gemma system.
 
 The version of the OpenAPI document: 2.4.1
 Contact: pavlab-support@msl.ubc.ca

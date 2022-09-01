@@ -77,7 +77,7 @@ by the main package.
 \item \emph{ @param } threshold numeric
 \item \emph{ @param } limit integer
 \item \emph{ @param } keep_non_specific character
-\item \emph{ @param } consolidate Enum < \link{pickmax, pickvar, average} >
+\item \emph{ @param } consolidate Enum < pickmax, pickvar, average >
 \item \emph{ @returnType } \link{ResponseDataObjectListExperimentExpressionLevelsValueObject} \cr
 
 \item status code : 0 | default response
@@ -167,7 +167,7 @@ by the main package.
 \item \emph{ @param } datasets list( \link{GetResultSetsDatasetsParameterInner} )
 \item \emph{ @param } genes list( \link{GetDatasetExpressionForGenesGenesParameterInner} )
 \item \emph{ @param } keep_non_specific character
-\item \emph{ @param } consolidate Enum < \link{pickmax, pickvar, average} >
+\item \emph{ @param } consolidate Enum < pickmax, pickvar, average >
 \item \emph{ @returnType } \link{ResponseDataObjectListExperimentExpressionLevelsValueObject} \cr
 
 \item status code : 0 | default response
@@ -186,7 +186,7 @@ by the main package.
 \item \emph{ @param } component integer
 \item \emph{ @param } limit integer
 \item \emph{ @param } keep_non_specific character
-\item \emph{ @param } consolidate Enum < \link{pickmax, pickvar, average} >
+\item \emph{ @param } consolidate Enum < pickmax, pickvar, average >
 \item \emph{ @returnType } \link{ResponseDataObjectListExperimentExpressionLevelsValueObject} \cr
 
 \item status code : 0 | default response
@@ -690,7 +690,7 @@ by the main package.
 \item \emph{ @param } query character
 \item \emph{ @param } taxon \link{SearchTaxonDatasetsTaxonParameter}
 \item \emph{ @param } platform \link{GetPlatformAnnotationsPlatformParameter}
-\item \emph{ @param } result_types Enum < \link{ubic.gemma.model.common.description.BibliographicReference, ubic.gemma.model.analysis.expression.ExpressionExperimentSet, ubic.gemma.model.genome.gene.GeneSet, ubic.gemma.model.genome.Gene, ubic.gemma.model.expression.experiment.ExpressionExperiment, ubic.gemma.model.genome.biosequence.BioSequence, ubic.gemma.model.association.phenotype.PhenotypeAssociation, ubic.gemma.model.expression.arrayDesign.ArrayDesign, ubic.gemma.model.expression.designElement.CompositeSequence} >
+\item \emph{ @param } result_types Enum < ubic.gemma.model.common.description.BibliographicReference, ubic.gemma.model.analysis.expression.ExpressionExperimentSet, ubic.gemma.model.genome.gene.GeneSet, ubic.gemma.model.genome.Gene, ubic.gemma.model.expression.experiment.ExpressionExperiment, ubic.gemma.model.genome.biosequence.BioSequence, ubic.gemma.model.association.phenotype.PhenotypeAssociation, ubic.gemma.model.expression.arrayDesign.ArrayDesign, ubic.gemma.model.expression.designElement.CompositeSequence >
 \item \emph{ @param } limit integer
 \item \emph{ @returnType } \link{SearchResultsResponseDataObject} \cr
 
