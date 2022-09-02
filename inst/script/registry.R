@@ -13,11 +13,11 @@ if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
 devtools::load_all()
 setwd(here())
 
+
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 # currently assuming function names in R will match the names in specification for low level funs
 # can set a different name using this object
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
-
 
 
 source('inst/script/registry_helpers.R')
@@ -29,6 +29,7 @@ source('inst/script/registry_openapi.R')
 # Functions will be written to allEndpoints.R
 # -------------------------------
 library(magrittr)
+
 
 
 file.create(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
@@ -268,7 +269,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 #                  defaults = list(dataset = bquote()),
 #                  validators = list(dataset = validateSingleID),
 #                  preprocessor = quote(processSVD)
-#     
+#
 # )
 
 
