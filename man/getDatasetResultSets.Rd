@@ -46,6 +46,6 @@ Lists the available resultSets for the queried dataset.
 }
 \examples{
 resultSets <- getDatasetResultSets("GSE2018")
-getDatasetDE(resultSet =resultSets$resultSet.id)
+getDatasetDE(resultSet = resultSets$resultSet.id)
 }
 \keyword{dataset}

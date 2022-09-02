@@ -62,6 +62,6 @@ A data table with the queried taxa's details.
 Taxon search
 }
 \examples{
-getTaxonInfo(c('mouse','human'))
+getTaxonInfo(c("mouse", "human"))
 }
 \keyword{taxon}

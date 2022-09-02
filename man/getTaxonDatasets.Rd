@@ -79,6 +79,6 @@ to any object."
 Taxon dataset search
 }
 \examples{
-getTaxonDatasets('human')
+getTaxonDatasets("human")
 }
 \keyword{taxon}

@@ -47,7 +47,7 @@ A \verb{400 error} if required parameters are missing.
 Dataset differential analysis details
 }
 \examples{
-result = getDatasetDEA("GSE2018")
+result <- getDatasetDEA("GSE2018")
 getDatasetDE(resultSet = result$result.ID)
 }
 \keyword{dataset}
