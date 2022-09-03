@@ -41,6 +41,59 @@ method_names =
     purrr::map('get') %>%
     purrr::map_chr('operationId') %>%
     snakecase::to_snake_case()
+devtools::load_all()
 
+api = DefaultApi$new()
+api$api_client$base_path = gsub('/$','',gemmaPath())
 
+expose_fname = 'R/zz_open_api_expose.R'
+
+method_names %>% lapply(function(x){
+    f = function(){}
+    formals(f) = formals(api[[x]])
+    body(f) = quote({
+        api = DefaultApi$new()
+        api$api_client$base_path = gsub('/$','',gemmaPath())
+
+        if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
+            api_instance$api_client$username <- getOption('gemma.username')
+            api_instance$api_client$password <- getOption('gemma.password')
+        }
+        call <- match.call()
+        call[[1]] <- api[[fname]]
+        eval(call)
+
+    })
+    body(f) <- body(f) %>% as.list() %>%
+        append(str2expression(glue::glue('fname = "{x}"')),1) %>% as.call()
+    f
+
+}) -> gemma_api
+names(gemma_api) = method_names
+
+cat("#' Full API wrapper
+#'
+#' Exposes the full Gemma API. Auto generated using
+#' \\href{https://openapi-generator.tech/}{OpenAPI generator}
+#' Exposed to user to allow access unsupported endpoints
+#' by the main package.
+#' @seealso \\code{\\link{gemmaCall}}
+#' @inheritSection DefaultApi Methods
+#'
+#' @export
+#' @keywords misc\n",
+    file = expose_fname)
+cat('gemma_api = list(\n',file = expose_fname,append = TRUE)
+
+for(x in names(gemma_api)){
+    cat(glue::glue('    {x} = {paste(deparse(gemma_api[[x]]),collapse = "\n")}'),file = expose_fname,append = TRUE)
+    if (x == names(gemma_api)[length(gemma_api)]){
+        cat("\n",file = expose_fname, append = TRUE)
+    } else{
+        cat(',\n',file = expose_fname, append = TRUE)
+    }
+}
+cat(')',file = expose_fname,append = TRUE)
+
+styler::style_file(expose_fname,transformers = biocthis::bioc_style())
 devtools::document()
