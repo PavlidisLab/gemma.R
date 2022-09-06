@@ -6,13 +6,21 @@
 \title{GeneAlias}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneAlias Class
 
 GeneAlias Class
+
+GeneAlias Class
+
+GeneAlias Class
 }
 \details{
+Create a new GeneAlias
+
 Create a new GeneAlias
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneAlias
 \keyword{GeneAlias}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneAlias
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,184 @@ Create a new GeneAlias
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{alias}}{character optional}
+
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneAlias-new}{\code{GeneAlias$new()}}
+\item \href{#method-GeneAlias-toJSON}{\code{GeneAlias$toJSON()}}
+\item \href{#method-GeneAlias-fromJSON}{\code{GeneAlias$fromJSON()}}
+\item \href{#method-GeneAlias-toJSONString}{\code{GeneAlias$toJSONString()}}
+\item \href{#method-GeneAlias-fromJSONString}{\code{GeneAlias$fromJSONString()}}
+\item \href{#method-GeneAlias-validateJSON}{\code{GeneAlias$validateJSON()}}
+\item \href{#method-GeneAlias-toString}{\code{GeneAlias$toString()}}
+\item \href{#method-GeneAlias-isValid}{\code{GeneAlias$isValid()}}
+\item \href{#method-GeneAlias-getInvalidFields}{\code{GeneAlias$getInvalidFields()}}
+\item \href{#method-GeneAlias-print}{\code{GeneAlias$print()}}
+\item \href{#method-GeneAlias-clone}{\code{GeneAlias$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneAlias class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneAlias
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneAlias
+
+
+Validate JSON input with respect to GeneAlias and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$new(alias = NULL, id = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{alias}}{alias}
+
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneAlias in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneAlias-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneAlias-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -222,8 +410,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneAlias-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneAlias-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneAlias$print()}\if{html}{\out{</div>}}
 }
 
 }

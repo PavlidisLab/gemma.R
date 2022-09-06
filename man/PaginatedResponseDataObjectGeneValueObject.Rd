@@ -6,13 +6,21 @@
 \title{PaginatedResponseDataObjectGeneValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PaginatedResponseDataObjectGeneValueObject Class
 
 PaginatedResponseDataObjectGeneValueObject Class
+
+PaginatedResponseDataObjectGeneValueObject Class
+
+PaginatedResponseDataObjectGeneValueObject Class
 }
 \details{
+Create a new PaginatedResponseDataObjectGeneValueObject
+
 Create a new PaginatedResponseDataObjectGeneValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PaginatedResponseDataObjectGeneValueObject
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PaginatedResponseDataObjectGeneValueObject}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PaginatedResponseDataObjectGeneValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,203 @@ Create a new PaginatedResponseDataObjectGeneValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{GeneValueObject}) optional}
+
+\item{\code{offset}}{integer optional}
+
+\item{\code{limit}}{integer optional}
+
+\item{\code{sort}}{\link{SortValueObject} optional}
+
+\item{\code{totalElements}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-new}{\code{PaginatedResponseDataObjectGeneValueObject$new()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-toJSON}{\code{PaginatedResponseDataObjectGeneValueObject$toJSON()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-fromJSON}{\code{PaginatedResponseDataObjectGeneValueObject$fromJSON()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-toJSONString}{\code{PaginatedResponseDataObjectGeneValueObject$toJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-fromJSONString}{\code{PaginatedResponseDataObjectGeneValueObject$fromJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-validateJSON}{\code{PaginatedResponseDataObjectGeneValueObject$validateJSON()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-toString}{\code{PaginatedResponseDataObjectGeneValueObject$toString()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-isValid}{\code{PaginatedResponseDataObjectGeneValueObject$isValid()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-getInvalidFields}{\code{PaginatedResponseDataObjectGeneValueObject$getInvalidFields()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-print}{\code{PaginatedResponseDataObjectGeneValueObject$print()}}
+\item \href{#method-PaginatedResponseDataObjectGeneValueObject-clone}{\code{PaginatedResponseDataObjectGeneValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PaginatedResponseDataObjectGeneValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectGeneValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectGeneValueObject
+
+
+Validate JSON input with respect to PaginatedResponseDataObjectGeneValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$new(
+  data = NULL,
+  offset = NULL,
+  limit = NULL,
+  sort = NULL,
+  totalElements = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{offset}}{offset}
+
+\item{\code{limit}}{limit}
+
+\item{\code{sort}}{sort}
+
+\item{\code{totalElements}}{totalElements}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PaginatedResponseDataObjectGeneValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -241,8 +448,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PaginatedResponseDataObjectGeneValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectGeneValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectGeneValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

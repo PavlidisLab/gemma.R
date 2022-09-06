@@ -6,13 +6,21 @@
 \title{Taxon}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Taxon Class
 
 Taxon Class
+
+Taxon Class
+
+Taxon Class
 }
 \details{
+Create a new Taxon
+
 Create a new Taxon
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new Taxon
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{Taxon}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new Taxon
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,213 @@ Create a new Taxon
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{scientificName}}{character optional}
+
+\item{\code{commonName}}{character optional}
+
+\item{\code{ncbiId}}{integer optional}
+
+\item{\code{isGenesUsable}}{character optional}
+
+\item{\code{secondaryNcbiId}}{integer optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{externalDatabase}}{\link{ExternalDatabase} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Taxon-new}{\code{Taxon$new()}}
+\item \href{#method-Taxon-toJSON}{\code{Taxon$toJSON()}}
+\item \href{#method-Taxon-fromJSON}{\code{Taxon$fromJSON()}}
+\item \href{#method-Taxon-toJSONString}{\code{Taxon$toJSONString()}}
+\item \href{#method-Taxon-fromJSONString}{\code{Taxon$fromJSONString()}}
+\item \href{#method-Taxon-validateJSON}{\code{Taxon$validateJSON()}}
+\item \href{#method-Taxon-toString}{\code{Taxon$toString()}}
+\item \href{#method-Taxon-isValid}{\code{Taxon$isValid()}}
+\item \href{#method-Taxon-getInvalidFields}{\code{Taxon$getInvalidFields()}}
+\item \href{#method-Taxon-print}{\code{Taxon$print()}}
+\item \href{#method-Taxon-clone}{\code{Taxon$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Taxon class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Taxon
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Taxon
+
+
+Validate JSON input with respect to Taxon and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$new(
+  scientificName = NULL,
+  commonName = NULL,
+  ncbiId = NULL,
+  isGenesUsable = NULL,
+  secondaryNcbiId = NULL,
+  id = NULL,
+  externalDatabase = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{scientificName}}{scientificName}
+
+\item{\code{commonName}}{commonName}
+
+\item{\code{ncbiId}}{ncbiId}
+
+\item{\code{isGenesUsable}}{isGenesUsable}
+
+\item{\code{secondaryNcbiId}}{secondaryNcbiId}
+
+\item{\code{id}}{id}
+
+\item{\code{externalDatabase}}{externalDatabase}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Taxon in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Taxon-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Taxon-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -251,8 +468,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Taxon-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Taxon-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Taxon$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Taxon$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{BioSequence}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BioSequence Class
 
 BioSequence Class
+
+BioSequence Class
+
+BioSequence Class
 }
 \details{
+Create a new BioSequence
+
 Create a new BioSequence
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BioSequence
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BioSequence
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,243 @@ Create a new BioSequence
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{length}}{integer optional}
+
+\item{\code{sequence}}{character optional}
+
+\item{\code{isApproximateLength}}{character optional}
+
+\item{\code{isCircular}}{character optional}
+
+\item{\code{polymerType}}{\link{PolymerType} optional}
+
+\item{\code{type}}{\link{SequenceType} optional}
+
+\item{\code{fractionRepeats}}{numeric optional}
+
+\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntry} optional}
+
+\item{\code{taxon}}{\link{Taxon} optional}
+
+\item{\code{bioSequence2GeneProduct}}{list(\link{BioSequence2GeneProduct}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BioSequence-new}{\code{BioSequence$new()}}
+\item \href{#method-BioSequence-toJSON}{\code{BioSequence$toJSON()}}
+\item \href{#method-BioSequence-fromJSON}{\code{BioSequence$fromJSON()}}
+\item \href{#method-BioSequence-toJSONString}{\code{BioSequence$toJSONString()}}
+\item \href{#method-BioSequence-fromJSONString}{\code{BioSequence$fromJSONString()}}
+\item \href{#method-BioSequence-validateJSON}{\code{BioSequence$validateJSON()}}
+\item \href{#method-BioSequence-toString}{\code{BioSequence$toString()}}
+\item \href{#method-BioSequence-isValid}{\code{BioSequence$isValid()}}
+\item \href{#method-BioSequence-getInvalidFields}{\code{BioSequence$getInvalidFields()}}
+\item \href{#method-BioSequence-print}{\code{BioSequence$print()}}
+\item \href{#method-BioSequence-clone}{\code{BioSequence$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BioSequence class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequence
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequence
+
+
+Validate JSON input with respect to BioSequence and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  length = NULL,
+  sequence = NULL,
+  isApproximateLength = NULL,
+  isCircular = NULL,
+  polymerType = NULL,
+  type = NULL,
+  fractionRepeats = NULL,
+  sequenceDatabaseEntry = NULL,
+  taxon = NULL,
+  bioSequence2GeneProduct = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{length}}{length}
+
+\item{\code{sequence}}{sequence}
+
+\item{\code{isApproximateLength}}{isApproximateLength}
+
+\item{\code{isCircular}}{isCircular}
+
+\item{\code{polymerType}}{polymerType}
+
+\item{\code{type}}{type}
+
+\item{\code{fractionRepeats}}{fractionRepeats}
+
+\item{\code{sequenceDatabaseEntry}}{sequenceDatabaseEntry}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{bioSequence2GeneProduct}}{bioSequence2GeneProduct}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BioSequence in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -281,8 +528,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BioSequence-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BioSequence-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BioSequence$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence$print()}\if{html}{\out{</div>}}
 }
 
 }

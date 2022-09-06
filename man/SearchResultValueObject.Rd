@@ -6,13 +6,21 @@
 \title{SearchResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 SearchResultValueObject Class
 
 SearchResultValueObject Class
+
+SearchResultValueObject Class
+
+SearchResultValueObject Class
 }
 \details{
+Create a new SearchResultValueObject
+
 Create a new SearchResultValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new SearchResultValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{SearchResultValueObject}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new SearchResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,198 @@ Create a new SearchResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{resultId}}{integer optional}
+
+\item{\code{resultType}}{character optional}
+
+\item{\code{score}}{numeric optional}
+
+\item{\code{resultObject}}{\link{IdentifiableValueObjectIdentifiable} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-SearchResultValueObject-new}{\code{SearchResultValueObject$new()}}
+\item \href{#method-SearchResultValueObject-toJSON}{\code{SearchResultValueObject$toJSON()}}
+\item \href{#method-SearchResultValueObject-fromJSON}{\code{SearchResultValueObject$fromJSON()}}
+\item \href{#method-SearchResultValueObject-toJSONString}{\code{SearchResultValueObject$toJSONString()}}
+\item \href{#method-SearchResultValueObject-fromJSONString}{\code{SearchResultValueObject$fromJSONString()}}
+\item \href{#method-SearchResultValueObject-validateJSON}{\code{SearchResultValueObject$validateJSON()}}
+\item \href{#method-SearchResultValueObject-toString}{\code{SearchResultValueObject$toString()}}
+\item \href{#method-SearchResultValueObject-isValid}{\code{SearchResultValueObject$isValid()}}
+\item \href{#method-SearchResultValueObject-getInvalidFields}{\code{SearchResultValueObject$getInvalidFields()}}
+\item \href{#method-SearchResultValueObject-print}{\code{SearchResultValueObject$print()}}
+\item \href{#method-SearchResultValueObject-clone}{\code{SearchResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new SearchResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SearchResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SearchResultValueObject
+
+
+Validate JSON input with respect to SearchResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$new(
+  resultId = NULL,
+  resultType = NULL,
+  score = NULL,
+  resultObject = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{resultId}}{resultId}
+
+\item{\code{resultType}}{resultType}
+
+\item{\code{score}}{score}
+
+\item{\code{resultObject}}{resultObject}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+SearchResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -236,8 +438,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-SearchResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-SearchResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SearchResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

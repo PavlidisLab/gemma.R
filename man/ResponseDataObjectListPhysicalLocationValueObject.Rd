@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListPhysicalLocationValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListPhysicalLocationValueObject Class
 
 ResponseDataObjectListPhysicalLocationValueObject Class
+
+ResponseDataObjectListPhysicalLocationValueObject Class
+
+ResponseDataObjectListPhysicalLocationValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListPhysicalLocationValueObject
+
 Create a new ResponseDataObjectListPhysicalLocationValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListPhysicalLocationValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListPhysicalLocationValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListPhysicalLocationValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ResponseDataObjectListPhysicalLocationValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{PhysicalLocationValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-new}{\code{ResponseDataObjectListPhysicalLocationValueObject$new()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-toJSON}{\code{ResponseDataObjectListPhysicalLocationValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-fromJSON}{\code{ResponseDataObjectListPhysicalLocationValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-toJSONString}{\code{ResponseDataObjectListPhysicalLocationValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-fromJSONString}{\code{ResponseDataObjectListPhysicalLocationValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-validateJSON}{\code{ResponseDataObjectListPhysicalLocationValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-toString}{\code{ResponseDataObjectListPhysicalLocationValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-isValid}{\code{ResponseDataObjectListPhysicalLocationValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-getInvalidFields}{\code{ResponseDataObjectListPhysicalLocationValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-print}{\code{ResponseDataObjectListPhysicalLocationValueObject$print()}}
+\item \href{#method-ResponseDataObjectListPhysicalLocationValueObject-clone}{\code{ResponseDataObjectListPhysicalLocationValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListPhysicalLocationValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListPhysicalLocationValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListPhysicalLocationValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListPhysicalLocationValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListPhysicalLocationValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListPhysicalLocationValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListPhysicalLocationValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListPhysicalLocationValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

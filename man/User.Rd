@@ -6,13 +6,21 @@
 \title{User}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 User Class
 
 User Class
+
+User Class
+
+User Class
 }
 \details{
+Create a new User
+
 Create a new User
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new User
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{User}
@@ -41,6 +50,7 @@ Create a new User
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,243 @@ Create a new User
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{email}}{character optional}
+
+\item{\code{lastName}}{character optional}
+
+\item{\code{userName}}{character optional}
+
+\item{\code{password}}{character optional}
+
+\item{\code{passwordHint}}{character optional}
+
+\item{\code{enabled}}{character optional}
+
+\item{\code{signupToken}}{character optional}
+
+\item{\code{signupTokenDatestamp}}{character optional}
+
+\item{\code{jobs}}{list(\link{JobInfo}) optional}
+
+\item{\code{fullName}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-User-new}{\code{User$new()}}
+\item \href{#method-User-toJSON}{\code{User$toJSON()}}
+\item \href{#method-User-fromJSON}{\code{User$fromJSON()}}
+\item \href{#method-User-toJSONString}{\code{User$toJSONString()}}
+\item \href{#method-User-fromJSONString}{\code{User$fromJSONString()}}
+\item \href{#method-User-validateJSON}{\code{User$validateJSON()}}
+\item \href{#method-User-toString}{\code{User$toString()}}
+\item \href{#method-User-isValid}{\code{User$isValid()}}
+\item \href{#method-User-getInvalidFields}{\code{User$getInvalidFields()}}
+\item \href{#method-User-print}{\code{User$print()}}
+\item \href{#method-User-clone}{\code{User$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-new"></a>}}
+\if{latex}{\out{\hypertarget{method-User-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new User class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of User
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of User
+
+
+Validate JSON input with respect to User and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  email = NULL,
+  lastName = NULL,
+  userName = NULL,
+  password = NULL,
+  passwordHint = NULL,
+  enabled = NULL,
+  signupToken = NULL,
+  signupTokenDatestamp = NULL,
+  jobs = NULL,
+  fullName = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{email}}{email}
+
+\item{\code{lastName}}{lastName}
+
+\item{\code{userName}}{userName}
+
+\item{\code{password}}{password}
+
+\item{\code{passwordHint}}{passwordHint}
+
+\item{\code{enabled}}{enabled}
+
+\item{\code{signupToken}}{signupToken}
+
+\item{\code{signupTokenDatestamp}}{signupTokenDatestamp}
+
+\item{\code{jobs}}{jobs}
+
+\item{\code{fullName}}{fullName}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+User in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-User-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-User-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-User-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-User-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-User-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-User-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-User-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-User-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-print"></a>}}
+\if{latex}{\out{\hypertarget{method-User-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-User-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-User-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{User$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -281,8 +528,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-User-print"></a>}}
 \if{latex}{\out{\hypertarget{method-User-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{User$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{User$print()}\if{html}{\out{</div>}}
 }
 
 }

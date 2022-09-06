@@ -6,13 +6,21 @@
 \title{BibliographicReference}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BibliographicReference Class
 
 BibliographicReference Class
+
+BibliographicReference Class
+
+BibliographicReference Class
 }
 \details{
+Create a new BibliographicReference
+
 Create a new BibliographicReference
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BibliographicReference
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BibliographicReference
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,288 @@ Create a new BibliographicReference
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{authorList}}{character optional}
+
+\item{\code{title}}{character optional}
+
+\item{\code{publisher}}{character optional}
+
+\item{\code{editor}}{character optional}
+
+\item{\code{volume}}{character optional}
+
+\item{\code{issue}}{character optional}
+
+\item{\code{pages}}{character optional}
+
+\item{\code{publication}}{character optional}
+
+\item{\code{fullTextUri}}{character optional}
+
+\item{\code{abstractText}}{character optional}
+
+\item{\code{citation}}{character optional}
+
+\item{\code{publicationDate}}{character optional}
+
+\item{\code{annotatedAbstract}}{character optional}
+
+\item{\code{pubAccession}}{\link{DatabaseEntry} optional}
+
+\item{\code{retracted}}{character optional}
+
+\item{\code{annotations}}{list(\link{Characteristic}) optional}
+
+\item{\code{meshTerms}}{list(\link{MedicalSubjectHeading}) optional}
+
+\item{\code{keywords}}{list(\link{Keyword}) optional}
+
+\item{\code{chemicals}}{list(\link{Compound}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BibliographicReference-new}{\code{BibliographicReference$new()}}
+\item \href{#method-BibliographicReference-toJSON}{\code{BibliographicReference$toJSON()}}
+\item \href{#method-BibliographicReference-fromJSON}{\code{BibliographicReference$fromJSON()}}
+\item \href{#method-BibliographicReference-toJSONString}{\code{BibliographicReference$toJSONString()}}
+\item \href{#method-BibliographicReference-fromJSONString}{\code{BibliographicReference$fromJSONString()}}
+\item \href{#method-BibliographicReference-validateJSON}{\code{BibliographicReference$validateJSON()}}
+\item \href{#method-BibliographicReference-toString}{\code{BibliographicReference$toString()}}
+\item \href{#method-BibliographicReference-isValid}{\code{BibliographicReference$isValid()}}
+\item \href{#method-BibliographicReference-getInvalidFields}{\code{BibliographicReference$getInvalidFields()}}
+\item \href{#method-BibliographicReference-print}{\code{BibliographicReference$print()}}
+\item \href{#method-BibliographicReference-clone}{\code{BibliographicReference$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BibliographicReference class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BibliographicReference
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BibliographicReference
+
+
+Validate JSON input with respect to BibliographicReference and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  authorList = NULL,
+  title = NULL,
+  publisher = NULL,
+  editor = NULL,
+  volume = NULL,
+  issue = NULL,
+  pages = NULL,
+  publication = NULL,
+  fullTextUri = NULL,
+  abstractText = NULL,
+  citation = NULL,
+  publicationDate = NULL,
+  annotatedAbstract = NULL,
+  pubAccession = NULL,
+  retracted = NULL,
+  annotations = NULL,
+  meshTerms = NULL,
+  keywords = NULL,
+  chemicals = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{authorList}}{authorList}
+
+\item{\code{title}}{title}
+
+\item{\code{publisher}}{publisher}
+
+\item{\code{editor}}{editor}
+
+\item{\code{volume}}{volume}
+
+\item{\code{issue}}{issue}
+
+\item{\code{pages}}{pages}
+
+\item{\code{publication}}{publication}
+
+\item{\code{fullTextUri}}{fullTextUri}
+
+\item{\code{abstractText}}{abstractText}
+
+\item{\code{citation}}{citation}
+
+\item{\code{publicationDate}}{publicationDate}
+
+\item{\code{annotatedAbstract}}{annotatedAbstract}
+
+\item{\code{pubAccession}}{pubAccession}
+
+\item{\code{retracted}}{retracted}
+
+\item{\code{annotations}}{annotations}
+
+\item{\code{meshTerms}}{meshTerms}
+
+\item{\code{keywords}}{keywords}
+
+\item{\code{chemicals}}{chemicals}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BibliographicReference in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BibliographicReference-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BibliographicReference-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -326,8 +618,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BibliographicReference-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BibliographicReference-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BibliographicReference$print()}\if{html}{\out{</div>}}
 }
 
 }

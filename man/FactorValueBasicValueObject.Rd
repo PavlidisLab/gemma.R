@@ -6,13 +6,21 @@
 \title{FactorValueBasicValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 FactorValueBasicValueObject Class
 
 FactorValueBasicValueObject Class
+
+FactorValueBasicValueObject Class
+
+FactorValueBasicValueObject Class
 }
 \details{
+Create a new FactorValueBasicValueObject
+
 Create a new FactorValueBasicValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new FactorValueBasicValueObject
 \keyword{FactorValueBasicValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new FactorValueBasicValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,218 @@ Create a new FactorValueBasicValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{characteristics}}{list(\link{CharacteristicBasicValueObject}) optional}
+
+\item{\code{experimentalFactorCategory}}{\link{CharacteristicBasicValueObject} optional}
+
+\item{\code{measurement}}{\link{MeasurementValueObject} optional}
+
+\item{\code{fvValue}}{character optional}
+
+\item{\code{fvSummary}}{character optional}
+
+\item{\code{experimentalFactorId}}{integer optional}
+
+\item{\code{baseline}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-FactorValueBasicValueObject-new}{\code{FactorValueBasicValueObject$new()}}
+\item \href{#method-FactorValueBasicValueObject-toJSON}{\code{FactorValueBasicValueObject$toJSON()}}
+\item \href{#method-FactorValueBasicValueObject-fromJSON}{\code{FactorValueBasicValueObject$fromJSON()}}
+\item \href{#method-FactorValueBasicValueObject-toJSONString}{\code{FactorValueBasicValueObject$toJSONString()}}
+\item \href{#method-FactorValueBasicValueObject-fromJSONString}{\code{FactorValueBasicValueObject$fromJSONString()}}
+\item \href{#method-FactorValueBasicValueObject-validateJSON}{\code{FactorValueBasicValueObject$validateJSON()}}
+\item \href{#method-FactorValueBasicValueObject-toString}{\code{FactorValueBasicValueObject$toString()}}
+\item \href{#method-FactorValueBasicValueObject-isValid}{\code{FactorValueBasicValueObject$isValid()}}
+\item \href{#method-FactorValueBasicValueObject-getInvalidFields}{\code{FactorValueBasicValueObject$getInvalidFields()}}
+\item \href{#method-FactorValueBasicValueObject-print}{\code{FactorValueBasicValueObject$print()}}
+\item \href{#method-FactorValueBasicValueObject-clone}{\code{FactorValueBasicValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new FactorValueBasicValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of FactorValueBasicValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of FactorValueBasicValueObject
+
+
+Validate JSON input with respect to FactorValueBasicValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$new(
+  id = NULL,
+  characteristics = NULL,
+  experimentalFactorCategory = NULL,
+  measurement = NULL,
+  fvValue = NULL,
+  fvSummary = NULL,
+  experimentalFactorId = NULL,
+  baseline = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{characteristics}}{characteristics}
+
+\item{\code{experimentalFactorCategory}}{experimentalFactorCategory}
+
+\item{\code{measurement}}{measurement}
+
+\item{\code{fvValue}}{fvValue}
+
+\item{\code{fvSummary}}{fvSummary}
+
+\item{\code{experimentalFactorId}}{experimentalFactorId}
+
+\item{\code{baseline}}{baseline}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+FactorValueBasicValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-FactorValueBasicValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -256,8 +478,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-FactorValueBasicValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-FactorValueBasicValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{FactorValueBasicValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

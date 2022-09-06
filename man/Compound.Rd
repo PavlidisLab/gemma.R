@@ -6,13 +6,21 @@
 \title{Compound}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Compound Class
 
 Compound Class
+
+Compound Class
+
+Compound Class
 }
 \details{
+Create a new Compound
+
 Create a new Compound
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Compound
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Compound
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,198 @@ Create a new Compound
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{registryNumber}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Compound-new}{\code{Compound$new()}}
+\item \href{#method-Compound-toJSON}{\code{Compound$toJSON()}}
+\item \href{#method-Compound-fromJSON}{\code{Compound$fromJSON()}}
+\item \href{#method-Compound-toJSONString}{\code{Compound$toJSONString()}}
+\item \href{#method-Compound-fromJSONString}{\code{Compound$fromJSONString()}}
+\item \href{#method-Compound-validateJSON}{\code{Compound$validateJSON()}}
+\item \href{#method-Compound-toString}{\code{Compound$toString()}}
+\item \href{#method-Compound-isValid}{\code{Compound$isValid()}}
+\item \href{#method-Compound-getInvalidFields}{\code{Compound$getInvalidFields()}}
+\item \href{#method-Compound-print}{\code{Compound$print()}}
+\item \href{#method-Compound-clone}{\code{Compound$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Compound class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Compound
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Compound
+
+
+Validate JSON input with respect to Compound and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  registryNumber = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{registryNumber}}{registryNumber}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Compound in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Compound-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Compound-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Compound$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -236,8 +438,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Compound-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Compound-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Compound$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Compound$print()}\if{html}{\out{</div>}}
 }
 
 }

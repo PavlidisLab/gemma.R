@@ -6,8 +6,12 @@
 \title{PlatformArg}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+PlatformArg Class
+
 PlatformArg Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ PlatformArg Class
 \keyword{JSON.}
 \keyword{PlatformArg}
 \keyword{PlatformArg.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ PlatformArg Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ PlatformArg Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new PlatformArg.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PlatformArg-new}{\code{PlatformArg$new()}}
+\item \href{#method-PlatformArg-fromJSONString}{\code{PlatformArg$fromJSONString()}}
+\item \href{#method-PlatformArg-fromJSON}{\code{PlatformArg$fromJSON()}}
+\item \href{#method-PlatformArg-toJSONString}{\code{PlatformArg$toJSONString()}}
+\item \href{#method-PlatformArg-toJSON}{\code{PlatformArg$toJSON()}}
+\item \href{#method-PlatformArg-validateJSON}{\code{PlatformArg$validateJSON()}}
+\item \href{#method-PlatformArg-toString}{\code{PlatformArg$toString()}}
+\item \href{#method-PlatformArg-print}{\code{PlatformArg$print()}}
+\item \href{#method-PlatformArg-clone}{\code{PlatformArg$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PlatformArg.
+
+
+Deserialize JSON string into an instance of PlatformArg.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of PlatformArg.
+
+
+Serialize PlatformArg to JSON string.
+
+
+Serialize PlatformArg to JSON.
+
+
+Validate the input JSON with respect to PlatformArg and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of PlatformArg.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PlatformArg-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PlatformArg-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-PlatformArg-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PlatformArg-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PlatformArg$print()}\if{html}{\out{</div>}}
 }
 
 }

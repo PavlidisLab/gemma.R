@@ -6,13 +6,21 @@
 \title{GeneProduct}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneProduct Class
 
 GeneProduct Class
+
+GeneProduct Class
+
+GeneProduct Class
 }
 \details{
+Create a new GeneProduct
+
 Create a new GeneProduct
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneProduct
 \keyword{GeneProduct}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneProduct
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,223 @@ Create a new GeneProduct
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{previousNcbiId}}{character optional}
+
+\item{\code{physicalLocation}}{\link{PhysicalLocation} optional}
+
+\item{\code{ncbiGi}}{character optional}
+
+\item{\code{accessions}}{list(\link{DatabaseEntry}) optional}
+
+\item{\code{exons}}{list(\link{PhysicalLocation}) optional}
+
+\item{\code{gene}}{\link{Gene} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneProduct-new}{\code{GeneProduct$new()}}
+\item \href{#method-GeneProduct-toJSON}{\code{GeneProduct$toJSON()}}
+\item \href{#method-GeneProduct-fromJSON}{\code{GeneProduct$fromJSON()}}
+\item \href{#method-GeneProduct-toJSONString}{\code{GeneProduct$toJSONString()}}
+\item \href{#method-GeneProduct-fromJSONString}{\code{GeneProduct$fromJSONString()}}
+\item \href{#method-GeneProduct-validateJSON}{\code{GeneProduct$validateJSON()}}
+\item \href{#method-GeneProduct-toString}{\code{GeneProduct$toString()}}
+\item \href{#method-GeneProduct-isValid}{\code{GeneProduct$isValid()}}
+\item \href{#method-GeneProduct-getInvalidFields}{\code{GeneProduct$getInvalidFields()}}
+\item \href{#method-GeneProduct-print}{\code{GeneProduct$print()}}
+\item \href{#method-GeneProduct-clone}{\code{GeneProduct$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneProduct class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneProduct
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneProduct
+
+
+Validate JSON input with respect to GeneProduct and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  previousNcbiId = NULL,
+  physicalLocation = NULL,
+  ncbiGi = NULL,
+  accessions = NULL,
+  exons = NULL,
+  gene = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{previousNcbiId}}{previousNcbiId}
+
+\item{\code{physicalLocation}}{physicalLocation}
+
+\item{\code{ncbiGi}}{ncbiGi}
+
+\item{\code{accessions}}{accessions}
+
+\item{\code{exons}}{exons}
+
+\item{\code{gene}}{gene}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneProduct in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProduct-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProduct-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -261,8 +488,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneProduct-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneProduct-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneProduct$print()}\if{html}{\out{</div>}}
 }
 
 }

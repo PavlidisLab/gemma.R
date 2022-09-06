@@ -6,13 +6,21 @@
 \title{PolymerType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PolymerType Class
 
 PolymerType Class
+
+PolymerType Class
+
+PolymerType Class
 }
 \details{
+Create a new PolymerType
+
 Create a new PolymerType
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PolymerType
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PolymerType}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PolymerType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new PolymerType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PolymerType-new}{\code{PolymerType$new()}}
+\item \href{#method-PolymerType-toJSON}{\code{PolymerType$toJSON()}}
+\item \href{#method-PolymerType-fromJSON}{\code{PolymerType$fromJSON()}}
+\item \href{#method-PolymerType-toJSONString}{\code{PolymerType$toJSONString()}}
+\item \href{#method-PolymerType-fromJSONString}{\code{PolymerType$fromJSONString()}}
+\item \href{#method-PolymerType-validateJSON}{\code{PolymerType$validateJSON()}}
+\item \href{#method-PolymerType-toString}{\code{PolymerType$toString()}}
+\item \href{#method-PolymerType-isValid}{\code{PolymerType$isValid()}}
+\item \href{#method-PolymerType-getInvalidFields}{\code{PolymerType$getInvalidFields()}}
+\item \href{#method-PolymerType-print}{\code{PolymerType$print()}}
+\item \href{#method-PolymerType-clone}{\code{PolymerType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PolymerType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PolymerType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PolymerType
+
+
+Validate JSON input with respect to PolymerType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PolymerType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PolymerType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PolymerType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PolymerType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PolymerType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PolymerType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PolymerType$print()}\if{html}{\out{</div>}}
 }
 
 }

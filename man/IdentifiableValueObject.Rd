@@ -6,13 +6,21 @@
 \title{IdentifiableValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 IdentifiableValueObject Class
 
 IdentifiableValueObject Class
+
+IdentifiableValueObject Class
+
+IdentifiableValueObject Class
 }
 \details{
+Create a new IdentifiableValueObject
+
 Create a new IdentifiableValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new IdentifiableValueObject
 \keyword{IdentifiableValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new IdentifiableValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new IdentifiableValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-IdentifiableValueObject-new}{\code{IdentifiableValueObject$new()}}
+\item \href{#method-IdentifiableValueObject-toJSON}{\code{IdentifiableValueObject$toJSON()}}
+\item \href{#method-IdentifiableValueObject-fromJSON}{\code{IdentifiableValueObject$fromJSON()}}
+\item \href{#method-IdentifiableValueObject-toJSONString}{\code{IdentifiableValueObject$toJSONString()}}
+\item \href{#method-IdentifiableValueObject-fromJSONString}{\code{IdentifiableValueObject$fromJSONString()}}
+\item \href{#method-IdentifiableValueObject-validateJSON}{\code{IdentifiableValueObject$validateJSON()}}
+\item \href{#method-IdentifiableValueObject-toString}{\code{IdentifiableValueObject$toString()}}
+\item \href{#method-IdentifiableValueObject-isValid}{\code{IdentifiableValueObject$isValid()}}
+\item \href{#method-IdentifiableValueObject-getInvalidFields}{\code{IdentifiableValueObject$getInvalidFields()}}
+\item \href{#method-IdentifiableValueObject-print}{\code{IdentifiableValueObject$print()}}
+\item \href{#method-IdentifiableValueObject-clone}{\code{IdentifiableValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new IdentifiableValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of IdentifiableValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of IdentifiableValueObject
+
+
+Validate JSON input with respect to IdentifiableValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$new(id = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+IdentifiableValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-IdentifiableValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-IdentifiableValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-IdentifiableValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-IdentifiableValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{IdentifiableValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{GeneOntologyTermValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneOntologyTermValueObject Class
 
 GeneOntologyTermValueObject Class
+
+GeneOntologyTermValueObject Class
+
+GeneOntologyTermValueObject Class
 }
 \details{
+Create a new GeneOntologyTermValueObject
+
 Create a new GeneOntologyTermValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneOntologyTermValueObject
 \keyword{GeneOntologyTermValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneOntologyTermValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,213 @@ Create a new GeneOntologyTermValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{goId}}{character optional}
+
+\item{\code{label}}{character optional}
+
+\item{\code{uri}}{character optional}
+
+\item{\code{comment}}{character optional}
+
+\item{\code{localName}}{character optional}
+
+\item{\code{term}}{character optional}
+
+\item{\code{obsolete}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneOntologyTermValueObject-new}{\code{GeneOntologyTermValueObject$new()}}
+\item \href{#method-GeneOntologyTermValueObject-toJSON}{\code{GeneOntologyTermValueObject$toJSON()}}
+\item \href{#method-GeneOntologyTermValueObject-fromJSON}{\code{GeneOntologyTermValueObject$fromJSON()}}
+\item \href{#method-GeneOntologyTermValueObject-toJSONString}{\code{GeneOntologyTermValueObject$toJSONString()}}
+\item \href{#method-GeneOntologyTermValueObject-fromJSONString}{\code{GeneOntologyTermValueObject$fromJSONString()}}
+\item \href{#method-GeneOntologyTermValueObject-validateJSON}{\code{GeneOntologyTermValueObject$validateJSON()}}
+\item \href{#method-GeneOntologyTermValueObject-toString}{\code{GeneOntologyTermValueObject$toString()}}
+\item \href{#method-GeneOntologyTermValueObject-isValid}{\code{GeneOntologyTermValueObject$isValid()}}
+\item \href{#method-GeneOntologyTermValueObject-getInvalidFields}{\code{GeneOntologyTermValueObject$getInvalidFields()}}
+\item \href{#method-GeneOntologyTermValueObject-print}{\code{GeneOntologyTermValueObject$print()}}
+\item \href{#method-GeneOntologyTermValueObject-clone}{\code{GeneOntologyTermValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneOntologyTermValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneOntologyTermValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneOntologyTermValueObject
+
+
+Validate JSON input with respect to GeneOntologyTermValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$new(
+  goId = NULL,
+  label = NULL,
+  uri = NULL,
+  comment = NULL,
+  localName = NULL,
+  term = NULL,
+  obsolete = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{goId}}{goId}
+
+\item{\code{label}}{label}
+
+\item{\code{uri}}{uri}
+
+\item{\code{comment}}{comment}
+
+\item{\code{localName}}{localName}
+
+\item{\code{term}}{term}
+
+\item{\code{obsolete}}{obsolete}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneOntologyTermValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneOntologyTermValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -251,8 +468,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneOntologyTermValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneOntologyTermValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneOntologyTermValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

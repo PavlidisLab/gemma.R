@@ -6,13 +6,21 @@
 \title{Protocol}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Protocol Class
 
 Protocol Class
+
+Protocol Class
+
+Protocol Class
 }
 \details{
+Create a new Protocol
+
 Create a new Protocol
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new Protocol
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Protocol}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new Protocol
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new Protocol
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Protocol-new}{\code{Protocol$new()}}
+\item \href{#method-Protocol-toJSON}{\code{Protocol$toJSON()}}
+\item \href{#method-Protocol-fromJSON}{\code{Protocol$fromJSON()}}
+\item \href{#method-Protocol-toJSONString}{\code{Protocol$toJSONString()}}
+\item \href{#method-Protocol-fromJSONString}{\code{Protocol$fromJSONString()}}
+\item \href{#method-Protocol-validateJSON}{\code{Protocol$validateJSON()}}
+\item \href{#method-Protocol-toString}{\code{Protocol$toString()}}
+\item \href{#method-Protocol-isValid}{\code{Protocol$isValid()}}
+\item \href{#method-Protocol-getInvalidFields}{\code{Protocol$getInvalidFields()}}
+\item \href{#method-Protocol-print}{\code{Protocol$print()}}
+\item \href{#method-Protocol-clone}{\code{Protocol$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Protocol class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Protocol
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Protocol
+
+
+Validate JSON input with respect to Protocol and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$new(name = NULL, description = NULL, id = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Protocol in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Protocol-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Protocol-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Protocol-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Protocol-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Protocol$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Protocol$print()}\if{html}{\out{</div>}}
 }
 
 }

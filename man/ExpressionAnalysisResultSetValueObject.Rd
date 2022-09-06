@@ -6,13 +6,21 @@
 \title{ExpressionAnalysisResultSetValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ExpressionAnalysisResultSetValueObject Class
 
 ExpressionAnalysisResultSetValueObject Class
+
+ExpressionAnalysisResultSetValueObject Class
+
+ExpressionAnalysisResultSetValueObject Class
 }
 \details{
+Create a new ExpressionAnalysisResultSetValueObject
+
 Create a new ExpressionAnalysisResultSetValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ExpressionAnalysisResultSetValueObject
 \keyword{ExpressionAnalysisResultSetValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ExpressionAnalysisResultSetValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,198 @@ Create a new ExpressionAnalysisResultSetValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{analysis}}{\link{DifferentialExpressionAnalysisValueObject} optional}
+
+\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) optional}
+
+\item{\code{results}}{list(\link{DifferentialExpressionAnalysisResultValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ExpressionAnalysisResultSetValueObject-new}{\code{ExpressionAnalysisResultSetValueObject$new()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-toJSON}{\code{ExpressionAnalysisResultSetValueObject$toJSON()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-fromJSON}{\code{ExpressionAnalysisResultSetValueObject$fromJSON()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-toJSONString}{\code{ExpressionAnalysisResultSetValueObject$toJSONString()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-fromJSONString}{\code{ExpressionAnalysisResultSetValueObject$fromJSONString()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-validateJSON}{\code{ExpressionAnalysisResultSetValueObject$validateJSON()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-toString}{\code{ExpressionAnalysisResultSetValueObject$toString()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-isValid}{\code{ExpressionAnalysisResultSetValueObject$isValid()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-getInvalidFields}{\code{ExpressionAnalysisResultSetValueObject$getInvalidFields()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-print}{\code{ExpressionAnalysisResultSetValueObject$print()}}
+\item \href{#method-ExpressionAnalysisResultSetValueObject-clone}{\code{ExpressionAnalysisResultSetValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ExpressionAnalysisResultSetValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExpressionAnalysisResultSetValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExpressionAnalysisResultSetValueObject
+
+
+Validate JSON input with respect to ExpressionAnalysisResultSetValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$new(
+  id = NULL,
+  analysis = NULL,
+  experimentalFactors = NULL,
+  results = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{analysis}}{analysis}
+
+\item{\code{experimentalFactors}}{experimentalFactors}
+
+\item{\code{results}}{results}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ExpressionAnalysisResultSetValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -236,8 +438,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ExpressionAnalysisResultSetValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ExpressionAnalysisResultSetValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionAnalysisResultSetValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

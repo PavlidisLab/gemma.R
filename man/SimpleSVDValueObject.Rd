@@ -6,13 +6,21 @@
 \title{SimpleSVDValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 SimpleSVDValueObject Class
 
 SimpleSVDValueObject Class
+
+SimpleSVDValueObject Class
+
+SimpleSVDValueObject Class
 }
 \details{
+Create a new SimpleSVDValueObject
+
 Create a new SimpleSVDValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new SimpleSVDValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{SimpleSVDValueObject}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new SimpleSVDValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,193 @@ Create a new SimpleSVDValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{bioMaterialIds}}{list(integer) optional}
+
+\item{\code{variances}}{list(numeric) optional}
+
+\item{\code{getvMatrix}}{\link{DoubleMatrixLongInteger} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-SimpleSVDValueObject-new}{\code{SimpleSVDValueObject$new()}}
+\item \href{#method-SimpleSVDValueObject-toJSON}{\code{SimpleSVDValueObject$toJSON()}}
+\item \href{#method-SimpleSVDValueObject-fromJSON}{\code{SimpleSVDValueObject$fromJSON()}}
+\item \href{#method-SimpleSVDValueObject-toJSONString}{\code{SimpleSVDValueObject$toJSONString()}}
+\item \href{#method-SimpleSVDValueObject-fromJSONString}{\code{SimpleSVDValueObject$fromJSONString()}}
+\item \href{#method-SimpleSVDValueObject-validateJSON}{\code{SimpleSVDValueObject$validateJSON()}}
+\item \href{#method-SimpleSVDValueObject-toString}{\code{SimpleSVDValueObject$toString()}}
+\item \href{#method-SimpleSVDValueObject-isValid}{\code{SimpleSVDValueObject$isValid()}}
+\item \href{#method-SimpleSVDValueObject-getInvalidFields}{\code{SimpleSVDValueObject$getInvalidFields()}}
+\item \href{#method-SimpleSVDValueObject-print}{\code{SimpleSVDValueObject$print()}}
+\item \href{#method-SimpleSVDValueObject-clone}{\code{SimpleSVDValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new SimpleSVDValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SimpleSVDValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SimpleSVDValueObject
+
+
+Validate JSON input with respect to SimpleSVDValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$new(
+  bioMaterialIds = NULL,
+  variances = NULL,
+  getvMatrix = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{bioMaterialIds}}{bioMaterialIds}
+
+\item{\code{variances}}{variances}
+
+\item{\code{getvMatrix}}{getvMatrix}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+SimpleSVDValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SimpleSVDValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -231,8 +428,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-SimpleSVDValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-SimpleSVDValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SimpleSVDValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

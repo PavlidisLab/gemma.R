@@ -6,13 +6,21 @@
 \title{CoexpressionValueObjectExt}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 CoexpressionValueObjectExt Class
 
 CoexpressionValueObjectExt Class
+
+CoexpressionValueObjectExt Class
+
+CoexpressionValueObjectExt Class
 }
 \details{
+Create a new CoexpressionValueObjectExt
+
 Create a new CoexpressionValueObjectExt
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new CoexpressionValueObjectExt
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new CoexpressionValueObjectExt
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,243 @@ Create a new CoexpressionValueObjectExt
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{containsMyData}}{character optional}
+
+\item{\code{foundGene}}{\link{GeneValueObject} optional}
+
+\item{\code{foundGeneNodeDegree}}{integer optional}
+
+\item{\code{foundGeneNodeDegreeRank}}{numeric optional}
+
+\item{\code{negSupp}}{integer optional}
+
+\item{\code{numTestedIn}}{integer optional}
+
+\item{\code{posSupp}}{integer optional}
+
+\item{\code{queryGene}}{\link{GeneValueObject} optional}
+
+\item{\code{queryGeneNodeDegree}}{integer optional}
+
+\item{\code{queryGeneNodeDegreeRank}}{numeric optional}
+
+\item{\code{sortKey}}{character optional}
+
+\item{\code{supportingExperiments}}{list(integer) optional}
+
+\item{\code{support}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CoexpressionValueObjectExt-new}{\code{CoexpressionValueObjectExt$new()}}
+\item \href{#method-CoexpressionValueObjectExt-toJSON}{\code{CoexpressionValueObjectExt$toJSON()}}
+\item \href{#method-CoexpressionValueObjectExt-fromJSON}{\code{CoexpressionValueObjectExt$fromJSON()}}
+\item \href{#method-CoexpressionValueObjectExt-toJSONString}{\code{CoexpressionValueObjectExt$toJSONString()}}
+\item \href{#method-CoexpressionValueObjectExt-fromJSONString}{\code{CoexpressionValueObjectExt$fromJSONString()}}
+\item \href{#method-CoexpressionValueObjectExt-validateJSON}{\code{CoexpressionValueObjectExt$validateJSON()}}
+\item \href{#method-CoexpressionValueObjectExt-toString}{\code{CoexpressionValueObjectExt$toString()}}
+\item \href{#method-CoexpressionValueObjectExt-isValid}{\code{CoexpressionValueObjectExt$isValid()}}
+\item \href{#method-CoexpressionValueObjectExt-getInvalidFields}{\code{CoexpressionValueObjectExt$getInvalidFields()}}
+\item \href{#method-CoexpressionValueObjectExt-print}{\code{CoexpressionValueObjectExt$print()}}
+\item \href{#method-CoexpressionValueObjectExt-clone}{\code{CoexpressionValueObjectExt$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new CoexpressionValueObjectExt class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CoexpressionValueObjectExt
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CoexpressionValueObjectExt
+
+
+Validate JSON input with respect to CoexpressionValueObjectExt and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$new(
+  containsMyData = NULL,
+  foundGene = NULL,
+  foundGeneNodeDegree = NULL,
+  foundGeneNodeDegreeRank = NULL,
+  negSupp = NULL,
+  numTestedIn = NULL,
+  posSupp = NULL,
+  queryGene = NULL,
+  queryGeneNodeDegree = NULL,
+  queryGeneNodeDegreeRank = NULL,
+  sortKey = NULL,
+  supportingExperiments = NULL,
+  support = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{containsMyData}}{containsMyData}
+
+\item{\code{foundGene}}{foundGene}
+
+\item{\code{foundGeneNodeDegree}}{foundGeneNodeDegree}
+
+\item{\code{foundGeneNodeDegreeRank}}{foundGeneNodeDegreeRank}
+
+\item{\code{negSupp}}{negSupp}
+
+\item{\code{numTestedIn}}{numTestedIn}
+
+\item{\code{posSupp}}{posSupp}
+
+\item{\code{queryGene}}{queryGene}
+
+\item{\code{queryGeneNodeDegree}}{queryGeneNodeDegree}
+
+\item{\code{queryGeneNodeDegreeRank}}{queryGeneNodeDegreeRank}
+
+\item{\code{sortKey}}{sortKey}
+
+\item{\code{supportingExperiments}}{supportingExperiments}
+
+\item{\code{support}}{support}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+CoexpressionValueObjectExt in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CoexpressionValueObjectExt-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -281,8 +528,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-CoexpressionValueObjectExt-print"></a>}}
 \if{latex}{\out{\hypertarget{method-CoexpressionValueObjectExt-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CoexpressionValueObjectExt$print()}\if{html}{\out{</div>}}
 }
 
 }

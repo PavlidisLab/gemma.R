@@ -6,13 +6,21 @@
 \title{PaginatedResponseDataObjectExpressionExperimentValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PaginatedResponseDataObjectExpressionExperimentValueObject Class
 
 PaginatedResponseDataObjectExpressionExperimentValueObject Class
+
+PaginatedResponseDataObjectExpressionExperimentValueObject Class
+
+PaginatedResponseDataObjectExpressionExperimentValueObject Class
 }
 \details{
+Create a new PaginatedResponseDataObjectExpressionExperimentValueObject
+
 Create a new PaginatedResponseDataObjectExpressionExperimentValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PaginatedResponseDataObjectExpressionExperimentValueObject
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PaginatedResponseDataObjectExpressionExperimentValueObject}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PaginatedResponseDataObjectExpressionExperimentValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,205 @@ Create a new PaginatedResponseDataObjectExpressionExperimentValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{ExpressionExperimentValueObject}) optional}
+
+\item{\code{offset}}{integer optional}
+
+\item{\code{limit}}{integer optional}
+
+\item{\code{sort}}{\link{SortValueObject} optional}
+
+\item{\code{totalElements}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-new}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$new()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSON}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$toJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSON}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$fromJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSONString}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$toJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSONString}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$fromJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-validateJSON}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$validateJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-toString}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$toString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-isValid}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$isValid()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-getInvalidFields}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$getInvalidFields()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-print}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$print()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionExperimentValueObject-clone}{\code{PaginatedResponseDataObjectExpressionExperimentValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PaginatedResponseDataObjectExpressionExperimentValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectExpressionExperimentValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectExpressionExperimentValueObject
+
+
+Validate JSON input with respect to PaginatedResponseDataObjectExpressionExperimentValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$new(
+  data = NULL,
+  offset = NULL,
+  limit = NULL,
+  sort = NULL,
+  totalElements = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{offset}}{offset}
+
+\item{\code{limit}}{limit}
+
+\item{\code{sort}}{sort}
+
+\item{\code{totalElements}}{totalElements}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PaginatedResponseDataObjectExpressionExperimentValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$fromJSONString(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -243,8 +452,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionExperimentValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionExperimentValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionExperimentValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

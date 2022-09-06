@@ -6,13 +6,21 @@
 \title{PhenotypeMappingType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PhenotypeMappingType Class
 
 PhenotypeMappingType Class
+
+PhenotypeMappingType Class
+
+PhenotypeMappingType Class
 }
 \details{
+Create a new PhenotypeMappingType
+
 Create a new PhenotypeMappingType
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PhenotypeMappingType
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PhenotypeMappingType}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PhenotypeMappingType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,184 @@ Create a new PhenotypeMappingType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+
+\item{\code{mutable}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PhenotypeMappingType-new}{\code{PhenotypeMappingType$new()}}
+\item \href{#method-PhenotypeMappingType-toJSON}{\code{PhenotypeMappingType$toJSON()}}
+\item \href{#method-PhenotypeMappingType-fromJSON}{\code{PhenotypeMappingType$fromJSON()}}
+\item \href{#method-PhenotypeMappingType-toJSONString}{\code{PhenotypeMappingType$toJSONString()}}
+\item \href{#method-PhenotypeMappingType-fromJSONString}{\code{PhenotypeMappingType$fromJSONString()}}
+\item \href{#method-PhenotypeMappingType-validateJSON}{\code{PhenotypeMappingType$validateJSON()}}
+\item \href{#method-PhenotypeMappingType-toString}{\code{PhenotypeMappingType$toString()}}
+\item \href{#method-PhenotypeMappingType-isValid}{\code{PhenotypeMappingType$isValid()}}
+\item \href{#method-PhenotypeMappingType-getInvalidFields}{\code{PhenotypeMappingType$getInvalidFields()}}
+\item \href{#method-PhenotypeMappingType-print}{\code{PhenotypeMappingType$print()}}
+\item \href{#method-PhenotypeMappingType-clone}{\code{PhenotypeMappingType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PhenotypeMappingType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhenotypeMappingType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhenotypeMappingType
+
+
+Validate JSON input with respect to PhenotypeMappingType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$new(value = NULL, mutable = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{mutable}}{mutable}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PhenotypeMappingType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeMappingType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeMappingType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -222,8 +410,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PhenotypeMappingType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PhenotypeMappingType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeMappingType$print()}\if{html}{\out{</div>}}
 }
 
 }

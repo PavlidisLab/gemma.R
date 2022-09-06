@@ -6,13 +6,21 @@
 \title{PrimitiveType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PrimitiveType Class
 
 PrimitiveType Class
+
+PrimitiveType Class
+
+PrimitiveType Class
 }
 \details{
+Create a new PrimitiveType
+
 Create a new PrimitiveType
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PrimitiveType
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PrimitiveType}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PrimitiveType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new PrimitiveType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PrimitiveType-new}{\code{PrimitiveType$new()}}
+\item \href{#method-PrimitiveType-toJSON}{\code{PrimitiveType$toJSON()}}
+\item \href{#method-PrimitiveType-fromJSON}{\code{PrimitiveType$fromJSON()}}
+\item \href{#method-PrimitiveType-toJSONString}{\code{PrimitiveType$toJSONString()}}
+\item \href{#method-PrimitiveType-fromJSONString}{\code{PrimitiveType$fromJSONString()}}
+\item \href{#method-PrimitiveType-validateJSON}{\code{PrimitiveType$validateJSON()}}
+\item \href{#method-PrimitiveType-toString}{\code{PrimitiveType$toString()}}
+\item \href{#method-PrimitiveType-isValid}{\code{PrimitiveType$isValid()}}
+\item \href{#method-PrimitiveType-getInvalidFields}{\code{PrimitiveType$getInvalidFields()}}
+\item \href{#method-PrimitiveType-print}{\code{PrimitiveType$print()}}
+\item \href{#method-PrimitiveType-clone}{\code{PrimitiveType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PrimitiveType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PrimitiveType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PrimitiveType
+
+
+Validate JSON input with respect to PrimitiveType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PrimitiveType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PrimitiveType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PrimitiveType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PrimitiveType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PrimitiveType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PrimitiveType$print()}\if{html}{\out{</div>}}
 }
 
 }

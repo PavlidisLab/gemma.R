@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListBioAssayValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListBioAssayValueObject Class
 
 ResponseDataObjectListBioAssayValueObject Class
+
+ResponseDataObjectListBioAssayValueObject Class
+
+ResponseDataObjectListBioAssayValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListBioAssayValueObject
+
 Create a new ResponseDataObjectListBioAssayValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListBioAssayValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListBioAssayValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListBioAssayValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ResponseDataObjectListBioAssayValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{BioAssayValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-new}{\code{ResponseDataObjectListBioAssayValueObject$new()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-toJSON}{\code{ResponseDataObjectListBioAssayValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-fromJSON}{\code{ResponseDataObjectListBioAssayValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-toJSONString}{\code{ResponseDataObjectListBioAssayValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-fromJSONString}{\code{ResponseDataObjectListBioAssayValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-validateJSON}{\code{ResponseDataObjectListBioAssayValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-toString}{\code{ResponseDataObjectListBioAssayValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-isValid}{\code{ResponseDataObjectListBioAssayValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-getInvalidFields}{\code{ResponseDataObjectListBioAssayValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-print}{\code{ResponseDataObjectListBioAssayValueObject$print()}}
+\item \href{#method-ResponseDataObjectListBioAssayValueObject-clone}{\code{ResponseDataObjectListBioAssayValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListBioAssayValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListBioAssayValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListBioAssayValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListBioAssayValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListBioAssayValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListBioAssayValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListBioAssayValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListBioAssayValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

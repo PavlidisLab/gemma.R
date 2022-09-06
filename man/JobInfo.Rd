@@ -6,13 +6,21 @@
 \title{JobInfo}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 JobInfo Class
 
 JobInfo Class
+
+JobInfo Class
+
+JobInfo Class
 }
 \details{
+Create a new JobInfo
+
 Create a new JobInfo
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new JobInfo
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{JobInfo}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new JobInfo
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,228 @@ Create a new JobInfo
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{runningStatus}}{character optional}
+
+\item{\code{failedMessage}}{character optional}
+
+\item{\code{startTime}}{character optional}
+
+\item{\code{endTime}}{character optional}
+
+\item{\code{phases}}{integer optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{messages}}{character optional}
+
+\item{\code{taskId}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{user}}{\link{User} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-JobInfo-new}{\code{JobInfo$new()}}
+\item \href{#method-JobInfo-toJSON}{\code{JobInfo$toJSON()}}
+\item \href{#method-JobInfo-fromJSON}{\code{JobInfo$fromJSON()}}
+\item \href{#method-JobInfo-toJSONString}{\code{JobInfo$toJSONString()}}
+\item \href{#method-JobInfo-fromJSONString}{\code{JobInfo$fromJSONString()}}
+\item \href{#method-JobInfo-validateJSON}{\code{JobInfo$validateJSON()}}
+\item \href{#method-JobInfo-toString}{\code{JobInfo$toString()}}
+\item \href{#method-JobInfo-isValid}{\code{JobInfo$isValid()}}
+\item \href{#method-JobInfo-getInvalidFields}{\code{JobInfo$getInvalidFields()}}
+\item \href{#method-JobInfo-print}{\code{JobInfo$print()}}
+\item \href{#method-JobInfo-clone}{\code{JobInfo$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-new"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new JobInfo class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of JobInfo
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of JobInfo
+
+
+Validate JSON input with respect to JobInfo and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$new(
+  runningStatus = NULL,
+  failedMessage = NULL,
+  startTime = NULL,
+  endTime = NULL,
+  phases = NULL,
+  description = NULL,
+  messages = NULL,
+  taskId = NULL,
+  id = NULL,
+  user = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{runningStatus}}{runningStatus}
+
+\item{\code{failedMessage}}{failedMessage}
+
+\item{\code{startTime}}{startTime}
+
+\item{\code{endTime}}{endTime}
+
+\item{\code{phases}}{phases}
+
+\item{\code{description}}{description}
+
+\item{\code{messages}}{messages}
+
+\item{\code{taskId}}{taskId}
+
+\item{\code{id}}{id}
+
+\item{\code{user}}{user}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+JobInfo in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-print"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-JobInfo-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-JobInfo-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -266,8 +498,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-JobInfo-print"></a>}}
 \if{latex}{\out{\hypertarget{method-JobInfo-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{JobInfo$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{JobInfo$print()}\if{html}{\out{</div>}}
 }
 
 }

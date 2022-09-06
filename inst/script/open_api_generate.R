@@ -2,7 +2,8 @@ library(magrittr)
 library(here)
 setwd(here())
 
-download.file('https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/6.1.0-SNAPSHOT/openapi-generator-cli-6.1.0-20220901.084810-101.jar',destfile = 'inst/script/openapi-generator.jar')
+download.file('https://oss.sonatype.org/content/repositories/snapshots/org/openapitools/openapi-generator-cli/6.1.0-SNAPSHOT/openapi-generator-cli-6.1.0-20220906.004906-108.jar',
+              destfile = 'inst/script/openapi-generator.jar')
 download.file('https://dev.gemma.msl.ubc.ca/rest/v2/openapi.json','inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'))
 

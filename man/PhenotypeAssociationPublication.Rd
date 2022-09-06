@@ -6,13 +6,21 @@
 \title{PhenotypeAssociationPublication}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PhenotypeAssociationPublication Class
 
 PhenotypeAssociationPublication Class
+
+PhenotypeAssociationPublication Class
+
+PhenotypeAssociationPublication Class
 }
 \details{
+Create a new PhenotypeAssociationPublication
+
 Create a new PhenotypeAssociationPublication
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PhenotypeAssociationPublication
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PhenotypeAssociationPublication}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PhenotypeAssociationPublication
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,193 @@ Create a new PhenotypeAssociationPublication
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{type}}{character optional}
+
+\item{\code{citation}}{\link{BibliographicReference} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PhenotypeAssociationPublication-new}{\code{PhenotypeAssociationPublication$new()}}
+\item \href{#method-PhenotypeAssociationPublication-toJSON}{\code{PhenotypeAssociationPublication$toJSON()}}
+\item \href{#method-PhenotypeAssociationPublication-fromJSON}{\code{PhenotypeAssociationPublication$fromJSON()}}
+\item \href{#method-PhenotypeAssociationPublication-toJSONString}{\code{PhenotypeAssociationPublication$toJSONString()}}
+\item \href{#method-PhenotypeAssociationPublication-fromJSONString}{\code{PhenotypeAssociationPublication$fromJSONString()}}
+\item \href{#method-PhenotypeAssociationPublication-validateJSON}{\code{PhenotypeAssociationPublication$validateJSON()}}
+\item \href{#method-PhenotypeAssociationPublication-toString}{\code{PhenotypeAssociationPublication$toString()}}
+\item \href{#method-PhenotypeAssociationPublication-isValid}{\code{PhenotypeAssociationPublication$isValid()}}
+\item \href{#method-PhenotypeAssociationPublication-getInvalidFields}{\code{PhenotypeAssociationPublication$getInvalidFields()}}
+\item \href{#method-PhenotypeAssociationPublication-print}{\code{PhenotypeAssociationPublication$print()}}
+\item \href{#method-PhenotypeAssociationPublication-clone}{\code{PhenotypeAssociationPublication$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PhenotypeAssociationPublication class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhenotypeAssociationPublication
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhenotypeAssociationPublication
+
+
+Validate JSON input with respect to PhenotypeAssociationPublication and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$new(
+  id = NULL,
+  type = NULL,
+  citation = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{type}}{type}
+
+\item{\code{citation}}{citation}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PhenotypeAssociationPublication in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhenotypeAssociationPublication-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -231,8 +428,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PhenotypeAssociationPublication-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PhenotypeAssociationPublication-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PhenotypeAssociationPublication$print()}\if{html}{\out{</div>}}
 }
 
 }

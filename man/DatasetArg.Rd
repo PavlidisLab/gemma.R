@@ -6,8 +6,12 @@
 \title{DatasetArg}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+DatasetArg Class
+
 DatasetArg Class
 }
 \keyword{DatasetArg}
@@ -15,6 +19,7 @@ DatasetArg Class
 \keyword{Deserialize}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ DatasetArg Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ DatasetArg Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new DatasetArg.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DatasetArg-new}{\code{DatasetArg$new()}}
+\item \href{#method-DatasetArg-fromJSONString}{\code{DatasetArg$fromJSONString()}}
+\item \href{#method-DatasetArg-fromJSON}{\code{DatasetArg$fromJSON()}}
+\item \href{#method-DatasetArg-toJSONString}{\code{DatasetArg$toJSONString()}}
+\item \href{#method-DatasetArg-toJSON}{\code{DatasetArg$toJSON()}}
+\item \href{#method-DatasetArg-validateJSON}{\code{DatasetArg$validateJSON()}}
+\item \href{#method-DatasetArg-toString}{\code{DatasetArg$toString()}}
+\item \href{#method-DatasetArg-print}{\code{DatasetArg$print()}}
+\item \href{#method-DatasetArg-clone}{\code{DatasetArg$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new DatasetArg.
+
+
+Deserialize JSON string into an instance of DatasetArg.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of DatasetArg.
+
+
+Serialize DatasetArg to JSON string.
+
+
+Serialize DatasetArg to JSON.
+
+
+Validate the input JSON with respect to DatasetArg and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of DatasetArg.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatasetArg-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DatasetArg-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-DatasetArg-print"></a>}}
 \if{latex}{\out{\hypertarget{method-DatasetArg-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DatasetArg$print()}\if{html}{\out{</div>}}
 }
 
 }

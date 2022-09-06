@@ -6,13 +6,18 @@
 \title{TaxonArg}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+TaxonArg Class
+
 TaxonArg Class
 }
 \keyword{Deserialize}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{TaxonArg}
@@ -24,6 +29,7 @@ TaxonArg Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ TaxonArg Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new TaxonArg.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-TaxonArg-new}{\code{TaxonArg$new()}}
+\item \href{#method-TaxonArg-fromJSONString}{\code{TaxonArg$fromJSONString()}}
+\item \href{#method-TaxonArg-fromJSON}{\code{TaxonArg$fromJSON()}}
+\item \href{#method-TaxonArg-toJSONString}{\code{TaxonArg$toJSONString()}}
+\item \href{#method-TaxonArg-toJSON}{\code{TaxonArg$toJSON()}}
+\item \href{#method-TaxonArg-validateJSON}{\code{TaxonArg$validateJSON()}}
+\item \href{#method-TaxonArg-toString}{\code{TaxonArg$toString()}}
+\item \href{#method-TaxonArg-print}{\code{TaxonArg$print()}}
+\item \href{#method-TaxonArg-clone}{\code{TaxonArg$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new TaxonArg.
+
+
+Deserialize JSON string into an instance of TaxonArg.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of TaxonArg.
+
+
+Serialize TaxonArg to JSON string.
+
+
+Serialize TaxonArg to JSON.
+
+
+Validate the input JSON with respect to TaxonArg and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of TaxonArg.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-print"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TaxonArg-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TaxonArg-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-TaxonArg-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TaxonArg-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TaxonArg$print()}\if{html}{\out{</div>}}
 }
 
 }

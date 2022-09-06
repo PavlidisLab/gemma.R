@@ -1,11 +1,14 @@
 
-register_openapi = function(name){
+register_openapi = function(name,
+                            openapi_name = name,
+                            validators = NULL,
+                            ){
     api_instance = DefaultApi$new()
     endpoint = api_file$paths[[which(api_file_fun_names %in% name)]]
     args = formals(api_instance[[name]])
     fargs = args[!names(args) %in% c('data_file','...')]
-    
-    
+
+
     f <- function() {}
 
     fargs$raw <- quote(getOption("gemma.raw", FALSE))
@@ -13,9 +16,9 @@ register_openapi = function(name){
     fargs$file <- quote(getOption("gemma.file", NA_character_))
     fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
     fargs$attributes <- quote(getOption("gemma.attributes", TRUE))
-    
+
     formals(f) <- fargs
-    
+
     body(f) = quote({
         .openapi_body()
     })

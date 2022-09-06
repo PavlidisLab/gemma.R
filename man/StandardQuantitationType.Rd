@@ -6,13 +6,21 @@
 \title{StandardQuantitationType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 StandardQuantitationType Class
 
 StandardQuantitationType Class
+
+StandardQuantitationType Class
+
+StandardQuantitationType Class
 }
 \details{
+Create a new StandardQuantitationType
+
 Create a new StandardQuantitationType
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new StandardQuantitationType
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{StandardQuantitationType}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new StandardQuantitationType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new StandardQuantitationType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-StandardQuantitationType-new}{\code{StandardQuantitationType$new()}}
+\item \href{#method-StandardQuantitationType-toJSON}{\code{StandardQuantitationType$toJSON()}}
+\item \href{#method-StandardQuantitationType-fromJSON}{\code{StandardQuantitationType$fromJSON()}}
+\item \href{#method-StandardQuantitationType-toJSONString}{\code{StandardQuantitationType$toJSONString()}}
+\item \href{#method-StandardQuantitationType-fromJSONString}{\code{StandardQuantitationType$fromJSONString()}}
+\item \href{#method-StandardQuantitationType-validateJSON}{\code{StandardQuantitationType$validateJSON()}}
+\item \href{#method-StandardQuantitationType-toString}{\code{StandardQuantitationType$toString()}}
+\item \href{#method-StandardQuantitationType-isValid}{\code{StandardQuantitationType$isValid()}}
+\item \href{#method-StandardQuantitationType-getInvalidFields}{\code{StandardQuantitationType$getInvalidFields()}}
+\item \href{#method-StandardQuantitationType-print}{\code{StandardQuantitationType$print()}}
+\item \href{#method-StandardQuantitationType-clone}{\code{StandardQuantitationType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new StandardQuantitationType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of StandardQuantitationType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of StandardQuantitationType
+
+
+Validate JSON input with respect to StandardQuantitationType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+StandardQuantitationType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-StandardQuantitationType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-StandardQuantitationType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-StandardQuantitationType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-StandardQuantitationType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{StandardQuantitationType$print()}\if{html}{\out{</div>}}
 }
 
 }

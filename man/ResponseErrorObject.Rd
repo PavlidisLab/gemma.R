@@ -6,13 +6,21 @@
 \title{ResponseErrorObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseErrorObject Class
 
 ResponseErrorObject Class
+
+ResponseErrorObject Class
+
+ResponseErrorObject Class
 }
 \details{
+Create a new ResponseErrorObject
+
 Create a new ResponseErrorObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseErrorObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseErrorObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseErrorObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,184 @@ Create a new ResponseErrorObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{error}}{\link{WellComposedErrorBody} optional}
+
+\item{\code{apiVersion}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseErrorObject-new}{\code{ResponseErrorObject$new()}}
+\item \href{#method-ResponseErrorObject-toJSON}{\code{ResponseErrorObject$toJSON()}}
+\item \href{#method-ResponseErrorObject-fromJSON}{\code{ResponseErrorObject$fromJSON()}}
+\item \href{#method-ResponseErrorObject-toJSONString}{\code{ResponseErrorObject$toJSONString()}}
+\item \href{#method-ResponseErrorObject-fromJSONString}{\code{ResponseErrorObject$fromJSONString()}}
+\item \href{#method-ResponseErrorObject-validateJSON}{\code{ResponseErrorObject$validateJSON()}}
+\item \href{#method-ResponseErrorObject-toString}{\code{ResponseErrorObject$toString()}}
+\item \href{#method-ResponseErrorObject-isValid}{\code{ResponseErrorObject$isValid()}}
+\item \href{#method-ResponseErrorObject-getInvalidFields}{\code{ResponseErrorObject$getInvalidFields()}}
+\item \href{#method-ResponseErrorObject-print}{\code{ResponseErrorObject$print()}}
+\item \href{#method-ResponseErrorObject-clone}{\code{ResponseErrorObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseErrorObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseErrorObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseErrorObject
+
+
+Validate JSON input with respect to ResponseErrorObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$new(error = NULL, apiVersion = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{error}}{error}
+
+\item{\code{apiVersion}}{apiVersion}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseErrorObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseErrorObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseErrorObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -222,8 +410,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseErrorObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseErrorObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseErrorObject$print()}\if{html}{\out{</div>}}
 }
 
 }

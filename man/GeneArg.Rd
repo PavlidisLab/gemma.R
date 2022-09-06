@@ -6,8 +6,12 @@
 \title{GeneArg}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+GeneArg Class
+
 GeneArg Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ GeneArg Class
 \keyword{GeneArg.}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ GeneArg Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ GeneArg Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new GeneArg.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneArg-new}{\code{GeneArg$new()}}
+\item \href{#method-GeneArg-fromJSONString}{\code{GeneArg$fromJSONString()}}
+\item \href{#method-GeneArg-fromJSON}{\code{GeneArg$fromJSON()}}
+\item \href{#method-GeneArg-toJSONString}{\code{GeneArg$toJSONString()}}
+\item \href{#method-GeneArg-toJSON}{\code{GeneArg$toJSON()}}
+\item \href{#method-GeneArg-validateJSON}{\code{GeneArg$validateJSON()}}
+\item \href{#method-GeneArg-toString}{\code{GeneArg$toString()}}
+\item \href{#method-GeneArg-print}{\code{GeneArg$print()}}
+\item \href{#method-GeneArg-clone}{\code{GeneArg$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneArg.
+
+
+Deserialize JSON string into an instance of GeneArg.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of GeneArg.
+
+
+Serialize GeneArg to JSON string.
+
+
+Serialize GeneArg to JSON.
+
+
+Validate the input JSON with respect to GeneArg and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of GeneArg.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneArg-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneArg-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-GeneArg-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneArg-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneArg$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneArg$print()}\if{html}{\out{</div>}}
 }
 
 }

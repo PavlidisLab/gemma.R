@@ -6,13 +6,21 @@
 \title{SequenceType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 SequenceType Class
 
 SequenceType Class
+
+SequenceType Class
+
+SequenceType Class
 }
 \details{
+Create a new SequenceType
+
 Create a new SequenceType
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new SequenceType
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{SequenceType}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new SequenceType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new SequenceType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-SequenceType-new}{\code{SequenceType$new()}}
+\item \href{#method-SequenceType-toJSON}{\code{SequenceType$toJSON()}}
+\item \href{#method-SequenceType-fromJSON}{\code{SequenceType$fromJSON()}}
+\item \href{#method-SequenceType-toJSONString}{\code{SequenceType$toJSONString()}}
+\item \href{#method-SequenceType-fromJSONString}{\code{SequenceType$fromJSONString()}}
+\item \href{#method-SequenceType-validateJSON}{\code{SequenceType$validateJSON()}}
+\item \href{#method-SequenceType-toString}{\code{SequenceType$toString()}}
+\item \href{#method-SequenceType-isValid}{\code{SequenceType$isValid()}}
+\item \href{#method-SequenceType-getInvalidFields}{\code{SequenceType$getInvalidFields()}}
+\item \href{#method-SequenceType-print}{\code{SequenceType$print()}}
+\item \href{#method-SequenceType-clone}{\code{SequenceType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new SequenceType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SequenceType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SequenceType
+
+
+Validate JSON input with respect to SequenceType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+SequenceType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SequenceType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SequenceType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-SequenceType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-SequenceType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SequenceType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SequenceType$print()}\if{html}{\out{</div>}}
 }
 
 }

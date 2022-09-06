@@ -6,13 +6,21 @@
 \title{Characteristic}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Characteristic Class
 
 Characteristic Class
+
+Characteristic Class
+
+Characteristic Class
 }
 \details{
+Create a new Characteristic
+
 Create a new Characteristic
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Characteristic
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Characteristic
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,223 @@ Create a new Characteristic
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{category}}{character optional}
+
+\item{\code{categoryUri}}{character optional}
+
+\item{\code{evidenceCode}}{\link{GOEvidenceCode} optional}
+
+\item{\code{originalValue}}{character optional}
+
+\item{\code{value}}{character optional}
+
+\item{\code{valueUri}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Characteristic-new}{\code{Characteristic$new()}}
+\item \href{#method-Characteristic-toJSON}{\code{Characteristic$toJSON()}}
+\item \href{#method-Characteristic-fromJSON}{\code{Characteristic$fromJSON()}}
+\item \href{#method-Characteristic-toJSONString}{\code{Characteristic$toJSONString()}}
+\item \href{#method-Characteristic-fromJSONString}{\code{Characteristic$fromJSONString()}}
+\item \href{#method-Characteristic-validateJSON}{\code{Characteristic$validateJSON()}}
+\item \href{#method-Characteristic-toString}{\code{Characteristic$toString()}}
+\item \href{#method-Characteristic-isValid}{\code{Characteristic$isValid()}}
+\item \href{#method-Characteristic-getInvalidFields}{\code{Characteristic$getInvalidFields()}}
+\item \href{#method-Characteristic-print}{\code{Characteristic$print()}}
+\item \href{#method-Characteristic-clone}{\code{Characteristic$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Characteristic class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Characteristic
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Characteristic
+
+
+Validate JSON input with respect to Characteristic and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  category = NULL,
+  categoryUri = NULL,
+  evidenceCode = NULL,
+  originalValue = NULL,
+  value = NULL,
+  valueUri = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{category}}{category}
+
+\item{\code{categoryUri}}{categoryUri}
+
+\item{\code{evidenceCode}}{evidenceCode}
+
+\item{\code{originalValue}}{originalValue}
+
+\item{\code{value}}{value}
+
+\item{\code{valueUri}}{valueUri}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Characteristic in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Characteristic-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Characteristic-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -261,8 +488,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Characteristic-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Characteristic-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Characteristic$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Characteristic$print()}\if{html}{\out{</div>}}
 }
 
 }

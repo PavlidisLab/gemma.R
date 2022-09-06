@@ -6,13 +6,21 @@
 \title{Multifunctionality}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Multifunctionality Class
 
 Multifunctionality Class
+
+Multifunctionality Class
+
+Multifunctionality Class
 }
 \details{
+Create a new Multifunctionality
+
 Create a new Multifunctionality
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Multifunctionality
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{Multifunctionality}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Multifunctionality
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,198 @@ Create a new Multifunctionality
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{score}}{numeric optional}
+
+\item{\code{rank}}{numeric optional}
+
+\item{\code{numGoTerms}}{integer optional}
+
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Multifunctionality-new}{\code{Multifunctionality$new()}}
+\item \href{#method-Multifunctionality-toJSON}{\code{Multifunctionality$toJSON()}}
+\item \href{#method-Multifunctionality-fromJSON}{\code{Multifunctionality$fromJSON()}}
+\item \href{#method-Multifunctionality-toJSONString}{\code{Multifunctionality$toJSONString()}}
+\item \href{#method-Multifunctionality-fromJSONString}{\code{Multifunctionality$fromJSONString()}}
+\item \href{#method-Multifunctionality-validateJSON}{\code{Multifunctionality$validateJSON()}}
+\item \href{#method-Multifunctionality-toString}{\code{Multifunctionality$toString()}}
+\item \href{#method-Multifunctionality-isValid}{\code{Multifunctionality$isValid()}}
+\item \href{#method-Multifunctionality-getInvalidFields}{\code{Multifunctionality$getInvalidFields()}}
+\item \href{#method-Multifunctionality-print}{\code{Multifunctionality$print()}}
+\item \href{#method-Multifunctionality-clone}{\code{Multifunctionality$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Multifunctionality class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Multifunctionality
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Multifunctionality
+
+
+Validate JSON input with respect to Multifunctionality and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$new(
+  score = NULL,
+  rank = NULL,
+  numGoTerms = NULL,
+  id = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{score}}{score}
+
+\item{\code{rank}}{rank}
+
+\item{\code{numGoTerms}}{numGoTerms}
+
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Multifunctionality in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Multifunctionality-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Multifunctionality-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -236,8 +438,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Multifunctionality-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Multifunctionality-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Multifunctionality$print()}\if{html}{\out{</div>}}
 }
 
 }

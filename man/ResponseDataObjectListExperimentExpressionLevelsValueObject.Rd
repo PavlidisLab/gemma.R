@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListExperimentExpressionLevelsValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListExperimentExpressionLevelsValueObject Class
 
 ResponseDataObjectListExperimentExpressionLevelsValueObject Class
+
+ResponseDataObjectListExperimentExpressionLevelsValueObject Class
+
+ResponseDataObjectListExperimentExpressionLevelsValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListExperimentExpressionLevelsValueObject
+
 Create a new ResponseDataObjectListExperimentExpressionLevelsValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListExperimentExpressionLevelsValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListExperimentExpressionLevelsValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListExperimentExpressionLevelsValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,187 @@ Create a new ResponseDataObjectListExperimentExpressionLevelsValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{ExperimentExpressionLevelsValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-new}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$new()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSON}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSON}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSONString}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSONString}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-validateJSON}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toString}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-isValid}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-getInvalidFields}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-print}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$print()}}
+\item \href{#method-ResponseDataObjectListExperimentExpressionLevelsValueObject-clone}{\code{ResponseDataObjectListExperimentExpressionLevelsValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListExperimentExpressionLevelsValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListExperimentExpressionLevelsValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListExperimentExpressionLevelsValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListExperimentExpressionLevelsValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$new(
+  data = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListExperimentExpressionLevelsValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$fromJSON(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$fromJSONString(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -225,8 +416,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListExperimentExpressionLevelsValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListExperimentExpressionLevelsValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListExperimentExpressionLevelsValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{CompositeSequenceValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 CompositeSequenceValueObject Class
 
 CompositeSequenceValueObject Class
+
+CompositeSequenceValueObject Class
+
+CompositeSequenceValueObject Class
 }
 \details{
+Create a new CompositeSequenceValueObject
+
 Create a new CompositeSequenceValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new CompositeSequenceValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new CompositeSequenceValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,203 @@ Create a new CompositeSequenceValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{arrayDesign}}{\link{ArrayDesignValueObject} optional}
+
+\item{\code{geneMappingSummaries}}{list(\link{GeneMappingSummary}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CompositeSequenceValueObject-new}{\code{CompositeSequenceValueObject$new()}}
+\item \href{#method-CompositeSequenceValueObject-toJSON}{\code{CompositeSequenceValueObject$toJSON()}}
+\item \href{#method-CompositeSequenceValueObject-fromJSON}{\code{CompositeSequenceValueObject$fromJSON()}}
+\item \href{#method-CompositeSequenceValueObject-toJSONString}{\code{CompositeSequenceValueObject$toJSONString()}}
+\item \href{#method-CompositeSequenceValueObject-fromJSONString}{\code{CompositeSequenceValueObject$fromJSONString()}}
+\item \href{#method-CompositeSequenceValueObject-validateJSON}{\code{CompositeSequenceValueObject$validateJSON()}}
+\item \href{#method-CompositeSequenceValueObject-toString}{\code{CompositeSequenceValueObject$toString()}}
+\item \href{#method-CompositeSequenceValueObject-isValid}{\code{CompositeSequenceValueObject$isValid()}}
+\item \href{#method-CompositeSequenceValueObject-getInvalidFields}{\code{CompositeSequenceValueObject$getInvalidFields()}}
+\item \href{#method-CompositeSequenceValueObject-print}{\code{CompositeSequenceValueObject$print()}}
+\item \href{#method-CompositeSequenceValueObject-clone}{\code{CompositeSequenceValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new CompositeSequenceValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CompositeSequenceValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CompositeSequenceValueObject
+
+
+Validate JSON input with respect to CompositeSequenceValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$new(
+  id = NULL,
+  name = NULL,
+  description = NULL,
+  arrayDesign = NULL,
+  geneMappingSummaries = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{arrayDesign}}{arrayDesign}
+
+\item{\code{geneMappingSummaries}}{geneMappingSummaries}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+CompositeSequenceValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CompositeSequenceValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -241,8 +448,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-CompositeSequenceValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-CompositeSequenceValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CompositeSequenceValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

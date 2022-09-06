@@ -6,13 +6,21 @@
 \title{DatabaseEntryValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 DatabaseEntryValueObject Class
 
 DatabaseEntryValueObject Class
+
+DatabaseEntryValueObject Class
+
+DatabaseEntryValueObject Class
 }
 \details{
+Create a new DatabaseEntryValueObject
+
 Create a new DatabaseEntryValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new DatabaseEntryValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new DatabaseEntryValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,193 @@ Create a new DatabaseEntryValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{accession}}{character optional}
+
+\item{\code{externalDatabase}}{\link{ExternalDatabaseValueObject} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DatabaseEntryValueObject-new}{\code{DatabaseEntryValueObject$new()}}
+\item \href{#method-DatabaseEntryValueObject-toJSON}{\code{DatabaseEntryValueObject$toJSON()}}
+\item \href{#method-DatabaseEntryValueObject-fromJSON}{\code{DatabaseEntryValueObject$fromJSON()}}
+\item \href{#method-DatabaseEntryValueObject-toJSONString}{\code{DatabaseEntryValueObject$toJSONString()}}
+\item \href{#method-DatabaseEntryValueObject-fromJSONString}{\code{DatabaseEntryValueObject$fromJSONString()}}
+\item \href{#method-DatabaseEntryValueObject-validateJSON}{\code{DatabaseEntryValueObject$validateJSON()}}
+\item \href{#method-DatabaseEntryValueObject-toString}{\code{DatabaseEntryValueObject$toString()}}
+\item \href{#method-DatabaseEntryValueObject-isValid}{\code{DatabaseEntryValueObject$isValid()}}
+\item \href{#method-DatabaseEntryValueObject-getInvalidFields}{\code{DatabaseEntryValueObject$getInvalidFields()}}
+\item \href{#method-DatabaseEntryValueObject-print}{\code{DatabaseEntryValueObject$print()}}
+\item \href{#method-DatabaseEntryValueObject-clone}{\code{DatabaseEntryValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new DatabaseEntryValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DatabaseEntryValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DatabaseEntryValueObject
+
+
+Validate JSON input with respect to DatabaseEntryValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$new(
+  id = NULL,
+  accession = NULL,
+  externalDatabase = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{accession}}{accession}
+
+\item{\code{externalDatabase}}{externalDatabase}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+DatabaseEntryValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseEntryValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -231,8 +428,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-DatabaseEntryValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-DatabaseEntryValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseEntryValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

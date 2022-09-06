@@ -6,13 +6,21 @@
 \title{BioSequence2GeneProduct}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BioSequence2GeneProduct Class
 
 BioSequence2GeneProduct Class
+
+BioSequence2GeneProduct Class
+
+BioSequence2GeneProduct Class
 }
 \details{
+Create a new BioSequence2GeneProduct
+
 Create a new BioSequence2GeneProduct
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BioSequence2GeneProduct
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BioSequence2GeneProduct
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,223 @@ Create a new BioSequence2GeneProduct
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{sourceAnalysis}}{\link{Analysis} optional}
+
+\item{\code{overlap}}{integer optional}
+
+\item{\code{score}}{numeric optional}
+
+\item{\code{threePrimeDistance}}{integer optional}
+
+\item{\code{threePrimeDistanceMeasurementMethod}}{\link{ThreePrimeDistanceMethod} optional}
+
+\item{\code{specificity}}{numeric optional}
+
+\item{\code{bioSequence}}{\link{BioSequence} optional}
+
+\item{\code{geneProduct}}{\link{GeneProduct} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BioSequence2GeneProduct-new}{\code{BioSequence2GeneProduct$new()}}
+\item \href{#method-BioSequence2GeneProduct-toJSON}{\code{BioSequence2GeneProduct$toJSON()}}
+\item \href{#method-BioSequence2GeneProduct-fromJSON}{\code{BioSequence2GeneProduct$fromJSON()}}
+\item \href{#method-BioSequence2GeneProduct-toJSONString}{\code{BioSequence2GeneProduct$toJSONString()}}
+\item \href{#method-BioSequence2GeneProduct-fromJSONString}{\code{BioSequence2GeneProduct$fromJSONString()}}
+\item \href{#method-BioSequence2GeneProduct-validateJSON}{\code{BioSequence2GeneProduct$validateJSON()}}
+\item \href{#method-BioSequence2GeneProduct-toString}{\code{BioSequence2GeneProduct$toString()}}
+\item \href{#method-BioSequence2GeneProduct-isValid}{\code{BioSequence2GeneProduct$isValid()}}
+\item \href{#method-BioSequence2GeneProduct-getInvalidFields}{\code{BioSequence2GeneProduct$getInvalidFields()}}
+\item \href{#method-BioSequence2GeneProduct-print}{\code{BioSequence2GeneProduct$print()}}
+\item \href{#method-BioSequence2GeneProduct-clone}{\code{BioSequence2GeneProduct$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BioSequence2GeneProduct class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequence2GeneProduct
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequence2GeneProduct
+
+
+Validate JSON input with respect to BioSequence2GeneProduct and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$new(
+  id = NULL,
+  sourceAnalysis = NULL,
+  overlap = NULL,
+  score = NULL,
+  threePrimeDistance = NULL,
+  threePrimeDistanceMeasurementMethod = NULL,
+  specificity = NULL,
+  bioSequence = NULL,
+  geneProduct = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{sourceAnalysis}}{sourceAnalysis}
+
+\item{\code{overlap}}{overlap}
+
+\item{\code{score}}{score}
+
+\item{\code{threePrimeDistance}}{threePrimeDistance}
+
+\item{\code{threePrimeDistanceMeasurementMethod}}{threePrimeDistanceMeasurementMethod}
+
+\item{\code{specificity}}{specificity}
+
+\item{\code{bioSequence}}{bioSequence}
+
+\item{\code{geneProduct}}{geneProduct}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BioSequence2GeneProduct in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequence2GeneProduct-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -261,8 +488,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BioSequence2GeneProduct-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BioSequence2GeneProduct-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BioSequence2GeneProduct$print()}\if{html}{\out{</div>}}
 }
 
 }

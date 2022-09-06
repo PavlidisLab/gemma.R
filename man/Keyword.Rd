@@ -6,13 +6,21 @@
 \title{Keyword}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Keyword Class
 
 Keyword Class
+
+Keyword Class
+
+Keyword Class
 }
 \details{
+Create a new Keyword
+
 Create a new Keyword
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Keyword
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{Keyword}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Keyword
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new Keyword
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{isMajorTopic}}{character optional}
+
+\item{\code{term}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Keyword-new}{\code{Keyword$new()}}
+\item \href{#method-Keyword-toJSON}{\code{Keyword$toJSON()}}
+\item \href{#method-Keyword-fromJSON}{\code{Keyword$fromJSON()}}
+\item \href{#method-Keyword-toJSONString}{\code{Keyword$toJSONString()}}
+\item \href{#method-Keyword-fromJSONString}{\code{Keyword$fromJSONString()}}
+\item \href{#method-Keyword-validateJSON}{\code{Keyword$validateJSON()}}
+\item \href{#method-Keyword-toString}{\code{Keyword$toString()}}
+\item \href{#method-Keyword-isValid}{\code{Keyword$isValid()}}
+\item \href{#method-Keyword-getInvalidFields}{\code{Keyword$getInvalidFields()}}
+\item \href{#method-Keyword-print}{\code{Keyword$print()}}
+\item \href{#method-Keyword-clone}{\code{Keyword$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Keyword class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Keyword
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Keyword
+
+
+Validate JSON input with respect to Keyword and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$new(id = NULL, isMajorTopic = NULL, term = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{isMajorTopic}}{isMajorTopic}
+
+\item{\code{term}}{term}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Keyword in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Keyword-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Keyword-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Keyword-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Keyword-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Keyword$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Keyword$print()}\if{html}{\out{</div>}}
 }
 
 }

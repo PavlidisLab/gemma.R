@@ -6,8 +6,12 @@
 \title{GetPlatformAnnotationsPlatformParameter}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+GetPlatformAnnotationsPlatformParameter Class
+
 GetPlatformAnnotationsPlatformParameter Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ GetPlatformAnnotationsPlatformParameter Class
 \keyword{GetPlatformAnnotationsPlatformParameter.}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ GetPlatformAnnotationsPlatformParameter Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ GetPlatformAnnotationsPlatformParameter Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new GetPlatformAnnotationsPlatformParameter.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-new}{\code{GetPlatformAnnotationsPlatformParameter$new()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-fromJSONString}{\code{GetPlatformAnnotationsPlatformParameter$fromJSONString()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-fromJSON}{\code{GetPlatformAnnotationsPlatformParameter$fromJSON()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-toJSONString}{\code{GetPlatformAnnotationsPlatformParameter$toJSONString()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-toJSON}{\code{GetPlatformAnnotationsPlatformParameter$toJSON()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-validateJSON}{\code{GetPlatformAnnotationsPlatformParameter$validateJSON()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-toString}{\code{GetPlatformAnnotationsPlatformParameter$toString()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-print}{\code{GetPlatformAnnotationsPlatformParameter$print()}}
+\item \href{#method-GetPlatformAnnotationsPlatformParameter-clone}{\code{GetPlatformAnnotationsPlatformParameter$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GetPlatformAnnotationsPlatformParameter.
+
+
+Deserialize JSON string into an instance of GetPlatformAnnotationsPlatformParameter.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of GetPlatformAnnotationsPlatformParameter.
+
+
+Serialize GetPlatformAnnotationsPlatformParameter to JSON string.
+
+
+Serialize GetPlatformAnnotationsPlatformParameter to JSON.
+
+
+Validate the input JSON with respect to GetPlatformAnnotationsPlatformParameter and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of GetPlatformAnnotationsPlatformParameter.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-GetPlatformAnnotationsPlatformParameter-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GetPlatformAnnotationsPlatformParameter-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformAnnotationsPlatformParameter$print()}\if{html}{\out{</div>}}
 }
 
 }

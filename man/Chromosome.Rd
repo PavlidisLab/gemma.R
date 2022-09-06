@@ -6,13 +6,21 @@
 \title{Chromosome}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Chromosome Class
 
 Chromosome Class
+
+Chromosome Class
+
+Chromosome Class
 }
 \details{
+Create a new Chromosome
+
 Create a new Chromosome
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Chromosome
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Chromosome
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,203 @@ Create a new Chromosome
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{assemblyDatabase}}{\link{ExternalDatabase} optional}
+
+\item{\code{sequence}}{\link{BioSequence} optional}
+
+\item{\code{taxon}}{\link{Taxon} optional}
+
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Chromosome-new}{\code{Chromosome$new()}}
+\item \href{#method-Chromosome-toJSON}{\code{Chromosome$toJSON()}}
+\item \href{#method-Chromosome-fromJSON}{\code{Chromosome$fromJSON()}}
+\item \href{#method-Chromosome-toJSONString}{\code{Chromosome$toJSONString()}}
+\item \href{#method-Chromosome-fromJSONString}{\code{Chromosome$fromJSONString()}}
+\item \href{#method-Chromosome-validateJSON}{\code{Chromosome$validateJSON()}}
+\item \href{#method-Chromosome-toString}{\code{Chromosome$toString()}}
+\item \href{#method-Chromosome-isValid}{\code{Chromosome$isValid()}}
+\item \href{#method-Chromosome-getInvalidFields}{\code{Chromosome$getInvalidFields()}}
+\item \href{#method-Chromosome-print}{\code{Chromosome$print()}}
+\item \href{#method-Chromosome-clone}{\code{Chromosome$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Chromosome class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Chromosome
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Chromosome
+
+
+Validate JSON input with respect to Chromosome and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$new(
+  name = NULL,
+  assemblyDatabase = NULL,
+  sequence = NULL,
+  taxon = NULL,
+  id = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{assemblyDatabase}}{assemblyDatabase}
+
+\item{\code{sequence}}{sequence}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Chromosome in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Chromosome-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Chromosome-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -241,8 +448,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Chromosome-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Chromosome-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Chromosome$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Chromosome$print()}\if{html}{\out{</div>}}
 }
 
 }

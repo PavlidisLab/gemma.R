@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListGeneValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListGeneValueObject Class
 
 ResponseDataObjectListGeneValueObject Class
+
+ResponseDataObjectListGeneValueObject Class
+
+ResponseDataObjectListGeneValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListGeneValueObject
+
 Create a new ResponseDataObjectListGeneValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListGeneValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListGeneValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListGeneValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ResponseDataObjectListGeneValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{GeneValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListGeneValueObject-new}{\code{ResponseDataObjectListGeneValueObject$new()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-toJSON}{\code{ResponseDataObjectListGeneValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-fromJSON}{\code{ResponseDataObjectListGeneValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-toJSONString}{\code{ResponseDataObjectListGeneValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-fromJSONString}{\code{ResponseDataObjectListGeneValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-validateJSON}{\code{ResponseDataObjectListGeneValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-toString}{\code{ResponseDataObjectListGeneValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-isValid}{\code{ResponseDataObjectListGeneValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-getInvalidFields}{\code{ResponseDataObjectListGeneValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-print}{\code{ResponseDataObjectListGeneValueObject$print()}}
+\item \href{#method-ResponseDataObjectListGeneValueObject-clone}{\code{ResponseDataObjectListGeneValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListGeneValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListGeneValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListGeneValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListGeneValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListGeneValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListGeneValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListGeneValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListGeneValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

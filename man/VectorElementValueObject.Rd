@@ -6,13 +6,21 @@
 \title{VectorElementValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 VectorElementValueObject Class
 
 VectorElementValueObject Class
+
+VectorElementValueObject Class
+
+VectorElementValueObject Class
 }
 \details{
+Create a new VectorElementValueObject
+
 Create a new VectorElementValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new VectorElementValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new VectorElementValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new VectorElementValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{designElementName}}{character optional}
+
+\item{\code{bioAssayExpressionLevels}}{named list(numeric) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-VectorElementValueObject-new}{\code{VectorElementValueObject$new()}}
+\item \href{#method-VectorElementValueObject-toJSON}{\code{VectorElementValueObject$toJSON()}}
+\item \href{#method-VectorElementValueObject-fromJSON}{\code{VectorElementValueObject$fromJSON()}}
+\item \href{#method-VectorElementValueObject-toJSONString}{\code{VectorElementValueObject$toJSONString()}}
+\item \href{#method-VectorElementValueObject-fromJSONString}{\code{VectorElementValueObject$fromJSONString()}}
+\item \href{#method-VectorElementValueObject-validateJSON}{\code{VectorElementValueObject$validateJSON()}}
+\item \href{#method-VectorElementValueObject-toString}{\code{VectorElementValueObject$toString()}}
+\item \href{#method-VectorElementValueObject-isValid}{\code{VectorElementValueObject$isValid()}}
+\item \href{#method-VectorElementValueObject-getInvalidFields}{\code{VectorElementValueObject$getInvalidFields()}}
+\item \href{#method-VectorElementValueObject-print}{\code{VectorElementValueObject$print()}}
+\item \href{#method-VectorElementValueObject-clone}{\code{VectorElementValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new VectorElementValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of VectorElementValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of VectorElementValueObject
+
+
+Validate JSON input with respect to VectorElementValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$new(
+  designElementName = NULL,
+  bioAssayExpressionLevels = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{designElementName}}{designElementName}
+
+\item{\code{bioAssayExpressionLevels}}{bioAssayExpressionLevels}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+VectorElementValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-VectorElementValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-VectorElementValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-VectorElementValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-VectorElementValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{VectorElementValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

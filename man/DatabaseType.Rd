@@ -6,13 +6,21 @@
 \title{DatabaseType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 DatabaseType Class
 
 DatabaseType Class
+
+DatabaseType Class
+
+DatabaseType Class
 }
 \details{
+Create a new DatabaseType
+
 Create a new DatabaseType
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new DatabaseType
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new DatabaseType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new DatabaseType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DatabaseType-new}{\code{DatabaseType$new()}}
+\item \href{#method-DatabaseType-toJSON}{\code{DatabaseType$toJSON()}}
+\item \href{#method-DatabaseType-fromJSON}{\code{DatabaseType$fromJSON()}}
+\item \href{#method-DatabaseType-toJSONString}{\code{DatabaseType$toJSONString()}}
+\item \href{#method-DatabaseType-fromJSONString}{\code{DatabaseType$fromJSONString()}}
+\item \href{#method-DatabaseType-validateJSON}{\code{DatabaseType$validateJSON()}}
+\item \href{#method-DatabaseType-toString}{\code{DatabaseType$toString()}}
+\item \href{#method-DatabaseType-isValid}{\code{DatabaseType$isValid()}}
+\item \href{#method-DatabaseType-getInvalidFields}{\code{DatabaseType$getInvalidFields()}}
+\item \href{#method-DatabaseType-print}{\code{DatabaseType$print()}}
+\item \href{#method-DatabaseType-clone}{\code{DatabaseType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new DatabaseType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DatabaseType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DatabaseType
+
+
+Validate JSON input with respect to DatabaseType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+DatabaseType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DatabaseType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DatabaseType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-DatabaseType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-DatabaseType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DatabaseType$print()}\if{html}{\out{</div>}}
 }
 
 }

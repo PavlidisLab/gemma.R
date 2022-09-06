@@ -6,13 +6,21 @@
 \title{BioMaterialValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BioMaterialValueObject Class
 
 BioMaterialValueObject Class
+
+BioMaterialValueObject Class
+
+BioMaterialValueObject Class
 }
 \details{
+Create a new BioMaterialValueObject
+
 Create a new BioMaterialValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BioMaterialValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BioMaterialValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,243 @@ Create a new BioMaterialValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{assayDescription}}{character optional}
+
+\item{\code{assayName}}{character optional}
+
+\item{\code{bioAssays}}{list(integer) optional}
+
+\item{\code{characteristics}}{list(\link{CharacteristicValueObject}) optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{factorIdToFactorValueId}}{named list(character) optional}
+
+\item{\code{factors}}{named list(character) optional}
+
+\item{\code{factorValueObjects}}{list(\link{IdentifiableValueObject}) optional}
+
+\item{\code{factorValues}}{named list(character) optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{assayProcessingDate}}{character optional}
+
+\item{\code{characteristicValues}}{named list(character) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BioMaterialValueObject-new}{\code{BioMaterialValueObject$new()}}
+\item \href{#method-BioMaterialValueObject-toJSON}{\code{BioMaterialValueObject$toJSON()}}
+\item \href{#method-BioMaterialValueObject-fromJSON}{\code{BioMaterialValueObject$fromJSON()}}
+\item \href{#method-BioMaterialValueObject-toJSONString}{\code{BioMaterialValueObject$toJSONString()}}
+\item \href{#method-BioMaterialValueObject-fromJSONString}{\code{BioMaterialValueObject$fromJSONString()}}
+\item \href{#method-BioMaterialValueObject-validateJSON}{\code{BioMaterialValueObject$validateJSON()}}
+\item \href{#method-BioMaterialValueObject-toString}{\code{BioMaterialValueObject$toString()}}
+\item \href{#method-BioMaterialValueObject-isValid}{\code{BioMaterialValueObject$isValid()}}
+\item \href{#method-BioMaterialValueObject-getInvalidFields}{\code{BioMaterialValueObject$getInvalidFields()}}
+\item \href{#method-BioMaterialValueObject-print}{\code{BioMaterialValueObject$print()}}
+\item \href{#method-BioMaterialValueObject-clone}{\code{BioMaterialValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BioMaterialValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioMaterialValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioMaterialValueObject
+
+
+Validate JSON input with respect to BioMaterialValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$new(
+  id = NULL,
+  assayDescription = NULL,
+  assayName = NULL,
+  bioAssays = NULL,
+  characteristics = NULL,
+  description = NULL,
+  factorIdToFactorValueId = NULL,
+  factors = NULL,
+  factorValueObjects = NULL,
+  factorValues = NULL,
+  name = NULL,
+  assayProcessingDate = NULL,
+  characteristicValues = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{assayDescription}}{assayDescription}
+
+\item{\code{assayName}}{assayName}
+
+\item{\code{bioAssays}}{bioAssays}
+
+\item{\code{characteristics}}{characteristics}
+
+\item{\code{description}}{description}
+
+\item{\code{factorIdToFactorValueId}}{factorIdToFactorValueId}
+
+\item{\code{factors}}{factors}
+
+\item{\code{factorValueObjects}}{factorValueObjects}
+
+\item{\code{factorValues}}{factorValues}
+
+\item{\code{name}}{name}
+
+\item{\code{assayProcessingDate}}{assayProcessingDate}
+
+\item{\code{characteristicValues}}{characteristicValues}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BioMaterialValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioMaterialValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BioMaterialValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -281,8 +528,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BioMaterialValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BioMaterialValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BioMaterialValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

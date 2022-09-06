@@ -6,8 +6,12 @@
 \title{GetPlatformElementProbesParameterInner}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+GetPlatformElementProbesParameterInner Class
+
 GetPlatformElementProbesParameterInner Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ GetPlatformElementProbesParameterInner Class
 \keyword{GetPlatformElementProbesParameterInner.}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ GetPlatformElementProbesParameterInner Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ GetPlatformElementProbesParameterInner Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new GetPlatformElementProbesParameterInner.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GetPlatformElementProbesParameterInner-new}{\code{GetPlatformElementProbesParameterInner$new()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-fromJSONString}{\code{GetPlatformElementProbesParameterInner$fromJSONString()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-fromJSON}{\code{GetPlatformElementProbesParameterInner$fromJSON()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-toJSONString}{\code{GetPlatformElementProbesParameterInner$toJSONString()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-toJSON}{\code{GetPlatformElementProbesParameterInner$toJSON()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-validateJSON}{\code{GetPlatformElementProbesParameterInner$validateJSON()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-toString}{\code{GetPlatformElementProbesParameterInner$toString()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-print}{\code{GetPlatformElementProbesParameterInner$print()}}
+\item \href{#method-GetPlatformElementProbesParameterInner-clone}{\code{GetPlatformElementProbesParameterInner$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GetPlatformElementProbesParameterInner.
+
+
+Deserialize JSON string into an instance of GetPlatformElementProbesParameterInner.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of GetPlatformElementProbesParameterInner.
+
+
+Serialize GetPlatformElementProbesParameterInner to JSON string.
+
+
+Serialize GetPlatformElementProbesParameterInner to JSON.
+
+
+Validate the input JSON with respect to GetPlatformElementProbesParameterInner and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of GetPlatformElementProbesParameterInner.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-GetPlatformElementProbesParameterInner-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GetPlatformElementProbesParameterInner-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GetPlatformElementProbesParameterInner$print()}\if{html}{\out{</div>}}
 }
 
 }

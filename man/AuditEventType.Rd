@@ -6,13 +6,21 @@
 \title{AuditEventType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 AuditEventType Class
 
 AuditEventType Class
+
+AuditEventType Class
+
+AuditEventType Class
 }
 \details{
+Create a new AuditEventType
+
 Create a new AuditEventType
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new AuditEventType
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new AuditEventType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new AuditEventType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-AuditEventType-new}{\code{AuditEventType$new()}}
+\item \href{#method-AuditEventType-toJSON}{\code{AuditEventType$toJSON()}}
+\item \href{#method-AuditEventType-fromJSON}{\code{AuditEventType$fromJSON()}}
+\item \href{#method-AuditEventType-toJSONString}{\code{AuditEventType$toJSONString()}}
+\item \href{#method-AuditEventType-fromJSONString}{\code{AuditEventType$fromJSONString()}}
+\item \href{#method-AuditEventType-validateJSON}{\code{AuditEventType$validateJSON()}}
+\item \href{#method-AuditEventType-toString}{\code{AuditEventType$toString()}}
+\item \href{#method-AuditEventType-isValid}{\code{AuditEventType$isValid()}}
+\item \href{#method-AuditEventType-getInvalidFields}{\code{AuditEventType$getInvalidFields()}}
+\item \href{#method-AuditEventType-print}{\code{AuditEventType$print()}}
+\item \href{#method-AuditEventType-clone}{\code{AuditEventType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new AuditEventType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AuditEventType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AuditEventType
+
+
+Validate JSON input with respect to AuditEventType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$new(id = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+AuditEventType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditEventType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditEventType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-AuditEventType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-AuditEventType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{AuditEventType$print()}\if{html}{\out{</div>}}
 }
 
 }

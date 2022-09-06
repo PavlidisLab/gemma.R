@@ -6,13 +6,21 @@
 \title{ThreePrimeDistanceMethod}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ThreePrimeDistanceMethod Class
 
 ThreePrimeDistanceMethod Class
+
+ThreePrimeDistanceMethod Class
+
+ThreePrimeDistanceMethod Class
 }
 \details{
+Create a new ThreePrimeDistanceMethod
+
 Create a new ThreePrimeDistanceMethod
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ThreePrimeDistanceMethod
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{ThreePrimeDistanceMethod}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ThreePrimeDistanceMethod
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ThreePrimeDistanceMethod
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ThreePrimeDistanceMethod-new}{\code{ThreePrimeDistanceMethod$new()}}
+\item \href{#method-ThreePrimeDistanceMethod-toJSON}{\code{ThreePrimeDistanceMethod$toJSON()}}
+\item \href{#method-ThreePrimeDistanceMethod-fromJSON}{\code{ThreePrimeDistanceMethod$fromJSON()}}
+\item \href{#method-ThreePrimeDistanceMethod-toJSONString}{\code{ThreePrimeDistanceMethod$toJSONString()}}
+\item \href{#method-ThreePrimeDistanceMethod-fromJSONString}{\code{ThreePrimeDistanceMethod$fromJSONString()}}
+\item \href{#method-ThreePrimeDistanceMethod-validateJSON}{\code{ThreePrimeDistanceMethod$validateJSON()}}
+\item \href{#method-ThreePrimeDistanceMethod-toString}{\code{ThreePrimeDistanceMethod$toString()}}
+\item \href{#method-ThreePrimeDistanceMethod-isValid}{\code{ThreePrimeDistanceMethod$isValid()}}
+\item \href{#method-ThreePrimeDistanceMethod-getInvalidFields}{\code{ThreePrimeDistanceMethod$getInvalidFields()}}
+\item \href{#method-ThreePrimeDistanceMethod-print}{\code{ThreePrimeDistanceMethod$print()}}
+\item \href{#method-ThreePrimeDistanceMethod-clone}{\code{ThreePrimeDistanceMethod$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ThreePrimeDistanceMethod class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ThreePrimeDistanceMethod
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ThreePrimeDistanceMethod
+
+
+Validate JSON input with respect to ThreePrimeDistanceMethod and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ThreePrimeDistanceMethod in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ThreePrimeDistanceMethod-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ThreePrimeDistanceMethod-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ThreePrimeDistanceMethod-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ThreePrimeDistanceMethod$print()}\if{html}{\out{</div>}}
 }
 
 }

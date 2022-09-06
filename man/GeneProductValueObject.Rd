@@ -6,13 +6,21 @@
 \title{GeneProductValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneProductValueObject Class
 
 GeneProductValueObject Class
+
+GeneProductValueObject Class
+
+GeneProductValueObject Class
 }
 \details{
+Create a new GeneProductValueObject
+
 Create a new GeneProductValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneProductValueObject
 \keyword{GeneProductValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneProductValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,218 @@ Create a new GeneProductValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{ncbiId}}{character optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{geneId}}{integer optional}
+
+\item{\code{chromosome}}{character optional}
+
+\item{\code{strand}}{character optional}
+
+\item{\code{nucleotideStart}}{integer optional}
+
+\item{\code{nucleotideEnd}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneProductValueObject-new}{\code{GeneProductValueObject$new()}}
+\item \href{#method-GeneProductValueObject-toJSON}{\code{GeneProductValueObject$toJSON()}}
+\item \href{#method-GeneProductValueObject-fromJSON}{\code{GeneProductValueObject$fromJSON()}}
+\item \href{#method-GeneProductValueObject-toJSONString}{\code{GeneProductValueObject$toJSONString()}}
+\item \href{#method-GeneProductValueObject-fromJSONString}{\code{GeneProductValueObject$fromJSONString()}}
+\item \href{#method-GeneProductValueObject-validateJSON}{\code{GeneProductValueObject$validateJSON()}}
+\item \href{#method-GeneProductValueObject-toString}{\code{GeneProductValueObject$toString()}}
+\item \href{#method-GeneProductValueObject-isValid}{\code{GeneProductValueObject$isValid()}}
+\item \href{#method-GeneProductValueObject-getInvalidFields}{\code{GeneProductValueObject$getInvalidFields()}}
+\item \href{#method-GeneProductValueObject-print}{\code{GeneProductValueObject$print()}}
+\item \href{#method-GeneProductValueObject-clone}{\code{GeneProductValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneProductValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneProductValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneProductValueObject
+
+
+Validate JSON input with respect to GeneProductValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$new(
+  id = NULL,
+  ncbiId = NULL,
+  name = NULL,
+  geneId = NULL,
+  chromosome = NULL,
+  strand = NULL,
+  nucleotideStart = NULL,
+  nucleotideEnd = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{ncbiId}}{ncbiId}
+
+\item{\code{name}}{name}
+
+\item{\code{geneId}}{geneId}
+
+\item{\code{chromosome}}{chromosome}
+
+\item{\code{strand}}{strand}
+
+\item{\code{nucleotideStart}}{nucleotideStart}
+
+\item{\code{nucleotideEnd}}{nucleotideEnd}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneProductValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneProductValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneProductValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -256,8 +478,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneProductValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneProductValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneProductValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

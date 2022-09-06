@@ -3,8 +3,8 @@ library(styler)
 library(snakecase)
 # a cleanup is needed because the script relies on environment variables to determine what is already processed
 rm(list = ls(all.names = TRUE))
-options(gemmaAPI.document = 'testttt.R')
-
+# options(gemmaAPI.document = 'testttt.R')
+options(gemmaAPI.document = 'R/ab_allEndpoints.R')
 
 if (file.exists(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))) {
     file.remove(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"))
@@ -21,7 +21,7 @@ api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('op
 
 
 source('inst/script/registry_helpers.R')
-source('inst/script/registry_openapi.R')
+# source('inst/script/registry_openapi.R')
 # -------------------------------
 # You should define all endpoints in this file. This ensures everything is uniform
 # and prevents you from rewriting boilerplate.
@@ -97,14 +97,16 @@ names(overrides) = overrides %>% sapply(function(x){
 
 
 # Dataset endpoints ----
-register_openapi('get_datasets_by_ids',
-                 validators = alist(
-                     datasets = validateOptionalID,
-                     offset = validatePositiveInteger,
-                     limit = validateLimit,
-                     sort = validateSort
-                 ),
-                 keyword = 'dataset')
+
+# formerly getDatasetsInfo
+# register_openapi('get_datasets_by_ids',
+#                  validators = alist(
+#                      datasets = validateOptionalID,
+#                      offset = validatePositiveInteger,
+#                      limit = validateLimit,
+#                      sort = validateSort
+#                  ),
+#                  keyword = 'dataset')
 
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
     "getDatasetsInfo",
@@ -466,7 +468,7 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
 
     rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
 
-    styler::style_file("./R/allEndpoints.R", transformers = biocthis::bioc_style())
+    styler::style_file(getOption("gemmaAPI.document", "R/ab_allEndpoints.R"), transformers = biocthis::bioc_style())
     devtools::document()
     devtools::build(vignettes = FALSE)
 }

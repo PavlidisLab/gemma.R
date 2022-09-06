@@ -6,13 +6,21 @@
 \title{ExperimentExpressionLevelsValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ExperimentExpressionLevelsValueObject Class
 
 ExperimentExpressionLevelsValueObject Class
+
+ExperimentExpressionLevelsValueObject Class
+
+ExperimentExpressionLevelsValueObject Class
 }
 \details{
+Create a new ExperimentExpressionLevelsValueObject
+
 Create a new ExperimentExpressionLevelsValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ExperimentExpressionLevelsValueObject
 \keyword{ExperimentExpressionLevelsValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ExperimentExpressionLevelsValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new ExperimentExpressionLevelsValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{datasetId}}{integer optional}
+
+\item{\code{geneExpressionLevels}}{list(\link{GeneElementExpressionsValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ExperimentExpressionLevelsValueObject-new}{\code{ExperimentExpressionLevelsValueObject$new()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-toJSON}{\code{ExperimentExpressionLevelsValueObject$toJSON()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-fromJSON}{\code{ExperimentExpressionLevelsValueObject$fromJSON()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-toJSONString}{\code{ExperimentExpressionLevelsValueObject$toJSONString()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-fromJSONString}{\code{ExperimentExpressionLevelsValueObject$fromJSONString()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-validateJSON}{\code{ExperimentExpressionLevelsValueObject$validateJSON()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-toString}{\code{ExperimentExpressionLevelsValueObject$toString()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-isValid}{\code{ExperimentExpressionLevelsValueObject$isValid()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-getInvalidFields}{\code{ExperimentExpressionLevelsValueObject$getInvalidFields()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-print}{\code{ExperimentExpressionLevelsValueObject$print()}}
+\item \href{#method-ExperimentExpressionLevelsValueObject-clone}{\code{ExperimentExpressionLevelsValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ExperimentExpressionLevelsValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExperimentExpressionLevelsValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExperimentExpressionLevelsValueObject
+
+
+Validate JSON input with respect to ExperimentExpressionLevelsValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$new(
+  datasetId = NULL,
+  geneExpressionLevels = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{datasetId}}{datasetId}
+
+\item{\code{geneExpressionLevels}}{geneExpressionLevels}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ExperimentExpressionLevelsValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ExperimentExpressionLevelsValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ExperimentExpressionLevelsValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ExperimentExpressionLevelsValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

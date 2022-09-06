@@ -6,13 +6,21 @@
 \title{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject Class
 
 PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject Class
+
+PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject Class
+
+PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject Class
 }
 \details{
+Create a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
+
 Create a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,215 @@ Create a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{ExpressionAnalysisResultSetValueObject}) optional}
+
+\item{\code{offset}}{integer optional}
+
+\item{\code{limit}}{integer optional}
+
+\item{\code{sort}}{\link{SortValueObject} optional}
+
+\item{\code{totalElements}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-new}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$new()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSON}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSON}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$fromJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSONString}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSONString}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$fromJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-validateJSON}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$validateJSON()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toString}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toString()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-isValid}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$isValid()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-getInvalidFields}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$getInvalidFields()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-print}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$print()}}
+\item \href{#method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-clone}{\code{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject
+
+
+Validate JSON input with respect to PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$new(
+  data = NULL,
+  offset = NULL,
+  limit = NULL,
+  sort = NULL,
+  totalElements = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{offset}}{offset}
+
+\item{\code{limit}}{limit}
+
+\item{\code{sort}}{sort}
+
+\item{\code{totalElements}}{totalElements}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$fromJSON(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toJSONString(
+  
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$fromJSONString(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$validateJSON(
+  input
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$getInvalidFields(
+  
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$clone(
+  deep = FALSE
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -251,8 +470,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectExpressionAnalysisResultSetValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

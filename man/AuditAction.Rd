@@ -6,13 +6,21 @@
 \title{AuditAction}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 AuditAction Class
 
 AuditAction Class
+
+AuditAction Class
+
+AuditAction Class
 }
 \details{
+Create a new AuditAction
+
 Create a new AuditAction
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new AuditAction
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new AuditAction
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new AuditAction
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-AuditAction-new}{\code{AuditAction$new()}}
+\item \href{#method-AuditAction-toJSON}{\code{AuditAction$toJSON()}}
+\item \href{#method-AuditAction-fromJSON}{\code{AuditAction$fromJSON()}}
+\item \href{#method-AuditAction-toJSONString}{\code{AuditAction$toJSONString()}}
+\item \href{#method-AuditAction-fromJSONString}{\code{AuditAction$fromJSONString()}}
+\item \href{#method-AuditAction-validateJSON}{\code{AuditAction$validateJSON()}}
+\item \href{#method-AuditAction-toString}{\code{AuditAction$toString()}}
+\item \href{#method-AuditAction-isValid}{\code{AuditAction$isValid()}}
+\item \href{#method-AuditAction-getInvalidFields}{\code{AuditAction$getInvalidFields()}}
+\item \href{#method-AuditAction-print}{\code{AuditAction$print()}}
+\item \href{#method-AuditAction-clone}{\code{AuditAction$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new AuditAction class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AuditAction
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AuditAction
+
+
+Validate JSON input with respect to AuditAction and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+AuditAction in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-print"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AuditAction-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AuditAction-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-AuditAction-print"></a>}}
 \if{latex}{\out{\hypertarget{method-AuditAction-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{AuditAction$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{AuditAction$print()}\if{html}{\out{</div>}}
 }
 
 }

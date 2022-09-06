@@ -6,13 +6,21 @@
 \title{ExpressionExperimentValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ExpressionExperimentValueObject Class
 
 ExpressionExperimentValueObject Class
+
+ExpressionExperimentValueObject Class
+
+ExpressionExperimentValueObject Class
 }
 \details{
+Create a new ExpressionExperimentValueObject
+
 Create a new ExpressionExperimentValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ExpressionExperimentValueObject
 \keyword{ExpressionExperimentValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ExpressionExperimentValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,353 @@ Create a new ExpressionExperimentValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{lastUpdated}}{character optional}
+
+\item{\code{troubled}}{character optional}
+
+\item{\code{lastTroubledEvent}}{\link{AuditEventValueObject} optional}
+
+\item{\code{needsAttention}}{character optional}
+
+\item{\code{lastNeedsAttentionEvent}}{\link{AuditEventValueObject} optional}
+
+\item{\code{curationNote}}{character optional}
+
+\item{\code{lastNoteUpdateEvent}}{\link{AuditEventValueObject} optional}
+
+\item{\code{bioAssayCount}}{integer optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{accession}}{character optional}
+
+\item{\code{arrayDesignCount}}{integer optional}
+
+\item{\code{batchConfound}}{character optional}
+
+\item{\code{batchEffect}}{character optional}
+
+\item{\code{bioMaterialCount}}{integer optional}
+
+\item{\code{currentUserHasWritePermission}}{character optional}
+
+\item{\code{currentUserIsOwner}}{character optional}
+
+\item{\code{experimentalDesign}}{integer optional}
+
+\item{\code{externalDatabase}}{character optional}
+
+\item{\code{externalUri}}{character optional}
+
+\item{\code{geeq}}{\link{GeeqValueObject} optional}
+
+\item{\code{isPublic}}{character optional}
+
+\item{\code{isShared}}{character optional}
+
+\item{\code{metadata}}{character optional}
+
+\item{\code{processedExpressionVectorCount}}{integer optional}
+
+\item{\code{shortName}}{character optional}
+
+\item{\code{source}}{character optional}
+
+\item{\code{suitableForDEA}}{character optional}
+
+\item{\code{taxon}}{character optional}
+
+\item{\code{taxonId}}{integer optional}
+
+\item{\code{technologyType}}{character optional}
+
+\item{\code{userOwned}}{character optional}
+
+\item{\code{userCanWrite}}{character optional}
+
+\item{\code{troubleDetails}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ExpressionExperimentValueObject-new}{\code{ExpressionExperimentValueObject$new()}}
+\item \href{#method-ExpressionExperimentValueObject-toJSON}{\code{ExpressionExperimentValueObject$toJSON()}}
+\item \href{#method-ExpressionExperimentValueObject-fromJSON}{\code{ExpressionExperimentValueObject$fromJSON()}}
+\item \href{#method-ExpressionExperimentValueObject-toJSONString}{\code{ExpressionExperimentValueObject$toJSONString()}}
+\item \href{#method-ExpressionExperimentValueObject-fromJSONString}{\code{ExpressionExperimentValueObject$fromJSONString()}}
+\item \href{#method-ExpressionExperimentValueObject-validateJSON}{\code{ExpressionExperimentValueObject$validateJSON()}}
+\item \href{#method-ExpressionExperimentValueObject-toString}{\code{ExpressionExperimentValueObject$toString()}}
+\item \href{#method-ExpressionExperimentValueObject-isValid}{\code{ExpressionExperimentValueObject$isValid()}}
+\item \href{#method-ExpressionExperimentValueObject-getInvalidFields}{\code{ExpressionExperimentValueObject$getInvalidFields()}}
+\item \href{#method-ExpressionExperimentValueObject-print}{\code{ExpressionExperimentValueObject$print()}}
+\item \href{#method-ExpressionExperimentValueObject-clone}{\code{ExpressionExperimentValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ExpressionExperimentValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExpressionExperimentValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExpressionExperimentValueObject
+
+
+Validate JSON input with respect to ExpressionExperimentValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$new(
+  id = NULL,
+  lastUpdated = NULL,
+  troubled = NULL,
+  lastTroubledEvent = NULL,
+  needsAttention = NULL,
+  lastNeedsAttentionEvent = NULL,
+  curationNote = NULL,
+  lastNoteUpdateEvent = NULL,
+  bioAssayCount = NULL,
+  description = NULL,
+  name = NULL,
+  accession = NULL,
+  arrayDesignCount = NULL,
+  batchConfound = NULL,
+  batchEffect = NULL,
+  bioMaterialCount = NULL,
+  currentUserHasWritePermission = NULL,
+  currentUserIsOwner = NULL,
+  experimentalDesign = NULL,
+  externalDatabase = NULL,
+  externalUri = NULL,
+  geeq = NULL,
+  isPublic = NULL,
+  isShared = NULL,
+  metadata = NULL,
+  processedExpressionVectorCount = NULL,
+  shortName = NULL,
+  source = NULL,
+  suitableForDEA = NULL,
+  taxon = NULL,
+  taxonId = NULL,
+  technologyType = NULL,
+  userOwned = NULL,
+  userCanWrite = NULL,
+  troubleDetails = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{lastUpdated}}{lastUpdated}
+
+\item{\code{troubled}}{troubled}
+
+\item{\code{lastTroubledEvent}}{lastTroubledEvent}
+
+\item{\code{needsAttention}}{needsAttention}
+
+\item{\code{lastNeedsAttentionEvent}}{lastNeedsAttentionEvent}
+
+\item{\code{curationNote}}{curationNote}
+
+\item{\code{lastNoteUpdateEvent}}{lastNoteUpdateEvent}
+
+\item{\code{bioAssayCount}}{bioAssayCount}
+
+\item{\code{description}}{description}
+
+\item{\code{name}}{name}
+
+\item{\code{accession}}{accession}
+
+\item{\code{arrayDesignCount}}{arrayDesignCount}
+
+\item{\code{batchConfound}}{batchConfound}
+
+\item{\code{batchEffect}}{batchEffect}
+
+\item{\code{bioMaterialCount}}{bioMaterialCount}
+
+\item{\code{currentUserHasWritePermission}}{currentUserHasWritePermission}
+
+\item{\code{currentUserIsOwner}}{currentUserIsOwner}
+
+\item{\code{experimentalDesign}}{experimentalDesign}
+
+\item{\code{externalDatabase}}{externalDatabase}
+
+\item{\code{externalUri}}{externalUri}
+
+\item{\code{geeq}}{geeq}
+
+\item{\code{isPublic}}{isPublic}
+
+\item{\code{isShared}}{isShared}
+
+\item{\code{metadata}}{metadata}
+
+\item{\code{processedExpressionVectorCount}}{processedExpressionVectorCount}
+
+\item{\code{shortName}}{shortName}
+
+\item{\code{source}}{source}
+
+\item{\code{suitableForDEA}}{suitableForDEA}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{taxonId}}{taxonId}
+
+\item{\code{technologyType}}{technologyType}
+
+\item{\code{userOwned}}{userOwned}
+
+\item{\code{userCanWrite}}{userCanWrite}
+
+\item{\code{troubleDetails}}{troubleDetails}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ExpressionExperimentValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExpressionExperimentValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -391,8 +748,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ExpressionExperimentValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ExpressionExperimentValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ExpressionExperimentValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

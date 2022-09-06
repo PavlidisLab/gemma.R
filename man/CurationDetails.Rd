@@ -6,13 +6,21 @@
 \title{CurationDetails}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 CurationDetails Class
 
 CurationDetails Class
+
+CurationDetails Class
+
+CurationDetails Class
 }
 \details{
+Create a new CurationDetails
+
 Create a new CurationDetails
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new CurationDetails
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new CurationDetails
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,218 @@ Create a new CurationDetails
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{lastUpdated}}{character optional}
+
+\item{\code{lastNeedsAttentionEvent}}{\link{AuditEvent} optional}
+
+\item{\code{needsAttention}}{character optional}
+
+\item{\code{lastTroubledEvent}}{\link{AuditEvent} optional}
+
+\item{\code{troubled}}{character optional}
+
+\item{\code{lastNoteUpdateEvent}}{\link{AuditEvent} optional}
+
+\item{\code{curationNote}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CurationDetails-new}{\code{CurationDetails$new()}}
+\item \href{#method-CurationDetails-toJSON}{\code{CurationDetails$toJSON()}}
+\item \href{#method-CurationDetails-fromJSON}{\code{CurationDetails$fromJSON()}}
+\item \href{#method-CurationDetails-toJSONString}{\code{CurationDetails$toJSONString()}}
+\item \href{#method-CurationDetails-fromJSONString}{\code{CurationDetails$fromJSONString()}}
+\item \href{#method-CurationDetails-validateJSON}{\code{CurationDetails$validateJSON()}}
+\item \href{#method-CurationDetails-toString}{\code{CurationDetails$toString()}}
+\item \href{#method-CurationDetails-isValid}{\code{CurationDetails$isValid()}}
+\item \href{#method-CurationDetails-getInvalidFields}{\code{CurationDetails$getInvalidFields()}}
+\item \href{#method-CurationDetails-print}{\code{CurationDetails$print()}}
+\item \href{#method-CurationDetails-clone}{\code{CurationDetails$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new CurationDetails class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CurationDetails
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CurationDetails
+
+
+Validate JSON input with respect to CurationDetails and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$new(
+  id = NULL,
+  lastUpdated = NULL,
+  lastNeedsAttentionEvent = NULL,
+  needsAttention = NULL,
+  lastTroubledEvent = NULL,
+  troubled = NULL,
+  lastNoteUpdateEvent = NULL,
+  curationNote = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{lastUpdated}}{lastUpdated}
+
+\item{\code{lastNeedsAttentionEvent}}{lastNeedsAttentionEvent}
+
+\item{\code{needsAttention}}{needsAttention}
+
+\item{\code{lastTroubledEvent}}{lastTroubledEvent}
+
+\item{\code{troubled}}{troubled}
+
+\item{\code{lastNoteUpdateEvent}}{lastNoteUpdateEvent}
+
+\item{\code{curationNote}}{curationNote}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+CurationDetails in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CurationDetails-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CurationDetails-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -256,8 +478,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-CurationDetails-print"></a>}}
 \if{latex}{\out{\hypertarget{method-CurationDetails-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CurationDetails$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{Contact}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Contact Class
 
 Contact Class
+
+Contact Class
+
+Contact Class
 }
 \details{
+Create a new Contact
+
 Create a new Contact
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Contact
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Contact
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,192 @@ Create a new Contact
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{email}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Contact-new}{\code{Contact$new()}}
+\item \href{#method-Contact-toJSON}{\code{Contact$toJSON()}}
+\item \href{#method-Contact-fromJSON}{\code{Contact$fromJSON()}}
+\item \href{#method-Contact-toJSONString}{\code{Contact$toJSONString()}}
+\item \href{#method-Contact-fromJSONString}{\code{Contact$fromJSONString()}}
+\item \href{#method-Contact-validateJSON}{\code{Contact$validateJSON()}}
+\item \href{#method-Contact-toString}{\code{Contact$toString()}}
+\item \href{#method-Contact-isValid}{\code{Contact$isValid()}}
+\item \href{#method-Contact-getInvalidFields}{\code{Contact$getInvalidFields()}}
+\item \href{#method-Contact-print}{\code{Contact$print()}}
+\item \href{#method-Contact-clone}{\code{Contact$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Contact class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Contact
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Contact
+
+
+Validate JSON input with respect to Contact and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$new(name = NULL, description = NULL, id = NULL, email = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{email}}{email}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Contact in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Contact-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Contact-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Contact$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -230,8 +426,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Contact-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Contact-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Contact$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Contact$print()}\if{html}{\out{</div>}}
 }
 
 }

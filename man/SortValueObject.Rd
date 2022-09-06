@@ -6,13 +6,21 @@
 \title{SortValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 SortValueObject Class
 
 SortValueObject Class
+
+SortValueObject Class
+
+SortValueObject Class
 }
 \details{
+Create a new SortValueObject
+
 Create a new SortValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new SortValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{SortValueObject}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new SortValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,184 @@ Create a new SortValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{orderBy}}{character optional}
+
+\item{\code{direction}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-SortValueObject-new}{\code{SortValueObject$new()}}
+\item \href{#method-SortValueObject-toJSON}{\code{SortValueObject$toJSON()}}
+\item \href{#method-SortValueObject-fromJSON}{\code{SortValueObject$fromJSON()}}
+\item \href{#method-SortValueObject-toJSONString}{\code{SortValueObject$toJSONString()}}
+\item \href{#method-SortValueObject-fromJSONString}{\code{SortValueObject$fromJSONString()}}
+\item \href{#method-SortValueObject-validateJSON}{\code{SortValueObject$validateJSON()}}
+\item \href{#method-SortValueObject-toString}{\code{SortValueObject$toString()}}
+\item \href{#method-SortValueObject-isValid}{\code{SortValueObject$isValid()}}
+\item \href{#method-SortValueObject-getInvalidFields}{\code{SortValueObject$getInvalidFields()}}
+\item \href{#method-SortValueObject-print}{\code{SortValueObject$print()}}
+\item \href{#method-SortValueObject-clone}{\code{SortValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new SortValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SortValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of SortValueObject
+
+
+Validate JSON input with respect to SortValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$new(orderBy = NULL, direction = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{orderBy}}{orderBy}
+
+\item{\code{direction}}{direction}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+SortValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SortValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SortValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -222,8 +410,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-SortValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-SortValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SortValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

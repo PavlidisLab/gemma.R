@@ -6,13 +6,21 @@
 \title{DifferentialExpressionAnalysisResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 DifferentialExpressionAnalysisResultValueObject Class
 
 DifferentialExpressionAnalysisResultValueObject Class
+
+DifferentialExpressionAnalysisResultValueObject Class
+
+DifferentialExpressionAnalysisResultValueObject Class
 }
 \details{
+Create a new DifferentialExpressionAnalysisResultValueObject
+
 Create a new DifferentialExpressionAnalysisResultValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new DifferentialExpressionAnalysisResultValueObject
 \keyword{DifferentialExpressionAnalysisResultValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new DifferentialExpressionAnalysisResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,213 @@ Create a new DifferentialExpressionAnalysisResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{probeId}}{integer optional}
+
+\item{\code{probeName}}{character optional}
+
+\item{\code{genes}}{list(\link{GeneValueObject}) optional}
+
+\item{\code{correctedPvalue}}{numeric optional}
+
+\item{\code{rank}}{numeric optional}
+
+\item{\code{contrasts}}{list(\link{ContrastResultValueObject}) optional}
+
+\item{\code{pvalue}}{numeric optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-new}{\code{DifferentialExpressionAnalysisResultValueObject$new()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-toJSON}{\code{DifferentialExpressionAnalysisResultValueObject$toJSON()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-fromJSON}{\code{DifferentialExpressionAnalysisResultValueObject$fromJSON()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-toJSONString}{\code{DifferentialExpressionAnalysisResultValueObject$toJSONString()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-fromJSONString}{\code{DifferentialExpressionAnalysisResultValueObject$fromJSONString()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-validateJSON}{\code{DifferentialExpressionAnalysisResultValueObject$validateJSON()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-toString}{\code{DifferentialExpressionAnalysisResultValueObject$toString()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-isValid}{\code{DifferentialExpressionAnalysisResultValueObject$isValid()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-getInvalidFields}{\code{DifferentialExpressionAnalysisResultValueObject$getInvalidFields()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-print}{\code{DifferentialExpressionAnalysisResultValueObject$print()}}
+\item \href{#method-DifferentialExpressionAnalysisResultValueObject-clone}{\code{DifferentialExpressionAnalysisResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new DifferentialExpressionAnalysisResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DifferentialExpressionAnalysisResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DifferentialExpressionAnalysisResultValueObject
+
+
+Validate JSON input with respect to DifferentialExpressionAnalysisResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$new(
+  probeId = NULL,
+  probeName = NULL,
+  genes = NULL,
+  correctedPvalue = NULL,
+  rank = NULL,
+  contrasts = NULL,
+  pvalue = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{probeId}}{probeId}
+
+\item{\code{probeName}}{probeName}
+
+\item{\code{genes}}{genes}
+
+\item{\code{correctedPvalue}}{correctedPvalue}
+
+\item{\code{rank}}{rank}
+
+\item{\code{contrasts}}{contrasts}
+
+\item{\code{pvalue}}{pvalue}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+DifferentialExpressionAnalysisResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -251,8 +468,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-DifferentialExpressionAnalysisResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-DifferentialExpressionAnalysisResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DifferentialExpressionAnalysisResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

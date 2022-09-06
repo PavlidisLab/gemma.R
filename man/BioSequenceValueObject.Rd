@@ -6,13 +6,21 @@
 \title{BioSequenceValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BioSequenceValueObject Class
 
 BioSequenceValueObject Class
+
+BioSequenceValueObject Class
+
+BioSequenceValueObject Class
 }
 \details{
+Create a new BioSequenceValueObject
+
 Create a new BioSequenceValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BioSequenceValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BioSequenceValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,223 @@ Create a new BioSequenceValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{fractionRepeats}}{numeric optional}
+
+\item{\code{length}}{integer optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{sequence}}{character optional}
+
+\item{\code{sequenceDatabaseEntry}}{\link{DatabaseEntryValueObject} optional}
+
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
+
+\item{\code{type}}{\link{SequenceType} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BioSequenceValueObject-new}{\code{BioSequenceValueObject$new()}}
+\item \href{#method-BioSequenceValueObject-toJSON}{\code{BioSequenceValueObject$toJSON()}}
+\item \href{#method-BioSequenceValueObject-fromJSON}{\code{BioSequenceValueObject$fromJSON()}}
+\item \href{#method-BioSequenceValueObject-toJSONString}{\code{BioSequenceValueObject$toJSONString()}}
+\item \href{#method-BioSequenceValueObject-fromJSONString}{\code{BioSequenceValueObject$fromJSONString()}}
+\item \href{#method-BioSequenceValueObject-validateJSON}{\code{BioSequenceValueObject$validateJSON()}}
+\item \href{#method-BioSequenceValueObject-toString}{\code{BioSequenceValueObject$toString()}}
+\item \href{#method-BioSequenceValueObject-isValid}{\code{BioSequenceValueObject$isValid()}}
+\item \href{#method-BioSequenceValueObject-getInvalidFields}{\code{BioSequenceValueObject$getInvalidFields()}}
+\item \href{#method-BioSequenceValueObject-print}{\code{BioSequenceValueObject$print()}}
+\item \href{#method-BioSequenceValueObject-clone}{\code{BioSequenceValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BioSequenceValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequenceValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BioSequenceValueObject
+
+
+Validate JSON input with respect to BioSequenceValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$new(
+  id = NULL,
+  description = NULL,
+  fractionRepeats = NULL,
+  length = NULL,
+  name = NULL,
+  sequence = NULL,
+  sequenceDatabaseEntry = NULL,
+  taxon = NULL,
+  type = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{description}}{description}
+
+\item{\code{fractionRepeats}}{fractionRepeats}
+
+\item{\code{length}}{length}
+
+\item{\code{name}}{name}
+
+\item{\code{sequence}}{sequence}
+
+\item{\code{sequenceDatabaseEntry}}{sequenceDatabaseEntry}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{type}}{type}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BioSequenceValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BioSequenceValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BioSequenceValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -261,8 +488,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BioSequenceValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BioSequenceValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BioSequenceValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

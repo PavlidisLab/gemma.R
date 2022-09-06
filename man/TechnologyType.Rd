@@ -6,13 +6,21 @@
 \title{TechnologyType}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 TechnologyType Class
 
 TechnologyType Class
+
+TechnologyType Class
+
+TechnologyType Class
 }
 \details{
+Create a new TechnologyType
+
 Create a new TechnologyType
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new TechnologyType
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{TechnologyType}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new TechnologyType
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new TechnologyType
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-TechnologyType-new}{\code{TechnologyType$new()}}
+\item \href{#method-TechnologyType-toJSON}{\code{TechnologyType$toJSON()}}
+\item \href{#method-TechnologyType-fromJSON}{\code{TechnologyType$fromJSON()}}
+\item \href{#method-TechnologyType-toJSONString}{\code{TechnologyType$toJSONString()}}
+\item \href{#method-TechnologyType-fromJSONString}{\code{TechnologyType$fromJSONString()}}
+\item \href{#method-TechnologyType-validateJSON}{\code{TechnologyType$validateJSON()}}
+\item \href{#method-TechnologyType-toString}{\code{TechnologyType$toString()}}
+\item \href{#method-TechnologyType-isValid}{\code{TechnologyType$isValid()}}
+\item \href{#method-TechnologyType-getInvalidFields}{\code{TechnologyType$getInvalidFields()}}
+\item \href{#method-TechnologyType-print}{\code{TechnologyType$print()}}
+\item \href{#method-TechnologyType-clone}{\code{TechnologyType$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-new"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new TechnologyType class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of TechnologyType
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of TechnologyType
+
+
+Validate JSON input with respect to TechnologyType and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+TechnologyType in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-print"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-TechnologyType-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-TechnologyType-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-TechnologyType-print"></a>}}
 \if{latex}{\out{\hypertarget{method-TechnologyType-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{TechnologyType$print()}\if{html}{\out{</div>}}
 }
 
 }

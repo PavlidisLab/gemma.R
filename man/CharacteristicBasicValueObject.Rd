@@ -6,13 +6,21 @@
 \title{CharacteristicBasicValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 CharacteristicBasicValueObject Class
 
 CharacteristicBasicValueObject Class
+
+CharacteristicBasicValueObject Class
+
+CharacteristicBasicValueObject Class
 }
 \details{
+Create a new CharacteristicBasicValueObject
+
 Create a new CharacteristicBasicValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new CharacteristicBasicValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new CharacteristicBasicValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,203 @@ Create a new CharacteristicBasicValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{value}}{character optional}
+
+\item{\code{valueUri}}{character optional}
+
+\item{\code{category}}{character optional}
+
+\item{\code{categoryUri}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CharacteristicBasicValueObject-new}{\code{CharacteristicBasicValueObject$new()}}
+\item \href{#method-CharacteristicBasicValueObject-toJSON}{\code{CharacteristicBasicValueObject$toJSON()}}
+\item \href{#method-CharacteristicBasicValueObject-fromJSON}{\code{CharacteristicBasicValueObject$fromJSON()}}
+\item \href{#method-CharacteristicBasicValueObject-toJSONString}{\code{CharacteristicBasicValueObject$toJSONString()}}
+\item \href{#method-CharacteristicBasicValueObject-fromJSONString}{\code{CharacteristicBasicValueObject$fromJSONString()}}
+\item \href{#method-CharacteristicBasicValueObject-validateJSON}{\code{CharacteristicBasicValueObject$validateJSON()}}
+\item \href{#method-CharacteristicBasicValueObject-toString}{\code{CharacteristicBasicValueObject$toString()}}
+\item \href{#method-CharacteristicBasicValueObject-isValid}{\code{CharacteristicBasicValueObject$isValid()}}
+\item \href{#method-CharacteristicBasicValueObject-getInvalidFields}{\code{CharacteristicBasicValueObject$getInvalidFields()}}
+\item \href{#method-CharacteristicBasicValueObject-print}{\code{CharacteristicBasicValueObject$print()}}
+\item \href{#method-CharacteristicBasicValueObject-clone}{\code{CharacteristicBasicValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new CharacteristicBasicValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CharacteristicBasicValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CharacteristicBasicValueObject
+
+
+Validate JSON input with respect to CharacteristicBasicValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$new(
+  id = NULL,
+  value = NULL,
+  valueUri = NULL,
+  category = NULL,
+  categoryUri = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{value}}{value}
+
+\item{\code{valueUri}}{valueUri}
+
+\item{\code{category}}{category}
+
+\item{\code{categoryUri}}{categoryUri}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+CharacteristicBasicValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicBasicValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -241,8 +448,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-CharacteristicBasicValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-CharacteristicBasicValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicBasicValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

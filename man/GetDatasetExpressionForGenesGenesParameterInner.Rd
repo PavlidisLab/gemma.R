@@ -6,8 +6,12 @@
 \title{GetDatasetExpressionForGenesGenesParameterInner}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+GetDatasetExpressionForGenesGenesParameterInner Class
+
 GetDatasetExpressionForGenesGenesParameterInner Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ GetDatasetExpressionForGenesGenesParameterInner Class
 \keyword{GetDatasetExpressionForGenesGenesParameterInner.}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ GetDatasetExpressionForGenesGenesParameterInner Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ GetDatasetExpressionForGenesGenesParameterInner Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new GetDatasetExpressionForGenesGenesParameterInner.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-new}{\code{GetDatasetExpressionForGenesGenesParameterInner$new()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-fromJSONString}{\code{GetDatasetExpressionForGenesGenesParameterInner$fromJSONString()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-fromJSON}{\code{GetDatasetExpressionForGenesGenesParameterInner$fromJSON()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-toJSONString}{\code{GetDatasetExpressionForGenesGenesParameterInner$toJSONString()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-toJSON}{\code{GetDatasetExpressionForGenesGenesParameterInner$toJSON()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-validateJSON}{\code{GetDatasetExpressionForGenesGenesParameterInner$validateJSON()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-toString}{\code{GetDatasetExpressionForGenesGenesParameterInner$toString()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-print}{\code{GetDatasetExpressionForGenesGenesParameterInner$print()}}
+\item \href{#method-GetDatasetExpressionForGenesGenesParameterInner-clone}{\code{GetDatasetExpressionForGenesGenesParameterInner$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GetDatasetExpressionForGenesGenesParameterInner.
+
+
+Deserialize JSON string into an instance of GetDatasetExpressionForGenesGenesParameterInner.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of GetDatasetExpressionForGenesGenesParameterInner.
+
+
+Serialize GetDatasetExpressionForGenesGenesParameterInner to JSON string.
+
+
+Serialize GetDatasetExpressionForGenesGenesParameterInner to JSON.
+
+
+Validate the input JSON with respect to GetDatasetExpressionForGenesGenesParameterInner and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of GetDatasetExpressionForGenesGenesParameterInner.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-GetDatasetExpressionForGenesGenesParameterInner-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GetDatasetExpressionForGenesGenesParameterInner-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GetDatasetExpressionForGenesGenesParameterInner$print()}\if{html}{\out{</div>}}
 }
 
 }

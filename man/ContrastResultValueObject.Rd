@@ -6,13 +6,21 @@
 \title{ContrastResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ContrastResultValueObject Class
 
 ContrastResultValueObject Class
+
+ContrastResultValueObject Class
+
+ContrastResultValueObject Class
 }
 \details{
+Create a new ContrastResultValueObject
+
 Create a new ContrastResultValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ContrastResultValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ContrastResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,208 @@ Create a new ContrastResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{pvalue}}{numeric optional}
+
+\item{\code{coefficient}}{numeric optional}
+
+\item{\code{logFoldChange}}{numeric optional}
+
+\item{\code{factorValue}}{\link{FactorValueBasicValueObject} optional}
+
+\item{\code{secondFactorValue}}{\link{FactorValueBasicValueObject} optional}
+
+\item{\code{tstat}}{numeric optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ContrastResultValueObject-new}{\code{ContrastResultValueObject$new()}}
+\item \href{#method-ContrastResultValueObject-toJSON}{\code{ContrastResultValueObject$toJSON()}}
+\item \href{#method-ContrastResultValueObject-fromJSON}{\code{ContrastResultValueObject$fromJSON()}}
+\item \href{#method-ContrastResultValueObject-toJSONString}{\code{ContrastResultValueObject$toJSONString()}}
+\item \href{#method-ContrastResultValueObject-fromJSONString}{\code{ContrastResultValueObject$fromJSONString()}}
+\item \href{#method-ContrastResultValueObject-validateJSON}{\code{ContrastResultValueObject$validateJSON()}}
+\item \href{#method-ContrastResultValueObject-toString}{\code{ContrastResultValueObject$toString()}}
+\item \href{#method-ContrastResultValueObject-isValid}{\code{ContrastResultValueObject$isValid()}}
+\item \href{#method-ContrastResultValueObject-getInvalidFields}{\code{ContrastResultValueObject$getInvalidFields()}}
+\item \href{#method-ContrastResultValueObject-print}{\code{ContrastResultValueObject$print()}}
+\item \href{#method-ContrastResultValueObject-clone}{\code{ContrastResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ContrastResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ContrastResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ContrastResultValueObject
+
+
+Validate JSON input with respect to ContrastResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$new(
+  pvalue = NULL,
+  coefficient = NULL,
+  logFoldChange = NULL,
+  factorValue = NULL,
+  secondFactorValue = NULL,
+  tstat = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{pvalue}}{pvalue}
+
+\item{\code{coefficient}}{coefficient}
+
+\item{\code{logFoldChange}}{logFoldChange}
+
+\item{\code{factorValue}}{factorValue}
+
+\item{\code{secondFactorValue}}{secondFactorValue}
+
+\item{\code{tstat}}{tstat}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ContrastResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ContrastResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ContrastResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -246,8 +458,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ContrastResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ContrastResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ContrastResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

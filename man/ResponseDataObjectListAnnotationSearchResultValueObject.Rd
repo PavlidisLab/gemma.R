@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListAnnotationSearchResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListAnnotationSearchResultValueObject Class
 
 ResponseDataObjectListAnnotationSearchResultValueObject Class
+
+ResponseDataObjectListAnnotationSearchResultValueObject Class
+
+ResponseDataObjectListAnnotationSearchResultValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListAnnotationSearchResultValueObject
+
 Create a new ResponseDataObjectListAnnotationSearchResultValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListAnnotationSearchResultValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListAnnotationSearchResultValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListAnnotationSearchResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,182 @@ Create a new ResponseDataObjectListAnnotationSearchResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{AnnotationSearchResultValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-new}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$new()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSON}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSON}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSONString}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSONString}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-validateJSON}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-toString}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-isValid}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-getInvalidFields}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-print}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$print()}}
+\item \href{#method-ResponseDataObjectListAnnotationSearchResultValueObject-clone}{\code{ResponseDataObjectListAnnotationSearchResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListAnnotationSearchResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListAnnotationSearchResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListAnnotationSearchResultValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListAnnotationSearchResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListAnnotationSearchResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$fromJSONString(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -220,8 +406,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListAnnotationSearchResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListAnnotationSearchResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListAnnotationSearchResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

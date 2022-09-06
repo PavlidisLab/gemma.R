@@ -6,13 +6,21 @@
 \title{ResponseDataObjectListArrayDesignValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectListArrayDesignValueObject Class
 
 ResponseDataObjectListArrayDesignValueObject Class
+
+ResponseDataObjectListArrayDesignValueObject Class
+
+ResponseDataObjectListArrayDesignValueObject Class
 }
 \details{
+Create a new ResponseDataObjectListArrayDesignValueObject
+
 Create a new ResponseDataObjectListArrayDesignValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectListArrayDesignValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectListArrayDesignValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectListArrayDesignValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ResponseDataObjectListArrayDesignValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{ArrayDesignValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-new}{\code{ResponseDataObjectListArrayDesignValueObject$new()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-toJSON}{\code{ResponseDataObjectListArrayDesignValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-fromJSON}{\code{ResponseDataObjectListArrayDesignValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-toJSONString}{\code{ResponseDataObjectListArrayDesignValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-fromJSONString}{\code{ResponseDataObjectListArrayDesignValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-validateJSON}{\code{ResponseDataObjectListArrayDesignValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-toString}{\code{ResponseDataObjectListArrayDesignValueObject$toString()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-isValid}{\code{ResponseDataObjectListArrayDesignValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-getInvalidFields}{\code{ResponseDataObjectListArrayDesignValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-print}{\code{ResponseDataObjectListArrayDesignValueObject$print()}}
+\item \href{#method-ResponseDataObjectListArrayDesignValueObject-clone}{\code{ResponseDataObjectListArrayDesignValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectListArrayDesignValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListArrayDesignValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectListArrayDesignValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectListArrayDesignValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectListArrayDesignValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectListArrayDesignValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectListArrayDesignValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectListArrayDesignValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

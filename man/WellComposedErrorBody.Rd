@@ -6,13 +6,21 @@
 \title{WellComposedErrorBody}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 WellComposedErrorBody Class
 
 WellComposedErrorBody Class
+
+WellComposedErrorBody Class
+
+WellComposedErrorBody Class
 }
 \details{
+Create a new WellComposedErrorBody
+
 Create a new WellComposedErrorBody
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new WellComposedErrorBody
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new WellComposedErrorBody
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new WellComposedErrorBody
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{code}}{integer optional}
+
+\item{\code{message}}{character optional}
+
+\item{\code{errors}}{named list(character) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-WellComposedErrorBody-new}{\code{WellComposedErrorBody$new()}}
+\item \href{#method-WellComposedErrorBody-toJSON}{\code{WellComposedErrorBody$toJSON()}}
+\item \href{#method-WellComposedErrorBody-fromJSON}{\code{WellComposedErrorBody$fromJSON()}}
+\item \href{#method-WellComposedErrorBody-toJSONString}{\code{WellComposedErrorBody$toJSONString()}}
+\item \href{#method-WellComposedErrorBody-fromJSONString}{\code{WellComposedErrorBody$fromJSONString()}}
+\item \href{#method-WellComposedErrorBody-validateJSON}{\code{WellComposedErrorBody$validateJSON()}}
+\item \href{#method-WellComposedErrorBody-toString}{\code{WellComposedErrorBody$toString()}}
+\item \href{#method-WellComposedErrorBody-isValid}{\code{WellComposedErrorBody$isValid()}}
+\item \href{#method-WellComposedErrorBody-getInvalidFields}{\code{WellComposedErrorBody$getInvalidFields()}}
+\item \href{#method-WellComposedErrorBody-print}{\code{WellComposedErrorBody$print()}}
+\item \href{#method-WellComposedErrorBody-clone}{\code{WellComposedErrorBody$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-new"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new WellComposedErrorBody class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of WellComposedErrorBody
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of WellComposedErrorBody
+
+
+Validate JSON input with respect to WellComposedErrorBody and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$new(code = NULL, message = NULL, errors = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{code}}{code}
+
+\item{\code{message}}{message}
+
+\item{\code{errors}}{errors}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+WellComposedErrorBody in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-print"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-WellComposedErrorBody-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-WellComposedErrorBody-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-WellComposedErrorBody-print"></a>}}
 \if{latex}{\out{\hypertarget{method-WellComposedErrorBody-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{WellComposedErrorBody$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{GeneSetValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneSetValueObject Class
 
 GeneSetValueObject Class
+
+GeneSetValueObject Class
+
+GeneSetValueObject Class
 }
 \details{
+Create a new GeneSetValueObject
+
 Create a new GeneSetValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneSetValueObject
 \keyword{GeneSetValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneSetValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,233 @@ Create a new GeneSetValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{geneIds}}{list(integer) optional}
+
+\item{\code{isPublic}}{character optional}
+
+\item{\code{isShared}}{character optional}
+
+\item{\code{name}}{character optional}
+
+\item{\code{size}}{integer optional}
+
+\item{\code{taxonId}}{integer optional}
+
+\item{\code{taxonName}}{character optional}
+
+\item{\code{userOwned}}{character optional}
+
+\item{\code{userCanWrite}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneSetValueObject-new}{\code{GeneSetValueObject$new()}}
+\item \href{#method-GeneSetValueObject-toJSON}{\code{GeneSetValueObject$toJSON()}}
+\item \href{#method-GeneSetValueObject-fromJSON}{\code{GeneSetValueObject$fromJSON()}}
+\item \href{#method-GeneSetValueObject-toJSONString}{\code{GeneSetValueObject$toJSONString()}}
+\item \href{#method-GeneSetValueObject-fromJSONString}{\code{GeneSetValueObject$fromJSONString()}}
+\item \href{#method-GeneSetValueObject-validateJSON}{\code{GeneSetValueObject$validateJSON()}}
+\item \href{#method-GeneSetValueObject-toString}{\code{GeneSetValueObject$toString()}}
+\item \href{#method-GeneSetValueObject-isValid}{\code{GeneSetValueObject$isValid()}}
+\item \href{#method-GeneSetValueObject-getInvalidFields}{\code{GeneSetValueObject$getInvalidFields()}}
+\item \href{#method-GeneSetValueObject-print}{\code{GeneSetValueObject$print()}}
+\item \href{#method-GeneSetValueObject-clone}{\code{GeneSetValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneSetValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneSetValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneSetValueObject
+
+
+Validate JSON input with respect to GeneSetValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$new(
+  id = NULL,
+  description = NULL,
+  geneIds = NULL,
+  isPublic = NULL,
+  isShared = NULL,
+  name = NULL,
+  size = NULL,
+  taxonId = NULL,
+  taxonName = NULL,
+  userOwned = NULL,
+  userCanWrite = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{description}}{description}
+
+\item{\code{geneIds}}{geneIds}
+
+\item{\code{isPublic}}{isPublic}
+
+\item{\code{isShared}}{isShared}
+
+\item{\code{name}}{name}
+
+\item{\code{size}}{size}
+
+\item{\code{taxonId}}{taxonId}
+
+\item{\code{taxonName}}{taxonName}
+
+\item{\code{userOwned}}{userOwned}
+
+\item{\code{userCanWrite}}{userCanWrite}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneSetValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneSetValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneSetValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -271,8 +508,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneSetValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneSetValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneSetValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

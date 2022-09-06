@@ -6,13 +6,21 @@
 \title{ApiInfoValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ApiInfoValueObject Class
 
 ApiInfoValueObject Class
+
+ApiInfoValueObject Class
+
+ApiInfoValueObject Class
 }
 \details{
+Create a new ApiInfoValueObject
+
 Create a new ApiInfoValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ApiInfoValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ApiInfoValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new ApiInfoValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{welcome}}{character optional}
+
+\item{\code{version}}{character optional}
+
+\item{\code{docs}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ApiInfoValueObject-new}{\code{ApiInfoValueObject$new()}}
+\item \href{#method-ApiInfoValueObject-toJSON}{\code{ApiInfoValueObject$toJSON()}}
+\item \href{#method-ApiInfoValueObject-fromJSON}{\code{ApiInfoValueObject$fromJSON()}}
+\item \href{#method-ApiInfoValueObject-toJSONString}{\code{ApiInfoValueObject$toJSONString()}}
+\item \href{#method-ApiInfoValueObject-fromJSONString}{\code{ApiInfoValueObject$fromJSONString()}}
+\item \href{#method-ApiInfoValueObject-validateJSON}{\code{ApiInfoValueObject$validateJSON()}}
+\item \href{#method-ApiInfoValueObject-toString}{\code{ApiInfoValueObject$toString()}}
+\item \href{#method-ApiInfoValueObject-isValid}{\code{ApiInfoValueObject$isValid()}}
+\item \href{#method-ApiInfoValueObject-getInvalidFields}{\code{ApiInfoValueObject$getInvalidFields()}}
+\item \href{#method-ApiInfoValueObject-print}{\code{ApiInfoValueObject$print()}}
+\item \href{#method-ApiInfoValueObject-clone}{\code{ApiInfoValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ApiInfoValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ApiInfoValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ApiInfoValueObject
+
+
+Validate JSON input with respect to ApiInfoValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$new(welcome = NULL, version = NULL, docs = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{welcome}}{welcome}
+
+\item{\code{version}}{version}
+
+\item{\code{docs}}{docs}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ApiInfoValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ApiInfoValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ApiInfoValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ApiInfoValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ApiInfoValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ApiInfoValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

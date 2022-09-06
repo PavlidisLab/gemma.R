@@ -6,13 +6,21 @@
 \title{DiffExResultSetSummaryValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 DiffExResultSetSummaryValueObject Class
 
 DiffExResultSetSummaryValueObject Class
+
+DiffExResultSetSummaryValueObject Class
+
+DiffExResultSetSummaryValueObject Class
 }
 \details{
+Create a new DiffExResultSetSummaryValueObject
+
 Create a new DiffExResultSetSummaryValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new DiffExResultSetSummaryValueObject
 \keyword{DiffExResultSetSummaryValueObject}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new DiffExResultSetSummaryValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,258 @@ Create a new DiffExResultSetSummaryValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{analysisId}}{integer optional}
+
+\item{\code{arrayDesignsUsed}}{list(integer) optional}
+
+\item{\code{baselineGroup}}{\link{FactorValueValueObject} optional}
+
+\item{\code{downregulatedCount}}{integer optional}
+
+\item{\code{experimentalFactors}}{list(\link{ExperimentalFactorValueObject}) optional}
+
+\item{\code{factorIds}}{list(integer) optional}
+
+\item{\code{numberOfDiffExpressedProbes}}{integer optional}
+
+\item{\code{numberOfGenesAnalyzed}}{integer optional}
+
+\item{\code{numberOfProbesAnalyzed}}{integer optional}
+
+\item{\code{threshold}}{numeric optional}
+
+\item{\code{upregulatedCount}}{integer optional}
+
+\item{\code{bioAssaySetAnalyzedId}}{integer optional}
+
+\item{\code{resultSetId}}{integer optional}
+
+\item{\code{qvalue}}{numeric optional}
+
+\item{\code{experimentalFactorsByValueObject}}{list(\link{ExperimentalFactorValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-DiffExResultSetSummaryValueObject-new}{\code{DiffExResultSetSummaryValueObject$new()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-toJSON}{\code{DiffExResultSetSummaryValueObject$toJSON()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-fromJSON}{\code{DiffExResultSetSummaryValueObject$fromJSON()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-toJSONString}{\code{DiffExResultSetSummaryValueObject$toJSONString()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-fromJSONString}{\code{DiffExResultSetSummaryValueObject$fromJSONString()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-validateJSON}{\code{DiffExResultSetSummaryValueObject$validateJSON()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-toString}{\code{DiffExResultSetSummaryValueObject$toString()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-isValid}{\code{DiffExResultSetSummaryValueObject$isValid()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-getInvalidFields}{\code{DiffExResultSetSummaryValueObject$getInvalidFields()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-print}{\code{DiffExResultSetSummaryValueObject$print()}}
+\item \href{#method-DiffExResultSetSummaryValueObject-clone}{\code{DiffExResultSetSummaryValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new DiffExResultSetSummaryValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DiffExResultSetSummaryValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of DiffExResultSetSummaryValueObject
+
+
+Validate JSON input with respect to DiffExResultSetSummaryValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$new(
+  id = NULL,
+  analysisId = NULL,
+  arrayDesignsUsed = NULL,
+  baselineGroup = NULL,
+  downregulatedCount = NULL,
+  experimentalFactors = NULL,
+  factorIds = NULL,
+  numberOfDiffExpressedProbes = NULL,
+  numberOfGenesAnalyzed = NULL,
+  numberOfProbesAnalyzed = NULL,
+  threshold = NULL,
+  upregulatedCount = NULL,
+  bioAssaySetAnalyzedId = NULL,
+  resultSetId = NULL,
+  qvalue = NULL,
+  experimentalFactorsByValueObject = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{analysisId}}{analysisId}
+
+\item{\code{arrayDesignsUsed}}{arrayDesignsUsed}
+
+\item{\code{baselineGroup}}{baselineGroup}
+
+\item{\code{downregulatedCount}}{downregulatedCount}
+
+\item{\code{experimentalFactors}}{experimentalFactors}
+
+\item{\code{factorIds}}{factorIds}
+
+\item{\code{numberOfDiffExpressedProbes}}{numberOfDiffExpressedProbes}
+
+\item{\code{numberOfGenesAnalyzed}}{numberOfGenesAnalyzed}
+
+\item{\code{numberOfProbesAnalyzed}}{numberOfProbesAnalyzed}
+
+\item{\code{threshold}}{threshold}
+
+\item{\code{upregulatedCount}}{upregulatedCount}
+
+\item{\code{bioAssaySetAnalyzedId}}{bioAssaySetAnalyzedId}
+
+\item{\code{resultSetId}}{resultSetId}
+
+\item{\code{qvalue}}{qvalue}
+
+\item{\code{experimentalFactorsByValueObject}}{experimentalFactorsByValueObject}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+DiffExResultSetSummaryValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -296,8 +558,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-DiffExResultSetSummaryValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-DiffExResultSetSummaryValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{DiffExResultSetSummaryValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

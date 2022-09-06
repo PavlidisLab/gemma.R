@@ -6,13 +6,21 @@
 \title{PaginatedResponseDataObjectCompositeSequenceValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PaginatedResponseDataObjectCompositeSequenceValueObject Class
 
 PaginatedResponseDataObjectCompositeSequenceValueObject Class
+
+PaginatedResponseDataObjectCompositeSequenceValueObject Class
+
+PaginatedResponseDataObjectCompositeSequenceValueObject Class
 }
 \details{
+Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
+
 Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PaginatedResponseDataObjectCompositeSequenceValueObject}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,205 @@ Create a new PaginatedResponseDataObjectCompositeSequenceValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{list(\link{CompositeSequenceValueObject}) optional}
+
+\item{\code{offset}}{integer optional}
+
+\item{\code{limit}}{integer optional}
+
+\item{\code{sort}}{\link{SortValueObject} optional}
+
+\item{\code{totalElements}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-new}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$new()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSON}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$toJSON()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSON}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$fromJSON()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSONString}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$toJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSONString}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$fromJSONString()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-validateJSON}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$validateJSON()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-toString}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$toString()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-isValid}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$isValid()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-getInvalidFields}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$getInvalidFields()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-print}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$print()}}
+\item \href{#method-PaginatedResponseDataObjectCompositeSequenceValueObject-clone}{\code{PaginatedResponseDataObjectCompositeSequenceValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PaginatedResponseDataObjectCompositeSequenceValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectCompositeSequenceValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PaginatedResponseDataObjectCompositeSequenceValueObject
+
+
+Validate JSON input with respect to PaginatedResponseDataObjectCompositeSequenceValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$new(
+  data = NULL,
+  offset = NULL,
+  limit = NULL,
+  sort = NULL,
+  totalElements = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{offset}}{offset}
+
+\item{\code{limit}}{limit}
+
+\item{\code{sort}}{sort}
+
+\item{\code{totalElements}}{totalElements}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PaginatedResponseDataObjectCompositeSequenceValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$fromJSONString(
+  input_json
+)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -243,8 +452,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PaginatedResponseDataObjectCompositeSequenceValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PaginatedResponseDataObjectCompositeSequenceValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PaginatedResponseDataObjectCompositeSequenceValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

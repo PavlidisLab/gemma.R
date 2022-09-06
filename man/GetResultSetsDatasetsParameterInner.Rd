@@ -6,8 +6,12 @@
 \title{GetResultSetsDatasetsParameterInner}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+GetResultSetsDatasetsParameterInner Class
+
 GetResultSetsDatasetsParameterInner Class
 }
 \keyword{Deserialize}
@@ -15,6 +19,7 @@ GetResultSetsDatasetsParameterInner Class
 \keyword{GetResultSetsDatasetsParameterInner.}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{Serialize}
 \keyword{Validate}
@@ -24,6 +29,7 @@ GetResultSetsDatasetsParameterInner Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ GetResultSetsDatasetsParameterInner Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new GetResultSetsDatasetsParameterInner.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GetResultSetsDatasetsParameterInner-new}{\code{GetResultSetsDatasetsParameterInner$new()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-fromJSONString}{\code{GetResultSetsDatasetsParameterInner$fromJSONString()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-fromJSON}{\code{GetResultSetsDatasetsParameterInner$fromJSON()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-toJSONString}{\code{GetResultSetsDatasetsParameterInner$toJSONString()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-toJSON}{\code{GetResultSetsDatasetsParameterInner$toJSON()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-validateJSON}{\code{GetResultSetsDatasetsParameterInner$validateJSON()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-toString}{\code{GetResultSetsDatasetsParameterInner$toString()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-print}{\code{GetResultSetsDatasetsParameterInner$print()}}
+\item \href{#method-GetResultSetsDatasetsParameterInner-clone}{\code{GetResultSetsDatasetsParameterInner$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GetResultSetsDatasetsParameterInner.
+
+
+Deserialize JSON string into an instance of GetResultSetsDatasetsParameterInner.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of GetResultSetsDatasetsParameterInner.
+
+
+Serialize GetResultSetsDatasetsParameterInner to JSON string.
+
+
+Serialize GetResultSetsDatasetsParameterInner to JSON.
+
+
+Validate the input JSON with respect to GetResultSetsDatasetsParameterInner and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of GetResultSetsDatasetsParameterInner.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-GetResultSetsDatasetsParameterInner-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GetResultSetsDatasetsParameterInner-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GetResultSetsDatasetsParameterInner$print()}\if{html}{\out{</div>}}
 }
 
 }

@@ -6,13 +6,21 @@
 \title{AnnotationSearchResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 AnnotationSearchResultValueObject Class
 
 AnnotationSearchResultValueObject Class
+
+AnnotationSearchResultValueObject Class
+
+AnnotationSearchResultValueObject Class
 }
 \details{
+Create a new AnnotationSearchResultValueObject
+
 Create a new AnnotationSearchResultValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new AnnotationSearchResultValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new AnnotationSearchResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,198 @@ Create a new AnnotationSearchResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+
+\item{\code{valueUri}}{character optional}
+
+\item{\code{category}}{character optional}
+
+\item{\code{categoryUri}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-AnnotationSearchResultValueObject-new}{\code{AnnotationSearchResultValueObject$new()}}
+\item \href{#method-AnnotationSearchResultValueObject-toJSON}{\code{AnnotationSearchResultValueObject$toJSON()}}
+\item \href{#method-AnnotationSearchResultValueObject-fromJSON}{\code{AnnotationSearchResultValueObject$fromJSON()}}
+\item \href{#method-AnnotationSearchResultValueObject-toJSONString}{\code{AnnotationSearchResultValueObject$toJSONString()}}
+\item \href{#method-AnnotationSearchResultValueObject-fromJSONString}{\code{AnnotationSearchResultValueObject$fromJSONString()}}
+\item \href{#method-AnnotationSearchResultValueObject-validateJSON}{\code{AnnotationSearchResultValueObject$validateJSON()}}
+\item \href{#method-AnnotationSearchResultValueObject-toString}{\code{AnnotationSearchResultValueObject$toString()}}
+\item \href{#method-AnnotationSearchResultValueObject-isValid}{\code{AnnotationSearchResultValueObject$isValid()}}
+\item \href{#method-AnnotationSearchResultValueObject-getInvalidFields}{\code{AnnotationSearchResultValueObject$getInvalidFields()}}
+\item \href{#method-AnnotationSearchResultValueObject-print}{\code{AnnotationSearchResultValueObject$print()}}
+\item \href{#method-AnnotationSearchResultValueObject-clone}{\code{AnnotationSearchResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new AnnotationSearchResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AnnotationSearchResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of AnnotationSearchResultValueObject
+
+
+Validate JSON input with respect to AnnotationSearchResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$new(
+  value = NULL,
+  valueUri = NULL,
+  category = NULL,
+  categoryUri = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{valueUri}}{valueUri}
+
+\item{\code{category}}{category}
+
+\item{\code{categoryUri}}{categoryUri}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+AnnotationSearchResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-AnnotationSearchResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -236,8 +438,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-AnnotationSearchResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-AnnotationSearchResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{AnnotationSearchResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

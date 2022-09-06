@@ -6,13 +6,18 @@
 \title{SearchTaxonDatasetsTaxonParameter}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
+SearchTaxonDatasetsTaxonParameter Class
+
 SearchTaxonDatasetsTaxonParameter Class
 }
 \keyword{Deserialize}
 \keyword{JSON}
 \keyword{JSON.}
+\keyword{Print}
 \keyword{Returns}
 \keyword{SearchTaxonDatasetsTaxonParameter}
 \keyword{SearchTaxonDatasetsTaxonParameter.}
@@ -24,6 +29,7 @@ SearchTaxonDatasetsTaxonParameter Class
 \keyword{instance.}
 \keyword{internal}
 \keyword{into}
+\keyword{object}
 \keyword{of}
 \keyword{representation}
 \keyword{respect}
@@ -32,6 +38,159 @@ SearchTaxonDatasetsTaxonParameter Class
 \keyword{the}
 \keyword{to}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{actual_instance}}{the object stored in this instance.}
+
+\item{\code{actual_type}}{the type of the object stored in this instance.}
+
+\item{\code{one_of}}{a list of types defined in the oneOf schema.
+Initialize a new SearchTaxonDatasetsTaxonParameter.}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-new}{\code{SearchTaxonDatasetsTaxonParameter$new()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-fromJSONString}{\code{SearchTaxonDatasetsTaxonParameter$fromJSONString()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-fromJSON}{\code{SearchTaxonDatasetsTaxonParameter$fromJSON()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-toJSONString}{\code{SearchTaxonDatasetsTaxonParameter$toJSONString()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-toJSON}{\code{SearchTaxonDatasetsTaxonParameter$toJSON()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-validateJSON}{\code{SearchTaxonDatasetsTaxonParameter$validateJSON()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-toString}{\code{SearchTaxonDatasetsTaxonParameter$toString()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-print}{\code{SearchTaxonDatasetsTaxonParameter$print()}}
+\item \href{#method-SearchTaxonDatasetsTaxonParameter-clone}{\code{SearchTaxonDatasetsTaxonParameter$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-new"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new SearchTaxonDatasetsTaxonParameter.
+
+
+Deserialize JSON string into an instance of SearchTaxonDatasetsTaxonParameter.
+An alias to the method \code{fromJSON} .
+
+
+Deserialize JSON string into an instance of SearchTaxonDatasetsTaxonParameter.
+
+
+Serialize SearchTaxonDatasetsTaxonParameter to JSON string.
+
+
+Serialize SearchTaxonDatasetsTaxonParameter to JSON.
+
+
+Validate the input JSON with respect to SearchTaxonDatasetsTaxonParameter and
+throw exception if invalid.
+
+
+Returns the string representation of the instance.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$new(instance = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{instance}}{an instance of the object defined in the oneOf schemas: "character", "integer"}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+
+\item{\code{input}}{The input JSON.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An instance of SearchTaxonDatasetsTaxonParameter.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$fromJSONString(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$fromJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-print"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -177,8 +336,9 @@ The string representation of the instance.
 \if{html}{\out{<a id="method-SearchTaxonDatasetsTaxonParameter-print"></a>}}
 \if{latex}{\out{\hypertarget{method-SearchTaxonDatasetsTaxonParameter-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{SearchTaxonDatasetsTaxonParameter$print()}\if{html}{\out{</div>}}
 }
 
 }

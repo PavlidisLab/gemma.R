@@ -6,13 +6,21 @@
 \title{ExternalDatabase}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ExternalDatabase Class
 
 ExternalDatabase Class
+
+ExternalDatabase Class
+
+ExternalDatabase Class
 }
 \details{
+Create a new ExternalDatabase
+
 Create a new ExternalDatabase
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ExternalDatabase
 \keyword{ExternalDatabase}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ExternalDatabase
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,218 @@ Create a new ExternalDatabase
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{localInstallDbName}}{character optional}
+
+\item{\code{webUri}}{character optional}
+
+\item{\code{ftpUri}}{character optional}
+
+\item{\code{type}}{\link{DatabaseType} optional}
+
+\item{\code{databaseSupplier}}{\link{Contact} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ExternalDatabase-new}{\code{ExternalDatabase$new()}}
+\item \href{#method-ExternalDatabase-toJSON}{\code{ExternalDatabase$toJSON()}}
+\item \href{#method-ExternalDatabase-fromJSON}{\code{ExternalDatabase$fromJSON()}}
+\item \href{#method-ExternalDatabase-toJSONString}{\code{ExternalDatabase$toJSONString()}}
+\item \href{#method-ExternalDatabase-fromJSONString}{\code{ExternalDatabase$fromJSONString()}}
+\item \href{#method-ExternalDatabase-validateJSON}{\code{ExternalDatabase$validateJSON()}}
+\item \href{#method-ExternalDatabase-toString}{\code{ExternalDatabase$toString()}}
+\item \href{#method-ExternalDatabase-isValid}{\code{ExternalDatabase$isValid()}}
+\item \href{#method-ExternalDatabase-getInvalidFields}{\code{ExternalDatabase$getInvalidFields()}}
+\item \href{#method-ExternalDatabase-print}{\code{ExternalDatabase$print()}}
+\item \href{#method-ExternalDatabase-clone}{\code{ExternalDatabase$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ExternalDatabase class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExternalDatabase
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ExternalDatabase
+
+
+Validate JSON input with respect to ExternalDatabase and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  localInstallDbName = NULL,
+  webUri = NULL,
+  ftpUri = NULL,
+  type = NULL,
+  databaseSupplier = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{localInstallDbName}}{localInstallDbName}
+
+\item{\code{webUri}}{webUri}
+
+\item{\code{ftpUri}}{ftpUri}
+
+\item{\code{type}}{type}
+
+\item{\code{databaseSupplier}}{databaseSupplier}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ExternalDatabase in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ExternalDatabase-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExternalDatabase-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -256,8 +478,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ExternalDatabase-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ExternalDatabase-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ExternalDatabase$print()}\if{html}{\out{</div>}}
 }
 
 }

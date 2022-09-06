@@ -6,13 +6,21 @@
 \title{ResponseDataObjectSimpleSVDValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ResponseDataObjectSimpleSVDValueObject Class
 
 ResponseDataObjectSimpleSVDValueObject Class
+
+ResponseDataObjectSimpleSVDValueObject Class
+
+ResponseDataObjectSimpleSVDValueObject Class
 }
 \details{
+Create a new ResponseDataObjectSimpleSVDValueObject
+
 Create a new ResponseDataObjectSimpleSVDValueObject
 }
 \keyword{(JSON}
@@ -20,6 +28,7 @@ Create a new ResponseDataObjectSimpleSVDValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{ResponseDataObjectSimpleSVDValueObject}
 \keyword{Return}
 \keyword{To}
@@ -41,6 +50,7 @@ Create a new ResponseDataObjectSimpleSVDValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new ResponseDataObjectSimpleSVDValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{data}}{\link{SimpleSVDValueObject} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-new}{\code{ResponseDataObjectSimpleSVDValueObject$new()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-toJSON}{\code{ResponseDataObjectSimpleSVDValueObject$toJSON()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-fromJSON}{\code{ResponseDataObjectSimpleSVDValueObject$fromJSON()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-toJSONString}{\code{ResponseDataObjectSimpleSVDValueObject$toJSONString()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-fromJSONString}{\code{ResponseDataObjectSimpleSVDValueObject$fromJSONString()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-validateJSON}{\code{ResponseDataObjectSimpleSVDValueObject$validateJSON()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-toString}{\code{ResponseDataObjectSimpleSVDValueObject$toString()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-isValid}{\code{ResponseDataObjectSimpleSVDValueObject$isValid()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-getInvalidFields}{\code{ResponseDataObjectSimpleSVDValueObject$getInvalidFields()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-print}{\code{ResponseDataObjectSimpleSVDValueObject$print()}}
+\item \href{#method-ResponseDataObjectSimpleSVDValueObject-clone}{\code{ResponseDataObjectSimpleSVDValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ResponseDataObjectSimpleSVDValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectSimpleSVDValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ResponseDataObjectSimpleSVDValueObject
+
+
+Validate JSON input with respect to ResponseDataObjectSimpleSVDValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$new(data = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{data}}{data}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ResponseDataObjectSimpleSVDValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ResponseDataObjectSimpleSVDValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ResponseDataObjectSimpleSVDValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ResponseDataObjectSimpleSVDValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

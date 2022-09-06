@@ -6,13 +6,21 @@
 \title{PhysicalLocation}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PhysicalLocation Class
 
 PhysicalLocation Class
+
+PhysicalLocation Class
+
+PhysicalLocation Class
 }
 \details{
+Create a new PhysicalLocation
+
 Create a new PhysicalLocation
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PhysicalLocation
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PhysicalLocation}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PhysicalLocation
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,208 @@ Create a new PhysicalLocation
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{chromosome}}{\link{Chromosome} optional}
+
+\item{\code{nucleotide}}{integer optional}
+
+\item{\code{nucleotideLength}}{integer optional}
+
+\item{\code{strand}}{character optional}
+
+\item{\code{bin}}{integer optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PhysicalLocation-new}{\code{PhysicalLocation$new()}}
+\item \href{#method-PhysicalLocation-toJSON}{\code{PhysicalLocation$toJSON()}}
+\item \href{#method-PhysicalLocation-fromJSON}{\code{PhysicalLocation$fromJSON()}}
+\item \href{#method-PhysicalLocation-toJSONString}{\code{PhysicalLocation$toJSONString()}}
+\item \href{#method-PhysicalLocation-fromJSONString}{\code{PhysicalLocation$fromJSONString()}}
+\item \href{#method-PhysicalLocation-validateJSON}{\code{PhysicalLocation$validateJSON()}}
+\item \href{#method-PhysicalLocation-toString}{\code{PhysicalLocation$toString()}}
+\item \href{#method-PhysicalLocation-isValid}{\code{PhysicalLocation$isValid()}}
+\item \href{#method-PhysicalLocation-getInvalidFields}{\code{PhysicalLocation$getInvalidFields()}}
+\item \href{#method-PhysicalLocation-print}{\code{PhysicalLocation$print()}}
+\item \href{#method-PhysicalLocation-clone}{\code{PhysicalLocation$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PhysicalLocation class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhysicalLocation
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhysicalLocation
+
+
+Validate JSON input with respect to PhysicalLocation and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$new(
+  id = NULL,
+  chromosome = NULL,
+  nucleotide = NULL,
+  nucleotideLength = NULL,
+  strand = NULL,
+  bin = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{chromosome}}{chromosome}
+
+\item{\code{nucleotide}}{nucleotide}
+
+\item{\code{nucleotideLength}}{nucleotideLength}
+
+\item{\code{strand}}{strand}
+
+\item{\code{bin}}{bin}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PhysicalLocation in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocation-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocation-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -246,8 +458,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PhysicalLocation-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PhysicalLocation-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocation$print()}\if{html}{\out{</div>}}
 }
 
 }

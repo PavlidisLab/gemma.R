@@ -6,13 +6,21 @@
 \title{CharacteristicValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 CharacteristicValueObject Class
 
 CharacteristicValueObject Class
+
+CharacteristicValueObject Class
+
+CharacteristicValueObject Class
 }
 \details{
+Create a new CharacteristicValueObject
+
 Create a new CharacteristicValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new CharacteristicValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new CharacteristicValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,253 @@ Create a new CharacteristicValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{urlId}}{character optional}
+
+\item{\code{alreadyPresentInDatabase}}{character optional}
+
+\item{\code{alreadyPresentOnGene}}{character optional}
+
+\item{\code{category}}{character optional}
+
+\item{\code{categoryUri}}{character optional}
+
+\item{\code{child}}{character optional}
+
+\item{\code{numTimesUsed}}{integer optional}
+
+\item{\code{ontologyUsed}}{character optional}
+
+\item{\code{privateGeneCount}}{integer optional}
+
+\item{\code{publicGeneCount}}{integer optional}
+
+\item{\code{root}}{character optional}
+
+\item{\code{taxon}}{character optional}
+
+\item{\code{value}}{character optional}
+
+\item{\code{valueUri}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-CharacteristicValueObject-new}{\code{CharacteristicValueObject$new()}}
+\item \href{#method-CharacteristicValueObject-toJSON}{\code{CharacteristicValueObject$toJSON()}}
+\item \href{#method-CharacteristicValueObject-fromJSON}{\code{CharacteristicValueObject$fromJSON()}}
+\item \href{#method-CharacteristicValueObject-toJSONString}{\code{CharacteristicValueObject$toJSONString()}}
+\item \href{#method-CharacteristicValueObject-fromJSONString}{\code{CharacteristicValueObject$fromJSONString()}}
+\item \href{#method-CharacteristicValueObject-validateJSON}{\code{CharacteristicValueObject$validateJSON()}}
+\item \href{#method-CharacteristicValueObject-toString}{\code{CharacteristicValueObject$toString()}}
+\item \href{#method-CharacteristicValueObject-isValid}{\code{CharacteristicValueObject$isValid()}}
+\item \href{#method-CharacteristicValueObject-getInvalidFields}{\code{CharacteristicValueObject$getInvalidFields()}}
+\item \href{#method-CharacteristicValueObject-print}{\code{CharacteristicValueObject$print()}}
+\item \href{#method-CharacteristicValueObject-clone}{\code{CharacteristicValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new CharacteristicValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CharacteristicValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of CharacteristicValueObject
+
+
+Validate JSON input with respect to CharacteristicValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$new(
+  id = NULL,
+  urlId = NULL,
+  alreadyPresentInDatabase = NULL,
+  alreadyPresentOnGene = NULL,
+  category = NULL,
+  categoryUri = NULL,
+  child = NULL,
+  numTimesUsed = NULL,
+  ontologyUsed = NULL,
+  privateGeneCount = NULL,
+  publicGeneCount = NULL,
+  root = NULL,
+  taxon = NULL,
+  value = NULL,
+  valueUri = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{urlId}}{urlId}
+
+\item{\code{alreadyPresentInDatabase}}{alreadyPresentInDatabase}
+
+\item{\code{alreadyPresentOnGene}}{alreadyPresentOnGene}
+
+\item{\code{category}}{category}
+
+\item{\code{categoryUri}}{categoryUri}
+
+\item{\code{child}}{child}
+
+\item{\code{numTimesUsed}}{numTimesUsed}
+
+\item{\code{ontologyUsed}}{ontologyUsed}
+
+\item{\code{privateGeneCount}}{privateGeneCount}
+
+\item{\code{publicGeneCount}}{publicGeneCount}
+
+\item{\code{root}}{root}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{value}}{value}
+
+\item{\code{valueUri}}{valueUri}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+CharacteristicValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-CharacteristicValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-CharacteristicValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -291,8 +548,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-CharacteristicValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-CharacteristicValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CharacteristicValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

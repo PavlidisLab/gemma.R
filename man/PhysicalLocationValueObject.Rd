@@ -6,13 +6,21 @@
 \title{PhysicalLocationValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 PhysicalLocationValueObject Class
 
 PhysicalLocationValueObject Class
+
+PhysicalLocationValueObject Class
+
+PhysicalLocationValueObject Class
 }
 \details{
+Create a new PhysicalLocationValueObject
+
 Create a new PhysicalLocationValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new PhysicalLocationValueObject
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{PhysicalLocationValueObject}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new PhysicalLocationValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,213 @@ Create a new PhysicalLocationValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{nucleotide}}{integer optional}
+
+\item{\code{nucleotideLength}}{integer optional}
+
+\item{\code{strand}}{character optional}
+
+\item{\code{bin}}{integer optional}
+
+\item{\code{chromosome}}{character optional}
+
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-PhysicalLocationValueObject-new}{\code{PhysicalLocationValueObject$new()}}
+\item \href{#method-PhysicalLocationValueObject-toJSON}{\code{PhysicalLocationValueObject$toJSON()}}
+\item \href{#method-PhysicalLocationValueObject-fromJSON}{\code{PhysicalLocationValueObject$fromJSON()}}
+\item \href{#method-PhysicalLocationValueObject-toJSONString}{\code{PhysicalLocationValueObject$toJSONString()}}
+\item \href{#method-PhysicalLocationValueObject-fromJSONString}{\code{PhysicalLocationValueObject$fromJSONString()}}
+\item \href{#method-PhysicalLocationValueObject-validateJSON}{\code{PhysicalLocationValueObject$validateJSON()}}
+\item \href{#method-PhysicalLocationValueObject-toString}{\code{PhysicalLocationValueObject$toString()}}
+\item \href{#method-PhysicalLocationValueObject-isValid}{\code{PhysicalLocationValueObject$isValid()}}
+\item \href{#method-PhysicalLocationValueObject-getInvalidFields}{\code{PhysicalLocationValueObject$getInvalidFields()}}
+\item \href{#method-PhysicalLocationValueObject-print}{\code{PhysicalLocationValueObject$print()}}
+\item \href{#method-PhysicalLocationValueObject-clone}{\code{PhysicalLocationValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new PhysicalLocationValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhysicalLocationValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of PhysicalLocationValueObject
+
+
+Validate JSON input with respect to PhysicalLocationValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$new(
+  id = NULL,
+  nucleotide = NULL,
+  nucleotideLength = NULL,
+  strand = NULL,
+  bin = NULL,
+  chromosome = NULL,
+  taxon = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{nucleotide}}{nucleotide}
+
+\item{\code{nucleotideLength}}{nucleotideLength}
+
+\item{\code{strand}}{strand}
+
+\item{\code{bin}}{bin}
+
+\item{\code{chromosome}}{chromosome}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+PhysicalLocationValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-PhysicalLocationValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -251,8 +468,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-PhysicalLocationValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-PhysicalLocationValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{PhysicalLocationValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

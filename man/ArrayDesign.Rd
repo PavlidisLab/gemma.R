@@ -6,13 +6,21 @@
 \title{ArrayDesign}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 ArrayDesign Class
 
 ArrayDesign Class
+
+ArrayDesign Class
+
+ArrayDesign Class
 }
 \details{
+Create a new ArrayDesign
+
 Create a new ArrayDesign
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new ArrayDesign
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new ArrayDesign
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,268 @@ Create a new ArrayDesign
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{auditTrail}}{\link{AuditTrail} optional}
+
+\item{\code{advertisedNumberOfDesignElements}}{integer optional}
+
+\item{\code{alternateNames}}{list(\link{AlternateName}) optional}
+
+\item{\code{alternativeTo}}{\link{ArrayDesign} optional}
+
+\item{\code{compositeSequences}}{list(\link{CompositeSequence}) optional}
+
+\item{\code{curationDetails}}{\link{CurationDetails} optional}
+
+\item{\code{designProvider}}{\link{Contact} optional}
+
+\item{\code{externalReferences}}{list(\link{DatabaseEntry}) optional}
+
+\item{\code{mergedInto}}{\link{ArrayDesign} optional}
+
+\item{\code{mergees}}{list(\link{ArrayDesign}) optional}
+
+\item{\code{primaryTaxon}}{\link{Taxon} optional}
+
+\item{\code{shortName}}{character optional}
+
+\item{\code{subsumedArrayDesigns}}{list(\link{ArrayDesign}) optional}
+
+\item{\code{subsumingArrayDesign}}{\link{ArrayDesign} optional}
+
+\item{\code{technologyType}}{\link{TechnologyType} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-ArrayDesign-new}{\code{ArrayDesign$new()}}
+\item \href{#method-ArrayDesign-toJSON}{\code{ArrayDesign$toJSON()}}
+\item \href{#method-ArrayDesign-fromJSON}{\code{ArrayDesign$fromJSON()}}
+\item \href{#method-ArrayDesign-toJSONString}{\code{ArrayDesign$toJSONString()}}
+\item \href{#method-ArrayDesign-fromJSONString}{\code{ArrayDesign$fromJSONString()}}
+\item \href{#method-ArrayDesign-validateJSON}{\code{ArrayDesign$validateJSON()}}
+\item \href{#method-ArrayDesign-toString}{\code{ArrayDesign$toString()}}
+\item \href{#method-ArrayDesign-isValid}{\code{ArrayDesign$isValid()}}
+\item \href{#method-ArrayDesign-getInvalidFields}{\code{ArrayDesign$getInvalidFields()}}
+\item \href{#method-ArrayDesign-print}{\code{ArrayDesign$print()}}
+\item \href{#method-ArrayDesign-clone}{\code{ArrayDesign$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new ArrayDesign class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ArrayDesign
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of ArrayDesign
+
+
+Validate JSON input with respect to ArrayDesign and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$new(
+  name = NULL,
+  description = NULL,
+  id = NULL,
+  auditTrail = NULL,
+  advertisedNumberOfDesignElements = NULL,
+  alternateNames = NULL,
+  alternativeTo = NULL,
+  compositeSequences = NULL,
+  curationDetails = NULL,
+  designProvider = NULL,
+  externalReferences = NULL,
+  mergedInto = NULL,
+  mergees = NULL,
+  primaryTaxon = NULL,
+  shortName = NULL,
+  subsumedArrayDesigns = NULL,
+  subsumingArrayDesign = NULL,
+  technologyType = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{auditTrail}}{auditTrail}
+
+\item{\code{advertisedNumberOfDesignElements}}{advertisedNumberOfDesignElements}
+
+\item{\code{alternateNames}}{alternateNames}
+
+\item{\code{alternativeTo}}{alternativeTo}
+
+\item{\code{compositeSequences}}{compositeSequences}
+
+\item{\code{curationDetails}}{curationDetails}
+
+\item{\code{designProvider}}{designProvider}
+
+\item{\code{externalReferences}}{externalReferences}
+
+\item{\code{mergedInto}}{mergedInto}
+
+\item{\code{mergees}}{mergees}
+
+\item{\code{primaryTaxon}}{primaryTaxon}
+
+\item{\code{shortName}}{shortName}
+
+\item{\code{subsumedArrayDesigns}}{subsumedArrayDesigns}
+
+\item{\code{subsumingArrayDesign}}{subsumingArrayDesign}
+
+\item{\code{technologyType}}{technologyType}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+ArrayDesign in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ArrayDesign-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ArrayDesign-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -306,8 +578,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-ArrayDesign-print"></a>}}
 \if{latex}{\out{\hypertarget{method-ArrayDesign-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ArrayDesign$print()}\if{html}{\out{</div>}}
 }
 
 }

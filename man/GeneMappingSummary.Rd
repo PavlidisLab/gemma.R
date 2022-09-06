@@ -6,13 +6,21 @@
 \title{GeneMappingSummary}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GeneMappingSummary Class
 
 GeneMappingSummary Class
+
+GeneMappingSummary Class
+
+GeneMappingSummary Class
 }
 \details{
+Create a new GeneMappingSummary
+
 Create a new GeneMappingSummary
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GeneMappingSummary
 \keyword{GeneMappingSummary}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GeneMappingSummary
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,223 @@ Create a new GeneMappingSummary
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{geneProductIdMap}}{named list(\link{GeneProductValueObject}) optional}
+
+\item{\code{geneProductIdGeneMap}}{named list(\link{GeneValueObject}) optional}
+
+\item{\code{blatResult}}{\link{BlatResultValueObject} optional}
+
+\item{\code{geneProductMap}}{named list(\link{GeneValueObject}) optional}
+
+\item{\code{compositeSequence}}{\link{CompositeSequenceValueObject} optional}
+
+\item{\code{identity}}{numeric optional}
+
+\item{\code{score}}{numeric optional}
+
+\item{\code{blatResultId}}{character optional}
+
+\item{\code{geneProducts}}{list(\link{GeneProductValueObject}) optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GeneMappingSummary-new}{\code{GeneMappingSummary$new()}}
+\item \href{#method-GeneMappingSummary-toJSON}{\code{GeneMappingSummary$toJSON()}}
+\item \href{#method-GeneMappingSummary-fromJSON}{\code{GeneMappingSummary$fromJSON()}}
+\item \href{#method-GeneMappingSummary-toJSONString}{\code{GeneMappingSummary$toJSONString()}}
+\item \href{#method-GeneMappingSummary-fromJSONString}{\code{GeneMappingSummary$fromJSONString()}}
+\item \href{#method-GeneMappingSummary-validateJSON}{\code{GeneMappingSummary$validateJSON()}}
+\item \href{#method-GeneMappingSummary-toString}{\code{GeneMappingSummary$toString()}}
+\item \href{#method-GeneMappingSummary-isValid}{\code{GeneMappingSummary$isValid()}}
+\item \href{#method-GeneMappingSummary-getInvalidFields}{\code{GeneMappingSummary$getInvalidFields()}}
+\item \href{#method-GeneMappingSummary-print}{\code{GeneMappingSummary$print()}}
+\item \href{#method-GeneMappingSummary-clone}{\code{GeneMappingSummary$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GeneMappingSummary class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneMappingSummary
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GeneMappingSummary
+
+
+Validate JSON input with respect to GeneMappingSummary and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$new(
+  geneProductIdMap = NULL,
+  geneProductIdGeneMap = NULL,
+  blatResult = NULL,
+  geneProductMap = NULL,
+  compositeSequence = NULL,
+  identity = NULL,
+  score = NULL,
+  blatResultId = NULL,
+  geneProducts = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{geneProductIdMap}}{geneProductIdMap}
+
+\item{\code{geneProductIdGeneMap}}{geneProductIdGeneMap}
+
+\item{\code{blatResult}}{blatResult}
+
+\item{\code{geneProductMap}}{geneProductMap}
+
+\item{\code{compositeSequence}}{compositeSequence}
+
+\item{\code{identity}}{identity}
+
+\item{\code{score}}{score}
+
+\item{\code{blatResultId}}{blatResultId}
+
+\item{\code{geneProducts}}{geneProducts}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GeneMappingSummary in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GeneMappingSummary-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GeneMappingSummary-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -261,8 +488,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GeneMappingSummary-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GeneMappingSummary-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GeneMappingSummary$print()}\if{html}{\out{</div>}}
 }
 
 }

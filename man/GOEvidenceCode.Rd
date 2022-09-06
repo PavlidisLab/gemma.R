@@ -6,13 +6,21 @@
 \title{GOEvidenceCode}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 GOEvidenceCode Class
 
 GOEvidenceCode Class
+
+GOEvidenceCode Class
+
+GOEvidenceCode Class
 }
 \details{
+Create a new GOEvidenceCode
+
 Create a new GOEvidenceCode
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new GOEvidenceCode
 \keyword{GOEvidenceCode}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new GOEvidenceCode
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,180 @@ Create a new GOEvidenceCode
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{value}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-GOEvidenceCode-new}{\code{GOEvidenceCode$new()}}
+\item \href{#method-GOEvidenceCode-toJSON}{\code{GOEvidenceCode$toJSON()}}
+\item \href{#method-GOEvidenceCode-fromJSON}{\code{GOEvidenceCode$fromJSON()}}
+\item \href{#method-GOEvidenceCode-toJSONString}{\code{GOEvidenceCode$toJSONString()}}
+\item \href{#method-GOEvidenceCode-fromJSONString}{\code{GOEvidenceCode$fromJSONString()}}
+\item \href{#method-GOEvidenceCode-validateJSON}{\code{GOEvidenceCode$validateJSON()}}
+\item \href{#method-GOEvidenceCode-toString}{\code{GOEvidenceCode$toString()}}
+\item \href{#method-GOEvidenceCode-isValid}{\code{GOEvidenceCode$isValid()}}
+\item \href{#method-GOEvidenceCode-getInvalidFields}{\code{GOEvidenceCode$getInvalidFields()}}
+\item \href{#method-GOEvidenceCode-print}{\code{GOEvidenceCode$print()}}
+\item \href{#method-GOEvidenceCode-clone}{\code{GOEvidenceCode$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new GOEvidenceCode class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GOEvidenceCode
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of GOEvidenceCode
+
+
+Validate JSON input with respect to GOEvidenceCode and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$new(value = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{value}}{value}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+GOEvidenceCode in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-print"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-GOEvidenceCode-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GOEvidenceCode-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -218,8 +402,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-GOEvidenceCode-print"></a>}}
 \if{latex}{\out{\hypertarget{method-GOEvidenceCode-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{GOEvidenceCode$print()}\if{html}{\out{</div>}}
 }
 
 }

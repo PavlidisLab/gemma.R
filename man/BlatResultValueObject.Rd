@@ -6,13 +6,21 @@
 \title{BlatResultValueObject}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 BlatResultValueObject Class
 
 BlatResultValueObject Class
+
+BlatResultValueObject Class
+
+BlatResultValueObject Class
 }
 \details{
+Create a new BlatResultValueObject
+
 Create a new BlatResultValueObject
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new BlatResultValueObject
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new BlatResultValueObject
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,298 @@ Create a new BlatResultValueObject
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{blockCount}}{integer optional}
+
+\item{\code{blockSizes}}{character optional}
+
+\item{\code{identity}}{numeric optional}
+
+\item{\code{matches}}{integer optional}
+
+\item{\code{mismatches}}{integer optional}
+
+\item{\code{ns}}{integer optional}
+
+\item{\code{queryEnd}}{integer optional}
+
+\item{\code{queryGapBases}}{integer optional}
+
+\item{\code{queryGapCount}}{integer optional}
+
+\item{\code{querySequence}}{\link{BioSequenceValueObject} optional}
+
+\item{\code{queryStart}}{integer optional}
+
+\item{\code{queryStarts}}{character optional}
+
+\item{\code{repMatches}}{integer optional}
+
+\item{\code{score}}{numeric optional}
+
+\item{\code{strand}}{character optional}
+
+\item{\code{targetChromosomeName}}{character optional}
+
+\item{\code{targetDatabase}}{character optional}
+
+\item{\code{taxon}}{\link{TaxonValueObject} optional}
+
+\item{\code{targetEnd}}{integer optional}
+
+\item{\code{targetGapBases}}{integer optional}
+
+\item{\code{targetGapCount}}{integer optional}
+
+\item{\code{targetStart}}{integer optional}
+
+\item{\code{targetStarts}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-BlatResultValueObject-new}{\code{BlatResultValueObject$new()}}
+\item \href{#method-BlatResultValueObject-toJSON}{\code{BlatResultValueObject$toJSON()}}
+\item \href{#method-BlatResultValueObject-fromJSON}{\code{BlatResultValueObject$fromJSON()}}
+\item \href{#method-BlatResultValueObject-toJSONString}{\code{BlatResultValueObject$toJSONString()}}
+\item \href{#method-BlatResultValueObject-fromJSONString}{\code{BlatResultValueObject$fromJSONString()}}
+\item \href{#method-BlatResultValueObject-validateJSON}{\code{BlatResultValueObject$validateJSON()}}
+\item \href{#method-BlatResultValueObject-toString}{\code{BlatResultValueObject$toString()}}
+\item \href{#method-BlatResultValueObject-isValid}{\code{BlatResultValueObject$isValid()}}
+\item \href{#method-BlatResultValueObject-getInvalidFields}{\code{BlatResultValueObject$getInvalidFields()}}
+\item \href{#method-BlatResultValueObject-print}{\code{BlatResultValueObject$print()}}
+\item \href{#method-BlatResultValueObject-clone}{\code{BlatResultValueObject$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-new"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new BlatResultValueObject class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BlatResultValueObject
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of BlatResultValueObject
+
+
+Validate JSON input with respect to BlatResultValueObject and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$new(
+  id = NULL,
+  blockCount = NULL,
+  blockSizes = NULL,
+  identity = NULL,
+  matches = NULL,
+  mismatches = NULL,
+  ns = NULL,
+  queryEnd = NULL,
+  queryGapBases = NULL,
+  queryGapCount = NULL,
+  querySequence = NULL,
+  queryStart = NULL,
+  queryStarts = NULL,
+  repMatches = NULL,
+  score = NULL,
+  strand = NULL,
+  targetChromosomeName = NULL,
+  targetDatabase = NULL,
+  taxon = NULL,
+  targetEnd = NULL,
+  targetGapBases = NULL,
+  targetGapCount = NULL,
+  targetStart = NULL,
+  targetStarts = NULL,
+  ...
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{blockCount}}{blockCount}
+
+\item{\code{blockSizes}}{blockSizes}
+
+\item{\code{identity}}{identity}
+
+\item{\code{matches}}{matches}
+
+\item{\code{mismatches}}{mismatches}
+
+\item{\code{ns}}{ns}
+
+\item{\code{queryEnd}}{queryEnd}
+
+\item{\code{queryGapBases}}{queryGapBases}
+
+\item{\code{queryGapCount}}{queryGapCount}
+
+\item{\code{querySequence}}{querySequence}
+
+\item{\code{queryStart}}{queryStart}
+
+\item{\code{queryStarts}}{queryStarts}
+
+\item{\code{repMatches}}{repMatches}
+
+\item{\code{score}}{score}
+
+\item{\code{strand}}{strand}
+
+\item{\code{targetChromosomeName}}{targetChromosomeName}
+
+\item{\code{targetDatabase}}{targetDatabase}
+
+\item{\code{taxon}}{taxon}
+
+\item{\code{targetEnd}}{targetEnd}
+
+\item{\code{targetGapBases}}{targetGapBases}
+
+\item{\code{targetGapCount}}{targetGapCount}
+
+\item{\code{targetStart}}{targetStart}
+
+\item{\code{targetStarts}}{targetStarts}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+BlatResultValueObject in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-print"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-BlatResultValueObject-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-BlatResultValueObject-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -336,8 +638,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-BlatResultValueObject-print"></a>}}
 \if{latex}{\out{\hypertarget{method-BlatResultValueObject-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{BlatResultValueObject$print()}\if{html}{\out{</div>}}
 }
 
 }

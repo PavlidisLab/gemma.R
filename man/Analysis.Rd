@@ -6,13 +6,21 @@
 \title{Analysis}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 Analysis Class
 
 Analysis Class
+
+Analysis Class
+
+Analysis Class
 }
 \details{
+Create a new Analysis
+
 Create a new Analysis
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new Analysis
 \keyword{Deserialize}
 \keyword{Initialize}
 \keyword{JSON}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new Analysis
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,192 @@ Create a new Analysis
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{name}}{character optional}
+
+\item{\code{description}}{character optional}
+
+\item{\code{id}}{integer optional}
+
+\item{\code{protocol}}{\link{Protocol} optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-Analysis-new}{\code{Analysis$new()}}
+\item \href{#method-Analysis-toJSON}{\code{Analysis$toJSON()}}
+\item \href{#method-Analysis-fromJSON}{\code{Analysis$fromJSON()}}
+\item \href{#method-Analysis-toJSONString}{\code{Analysis$toJSONString()}}
+\item \href{#method-Analysis-fromJSONString}{\code{Analysis$fromJSONString()}}
+\item \href{#method-Analysis-validateJSON}{\code{Analysis$validateJSON()}}
+\item \href{#method-Analysis-toString}{\code{Analysis$toString()}}
+\item \href{#method-Analysis-isValid}{\code{Analysis$isValid()}}
+\item \href{#method-Analysis-getInvalidFields}{\code{Analysis$getInvalidFields()}}
+\item \href{#method-Analysis-print}{\code{Analysis$print()}}
+\item \href{#method-Analysis-clone}{\code{Analysis$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new Analysis class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Analysis
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of Analysis
+
+
+Validate JSON input with respect to Analysis and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$new(name = NULL, description = NULL, id = NULL, protocol = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{name}
+
+\item{\code{description}}{description}
+
+\item{\code{id}}{id}
+
+\item{\code{protocol}}{protocol}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+Analysis in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-print"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Analysis-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Analysis-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -230,8 +426,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-Analysis-print"></a>}}
 \if{latex}{\out{\hypertarget{method-Analysis-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Analysis$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Analysis$print()}\if{html}{\out{</div>}}
 }
 
 }

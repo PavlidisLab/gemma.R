@@ -6,13 +6,21 @@
 \title{MedicalSubjectHeading}
 \format{
 An \code{R6Class} generator object
+
+An \code{R6Class} generator object
 }
 \description{
 MedicalSubjectHeading Class
 
 MedicalSubjectHeading Class
+
+MedicalSubjectHeading Class
+
+MedicalSubjectHeading Class
 }
 \details{
+Create a new MedicalSubjectHeading
+
 Create a new MedicalSubjectHeading
 }
 \keyword{(JSON}
@@ -21,6 +29,7 @@ Create a new MedicalSubjectHeading
 \keyword{Initialize}
 \keyword{JSON}
 \keyword{MedicalSubjectHeading}
+\keyword{Print}
 \keyword{Return}
 \keyword{To}
 \keyword{Validate}
@@ -41,6 +50,7 @@ Create a new MedicalSubjectHeading
 \keyword{invalid}
 \keyword{list}
 \keyword{new}
+\keyword{object}
 \keyword{of}
 \keyword{respect}
 \keyword{string}
@@ -50,6 +60,188 @@ Create a new MedicalSubjectHeading
 \keyword{valid.}
 \keyword{values}
 \keyword{with}
+\section{Public fields}{
+\if{html}{\out{<div class="r6-fields">}}
+\describe{
+\item{\code{id}}{integer optional}
+
+\item{\code{isMajorTopic}}{character optional}
+
+\item{\code{term}}{character optional}
+}
+\if{html}{\out{</div>}}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-MedicalSubjectHeading-new}{\code{MedicalSubjectHeading$new()}}
+\item \href{#method-MedicalSubjectHeading-toJSON}{\code{MedicalSubjectHeading$toJSON()}}
+\item \href{#method-MedicalSubjectHeading-fromJSON}{\code{MedicalSubjectHeading$fromJSON()}}
+\item \href{#method-MedicalSubjectHeading-toJSONString}{\code{MedicalSubjectHeading$toJSONString()}}
+\item \href{#method-MedicalSubjectHeading-fromJSONString}{\code{MedicalSubjectHeading$fromJSONString()}}
+\item \href{#method-MedicalSubjectHeading-validateJSON}{\code{MedicalSubjectHeading$validateJSON()}}
+\item \href{#method-MedicalSubjectHeading-toString}{\code{MedicalSubjectHeading$toString()}}
+\item \href{#method-MedicalSubjectHeading-isValid}{\code{MedicalSubjectHeading$isValid()}}
+\item \href{#method-MedicalSubjectHeading-getInvalidFields}{\code{MedicalSubjectHeading$getInvalidFields()}}
+\item \href{#method-MedicalSubjectHeading-print}{\code{MedicalSubjectHeading$print()}}
+\item \href{#method-MedicalSubjectHeading-clone}{\code{MedicalSubjectHeading$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-new"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize a new MedicalSubjectHeading class.
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of MedicalSubjectHeading
+
+
+To JSON String
+
+
+Deserialize JSON string into an instance of MedicalSubjectHeading
+
+
+Validate JSON input with respect to MedicalSubjectHeading and throw an exception if invalid
+
+
+To string (JSON format)
+
+
+Return true if the values in all fields are valid.
+
+
+Return a list of invalid fields (if any).
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$new(id = NULL, isMajorTopic = NULL, term = NULL, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{id}
+
+\item{\code{isMajorTopic}}{isMajorTopic}
+
+\item{\code{term}}{term}
+
+\item{\code{...}}{Other optional arguments.}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input_json}}{the JSON input}
+
+\item{\code{input}}{the JSON input}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+MedicalSubjectHeading in JSON format
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-toJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-toJSON}{}}}
+\subsection{Method \code{toJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$toJSON()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-fromJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-fromJSON}{}}}
+\subsection{Method \code{fromJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$fromJSON(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-toJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-toJSONString}{}}}
+\subsection{Method \code{toJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$toJSONString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-fromJSONString"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-fromJSONString}{}}}
+\subsection{Method \code{fromJSONString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$fromJSONString(input_json)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-validateJSON"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-validateJSON}{}}}
+\subsection{Method \code{validateJSON()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$validateJSON(input)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-toString}{}}}
+\subsection{Method \code{toString()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$toString()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-isValid"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-isValid}{}}}
+\subsection{Method \code{isValid()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$isValid()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-getInvalidFields"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-getInvalidFields}{}}}
+\subsection{Method \code{getInvalidFields()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$getInvalidFields()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-print"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-print}{}}}
+\subsection{Method \code{print()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$print()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-MedicalSubjectHeading-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
+}
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
@@ -226,8 +418,9 @@ A list of invalid fields (if any).
 \if{html}{\out{<a id="method-MedicalSubjectHeading-print"></a>}}
 \if{latex}{\out{\hypertarget{method-MedicalSubjectHeading-print}{}}}
 \subsection{Method \code{print()}}{
+Print the object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$print(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{MedicalSubjectHeading$print()}\if{html}{\out{</div>}}
 }
 
 }
