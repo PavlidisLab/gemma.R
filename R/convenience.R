@@ -150,14 +150,14 @@ memgetPlatformAnnotation <- function(platform,
 #' Use \code{forgetGemmaMemoised} to clear the cache.
 #' cache. Use \code{forgetGemmaMemoised} to clear the cache.
 #'
-#' @return A SummarizedExperiment or ExpressionSet of the queried dataset.
+#' @return A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
 #' @keywords dataset
 #' @export
 #' @examples
 #' getDataset("GSE2018")
 getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
-    if (type != "eset" && type != "se") {
-        stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet.")
+    if (type != "eset" && type != "se" && type != 'tidy') {
+        stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
     exprM <- getDatasetExpression(dataset, filter,memoised = memoised)
     rownames(exprM) <- exprM$Probe
@@ -216,39 +216,14 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
             experimentData = expData,
             annotation = getDatasetPlatforms(dataset,memoised = memoised)$platform.ShortName
         )
+    } else if(type=='tidy'){
+        design <- tibble::rownames_to_column(design, "Sample")
+        exprM %>% as.data.frame %>% 
+            tibble::rownames_to_column("Probe") %>%
+            tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
+            dplyr::inner_join(design, by = "Sample") %>%
+            dplyr::rename(sample = .data$Sample, probe = .data$Probe)
     }
-}
-
-#' Tidy expression and design
-#'
-#' Combines the expression and design matrices of the queried dataset into a
-#' tibble for easy visualization and exploration with ggplot and the rest of the tidyverse.
-#'
-#' @param dataset A dataset identifier.
-#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
-#' Use \code{forgetGemmaMemoised} to clear the cache.
-#'
-#' @return A tibble that combines the expression and design matrices.
-#' @keywords dataset
-#' @export
-#' @examples
-#'
-#' getDatasetTidy("GSE2018")
-getDatasetTidy <- function(dataset, filter = FALSE, memoised =  getOption("gemma.memoised", FALSE)) {
-    design <- getDatasetDesign(dataset,memoised = memoised) %>%
-        tibble::rownames_to_column("Sample")
-    # Get expression data, convert to long format and add exp. design
-    getDatasetExpression(dataset, filter = filter,memoised = memoised) %>%
-        as.data.frame() %>%
-        tibble::column_to_rownames("Probe") %>%
-        .[, match(design$Sample, colnames(.))] %>% # match sample order
-        tibble::rownames_to_column("Probe") %>%
-        tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
-        dplyr::inner_join(design, by = "Sample") %>%
-        dplyr::rename(sample = .data$Sample, probe = .data$Probe)
 }
 
 #' Retrieve differential expression results

@@ -32,7 +32,7 @@ test_that("getDatasetTidy works properly", {
     skip_on_ci()
     skip_on_bioc()
     dat <- getDatasetExpression(1)
-    tidy <- getDatasetTidy(1)
+    tidy <- getDataset(1,type = 'tidy')
     design <- getDatasetDesign(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
     expect_equal((ncol(dat) - 4) * nrow(dat), nrow(tidy))
