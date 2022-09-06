@@ -212,16 +212,16 @@ Gene expression distributions of bipolar patients during manic phase and control
 <span>        <span class="va">`contrast_bipolar disorder, manic phase_logFoldChange`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      Probe GeneSymbol contrast_bipolar disorder, manic phase_pvalue
- 1: 2319550       RBP7                                     0.0001795
- 2: 2548699     CYP1B1                                     0.0002182
- 3: 3907190       SLPI                                     0.0006255
- 4: 3629103      PCLAF                                     0.0009611
- 5: 3545525      SLIRP                                     0.0010440
- 6: 3146433      COX6C                                     0.0016410
- 7: 2538349                                                0.0021300
- 8: 2899102       H3C3                                     0.0021460
- 9: 3635198     BCL2A1                                     0.0029750
-10: 2633191      GPR15                                     0.0039170
+ 1: 2319550       RBP7                                     8.612e-05
+ 2: 2548699     CYP1B1                                     1.027e-04
+ 3: 3907190       SLPI                                     3.326e-04
+ 4: 3629103      PCLAF                                     5.183e-04
+ 5: 3545525      SLIRP                                     5.646e-04
+ 6: 3146433      COX6C                                     9.204e-04
+ 7: 2538349                                                1.253e-03
+ 8: 2899102       H3C3                                     1.269e-03
+ 9: 3635198     BCL2A1                                     1.800e-03
+10: 2633191      GPR15                                     2.410e-03
     contrast_bipolar disorder, manic phase_logFoldChange
  1:                                                1.074
  2:                                                1.322
@@ -241,16 +241,16 @@ Gene expression distributions of bipolar patients during manic phase and control
 <span>        <span class="va">`contrast_bipolar disorder, manic phase_logFoldChange`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      Probe GeneSymbol contrast_bipolar disorder, manic phase_pvalue
- 1: 2775390                                                6.260e-06
- 2: 3760268                                                3.061e-05
- 3: 3124344                                                2.779e-04
- 4: 3673179                                                3.131e-04
- 5: 3245871      WDFY4                                     3.374e-04
- 6: 3022689   SND1-IT1                                     4.476e-04
- 7: 2679014                                                5.735e-04
- 8: 3336402      RBM14                                     6.753e-04
- 9: 4019758                                                6.853e-04
-10: 3384417 ANKRD42-DT                                     7.165e-04
+ 1: 2775390                                                2.095e-06
+ 2: 3760268                                                1.153e-05
+ 3: 3124344                                                1.389e-04
+ 4: 3673179                                                1.581e-04
+ 5: 3245871      WDFY4                                     1.681e-04
+ 6: 3022689   SND1-IT1                                     2.267e-04
+ 7: 2679014                                                2.982e-04
+ 8: 4019758                                                3.553e-04
+ 9: 3336402      RBM14                                     3.606e-04
+10: 2880955                                                3.740e-04
     contrast_bipolar disorder, manic phase_logFoldChange
  1:                                               -1.556
  2:                                               -1.851
@@ -259,9 +259,9 @@ Gene expression distributions of bipolar patients during manic phase and control
  5:                                               -1.157
  6:                                               -1.220
  7:                                               -1.175
- 8:                                               -1.071
- 9:                                               -1.405
-10:                                               -1.003</code></pre>
+ 8:                                               -1.405
+ 9:                                               -1.071
+10:                                               -1.522</code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add gene symbols as labels to DE genes</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
