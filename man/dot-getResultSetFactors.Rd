@@ -2,15 +2,10 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.getResultSetFactors}
 \alias{.getResultSetFactors}
-\title{.getResultSetFactors}
+\title{Get result set}
 \usage{
 .getResultSetFactors(
   resultSet = NA_character_,
-  dataset = NA_character_,
-  offset = 0L,
-  limit = 20L,
-  sort = "+id",
-  excludeResults = TRUE,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
@@ -19,33 +14,7 @@
 )
 }
 \arguments{
-\item{resultSet}{Optional, defaults to empty. A single resultSet identifier (ex. 423176)}
-
-\item{dataset}{Required, part of the URL path.
-Can either be the dataset ID or its short name (e.g. \code{GSE1234}).
-Retrieval by ID is more efficient.
-Only datasets that user has access to will be available}
-
-\item{offset}{Optional, defaults to \code{0}.
-Skips the specified amount of objects when retrieving them from the
-database.}
-
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount of objects.}
-
-\item{sort}{Optional, defaults to \code{+id}.
-Sets the ordering property and direction.
-Format is \verb{[+,-][property name]}. E.g. \code{-accession} will translate to
-descending ordering by the 'Accession' property.
-Note that this does [not guarantee the order of the returned
-entities!]{.description-imp} This is merely a signal to how the data
-should be pre-sorted before the limit and offset are applied.
-Nested properties are also supported (recursively).
-E.g: \code{+curationDetails.lastTroubledEvent.date}
-When
-using in scripts, remember to URL-encode the '+' plus character (see
-the compiled URL below).}
-
-\item{excludeResults}{Only keep factor values and exclude numerical results from resultSets.}
+\item{resultSet}{An expression analysis result set numerical identifier.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
@@ -54,7 +23,7 @@ omitted in the parsed results.}
 \item{memoised}{Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-used. Use \\code{\\link{forgetGemmaMemoised}} to clear the cache.}
+used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
 results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
@@ -70,6 +39,6 @@ into the output object's attributes such as offset and available elements.}
 Varies
 }
 \description{
-Returns the factor values for the queried resultSet.
+Retrieve a single analysis result set by its identifier
 }
 \keyword{internal}

@@ -1,6 +1,7 @@
 library(here)
 library(styler)
-# a cleanup is needed because the script relies on environment variables to determine what is already processed
+# a cleanup is needed because the script relies on environment variables to 
+# determine what is already processed
 rm(list = ls(all.names = TRUE))
 options(gemmaAPI.document = 'R/allEndpoints.R')
 
@@ -28,51 +29,7 @@ file.create(getOption("gemmaAPI.document", "R/allEndpoints.R"))
 
 
 # Documentation ----
-# Load in descriptions from the JS
-descriptions = new.env()
-descriptions$`+` <- function(A, B) {
-    paste0(A, B, collapse = "")
-}
-eval(httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/js/vue/descriptions.js")$content %>%
-    rawToChar() %>%
-    {
-        gsub("\\/\\*[\\s\\S]*?\\*\\/", "", ., perl = TRUE)
-    } %>%
-    {
-        gsub("(\n(var )?)", "", .)
-    } %>%
-    {
-        parse(text = .)
-    },envir = descriptions)
 
-rm(`+`,envir = descriptions)
-
-# And endpoints from the HTML
-endpoints <- httr::GET("https://gemma.msl.ubc.ca/resources/restapidocs/")$content %>%
-    rawToChar() %>%
-    xml2::read_html() %>%
-    xml2::xml_find_all(".//endpoint")
-
-examples <- readLines("inst/script/examples.txt") %>%
-    {
-        gsub("# ", "", .)
-    }
-mExamples <- list(example = list(), value = list())
-n <- 1
-mTitle <- NULL
-for (i in examples) {
-    if (i == "") {
-        mTitle <- NULL
-    } else if (i %in% c("example", "value")) {
-        n <- i
-    } else {
-        if (is.null(mTitle)) {
-            mTitle <- i
-        } else {
-            mExamples[[n]][[mTitle]] <- c(mExamples[[n]][[mTitle]], i)
-        }
-    }
-}
 
 # load overrides, for custom documentation elements.
 # should replace the examples file above eventually. currently has higher priority
@@ -84,13 +41,16 @@ names(overrides) = overrides %>% sapply(function(x){
     x$tags[[which(title)]]$val
 })
 
+# download.file('https://dev.gemma.msl.ubc.ca/rest/v2/openapi.json',destfile = 'inst/script/openapi.json')
+api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
+
+api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
 
 
 
 # Dataset endpoints ----
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
-    "getDatasetsInfo",
-    logname = "datasets", roxygen = "Datasets", keyword = "dataset",
+    "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
     defaults = list(
         datasets = NA_character_,
         offset = 0L,
@@ -108,8 +68,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 
 registerEndpoint(
     "resultSets/{resultSet}",
-    ".getResultSets",
-    logname = "resultSets", roxygen = "Lists resultSets filtered and organized by given parameters.",
+    ".getResultSets", open_api_name = 'get_result_set',
     isFile = TRUE, internal = TRUE,
     header = "text/tab-separated-values",
     defaults = list(
@@ -121,48 +80,35 @@ registerEndpoint(
     preprocessor = quote(processFile)
 )
 
+# this is the cheat endpoint that drops the data from result sets but it uses the same arguments
 registerEndpoint(
-    "resultSets/{resultSet}?&offset={offset}&limit={limit}&sort={sort}&excludeResults={excludeResults}",
-    ".getResultSetFactors",
-    logname = "resultSetFactors",
-    roxygen = "Returns the factor values for the queried resultSet.",
+    "resultSets/{resultSet}?excludeResults=true",
+    ".getResultSetFactors", open_api_name = 'get_result_set',
     internal = TRUE,
     defaults = list(
-        resultSet = NA_character_,
-        dataset = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id",
-        excludeResults = TRUE
+        resultSet = NA_character_
     ),
     validators = alist(
-        resultSet = validateOptionalID,
-        dataset = validateOptionalID,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
+        resultSet = validateOptionalID
     ),
     preprocessor = quote(processResultSetFactors)
 )
 
 registerEndpoint(
-    "resultSets?datasets={dataset}",
-    "getDatasetResultSets",
-    logname = "datasetResultSets",
-    roxygen = "Lists the available resultSets for the queried dataset.",
+    "resultSets?datasets={datasets}",
+    "get_result_sets",open_api_name = 'get_result_sets',
     keyword = "dataset",
     defaults = list(
-        dataset = bquote()
+        datasets = bquote()
     ),
     validators = alist(
-        dataset = validateID
+        datasets = validateID
     ),
     preprocessor = quote(processDatasetResultSets)
 )
 
 registerEndpoint("datasets/{dataset}/data?filter={filter}",
-    "getDatasetExpression",
-    logname = "data", roxygen = "Dataset expression", keyword = "dataset",
+    "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
     isFile = TRUE,
     defaults = list(
         dataset = bquote(),
@@ -177,9 +123,7 @@ registerEndpoint("datasets/{dataset}/data?filter={filter}",
 
 
 registerEndpoint('datasets/{dataset}/samples',
-                 'getDatasetSamples',
-                 logname = 'samples',
-                 roxygen = "Dataset samples",
+                 'get_dataset_samples', open_api_name = 'get_dataset_samples',
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -190,9 +134,7 @@ registerEndpoint('datasets/{dataset}/samples',
                  preprocessor = quote(processSamples))
 
 registerEndpoint('datasets/{dataset}/platforms',
-                 'getDatasetPlatforms',
-                 logname = "platforms",
-                 roxygen = "Dataset platforms",
+                 'get_dataset_platforms', open_api_name = 'get_dataset_platforms',
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -203,9 +145,7 @@ registerEndpoint('datasets/{dataset}/platforms',
                  preprocessor = quote(processPlatforms))
 
 registerEndpoint('datasets/{dataset}/annotations',
-                 'getDatasetAnnotations',
-                 logname = "annotations",
-                 roxygen = "Dataset annotations",
+                 'get_dataset_annotations',open_api_name = 'get_dataset_annotations',
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -217,10 +157,8 @@ registerEndpoint('datasets/{dataset}/annotations',
 
 
 registerEndpoint('datasets/{dataset}/design',
-                 'getDatasetDesign',
-                 logname = "design",
+                 'get_dataset_design', open_api_name = 'get_dataset_design',
                  isFile = TRUE,
-                 roxygen = "Dataset design",
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -231,9 +169,7 @@ registerEndpoint('datasets/{dataset}/design',
                  preprocessor = quote(processFile))
 
 registerEndpoint('datasets/{dataset}/analyses/differential',
-                 'getDatasetDEA',
-                 logname = "differential",
-                 roxygen = "Dataset differential analysis details",
+                 'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -257,8 +193,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
-    "getPlatformsInfo",
-    logname = "platforms", roxygen = "Platforms", keyword = "platform",
+    "get_platforms",open_api_name = 'get_platforms', keyword = "platform",
     defaults = list(
         platforms = NA_character_,
         offset = 0L,
@@ -275,8 +210,7 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
 )
 
 registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
-    "getPlatformDatasets",
-    logname = "datasets", roxygen = "Platform datasets", keyword = "platform",
+    "get_platform_datasets",open_api_name = 'get_platform_datasets', keyword = "platform",
     defaults = list(
         platform = bquote(),
         offset = 0L,
@@ -290,30 +224,30 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
     preprocessor = quote(processDatasets)
 )
 
-registerEndpoint("platforms/{platform}/elements/{elements}?offset={offset}&limit={limit}",
-    "getPlatformElements",
-    logname = "elements", roxygen = "Platform elements", keyword = "platform",
-    defaults = list(
-        platform = bquote(),
-        elements = NA_character_,
-        offset = 0L,
-        limit = 20L
-    ),
-    validators = alist(
-        platform = validateSingleID,
-        elements = validateOptionalID,
-        offset = validatePositiveInteger,
-        limit = validateLimit
-    ),
-    preprocessor = quote(processElements)
-)
+# reduntant with annotation files consider removing
+# registerEndpoint("platforms/{platform}/elements/{elements}?offset={offset}&limit={limit}",
+#     "get_platform_element", open_api_name = 'get_platform_element', keyword = "platform",
+#     defaults = list(
+#         platform = bquote(),
+#         probes = NA_character_,
+#         offset = 0L,
+#         limit = 20L
+#     ),
+#     validators = alist(
+#         platform = validateSingleID,
+#         probes = validateOptionalID,
+#         offset = validatePositiveInteger,
+#         limit = validateLimit
+#     ),
+#     preprocessor = quote(processElements)
+# )
 
 registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&limit={limit}",
-    "getPlatformElementGenes",
-    logname = "genes", roxygen = "Platform element genes", keyword = "platform",
+    "get_platform_element_genes",
+    open_api_name = 'get_platform_element_genes', keyword = "platform",
     defaults = list(
         platform = bquote(),
-        element = bquote(),
+        probe = bquote(),
         offset = 0L,
         limit = 20L
     ),
@@ -328,9 +262,8 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
 
 # Gene endpoints ----
 registerEndpoint('genes/{(genes)}/',
-                 'getGenesInfo',
-                 logname = "differential",
-                 roxygen = "Genes",
+                 'get_genes',
+                 open_api_name = 'get_genes',
                  keyword = 'gene',
                  defaults = list(
                      genes = bquote()
@@ -339,9 +272,7 @@ registerEndpoint('genes/{(genes)}/',
                  preprocessor = quote(processGenes))
 
 registerEndpoint('genes/{gene}/locations',
-                 'getGeneLocation',
-                 logname = "locations",
-                 roxygen = "Gene locations",
+                 'get_gene_locations', open_api_name = 'get_gene_locations',
                  keyword = 'gene',
                  defaults = list(
                      gene = bquote()
@@ -351,8 +282,7 @@ registerEndpoint('genes/{gene}/locations',
 
 
 registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
-    "getGeneProbes",
-    logname = "probes", roxygen = "Gene probes", keyword = "gene",
+    "get_gene_probes", open_api_name = 'get_gene_probes', keyword = "gene",
     defaults = list(
         gene = bquote(),
         offset = 0L,
@@ -368,9 +298,7 @@ registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
 
 
 registerEndpoint('genes/{gene}/goTerms',
-                 'getGeneGO',
-                 logname = "goTerms",
-                 roxygen = "Gene goTerms",
+                 'get_gene_go_terms', open_api_name = 'get_gene_go_terms',
                  keyword = 'gene',
                  defaults = list(
                      gene = bquote()
@@ -378,10 +306,11 @@ registerEndpoint('genes/{gene}/goTerms',
                  validators = alist(gene = validateSingleID),
                  preprocessor = quote(processGO))
 
-
+# this merges two endpoints in one. leaving taxon empty calls everything
+# documentation for the query variable needs some work
 registerEndpoint("annotations/{taxon}/search/{query}/datasets?&offset={offset}&limit={limit}&sort={sort}",
-    "searchDatasets",
-    logname = "datasets", roxygen = "Dataset search", keyword = "dataset",
+    "search_datasets",open_api_name = 'search_taxon_datasets',
+    keyword = "dataset",
     defaults = list(
         query = bquote(),
         taxon = NA_character_,
@@ -399,8 +328,8 @@ registerEndpoint("annotations/{taxon}/search/{query}/datasets?&offset={offset}&l
 )
 
 registerEndpoint("annotations/search/{query}",
-    "searchAnnotations",
-    roxygen = "Annotation search",
+    "search_annotations",
+    open_api_name = 'search_annotations',
     keyword = "misc",
     defaults = list(query = bquote()),
     validators = alist(query = validateQuery),
@@ -410,17 +339,16 @@ registerEndpoint("annotations/search/{query}",
 # taxon endpoints --------------
 
 registerEndpoint("taxa/{taxa}",
-                 "getTaxonInfo",
-                 roxygen = "Taxon search",
-                 keyword = "taxon",
+                 "get_taxa_by_ids",
+                 open_api_name = 'get_taxa_by_ids',
+                 internal = TRUE,
                  defaults = list(taxa = bquote()),
                  validators = alist(taxa = validateTaxa),
                  preprocessor = quote(processTaxon)
 )
 
 registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sort}",
-                 "getTaxonDatasets",
-                 roxygen = "Taxon dataset search",
+                 "get_taxon_datasets",open_api_name = 'get_taxon_datasets',
                  keyword = "taxon",
                  defaults = list(taxon = bquote(),
                                  offset = 0L,
@@ -441,10 +369,10 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     cat("#'\n", file = document, append = TRUE)
     cat("#' Forget past results from memoised calls to the Gemma API (ie. using functions with memoised = `TRUE`)\n#'\n", file = document, append = TRUE)
     cat("#' @return TRUE to indicate cache was cleared.\n", file = document, append = TRUE)
-    cat("#' @examples\n#' forgetGemmaMemoised()\n", file = document, append = TRUE)
+    cat("#' @examples\n#' forget_gemma_memoised()\n", file = document, append = TRUE)
     cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = TRUE)
-    cat("forgetGemmaMemoised <- ", file = document, append = TRUE)
-    cat("forgetGemmaMemoised <- function(){mem = memoise::memoise(function(){},cache = gemmaCache());memoise::forget(mem)}", file = document, append = TRUE)
+    cat("forget_gemma_memoised <- ", file = document, append = TRUE)
+    cat("forget_gemma_memoised <- function(){mem = memoise::memoise(function(){},cache = gemmaCache());memoise::forget(mem)}", file = document, append = TRUE)
 
     rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
 

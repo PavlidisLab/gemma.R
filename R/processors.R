@@ -529,6 +529,14 @@ processDEcontrasts <- function(rs, rsID) {
     rs
 }
 
+#' A blank processor that returns data as is
+#' 
+#' @param data any data
+#' @keywords internal
+blank_processor <- function(data){
+    return(data)
+}
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()

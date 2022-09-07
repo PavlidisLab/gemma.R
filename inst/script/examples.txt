@@ -11,18 +11,6 @@ that are associated with the descendants of the term.
 The search only only checks the annotations value, not the category
 (which is also an ontology term)."
 
-# getDatasetPlatforms
-# example
-getDatasetPlatforms("GSE2018")
-# value
-"A data table with information about the platform(s) of the queried dataset. A`404 error` if the given identifier does not map to any object."
-
-# getDatasetSamples
-# example
-dat <- getDatasetSamples("GSE2018")
-head(dat)
-# value
-"A data table with information about the samples of the queried dataset. A `404 error` if the given identifier does not map to any object."
 
 # getDatasetDEA
 # example
@@ -41,26 +29,7 @@ head(dat)
 "If raw is FALSE (default), a data table of the support vector decomposition of the queried dataset.
 If raw is TRUE, a list with the same information."
 
-# getDatasetAnnotations
-# example
-getDatasetAnnotations("GSE2018")
-# value
-"A data table with information about the annotations of the queried dataset.
-A `404 error` if the given identifier does not map to any object."
 
-# getDatasetExpression
-# example
-dat <- getDatasetExpression("GSE2018")
-# value
-"If raw is FALSE (default), a data table of the expression matrix for the queried dataset.
-If raw is TRUE, returns the binary file in raw form."
-
-# getDatasetDesign
-# example
-dat <- getDatasetDesign("GSE2018")
-str(dat)
-# value
-"A data table of the design matrix for the queried dataset. A `404 error` if the given identifier does not map to any object."
 
 # getDatasetPCA
 # example
@@ -71,12 +40,6 @@ str(dat$expr)
 If raw is TRUE, a list with the same information."
 
 
-# getPlatformsInfo
-# example
-getPlatformsInfo("GPL1355")
-getPlatformsInfo(c("GPL1355", "GPL96"))
-# value
-"A data table with information about the queried platform(s)."
 
 # getPlatformDatasets
 # example

@@ -27,6 +27,27 @@ roxygenTabular <- function(df,col.names= TRUE,  ...) {
           contents, "\n}\n", sep = "")
 }
 
+#' Parse open api parameters
+#' 
+#' @param prm A parameter taken from an openAPI endpoint description
+parse_open_api_params <- function(prm){
+    if (!is.null(prm$schema$description)){
+        out = prm$schema$description
+    } else if(!is.null(prm$schema$items$oneOf)){
+        out = prm$schema$items$oneOf %>% 
+            purrr::map_chr('description') %>% 
+            gsub('.','',.,fixed=  TRUE) %>% paste(collapse = ' or ') %>% snakecase::to_sentence_case()
+    } else if(!is.null(prm$schema$oneOf)){
+        out = prm$schema$oneOf %>% purrr::map_chr('description') %>%  
+            gsub('.','',.,fixed=  TRUE) %>% paste(collapse = ' or ') %>% 
+            snakecase::to_sentence_case()
+    } else{
+        browser()
+        stop('help me!')
+    }
+    
+    return(out)
+}
 
 #' Register an API endpoint (internal use)
 #'
@@ -36,7 +57,6 @@ roxygenTabular <- function(df,col.names= TRUE,  ...) {
 #' @param defaults Default values for the endpoint
 #' @param validators Validators for the inputs
 #' @param logname The activating phrase in the category endpoint
-#' @param roxygen The name to pull roxygen information from
 #' @param keyword The category keyboard for use in documentation
 #' @param internal Whether the endpoint will be exposed to users
 #' @param where The environment to add the new function to
@@ -45,11 +65,11 @@ roxygenTabular <- function(df,col.names= TRUE,  ...) {
 #' @param header Specific HTTP header for the request
 registerEndpoint <- function(endpoint,
                              fname,
+                             open_api_name = fname,
                              preprocessor,
                              defaults = NULL,
                              validators = NULL,
                              logname = fname,
-                             roxygen = NULL,
                              keyword = NULL,
                              internal = FALSE,
                              where = parent.env(environment()),
@@ -149,14 +169,17 @@ registerEndpoint <- function(endpoint,
 
     assign(memF, memoise::memoise(f), where)
 
-    if (!exists("forgetGemmaMemoised", envir = where, inherits = FALSE)) {
-        assign("forgetGemmaMemoised", function() {}, envir = where)
+    if (!exists("forget_gemma_memoised", envir = where, inherits = FALSE)) {
+        assign("forget_gemma_memoised", function() {}, envir = where)
     }
 
 
     if (!is.null(document)) {
         # cat(glue::glue("#' {fname}\n"), file = document, append = T)
-        comment(fname, roxygen, names(fargs), document)
+        comment(fname = fname,
+                open_api_name = open_api_name,
+                parameters = names(fargs), 
+                document = document)
         if (internal == TRUE) {
             cat(glue::glue("#' @keywords internal\n#' \n#' @examples\n\n"), file = document, append = TRUE)
         } else {
@@ -170,8 +193,6 @@ registerEndpoint <- function(endpoint,
             assertthat::assert_that(sum(example_override) == 1)
             val = overrides[[fname]]$tags[[which(example_override)]]$val %>% strsplit('\n') %>% {.[[1]]}
             cat(paste0("#' ", val, "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
-        } else{
-            cat(paste0("#' ", mExamples$example[[fname]], "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
         }
         cat(glue::glue("{fname} <- "), file = document, append = TRUE)
         cat(deparse(f) %>% paste0(collapse = "\n"), file = document, append = TRUE)
@@ -197,10 +218,10 @@ logEndpoint <- function(fname, logname) {
 #' Comment a function
 #'
 #' @param fname The name of the function to comment
-#' @param src The name of the entry to use (in endpoints)
+#' @param open_api_name of the endpoint in openAPI
 #' @param parameters The parameters that the function accepts
 #' @param document A file to print information for pasting generating the package
-comment <- function(fname, src, parameters, document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
+comment <- function(fname, open_api_name = fname, parameters, document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
     pandoc <- function(text) {
         tmp <- tempfile()
         write(text, tmp)
@@ -217,32 +238,29 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             }
     }
 
-    if (is.null(src)) {
-        cat(glue::glue("#' {fname}\n"), file = document, append = TRUE)
-        cat("\n", file = document, append = TRUE)
-        return(NULL)
+
+    mName <- paste0(fname)
+    mDesc <- ''
+    mResp <- "Varies"
+    return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
+    
+
+
+    if(open_api_name %in% api_file_fun_names){
+        endpoint <- api_file$paths[[which(api_file_fun_names %in% open_api_name)]]
+        mDesc <- endpoint$get$summary
+        mName <- endpoint$get$operationId %>% snakecase::to_sentence_case()
     }
-
-
-    node <- Filter(function(elem) {
-        xml2::xml_attr(elem, ":name") == paste0("'", src, "'")
-    }, endpoints)
-    if (length(node) == 0) {
-        mName <- paste0("'", fname, "'")
-        mDesc <- paste0("'", src, "'")
-        mResp <- "Varies"
-        return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
-    } else {
-        mName <- xml2::xml_attr(node, ":name")
-        mDesc <- xml2::xml_attr(node, ":description")
-        # this reads the descriptions environment defined in the global
-        # scope. used to use global environment but wanted to clean that up
-        # when debuggin -ogan
-        mResp <- get(xml2::xml_attr(node, ":response-description"),descriptions)
-
-        return = glue::glue("#'\n#' @return {pandoc(mResp)}\n\n")
-
+    
+    overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_description')
+    }) -> description_override
+    
+    if(any(description_override)){
+        assertthat::assert_that(sum(description_override)==1)
+        mDesc <- overrides[[fname]]$tags[[which(description_override)]]$val %>% stringr::str_replace_all('\n',"\n#' ")
     }
+    
     # documentation overrides
     # uses examples file as an override if provided
 
@@ -255,14 +273,10 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
         val = overrides[[fname]]$tags[[which(return_override)]]$val %>% stringr::str_replace_all('\n',"\n#' ")
         return = glue::glue("#'\n#' @return {val}\n\n")
 
-    } else if(!is.null(mExamples$value[[fname]])){ # to be deprecated old example file
-        # remove quotes from examples file if needed.
-        val = gsub('^"|"$','',paste0(mExamples$value[[fname]],collapse = "\n#' "))
-        return = glue::glue("#'\n#' @return {val}\n\n")
     }
 
-    cat(glue::glue("#' {pandoc(mName %>% { substring(., 2, nchar(.) - 1) })}\n#'"), file = document, append = TRUE)
-    cat(glue::glue("\n\n#' {pandoc(mDesc %>% { substring(., 2, nchar(.) - 1) })}\n#'\n\n"), file = document, append = TRUE)
+    cat(glue::glue("#' {mName}\n#'"), file = document, append = TRUE)
+    cat(glue::glue("\n\n#' {mDesc}\n#'\n\n"), file = document, append = TRUE)
 
 
     overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
@@ -284,36 +298,11 @@ comment <- function(fname, src, parameters, document = getOption("gemmaAPI.docum
             mAdd <- overrides[[fname]]$tags[param_override][[which(overridden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
         } else if (arg %in% generic_overriden_params){
             mAdd <- overrides$generic_params$tags[generic_param_override][[which(generic_overriden_params%in%arg)]]$val$description %>% stringr::str_replace_all('\n',"\n#' ")
-        } else if (arg == "taxon") {
-            mAdd <- "Not required, part of the URL path. can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name."
-        } else if (arg == "...") {
-            mAdd <- "Parameters to forward to the endpoint selected in `request`."
-        } else if (arg == "filter") {
-            mAdd <- "The filtered version (`filter = TRUE`) corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements."
-        } else if (arg == "excludeResults") {
-            mAdd <- "Only keep factor values and exclude numerical results from resultSets."
-        } else if (arg == "resultSet") {
-            mAdd <- "Optional, defaults to empty. A single resultSet identifier (ex. 423176)"
-        } else if (arg == 'element') {
-            mAdd = "Required, part of the URL path. Can either be the probe name or ID."
-        } else if (arg == 'elements'){
-            mAdd = "Optional, defaults to empty. Limits the result to entities with given identifiers. A vector of identifiers (e.g: AFFX_Rat_beta-actin_M_at, AFFX_Rat_Hexokinase_M_at)"
+        } else if((open_api_name %in% api_file_fun_names) && (arg %in% purrr::map_chr(endpoint$get$parameters ,'name'))){
+            prm = endpoint$get$parameters[[which(purrr::map_chr(endpoint$get$parameters ,'name') %in% arg)]]
+            mAdd = parse_open_api_params(prm)
         } else {
-            mArg <- arg
-            if (arg == "threshold") {
-                mArg <- "diffExThreshold"
-            } else if (arg == "with") {
-                mArg <- "geneWith"
-            } else if (arg == "start") {
-                mArg <- "nuclStart"
-            } else if (arg == "size") {
-                mArg <- "nuclSize"
-            } else if (arg == "query") mArg <- "search"
-
-            # this reads the descriptions environment defined in the global
-            # scope. used to use global environment but wanted to clean that up
-            # when debuggin -ogan
-            mAdd <- pandoc(get(paste0(mArg, "Description"),descriptions))
+            mAdd <- ''
         }
         param = glue::glue("#' @param {arg} {mAdd}\n\n")
 

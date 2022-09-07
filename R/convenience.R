@@ -8,7 +8,7 @@
 #' @keywords misc
 #' @return NULL
 #' @export
-setGemmaUser <- function(username = NULL, password = NULL) {
+set_gemma_user <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
     NULL
@@ -25,16 +25,16 @@ setGemmaUser <- function(username = NULL, password = NULL) {
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
 #' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
-#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' Use \code{forget_gemma_memoised} to clear the cache.
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
 #' @keywords platform
 #' @export
 #' @examples
-#' dat <- getPlatformAnnotation("GPL96")
+#' dat <- get_platform_annotations("GPL96")
 #' str(dat)
-getPlatformAnnotation <- function(platform,
+get_platform_annotations <- function(platform,
     annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
@@ -45,7 +45,7 @@ getPlatformAnnotation <- function(platform,
         if (!is.na(file)){
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memgetPlatformAnnotation(
+        out <- memget_platform_annotations(
             platform = platform,
             annotType = annotType,
             file = NA,
@@ -57,7 +57,7 @@ getPlatformAnnotation <- function(platform,
     }
 
     if (!is.numeric(platform)) {
-        platforms <- getPlatformsInfo(platform)
+        platforms <- get_platforms(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
             stop(platform, " is not a valid single platform.")
         }
@@ -114,16 +114,16 @@ getPlatformAnnotation <- function(platform,
     }
 }
 
-#' Memoise getPlatformAnnotation
+#' Memoise get_platform_annotations
 #'
 #' @noRd
-memgetPlatformAnnotation <- function(platform,
+memget_platform_annotationsn <- function(platform,
                                      annotType = c("bioProcess", "noParents", "allParents"),
                                      file = getOption("gemma.file", NA_character_),
                                      overwrite = getOption("gemma.overwrite", FALSE),
                                      memoised = getOption("gemma.memoise", FALSE),
                                      unzip = FALSE) {
-    mem_call <- memoise::memoise(getPlatformAnnotation, cache = gemmaCache())
+    mem_call <- memoise::memoise(get_platform_annotations, cache = gemmaCache())
     mem_call(
         platform = platform, annotType = annotType, memoised = FALSE, file = file,
         overwrite = overwrite, unzip=unzip
@@ -131,7 +131,7 @@ memgetPlatformAnnotation <- function(platform,
 }
 
 
-#' Access gene expression data and metadata
+#' Compile gene expression data and metadata
 #'
 #' Return an annotated Bioconductor-compatible
 #' data structure of the queried dataset, including expression data and
@@ -147,24 +147,24 @@ memgetPlatformAnnotation <- function(platform,
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
 #' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
-#' Use \code{forgetGemmaMemoised} to clear the cache.
-#' cache. Use \code{forgetGemmaMemoised} to clear the cache.
+#' Use \code{forget_gemma_memoised} to clear the cache.
+#' cache.
 #'
 #' @return A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
 #' @keywords dataset
 #' @export
 #' @examples
-#' getDataset("GSE2018")
-getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
+#' get_dataset_object("GSE2018")
+get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se" && type != 'tidy') {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
-    exprM <- getDatasetExpression(dataset, filter,memoised = memoised)
+    exprM <- get_dataset_expression(dataset, filter,memoised = memoised)
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
     exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid") %>%
         data.matrix()
-    design <- getDatasetDesign(dataset,memoised = memoised)
+    design <- get_dataset_design(dataset,memoised = memoised)
 
     # This annotation table is required
     annots <- data.frame(
@@ -177,7 +177,7 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
     exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
     # Experiment description
-    dat <- getDatasetsInfo(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
+    dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
     other <- list(
         database = dat$externalDatabase,
         accesion = dat$accession,
@@ -256,23 +256,23 @@ getDataset <- function(dataset, filter = FALSE, type = "se", memoised = getOptio
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
 #' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
-#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' Use \code{forget_gemma_memoised} to clear the cache.
 #'
 #' @return A list of data tables with differential expression
 #' values per result set.
 #' @keywords dataset
 #' @export
 #' @examples
-#' getDatasetDE("GSE2018")
-getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoised", FALSE)) {
+#' get_differential_expression_values("GSE2018")
+get_differential_expression_values <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
-        rss <- getDatasetResultSets(dataset,memoised = memoised)
+        rss <- get_result_sets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
             stop("The queried resultSet is not derived from this dataset. Check the available resultSets with `getDatasetResultSets()` or query without the dataset parameter.")
         }
     }
     else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
-        rss <- getDatasetResultSets(dataset,memoised = memoised)
+        rss <- get_result_sets(dataset,memoised = memoised)
          if (nrow(rss) > 1){
             resultSet <- rss$resultSet.id %>% unique()
         } else{
@@ -295,9 +295,9 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
 
 
 
-#' Get genome versions
+#' Get taxa
 #'
-#' Returns the genome version used within Gemma
+#' Returns taxa and their versions used in Gemma
 #'
 #' @param memoised Whether or not to save to cache for future calls with the same inputs
 #' and use the result saved in cache if a result is already saved. Doing
@@ -307,37 +307,15 @@ getDatasetDE <- function(dataset = NA_character_, resultSet = NA_integer_, memoi
 #' @keywords misc
 #' @export
 #' @examples
-#' getGenomeVersions()
-getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
-    LOOKUP_TABLE <- data.table(
-        id = c(1, 2, 3, 11, 12, 13, 14),
-        name = c("human", "mouse", "rat", "yeast", "zebrafish", "fly", "worm"),
-        scientific = c(
-            "Homo sapiens", "Mus musculus", "Rattus norvegicus",
-            "Saccharomyces cerevisiae", "Danio rerio", "Drosophila melanogaster",
-            "Caenorhabditis elegans"
-        ),
-        ncbi = c(9606,
-                 10090,
-                 10116,
-                 4932,
-                 7955,
-                 7227,
-                 6239),
-        example_gene = c(6125, # this list is created by picking a random gene with homologues in each species
-                         100503670,
-                         81763,
-                         855972,
-                         326961,
-                         3355124,
-                         174371)
-    )
-
-    LOOKUP_TABLE$genome_version <- sapply(seq_len(nrow(LOOKUP_TABLE)),function(i){
-        getGeneLocation(LOOKUP_TABLE$example_gene[i],memoised = memoised)$taxon.Database.Name
-    })
-
-    LOOKUP_TABLE[,c('name','scientific','ncbi','genome_version')]
+#' get_taxa()
+get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
+    out <- get_taxa_by_ids(c(9606,
+                      10090,
+                      10116,
+                      4932,
+                      7955,
+                      7227,
+                      6239),memoised = memoised)
 }
 
 #' Custom gemma call
@@ -352,9 +330,9 @@ getGenomeVersions <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @return A list if `json = TRUE` and an httr response if `FALSE`
 #' @examples
 #' # get singular value decomposition for the dataset
-#' gemmaCall('datasets/{dataset}/svd',dataset = 1)
+#' gemma_call('datasets/{dataset}/svd',dataset = 1)
 #' @export
-gemmaCall <- function(call,...,json = TRUE){
+gemma_call <- function(call,...,json = TRUE){
     attach(list(...),warn.conflicts = FALSE)
     out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
     if(json){
