@@ -1081,10 +1081,10 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
     fname <- "get_platform_element_genes"
     preprocessor <- processGenes
     validators <- list(
-        platform = validateSingleID, element = validateSingleID,
+        platform = validateSingleID, probe = validateSingleID,
         offset = validatePositiveInteger, limit = validateLimit
     )
-    endpoint <- "platforms/{encode(platform)}/elements/{encode(element)}/genes?offset={encode(offset)}&limit={encode(limit)}"
+    endpoint <- "platforms/{encode(platform)}/elements/{encode(probe)}/genes?offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")

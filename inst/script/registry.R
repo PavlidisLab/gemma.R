@@ -242,7 +242,7 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
 #     preprocessor = quote(processElements)
 # )
 
-registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&limit={limit}",
+registerEndpoint("platforms/{platform}/elements/{probe}/genes?offset={offset}&limit={limit}",
     "get_platform_element_genes",
     open_api_name = 'get_platform_element_genes', keyword = "platform",
     defaults = list(
@@ -253,7 +253,7 @@ registerEndpoint("platforms/{platform}/elements/{element}/genes?offset={offset}&
     ),
     validators = alist(
         platform = validateSingleID,
-        element = validateSingleID,
+        probe = validateSingleID,
         offset = validatePositiveInteger,
         limit = validateLimit
     ),

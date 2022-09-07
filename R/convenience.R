@@ -207,7 +207,7 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
             assayData = exprM,
             phenoData = phenoData,
             experimentData = expData,
-            annotation = getDatasetPlatforms(dataset,memoised = memoised)$platform.ShortName
+            annotation = get_dataset_platforms(dataset,memoised = memoised)$platform.ShortName
         )
     } else if(type=='tidy'){
         design <- tibble::rownames_to_column(design, "Sample")
