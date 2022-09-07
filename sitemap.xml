@@ -22,6 +22,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/blank_processor.html</loc>
+  </url>
+  <url>
     <loc>/reference/checkBounds.html</loc>
   </url>
   <url>
@@ -34,7 +37,7 @@
     <loc>/reference/encode.html</loc>
   </url>
   <url>
-    <loc>/reference/forgetGemmaMemoised.html</loc>
+    <loc>/reference/forget_gemma_memoised.html</loc>
   </url>
   <url>
     <loc>/reference/gemma.R.html</loc>
@@ -43,79 +46,73 @@
     <loc>/reference/gemmaCache.html</loc>
   </url>
   <url>
-    <loc>/reference/gemmaCall.html</loc>
-  </url>
-  <url>
     <loc>/reference/gemmaPath.html</loc>
   </url>
   <url>
-    <loc>/reference/getDataset.html</loc>
+    <loc>/reference/gemma_call.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetAnnotations.html</loc>
+    <loc>/reference/get_dataset_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetDE.html</loc>
+    <loc>/reference/get_dataset_design.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetDEA.html</loc>
+    <loc>/reference/get_dataset_differential_expression_analyses.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetDesign.html</loc>
+    <loc>/reference/get_dataset_expression.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetExpression.html</loc>
+    <loc>/reference/get_dataset_object.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetPlatforms.html</loc>
+    <loc>/reference/get_dataset_platforms.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetResultSets.html</loc>
+    <loc>/reference/get_dataset_samples.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetSamples.html</loc>
+    <loc>/reference/get_datasets_by_ids.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetTidy.html</loc>
+    <loc>/reference/get_differential_expression_values.html</loc>
   </url>
   <url>
-    <loc>/reference/getDatasetsInfo.html</loc>
+    <loc>/reference/get_gene_go_terms.html</loc>
   </url>
   <url>
-    <loc>/reference/getGeneGO.html</loc>
+    <loc>/reference/get_gene_locations.html</loc>
   </url>
   <url>
-    <loc>/reference/getGeneLocation.html</loc>
+    <loc>/reference/get_gene_probes.html</loc>
   </url>
   <url>
-    <loc>/reference/getGeneProbes.html</loc>
+    <loc>/reference/get_genes.html</loc>
   </url>
   <url>
-    <loc>/reference/getGenesInfo.html</loc>
+    <loc>/reference/get_platform_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/getGenomeVersions.html</loc>
+    <loc>/reference/get_platform_datasets.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatformAnnotation.html</loc>
+    <loc>/reference/get_platform_element_genes.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatformDatasets.html</loc>
+    <loc>/reference/get_platforms.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatformElementGenes.html</loc>
+    <loc>/reference/get_result_sets.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatformElements.html</loc>
+    <loc>/reference/get_taxa.html</loc>
   </url>
   <url>
-    <loc>/reference/getPlatformsInfo.html</loc>
+    <loc>/reference/get_taxa_by_ids.html</loc>
   </url>
   <url>
-    <loc>/reference/getTaxonDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/getTaxonInfo.html</loc>
+    <loc>/reference/get_taxon_datasets.html</loc>
   </url>
   <url>
     <loc>/reference/index.html</loc>
@@ -181,13 +178,13 @@
     <loc>/reference/processTaxon.html</loc>
   </url>
   <url>
-    <loc>/reference/searchAnnotations.html</loc>
+    <loc>/reference/search_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/searchDatasets.html</loc>
+    <loc>/reference/search_datasets.html</loc>
   </url>
   <url>
-    <loc>/reference/setGemmaUser.html</loc>
+    <loc>/reference/set_gemma_user.html</loc>
   </url>
   <url>
     <loc>/reference/validateBoolean.html</loc>
