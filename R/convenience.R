@@ -131,8 +131,8 @@ memget_platform_annotations <- function(platform,
 #' Compile gene expression data and metadata
 #'
 #' Return an annotated Bioconductor-compatible
-#' data structure of the queried dataset, including expression data and
-#' the experimental design.
+#' data structure or a long form tibble of the queried dataset, including 
+#' expression data and the experimental design.
 #'
 #' @param dataset A dataset identifier.
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.

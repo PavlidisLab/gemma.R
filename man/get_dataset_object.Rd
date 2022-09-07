@@ -32,8 +32,8 @@ A SummarizedExperiment, ExpressionSet or tibble containing metadata and expressi
 }
 \description{
 Return an annotated Bioconductor-compatible
-data structure of the queried dataset, including expression data and
-the experimental design.
+data structure or a long form tibble of the queried dataset, including
+expression data and the experimental design.
 }
 \examples{
 get_dataset_object("GSE2018")
