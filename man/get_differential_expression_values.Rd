@@ -15,10 +15,10 @@ get_differential_expression_values(
 
 \item{resultSet}{A resultSet identifier.}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the catche is always used.
-Use \code{forget_gemma_memoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the
+same inputs and use the result saved in cache if a result is already saved.
+Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 }
 \value{
 A list of data tables with differential expression

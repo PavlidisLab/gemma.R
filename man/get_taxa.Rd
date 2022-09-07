@@ -7,10 +7,10 @@
 get_taxa(memoised = getOption("gemma.memoised", FALSE))
 }
 \arguments{
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the catche is always used.
-Use \code{forgetGemmaMemoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the
+same inputs and use the result saved in cache if a result is already saved.
+Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 }
 \value{
 A data frame

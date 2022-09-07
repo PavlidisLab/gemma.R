@@ -22,10 +22,10 @@ get_platform_annotations(
 
 \item{overwrite}{Whether or not to overwrite an existing file}
 
-\item{memoised}{Whether or not to save to cache for future calls with the same inputs
-and use the result saved in cache if a result is already saved. Doing
-\code{options(gemma.memoised = TRUE)} will ensure that the cache is always used.
-Use \code{forget_gemma_memoised} to clear the cache.}
+\item{memoised}{Whether or not to save to cache for future calls with the
+same inputs and use the result saved in cache if a result is already saved.
+Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{unzip}{Whether or not to unzip the file (if @param file is not empty)}
 }

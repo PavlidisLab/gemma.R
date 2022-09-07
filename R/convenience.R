@@ -22,10 +22,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #' @param annotType Which GO terms should the output include
 #' @param file Where to save the annotation file to, or empty to just load into memory
 #' @param overwrite Whether or not to overwrite an existing file
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
-#' Use \code{forget_gemma_memoised} to clear the cache.
+#' @inheritParams memoise
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
@@ -144,11 +141,7 @@ memget_platform_annotationsn <- function(platform,
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the cache is always used.
-#' Use \code{forget_gemma_memoised} to clear the cache.
-#' cache.
+#' @inheritParams memoise
 #'
 #' @return A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
 #' @keywords dataset
@@ -253,11 +246,8 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
-#' Use \code{forget_gemma_memoised} to clear the cache.
-#'
+#' @inheritParams memoise
+#' 
 #' @return A list of data tables with differential expression
 #' values per result set.
 #' @keywords dataset
@@ -299,10 +289,7 @@ get_differential_expression_values <- function(dataset = NA_character_, resultSe
 #'
 #' Returns taxa and their versions used in Gemma
 #'
-#' @param memoised Whether or not to save to cache for future calls with the same inputs
-#' and use the result saved in cache if a result is already saved. Doing
-#' `options(gemma.memoised = TRUE)` will ensure that the catche is always used.
-#' Use \code{forgetGemmaMemoised} to clear the cache.
+#' @inheritParams memoise
 #' @return A data frame
 #' @keywords misc
 #' @export
