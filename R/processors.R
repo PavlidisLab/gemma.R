@@ -378,7 +378,8 @@ processElements <- function(d) {
 
     data.table(
         mapping.Name = d[["name"]],
-        mapping.Description = d[["description"]]
+        mapping.Description = d[["description"]],
+        processGemmaArray(d$arrayDesign)
     )
 }
 
