@@ -195,7 +195,7 @@ NULL
 #'    14           \tab worm                \tab Caenorhabditis elegans   \tab 6239
 #'}
 #' @examples
-#' get_taxa_by_ids(c('mouse','human'))
+#' gemma.R:::get_taxa_by_ids(c('mouse','human'))
 #' @return A data table with the queried taxa's details.
 NULL
 

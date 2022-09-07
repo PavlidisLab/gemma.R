@@ -1671,7 +1671,7 @@ memsearch_annotations <- function(query, raw = getOption("gemma.raw", FALSE), me
 #' @keywords internal
 #'
 #' @examples
-#' get_taxa_by_ids(c("mouse", "human"))
+#' gemma.R:::get_taxa_by_ids(c("mouse", "human"))
 get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE

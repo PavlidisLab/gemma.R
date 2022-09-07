@@ -62,6 +62,6 @@ A data table with the queried taxa's details.
 Retrieve taxa by their identifiers
 }
 \examples{
-get_taxa_by_ids(c("mouse", "human"))
+gemma.R:::get_taxa_by_ids(c("mouse", "human"))
 }
 \keyword{internal}
