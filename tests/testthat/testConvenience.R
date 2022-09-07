@@ -1,5 +1,5 @@
 test_that("getPlatformAnnotation queries work", {
-    dat <- getPlatformAnnotation(1)
+    dat <- get_platform_annotations(1)
     expect_equal(colnames(dat), c("ProbeName", "GeneSymbols", "GeneNames", "GOTerms", "GemmaIDs", "NCBIids"))
     expect_false(nrow(dat) == 0)
 })
@@ -9,10 +9,10 @@ test_that("getDataset works properly", {
     # These tests pass when run locally
     skip_on_ci()
     skip_on_bioc()
-    expr <- getDatasetExpression(1, filter = TRUE)
-    eset <- getDataset("GSE2018", filter = TRUE, type = "eset")
-    sumexp <- getDataset("GSE2018", filter = TRUE, type = "se")
-    design <- getDatasetDesign(1)
+    expr <- get_dataset_expression(1, filter = TRUE)
+    eset <- get_dataset_object("GSE2018", filter = TRUE, type = "eset")
+    sumexp <- get_dataset_object("GSE2018", filter = TRUE, type = "se")
+    design <- get_dataset_design(1)
 
     expect_equal(nrow(expr), eset %>% nrow() %>% unname())
     expect_equal(Biobase::featureNames(eset), expr$Probe)
@@ -31,9 +31,9 @@ test_that("getDatasetTidy works properly", {
     # These tests pass when run locally
     skip_on_ci()
     skip_on_bioc()
-    dat <- getDatasetExpression(1)
-    tidy <- getDataset(1,type = 'tidy')
-    design <- getDatasetDesign(1)
+    dat <- get_dataset_expression(1)
+    tidy <- get_dataset_object(1,type = 'tidy')
+    design <- get_dataset_design(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
     expect_equal((ncol(dat) - 4) * nrow(dat), nrow(tidy))
     # Check design matrix
@@ -41,21 +41,21 @@ test_that("getDatasetTidy works properly", {
 })
 
 test_that("getDatasetDE works properly",{
-    dat <- getDatasetDE(1)
+    dat <- get_differential_expression_values(1)
     expect_gt(nrow(dat[[1]]), 10)
-    dat <- getDatasetDE(resultSet = names(dat))[[1]]
+    dat <- get_differential_expression_values(resultSet = names(dat))[[1]]
     expect_gt(nrow(dat), 10)
-    dat <- getDatasetDE(2)
+    dat <- get_differential_expression_values(2)
     expect_equal(length(dat), 3)
 })
 
 
 test_that('getGenomeVersions works properly',{
-    out <- getGenomeVersions()
-    expect_true(!is.null(out$genome_version))
+    out <- get_taxa()
+    expect_true(!is.null(out$taxon.Database.Name))
 })
 
 test_that('gemmaCall works properly',{
-    out<- gemmaCall('datasets/{dataset}/svd',dataset = 1)
+    out<- gemma_call('datasets/{dataset}/svd',dataset = 1)
     expect_is(out,'list')
 })

@@ -1,6 +1,6 @@
 test_that("getTaxonInfo queries work", {
-    dat <- getTaxonInfo(c("mouse", "human"))
-    raw <- getTaxonInfo(c("mouse", "human"),raw = TRUE)
+    dat <- gemma.R:::get_taxa_by_ids(c("mouse", "human"))
+    raw <- gemma.R:::get_taxa_by_ids(c("mouse", "human"),raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
@@ -11,8 +11,8 @@ test_that("getTaxonInfo queries work", {
 })
 
 test_that("getTaxonDatasets queries work", {
-    dat <- getTaxonDatasets("mouse")
-    raw <- getTaxonDatasets("mouse",raw = TRUE)
+    dat <- get_taxon_datasets("mouse")
+    raw <- get_taxon_datasets("mouse",raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(

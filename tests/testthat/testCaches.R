@@ -1,25 +1,25 @@
 test_that('caches work',{
-  forgetGemmaMemoised()
+    forget_gemma_memoised()
 
   timeNonMemo =
   microbenchmark::microbenchmark(
-    searchDatasets("bipolar", limit = 100, taxon = "human",
+    search_datasets("bipolar", limit = 100, taxon = "human",
                    memoise = FALSE),
     times = 1,unit = 'ms') %>% summary
 
-  result = searchDatasets("bipolar", limit = 100, taxon = "human", memoise = TRUE)
+  result = search_datasets("bipolar", limit = 100, taxon = "human", memoise = TRUE)
 
   timeMemo =
     microbenchmark::microbenchmark(
-      searchDatasets("bipolar", limit = 100, taxon = "human",
+        search_datasets("bipolar", limit = 100, taxon = "human",
                      memoise = TRUE),
       times = 1,unit = 'ms') %>% summary
 
-  forgetGemmaMemoised()
+  forget_gemma_memoised()
 
   timeForgot =
     microbenchmark::microbenchmark(
-      searchDatasets("bipolar", limit = 100, taxon = "human",
+        search_datasets("bipolar", limit = 100, taxon = "human",
                      memoise = TRUE),
       times = 1,unit = 'ms') %>% summary
 
@@ -33,25 +33,25 @@ test_that('caches work',{
   test_gse = 'GSE2018'
 
   timeNonMemo = microbenchmark::microbenchmark(
-    getDataset(test_gse, memoised = FALSE),
+      get_dataset_object(test_gse, memoised = FALSE),
     times = 1, unit = 'ms') %>% summary
 
-  result = getDataset(test_gse, memoised = TRUE)
+  result = get_dataset_object(test_gse, memoised = TRUE)
 
   timeMemo = microbenchmark::microbenchmark(
-    getDataset(test_gse, memoised = TRUE),
+      get_dataset_object(test_gse, memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   options(gemma.memoised = TRUE)
 
   optionMemo = microbenchmark::microbenchmark(
-    getDataset(test_gse),
+      get_dataset_object(test_gse),
     times = 1, unit = 'ms') %>% summary
 
-  forgetGemmaMemoised()
+  forget_gemma_memoised()
 
   timeForgot = microbenchmark::microbenchmark(
-    getDataset(test_gse, memoised = TRUE),
+      get_dataset_object(test_gse, memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   testthat::expect_lt(timeMemo$mean,timeForgot$mean)
@@ -61,24 +61,24 @@ test_that('caches work',{
   # test custom caches
   non_default = tempfile()
   options(gemma.cache = non_default)
-  forgetGemmaMemoised()
+  forget_gemma_memoised()
 
   testthat::expect_true(length(list.files(non_default)) == 0)
-  result = getDataset(test_gse, memoised = TRUE)
+  result = get_dataset_object(test_gse, memoised = TRUE)
 
   testthat::expect_true(length(list.files(non_default)) >= 0)
   nonDefaultPath = microbenchmark::microbenchmark(
-    getDataset(test_gse,memoised = TRUE),
+      get_dataset_object(test_gse,memoised = TRUE),
     times = 1, unit = 'ms') %>% summary
 
   testthat::expect_lt(nonDefaultPath$mean,timeNonMemo$mean)
-  forgetGemmaMemoised()
+  forget_gemma_memoised()
   testthat::expect_true(length(list.files(non_default)) == 0)
 
-  expect_warning(getPlatformsInfo(1,file = tempfile(),memoised = TRUE),'Saving to files is not supported')
+  expect_warning(get_platforms(1,file = tempfile(),memoised = TRUE),'Saving to files is not supported')
 
 })
 # don't forget to unmemoise at the end
-forgetGemmaMemoised()
+forget_gemma_memoised()
 options(gemma.memoised = FALSE)
 options(gemma.cache = NULL)
