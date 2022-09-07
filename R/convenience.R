@@ -114,7 +114,7 @@ get_platform_annotations <- function(platform,
 #' Memoise get_platform_annotations
 #'
 #' @noRd
-memget_platform_annotationsn <- function(platform,
+memget_platform_annotations <- function(platform,
                                      annotType = c("bioProcess", "noParents", "allParents"),
                                      file = getOption("gemma.file", NA_character_),
                                      overwrite = getOption("gemma.overwrite", FALSE),
