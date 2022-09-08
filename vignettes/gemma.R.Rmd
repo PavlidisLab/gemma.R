@@ -5,6 +5,8 @@ author:
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
 - name: Jordan Sicherman
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
+- name: B. Ogan Mancarci
+  affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
 package: gemma.R
 output:
     BiocStyle::html_document
