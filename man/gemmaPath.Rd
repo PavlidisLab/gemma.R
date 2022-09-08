@@ -6,6 +6,9 @@
 \usage{
 gemmaPath()
 }
+\value{
+Link to Gemma API
+}
 \description{
 Get gemma path
 }

@@ -9,6 +9,9 @@ blank_processor(data)
 \arguments{
 \item{data}{any data}
 }
+\value{
+Data as is
+}
 \description{
 A blank processor that returns data as is
 }
