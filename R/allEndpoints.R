@@ -265,10 +265,7 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with the queried datasets' resultSet ID(s). Use
-#' \code{\link{get_differential_expression_values}} to get differential expression
-#' values (see examples). Use \code{\link{get_dataset_differential_expression_analyses}}
-#' to get more detailed information about a result set.
+#' @inherit processDatasetResultSets return
 #' @export
 #'
 #' @keywords dataset
@@ -431,8 +428,7 @@ memget_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the samples of the queried dataset.
-#' A \code{404 error} if the given identifier does not map to any object
+#' @inherit processSamples return
 #' @export
 #'
 #' @keywords dataset
@@ -516,8 +512,7 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the platform(s) of the queried
-#' dataset. A \code{404 error} if the given identifier does not map to any object
+#' @inherit processPlatforms return
 #' @export
 #'
 #' @keywords dataset
@@ -867,7 +862,7 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the queried platform(s)
+#' @inherit processPlatforms return
 #' @export
 #'
 #' @keywords platform

@@ -48,7 +48,26 @@ filename.}
 into the output object's attributes such as offset and available elements.}
 }
 \value{
-A data table with information about the queried platform(s)
+A data table with information about the platform(s). A list if \code{raw = TRUE}. A \code{404 error} if the given identifier
+does not map to any object
+
+The fields of the output data.table are:
+\itemize{
+\item \code{platform.ID}: Internal identifier of the platform
+\item \code{platform.ShortName}: Shortname of the platform.
+\item \code{platform.Name}: Full name of the platform.
+\item \code{platform.Description}: Free text description of the platform
+\item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
+\item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
+\item \code{platform.GeneCount}
+\item \code{platform.ProbeSequenceCount}
+\item \code{platform.ProbeAlignmentCount}
+\item \code{platform.ProbeGeneCount}
+\item \code{platform.ElementCount}
+\item \code{taxon.Name}: Name of the species platform was made for
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{technology.Type}: Technology type for the platform.
+}
 }
 \description{
 Retrieve all platforms
