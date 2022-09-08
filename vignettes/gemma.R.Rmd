@@ -179,7 +179,7 @@ get_genes('Eno2')
 probes <- get_gene_probes(2026)
 
 # remove the description for brevity of output
-head(probes[,.SD, .SDcols = !colnames(probes) %in% 'mapping.Description'])
+head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','array.Description')])
 
 ```
 
