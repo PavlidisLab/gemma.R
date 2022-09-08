@@ -176,7 +176,11 @@ symbols.
 get_genes('Eno2')
 
 # ncbi id for human ENO2
-head(get_gene_probes(2026))
+probes <- get_gene_probes(2026)
+
+# remove the description for brevity of output
+head(probes[,.SD, .SDcols = !colnames(probes) %in% 'mapping.Description'])
+
 ```
 
 ## Differential expression analyses
