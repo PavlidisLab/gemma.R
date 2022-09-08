@@ -199,7 +199,8 @@ Gene expression distributions of bipolar patients during manic phase and control
 <div class="section level3">
 <h3 id="platform-annotations">Platform Annotations<a class="anchor" aria-label="anchor" href="#platform-annotations"></a>
 </h3>
-<p>Expression data in Gemma comes with re-annotated platform information where probe sequences are re-aligned to the relevant genomes and assigned go terms. A brief description of how we perform the re-annotations can be found <a href="https://pavlidislab.github.io/Gemma/curation.html#sequence-analysis-and-annotation" class="external-link">here</a>. <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations()</code></a> function allows access to these annotation files directly.</p>
+<p>Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations()</code></a> function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.</p>
+<p>Examples:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>     ProbeName   GeneSymbols                                     GeneNames
@@ -223,7 +224,6 @@ Gene expression distributions of bipolar patients during manic phase and control
 4:                         
 5:         32964       1559
 6:        303717      55788</code></pre>
-<p>RNA-seq datasets that do not rely on probesets are annotated using generic files including all genes of a species. Every species represented in Gemma has a generic annotation file assocaited with it. To see all available species try <a href="https://pavlidislab.github.io/gemma.R/reference/get_taxa.html" class="external-link"><code>get_taxa()</code></a></p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'Generic_human'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      ProbeName  GeneSymbols
@@ -307,7 +307,7 @@ Gene expression distributions of bipolar patients during manic phase and control
 <div class="section level3">
 <h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
 </h3>
-<p>Gemma also contains precomputed differential expression analyses for most of its datasets, and some datasets contain more than one analysis to account for different factors and their interactions. These tables are stored as resultSets, and you can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes:</p>
+<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. ome datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
