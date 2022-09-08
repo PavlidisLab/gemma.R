@@ -26,9 +26,8 @@ values per result set.
 }
 \description{
 Retrieves the differential expression result set(s) associated with the dataset.
-If there is more than one result set, use \code{\link[=getDatasetResultSets]{getDatasetResultSets()}} or \code{\link[=getDatasetDEA]{getDatasetDEA()}} to see
-the options and get the ID you want. Alternatively, you can query the resultset
-directly if you know its ID beforehand.
+To get more information about the contrasts in individual resultSets and
+annotation terms associated them, use \code{\link[=get_dataset_differential_expression_analyses]{get_dataset_differential_expression_analyses()}}
 }
 \details{
 In Gemma each result set corresponds to

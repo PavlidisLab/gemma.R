@@ -222,9 +222,8 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #' Retrieve differential expression results
 #'
 #' Retrieves the differential expression result set(s) associated with the dataset.
-#' If there is more than one result set, use [getDatasetResultSets()] or [getDatasetDEA()] to see
-#' the options and get the ID you want. Alternatively, you can query the resultset
-#' directly if you know its ID beforehand.
+#' To get more information about the contrasts in individual resultSets and 
+#' annotation terms associated them, use [get_dataset_differential_expression_analyses()]
 #'
 #' In Gemma each result set corresponds to
 #' the estimated effects associated with a single factor in the design, and each can have multiple contrasts (for each level compared to baseline).
