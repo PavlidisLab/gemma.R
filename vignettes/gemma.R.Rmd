@@ -81,7 +81,7 @@ batch corrected.
 ```{r search}
 search_datasets("bipolar", limit = 100, taxon = "human") %>%
     filter(geeq.batchCorrected == TRUE) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Samples)
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.SampleCount)
 ```
 
 We are left with two datasets. For simplicity, we'll pick
@@ -243,7 +243,7 @@ call. For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
 get_datasets_by_ids(datasets = c("GSE35974", "GSE46416")) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.Samples, taxon.Name)
+    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.SampleCount, taxon.Name)
 ```
 
 To query large amounts of data, the API has a pagination system which
