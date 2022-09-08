@@ -82,8 +82,19 @@
     <h2>Value</h2>
     
 
-<p>A processed data.table</p>
-    </div>
+<p>A data table with information about the samples of the queried dataset. A list if
+<code>raw = TRUE</code>. A <code>404 error</code> if the given identifier does not map to any object.</p>
+
+
+<p>The fields of the output data.table are:</p><ul><li><p><code>sample.Name</code>: Internal name given to the sample.</p></li>
+<li><p><code>sample.ID</code>: Internal ID of the sample</p></li>
+<li><p><code>sample.Description</code>: Free text description of the sample</p></li>
+<li><p><code>sample.Outlier</code>: Whether or not the sample is marked as an outlier</p></li>
+<li><p><code>sample.Accession</code>: Accession ID of the sample in it's original database</p></li>
+<li><p><code>sample.Database</code>: Database of origin for the sample</p></li>
+<li><p><code>sample.Characteristics</code>: Characteristics of the sample. This field is a data table</p></li>
+<li><p><code>sample.FactorValues</code>: Experimental factor values of the sample. This field is a data table</p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

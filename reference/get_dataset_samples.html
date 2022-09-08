@@ -118,27 +118,30 @@ into the output object's attributes such as offset and available elements.</p></
     <h2>Value</h2>
     
 
-<p>A data table with information about the samples of the queried dataset.
-A <code>404 error</code> if the given identifier does not map to any object</p>
-    </div>
+<p>A data table with information about the samples of the queried dataset. A list if
+<code>raw = TRUE</code>. A <code>404 error</code> if the given identifier does not map to any object.</p>
+
+
+<p>The fields of the output data.table are:</p><ul><li><p><code>sample.Name</code>: Internal name given to the sample.</p></li>
+<li><p><code>sample.ID</code>: Internal ID of the sample</p></li>
+<li><p><code>sample.Description</code>: Free text description of the sample</p></li>
+<li><p><code>sample.Outlier</code>: Whether or not the sample is marked as an outlier</p></li>
+<li><p><code>sample.Accession</code>: Accession ID of the sample in it's original database</p></li>
+<li><p><code>sample.Database</code>: Database of origin for the sample</p></li>
+<li><p><code>sample.Characteristics</code>: Characteristics of the sample. This field is a data table</p></li>
+<li><p><code>sample.FactorValues</code>: Experimental factor values of the sample. This field is a data table</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_dataset_samples</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   bioMaterial.Name  sample.Name sample.ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:  GSE2018_bioMaterial_4|GSM36426   BAL_1_A0B0        31</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: GSE2018_bioMaterial_15|GSM36437 BAL_27a_A0B0        20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: GSE2018_bioMaterial_26|GSM36448  BAL_43_A0B0         9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  GSE2018_bioMaterial_6|GSM36428  BAL_13_A0B0        29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: GSE2018_bioMaterial_17|GSM36439  BAL_29_A1B0        18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: GSE2018_bioMaterial_28|GSM36450 BAL_44b_A0B0         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                 sample.Correspondence</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                Corresponding to Samples:  GSM36426</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                Corresponding to Samples:  GSM36437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: Corresponding to samples:  ial corresponding to samples:  GSM36448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                Corresponding to Samples:  GSM36428</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                Corresponding to Samples:  GSM36439</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: Corresponding to samples:  ial corresponding to samples:  GSM36450</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sample.Name sample.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   BAL_1_A0B0        31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: BAL_27a_A0B0        20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  BAL_43_A0B0         9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  BAL_13_A0B0        29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  BAL_29_A1B0        18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: BAL_44b_A0B0         7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                       sample.Description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36426\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36437\nLast updated (according to GEO): May 27 2005</span>
@@ -146,34 +149,20 @@ A <code>404 error</code> if the given identifier does not map to any object</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36428\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36439\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36450\nLast updated (according to GEO): May 27 2005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.Outlier sample.Accession sample.Processed sample.Characteristics</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:          FALSE         GSM36426     1.036695e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:          FALSE         GSM36437     1.036693e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:          FALSE         GSM36448     1.035573e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:          FALSE         GSM36428     1.022102e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:          FALSE         GSM36439     1.033757e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:          FALSE         GSM36450     1.018980e+12      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.FactorValues array.ShortName</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &lt;data.table[2x4]&gt;           GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  array.Name array.Taxon</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    array.TaxonID array.Type array.Description array.Troubled</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:            NA         NA                NA          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:            NA         NA                NA          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:            NA         NA                NA          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:            NA         NA                NA          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:            NA         NA                NA          FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:            NA         NA                NA          FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.Outlier sample.Accession sample.Database sample.Characteristics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:          FALSE         GSM36426             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:          FALSE         GSM36437             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:          FALSE         GSM36448             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:          FALSE         GSM36428             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:          FALSE         GSM36439             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:          FALSE         GSM36450             GEO      &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.FactorValues</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &lt;data.table[2x4]&gt;</span>
 </code></pre></div>
     </div>
   </div>

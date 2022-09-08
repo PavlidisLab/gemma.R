@@ -118,13 +118,22 @@ into the output object's attributes such as offset and available elements.</p></
     <h2>Value</h2>
     
 
-<p>A data table with the queried datasets' resultSet ID(s). Use
+<p>A data table with the queried datasets' resultSet ID(s). A list if
+<code>raw = TRUE</code>. Use
 <code><a href="get_differential_expression_values.html">get_differential_expression_values</a></code> to get differential expression
 values (see examples). Use <code><a href="get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></code></p>
 
 
 <p>to get more detailed information about a result set.</p>
-    </div>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>resultSet.id</code>: Internal ID given to the result set. Can be used to access the results using <code><a href="get_differential_expression_values.html">get_differential_expression_values</a></code></p></li>
+<li><p><code>factor.category</code>: What is the category splitting the experimental groups in the result set (e.g. disease )</p></li>
+<li><p><code>factor.levels</code>: What are the conditions that are compared in the result set (e.g control, bipolar disorder)</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

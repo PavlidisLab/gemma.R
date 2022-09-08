@@ -82,8 +82,34 @@
     <h2>Value</h2>
     
 
-<p>A processed data.table</p>
-    </div>
+<p>A data table with information about the queried dataset(s). A list if
+<code>raw = TRUE</code>. Returns an empty list if no datasets matched. A successful
+response may contain 'Geeq' information, which aims to provide a unified
+metric to measure experiments by the quality of their data, and their
+suitability for use in Gemma. You can
+read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma/geeq.html" class="external-link">here</a>.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>ee.ShortName</code>: Shortname given to the dataset within Gemma. Often corresponds to accession ID</p></li>
+<li><p><code>ee.Name</code>: Full title of the dataset</p></li>
+<li><p><code>ee.ID</code>: Internal ID of the dataset.</p></li>
+<li><p><code>ee.Description</code>: Description of the dataset</p></li>
+<li><p><code>ee.Public</code>: Is the dataset publicly available.</p></li>
+<li><p><code>ee.Troubled</code>: Did an automatic process within gemma or a curator mark the dataset as "troubled"</p></li>
+<li><p><code>ee.Accession</code>: Accession ID of the dataset in the external database it was taken from</p></li>
+<li><p><code>ee.Database</code>: The name of the database where the dataset was taken from</p></li>
+<li><p><code>ee.URL</code>: URL of the original database</p></li>
+<li><p><code>ee.SampleCount</code>: Number of samples in the dataset</p></li>
+<li><p><code>ee.batchEffect</code>: A text field describing whether the dataset has batch effects</p></li>
+<li><p><code>ee.batchCorrected</code>: Whether batch correction has been performed on the dataset</p></li>
+<li><p><code>geeq.qScore</code>: Data quality score given to the dataset by Gemma.</p></li>
+<li><p><code>geeq.sScore</code>: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design</p></li>
+<li><p><code>taxon.Name</code>: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma</p></li>
+<li><p><code>taxon.ID</code>: Internal ID given to the taxon by Gemma</p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

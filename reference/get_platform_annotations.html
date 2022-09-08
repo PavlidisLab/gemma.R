@@ -112,21 +112,71 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
     <h2>Value</h2>
     
 
-<p>A table of annotations</p>
-    </div>
+<p>A table of annotations</p><ul><li><p><code>ProbeName</code>: Probeset names provided by the platform.
+Gene symbols for generic annotations</p></li>
+<li><p><code>GeneSymbols</code>: Genes that were found to be aligned to
+the probe sequence. Note that it is possible for probes to be
+non-specific. Alignment to multiple genes are indicated with gene
+symbols separated by "|"s</p></li>
+<li><p><code>GeneNames</code>: Name of the gene</p></li>
+<li><p><code>GOTerms</code>: GO Terms associated with the genes. <code>annotType</code>
+argument can be used to choose which terms should be included.</p></li>
+<li><p><code>GemmaIDs</code> and <code>NCBIids</code>: respective IDs for the genes.</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Classes ‘data.table’ and 'data.frame':	22283 obs. of  6 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ ProbeName  : chr  "211750_x_at" "216678_at" "216345_at" "207273_at" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneSymbols: chr  "TUBA1C|TUBA1A" "" "ZSWIM8" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GeneNames  : chr  "tubulin alpha 1c|tubulin alpha 1a" "" "zinc finger SWIM-type containing 8" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GOTerms    : chr  "GO:0051301|GO:0000226|GO:0007017|GO:0000278|GO:0030705|GO:0050807" "" "GO:0043161|GO:0016567|GO:2000627" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ GemmaIDs   : chr  "360802|172797" "" "235733" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ NCBIids    : chr  "84790|7846" "" "23053" "" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, ".internal.selfref")=&lt;externalptr&gt; </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      ProbeName   GeneSymbols                                     GeneNames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   216678_at                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   216345_at        ZSWIM8            zinc finger SWIM-type containing 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   207273_at                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 216025_x_at        CYP2C9 cytochrome P450 family 2 subfamily C member 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 218191_s_at        LMBRD1                     LMBR1 domain containing 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                 GOTerms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                                                    GO:0051301|GO:0000226|GO:0007017|GO:0000278|GO:0030705|GO:0050807</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                                                                                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                                                                                                     GO:0043161|GO:0016567|GO:2000627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                                                                                                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: GO:0008203|GO:0008202|GO:0019373|GO:0006805|GO:0097267|GO:0032787|GO:0042178|GO:0046456|GO:0008210|GO:0019627|GO:0042759|GO:0006082|GO:0070989|GO:0043603|GO:0016098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                                                                                               GO:0072583|GO:0007369|GO:0061462|GO:0038016|GO:0072665</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         GemmaIDs    NCBIids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 360802|172797 84790|7846</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:        235733      23053</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:         32964       1559</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:        303717      55788</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">'Generic_human'</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       ProbeName  GeneSymbols</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        LCN10        LCN10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     STAG3L5P     STAG3L5P</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: LOC101059976 LOC101059976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:         GAB3         GAB3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: LOC100287155 LOC100287155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:       RASSF2       RASSF2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                  GeneNames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                            lipocalin 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                     stromal antigen 3-like 5 pseudogene</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: arf-GAP with GTPase, ANK repeat and PH domain-containing protein 2-like</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                       GRB2 associated binding protein 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                       hypothetical protein LOC100287155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                  Ras association domain family member 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                       GOTerms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                                                                                                                                      GO:0030225|GO:0007165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                                                                                                                                                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: GO:0045670|GO:0050821|GO:1901222|GO:1901223|GO:0046849|GO:0048872|GO:0046330|GO:0001501|GO:0031954|GO:0007049|GO:0045667|GO:0043065|GO:0045860|GO:0007165|GO:0033137|GO:0001503|GO:0038168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    GemmaIDs   NCBIids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   441399    414332</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  8799043 101735302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  8779607 101059976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   389635    139716</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  8090381 100287155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   201914      9770</span>
 </code></pre></div>
     </div>
   </div>

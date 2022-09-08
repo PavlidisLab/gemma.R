@@ -139,13 +139,13 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">"bipolar"</span>, limit <span class="op">=</span> <span class="fl">100</span>, taxon <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Samples</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.SampleCount</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ee.ShortName                                                         ee.Name
 1:     GSE35974                 Expression data from the human cerebellum brain
 2:     GSE46416 State- and trait-specific gene expression in euthymia and mania
-   ee.ID ee.Accession ee.Samples
-1:  5939     GSE35974        144
-2:  8997     GSE46416         32</code></pre>
+   ee.ID ee.Accession ee.SampleCount
+1:  5939     GSE35974            144
+2:  8997     GSE46416             32</code></pre>
 <p>We are left with two datasets. For simplicity, we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997" class="external-link">GSE46416</a> since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -564,13 +564,13 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <p>The some endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.Samples</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.SampleCount</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ee.ShortName                                                         ee.Name
 1:     GSE35974                 Expression data from the human cerebellum brain
 2:     GSE46416 State- and trait-specific gene expression in euthymia and mania
-   ee.ID ee.Accession ee.Samples taxon.Name
-1:  5939     GSE35974        144      human
-2:  8997     GSE46416         32      human</code></pre>
+   ee.ID ee.Accession ee.SampleCount taxon.Name
+1:  5939     GSE35974            144      human
+2:  8997     GSE46416             32      human</code></pre>
 <p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s).</p>
 <p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
