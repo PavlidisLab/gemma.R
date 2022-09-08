@@ -155,7 +155,7 @@ A brief description of how we perform the re-annotations can be found
 function allows access to these annotation files directly.
 
 ```{r}
-get_platform_annotations('GPL96')
+head(get_platform_annotations('GPL96'))
 ```
 
 RNA-seq datasets that do not rely on probesets are annotated using generic files
@@ -163,7 +163,7 @@ including all genes of a species. Every species represented in Gemma has a gener
 annotation file assocaited with it. To see all available species try [`get_taxa()`](https://pavlidislab.github.io/gemma.R/reference/get_taxa.html)
 
 ```{r}
-get_platform_annotations('Generic_human')
+head(get_platform_annotations('Generic_human'))
 ```
 
 If you are interested in a particular gene, you can see which platforms include it
@@ -176,7 +176,7 @@ symbols.
 get_genes('Eno2')
 
 # ncbi id for human ENO2
-get_gene_probes(2026)
+head(get_gene_probes(2026))
 ```
 
 ## Differential expression analyses
