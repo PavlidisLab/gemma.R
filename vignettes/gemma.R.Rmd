@@ -5,6 +5,8 @@ author:
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
 - name: Jordan Sicherman
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
+- name: B. Ogan Mancarci
+  affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
 package: gemma.R
 output:
     BiocStyle::html_document
@@ -152,11 +154,11 @@ Expression data in Gemma comes with annotations for the gene each expression pro
 Examples:
 
 ```{r}
-get_platform_annotations('GPL96')
+head(get_platform_annotations('GPL96'))
 ```
 
 ```{r}
-get_platform_annotations('Generic_human')
+head(get_platform_annotations('Generic_human'))
 ```
 
 If you are interested in a particular gene, you can see which platforms include it
@@ -169,7 +171,11 @@ symbols.
 get_genes('Eno2')
 
 # ncbi id for human ENO2
-get_gene_probes(2026)
+probes <- get_gene_probes(2026)
+
+# remove the description for brevity of output
+head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','array.Description')])
+
 ```
 
 ## Differential expression analyses

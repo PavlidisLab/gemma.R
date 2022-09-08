@@ -609,6 +609,7 @@ processDEcontrasts <- function(rs, rsID) {
 #' A blank processor that returns data as is
 #' 
 #' @param data any data
+#' @return Data as is
 #' @keywords internal
 blank_processor <- function(data){
     return(data)

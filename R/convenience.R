@@ -6,12 +6,17 @@
 #' @param password Your password (or empty, if logging out)
 #'
 #' @keywords misc
-#' @return NULL
+#' @return TRUE if authentication is successful, FALSE if not
 #' @export
 set_gemma_user <- function(username = NULL, password = NULL) {
     options(gemma.username = username)
     options(gemma.password = password)
-    NULL
+    response = gemma_call('',json = FALSE)
+    if(response$status_code==200){
+        return(TRUE)
+    } else{
+        return(FALSE)
+    }
 }
 
 #' Gemma platform annotations
@@ -333,9 +338,19 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @export
 gemma_call <- function(call,...,json = TRUE){
     attach(list(...),warn.conflicts = FALSE)
-    out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
+    
+    if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
+        out <- httr::GET(
+            glue::glue(paste0(gemmaPath(),call)),
+            httr::authenticate(getOption('gemma.username'),
+                                 getOption("gemma.password")))
+    } else{
+       out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
+    }
+    
     if(json){
         out <- jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
     }
     return(out)
+
 }

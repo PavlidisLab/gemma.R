@@ -1,4 +1,5 @@
 #' Get gemma path
+#' @return Link to Gemma API
 #' @keywords internal
 gemmaPath <- function(){
     getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/")
