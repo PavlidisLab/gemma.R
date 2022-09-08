@@ -147,20 +147,13 @@ to get the experimental design matrix.
 
 ## Platform Annotations
 
-Expression data in Gemma comes with re-annotated platform information
-where probe sequences are re-aligned to the relevant genomes and assigned go terms.
-A brief description of how we perform the re-annotations can be found
-[here](https://pavlidislab.github.io/Gemma/curation.html#sequence-analysis-and-annotation).
-[`get_platform_annotations()`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html)
-function allows access to these annotation files directly.
+Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the [`get_platform_annotations()`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html) function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.
+
+Examples:
 
 ```{r}
 get_platform_annotations('GPL96')
 ```
-
-RNA-seq datasets that do not rely on probesets are annotated using generic files
-including all genes of a species. Every species represented in Gemma has a generic
-annotation file assocaited with it. To see all available species try [`get_taxa()`](https://pavlidislab.github.io/gemma.R/reference/get_taxa.html)
 
 ```{r}
 get_platform_annotations('Generic_human')
@@ -181,10 +174,9 @@ get_gene_probes(2026)
 
 ## Differential expression analyses
 
-Gemma also contains precomputed differential expression analyses for
-most of its datasets, and some datasets contain more than one analysis
-to account for different factors and their interactions. These tables
-are stored as resultSets, and you can access them using
+Gemma contains precomputed differential expression analyses for
+most of its datasets. Analyses can involve more than one factor, such as "sex" as well as "disease". ome datasets contain more than one analysis
+to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using
 [`get_differential_expression_values()`](https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html).
 From here on, we can explore and visualize the data to find the most
 differentially-expressed genes:
