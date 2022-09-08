@@ -274,6 +274,17 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
         return = glue::glue("#'\n#' @return {val}\n\n")
 
     }
+    
+    # @inherit tag only works for return for now
+    overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_inherit')
+    }) -> inherit_override
+    
+    if(any(inherit_override) && !any(return_override)){
+        assertthat::assert_that(sum(inherit_override)==1)
+        val = overrides[[fname]]$tags[[which(inherit_override)]]$val
+        return = glue::glue("#'\n#' @inherit {val$source} {val$fields}\n\n")
+    }
 
     cat(glue::glue("#' {mName}\n#'"), file = document, append = TRUE)
     cat(glue::glue("\n\n#' {mDesc}\n#'\n\n"), file = document, append = TRUE)

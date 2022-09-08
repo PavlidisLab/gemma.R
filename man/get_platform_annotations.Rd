@@ -31,12 +31,24 @@ used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 }
 \value{
 A table of annotations
+\itemize{
+\item \code{ProbeName}: Probeset names provided by the platform.
+Gene symbols for generic annotations
+\item \code{GeneSymbols}: Genes that were found to be aligned to
+the probe sequence. Note that it is possible for probes to be
+non-specific. Alignment to multiple genes are indicated with gene
+symbols separated by "|"s
+\item \code{GeneNames}: Name of the gene
+\item \code{GOTerms}: GO Terms associated with the genes. \code{annotType}
+argument can be used to choose which terms should be included.
+\item \code{GemmaIDs} and \code{NCBIids}: respective IDs for the genes.
+}
 }
 \description{
 Gets Gemma's platform annotations including mappings of microarray probes to genes.
 }
 \examples{
-dat <- get_platform_annotations("GPL96")
-str(dat)
+head(get_platform_annotations("GPL96"))
+head(get_platform_annotations('Generic_human'))
 }
 \keyword{platform}

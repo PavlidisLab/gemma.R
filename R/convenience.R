@@ -26,11 +26,23 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #' @param unzip Whether or not to unzip the file (if @param file is not empty)
 #'
 #' @return A table of annotations
+#' \itemize{
+#'     \item \code{ProbeName}: Probeset names provided by the platform. 
+#'     Gene symbols for generic annotations
+#'     \item \code{GeneSymbols}: Genes that were found to be aligned to
+#'     the probe sequence. Note that it is possible for probes to be 
+#'     non-specific. Alignment to multiple genes are indicated with gene
+#'     symbols separated by "|"s
+#'     \item \code{GeneNames}: Name of the gene
+#'     \item \code{GOTerms}: GO Terms associated with the genes. \code{annotType} 
+#'     argument can be used to choose which terms should be included.
+#'     \item \code{GemmaIDs} and \code{NCBIids}: respective IDs for the genes.
+#' }
 #' @keywords platform
 #' @export
 #' @examples
-#' dat <- get_platform_annotations("GPL96")
-#' str(dat)
+#' head(get_platform_annotations("GPL96"))
+#' head(get_platform_annotations('Generic_human'))
 get_platform_annotations <- function(platform,
     annotType = c("bioProcess", "noParents", "allParents"),
     file = getOption("gemma.file", NA_character_),
@@ -181,7 +193,7 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 
     title <- dat$name
     abstract <- dat$description
-    url <- paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$ee.ID)
+    url <- paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id)
 
     if (type == "se") {
         expData <- list(
@@ -289,7 +301,8 @@ get_differential_expression_values <- function(dataset = NA_character_, resultSe
 #' Returns taxa and their versions used in Gemma
 #'
 #' @inheritParams memoise
-#' @return A data frame
+#' @return A data frame including the names, IDs and database information
+#' about the taxons
 #' @keywords misc
 #' @export
 #' @examples

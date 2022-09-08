@@ -19,7 +19,7 @@ test_that("getPlatformDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.Name, ee.Samples)],
+        dat[, c(ee.ShortName, ee.Name, ee.SampleCount)],
         c(raw %>% purrr::map_chr('shortName'),
           raw %>% purrr::map_chr('name'),
           raw %>% purrr::map_chr('bioAssayCount')

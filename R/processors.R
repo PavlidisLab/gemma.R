@@ -1,4 +1,11 @@
 
+#' @keywords internal
+processDate <- function(x){
+    switch(as.character(is.character(x)),
+           `TRUE` = lubridate::ymd_hms(x), # parse ISO 8601 format
+           `FALSE` = as.POSIXct(x / 1e3, origin = "1970-01-01"))
+}
+    
 
 #' Replace missing data with NAs
 #' @param x Data
@@ -72,7 +79,33 @@ processGemmaArray <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the queried dataset(s). A list if
+#' \code{raw = TRUE}. Returns an empty list if no datasets matched. A successful 
+#' response may contain 'Geeq' information, which aims to provide a unified 
+#' metric to measure experiments by the quality of their data, and their 
+#' suitability for use in Gemma. You can
+#' read more about the geeq properties [here](https://pavlidislab.github.io/Gemma/geeq.html).
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{ee.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+#'     \item \code{ee.Name}: Full title of the dataset
+#'     \item \code{ee.ID}: Internal ID of the dataset.
+#'     \item \code{ee.Description}: Description of the dataset
+#'     \item \code{ee.Public}: Is the dataset publicly available. 
+#'     \item \code{ee.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+#'     \item \code{ee.Accession}: Accession ID of the dataset in the external database it was taken from
+#'     \item \code{ee.Database}: The name of the database where the dataset was taken from
+#'     \item \code{ee.URL}: URL of the original database
+#'     \item \code{ee.SampleCount}: Number of samples in the dataset
+#'     \item \code{ee.batchEffect}: A text field describing whether the dataset has batch effects
+#'     \item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
+#'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
+#'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
+#'     \item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
+#'     \item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+#' }
 #'
 #' @keywords internal
 processDatasets <- function(d) {
@@ -87,10 +120,8 @@ processDatasets <- function(d) {
         ee.Accession = d[["accession"]],
         ee.Database = d[["externalDatabase"]],
         ee.URL = d[["externalUri"]],
-        ee.Samples = d[["bioAssayCount"]],
-        ee.LastUpdated = switch(is.character(d[["lastUpdated"]]),
-                                lubridate::ymd_hms(d[["lastUpdated"]]), # parse ISO 8601 format
-                                as.POSIXct(d[["lastUpdated"]] / 1e3, origin = "1970-01-01")),
+        ee.SampleCount = d[["bioAssayCount"]],
+        ee.LastUpdated = processDate(d[["lastUpdated"]]),
         ee.batchEffect = d[["batchEffect"]],
         geeq.batchCorrected = checkBounds(d[["geeq"]][["batchCorrected"]]),
         geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
@@ -231,8 +262,21 @@ processResultSetFactors <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
-#'
+#' @return A data table with the queried datasets' resultSet ID(s). A list if
+#' \code{raw = TRUE}. Use 
+#' \code{\link{get_differential_expression_values}} to get differential expression
+#' values (see examples). Use \code{\link{get_dataset_differential_expression_analyses}}
+#' to get more detailed information about a result set.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{resultSet.id}: Internal ID given to the result set. Can be used to access the results using \code{\link{get_differential_expression_values}}
+#'     \item \code{factor.category}: What is the category splitting the experimental groups in the result set (e.g. disease )
+#'     \item \code{factor.levels}: What are the conditions that are compared in the result set (e.g control, bipolar disorder)
+#' 
+#' }
+#' 
 #' @keywords internal
 processDatasetResultSets <- function(d) {
     d <- jsonlite:::simplify(d)
@@ -315,34 +359,66 @@ processFile <- function(content) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the samples of the queried dataset. A list if
+#' \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any object.
+#' 
+#' The fields of the output data.table are:
+#' \itemize{
+#'     \item \code{sample.Name}: Internal name given to the sample.
+#'     \item \code{sample.ID}: Internal ID of the sample
+#'     \item \code{sample.Description}: Free text description of the sample
+#'     \item \code{sample.Outlier}: Whether or not the sample is marked as an outlier
+#'     \item \code{sample.Accession}: Accession ID of the sample in it's original database
+#'     \item \code{sample.Database}: Database of origin for the sample
+#'     \item \code{sample.Characteristics}: Characteristics of the sample. This field is a data table
+#'     \item \code{sample.FactorValues}: Experimental factor values of the sample. This field is a data table
+#' }
 #'
 #' @keywords internal
 processSamples <- function(d) {
     d <- jsonlite:::simplify(d)
 
     data.table(
-        bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
+        # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
         sample.Name = d[["name"]],
         sample.ID = checkBounds(d[["sample"]][["id"]]),
-        sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
+        # sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
         sample.Description = d[["description"]],
         sample.Outlier = d[["outlier"]],
         sample.Accession = checkBounds(d[["accession"]][["accession"]]),
-        sample.Database = checkBounds(d[["accession"]][["externalDatabase.name"]]),
-        sample.Processed = d[["processingDate"]],
+        sample.Database = checkBounds(d$accession$externalDatabase$name),
+        # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
         sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
-        sample.FactorValues = lapply(lapply(checkBounds(d[["sample"]][["factorValueObjects"]]), "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x))),
-        processGemmaArray(d[["arrayDesign"]])
-    )
+        sample.FactorValues = lapply(lapply(checkBounds(d[["sample"]][["factorValueObjects"]]), "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x)))# ,
+        # processGemmaArray(d[["arrayDesign"]]
+        )
 }
 
 #' Processes JSON as a vector of platforms
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
-#'
+#' @return A data table with information about the platform(s). A list if \code{raw = TRUE}. A \code{404 error} if the given identifier
+#'  does not map to any object
+#'  
+#'  The fields of the output data.table are:
+#'  \itemize{
+#'  \item \code{platform.ID}: Internal identifier of the platform
+#'  \item \code{platform.ShortName}: Shortname of the platform.
+#'  \item \code{platform.Name}: Full name of the platform.
+#'  \item \code{platform.Description}: Free text description of the platform
+#'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
+#'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
+#'  \item \code{platform.GeneCount}
+#'  \item \code{platform.ProbeSequenceCount}
+#'  \item \code{platform.ProbeAlignmentCount}
+#'  \item \code{platform.ProbeGeneCount}
+#'  \item \code{platform.ElementCount}
+#'  \item \code{taxon.Name}: Name of the species platform was made for
+#'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'  \item \code{technology.Type}: Technology type for the platform.
+#'  }
+#'  
 #' @keywords internal
 processPlatforms <- function(d) {
     d <- jsonlite:::simplify(d)
@@ -361,8 +437,8 @@ processPlatforms <- function(d) {
         platform.ElementCount = d[["designElementCount"]],
         taxon.Name = d[["taxon"]],
         taxon.ID = d[["taxonID"]],
-        technology.Type = d[["technologyType"]],
-        technology.Color = d[["color"]]
+        technology.Type = d[["technologyType"]]#,
+        # technology.Color = d[["color"]]
     )
 }
 

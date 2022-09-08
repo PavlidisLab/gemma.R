@@ -24,11 +24,7 @@
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the queried dataset(s). Returns
-#' an empty list if no datasets matched. A successful response may contain 'Geeq'
-#' information, which aims to provide a unified metric to measure experiments by
-#' the quality of their data, and their suitability for use in Gemma. You can
-#' \href{https://pavlidislab.github.io/Gemma/geeq.html}{read more about the geeq properties here}
+#' @inherit processDatasets return
 #' @export
 #'
 #' @keywords dataset

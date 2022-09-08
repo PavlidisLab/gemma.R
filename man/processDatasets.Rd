@@ -10,7 +10,33 @@ processDatasets(d)
 \item{d}{The JSON to process}
 }
 \value{
-A processed data.table
+A data table with information about the queried dataset(s). A list if
+\code{raw = TRUE}. Returns an empty list if no datasets matched. A successful
+response may contain 'Geeq' information, which aims to provide a unified
+metric to measure experiments by the quality of their data, and their
+suitability for use in Gemma. You can
+read more about the geeq properties \href{https://pavlidislab.github.io/Gemma/geeq.html}{here}.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{ee.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+\item \code{ee.Name}: Full title of the dataset
+\item \code{ee.ID}: Internal ID of the dataset.
+\item \code{ee.Description}: Description of the dataset
+\item \code{ee.Public}: Is the dataset publicly available.
+\item \code{ee.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+\item \code{ee.Accession}: Accession ID of the dataset in the external database it was taken from
+\item \code{ee.Database}: The name of the database where the dataset was taken from
+\item \code{ee.URL}: URL of the original database
+\item \code{ee.SampleCount}: Number of samples in the dataset
+\item \code{ee.batchEffect}: A text field describing whether the dataset has batch effects
+\item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
+\item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
+\item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
+\item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
+\item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+}
 }
 \description{
 Processes JSON as a vector of datasets

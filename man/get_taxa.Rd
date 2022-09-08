@@ -13,7 +13,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 }
 \value{
-A data frame
+A data frame including the names, IDs and database information
+about the taxons
 }
 \description{
 Returns taxa and their versions used in Gemma

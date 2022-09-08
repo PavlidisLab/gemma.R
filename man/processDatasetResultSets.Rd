@@ -10,7 +10,20 @@ processDatasetResultSets(d)
 \item{d}{The JSON to process}
 }
 \value{
-A processed data.table
+A data table with the queried datasets' resultSet ID(s). A list if
+\code{raw = TRUE}. Use
+\code{\link{get_differential_expression_values}} to get differential expression
+values (see examples). Use \code{\link{get_dataset_differential_expression_analyses}}
+to get more detailed information about a result set.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{resultSet.id}: Internal ID given to the result set. Can be used to access the results using \code{\link{get_differential_expression_values}}
+\item \code{factor.category}: What is the category splitting the experimental groups in the result set (e.g. disease )
+\item \code{factor.levels}: What are the conditions that are compared in the result set (e.g control, bipolar disorder)
+
+}
 }
 \description{
 Processes JSON as a datasets result set

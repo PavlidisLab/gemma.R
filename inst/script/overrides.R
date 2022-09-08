@@ -8,19 +8,14 @@
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))
-#' @return A data table with information about the queried dataset(s). Returns
-#' an empty list if no datasets matched. A successful response may contain 'Geeq'
-#' information, which aims to provide a unified metric to measure experiments by
-#' the quality of their data, and their suitability for use in Gemma. You can
-#' [read more about the geeq properties here](https://pavlidislab.github.io/Gemma/geeq.html)
+#' @inherit processDatasets return
 NULL
 
 
 #' get_result_sets
-#' @return A data table with the queried datasets' resultSet ID(s). Use 
-#' \code{\link{get_differential_expression_values}} to get differential expression
-#' values (see examples). Use \code{\link{get_dataset_differential_expression_analyses}}
-#' to get more detailed information about a result set.
+#' 
+#' @inherit processDatasetResultSets return
+#' 
 #' @examples 
 #' resultSets <- get_result_sets('GSE2018')
 #' get_differential_expression_values(resultSet = resultSets$resultSet.id)
@@ -38,16 +33,16 @@ NULL
 
 #' get_dataset_samples
 #' 
-#' @return A data table with information about the samples of the queried dataset.
-#' A \code{404 error} if the given identifier does not map to any object
+#' @inherit processSamples return
+#' 
 #' @examples 
 #' head(get_dataset_samples("GSE2018"))
 NULL
 
 #' get_dataset_platforms
 #' 
-#' @return A data table with information about the platform(s) of the queried 
-#' dataset. A \code{404 error} if the given identifier does not map to any object
+#' @inherit processPlatforms return
+#'  
 #' @examples 
 #' get_dataset_platforms("GSE2018")
 NULL
@@ -80,7 +75,9 @@ NULL
 
 #' get_platforms
 #' @param platforms Platform numerical identifiers or platform short names
-#' @return A data table with information about the queried platform(s)
+#' 
+#' @inherit processPlatforms return
+#' 
 #' @examples 
 #' get_platforms("GPL1355")
 #' get_platforms(c("GPL1355", "GPL96"))
