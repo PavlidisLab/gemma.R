@@ -70,6 +70,8 @@ The fields of the output data.table are:
 \item \code{ee.SampleCount}: Number of samples in the dataset
 \item \code{ee.batchEffect}: A text field describing whether the dataset has batch effects
 \item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
+\item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
+\item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
 \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
 \item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
