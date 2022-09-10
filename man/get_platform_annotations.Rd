@@ -6,7 +6,7 @@
 \usage{
 get_platform_annotations(
   platform,
-  annotType = c("bioProcess", "noParents", "allParents"),
+  annotType = c("noParents", "allParents", "bioProcess"),
   file = getOption("gemma.file", NA_character_),
   overwrite = getOption("gemma.overwrite", FALSE),
   memoised = getOption("gemma.memoise", FALSE),
