@@ -49,7 +49,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #' head(get_platform_annotations("GPL96"))
 #' head(get_platform_annotations('Generic_human'))
 get_platform_annotations <- function(platform,
-    annotType = c("bioProcess", "noParents", "allParents"),
+    annotType = c("noParents","allParents","bioProcess"),
     file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE),
     memoised = getOption("gemma.memoise", FALSE),
@@ -78,7 +78,7 @@ get_platform_annotations <- function(platform,
         platform <- platforms[, "platform.ID"]
     }
 
-    annotType <- match.arg(annotType, c("bioProcess", "noParents", "allParents"))
+    annotType <- match.arg(annotType)
 
     is.tmp <- is.na(file)
 
