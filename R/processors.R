@@ -390,7 +390,7 @@ processSamples <- function(d) {
         sample.Description = d[["description"]],
         sample.Outlier = d[["outlier"]],
         sample.Accession = checkBounds(d[["accession"]][["accession"]],NA_character_),
-        sample.Database = checkBounds(d$accession$externalDatabase$name),
+        sample.Database = checkBounds(d[["accession"]][["externalDatabase"]][["name"]]),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
         sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
         sample.FactorValues = lapply(lapply(checkBounds(d[["sample"]][["factorValueObjects"]]), "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x)))# ,
