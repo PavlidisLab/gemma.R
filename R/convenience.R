@@ -71,7 +71,7 @@ get_platform_annotations <- function(platform,
     }
 
     if (!is.numeric(platform)) {
-        platforms <- get_platforms(platform)
+        platforms <- get_platforms_by_ids(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
             stop(platform, " is not a valid single platform.")
         }

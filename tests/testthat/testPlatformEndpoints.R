@@ -1,16 +1,16 @@
 test_that("getPlatformsInfo queries work", {
-    dat <- get_platforms(1)
-    raw <- get_platforms(1, raw = TRUE)
+    dat <- get_platforms_by_ids(1)
+    raw <- get_platforms_by_ids(1, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
         dat[, c(platform.ID, platform.ShortName, platform.Name, platform.Description, platform.ExperimentCount)] %>% paste0(collapse = ""),
         c(raw[[1]]$"id", raw[[1]]$"shortName", raw[[1]]$"name", raw[[1]]$"description", raw[[1]]$"expressionExperimentCount") %>% paste0(collapse = "")
     )
-    expect_equal(get_platforms(c(1, 2)) %>% nrow(), 2)
-    expect_equal(get_platforms(limit = 10) %>% nrow(), 10)
-    expect_true(get_platforms(offset = 3)[1, 1] == get_platforms(offset = 0)[4, 1])
-    expect_false(get_platforms(sort = "-id")[1, 1] == get_platforms(sort = "+id")[1, 1])
+    expect_equal(get_platforms_by_ids(c(1, 2)) %>% nrow(), 2)
+    expect_equal(get_platforms_by_ids(limit = 10) %>% nrow(), 10)
+    expect_true(get_platforms_by_ids(offset = 3)[1, 1] == get_platforms_by_ids(offset = 0)[4, 1])
+    expect_false(get_platforms_by_ids(sort = "-id")[1, 1] == get_platforms_by_ids(sort = "+id")[1, 1])
 })
 
 test_that("getPlatformDatasets queries work", {

@@ -836,9 +836,9 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
     )
 }
 
-#' Get platforms
+#' Get platforms by ids
 #'
-#' Retrieve all platforms
+#' Retrieve all platforms matching a set of platform identifiers
 #'
 #' @param platforms Platform numerical identifiers or platform short names
 #' @param offset The offset of the first retrieved result.
@@ -870,7 +870,7 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
 #' @examples
 #' get_platforms("GPL1355")
 #' get_platforms(c("GPL1355", "GPL96"))
-get_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L,
+get_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -883,7 +883,7 @@ get_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     keyword <- "platform"
     header <- ""
     isFile <- FALSE
-    fname <- "get_platforms"
+    fname <- "get_platforms_by_ids"
     preprocessor <- processPlatforms
     validators <- list(
         platforms = validateOptionalID, offset = validatePositiveInteger,
@@ -894,10 +894,11 @@ get_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L,
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_platforms(
-            platforms = platforms, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
+        out <- memget_platforms_by_ids(
+            platforms = platforms,
+            offset = offset, limit = limit, sort = sort, raw = raw,
+            memoised = FALSE, file = file, overwrite = overwrite,
+            attributes = attributes
         )
         return(out)
     }
@@ -907,10 +908,10 @@ get_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     )
 }
 
-#' Memoise get_platforms
+#' Memoise get_platforms_by_ids
 #'
 #' @noRd
-memget_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L,
+memget_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -919,7 +920,7 @@ memget_platforms <- function(platforms = NA_character_, offset = 0L, limit = 20L
         "gemma.attributes",
         TRUE
     )) {
-    mem_call <- memoise::memoise(get_platforms, cache = gemmaCache())
+    mem_call <- memoise::memoise(get_platforms_by_ids, cache = gemmaCache())
     mem_call(
         platforms = platforms, offset = offset, limit = limit,
         sort = sort, raw = raw, memoised = FALSE, file = file,

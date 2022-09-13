@@ -1,8 +1,8 @@
 test_that('processor file writing',{
     file = tempfile()
-    get_platforms(1,file = file)
+    get_platforms_by_ids(1,file = file)
 
-    expect_warning(get_platforms(1,file = file),'exists. Not overwriting')
+    expect_warning(get_platforms_by_ids(1,file = file),'exists. Not overwriting')
 
     file = tempfile()
     gemma.R::get_dataset_expression(dataset = 'GSE2018', file = file)

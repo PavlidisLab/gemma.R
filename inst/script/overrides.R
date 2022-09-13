@@ -73,7 +73,7 @@ NULL
 #' get_differential_expression_values(resultSet = result$result.ID)
 NULL
 
-#' get_platforms
+#' get_platforms_by_ids
 #' @param platforms Platform numerical identifiers or platform short names
 #' 
 #' @inherit processPlatforms return

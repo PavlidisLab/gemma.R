@@ -75,7 +75,7 @@ test_that('caches work',{
   forget_gemma_memoised()
   testthat::expect_true(length(list.files(non_default)) == 0)
 
-  expect_warning(get_platforms(1,file = tempfile(),memoised = TRUE),'Saving to files is not supported')
+  expect_warning(get_platforms_by_ids(1,file = tempfile(),memoised = TRUE),'Saving to files is not supported')
 
 })
 # don't forget to unmemoise at the end

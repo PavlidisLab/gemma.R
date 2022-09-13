@@ -193,7 +193,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 
 # Platform endpoints ----
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
-    "get_platforms",open_api_name = 'get_platforms', keyword = "platform",
+    "get_platforms_by_ids",open_api_name = 'get_platforms_by_ids', keyword = "platform",
     defaults = list(
         platforms = NA_character_,
         offset = 0L,
