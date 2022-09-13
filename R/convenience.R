@@ -120,11 +120,16 @@ get_platform_annotations <- function(platform,
         warning(tools::file_path_sans_ext(file), " exists. Not overwriting.")
         doReadFile(file)
     } else {
-        httr::GET(glue::glue(
+        response <- httr::GET(glue::glue(
             paste0(getOption("gemma.base", "https://gemma.msl.ubc.ca/"),
                 "arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
             httr::write_disk(file))
-        doReadFile(file)
+        if (response$status_code==200){
+            return(doReadFile(file))
+        } else{
+            warning(glue::glue("Unable to access annotation file for {platform}. Can get more information about the platform at https://gemma.msl.ubc.ca/arrays/showArrayDesign.html?id={platform}"))
+            return(NULL)
+        }
     }
 }
 
