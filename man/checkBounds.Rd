@@ -4,10 +4,12 @@
 \alias{checkBounds}
 \title{Replace missing data with NAs}
 \usage{
-checkBounds(x)
+checkBounds(x, natype = NA)
 }
 \arguments{
 \item{x}{Data}
+
+\item{natype}{type of NA to replace the missing data with}
 }
 \value{
 Data or NA in case of an out of bounds error

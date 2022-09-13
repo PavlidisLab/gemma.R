@@ -9,6 +9,7 @@ processDate <- function(x){
 
 #' Replace missing data with NAs
 #' @param x Data
+#' @param natype type of NA to replace the missing data with
 #' @return Data or NA in case of an out of bounds error
 #'
 #' @keywords internal
