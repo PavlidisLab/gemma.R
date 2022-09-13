@@ -419,13 +419,13 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s).</p>
 <p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms.html">get_platforms</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
+<code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 681</code></pre>
 <p>After which you can use <code>offset</code> to access all available platforms.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/get_platforms.html">get_platforms</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.ShortName</span>, <span class="va">taxon.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
 <pre><code>     platform.ID platform.ShortName taxon.Name
@@ -708,7 +708,7 @@ loaded via a namespace (and not attached):
 [10] yaml_2.3.5             pillar_1.8.1           lattice_0.20-45       
 [13] glue_1.6.2             digest_0.6.29          XVector_0.36.0        
 [16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.4-1          
-[19] pkgconfig_2.0.3        bookdown_0.28          zlibbioc_1.42.0       
+[19] pkgconfig_2.0.3        bookdown_0.29          zlibbioc_1.42.0       
 [22] purrr_0.3.4            scales_1.2.1           tibble_3.1.8          
 [25] generics_0.1.3         farver_2.1.1           ellipsis_0.3.2        
 [28] cachem_1.0.6           withr_2.5.0            cli_3.4.0             
@@ -724,7 +724,7 @@ loaded via a namespace (and not attached):
 [58] fastmap_1.1.0          bit_4.0.4              utf8_1.2.2            
 [61] rprojroot_2.0.3        ragg_1.2.2             desc_1.4.2            
 [64] stringi_1.7.8          Rcpp_1.0.9             vctrs_0.4.1           
-[67] tidyselect_1.1.2       xfun_0.32             </code></pre>
+[67] tidyselect_1.1.2       xfun_0.33             </code></pre>
 </div>
   </div>
 
