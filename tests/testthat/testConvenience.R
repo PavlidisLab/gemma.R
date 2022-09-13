@@ -2,6 +2,9 @@ test_that("getPlatformAnnotation queries work", {
     dat <- get_platform_annotations(1)
     expect_equal(colnames(dat), c("ProbeName", "GeneSymbols", "GeneNames", "GOTerms", "GemmaIDs", "NCBIids"))
     expect_false(nrow(dat) == 0)
+    
+    dat <- expect_warning(get_platform_annotations(1313),"Unable to access annotation file")
+    expect_null(dat)
 })
 
 test_that("getDataset works properly", {
