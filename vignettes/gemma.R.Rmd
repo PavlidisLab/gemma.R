@@ -254,7 +254,7 @@ attributes of the output objects where additional information from the
 API response is appended.
 
 ```{r}
-platform_count = attributes(get_platforms(limit = 1))$totalElements
+platform_count = attributes(get_platforms_by_ids(limit = 1))$totalElements
 print(platform_count)
 ```
 
@@ -262,7 +262,7 @@ After which you can use `offset` to access all available platforms.
 
 ```{r}
 lapply(seq(0,platform_count,100), function(offset){
-    get_platforms(limit = 100, offset = offset) %>%
+    get_platforms_by_ids(limit = 100, offset = offset) %>%
         select(platform.ID, platform.ShortName, taxon.Name)
 }) %>% do.call(rbind,.)
 ```
