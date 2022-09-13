@@ -172,6 +172,8 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
     exprM <- get_dataset_expression(dataset, filter,memoised = memoised)
     
     # multi platform datasets may have repeated probesets which needs new names
+    # most multiplatform datasets were merged into artifical probesets defined
+    # within gemma but at the time of writing 365 was an exception
     duplicate_probes <- exprM$Probe[duplicated(exprM$Probe)]
     
     for(dp in duplicate_probes){
