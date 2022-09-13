@@ -170,6 +170,24 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
     exprM <- get_dataset_expression(dataset, filter,memoised = memoised)
+    
+    # multi platform datasets may have repeated probesets which needs new names
+    duplicate_probes <- exprM$Probe[duplicated(exprM$Probe)]
+    
+    for(dp in duplicate_probes){
+        to_replace <- exprM$Probe[exprM$Probe %in% dp]
+        to_paste <- sapply(seq_along(to_replace), function(i){
+          if(i == 1){
+              ''
+          }else{
+              paste0('.',i)
+          }
+        })
+        
+        exprM$Probe[exprM$Probe %in% dp] <- paste0(to_replace,to_paste)
+    }
+    
+    
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
     exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid") %>%
