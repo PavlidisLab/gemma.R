@@ -12,10 +12,10 @@ processDate <- function(x){
 #' @return Data or NA in case of an out of bounds error
 #'
 #' @keywords internal
-checkBounds <- function(x){
+checkBounds <- function(x,natype = NA){
     tryCatch(x, error = function(e){
         if(e$message == "subscript out of bounds"){
-            return(NA)
+            return(natype)
         } else{
             stop(e$message)
         }
@@ -384,12 +384,12 @@ processSamples <- function(d) {
 
     data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
-        sample.Name = d[["name"]],
-        sample.ID = checkBounds(d[["sample"]][["id"]]),
+        sample.Name = checkBounds(d[["name"]],NA_character_),
+        sample.ID = checkBounds(d[["sample"]][["id"]],NA_integer_),
         # sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
         sample.Description = d[["description"]],
         sample.Outlier = d[["outlier"]],
-        sample.Accession = checkBounds(d[["accession"]][["accession"]]),
+        sample.Accession = checkBounds(d[["accession"]][["accession"]],NA_character_),
         sample.Database = checkBounds(d$accession$externalDatabase$name),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
         sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
