@@ -132,8 +132,7 @@ processDatasets <- function(d) {
         geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
         geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
         taxon.Name = d[["taxon"]],
-        taxon.ID = d[["taxonId"]],
-        technology.Type = d[["technologyType"]]
+        taxon.ID = d[["taxonId"]]
     )
 }
 
@@ -238,7 +237,7 @@ processDEA <- function(d) {
             analysis.ID,
             ee.ID, cf.Cat, cf.CatLongUri, cf.Baseline, cf.BaseLongUri,
             cf.Val, cf.ValLongUri, sf.Subset = sf.Enabled,
-            sf.Cat = sf.category.Name, sf.CatLongUri = sf.category.URL,
+            sf.Cat = sf.category.Name, sf.CatLongUri = sf.category.URL, # sf is for subsets
             sf.Val = sf.name, sf.ValLongUri = sf.URL,
             stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
             genes.Analyzed, ad.ID
@@ -435,11 +434,7 @@ processPlatforms <- function(d) {
         platform.Description = d[["description"]],
         platform.Troubled = d[["troubled"]],
         platform.ExperimentCount = d[["expressionExperimentCount"]],
-        platform.GeneCount = d[["numGenes"]],
-        platform.ProbeSequenceCount = d[["numProbeSequences"]],
-        platform.ProbeAlignmentCount = d[["numProbeAlignments"]],
-        platform.ProbeGeneCount = d[["numProbesToGenes"]],
-        platform.ElementCount = d[["designElementCount"]],
+        platform.GeneCount = d[["numberOfGenes"]],
         taxon.Name = d[["taxon"]],
         taxon.ID = d[["taxonID"]],
         technology.Type = d[["technologyType"]]#,

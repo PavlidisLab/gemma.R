@@ -121,8 +121,8 @@ get_platform_annotations <- function(platform,
         doReadFile(file)
     } else {
         response <- httr::GET(glue::glue(
-            paste0(getOption("gemma.base", "https://gemma.msl.ubc.ca/"),
-                "arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
+            paste0(dirname(dirname(gemmaPath())),
+                "/arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
             httr::write_disk(file))
         if (response$status_code==200){
             return(doReadFile(file))
