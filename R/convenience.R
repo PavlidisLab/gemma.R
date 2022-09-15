@@ -287,6 +287,10 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #'
 #' @param dataset A dataset identifier.
 #' @param resultSet A resultSet identifier.
+#' @param readableContrasts If \code{FALSE} (default), the returned columns will
+#' use internal constrasts IDs as names. Details about the contrasts can be accessed
+#' using \code{\link{get_dataset_differential_expression_analyses}}. If TRUE IDs will
+#' be replaced with human readable contrast information.
 #' @inheritParams memoise
 #' 
 #' @return A list of data tables with differential expression
@@ -295,7 +299,10 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #' @export
 #' @examples
 #' get_differential_expression_values("GSE2018")
-get_differential_expression_values <- function(dataset = NA_character_, resultSet = NA_integer_, memoised = getOption("gemma.memoised", FALSE)) {
+get_differential_expression_values <- function(dataset = NA_character_, 
+                                               resultSet = NA_integer_, 
+                                               readableContrasts = FALSE,
+                                               memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
         rss <- get_result_sets(dataset,memoised = memoised)
         if (!(resultSet %in% rss$resultSet.id)){
@@ -316,8 +323,12 @@ get_differential_expression_values <- function(dataset = NA_character_, resultSe
     }
 
     rs <- lapply(resultSet, function(x){
-        .getResultSets(x,memoised = memoised) %>%
-            processDEcontrasts(x)
+        out <- .getResultSets(x,memoised = memoised)
+        if(readableContrasts){
+            return(processDEcontrasts(x))
+        } else{
+            return(out)
+        }
     })
     names(rs) <- resultSet
 
