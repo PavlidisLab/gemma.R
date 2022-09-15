@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.getResultSets}
 \alias{.getResultSets}
-\title{Get result set}
+\title{Retrieve a single analysis result set by its identifier}
 \usage{
 .getResultSets(
   resultSet = NA_character_,

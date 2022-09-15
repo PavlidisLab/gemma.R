@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_expression}
 \alias{get_dataset_expression}
-\title{Get dataset expression}
+\title{Retrieve the expression data of a dataset}
 \usage{
 get_dataset_expression(
   dataset,

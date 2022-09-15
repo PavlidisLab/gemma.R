@@ -1,6 +1,6 @@
-#' Get datasets by ids
-#'
 #' Retrieve datasets by their identifiers
+#'
+#'
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names
 #' @param offset The offset of the first retrieved result.
@@ -99,9 +99,9 @@ memget_datasets_by_ids <- function(datasets = NA_character_, offset = 0L, limit 
     )
 }
 
-#' Get result set
-#'
 #' Retrieve a single analysis result set by its identifier
+#'
+#'
 #'
 #' @param resultSet An expression analysis result set numerical identifier.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -186,9 +186,9 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
     )
 }
 
-#' Get result set
-#'
 #' Retrieve a single analysis result set by its identifier
+#'
+#'
 #'
 #' @param resultSet An expression analysis result set numerical identifier.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -272,9 +272,9 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
     )
 }
 
-#' Get result sets
-#'
 #' Retrieve all result sets matching the provided criteria
+#'
+#'
 #'
 #' @param datasets A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -358,9 +358,9 @@ memget_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), me
     )
 }
 
-#' Get dataset expression
-#'
 #' Retrieve the expression data of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param filter The filtered version (\code{filter = TRUE}) corresponds to what is
@@ -453,9 +453,9 @@ memget_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
     )
 }
 
-#' Get dataset samples
-#'
 #' Retrieve the samples of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -545,9 +545,9 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
     )
 }
 
-#' Get dataset platforms
-#'
 #' Retrieve the platform of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -637,9 +637,9 @@ memget_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE
     )
 }
 
-#' Get dataset annotations
-#'
 #' Retrieve the annotations analysis of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -730,9 +730,9 @@ memget_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FAL
     )
 }
 
-#' Get dataset design
-#'
 #' Retrieve the design of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -823,9 +823,9 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     )
 }
 
-#' Get dataset differential expression analyses
-#'
 #' Retrieve the differential analyses of a dataset
+#'
+#'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -921,9 +921,9 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
     )
 }
 
-#' Get platforms by ids
-#'
 #' Retrieve all platforms matching a set of platform identifiers
+#'
+#'
 #'
 #' @param platforms Platform numerical identifiers or platform short names
 #' @param offset The offset of the first retrieved result.
@@ -1022,9 +1022,9 @@ memget_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limi
     )
 }
 
-#' Get platform datasets
-#'
 #' Retrieve all experiments within a given platform
+#'
+#'
 #'
 #' @param platform A platform numerical identifier or a platform short name
 #' @param offset The offset of the first retrieved result.
@@ -1124,9 +1124,9 @@ memget_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = g
     )
 }
 
-#' Get platform element genes
-#'
 #' Retrieve the genes associated to a probe in a given platform
+#'
+#'
 #'
 #' @param platform A platform numerical identifier or a platform short name
 #' @param probe A probe name or it's numerical identifier
@@ -1230,9 +1230,9 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
     )
 }
 
-#' Get genes
-#'
 #' Retrieve genes matching a gene identifier
+#'
+#'
 #'
 #' @param genes An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -1315,9 +1315,9 @@ memget_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
     )
 }
 
-#' Get gene locations
-#'
 #' Retrieve the physical locations of a given gene
+#'
+#'
 #'
 #' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -1400,9 +1400,9 @@ memget_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), mem
     )
 }
 
-#' Get gene probes
-#'
 #' Retrieve the probes associated to a genes
+#'
+#'
 #'
 #' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
 #' @param offset The offset of the first retrieved result.
@@ -1502,9 +1502,9 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     )
 }
 
-#' Get gene go terms
-#'
 #' Retrieve the GO terms associated to a gene
+#'
+#'
 #'
 #' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -1589,9 +1589,9 @@ memget_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memo
     )
 }
 
-#' Search taxon datasets
-#'
 #' Retrieve datasets within a given taxa associated to an annotation tags search
+#'
+#'
 #'
 #' @param query The search query. Either plain text ('traumatic'), or an ontology
 #' term (UBERON_0002048). Datasets that contain the given string in their short
@@ -1700,9 +1700,9 @@ memsearch_datasets <- function(query, taxon = NA_character_, offset = 0L, limit 
     )
 }
 
-#' Search annotations
-#'
 #' Search for annotation tags
+#'
+#'
 #'
 #' @param query The search query
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -1785,9 +1785,9 @@ memsearch_annotations <- function(query, raw = getOption("gemma.raw", FALSE), me
     )
 }
 
-#' Get taxa by ids
-#'
 #' Retrieve taxa by their identifiers
+#'
+#'
 #'
 #' @param taxa Limits the result to entities with given identifiers.
 #' A vector of identifiers.
@@ -1887,9 +1887,9 @@ memget_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memois
     )
 }
 
-#' Get taxon datasets
-#'
 #' Retrieve the datasets for a given taxon
+#'
+#'
 #'
 #' @param taxon can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.

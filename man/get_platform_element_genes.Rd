@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_element_genes}
 \alias{get_platform_element_genes}
-\title{Get platform element genes}
+\title{Retrieve the genes associated to a probe in a given platform}
 \usage{
 get_platform_element_genes(
   platform,

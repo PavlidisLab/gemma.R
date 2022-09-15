@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_go_terms}
 \alias{get_gene_go_terms}
-\title{Get gene go terms}
+\title{Retrieve the GO terms associated to a gene}
 \usage{
 get_gene_go_terms(
   gene,

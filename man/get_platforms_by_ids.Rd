@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platforms_by_ids}
 \alias{get_platforms_by_ids}
-\title{Get platforms by ids}
+\title{Retrieve all platforms matching a set of platform identifiers}
 \usage{
 get_platforms_by_ids(
   platforms = NA_character_,

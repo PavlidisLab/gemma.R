@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_taxon_datasets}
 \alias{get_taxon_datasets}
-\title{Get taxon datasets}
+\title{Retrieve the datasets for a given taxon}
 \usage{
 get_taxon_datasets(
   taxon,

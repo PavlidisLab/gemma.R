@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_result_sets}
 \alias{get_result_sets}
-\title{Get result sets}
+\title{Retrieve all result sets matching the provided criteria}
 \usage{
 get_result_sets(
   datasets,

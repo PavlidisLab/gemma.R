@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_probes}
 \alias{get_gene_probes}
-\title{Get gene probes}
+\title{Retrieve the probes associated to a genes}
 \usage{
 get_gene_probes(
   gene,

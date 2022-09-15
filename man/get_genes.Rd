@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_genes}
 \alias{get_genes}
-\title{Get genes}
+\title{Retrieve genes matching a gene identifier}
 \usage{
 get_genes(
   genes,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_annotations}
 \alias{get_dataset_annotations}
-\title{Get dataset annotations}
+\title{Retrieve the annotations analysis of a dataset}
 \usage{
 get_dataset_annotations(
   dataset,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_platforms}
 \alias{get_dataset_platforms}
-\title{Get dataset platforms}
+\title{Retrieve the platform of a dataset}
 \usage{
 get_dataset_platforms(
   dataset,

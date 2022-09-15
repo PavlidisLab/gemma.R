@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_datasets}
 \alias{get_platform_datasets}
-\title{Get platform datasets}
+\title{Retrieve all experiments within a given platform}
 \usage{
 get_platform_datasets(
   platform,

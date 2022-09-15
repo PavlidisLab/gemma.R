@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_taxa_by_ids}
 \alias{get_taxa_by_ids}
-\title{Get taxa by ids}
+\title{Retrieve taxa by their identifiers}
 \usage{
 get_taxa_by_ids(
   taxa,

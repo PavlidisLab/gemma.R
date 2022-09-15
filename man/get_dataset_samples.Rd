@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_samples}
 \alias{get_dataset_samples}
-\title{Get dataset samples}
+\title{Retrieve the samples of a dataset}
 \usage{
 get_dataset_samples(
   dataset,

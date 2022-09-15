@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_design}
 \alias{get_dataset_design}
-\title{Get dataset design}
+\title{Retrieve the design of a dataset}
 \usage{
 get_dataset_design(
   dataset,

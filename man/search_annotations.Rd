@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{search_annotations}
 \alias{search_annotations}
-\title{Search annotations}
+\title{Search for annotation tags}
 \usage{
 search_annotations(
   query,

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{search_datasets}
 \alias{search_datasets}
-\title{Search taxon datasets}
+\title{Retrieve datasets within a given taxa associated to an annotation tags search}
 \usage{
 search_datasets(
   query,

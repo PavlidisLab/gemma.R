@@ -253,8 +253,9 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
 
     if(open_api_name %in% api_file_fun_names){
         endpoint <- api_file$paths[[which(api_file_fun_names %in% open_api_name)]]
-        mDesc <- endpoint$get$summary
-        mName <- endpoint$get$operationId %>% snakecase::to_sentence_case()
+        # mDesc <- endpoint$get$summary
+        mName <- endpoint$get$summary
+        # mName <- endpoint$get$operationId %>% snakecase::to_sentence_case()
     }
     
     overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){

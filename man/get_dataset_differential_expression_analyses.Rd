@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_differential_expression_analyses}
 \alias{get_dataset_differential_expression_analyses}
-\title{Get dataset differential expression analyses}
+\title{Retrieve the differential analyses of a dataset}
 \usage{
 get_dataset_differential_expression_analyses(
   dataset,

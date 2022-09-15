@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_locations}
 \alias{get_gene_locations}
-\title{Get gene locations}
+\title{Retrieve the physical locations of a given gene}
 \usage{
 get_gene_locations(
   gene,

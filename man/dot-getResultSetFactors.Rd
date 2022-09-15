@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.getResultSetFactors}
 \alias{.getResultSetFactors}
-\title{Get result set}
+\title{Retrieve a single analysis result set by its identifier}
 \usage{
 .getResultSetFactors(
   resultSet = NA_character_,
