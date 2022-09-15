@@ -34,20 +34,20 @@ processGemmaFactor <- function(d) {
     d <- jsonlite:::simplify(d)
     if (all(is.na(d))) {
         data.table(
-            name = NA_character_, URL = NA_character_,
-            description = NA_character_, category.Name = NA_character_,
-            category.URL = NA_character_, measurement = FALSE, type = NA_character_
+            factorValue = NA_character_, factorValueURI = NA_character_,
+            description = NA_character_, category = NA_character_,
+            categoryURI = NA_character_, measurement = FALSE, type = NA_character_
         )
     } else {
         data.table(
-            name = switch(is.null(d[["factorValue"]]) + 1,
+            factorValue = switch(is.null(d[["factorValue"]]) + 1,
                 d[["factorValue"]],
                 d[["value"]]
             ),
-            URL = d[["valueUri"]],
+            factorValueURI = d[["valueUri"]],
             description = d[["description"]],
-            category.Name = d[["category"]],
-            category.URL = d[["categoryUri"]],
+            category = d[["category"]],
+            categoryURI = d[["categoryUri"]],
             measurement = d[["measurement"]],
             type = d[["type"]]
         )
@@ -94,7 +94,7 @@ processGemmaArray <- function(d) {
 #'     \item \code{ee.Name}: Full title of the dataset
 #'     \item \code{ee.ID}: Internal ID of the dataset.
 #'     \item \code{ee.Description}: Description of the dataset
-#'     \item \code{ee.Public}: Is the dataset publicly available. 
+#'     \item \code{ee.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
 #'     \item \code{ee.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
 #'     \item \code{ee.Accession}: Accession ID of the dataset in the external database it was taken from
 #'     \item \code{ee.Database}: The name of the database where the dataset was taken from
@@ -114,25 +114,26 @@ processGemmaArray <- function(d) {
 processDatasets <- function(d) {
     d <- jsonlite:::simplify(d)
     data.table(
-        ee.ShortName = d[["shortName"]],
-        ee.Name = d[["name"]],
-        ee.ID = d[["id"]],
-        ee.Description = d[["description"]],
-        ee.Public = d[["isPublic"]],
-        ee.Troubled = d[["troubled"]],
-        ee.Accession = d[["accession"]],
-        ee.Database = d[["externalDatabase"]],
-        ee.URL = d[["externalUri"]],
-        ee.SampleCount = d[["bioAssayCount"]],
-        ee.LastUpdated = processDate(d[["lastUpdated"]]),
-        ee.batchEffect = d[["batchEffect"]],
+        experiment.ShortName = d[["shortName"]],
+        experiment.Name = d[["name"]],
+        experiment.ID = d[["id"]],
+        experiment.Description = d[["description"]],
+        experiment.Public = d[["isPublic"]],
+        experiment.Troubled = d[["troubled"]],
+        experiment.Accession = d[["accession"]],
+        experiment.Database = d[["externalDatabase"]],
+        experiment.URI = d[["externalUri"]],
+        experiment.SampleCount = d[["bioAssayCount"]],
+        experiment.LastUpdated = processDate(d[["lastUpdated"]]),
+        experiment.batchEffect = d[["batchEffect"]],
         geeq.batchCorrected = checkBounds(d[["geeq"]][["batchCorrected"]]),
         geeq.batchConfound = checkBounds(d[["geeq"]][["qScorePublicBatchConfound"]]),
         geeq.batchEffect = checkBounds(d[["geeq"]][["qScorePublicBatchEffect"]]),
         geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
         geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
         taxon.Name = d[["taxon"]],
-        taxon.ID = d[["taxonId"]]
+        taxon.ID = d[["taxonId"]],
+        technology.Type = d[["technologyType"]]
     )
 }
 
@@ -148,9 +149,9 @@ processSearchAnnotations <- function(d) {
 
     data.table(
         category.Name = d[["category"]],
-        category.URL = d[["categoryUri"]],
+        category.URI = d[["categoryUri"]],
         value.Name = d[["value"]],
-        value.URL = d[["valueUri"]]
+        value.URI = d[["valueUri"]]
     )
 }
 
@@ -165,18 +166,12 @@ processDEA <- function(d) {
     d <- jsonlite:::simplify(d)
 
     # Initialize internal variables to avoid R CMD check notes
-    resultIds <- factor.ID <- cf.Baseline <- factorValue <- valueUri <- NULL
-    factorId <- id <- result.ID <- analysis.Id <- ee.ID <- cf.Cat <- NULL
-    cf.CatLongUri <- cf.Val <- cf.ValLongUri <- sf.Enabled <- NULL
-    sf.category.Name <- sf.category.URL <- sf.name <- sf.URL <- stats.DE <- NULL
-    stats.Down <- stats.Up <- analysis.Threshold <- probes.Analyzed <- NULL
-    genes.Analyzed <- ad.ID <- factors <- cf.BaseLongUri <- analysis.ID <- NULL
 
     divides <- data.table(
         analysis.ID = d[["id"]],
-        ee.ID = ifelse(is.na(d[["sourceExperiment"]]), d[["bioAssaySetId"]], d[["sourceExperiment"]]),
-        sf.Enabled = d[["subset"]],
-        sf = processGemmaFactor(d[["subsetFactorValue"]]),
+        experiment.ID = ifelse(is.na(d[["sourceExperiment"]]), d[["bioAssaySetId"]], d[["sourceExperiment"]]),
+        subsetFactor.Enabled = d[["subset"]],
+        subsetFactor = processGemmaFactor(d[["subsetFactorValue"]]),
         resultIds = lapply(d[["resultSets"]], "[[", "resultSetId")
     ) %>%
         .[, .(result.ID = unlist(resultIds)), setdiff(names(.), "resultIds")]
@@ -195,24 +190,24 @@ processDEA <- function(d) {
             r[["baselineGroup"]] %>%
                 {
                     data.table(
-                        cf.Cat = .[["category"]],
-                        cf.CatLongUri = .[["categoryUri"]],
-                        cf.Baseline = .[["factorValue"]],
-                        cf.BaseLongUri = .[["valueUri"]]
+                        baseline.category= .[["category"]],
+                        baseline.categoryURI = .[["categoryUri"]],
+                        baseline.factorValue = .[["factorValue"]],
+                        baseline.factorValueURI = .[["valueUri"]]
                     )
                 }
         ) %>%
             .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")]
     }) %>%
         rbindlist() %>%
-        .[!is.na(cf.Baseline)]
+        .[!is.na(baseline.category)]
 
     rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = TRUE)
     lapply(unique(rsd[, factor.ID]), function(fid) {
         lapply(d$factorValuesUsed[[as.character(fid)]], function(fv) {
             if (!is.null(fv) && nrow(fv) > 0) {
                 as.data.table(fv)[
-                    !(factorValue %in% rsd[factor.ID == fid, unique(cf.Baseline)]),
+                    !(factorValue %in% rsd[factor.ID == fid, unique(baseline.factorValue)]),
                     .(
                         cf.Val = factorValue,
                         cf.ValLongUri = valueUri,
@@ -234,11 +229,16 @@ processDEA <- function(d) {
         ), by = "analysis.ID", all = TRUE) %>%
         .[, .(
             rsc.ID = paste("RSCID", result.ID, id, sep = "."),
+            contrast.id = id,
             analysis.ID,
-            ee.ID, cf.Cat, cf.CatLongUri, cf.Baseline, cf.BaseLongUri,
-            cf.Val, cf.ValLongUri, sf.Subset = sf.Enabled,
-            sf.Cat = sf.category.Name, sf.CatLongUri = sf.category.URL, # sf is for subsets
-            sf.Val = sf.name, sf.ValLongUri = sf.URL,
+            experiment.ID, baseline.category, baseline.categoryURI, baseline.factorValue, baseline.factorValueURI,
+            experimental.factorValue = cf.Val, 
+            experimental.factorValueURI = cf.ValLongUri, 
+            subsetFactor.subset = subsetFactor.Enabled,
+            subsetFactor.category = subsetFactor.category, 
+            subsetFactor.categoryURI = subsetFactor.categoryURI,
+            subsetFactor.factorValue = subsetFactor.factorValue,
+            subsetFactor.factorValueURI = subsetFactor.factorValueURI,
             stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
             genes.Analyzed, ad.ID
         ), .(result.ID, id)] %>%
@@ -320,10 +320,10 @@ processAnnotations <- function(d) {
     data.table(
         class.Type = d[["objectClass"]],
         class.Name = d[["className"]],
-        class.URL = d[["classUri"]],
+        class.URI = d[["classUri"]],
         evidence.Code = d[["evidenceCode"]],
         term.Name = d[["termName"]],
-        term.URL = d[["termUri"]]
+        term.URI = d[["termUri"]]
     )
 }
 
@@ -434,7 +434,11 @@ processPlatforms <- function(d) {
         platform.Description = d[["description"]],
         platform.Troubled = d[["troubled"]],
         platform.ExperimentCount = d[["expressionExperimentCount"]],
-        platform.GeneCount = d[["numberOfGenes"]],
+        platform.GeneCount = d[["numGenes"]],
+        platform.ProbeSequenceCount = d[["numProbeSequences"]],
+        platform.ProbeAlignmentCount = d[["numProbeAlignments"]],
+        platform.ProbeGeneCount = d[["numProbesToGenes"]],
+        platform.ElementCount = d[["designElementCount"]],
         taxon.Name = d[["taxon"]],
         taxon.ID = d[["taxonID"]],
         technology.Type = d[["technologyType"]]#,
@@ -538,7 +542,7 @@ processGO <- function(d) {
     data.table(
         term.Name = d[["term"]],
         term.ID = d[["goId"]],
-        term.URL = d[["uri"]]
+        term.URI = d[["uri"]]
     )
 }
 
