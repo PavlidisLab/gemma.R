@@ -251,7 +251,7 @@ ggplot(
 
 ## Larger queries
 
-The some endpoints accept multiple identifiers in a single function
+Some endpoints accept multiple identifiers in a single function
 call. For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
