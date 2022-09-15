@@ -343,6 +343,7 @@ processFile <- function(content) {
         .[which(!startsWith(., "#"))[1]:length(.)] %>%
         # Strip comments
         paste0(collapse = "\n") %>%
+        paste0('\n') %>% 
         {
             fread(text = .)
         }

@@ -324,6 +324,13 @@ get_differential_expression_values <- function(dataset = NA_character_,
 
     rs <- lapply(resultSet, function(x){
         out <- .getResultSets(x,memoised = memoised)
+        if(nrow(out)==0){
+            msg = paste0("ResultSet ",x," failed to return a populated table.")
+            if(!is.na(dataset)){
+                msg = glue::glue('{msg}\nResult set {x} is part of {dataset}')
+            }
+            warning(msg)
+        }
         if(readableContrasts){
             return(processDEcontrasts(out, x))
         } else{
