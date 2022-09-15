@@ -325,7 +325,7 @@ get_differential_expression_values <- function(dataset = NA_character_,
     rs <- lapply(resultSet, function(x){
         out <- .getResultSets(x,memoised = memoised)
         if(readableContrasts){
-            return(processDEcontrasts(x))
+            return(processDEcontrasts(out, x))
         } else{
             return(out)
         }
