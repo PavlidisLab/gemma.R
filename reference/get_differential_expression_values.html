@@ -76,6 +76,7 @@ annotation terms associated them, use <code><a href="get_dataset_differential_ex
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_differential_expression_values</span><span class="op">(</span></span>
 <span>  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  resultSet <span class="op">=</span> <span class="cn">NA_integer_</span>,</span>
+<span>  readableContrasts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -88,6 +89,13 @@ annotation terms associated them, use <code><a href="get_dataset_differential_ex
 
 <dt>resultSet</dt>
 <dd><p>A resultSet identifier.</p></dd>
+
+
+<dt>readableContrasts</dt>
+<dd><p>If <code>FALSE</code> (default), the returned columns will
+use internal constrasts IDs as names. Details about the contrasts can be accessed
+using <code><a href="get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></code>. If TRUE IDs will
+be replaced with human readable contrast information.</p></dd>
 
 
 <dt>memoised</dt>
