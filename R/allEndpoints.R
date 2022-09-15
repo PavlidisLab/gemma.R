@@ -56,12 +56,22 @@ get_datasets_by_ids <- function(datasets = NA_character_, offset = 0L, limit = 2
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_datasets_by_ids(
-            datasets = datasets, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_datasets_by_ids",
+                datasets = datasets, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_datasets_by_ids(
+                datasets = datasets,
+                offset = offset, limit = limit, sort = sort,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -134,12 +144,21 @@ memget_datasets_by_ids <- function(datasets = NA_character_, offset = 0L, limit 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- mem.getResultSets(
-            resultSet = resultSet, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache(".getResultSets",
+                resultSet = resultSet,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- mem.getResultSets(
+                resultSet = resultSet, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -212,12 +231,20 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- mem.getResultSetFactors(
-            resultSet = resultSet,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache(".getResultSetFactors",
+                resultSet = resultSet, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- mem.getResultSetFactors(
+                resultSet = resultSet,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -292,12 +319,21 @@ get_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), memoi
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_result_sets(
-            datasets = datasets, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_result_sets",
+                datasets = datasets,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_result_sets(
+                datasets = datasets, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -375,12 +411,21 @@ get_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_expression(
-            dataset = dataset, filter = filter,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_expression",
+                dataset = dataset, filter = filter, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_expression(
+                dataset = dataset,
+                filter = filter, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -462,12 +507,20 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_samples(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_samples",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_samples(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -546,12 +599,20 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_platforms(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_platforms",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_platforms(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -631,12 +692,20 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_annotations(
-            dataset = dataset,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_annotations",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_annotations(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -716,12 +785,20 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_design(
-            dataset = dataset, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_design",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_design(
+                dataset = dataset, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -804,12 +881,20 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_dataset_differential_expression_analyses(
-            dataset = dataset,
-            raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_differential_expression_analyses",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_dataset_differential_expression_analyses(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -868,8 +953,8 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
 #' @keywords platform
 #'
 #' @examples
-#' get_platforms_by_ids("GPL1355")
-#' get_platforms_by_ids(c("GPL1355", "GPL96"))
+#' get_platforms("GPL1355")
+#' get_platforms(c("GPL1355", "GPL96"))
 get_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
@@ -894,13 +979,22 @@ get_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limit =
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_platforms_by_ids(
-            platforms = platforms,
-            offset = offset, limit = limit, sort = sort, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_platforms_by_ids",
+                platforms = platforms, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_platforms_by_ids(
+                platforms = platforms,
+                offset = offset, limit = limit, sort = sort,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -987,12 +1081,21 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_platform_datasets(
-            platform = platform,
-            offset = offset, limit = limit, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_platform_datasets",
+                platform = platform, offset = offset, limit = limit,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_platform_datasets(
+                platform = platform,
+                offset = offset, limit = limit, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1081,13 +1184,22 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_platform_element_genes(
-            platform = platform,
-            probe = probe, offset = offset, limit = limit, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_platform_element_genes",
+                platform = platform, probe = probe, offset = offset,
+                limit = limit, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_platform_element_genes(
+                platform = platform,
+                probe = probe, offset = offset, limit = limit,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1165,11 +1277,20 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_genes(
-            genes = genes, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_genes",
+                genes = genes,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_genes(
+                genes = genes, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1241,12 +1362,20 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_gene_locations(
-            gene = gene, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_gene_locations",
+                gene = gene, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_gene_locations(
+                gene = gene, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1330,12 +1459,21 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_gene_probes(
-            gene = gene, offset = offset,
-            limit = limit, raw = raw, memoised = FALSE, file = file,
-            overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_gene_probes",
+                gene = gene,
+                offset = offset, limit = limit, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_gene_probes(
+                gene = gene, offset = offset,
+                limit = limit, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1412,11 +1550,21 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_gene_go_terms(
-            gene = gene, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_gene_go_terms",
+                gene = gene,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_gene_go_terms(
+                gene = gene, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1508,13 +1656,23 @@ search_datasets <- function(query, taxon = NA_character_, offset = 0L, limit = 2
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memsearch_datasets(
-            query = query, taxon = taxon,
-            offset = offset, limit = limit, sort = sort, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("search_datasets",
+                query = query,
+                taxon = taxon, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memsearch_datasets(
+                query = query, taxon = taxon,
+                offset = offset, limit = limit, sort = sort,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1589,12 +1747,20 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memsearch_annotations(
-            query = query, raw = raw,
-            memoised = FALSE, file = file, overwrite = overwrite,
-            attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("search_annotations",
+                query = query, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memsearch_annotations(
+                query = query, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1682,11 +1848,21 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_taxa_by_ids(
-            taxa = taxa, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_taxa_by_ids",
+                taxa = taxa,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            ))
+        } else {
+            out <- memget_taxa_by_ids(
+                taxa = taxa, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1784,12 +1960,21 @@ get_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_taxon_datasets(
-            taxon = taxon, offset = offset,
-            limit = limit, sort = sort, raw = raw, memoised = FALSE,
-            file = file, overwrite = overwrite, attributes = attributes
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_taxon_datasets",
+                taxon = taxon, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memget_taxon_datasets(
+                taxon = taxon, offset = offset,
+                limit = limit, sort = sort, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            )
+            return(out)
+        }
     }
     .body(
         fname, validators, endpoint, environment(), isFile,
@@ -1829,7 +2014,12 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
 #' @export
 #'
 #' @keywords misc
-forget_gemma_memoised <- forget_gemma_memoised <- function() {
-    mem <- memoise::memoise(function() {}, cache = gemmaCache())
-    memoise::forget(mem)
-}
+forget_gemma_memoised <- forget_gemma_memoised <-
+    function() {
+        if ("character" %in% class(gemmaCache()) && gemmaCache() == "cache_in_memory") {
+            memoise::forget(mem_in_memory_cache)
+        } else {
+            mem <- memoise::memoise(function() {}, cache = gemmaCache())
+            memoise::forget(mem)
+        }
+    }

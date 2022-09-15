@@ -73,7 +73,7 @@ The fields of the output data.table are:
 Retrieve all platforms matching a set of platform identifiers
 }
 \examples{
-get_platforms_by_ids("GPL1355")
-get_platforms_by_ids(c("GPL1355", "GPL96"))
+get_platforms("GPL1355")
+get_platforms(c("GPL1355", "GPL96"))
 }
 \keyword{platform}

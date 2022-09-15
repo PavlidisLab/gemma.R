@@ -121,8 +121,13 @@ registerEndpoint <- function(endpoint,
         if (!is.na(file)){
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- mem[fname]([memoise_args])
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() == "cache_in_memory"){
+            return(mem_in_memory_cache("[fname]",[memoise_args]))
+        } else{
+            out <- mem[fname]([memoise_args])
+            return(out)
+        }
+        
     }',.open = '[',.close = ']'))
 
     body(f) = body(f) %>%

@@ -1,3 +1,4 @@
+
 test_that('caches work',{
     forget_gemma_memoised()
 
@@ -81,4 +82,37 @@ test_that('caches work',{
 # don't forget to unmemoise at the end
 forget_gemma_memoised()
 options(gemma.memoised = FALSE)
+options(gemma.cache = NULL)
+
+
+test_that('in memory caches work',{
+    options(gemma.cache = 'cache_in_memory')
+    forget_gemma_memoised()
+    
+    timeNonMemo =
+        microbenchmark::microbenchmark(
+            search_datasets("bipolar", limit = 100, taxon = "human",
+                            memoise = FALSE),
+            times = 1,unit = 'ms') %>% summary
+    
+    result = search_datasets("bipolar", limit = 100, taxon = "human", memoise = TRUE)
+    
+    timeMemo =
+        microbenchmark::microbenchmark(
+            search_datasets("bipolar", limit = 100, taxon = "human",
+                            memoise = TRUE),
+            times = 1,unit = 'ms') %>% summary
+    
+    forget_gemma_memoised()
+    
+    timeForgot =
+        microbenchmark::microbenchmark(
+            search_datasets("bipolar", limit = 100, taxon = "human",
+                            memoise = TRUE),
+            times = 1,unit = 'ms') %>% summary
+    
+    testthat::expect_lt(timeMemo$mean,timeForgot$mean)
+    testthat::expect_lt(timeMemo$mean,timeNonMemo$mean)
+})
+forget_gemma_memoised()
 options(gemma.cache = NULL)

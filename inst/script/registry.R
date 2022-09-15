@@ -372,7 +372,15 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     cat("#' @examples\n#' forget_gemma_memoised()\n", file = document, append = TRUE)
     cat("#' @export\n#'\n#' @keywords misc\n", file = document, append = TRUE)
     cat("forget_gemma_memoised <- ", file = document, append = TRUE)
-    cat("forget_gemma_memoised <- function(){mem = memoise::memoise(function(){},cache = gemmaCache());memoise::forget(mem)}", file = document, append = TRUE)
+    cat('forget_gemma_memoised <-
+    function(){
+        if ("character" %in% class(gemmaCache()) && gemmaCache() == "cache_in_memory"){
+            memoise::forget(mem_in_memory_cache)
+        } else {
+            mem = memoise::memoise(function(){},cache = gemmaCache());
+            memoise::forget(mem)
+        }
+    }', file = document, append = TRUE)
 
     rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
 
