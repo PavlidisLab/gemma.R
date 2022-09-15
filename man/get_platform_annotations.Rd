@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{get_platform_annotations}
 \alias{get_platform_annotations}
-\title{Acquire Platform Annotations by Gemma}
+\title{Retrieve Platform Annotations by Gemma}
 \usage{
 get_platform_annotations(
   platform,

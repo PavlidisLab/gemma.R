@@ -226,7 +226,7 @@ processDEA <- function(d) {
         merge(rsd, by = "factor.ID", allow.cartesian = TRUE, all = TRUE) %>%
         merge(data.table(
             analysis.ID = d[["id"]],
-            ad.ID = d[["arrayDesignsUsed"]]
+            platform.ID = d[["arrayDesignsUsed"]]
         ), by = "analysis.ID", all = TRUE) %>%
         .[, .(
             # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
@@ -241,7 +241,7 @@ processDEA <- function(d) {
             subsetFactor.factorValue = subsetFactor.factorValue,
             subsetFactor.factorValueURI = subsetFactor.factorValueURI,
             stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
-            genes.Analyzed, ad.ID
+            genes.Analyzed, platform.ID
         ), .(result.ID, id)] %>%
         .[, !"id"]
 }

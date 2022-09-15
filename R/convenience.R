@@ -19,7 +19,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
     }
 }
 
-#' Acquire Platform Annotations by Gemma
+#' Retrieve Platform Annotations by Gemma
 #'
 #' Gets Gemma's platform annotations including mappings of microarray probes to genes.
 #'
