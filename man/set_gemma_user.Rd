@@ -2,7 +2,7 @@
 % Please edit documentation in R/convenience.R
 \name{set_gemma_user}
 \alias{set_gemma_user}
-\title{Authentication}
+\title{Authentication by user name}
 \usage{
 set_gemma_user(username = NULL, password = NULL)
 }

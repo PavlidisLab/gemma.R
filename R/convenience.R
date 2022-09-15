@@ -1,4 +1,4 @@
-#' Authentication
+#' Authentication by user name
 #'
 #' Allows the user to access information that requires logging in to Gemma. To log out, run `setGemmaUser` without specifying the username or password.
 #'
@@ -19,7 +19,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
     }
 }
 
-#' Gemma platform annotations
+#' Acquire Platform Annotations by Gemma
 #'
 #' Gets Gemma's platform annotations including mappings of microarray probes to genes.
 #'
