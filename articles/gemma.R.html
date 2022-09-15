@@ -412,7 +412,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="section level3">
 <h3 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
 </h3>
-<p>The some endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
+<p>Some endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
