@@ -430,7 +430,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 681</code></pre>
+<pre><code>[1] 680</code></pre>
 <p>After which you can use <code>offset</code> to access all available platforms.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
@@ -444,11 +444,11 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
   4:           4             GPL570      human
   5:           5              GPL81      mouse
  ---                                          
-677:        1313           GPL30209      human
-678:        1314     Rosetta_Merged      human
-679:        1315  RG-U34_ABC_Merged        rat
-680:        1316           RAE230AB        rat
-681:        1317           GPL30172      mouse</code></pre>
+676:        1313           GPL30209      human
+677:        1314     Rosetta_Merged      human
+678:        1315  RG-U34_ABC_Merged        rat
+679:        1316           RAE230AB        rat
+680:        1317           GPL30172      mouse</code></pre>
 <p>Many endpoints only support a single identifier:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
