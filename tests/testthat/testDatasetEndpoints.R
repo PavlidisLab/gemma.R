@@ -4,7 +4,7 @@ test_that("getDatasetsInfo queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.ID)] %>% paste0(collapse = ""),
+        dat[, c(experiment.ShortName, experiment.ID)] %>% paste0(collapse = ""),
         raw[, c("shortName", "id")] %>% paste0(collapse = "")
     )
     expect_equal(get_datasets_by_ids(c("GSE2018", "GSE2872")) %>% nrow(), 2)
@@ -20,7 +20,7 @@ test_that("searchDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(ee.ShortName, ee.ID)],
+        dat[, c(experiment.ShortName, experiment.ID)],
         c(raw$shortName, raw$id)
     )
     expect_equal(nrow(dat), 20)
@@ -70,7 +70,7 @@ test_that("datasetAnnotations queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(class.Type, class.Name, term.Name, term.URL)],
+        dat[, c(class.Type, class.Name, term.Name, term.URI)],
         c(raw$objectClass, raw$className, raw$termName, raw$termUri)
     )
 })

@@ -16,7 +16,7 @@ test_that("getTaxonDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat$ee.Name,
+        dat$experiment.Name,
         raw %>% purrr::map_chr('name')
     )
     expect_true(nrow(dat)==20)
