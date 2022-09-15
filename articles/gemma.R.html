@@ -142,22 +142,27 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">"bipolar"</span>, limit <span class="op">=</span> <span class="fl">100</span>, taxon <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.SampleCount</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   ee.ShortName                                                         ee.Name
-1:     GSE35974                 Expression data from the human cerebellum brain
-2:     GSE46416 State- and trait-specific gene expression in euthymia and mania
-   ee.ID ee.Accession ee.SampleCount
-1:  5939     GSE35974            144
-2:  8997     GSE46416             32</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:             GSE35974
+2:             GSE46416
+                                                   experiment.Name
+1:                 Expression data from the human cerebellum brain
+2: State- and trait-specific gene expression in euthymia and mania
+   experiment.ID experiment.Accession experiment.SampleCount
+1:          5939             GSE35974                    144
+2:          8997             GSE46416                     32</code></pre>
 <p>We are left with two datasets. For simplicity, we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997" class="external-link">GSE46416</a> since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Description</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   ee.ShortName                                                         ee.Name
-1:     GSE46416 State- and trait-specific gene expression in euthymia and mania
-   ee.ID
-1:  8997
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ee.Description
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Description</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:             GSE46416
+                                                   experiment.Name
+1: State- and trait-specific gene expression in euthymia and mania
+   experiment.ID
+1:          8997
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       experiment.Description
 1: Gene expression profiles of bipolar disorder (BD) patients were assessed during both a manic and a euthymic phase and compared both intra-individually, and with the gene expression profiles of controls.\nLast Updated (by provider): Sep 05 2014\nContributors:  Christian C Witt Benedikt Brors Dilafruz Juraeva Jens Treutlein Carsten Sticht Stephanie H Witt Jana Strohmaier Helene Dukal Josef Frank Franziska Degenhardt Markus M Nöthen Sven Cichon Maren Lang Marcella Rietschel Sandra Meier Manuel Mattheisen</code></pre>
 <p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object()</code></a>. It is a high-level wrapper that combines various endpoint calls to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a> long form tibble for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -307,9 +312,10 @@ Gene expression distributions of bipolar patients during manic phase and control
 <div class="section level3">
 <h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
 </h3>
-<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. ome datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes:</p>
+<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. ome datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes</p>
+<p>Note that <code><a href="../reference/get_differential_expression_values.html">get_differential_expression_values()</a></code> has the argument <code>readableContrasts</code>. By default this is set to <code>FALSE</code>, resulting in the output columns being named based on the contrast IDs rather the more human readable columns used below. These contrast IDs can be used together with <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html" class="external-link"><code>get_dataset_differential_expression_analyses()</code></a> during a systematic analysis.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,readableContrasts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
 <span><span class="co"># Classify probes for plotting</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">&lt;-</span> <span class="st">"No"</span></span>
@@ -409,13 +415,16 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <p>The some endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.ShortName</span>, <span class="va">ee.Name</span>, <span class="va">ee.ID</span>, <span class="va">ee.Accession</span>, <span class="va">ee.SampleCount</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   ee.ShortName                                                         ee.Name
-1:     GSE35974                 Expression data from the human cerebellum brain
-2:     GSE46416 State- and trait-specific gene expression in euthymia and mania
-   ee.ID ee.Accession ee.SampleCount taxon.Name
-1:  5939     GSE35974            144      human
-2:  8997     GSE46416             32      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:             GSE35974
+2:             GSE46416
+                                                   experiment.Name
+1:                 Expression data from the human cerebellum brain
+2: State- and trait-specific gene expression in euthymia and mania
+   experiment.ID experiment.Accession experiment.SampleCount taxon.Name
+1:          5939             GSE35974                    144      human
+2:          8997             GSE46416                     32      human</code></pre>
 <p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s).</p>
 <p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -448,20 +457,20 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>ee.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ee.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>experiment.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    ee.shortName    class.Type     class.Name              term.Name
- 1:     GSE35974   FactorValue        disease       Bipolar Disorder
- 2:     GSE35974   BioMaterial biological sex                   male
- 3:     GSE35974   BioMaterial biological sex                 female
- 4:     GSE35974   FactorValue        disease          schizophrenia
- 5:     GSE35974 ExperimentTag  organism part             cerebellum
- 6:     GSE35974   FactorValue        disease      mental depression
- 7:     GSE12649   BioMaterial  organism part reference subject role
- 8:     GSE12649   BioMaterial        disease       Bipolar Disorder
- 9:     GSE12649 ExperimentTag  organism part      prefrontal cortex
-10:     GSE12649   BioMaterial        disease          schizophrenia</code></pre>
+<pre><code>    experiment.shortName    class.Type     class.Name              term.Name
+ 1:             GSE35974   FactorValue        disease       Bipolar Disorder
+ 2:             GSE35974   BioMaterial biological sex                   male
+ 3:             GSE35974   BioMaterial biological sex                 female
+ 4:             GSE35974   FactorValue        disease          schizophrenia
+ 5:             GSE35974 ExperimentTag  organism part             cerebellum
+ 6:             GSE35974   FactorValue        disease      mental depression
+ 7:             GSE12649   BioMaterial  organism part reference subject role
+ 8:             GSE12649   BioMaterial        disease       Bipolar Disorder
+ 9:             GSE12649 ExperimentTag  organism part      prefrontal cortex
+10:             GSE12649   BioMaterial        disease          schizophrenia</code></pre>
 </div>
 </div>
 <div class="section level2">
