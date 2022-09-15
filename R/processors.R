@@ -228,7 +228,7 @@ processDEA <- function(d) {
             ad.ID = d[["arrayDesignsUsed"]]
         ), by = "analysis.ID", all = TRUE) %>%
         .[, .(
-            rsc.ID = paste("RSCID", result.ID, id, sep = "."),
+            # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
             contrast.id = id,
             analysis.ID,
             experiment.ID, baseline.category, baseline.categoryURI, baseline.factorValue, baseline.factorValueURI,
