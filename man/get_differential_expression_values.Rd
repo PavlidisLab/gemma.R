@@ -7,6 +7,7 @@
 get_differential_expression_values(
   dataset = NA_character_,
   resultSet = NA_integer_,
+  readableContrasts = FALSE,
   memoised = getOption("gemma.memoised", FALSE)
 )
 }
@@ -14,6 +15,11 @@ get_differential_expression_values(
 \item{dataset}{A dataset identifier.}
 
 \item{resultSet}{A resultSet identifier.}
+
+\item{readableContrasts}{If \code{FALSE} (default), the returned columns will
+use internal constrasts IDs as names. Details about the contrasts can be accessed
+using \code{\link{get_dataset_differential_expression_analyses}}. If TRUE IDs will
+be replaced with human readable contrast information.}
 
 \item{memoised}{Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
