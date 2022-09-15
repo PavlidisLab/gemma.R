@@ -44,4 +44,10 @@ NULL
 if (getRversion() >= "2.15.1") utils::globalVariables(c("."))
 
 
-utils::globalVariables('.')
+utils::globalVariables(c("ad.ID", "analysis.ID", "analysis.Threshold", "baseline.category", 
+                         "baseline.categoryURI", "baseline.factorValue", "baseline.factorValueURI", 
+                         "cf.Val", "cf.ValLongUri", "experiment.ID", "factor.ID", "factorId", 
+                         "factorValue", "genes.Analyzed", "id", "probes.Analyzed", "result.ID", 
+                         "resultIds", "stats.DE", "stats.Down", "stats.Up", "subsetFactor.category", 
+                         "subsetFactor.categoryURI", "subsetFactor.Enabled", "subsetFactor.factorValue", 
+                         "subsetFactor.factorValueURI", "valueUri"))
