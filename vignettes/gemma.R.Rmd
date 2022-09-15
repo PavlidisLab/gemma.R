@@ -83,7 +83,7 @@ batch corrected.
 ```{r search}
 search_datasets("bipolar", limit = 100, taxon = "human") %>%
     filter(geeq.batchCorrected == TRUE) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.SampleCount)
+    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Accession, experiment.SampleCount)
 ```
 
 We are left with two datasets. For simplicity, we'll pick
@@ -93,7 +93,7 @@ our experiment, we can fetch the data associated with it.
 
 ```{r dataset}
 get_datasets_by_ids("GSE46416") %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Description)
+    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Description)
 ```
 
 To access the expression data in a convenient form, you can use
@@ -149,7 +149,12 @@ to get the experimental design matrix.
 
 ## Platform Annotations
 
-Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the [`get_platform_annotations()`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html) function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.
+Expression data in Gemma comes with annotations for the gene each
+expression profile corresponds to. Using the
+[`get_platform_annotations()`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html)
+function, these annotations can be retrieved independently of the
+expression data, along with additional annotations such as Gene Ontology
+terms.
 
 Examples:
 
@@ -161,10 +166,11 @@ head(get_platform_annotations('GPL96'))
 head(get_platform_annotations('Generic_human'))
 ```
 
-If you are interested in a particular gene, you can see which platforms include it
-using [`get_gene_probes()`](https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html).
-Note that functions to search gene work best with unambigious identifiers rather than
-symbols.
+If you are interested in a particular gene, you can see which platforms
+include it using
+[`get_gene_probes()`](https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html).
+Note that functions to search gene work best with unambigious
+identifiers rather than symbols.
 
 ```{r}
 # lists genes in gemma matching the symbol or identifier
@@ -180,15 +186,23 @@ head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','arra
 
 ## Differential expression analyses
 
-Gemma contains precomputed differential expression analyses for
-most of its datasets. Analyses can involve more than one factor, such as "sex" as well as "disease". ome datasets contain more than one analysis
-to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using
+Gemma contains precomputed differential expression analyses for most of
+its datasets. Analyses can involve more than one factor, such as "sex"
+as well as "disease". ome datasets contain more than one analysis to
+account for different factors and their interactions. The results are
+stored as resultSets, each corresponding to one factor (or their
+interaction). You can access them using
 [`get_differential_expression_values()`](https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html).
 From here on, we can explore and visualize the data to find the most
-differentially-expressed genes:
+differentially-expressed genes
+
+Note that `get_differential_expression_values()` has the argument `readableContrasts`.
+By default this is set to `FALSE`, resulting in the output columns being named based
+on the contrast IDs rather the more human readable columns used below. These contrast
+IDs can be used together with [`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html) during a systematic analysis.
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
-de <- get_differential_expression_values("GSE46416")[[1]]
+de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]]
 
 # Classify probes for plotting
 de$diffexpr <- "No"
@@ -234,6 +248,7 @@ ggplot(
     theme_minimal()
 ```
 
+
 ## Larger queries
 
 The some endpoints accept multiple identifiers in a single function
@@ -241,7 +256,7 @@ call. For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
 get_datasets_by_ids(datasets = c("GSE35974", "GSE46416")) %>%
-    select(ee.ShortName, ee.Name, ee.ID, ee.Accession, ee.SampleCount, taxon.Name)
+    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Accession, experiment.SampleCount, taxon.Name)
 ```
 
 To query large amounts of data, the API has a pagination system which
@@ -279,8 +294,8 @@ to query and send separate requests.
 ```{r loop}
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
     get_dataset_annotations(dataset) %>% 
-        mutate(ee.shortName = dataset) %>%
-        select(ee.shortName, class.Type, class.Name, term.Name)
+        mutate(experiment.shortName = dataset) %>%
+        select(experiment.shortName, class.Type, class.Name, term.Name)
 }) %>% do.call(rbind,.)
 ```
 
