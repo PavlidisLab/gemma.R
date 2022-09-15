@@ -79,8 +79,8 @@ NULL
 #' @inherit processPlatforms return
 #' 
 #' @examples 
-#' get_platforms("GPL1355")
-#' get_platforms(c("GPL1355", "GPL96"))
+#' get_platforms_by_ids("GPL1355")
+#' get_platforms_by_ids(c("GPL1355", "GPL96"))
 NULL
 
 #' get_platform_datasets

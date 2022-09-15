@@ -953,8 +953,8 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
 #' @keywords platform
 #'
 #' @examples
-#' get_platforms("GPL1355")
-#' get_platforms(c("GPL1355", "GPL96"))
+#' get_platforms_by_ids("GPL1355")
+#' get_platforms_by_ids(c("GPL1355", "GPL96"))
 get_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limit = 20L,
     sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
