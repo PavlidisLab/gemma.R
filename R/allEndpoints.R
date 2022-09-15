@@ -295,7 +295,7 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
 #' @inherit processDatasetResultSets return
 #' @export
 #'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
 #' resultSets <- get_result_sets("GSE2018")
@@ -308,7 +308,7 @@ get_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), memoi
         FALSE
     ), attributes = getOption("gemma.attributes", TRUE)) {
     internal <- FALSE
-    keyword <- "dataset"
+    keyword <- "internal"
     header <- ""
     isFile <- FALSE
     fname <- "get_result_sets"

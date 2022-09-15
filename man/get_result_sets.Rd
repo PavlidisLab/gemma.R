@@ -58,4 +58,4 @@ Retrieve all result sets matching the provided criteria
 resultSets <- get_result_sets("GSE2018")
 get_differential_expression_values(resultSet = resultSets$resultSet.id)
 }
-\keyword{dataset}
+\keyword{internal}

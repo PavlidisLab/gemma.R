@@ -97,7 +97,7 @@ registerEndpoint(
 registerEndpoint(
     "resultSets?datasets={datasets}",
     "get_result_sets",open_api_name = 'get_result_sets',
-    keyword = "dataset",
+    keyword = "internal",
     defaults = list(
         datasets = bquote()
     ),
