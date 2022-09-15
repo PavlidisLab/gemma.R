@@ -64,13 +64,14 @@ processGemmaFactor <- function(d) {
 processGemmaArray <- function(d) {
     d <- jsonlite:::simplify(d)
     data.table(
-        array.ShortName = d[["shortName"]],
-        array.Name = d[["name"]],
-        array.Taxon = d[["taxon"]],
-        array.TaxonID = d[["taxonID"]],
-        array.Type = d[["technologyType"]],
-        array.Description = d[["description"]],
-        array.Troubled = d[["troubled"]]
+        platform.ShortName = d[["shortName"]],
+        platform.Name = d[["name"]],
+        platform.ID = d[['id']],
+        platform.Taxon = d[["taxon"]],
+        platform.TaxonID = d[["taxonID"]],
+        platform.Type = d[["technologyType"]],
+        platform.Description = d[["description"]],
+        platform.Troubled = d[["troubled"]]
     )
 }
 
