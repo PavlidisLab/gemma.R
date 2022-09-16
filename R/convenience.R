@@ -59,15 +59,28 @@ get_platform_annotations <- function(platform,
         if (!is.na(file)){
             warning("Saving to files is not supported with memoisation.")
         }
-        out <- memget_platform_annotations(
-            platform = platform,
-            annotType = annotType,
-            file = NA,
-            overwrite = overwrite,
-            memoised = FALSE,
-            unzip = unzip
-        )
-        return(out)
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_platform_annotations",
+                                       platform = platform,
+                                       annotType = annotType,
+                                       file = NA,
+                                       overwrite = overwrite,
+                                       memoised = FALSE,
+                                       unzip = unzip
+            ))
+        } else{
+            out <- memget_platform_annotations(
+                platform = platform,
+                annotType = annotType,
+                file = NA,
+                overwrite = overwrite,
+                memoised = FALSE,
+                unzip = unzip
+            )
+            return(out)
+        }
+
     }
 
     if (!is.numeric(platform)) {
