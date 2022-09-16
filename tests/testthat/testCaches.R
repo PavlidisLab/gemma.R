@@ -101,6 +101,10 @@ test_that('custom cache paths work',{
   non_default = tempfile()
   options(gemma.cache = non_default)
   forget_gemma_memoised()
+  
+  timeNonMemo <- microbenchmark::microbenchmark(
+      get_dataset_object(test_gse,memoised = FALSE),
+      times = 1, unit = 'ms') %>% summary
 
   testthat::expect_true(length(list.files(non_default)) == 0)
   result = get_dataset_object(test_gse, memoised = TRUE)
