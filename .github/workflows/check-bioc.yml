@@ -58,6 +58,7 @@ jobs:
           - { os: windows-latest, r: '4.1', bioc: '3.13', type: "dev", gemma_path: "https://dev.gemma.msl.ubc.ca/rest/v2/" }
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      API_PATH: ${{ matrix.config.gemma_path }}
       RSPM: ${{ matrix.config.rspm }}
       NOT_CRAN: true
       TZ: UTC
