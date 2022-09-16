@@ -209,9 +209,10 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
     
     
     rownames(exprM) <- exprM$Probe
-    genes <- S4Vectors::DataFrame(dplyr::select(exprM, "GeneSymbol", "GeneName", "NCBIid"))
-    exprM <- dplyr::select(exprM, -"Probe", -"GeneSymbol", -"GeneName", -"NCBIid") %>%
+    genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
+    exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
         data.matrix()
+    
     design <- get_dataset_design(dataset,memoised = memoised)
 
     # This annotation table is required
