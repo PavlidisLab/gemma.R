@@ -480,14 +480,14 @@ processGenes <- function(d) {
         gene.Ensembl = d[["ensemblId"]],
         gene.NCBI = d[["ncbiId"]],
         gene.Name = d[["officialName"]],
-        gene.Aliases = d[["aliases"]],
-        gene.GO = d[["numGoTerms"]],
-        gene.Homologues = d[["homologues"]],
-        gene.MFX.Rank = d[["multifunctionalityRank"]],
+        # gene.Aliases = d[["aliases"]],
+        # gene.GO = d[["numGoTerms"]],
+        # gene.Homologues = d[["homologues"]],
+        # gene.MFX.Rank = d[["multifunctionalityRank"]],
         taxon.Name = d[["taxonCommonName"]],
         taxon.ID = d[["taxonId"]],
         taxon.Scientific = d[["taxonScientificName"]],
-        phenotypes = d[["phenotypes"]]
+        # phenotypes = d[["phenotypes"]]
     )
 }
 
