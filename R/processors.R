@@ -105,6 +105,7 @@ processGemmaArray <- function(d) {
 #'     \item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
 #'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found 
 #'     \item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
+#'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 #'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
 #'     \item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
@@ -130,6 +131,7 @@ processDatasets <- function(d) {
         geeq.batchCorrected = checkBounds(d[["geeq"]][["batchCorrected"]]),
         geeq.batchConfound = checkBounds(d[["geeq"]][["qScorePublicBatchConfound"]]),
         geeq.batchEffect = checkBounds(d[["geeq"]][["qScorePublicBatchEffect"]]),
+        geeq.rawData = checkBounds(d[["geeq"]][["sScoreRawData"]]),
         geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
         geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
         taxon.Name = d[["taxon"]],
