@@ -488,7 +488,7 @@ processGenes <- function(d) {
         # gene.MFX.Rank = d[["multifunctionalityRank"]],
         taxon.Name = d[["taxonCommonName"]],
         taxon.ID = d[["taxonId"]],
-        taxon.Scientific = d[["taxonScientificName"]],
+        taxon.Scientific = d[["taxonScientificName"]]
         # phenotypes = d[["phenotypes"]]
     )
 }
