@@ -269,18 +269,12 @@ Gene expression distributions of bipolar patients during manic phase and control
 3:        Eno2 ENSRNOG00000013141     24334                      enolase 2
 4:        ENO2               &lt;NA&gt;    856579 phosphopyruvate hydratase ENO2
 5:        eno2 ENSDARG00000014287    402874                      enolase 2
-   gene.Aliases gene.GO gene.Homologues gene.MFX.Rank taxon.Name taxon.ID
-1:           NA       0              NA             0      human        1
-2:           NA       0              NA             0      mouse        2
-3:           NA       0              NA             0        rat        3
-4:           NA       0              NA             0      yeast       11
-5:           NA       0              NA             0  zebrafish       12
-           taxon.Scientific phenotypes
-1:             Homo sapiens         NA
-2:             Mus musculus         NA
-3:        Rattus norvegicus         NA
-4: Saccharomyces cerevisiae         NA
-5:              Danio rerio         NA</code></pre>
+   taxon.Name taxon.ID         taxon.Scientific
+1:      human        1             Homo sapiens
+2:      mouse        2             Mus musculus
+3:        rat        3        Rattus norvegicus
+4:      yeast       11 Saccharomyces cerevisiae
+5:  zebrafish       12              Danio rerio</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ncbi id for human ENO2</span></span>
 <span><span class="va">probes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_gene_probes.html">get_gene_probes</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
