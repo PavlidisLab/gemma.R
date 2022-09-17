@@ -135,8 +135,8 @@ processDatasets <- function(d) {
         geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
         geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
         taxon.Name = d[["taxon"]],
-        taxon.ID = d[["taxonId"]],
-        technology.Type = d[["technologyType"]]
+        taxon.ID = d[["taxonId"]]# ,
+        # technology.Type = d[["technologyType"]]
     )
 }
 
