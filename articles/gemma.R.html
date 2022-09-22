@@ -402,7 +402,7 @@ Gene expression distributions of bipolar patients during manic phase and control
 Differentially-expressed genes in bipolar patients during manic phase versus controls.
 </p>
 </div>
-<p>Setting <code>readableContrasts=FALSE</code> (default) will allow easier programmatic access to differentials.</p>
+<p>Setting <code>readableContrasts=FALSE</code> (default) will allow easier programmatic access to differentials. For instance, lets get the number of differentially expressed genes for each contrast returned by <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html" class="external-link"><code>get_dataset_differential_expression_analyses()</code></a> for a study</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># return all contrasts for the dataset</span></span>
 <span><span class="op">(</span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -436,15 +436,13 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">result_set</span> <span class="op">=</span> <span class="va">dif_exp_values</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
 <span>    <span class="va">p_values</span> <span class="op">=</span> <span class="va">result_set</span><span class="op">[[</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"contrast_{contrasts[i,]$contrast.id}_pvalue"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">p_values</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
-<pre><code>        [,1]    [,2]
-[1,] 0.72210 0.71960
-[2,] 0.31910 0.45900
-[3,] 0.26330 0.21660
-[4,] 0.50520 0.37310
-[5,] 0.05047 0.08694
-[6,] 0.09359 0.54590</code></pre>
+<span>    </span>
+<span>    <span class="co"># multiple testing correction</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">p_values</span>,method <span class="op">=</span> <span class="st">'BH'</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">dif_exp_genes</span></span>
+<span></span>
+<span><span class="va">dif_exp_genes</span></span></code></pre></div>
+<pre><code>[1]    3 1389</code></pre>
 </div>
 <div class="section level3">
 <h3 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
