@@ -59,8 +59,8 @@ test_that("datasetDEA queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(analysis.ID, stats.DE, stats.Up, stats.Down)],
-        c(raw$id, rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount)
+        dat[, c( stats.DE, stats.Up, stats.Down)],
+        c(rs$numberOfDiffExpressedProbes, rs$upregulatedCount, rs$downregulatedCount)
     )
 })
 
