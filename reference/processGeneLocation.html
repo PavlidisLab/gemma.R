@@ -82,8 +82,24 @@
     <h2>Value</h2>
     
 
-<p>A processed data.table</p>
-    </div>
+<p>A data table with information about the physical location of the
+queried gene. A list if <code>raw = TRUE</code>. A <code>404 error</code> if the given identifier does not map to any object.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>chromosome</code>: Name of the chromosome the gene is located</p></li>
+<li><p><code>strand</code>: Which strand the gene is located</p></li>
+<li><p><code>bin</code>:</p></li>
+<li><p><code>nucleotide</code>: Nucleotide number for the gene</p></li>
+<li><p><code>length</code>: Gene length</p></li>
+<li><p><code>taxon.name</code>: Name of the taxon</p></li>
+<li><p><code>taxon.Scientific</code>: Scientific name for the taxon</p></li>
+<li><p><code>taxon.ID</code>: Internal ID for the taxon given by Gemma</p></li>
+<li><p><code>taxon.NCBI</code>: NCBI ID for the taxon</p></li>
+<li><p><code>taxon.Database.Name</code>: Name of the database used in Gemma for the taxon</p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

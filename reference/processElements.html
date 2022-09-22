@@ -82,8 +82,25 @@
     <h2>Value</h2>
     
 
-<p>A processed data.table</p>
-    </div>
+<p>A data table with information about the probes representing a gene across
+all platrofms. A list if <code>raw = TRUE</code>.
+A <code>404 error</code> if the given identifier does not map to any genes.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>mapping.name</code>: Name of the mapping. Typically the probeset name</p></li>
+<li><p><code>mappping.description</code>: A free text field providing optional information about the mapping</p></li>
+<li><p><code>platform.ShortName</code>: Shortname of the platform given by Gemma. Typically the GPL identifier.</p></li>
+<li><p><code>platform.Name</code>: Full name of the platform</p></li>
+<li><p><code>platform.ID</code>: Id number of the platform given by Gemma</p></li>
+<li><p><code>platform.Taxon</code>: Species the platform was designed for</p></li>
+<li><p><code>platform.TaxonID</code>: Id number of the species given by Gemma</p></li>
+<li><p><code>platform.Type</code>: Type of the platform.</p></li>
+<li><p><code>platform.Description</code>: Free text field describing the platform.</p></li>
+<li><p><code>platform.Troubled</code>: Whether the platform is marked as troubled by a Gemma curator.</p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

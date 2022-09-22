@@ -119,9 +119,17 @@ into the output object's attributes such as offset and available elements.</p></
     
 
 <p>A data table with information about the GO terms assigned to the
-queried gene. A <code>404 error</code> if the given identifier does not map to any
-object. Go terms were updated on June 10 2022</p>
-    </div>
+queried gene. A list if <code>raw = TRUE</code>. A <code>404 error</code> if the given identifier does not map to any
+object. Go terms were updated on June 10 2022.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>term.Name</code>: Name of the term</p></li>
+<li><p><code>term.ID</code>: ID of the term</p></li>
+<li><p><code>term.URI</code>: URI of the term</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

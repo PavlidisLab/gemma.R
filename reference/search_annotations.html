@@ -119,8 +119,17 @@ into the output object's attributes such as offset and available elements.</p></
     
 
 <p>A data table with annotations (annotation search result value objects)
-matching the given identifiers. A <code>400 error</code> if required parameters are missing.</p>
-    </div>
+matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 error</code> if required parameters are missing.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>category.Name</code>: Category that the annotation belongs to</p></li>
+<li><p><code>category.URI</code>: URI for the category.Name</p></li>
+<li><p><code>value.Name</code>: Annotation term</p></li>
+<li><p><code>value.URI</code>: URI for the value.Name</p></li>
+</ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>

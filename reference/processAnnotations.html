@@ -82,8 +82,21 @@
     <h2>Value</h2>
     
 
-<p>A processed data.table</p>
-    </div>
+<p>A data table with information about the annotations of the queried
+dataset. A list if <code>raw = TRUE</code>.A <code>404 error</code> if the given
+identifier does not map to any object.</p>
+
+
+<p>The fields of the output data.table are:</p>
+
+
+<ul><li><p><code>class.Type</code>: Type of the annotation class</p></li>
+<li><p><code>class.Name</code>: Name of the annotation class (e.g. organism part)</p></li>
+<li><p><code>class.URI</code>: URI for the annotation class</p></li>
+<li><p><code>evidence.Code</code>:</p></li>
+<li><p><code>term.Name</code>: Name of the annotation term (e.g. lung)</p></li>
+<li><p><code>term.URI</code>: URI for the annotation term</p></li>
+</ul></div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
