@@ -252,7 +252,8 @@ ggplot(
 ```
 
 Setting `readableContrasts=FALSE` (default) will allow easier
-programmatic access to differentials. 
+programmatic access to differentials. For instance, lets get the number of
+differentially expressed genes for each contrast returned by [`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html) for a study
 
 ```{r}
 # return all contrasts for the dataset
@@ -266,8 +267,12 @@ dif_exp_values = get_differential_expression_values('GSE46416')
 seq_len(nrow(contrasts)) %>% sapply(function(i){
     result_set = dif_exp_values[[as.character(contrasts[i,]$result.ID)]]
     p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.id}_pvalue")]]
-    return(p_values)
-}) %>% head
+    
+    # multiple testing correction
+    sum(p.adjust(p_values,method = 'BH') < 0.05)
+}) -> dif_exp_genes
+
+dif_exp_genes
 
 ```
 ## Larger queries
