@@ -36,7 +36,20 @@ filename.}
 into the output object's attributes such as offset and available elements.}
 }
 \value{
-A data table with information about the queried gene(s).
+A data table with information about the querried gene(s)
+A list if \code{raw = TRUE}.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{gene.Symbol}: Symbol for the gene
+\item \code{gene.Ensembl}: Ensembl ID for the gene
+\item \code{gene.NCBI}: NCBI id for the gene
+\item \code{gene.Name}: Name of the gene
+\item \code{taxon.name}: Name of the taxon of origin
+\item \code{taxon.ID}: Gemma ID for the taxon
+\item \code{taxon.Scientific}: Scientific name for the taxon
+}
 }
 \description{
 Retrieve genes matching a gene identifier

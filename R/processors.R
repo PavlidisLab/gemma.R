@@ -58,8 +58,10 @@ processGemmaFactor <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
-#'
+#' @return A data table with information about the probes representing the gene
+#' across different platforms. 
+#' 
+#' 
 #' @keywords internal
 processGemmaArray <- function(d) {
     d <- jsonlite:::simplify(d)
@@ -91,18 +93,18 @@ processGemmaArray <- function(d) {
 #' The fields of the output data.table are:
 #' 
 #' \itemize{
-#'     \item \code{ee.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
-#'     \item \code{ee.Name}: Full title of the dataset
-#'     \item \code{ee.ID}: Internal ID of the dataset.
-#'     \item \code{ee.Description}: Description of the dataset
-#'     \item \code{ee.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
-#'     \item \code{ee.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
-#'     \item \code{ee.Accession}: Accession ID of the dataset in the external database it was taken from
-#'     \item \code{ee.Database}: The name of the database where the dataset was taken from
-#'     \item \code{ee.URL}: URL of the original database
-#'     \item \code{ee.SampleCount}: Number of samples in the dataset
-#'     \item \code{ee.batchEffect}: A text field describing whether the dataset has batch effects
-#'     \item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
+#'     \item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+#'     \item \code{experiment.Name}: Full title of the dataset
+#'     \item \code{experiment.ID}: Internal ID of the dataset.
+#'     \item \code{experiment.Description}: Description of the dataset
+#'     \item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
+#'     \item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+#'     \item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
+#'     \item \code{experiment.Database}: The name of the database where the dataset was taken from
+#'     \item \code{experiment.URI}: URI of the original database
+#'     \item \code{experiment.SampleCount}: Number of samples in the dataset
+#'     \item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
+#'     \item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset. This is a text field with possible details about the batch correction. Use \code{geeq.batchEffect} if a more structured field is needed.
 #'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found 
 #'     \item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
 #'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
@@ -144,8 +146,18 @@ processDatasets <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
-#'
+#' @return A data table with annotations (annotation search result value objects)
+#' matching the given identifiers. A list if \code{raw = TRUE}. A \code{400 error} if required parameters are missing.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{category.Name}: Category that the annotation belongs to
+#'     \item \code{category.URI}: URI for the category.Name
+#'     \item \code{value.Name}: Annotation term
+#'     \item \code{value.URI}: URI for the value.Name
+#' }
+#' 
 #' @keywords internal
 processSearchAnnotations <- function(d) {
     d <- jsonlite:::simplify(d)
@@ -162,7 +174,39 @@ processSearchAnnotations <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the differential expression
+#' analysis of the queried dataset. Note that this funciton does not return
+#' differential expression values themselves. Use \code{\link{get_differential_expression_values}}
+#' to get differential expression values (see examples).
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{result.ID}: Result set ID of the differential expression analysis.
+#'     May represent multiple factors in a single model.
+#'     \item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
+#'     they uniquely represent a given contrast.
+#'     \item \code{experiment.ID}: Id of the source experiment
+#'     \item \code{baseline.category}: Category for the contrast
+#'     \item \code{baseline.categoryURI}: URI for the baseline category
+#'     \item \code{baseline.factorValue}: Factor value assigned as the baseline in the contrast. Typically represent control samples
+#'     \item \code{baseline.factorValueURI}: URI for the baseline.factorValue
+#'     \item \code{experimental.factorValue}: Factor value assigned to the experimental group.
+#'     \item \code{experimental.factorValueURI}: URI for the experimental.factorValue
+#'     \item \code{subsetFactor.subset}:
+#'     \item \code{subsetFactor.category}:
+#'     \item \code{subsetFactor.categoryURI}:
+#'     \item \code{subsetFactor.factorValue}:
+#'     \item \code{subsetFactor.factorValueURI}:
+#'     \item \code{stats.DE}: Number of differentially expressed genes for the contrast
+#'     \item \code{stats.Down}: Number of downregulated genes for the contrast
+#'     \item \code{stats.Up}: Number of upregulated genes for the contrast
+#'     \item \code{analysis.Threshold}: P value threshold used to determine the number
+#'     of differentially expressed genes
+#'     \item \code{probes.Analyzed}: Number of probesets represented in the contrast
+#'     \item \code{genes.Analyzed}: Number of genes represented in the contrast
+#'     \item \code{platform.ID}: Platform id for the contrast
+#' }
 #'
 #' @keywords internal
 processDEA <- function(d) {
@@ -233,7 +277,6 @@ processDEA <- function(d) {
         .[, .(
             # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
             contrast.id = id,
-            analysis.ID,
             experiment.ID, baseline.category, baseline.categoryURI, baseline.factorValue, baseline.factorValueURI,
             experimental.factorValue = cf.Val, 
             experimental.factorValueURI = cf.ValLongUri, 
@@ -314,7 +357,22 @@ processDatasetResultSets <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the annotations of the queried 
+#' dataset. A list if \code{raw = TRUE}.A \code{404 error} if the given 
+#' identifier does not map to any object.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{class.Type}: Type of the annotation class
+#'     \item \code{class.Name}: Name of the annotation class (e.g. organism part)
+#'     \item \code{class.URI}: URI for the annotation class
+#'     \item \code{evidence.Code}:
+#'     \item \code{term.Name}: Name of the annotation term (e.g. lung)
+#'     \item \code{term.URI}: URI for the annotation term
+#' }
+#' 
+#' 
 #'
 #' @keywords internal
 processAnnotations <- function(d) {
@@ -424,7 +482,7 @@ processSamples <- function(d) {
 #'  \item \code{platform.ElementCount}
 #'  \item \code{taxon.Name}: Name of the species platform was made for
 #'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
-#'  \item \code{technology.Type}: Technology type for the platform.
+#'  \item \code{platform.Type}: Technology type for the platform.
 #'  }
 #'  
 #' @keywords internal
@@ -445,7 +503,7 @@ processPlatforms <- function(d) {
         platform.ElementCount = d[["designElementCount"]],
         taxon.Name = d[["taxon"]],
         taxon.ID = d[["taxonID"]],
-        technology.Type = d[["technologyType"]]#,
+        platform.Type = d[["technologyType"]]#,
         # technology.Color = d[["color"]]
     )
 }
@@ -454,8 +512,25 @@ processPlatforms <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
-#'
+#' @return A data table with information about the probes representing a gene across
+#' all platrofms. A list if \code{raw = TRUE}.
+#' A \code{404 error} if the given identifier does not map to any genes.
+#' 
+#'  The fields of the output data.table are:
+#'  
+#'  \itemize{
+#'      \item \code{mapping.name}: Name of the mapping. Typically the probeset name
+#'      \item \code{mappping.description}: A free text field providing optional information about the mapping
+#'      \item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
+#'      \item \code{platform.Name}: Full name of the platform
+#'      \item \code{platform.ID}: Id number of the platform given by Gemma
+#'      \item \code{platform.Taxon}: Species the platform was designed for
+#'      \item \code{platform.TaxonID}: Id number of the species given by Gemma
+#'      \item \code{platform.Type}: Type of the platform.
+#'      \item \code{platform.Description}: Free text field describing the platform.
+#'      \item \code{platform.Troubled}: Whether the platform is marked as troubled by a Gemma curator.
+#'  }
+#' 
 #' @keywords internal
 processElements <- function(d) {
     d <- jsonlite:::simplify(d)
@@ -471,7 +546,20 @@ processElements <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the querried gene(s) 
+#' A list if \code{raw = TRUE}.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{gene.Symbol}: Symbol for the gene
+#'     \item \code{gene.Ensembl}: Ensembl ID for the gene
+#'     \item \code{gene.NCBI}: NCBI id for the gene
+#'     \item \code{gene.Name}: Name of the gene
+#'     \item \code{taxon.name}: Name of the taxon of origin
+#'     \item \code{taxon.ID}: Gemma ID for the taxon
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#' }
 #'
 #' @keywords internal
 processGenes <- function(d) {
@@ -517,7 +605,23 @@ processTaxon <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the physical location of the
+#' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any object.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{chromosome}: Name of the chromosome the gene is located
+#'     \item \code{strand}: Which strand the gene is located
+#'     \item \code{bin}:
+#'     \item \code{nucleotide}: Nucleotide number for the gene
+#'     \item \code{length}: Gene length
+#'     \item \code{taxon.name}: Name of the taxon
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal ID for the taxon given by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID for the taxon
+#'     \item \code{taxon.Database.Name}: Name of the database used in Gemma for the taxon
+#' }
 #'
 #' @keywords internal
 processGeneLocation <- function(d) {
@@ -537,7 +641,18 @@ processGeneLocation <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A processed data.table
+#' @return A data table with information about the GO terms assigned to the
+#' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any
+#' object. Go terms were updated on June 10 2022.
+#' 
+#' The fields of the output data.table are:
+#' 
+#' \itemize{
+#'     \item \code{term.Name}: Name of the term
+#'     \item \code{term.ID}: ID of the term
+#'     \item \code{term.URI}: URI of the term
+#' }
+#' 
 #'
 #' @keywords internal
 processGO <- function(d) {

@@ -10,7 +10,39 @@ processDEA(d)
 \item{d}{The JSON to process}
 }
 \value{
-A processed data.table
+A data table with information about the differential expression
+analysis of the queried dataset. Note that this funciton does not return
+differential expression values themselves. Use \code{\link{get_differential_expression_values}}
+to get differential expression values (see examples).
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{result.ID}: Result set ID of the differential expression analysis.
+May represent multiple factors in a single model.
+\item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
+they uniquely represent a given contrast.
+\item \code{experiment.ID}: Id of the source experiment
+\item \code{baseline.category}: Category for the contrast
+\item \code{baseline.categoryURI}: URI for the baseline category
+\item \code{baseline.factorValue}: Factor value assigned as the baseline in the contrast. Typically represent control samples
+\item \code{baseline.factorValueURI}: URI for the baseline.factorValue
+\item \code{experimental.factorValue}: Factor value assigned to the experimental group.
+\item \code{experimental.factorValueURI}: URI for the experimental.factorValue
+\item \code{subsetFactor.subset}:
+\item \code{subsetFactor.category}:
+\item \code{subsetFactor.categoryURI}:
+\item \code{subsetFactor.factorValue}:
+\item \code{subsetFactor.factorValueURI}:
+\item \code{stats.DE}: Number of differentially expressed genes for the contrast
+\item \code{stats.Down}: Number of downregulated genes for the contrast
+\item \code{stats.Up}: Number of upregulated genes for the contrast
+\item \code{analysis.Threshold}: P value threshold used to determine the number
+of differentially expressed genes
+\item \code{probes.Analyzed}: Number of probesets represented in the contrast
+\item \code{genes.Analyzed}: Number of genes represented in the contrast
+\item \code{platform.ID}: Platform id for the contrast
+}
 }
 \description{
 Processes JSON as a differential expression analysis

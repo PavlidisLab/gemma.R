@@ -10,7 +10,23 @@ processGeneLocation(d)
 \item{d}{The JSON to process}
 }
 \value{
-A processed data.table
+A data table with information about the physical location of the
+queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any object.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{chromosome}: Name of the chromosome the gene is located
+\item \code{strand}: Which strand the gene is located
+\item \code{bin}:
+\item \code{nucleotide}: Nucleotide number for the gene
+\item \code{length}: Gene length
+\item \code{taxon.name}: Name of the taxon
+\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal ID for the taxon given by Gemma
+\item \code{taxon.NCBI}: NCBI ID for the taxon
+\item \code{taxon.Database.Name}: Name of the database used in Gemma for the taxon
+}
 }
 \description{
 Processes JSON as a vector of gene locations

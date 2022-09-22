@@ -53,14 +53,36 @@ filename.}
 into the output object's attributes such as offset and available elements.}
 }
 \value{
-A data table with information about matching datasets. Returns an
-empty list if no datasets found. Lists dataset (expression experiment value
-objects) that are annotated with the given ontology terms, or, in case of
-plaintext query, experiments that contain the given words (name, short name,
-accession, tags) If an ontology term URI is given, the results will also
-include datasets that are associated with the descendants of the term. The
-search only only checks the annotations value, not the category (which is
-also an ontology term).
+A data table with information about the queried dataset(s). A list if
+\code{raw = TRUE}. Returns an empty list if no datasets matched. A successful
+response may contain 'Geeq' information, which aims to provide a unified
+metric to measure experiments by the quality of their data, and their
+suitability for use in Gemma. You can
+read more about the geeq properties \href{https://pavlidislab.github.io/Gemma/geeq.html}{here}.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+\item \code{experiment.Name}: Full title of the dataset
+\item \code{experiment.ID}: Internal ID of the dataset.
+\item \code{experiment.Description}: Description of the dataset
+\item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
+\item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+\item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
+\item \code{experiment.Database}: The name of the database where the dataset was taken from
+\item \code{experiment.URI}: URI of the original database
+\item \code{experiment.SampleCount}: Number of samples in the dataset
+\item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
+\item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset. This is a text field with possible details about the batch correction. Use \code{geeq.batchEffect} if a more structured field is needed.
+\item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
+\item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
+\item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
+\item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
+\item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
+\item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
+\item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+}
 }
 \description{
 Retrieve datasets within a given taxa associated to an annotation tags search

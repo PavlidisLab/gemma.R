@@ -37,8 +37,16 @@ into the output object's attributes such as offset and available elements.}
 }
 \value{
 A data table with information about the GO terms assigned to the
-queried gene. A \code{404 error} if the given identifier does not map to any
-object. Go terms were updated on June 10 2022
+queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any
+object. Go terms were updated on June 10 2022.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{term.Name}: Name of the term
+\item \code{term.ID}: ID of the term
+\item \code{term.URI}: URI of the term
+}
 }
 \description{
 Retrieve the GO terms associated to a gene

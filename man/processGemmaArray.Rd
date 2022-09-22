@@ -10,7 +10,8 @@ processGemmaArray(d)
 \item{d}{The JSON to process}
 }
 \value{
-A processed data.table
+A data table with information about the probes representing the gene
+across different platforms.
 }
 \description{
 Processes JSON as an array

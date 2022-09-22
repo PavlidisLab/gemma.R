@@ -66,7 +66,7 @@ The fields of the output data.table are:
 \item \code{platform.ElementCount}
 \item \code{taxon.Name}: Name of the species platform was made for
 \item \code{taxon.ID}: Internal identifier given to the species by Gemma
-\item \code{technology.Type}: Technology type for the platform.
+\item \code{platform.Type}: Technology type for the platform.
 }
 }
 \description{

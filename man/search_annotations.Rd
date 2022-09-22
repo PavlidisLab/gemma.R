@@ -37,7 +37,16 @@ into the output object's attributes such as offset and available elements.}
 }
 \value{
 A data table with annotations (annotation search result value objects)
-matching the given identifiers. A \code{400 error} if required parameters are missing.
+matching the given identifiers. A list if \code{raw = TRUE}. A \code{400 error} if required parameters are missing.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{category.Name}: Category that the annotation belongs to
+\item \code{category.URI}: URI for the category.Name
+\item \code{value.Name}: Annotation term
+\item \code{value.URI}: URI for the value.Name
+}
 }
 \description{
 Search for annotation tags

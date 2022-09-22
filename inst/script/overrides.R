@@ -51,8 +51,7 @@ NULL
 #' 
 #' @examples
 #' get_dataset_annotations("GSE2018")
-#' @return A data table with information about the annotations of the queried 
-#' dataset.A \code{404 error} if the given identifier does not map to any object
+#' @inherit processAnnotations return
 NULL
 
 #' get_dataset_design
@@ -64,10 +63,9 @@ NULL
 NULL
 
 #' get_dataset_differential_expression_analyses
-#' @return A data table with information about the differential expression 
-#' analysis of the queried dataset. Note that this funciton does not return 
-#' differential expression values themselves. Use \code{\link{get_differential_expression_values}}
-#' to get differential expression values (see examples).
+#' 
+#' @inherit processDEA return
+#' 
 #' @examples 
 #' result = get_dataset_differential_expression_analyses("GSE2018")
 #' get_differential_expression_values(resultSet = result$result.ID)
@@ -88,9 +86,7 @@ NULL
 #' @examples
 #' head(get_platform_datasets("GPL1355"))
 #' 
-#' @return A data table with information about the datasets associated with the 
-#' queried platform. A \code{404 error} if the given identifier does not map to 
-#' any object
+#' @inherit processDatasets return
 #' 
 NULL
 
@@ -107,56 +103,51 @@ NULL
 
 #' get_platform_element_genes
 #' @param probe A probe name or it's numerical identifier
-#' @return A data table with information about the gene(s) on the queried 
-#' platform element. A \code{404 error} if the given identifier does not map to
-#' any object
+#' 
+#' @inherit processGenes return
+#' 
 #' @examples
 #' get_platform_element_genes("GPL1355", "AFFX_Rat_beta-actin_M_at")
 NULL
 
 #' get_genes
 #' 
+#' @inherit processGenes return
+#' 
 #' @examples
 #' get_genes("DYRK1A")
 #' get_genes(c("DYRK1A", "PTEN"))
-#' @return A data table with information about the queried gene(s).
 NULL
 
 #' get_gene_locations
 #' @examples 
 #' get_gene_locations("DYRK1A")
-#' @return A data table with information about the physical location of the
-#' queried gene. A \code{404 error} if the given identifier does not map to any object
+#' 
+#' @inherit processGeneLocation return
+#' 
 NULL
 
 #' get_gene_probes
 #' @examples
 #' get_gene_probes("DYRK1A")
-#' @return A data table with information about the physical location of the 
-#' queried gene. A \code{404 error} if the given identifier does not map to any 
-#' object.
+#' 
+#' @inherit processElements return
+#' 
 NULL
 
 #' get_gene_go_terms
 #' @examples
 #' get_gene_go_terms("DYRK1A")
-#' @return A data table with information about the GO terms assigned to the 
-#' queried gene. A \code{404 error} if the given identifier does not map to any 
-#' object. Go terms were updated on June 10 2022
+#' 
+#' @inherit processGO return
+#' 
 NULL
 
 #' search_datasets
 #' @param query The search query. Either plain text ('traumatic'), or an ontology
 #'  term (UBERON_0002048). Datasets that contain the given string in their short 
 #'  or full name will also be matched. Can be multiple identifiers separated by commas.
-#' @return A data table with information about matching datasets. Returns an 
-#' empty list if no datasets found. Lists dataset (expression experiment value 
-#' objects) that are annotated with the given ontology terms, or, in case of 
-#' plaintext query, experiments that contain the given words (name, short name,
-#'  accession, tags) If an ontology term URI is given, the results will also 
-#' include datasets that are associated with the descendants of the term. The
-#' search only only checks the annotations value, not the category (which is 
-#' also an ontology term).
+#' @inherit processDatasets return
 #' 
 #' @examples 
 #' search_datasets('bipolar')
@@ -165,9 +156,8 @@ NULL
 #' search_annotations
 #' @param query The search query
 #' @examples 
-#'  search_annotations("traumatic")
-#' @return A data table with annotations (annotation search result value objects)
-#'  matching the given identifiers. A \code{400 error} if required parameters are missing.
+#' search_annotations("traumatic")
+#' @inherit processSearchAnnotations return 
 NULL
 
 
@@ -211,9 +201,7 @@ NULL
 #'    13           \tab fly                 \tab Drosophila melanogaster  \tab 7227            \cr
 #'    14           \tab worm                \tab Caenorhabditis elegans   \tab 6239
 #'}
-#' @return "A data table with information about the datasets associated with
-#' the queried taxon. A `404 error` if the given identifier does not map
-#' to any object."
+#' @inherit processDatasets return
 #' @examples
 #' get_taxon_datasets('human')
 NULL

@@ -196,10 +196,13 @@ interaction). You can access them using
 From here on, we can explore and visualize the data to find the most
 differentially-expressed genes
 
-Note that `get_differential_expression_values()` has the argument `readableContrasts`.
-By default this is set to `FALSE`, resulting in the output columns being named based
-on the contrast IDs rather the more human readable columns used below. These contrast
-IDs can be used together with [`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html) during a systematic analysis.
+Note that `get_differential_expression_values()` has the argument
+`readableContrasts`. By default this is set to `FALSE`, resulting in the
+output columns being named based on the contrast IDs rather the more
+human readable columns used below. These contrast IDs can be used
+together with
+[`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html)
+during a systematic analysis.
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
 de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]]
@@ -248,11 +251,29 @@ ggplot(
     theme_minimal()
 ```
 
+Setting `readableContrasts=FALSE` (default) will allow easier
+programmatic access to differentials. 
 
+```{r}
+# return all contrasts for the dataset
+(contrasts <- get_dataset_differential_expression_analyses('GSE46416'))
+
+dif_exp_values = get_differential_expression_values('GSE46416')
+
+
+# using result.ID and contrast.ID of the output above, we can access specific
+# results. Note that one study may have multiple contrast objects
+seq_len(nrow(contrasts)) %>% sapply(function(i){
+    result_set = dif_exp_values[[as.character(contrasts[i,]$result.ID)]]
+    p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.id}_pvalue")]]
+    return(p_values)
+}) %>% head
+
+```
 ## Larger queries
 
-Some endpoints accept multiple identifiers in a single function
-call. For example, getting information on 2 datasets at the same time.
+Some endpoints accept multiple identifiers in a single function call.
+For example, getting information on 2 datasets at the same time.
 
 ```{r triple-query}
 get_datasets_by_ids(datasets = c("GSE35974", "GSE46416")) %>%

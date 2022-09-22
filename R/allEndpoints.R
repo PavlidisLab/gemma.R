@@ -657,8 +657,7 @@ memget_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the annotations of the queried
-#' dataset.A \code{404 error} if the given identifier does not map to any object
+#' @inherit processAnnotations return
 #' @export
 #'
 #' @keywords dataset
@@ -843,10 +842,7 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the differential expression
-#' analysis of the queried dataset. Note that this funciton does not return
-#' differential expression values themselves. Use \code{\link{get_differential_expression_values}}
-#' to get differential expression values (see examples).
+#' @inherit processDEA return
 #' @export
 #'
 #' @keywords dataset
@@ -1047,9 +1043,7 @@ memget_platforms_by_ids <- function(platforms = NA_character_, offset = 0L, limi
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the datasets associated with the
-#' queried platform. A \code{404 error} if the given identifier does not map to
-#' any object
+#' @inherit processDatasets return
 #' @export
 #'
 #' @keywords platform
@@ -1150,9 +1144,7 @@ memget_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = g
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the gene(s) on the queried
-#' platform element. A \code{404 error} if the given identifier does not map to
-#' any object
+#' @inherit processGenes return
 #' @export
 #'
 #' @keywords platform
@@ -1250,7 +1242,7 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the queried gene(s).
+#' @inherit processGenes return
 #' @export
 #'
 #' @keywords gene
@@ -1335,8 +1327,7 @@ memget_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the physical location of the
-#' queried gene. A \code{404 error} if the given identifier does not map to any object
+#' @inherit processGeneLocation return
 #' @export
 #'
 #' @keywords gene
@@ -1425,9 +1416,7 @@ memget_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), mem
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the physical location of the
-#' queried gene. A \code{404 error} if the given identifier does not map to any
-#' object.
+#' @inherit processElements return
 #' @export
 #'
 #' @keywords gene
@@ -1522,9 +1511,7 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about the GO terms assigned to the
-#' queried gene. A \code{404 error} if the given identifier does not map to any
-#' object. Go terms were updated on June 10 2022
+#' @inherit processGO return
 #' @export
 #'
 #' @keywords gene
@@ -1618,14 +1605,7 @@ memget_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memo
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with information about matching datasets. Returns an
-#' empty list if no datasets found. Lists dataset (expression experiment value
-#' objects) that are annotated with the given ontology terms, or, in case of
-#' plaintext query, experiments that contain the given words (name, short name,
-#' accession, tags) If an ontology term URI is given, the results will also
-#' include datasets that are associated with the descendants of the term. The
-#' search only only checks the annotations value, not the category (which is
-#' also an ontology term).
+#' @inherit processDatasets return
 #' @export
 #'
 #' @keywords dataset
@@ -1720,8 +1700,7 @@ memsearch_datasets <- function(query, taxon = NA_character_, offset = 0L, limit 
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return A data table with annotations (annotation search result value objects)
-#' matching the given identifiers. A \code{400 error} if required parameters are missing.
+#' @inherit processSearchAnnotations return
 #' @export
 #'
 #' @keywords misc
@@ -1926,9 +1905,7 @@ memget_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memois
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return "A data table with information about the datasets associated with
-#' the queried taxon. A \verb{404 error} if the given identifier does not map
-#' to any object."
+#' @inherit processDatasets return
 #' @export
 #'
 #' @keywords taxon

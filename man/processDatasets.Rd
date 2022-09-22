@@ -20,18 +20,18 @@ read more about the geeq properties \href{https://pavlidislab.github.io/Gemma/ge
 The fields of the output data.table are:
 
 \itemize{
-\item \code{ee.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
-\item \code{ee.Name}: Full title of the dataset
-\item \code{ee.ID}: Internal ID of the dataset.
-\item \code{ee.Description}: Description of the dataset
-\item \code{ee.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
-\item \code{ee.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
-\item \code{ee.Accession}: Accession ID of the dataset in the external database it was taken from
-\item \code{ee.Database}: The name of the database where the dataset was taken from
-\item \code{ee.URL}: URL of the original database
-\item \code{ee.SampleCount}: Number of samples in the dataset
-\item \code{ee.batchEffect}: A text field describing whether the dataset has batch effects
-\item \code{ee.batchCorrected}: Whether batch correction has been performed on the dataset
+\item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+\item \code{experiment.Name}: Full title of the dataset
+\item \code{experiment.ID}: Internal ID of the dataset.
+\item \code{experiment.Description}: Description of the dataset
+\item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
+\item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+\item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
+\item \code{experiment.Database}: The name of the database where the dataset was taken from
+\item \code{experiment.URI}: URI of the original database
+\item \code{experiment.SampleCount}: Number of samples in the dataset
+\item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
+\item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset. This is a text field with possible details about the batch correction. Use \code{geeq.batchEffect} if a more structured field is needed.
 \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
 \item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
 \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches

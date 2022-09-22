@@ -37,7 +37,19 @@ into the output object's attributes such as offset and available elements.}
 }
 \value{
 A data table with information about the annotations of the queried
-dataset.A \code{404 error} if the given identifier does not map to any object
+dataset. A list if \code{raw = TRUE}.A \code{404 error} if the given
+identifier does not map to any object.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{class.Type}: Type of the annotation class
+\item \code{class.Name}: Name of the annotation class (e.g. organism part)
+\item \code{class.URI}: URI for the annotation class
+\item \code{evidence.Code}:
+\item \code{term.Name}: Name of the annotation term (e.g. lung)
+\item \code{term.URI}: URI for the annotation term
+}
 }
 \description{
 Retrieve the annotations analysis of a dataset

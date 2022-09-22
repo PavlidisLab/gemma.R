@@ -45,9 +45,24 @@ filename.}
 into the output object's attributes such as offset and available elements.}
 }
 \value{
-A data table with information about the physical location of the
-queried gene. A \code{404 error} if the given identifier does not map to any
-object.
+A data table with information about the probes representing a gene across
+all platrofms. A list if \code{raw = TRUE}.
+A \code{404 error} if the given identifier does not map to any genes.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{mapping.name}: Name of the mapping. Typically the probeset name
+\item \code{mappping.description}: A free text field providing optional information about the mapping
+\item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
+\item \code{platform.Name}: Full name of the platform
+\item \code{platform.ID}: Id number of the platform given by Gemma
+\item \code{platform.Taxon}: Species the platform was designed for
+\item \code{platform.TaxonID}: Id number of the species given by Gemma
+\item \code{platform.Type}: Type of the platform.
+\item \code{platform.Description}: Free text field describing the platform.
+\item \code{platform.Troubled}: Whether the platform is marked as troubled by a Gemma curator.
+}
 }
 \description{
 Retrieve the probes associated to a genes
