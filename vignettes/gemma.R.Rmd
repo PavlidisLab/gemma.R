@@ -188,7 +188,7 @@ head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','plat
 
 Gemma contains precomputed differential expression analyses for most of
 its datasets. Analyses can involve more than one factor, such as "sex"
-as well as "disease". ome datasets contain more than one analysis to
+as well as "disease". Some datasets contain more than one analysis to
 account for different factors and their interactions. The results are
 stored as resultSets, each corresponding to one factor (or their
 interaction). You can access them using
