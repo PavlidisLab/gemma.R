@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.32</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.33</span>
       </span>
     </div>
 
@@ -465,25 +465,25 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 680</code></pre>
+<pre><code>[1] 681</code></pre>
 <p>After which you can use <code>offset</code> to access all available platforms.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.ShortName</span>, <span class="va">taxon.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
-<pre><code>     platform.ID platform.ShortName taxon.Name
-  1:           1              GPL96      human
-  2:           2            GPL1355        rat
-  3:           3            GPL1261      mouse
-  4:           4             GPL570      human
-  5:           5              GPL81      mouse
- ---                                          
-676:        1313           GPL30209      human
-677:        1314     Rosetta_Merged      human
-678:        1315  RG-U34_ABC_Merged        rat
-679:        1316           RAE230AB        rat
-680:        1317           GPL30172      mouse</code></pre>
+<pre><code>     platform.ID   platform.ShortName taxon.Name
+  1:           1                GPL96      human
+  2:           2              GPL1355        rat
+  3:           3              GPL1261      mouse
+  4:           4               GPL570      human
+  5:           5                GPL81      mouse
+ ---                                            
+677:        1314       Rosetta_Merged      human
+678:        1315    RG-U34_ABC_Merged        rat
+679:        1316             RAE230AB        rat
+680:        1317             GPL30172      mouse
+681:        1318 Agilent_8x60K_Merged      mouse</code></pre>
 <p>Many endpoints only support a single identifier:</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -743,7 +743,7 @@ other attached packages:
  [7] BiocGenerics_0.42.0         MatrixGenerics_1.8.1       
  [9] matrixStats_0.62.0          ggrepel_0.9.1              
 [11] ggplot2_3.3.6               dplyr_1.0.10               
-[13] gemma.R_0.99.32             BiocStyle_2.24.0           
+[13] gemma.R_0.99.33             BiocStyle_2.24.0           
 
 loaded via a namespace (and not attached):
  [1] httr_1.4.4             sass_0.4.2             tidyr_1.2.1           
