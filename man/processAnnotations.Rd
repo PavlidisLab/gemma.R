@@ -20,7 +20,6 @@ The fields of the output data.table are:
 \item \code{class.Type}: Type of the annotation class
 \item \code{class.Name}: Name of the annotation class (e.g. organism part)
 \item \code{class.URI}: URI for the annotation class
-\item \code{evidence.Code}:
 \item \code{term.Name}: Name of the annotation term (e.g. lung)
 \item \code{term.URI}: URI for the annotation term
 }
