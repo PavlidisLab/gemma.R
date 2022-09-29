@@ -377,6 +377,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
                       7955,
                       7227,
                       6239),memoised = memoised)
+    return(out)
 }
 
 #' Custom gemma call
