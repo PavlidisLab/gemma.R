@@ -23,6 +23,26 @@ checkBounds <- function(x,natype = NA){
     })
 }
 
+#' Access the field in a list
+#' 
+#' This function accesses named field within the elements of a list. If an element
+#' lacks the field, it's filled in by natype.
+#' 
+#' @param d Input data list
+#' @param field Field name to access in each element
+#' @param natype What to fill in when field is unavailable
+#' @return A vector of elements
+#' @keywords internal
+accessField <- function(d, field, natype = NA){
+    lapply(d,function(e){
+        out <- checkBounds(e[[field]], natype)
+        if(is.null(out)){
+            out <- natype
+        }
+        return(out)
+    }) %>% unlist
+}
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process
@@ -31,27 +51,19 @@ checkBounds <- function(x,natype = NA){
 #'
 #' @keywords internal
 processGemmaFactor <- function(d) {
-    d <- jsonlite:::simplify(d)
-    if (all(is.na(d))) {
-        data.table(
-            factorValue = NA_character_, factorValueURI = NA_character_,
-            description = NA_character_, category = NA_character_,
-            categoryURI = NA_character_, measurement = FALSE, type = NA_character_
-        )
-    } else {
-        data.table(
-            factorValue = switch(is.null(d[["factorValue"]]) + 1,
-                d[["factorValue"]],
-                d[["value"]]
-            ),
-            factorValueURI = d[["valueUri"]],
-            description = d[["description"]],
-            category = d[["category"]],
-            categoryURI = d[["categoryUri"]],
-            measurement = d[["measurement"]],
-            type = d[["type"]]
-        )
-    }
+
+    data.table(
+        factorValue = ifelse(d %>% accessField('factorValue') %>% is.na(),
+                             d %>% accessField('value',NA_character_),
+                             d %>% accessField('factorValue',NA_character_)),
+        factorValueURI = d %>% accessField('valueUri',NA_character_),
+        description =  d %>% accessField('description',NA_character_),
+        category = d %>% accessField('categoryUri'),
+        categoryURI = d %>% accessField('categoryUri'),
+        measurement = d %>% accessField('measurement'),
+        type = d %>% accessField('type')
+    )
+    
 }
 
 #' Processes JSON as an array
@@ -64,16 +76,15 @@ processGemmaFactor <- function(d) {
 #' 
 #' @keywords internal
 processGemmaArray <- function(d) {
-    d <- jsonlite:::simplify(d)
     data.table(
-        platform.ShortName = d[["shortName"]],
-        platform.Name = d[["name"]],
-        platform.ID = d[['id']],
-        platform.Taxon = d[["taxon"]],
-        platform.TaxonID = d[["taxonID"]],
-        platform.Type = d[["technologyType"]],
-        platform.Description = d[["description"]],
-        platform.Troubled = d[["troubled"]]
+        platform.ShortName = accessField(d,"shortName",NA_character_),
+        platform.Name = accessField(d,"name",NA_character_),
+        platform.ID = accessField(d,'id',NA_integer_),
+        platform.Taxon = accessField(d,'taxon',NA_character_),
+        platform.TaxonID = accessField(d,"taxonID",NA_integer_),
+        platform.Type = accessField(d, "technologyType", NA_character_),
+        platform.Description = accessField(d, "description", NA_character_),
+        platform.Troubled = accessField(d,"troubled",NA)
     )
 }
 
@@ -116,28 +127,27 @@ processGemmaArray <- function(d) {
 #'
 #' @keywords internal
 processDatasets <- function(d) {
-    d <- jsonlite:::simplify(d)
     data.table(
-        experiment.ShortName = d[["shortName"]],
-        experiment.Name = d[["name"]],
-        experiment.ID = d[["id"]],
-        experiment.Description = d[["description"]],
-        experiment.Public = d[["isPublic"]],
-        experiment.Troubled = d[["troubled"]],
-        experiment.Accession = d[["accession"]],
-        experiment.Database = d[["externalDatabase"]],
-        experiment.URI = d[["externalUri"]],
-        experiment.SampleCount = d[["bioAssayCount"]],
-        experiment.LastUpdated = processDate(d[["lastUpdated"]]),
-        experiment.batchEffect = d[["batchEffect"]],
-        geeq.batchCorrected = checkBounds(d[["geeq"]][["batchCorrected"]]),
-        geeq.batchConfound = checkBounds(d[["geeq"]][["qScorePublicBatchConfound"]]),
-        geeq.batchEffect = checkBounds(d[["geeq"]][["qScorePublicBatchEffect"]]),
-        geeq.rawData = checkBounds(d[["geeq"]][["sScoreRawData"]]),
-        geeq.qScore = checkBounds(d[["geeq"]][["publicQualityScore"]]),
-        geeq.sScore = checkBounds(d[["geeq"]][["publicSuitabilityScore"]]),
-        taxon.Name = d[["taxon"]],
-        taxon.ID = d[["taxonId"]]# ,
+        experiment.ShortName = accessField(d,'shortName',NA_character_),
+        experiment.Name = accessField(d, "name",NA_character_),
+        experiment.ID = accessField(d, "id",NA_integer_),
+        experiment.Description = accessField(d, "description",NA_character_),
+        experiment.Public = accessField(d, "isPublic",NA),
+        experiment.Troubled = accessField(d, "troubled",NA),
+        experiment.Accession = accessField(d, "accession",NA_character_),
+        experiment.Database = accessField(d, "externalDatabase",NA_character_),
+        experiment.URI = accessField(d, "externalUri",NA_character_),
+        experiment.SampleCount = accessField(d, "bioAssayCount",NA_integer_),
+        experiment.LastUpdated = processDate(accessField(d, "lastUpdated",NA_real_)),
+        experiment.batchEffect = accessField(d, "batchEffect",NA_character_),
+        geeq.batchCorrected = d %>% purrr::map('geeq') %>% accessField('batchCorrected',NA),
+        geeq.batchConfound = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchConfound",NA_integer_),
+        geeq.batchEffect = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchEffect",NA_integer_),
+        geeq.rawData = d %>% purrr::map('geeq') %>% accessField("sScoreRawData",NA_integer_),
+        geeq.qScore = d %>% purrr::map('geeq') %>% accessField("publicQualityScore",NA_real_),
+        geeq.sScore = d %>% purrr::map('geeq') %>% accessField("publicSuitabilityScore",NA_real_),
+        taxon.Name = accessField(d, "taxon",NA_character_),
+        taxon.ID = accessField(d, "taxonId",NA_integer_)# ,
         # technology.Type = d[["technologyType"]]
     )
 }
@@ -160,13 +170,11 @@ processDatasets <- function(d) {
 #' 
 #' @keywords internal
 processSearchAnnotations <- function(d) {
-    d <- jsonlite:::simplify(d)
-
     data.table(
-        category.Name = d[["category"]],
-        category.URI = d[["categoryUri"]],
-        value.Name = d[["value"]],
-        value.URI = d[["valueUri"]]
+        category.Name = accessField(d,'category',NA_character_),
+        category.URI = accessField(d,"categoryUri",NA_character_),
+        value.Name = accessField(d,"value",NA_character_),
+        value.URI = accessField(d,"valueUri",NA_character_)
     )
 }
 
@@ -193,16 +201,11 @@ processSearchAnnotations <- function(d) {
 #'     \item \code{baseline.factorValueURI}: URI for the baseline.factorValue
 #'     \item \code{experimental.factorValue}: Factor value assigned to the experimental group.
 #'     \item \code{experimental.factorValueURI}: URI for the experimental.factorValue
-#'     \item \code{subsetFactor.subset}:
-#'     \item \code{subsetFactor.category}:
-#'     \item \code{subsetFactor.categoryURI}:
-#'     \item \code{subsetFactor.factorValue}:
-#'     \item \code{subsetFactor.factorValueURI}:
-#'     \item \code{stats.DE}: Number of differentially expressed genes for the contrast
-#'     \item \code{stats.Down}: Number of downregulated genes for the contrast
-#'     \item \code{stats.Up}: Number of upregulated genes for the contrast
-#'     \item \code{analysis.Threshold}: P value threshold used to determine the number
-#'     of differentially expressed genes
+#'     \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
+#'     \item \code{subsetFactor.category}: Category of the subset
+#'     \item \code{subsetFactor.categoryURI}: URI of the subset category
+#'     \item \code{subsetFactor.factorValue}: Factor Value of the subset
+#'     \item \code{subsetFactor.factorValueURI}: URI of the subset factor value
 #'     \item \code{probes.Analyzed}: Number of probesets represented in the contrast
 #'     \item \code{genes.Analyzed}: Number of genes represented in the contrast
 #'     \item \code{platform.ID}: Platform id for the contrast
@@ -210,37 +213,36 @@ processSearchAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     # Initialize internal variables to avoid R CMD check notes
 
     divides <- data.table(
-        analysis.ID = d[["id"]],
-        experiment.ID = ifelse(is.na(d[["sourceExperiment"]]), d[["bioAssaySetId"]], d[["sourceExperiment"]]),
-        subsetFactor.Enabled = d[["subset"]],
-        subsetFactor = processGemmaFactor(d[["subsetFactorValue"]]),
-        resultIds = lapply(d[["resultSets"]], "[[", "resultSetId")
+        analysis.ID = accessField(d,'id',NA_integer_),
+        experiment.ID = ifelse(is.na(accessField(d,'sourceExperiment')), accessField(d,"bioAssaySetId", NA_integer_), accessField(d,"sourceExperiment", NA_integer_)),
+        subsetFactor.Enabled = accessField(d, "subset",NA),
+        subsetFactor = d %>% purrr::map('subsetFactorValue') %>% processGemmaFactor,
+        resultIds = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('resultSetId')})
     ) %>%
         .[, .(result.ID = unlist(resultIds)), setdiff(names(.), "resultIds")]
 
-    rs <- lapply(d[["resultSets"]], function(r) {
+    rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
         data.table(
-            analysis.Threshold = r[["threshold"]],
-            analysis.ID = r[["analysisId"]],
-            result.ID = r[["resultSetId"]],
-            stats.DE = r[["numberOfDiffExpressedProbes"]],
-            stats.Down = r[["downregulatedCount"]],
-            stats.Up = r[["upregulatedCount"]],
-            probes.Analyzed = r[["numberOfProbesAnalyzed"]],
-            genes.Analyzed = r[["numberOfGenesAnalyzed"]],
-            factor.ID = r[["factorIds"]],
-            r[["baselineGroup"]] %>%
+            analysis.Threshold = accessField(r,'threshold',NA_real_),
+            analysis.ID = accessField(r,'analysisId',NA_integer_),
+            result.ID = accessField(r,"resultSetId",NA_integer_),
+            stats.DE = accessField(r,"numberOfDiffExpressedProbes",NA_integer_),
+            stats.Down = accessField(r,"downregulatedCount",NA_integer_),
+            stats.Up = accessField(r,"upregulatedCount",NA_integer_),
+            probes.Analyzed = accessField(r,"numberOfProbesAnalyzed",NA_integer_),
+            genes.Analyzed = accessField(r,"numberOfGenesAnalyzed",NA_integer_),
+            factor.ID = accessField(r,"factorIds",NA_integer_),
+            r %>% purrr::map('baselineGroup') %>%
                 {
                     data.table(
-                        baseline.category= .[["category"]],
-                        baseline.categoryURI = .[["categoryUri"]],
-                        baseline.factorValue = .[["factorValue"]],
-                        baseline.factorValueURI = .[["valueUri"]]
+                        baseline.category= accessField(.,'category',NA_character_),
+                        baseline.categoryURI = accessField(.,"categoryUri",NA_character_),
+                        baseline.factorValue = accessField(.,"factorValue",NA_character_),
+                        baseline.factorValueURI = accessField(.,"valueUri",NA_character_)
                     )
                 }
         ) %>%
@@ -251,17 +253,22 @@ processDEA <- function(d) {
 
     rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = TRUE)
     lapply(unique(rsd[, factor.ID]), function(fid) {
-        lapply(d$factorValuesUsed[[as.character(fid)]], function(fv) {
-            if (!is.null(fv) && nrow(fv) > 0) {
-                as.data.table(fv)[
-                    !(factorValue %in% rsd[factor.ID == fid, unique(baseline.factorValue)]),
-                    .(
-                        cf.Val = factorValue,
-                        cf.ValLongUri = valueUri,
-                        factor.ID = factorId,
-                        id
-                    )
-                ]
+        lapply(d %>%
+                   purrr::map('factorValuesUsed') %>% 
+                   unlist(recursive = FALSE) %>% 
+                   {.[names(.) %in% fid]}, function(fv) {
+            if (!is.null(fv)) {
+                out <- data.table(
+                    cf.Val = fv %>% accessField('factorValue',NA_character_),
+                    cf.ValLongUri = fv %>% accessField('valueUri',NA_character_),
+                    factor.ID = fv %>% accessField('factorId',NA_integer_),
+                    id = fv %>% accessField('id',NA_integer_)
+                )
+                
+                out <- out[!(cf.Val %in% rsd[factor.ID == fid, unique(baseline.factorValue)])]
+                
+                
+                return(out)
             }
         }) %>%
             .[lengths(.) > 0] %>%
@@ -271,8 +278,8 @@ processDEA <- function(d) {
         unique() %>%
         merge(rsd, by = "factor.ID", allow.cartesian = TRUE, all = TRUE) %>%
         merge(data.table(
-            analysis.ID = d[["id"]],
-            platform.ID = d[["arrayDesignsUsed"]]
+            analysis.ID = d %>% accessField('id',NA_integer_),
+            platform.ID =d %>% accessField('arrayDesignsUsed',NA_integer_)
         ), by = "analysis.ID", all = TRUE) %>%
         .[, .(
             # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
@@ -285,7 +292,7 @@ processDEA <- function(d) {
             subsetFactor.categoryURI = subsetFactor.categoryURI,
             subsetFactor.factorValue = subsetFactor.factorValue,
             subsetFactor.factorValueURI = subsetFactor.factorValueURI,
-            stats.DE, stats.Down, stats.Up, analysis.Threshold, probes.Analyzed,
+            probes.Analyzed,
             genes.Analyzed, platform.ID
         ), .(result.ID, id)] %>%
         .[, !"id"]
@@ -299,13 +306,14 @@ processDEA <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
-    d <- jsonlite:::simplify(d)
-
-    lapply(
-        d$experimentalFactors$values,
-        dplyr::select, c("id", "factorValue", "category")
-    ) %>%
+    
+    d$experimentalFactors %>% 
+        purrr::map('values') %>% 
+        purrr::map(function(x){data.frame(id = accessField(x,'id'), 
+                                           factorValue = accessField(x,'factorValue'), 
+                                           category = accessField(x,'category'))}) %>% 
         dplyr::bind_rows()
+
 }
 
 #' Processes JSON as a datasets result set
@@ -329,15 +337,11 @@ processResultSetFactors <- function(d) {
 #' 
 #' @keywords internal
 processDatasetResultSets <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        resultSet.id = d$id,
+        resultSet.id = d %>% accessField('id',NA_integer_),
         # analysis.id = d$analysis$id,
-        factors = lapply(
-            d$experimentalFactors,
-            dplyr::select, c("category", "description")
-        )
+        factors = d %>% purrr::map('experimentalFactors') %>% purrr::map(function(x){data.table(category = accessField(x,'category'),description = accessField(x,'description'))})
     ) %>%
         tidyr::unnest(.data$factors) %>%
         dplyr::rename(
@@ -376,15 +380,14 @@ processDatasetResultSets <- function(d) {
 #'
 #' @keywords internal
 processAnnotations <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        class.Type = d[["objectClass"]],
-        class.Name = d[["className"]],
-        class.URI = d[["classUri"]],
-        evidence.Code = d[["evidenceCode"]],
-        term.Name = d[["termName"]],
-        term.URI = d[["termUri"]]
+        class.Type = accessField(d,'objectClass',NA_character_),
+        class.Name = accessField(d,"className",NA_character_),
+        class.URI = accessField(d,"classUri",NA_character_),
+        evidence.Code = accessField(d,"evidenceCode",NA_character_),
+        term.Name = accessField(d,"termName",NA_character_),
+        term.URI = accessField(d,"termUri",NA_character_)
     )
 }
 
@@ -442,20 +445,19 @@ processFile <- function(content) {
 #'
 #' @keywords internal
 processSamples <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
-        sample.Name = checkBounds(d[["name"]],NA_character_),
-        sample.ID = checkBounds(d[["sample"]][["id"]],NA_integer_),
+        sample.Name = accessField(d,'name',NA_character_),
+        sample.ID = d %>% purrr::map('sample') %>% accessField('id',NA_integer_),
         # sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
-        sample.Description = d[["description"]],
-        sample.Outlier = d[["outlier"]],
-        sample.Accession = checkBounds(d[["accession"]][["accession"]],NA_character_),
-        sample.Database = checkBounds(d[["accession"]][["externalDatabase"]][["name"]]),
+        sample.Description = accessField(d,"description",NA_character_),
+        sample.Outlier = accessField(d, "outlier",NA),
+        sample.Accession = d %>% purrr::map('accession') %>% accessField('accession',NA_character_),
+        sample.Database = d %>% purrr::map('accession') %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
         sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
-        sample.FactorValues = lapply(lapply(checkBounds(d[["sample"]][["factorValueObjects"]]), "[[", "characteristics"), function(x) processGemmaFactor(rbindlist(x)))# ,
+        sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processGemmaFactor)}) %>% purrr::map(rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
 }
@@ -475,11 +477,6 @@ processSamples <- function(d) {
 #'  \item \code{platform.Description}: Free text description of the platform
 #'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 #'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-#'  \item \code{platform.GeneCount}
-#'  \item \code{platform.ProbeSequenceCount}
-#'  \item \code{platform.ProbeAlignmentCount}
-#'  \item \code{platform.ProbeGeneCount}
-#'  \item \code{platform.ElementCount}
 #'  \item \code{taxon.Name}: Name of the species platform was made for
 #'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'  \item \code{platform.Type}: Technology type for the platform.
@@ -487,23 +484,22 @@ processSamples <- function(d) {
 #'  
 #' @keywords internal
 processPlatforms <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        platform.ID = d[["id"]],
-        platform.ShortName = d[["shortName"]],
-        platform.Name = d[["name"]],
-        platform.Description = d[["description"]],
-        platform.Troubled = d[["troubled"]],
-        platform.ExperimentCount = d[["expressionExperimentCount"]],
-        platform.GeneCount = d[["numGenes"]],
-        platform.ProbeSequenceCount = d[["numProbeSequences"]],
-        platform.ProbeAlignmentCount = d[["numProbeAlignments"]],
-        platform.ProbeGeneCount = d[["numProbesToGenes"]],
-        platform.ElementCount = d[["designElementCount"]],
-        taxon.Name = d[["taxon"]],
-        taxon.ID = d[["taxonID"]],
-        platform.Type = d[["technologyType"]]#,
+        platform.ID = accessField(d,"id",NA_integer_),
+        platform.ShortName = accessField(d, "shortName",NA_character_),
+        platform.Name = accessField(d, "name",NA_character_),
+        platform.Description = accessField(d, "description",NA_character_),
+        platform.Troubled = accessField(d, "troubled",NA),
+        platform.ExperimentCount = accessField(d, "expressionExperimentCount",NA_integer_),
+        # platform.GeneCount = accessField(d, "numGenes"),
+        # platform.ProbeSequenceCount = accessField(d, "numProbeSequences"),
+        # platform.ProbeAlignmentCount = accessField(d, "numProbeAlignments"),
+        # platform.ProbeGeneCount = accessField(d, "numProbesToGenes"),
+        # platform.ElementCount = accessField(d, "designElementCount"),
+        taxon.Name = accessField(d, "taxon",NA_character_),
+        taxon.ID = accessField(d, "taxonID",NA_integer_),
+        platform.Type = accessField(d, "technologyType",NA_character_)#,
         # technology.Color = d[["color"]]
     )
 }
@@ -533,12 +529,10 @@ processPlatforms <- function(d) {
 #' 
 #' @keywords internal
 processElements <- function(d) {
-    d <- jsonlite:::simplify(d)
-
     data.table(
-        mapping.Name = d[["name"]],
-        mapping.Description = d[["description"]],
-        processGemmaArray(d$arrayDesign)
+        mapping.Name = accessField(d,'name',NA_character_),
+        mapping.Description =accessField(d,'description',NA_character_),
+        processGemmaArray(d %>% purrr::map('arrayDesign'))
     )
 }
 
@@ -563,20 +557,19 @@ processElements <- function(d) {
 #'
 #' @keywords internal
 processGenes <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        gene.Symbol = d[["officialSymbol"]],
-        gene.Ensembl = d[["ensemblId"]],
-        gene.NCBI = d[["ncbiId"]],
-        gene.Name = d[["officialName"]],
+        gene.Symbol = accessField(d,'officialSymbol',NA_character_),
+        gene.Ensembl = accessField(d,'ensemblId',NA_character_),
+        gene.NCBI = accessField(d,"ncbiId",NA_integer_),
+        gene.Name = accessField(d, "officialName",NA_character_),
         # gene.Aliases = d[["aliases"]],
         # gene.GO = d[["numGoTerms"]],
         # gene.Homologues = d[["homologues"]],
         # gene.MFX.Rank = d[["multifunctionalityRank"]],
-        taxon.Name = d[["taxonCommonName"]],
-        taxon.ID = d[["taxonId"]],
-        taxon.Scientific = d[["taxonScientificName"]]
+        taxon.Name = accessField(d, "taxonCommonName",NA_character_),
+        taxon.ID = accessField(d, "taxonId",NA_integer_),
+        taxon.Scientific = accessField(d, "taxonScientificName",NA_character_)
         # phenotypes = d[["phenotypes"]]
     )
 }
@@ -589,15 +582,13 @@ processGenes <- function(d) {
 #'
 #' @keywords internal
 processTaxon <- function(d) {
-    d <- jsonlite:::simplify(d)
-
     data.table(
-        taxon.Name = d[["commonName"]],
-        taxon.Scientific = d[["scientificName"]],
-        taxon.ID = d[["id"]],
-        taxon.NCBI = d[["ncbiId"]],
-        taxon.Database.Name = checkBounds(d[["externalDatabase"]][["name"]]),
-        taxon.Database.ID = d[["externalDatabase.ID"]]
+        taxon.Name = accessField(d,'commonName',NA_character_),
+        taxon.Scientific = accessField(d, "scientificName",NA_character_),
+        taxon.ID = accessField(d,'id',NA_integer_),
+        taxon.NCBI = accessField(d,"ncbiId",NA_integer_),
+        taxon.Database.Name = d %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
+        taxon.Database.ID = d %>% purrr::map('externalDatabase') %>% accessField('id',NA_integer_)
     )
 }
 
@@ -613,7 +604,6 @@ processTaxon <- function(d) {
 #' \itemize{
 #'     \item \code{chromosome}: Name of the chromosome the gene is located
 #'     \item \code{strand}: Which strand the gene is located
-#'     \item \code{bin}:
 #'     \item \code{nucleotide}: Nucleotide number for the gene
 #'     \item \code{length}: Gene length
 #'     \item \code{taxon.name}: Name of the taxon
@@ -625,15 +615,13 @@ processTaxon <- function(d) {
 #'
 #' @keywords internal
 processGeneLocation <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        chromosome = d[["chromosome"]],
-        strand = d[["strand"]],
-        bin = d[["bin"]],
-        nucleotide = d[["nucleotide"]],
-        length = d[["nucleotideLength"]],
-        processTaxon(d[["taxon"]])
+        chromosome = accessField(d,'chromosome',NA_character_),
+        strand = accessField(d,'strand',NA_character_),
+        nucleotide = accessField(d,'nucleotide',NA_integer_) ,
+        length = accessField(d,"nucleotideLength",NA_integer_),
+        processTaxon(d %>% purrr::map('taxon'))
     )
 }
 
@@ -656,12 +644,11 @@ processGeneLocation <- function(d) {
 #'
 #' @keywords internal
 processGO <- function(d) {
-    d <- jsonlite:::simplify(d)
 
     data.table(
-        term.Name = d[["term"]],
-        term.ID = d[["goId"]],
-        term.URI = d[["uri"]]
+        term.Name = accessField(d,'term',NA_character_),
+        term.ID = accessField(d, "goId", NA_character_),
+        term.URI = accessField(d, "uri", NA_character_)
     )
 }
 

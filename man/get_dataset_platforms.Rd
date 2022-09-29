@@ -47,11 +47,6 @@ The fields of the output data.table are:
 \item \code{platform.Description}: Free text description of the platform
 \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-\item \code{platform.GeneCount}
-\item \code{platform.ProbeSequenceCount}
-\item \code{platform.ProbeAlignmentCount}
-\item \code{platform.ProbeGeneCount}
-\item \code{platform.ElementCount}
 \item \code{taxon.Name}: Name of the species platform was made for
 \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 \item \code{platform.Type}: Technology type for the platform.

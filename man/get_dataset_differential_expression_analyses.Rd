@@ -55,16 +55,11 @@ they uniquely represent a given contrast.
 \item \code{baseline.factorValueURI}: URI for the baseline.factorValue
 \item \code{experimental.factorValue}: Factor value assigned to the experimental group.
 \item \code{experimental.factorValueURI}: URI for the experimental.factorValue
-\item \code{subsetFactor.subset}:
-\item \code{subsetFactor.category}:
-\item \code{subsetFactor.categoryURI}:
-\item \code{subsetFactor.factorValue}:
-\item \code{subsetFactor.factorValueURI}:
-\item \code{stats.DE}: Number of differentially expressed genes for the contrast
-\item \code{stats.Down}: Number of downregulated genes for the contrast
-\item \code{stats.Up}: Number of upregulated genes for the contrast
-\item \code{analysis.Threshold}: P value threshold used to determine the number
-of differentially expressed genes
+\item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
+\item \code{subsetFactor.category}: Category of the subset
+\item \code{subsetFactor.categoryURI}: URI of the subset category
+\item \code{subsetFactor.factorValue}: Factor Value of the subset
+\item \code{subsetFactor.factorValueURI}: URI of the subset factor value
 \item \code{probes.Analyzed}: Number of probesets represented in the contrast
 \item \code{genes.Analyzed}: Number of genes represented in the contrast
 \item \code{platform.ID}: Platform id for the contrast

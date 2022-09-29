@@ -18,7 +18,6 @@ The fields of the output data.table are:
 \itemize{
 \item \code{chromosome}: Name of the chromosome the gene is located
 \item \code{strand}: Which strand the gene is located
-\item \code{bin}:
 \item \code{nucleotide}: Nucleotide number for the gene
 \item \code{length}: Gene length
 \item \code{taxon.name}: Name of the taxon
