@@ -121,8 +121,12 @@ processGemmaArray <- function(d) {
 #'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 #'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
-#'     \item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
-#'     \item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+#'     \item \code{taxon.Name}: Name of the species
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
@@ -146,8 +150,7 @@ processDatasets <- function(d) {
         geeq.rawData = d %>% purrr::map('geeq') %>% accessField("sScoreRawData",NA_integer_),
         geeq.qScore = d %>% purrr::map('geeq') %>% accessField("publicQualityScore",NA_real_),
         geeq.sScore = d %>% purrr::map('geeq') %>% accessField("publicSuitabilityScore",NA_real_),
-        taxon.Name = accessField(d, "taxon",NA_character_),
-        taxon.ID = accessField(d, "taxonId",NA_integer_)# ,
+        d %>% purrr::map('taxon') %>% processTaxon()# ,
         # technology.Type = d[["technologyType"]]
     )
 }
@@ -475,14 +478,17 @@ processSamples <- function(d) {
 #'  \item \code{platform.Description}: Free text description of the platform
 #'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 #'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-#'  \item \code{taxon.Name}: Name of the species platform was made for
-#'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'  \item \code{platform.Type}: Technology type for the platform.
+#'  \item \code{taxon.Name}: Name of the species platform was made for
+#'  \item \code{taxon.Scientific}: Scientific name for the taxon
+#'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'  \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'  \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'  \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #'  }
 #'  
 #' @keywords internal
 processPlatforms <- function(d) {
-
     data.table(
         platform.ID = accessField(d,"id",NA_integer_),
         platform.ShortName = accessField(d, "shortName",NA_character_),
@@ -495,9 +501,8 @@ processPlatforms <- function(d) {
         # platform.ProbeAlignmentCount = accessField(d, "numProbeAlignments"),
         # platform.ProbeGeneCount = accessField(d, "numProbesToGenes"),
         # platform.ElementCount = accessField(d, "designElementCount"),
-        taxon.Name = accessField(d, "taxon",NA_character_),
-        taxon.ID = accessField(d, "taxonID",NA_integer_),
-        platform.Type = accessField(d, "technologyType",NA_character_)#,
+        platform.Type = accessField(d, "technologyType",NA_character_),
+        d %>% purrr::map('taxon') %>% processTaxon()#,
         # technology.Color = d[["color"]]
     )
 }
