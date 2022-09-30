@@ -56,6 +56,6 @@ test_that("getPlatformElementsGenes queries work", {
     expect_type(raw, "list")
     expect_equal(
         dat[, c(gene.Symbol, gene.Ensembl, taxon.ID)],
-        c(raw$officialSymbol, raw$ensemblId, raw$taxonId)
+        c(raw$officialSymbol, raw$ensemblId, raw$taxon$id)
     )
 })

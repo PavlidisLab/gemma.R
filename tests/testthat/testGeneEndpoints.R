@@ -5,7 +5,7 @@ test_that("getGenesInfo queries work", {
     expect_type(raw, "list")
     expect_equal(
         dat[, c(gene.Symbol, gene.Ensembl, gene.Name, taxon.Name)],
-        c(raw$officialSymbol, raw$ensemblId, raw$officialName, raw$taxonCommonName)
+        c(raw$officialSymbol, raw$ensemblId, raw$officialName, raw$taxon$commonName)
     )
 })
 

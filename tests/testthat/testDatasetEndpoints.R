@@ -65,8 +65,8 @@ test_that("datasetAnnotations queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(class.Type, class.Name, term.Name, term.URI)],
-        c(raw$objectClass, raw$className, raw$termName, raw$termUri)
+        dat[, c( class.Name, class.URI, term.Name, term.URI)],
+        c( raw$className, raw$classUri, raw$termName, raw$termUri)
     )
 })
 
@@ -83,3 +83,4 @@ test_that("datasetDesign queries work", {
     expect_type(get_dataset_design("GSE2018"), "list")
     expect_type(get_dataset_design("GSE2018", raw = TRUE), "raw") %>% jsonlite:::simplify()
 })
+
