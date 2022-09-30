@@ -80,11 +80,10 @@ processGemmaArray <- function(d) {
         platform.ShortName = accessField(d,"shortName",NA_character_),
         platform.Name = accessField(d,"name",NA_character_),
         platform.ID = accessField(d,'id',NA_integer_),
-        platform.Taxon = accessField(d,'taxon',NA_character_),
-        platform.TaxonID = accessField(d,"taxonID",NA_integer_),
         platform.Type = accessField(d, "technologyType", NA_character_),
         platform.Description = accessField(d, "description", NA_character_),
-        platform.Troubled = accessField(d,"troubled",NA)
+        platform.Troubled = accessField(d,"troubled",NA),
+        d %>% purrr::map('taxon') %>% processTaxon()
     )
 }
 
@@ -553,9 +552,12 @@ processElements <- function(d) {
 #'     \item \code{gene.Ensembl}: Ensembl ID for the gene
 #'     \item \code{gene.NCBI}: NCBI id for the gene
 #'     \item \code{gene.Name}: Name of the gene
-#'     \item \code{taxon.name}: Name of the taxon of origin
-#'     \item \code{taxon.ID}: Gemma ID for the taxon
+#'     \item \code{taxon.Name}: Name of the species
 #'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
@@ -570,9 +572,7 @@ processGenes <- function(d) {
         # gene.GO = d[["numGoTerms"]],
         # gene.Homologues = d[["homologues"]],
         # gene.MFX.Rank = d[["multifunctionalityRank"]],
-        taxon.Name = accessField(d, "taxonCommonName",NA_character_),
-        taxon.ID = accessField(d, "taxonId",NA_integer_),
-        taxon.Scientific = accessField(d, "taxonScientificName",NA_character_)
+        processTaxon(d %>% purrr::map('taxon'))
         # phenotypes = d[["phenotypes"]]
     )
 }
@@ -582,6 +582,15 @@ processGenes <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#' 
+#' \itemize{
+#'     \item \code{taxon.Name}: Name of the species
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+#' }
 #'
 #' @keywords internal
 processTaxon <- function(d) {
