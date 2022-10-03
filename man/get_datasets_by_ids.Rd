@@ -75,8 +75,12 @@ The fields of the output data.table are:
 \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
-\item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
-\item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+\item \code{taxon.Name}: Name of the species
+\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{taxon.NCBI}: NCBI ID of the taxon
+\item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 }
 }
 \description{

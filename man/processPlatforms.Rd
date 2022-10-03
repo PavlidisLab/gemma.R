@@ -21,9 +21,13 @@ The fields of the output data.table are:
 \item \code{platform.Description}: Free text description of the platform
 \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-\item \code{taxon.Name}: Name of the species platform was made for
-\item \code{taxon.ID}: Internal identifier given to the species by Gemma
 \item \code{platform.Type}: Technology type for the platform.
+\item \code{taxon.Name}: Name of the species platform was made for
+\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{taxon.NCBI}: NCBI ID of the taxon
+\item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 }
 }
 \description{

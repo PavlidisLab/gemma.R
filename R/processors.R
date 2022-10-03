@@ -60,7 +60,7 @@ processGemmaFactor <- function(d) {
         description =  d %>% accessField('description',NA_character_),
         category = d %>% accessField('categoryUri'),
         categoryURI = d %>% accessField('categoryUri'),
-        measurement = d %>% accessField('measurement'),
+        measurement = d %>% accessField('isMeasurement'),
         type = d %>% accessField('type')
     )
     
@@ -180,6 +180,8 @@ processSearchAnnotations <- function(d) {
     )
 }
 
+
+# good test cases 442, 448, 200, 174
 #' Processes JSON as a differential expression analysis
 #'
 #' @param d The JSON to process
@@ -215,17 +217,54 @@ processSearchAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
+    browser()
 
     # Initialize internal variables to avoid R CMD check notes
+    
+    result_ids = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
+    
+    result_factors = seq_along(result_ids) %>% lapply(function(i){
+        seq_along(result_ids[[i]]) %>% lapply(function(j){
+            d[[i]]$resultSets[[j]]$experimentalFactors
+        })
+    })
+    
+    
 
     divides <- data.table(
         analysis.ID = accessField(d,'id',NA_integer_),
         experiment.ID = ifelse(is.na(accessField(d,'sourceExperiment')), accessField(d,"bioAssaySetId", NA_integer_), accessField(d,"sourceExperiment", NA_integer_)),
         subsetFactor.Enabled = accessField(d, "subset",NA),
         subsetFactor = d %>% purrr::map('subsetFactorValue') %>% processGemmaFactor,
-        resultIds = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('resultSetId')})
+        resultIds = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
     ) %>%
         .[, .(result.ID = unlist(resultIds)), setdiff(names(.), "resultIds")]
+    
+    rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
+        data.table(
+            analysis.Threshold = accessField(r,'threshold',NA_real_),
+            result.ID = accessField(r,"id",NA_integer_),
+            stats.DE = accessField(r,"numberOfDiffExpressedProbes",NA_integer_),
+            stats.Down = accessField(r,"downregulatedCount",NA_integer_),
+            stats.Up = accessField(r,"upregulatedCount",NA_integer_),
+            probes.Analyzed = accessField(r,"numberOfProbesAnalyzed",NA_integer_),
+            genes.Analyzed = accessField(r,"numberOfGenesAnalyzed",NA_integer_),
+            factor.ID = r[[1]]$experimentalFactors %>% accessField('id'),
+            r %>% purrr::map('baselineGroup') %>%
+                {
+                    data.table(
+                        baseline.category= accessField(.,'category',NA_character_),
+                        baseline.categoryURI = accessField(.,"categoryUri",NA_character_),
+                        baseline.factorValue = accessField(.,"factorValue",NA_character_),
+                        baseline.factorValueURI = accessField(.,"valueUri",NA_character_)
+                    )
+                }
+        ) %>%
+            .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")] %>% 
+            .[!is.na(baseline.category)]
+    })
+    
+    
 
     rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
         data.table(
@@ -383,7 +422,6 @@ processDatasetResultSets <- function(d) {
 processAnnotations <- function(d) {
 
     data.table(
-        class.Type = accessField(d,'objectClass',NA_character_),
         class.Name = accessField(d,"className",NA_character_),
         class.URI = accessField(d,"classUri",NA_character_),
         term.Name = accessField(d,"termName",NA_character_),
