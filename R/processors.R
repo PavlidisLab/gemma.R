@@ -121,7 +121,6 @@ processGemmaArray <- function(d) {
 #'     \item \code{experiment.Name}: Full title of the dataset
 #'     \item \code{experiment.ID}: Internal ID of the dataset.
 #'     \item \code{experiment.Description}: Description of the dataset
-#'     \item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
 #'     \item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
 #'     \item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
 #'     \item \code{experiment.Database}: The name of the database where the dataset was taken from
@@ -149,7 +148,6 @@ processDatasets <- function(d) {
         experiment.Name = accessField(d, "name",NA_character_),
         experiment.ID = accessField(d, "id",NA_integer_),
         experiment.Description = accessField(d, "description",NA_character_),
-        experiment.Public = accessField(d, "isPublic",NA),
         experiment.Troubled = accessField(d, "troubled",NA),
         experiment.Accession = accessField(d, "accession",NA_character_),
         experiment.Database = accessField(d, "externalDatabase",NA_character_),
@@ -491,7 +489,7 @@ processSamples <- function(d) {
         sample.Accession = d %>% purrr::map('accession') %>% accessField('accession',NA_character_),
         sample.Database = d %>% purrr::map('accession') %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
-        sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
+        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% purrr::map('characteristics'), processGemmaFactor),
         sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processGemmaFactor)}) %>% purrr::map(rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
