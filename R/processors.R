@@ -43,6 +43,20 @@ accessField <- function(d, field, natype = NA){
     }) %>% unlist
 }
 
+#' Avoid NULLS as data.table columns
+#' 
+#' @param x A value that might be null
+#' @param natype What to fill in when data is unavailable
+#' @return x as is or natypee
+#' @keywords internal
+nullCheck = function(x,natype= NA){
+    if(is.null(x)){
+        return(natype)
+    } else{
+        return(x)
+    }
+}
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process
@@ -217,126 +231,109 @@ processSearchAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
-    browser()
 
     # Initialize internal variables to avoid R CMD check notes
     
-    result_ids = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
+    result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
     
-    result_factors = seq_along(result_ids) %>% lapply(function(i){
+    result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
-            d[[i]]$resultSets[[j]]$experimentalFactors
-        })
-    })
-    
-    
-
-    divides <- data.table(
-        analysis.ID = accessField(d,'id',NA_integer_),
-        experiment.ID = ifelse(is.na(accessField(d,'sourceExperiment')), accessField(d,"bioAssaySetId", NA_integer_), accessField(d,"sourceExperiment", NA_integer_)),
-        subsetFactor.Enabled = accessField(d, "subset",NA),
-        subsetFactor = d %>% purrr::map('subsetFactorValue') %>% processGemmaFactor,
-        resultIds = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
-    ) %>%
-        .[, .(result.ID = unlist(resultIds)), setdiff(names(.), "resultIds")]
-    
-    rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
-        data.table(
-            analysis.Threshold = accessField(r,'threshold',NA_real_),
-            result.ID = accessField(r,"id",NA_integer_),
-            stats.DE = accessField(r,"numberOfDiffExpressedProbes",NA_integer_),
-            stats.Down = accessField(r,"downregulatedCount",NA_integer_),
-            stats.Up = accessField(r,"upregulatedCount",NA_integer_),
-            probes.Analyzed = accessField(r,"numberOfProbesAnalyzed",NA_integer_),
-            genes.Analyzed = accessField(r,"numberOfGenesAnalyzed",NA_integer_),
-            factor.ID = r[[1]]$experimentalFactors %>% accessField('id'),
-            r %>% purrr::map('baselineGroup') %>%
-                {
-                    data.table(
-                        baseline.category= accessField(.,'category',NA_character_),
-                        baseline.categoryURI = accessField(.,"categoryUri",NA_character_),
-                        baseline.factorValue = accessField(.,"factorValue",NA_character_),
-                        baseline.factorValueURI = accessField(.,"valueUri",NA_character_)
-                    )
-                }
-        ) %>%
-            .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")] %>% 
-            .[!is.na(baseline.category)]
-    })
-    
-    
-
-    rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
-        data.table(
-            analysis.Threshold = accessField(r,'threshold',NA_real_),
-            analysis.ID = accessField(r,'analysisId',NA_integer_),
-            result.ID = accessField(r,"resultSetId",NA_integer_),
-            stats.DE = accessField(r,"numberOfDiffExpressedProbes",NA_integer_),
-            stats.Down = accessField(r,"downregulatedCount",NA_integer_),
-            stats.Up = accessField(r,"upregulatedCount",NA_integer_),
-            probes.Analyzed = accessField(r,"numberOfProbesAnalyzed",NA_integer_),
-            genes.Analyzed = accessField(r,"numberOfGenesAnalyzed",NA_integer_),
-            factor.ID = accessField(r,"factorIds",NA_integer_),
-            r %>% purrr::map('baselineGroup') %>%
-                {
-                    data.table(
-                        baseline.category= accessField(.,'category',NA_character_),
-                        baseline.categoryURI = accessField(.,"categoryUri",NA_character_),
-                        baseline.factorValue = accessField(.,"factorValue",NA_character_),
-                        baseline.factorValueURI = accessField(.,"valueUri",NA_character_)
-                    )
-                }
-        ) %>%
-            .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")]
-    }) %>%
-        rbindlist() %>%
-        .[!is.na(baseline.category)]
-
-    rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = TRUE)
-    lapply(unique(rsd[, factor.ID]), function(fid) {
-        lapply(d %>%
-                   purrr::map('factorValuesUsed') %>% 
-                   unlist(recursive = FALSE) %>% 
-                   {.[names(.) %in% fid]}, function(fv) {
-            if (!is.null(fv)) {
+            if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
+                experimental_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% {d[[i]]$factorValuesUsed[[as.character(.)]]}
+                factor_ids = experimental_factors %>% accessField('id',NA_integer_)
+                
                 out <- data.table(
-                    cf.Val = fv %>% accessField('factorValue',NA_character_),
-                    cf.ValLongUri = fv %>% accessField('valueUri',NA_character_),
-                    factor.ID = fv %>% accessField('factorId',NA_integer_),
-                    id = fv %>% accessField('id',NA_integer_)
+                    result.ID = d[[i]]$resultSets[[j]]$id,
+                    contrast.id = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_),
+                    experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
+                    baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
+                    baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
+                    baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
+                    baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
+                    experimental.factorValue = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('factorValue'),
+                    experimental.factorValueURI =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values  %>% accessField('id',NA_integer_)  %>% match(.,factor_ids) %>% {experimental_factors[.]}  %>% accessField('valueUri'),
+                    subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
+                    subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                    probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                    genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
                 
-                out <- out[!(cf.Val %in% rsd[factor.ID == fid, unique(baseline.factorValue)])]
+                out <- out[!experimental.factorValue == baseline.factorValue]
                 
+            }else{
+                # if more than 2 factors are present take a look at the 
+                # differential expression results to isolate the relevant results
+                # this adds quite a bit of overhead for studies like this but 
+                # they should be relatively rare. if coupled with memoisation
+                # overall hit on performance should not be too much
+                # this was needed because for multi-factor result-sets, the baseline
+                # for each factor is not specified
                 
-                return(out)
+                ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
+                    purrr::map('values')  %>%
+                    purrr::map(function(x){x %>% accessField('id')}) %>%
+                    expand.grid()
+                
+                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map('id')
+                
+                dif_exp <- get_differential_expression_values(resultSet = d[[i]]$resultSets[[j]]$id)
+                relevant_ids <- dif_exp[[1]] %>% colnames %>% 
+                    {.[grepl('[0-9]_pvalue',.)]} %>% strsplit('_') %>% lapply(function(x){
+                        x[c(-1,-length(x))] %>% as.integer()
+                    }) %>% as.data.frame %>% t
+                
+                if(ncol(relevant_ids)>0){
+                    relevant_id_factor_id <- relevant_ids[1,] %>% purrr::map_int(function(x){
+                        apply(ids,2,function(y){x %in% y}) %>% which %>% {factor_ids[[.]]}
+                    })
+                    
+                    colnames(relevant_ids) <- relevant_id_factor_id
+                    
+                    experimental_factors <- 
+                        d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                        purrr::map('id') %>%
+                        purrr::map(function(x){d[[i]]$factorValuesUsed[[as.character(x)]]})
+                    names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                        purrr::map_int('id')
+                    
+                    out <- data.table(
+                        result.ID = d[[i]]$resultSets[[j]]$id,
+                        contrast.id = unname(apply(relevant_ids,1,paste,collapse = '_')),
+                        experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
+                        baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
+                        baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
+                        baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
+                        baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
+                        experimental.factorValue = seq_len(nrow(relevant_ids)) %>%
+                            purrr::map_chr(function(k){
+                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
+                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
+                                    ids <- factors %>% purrr::map_int('id')
+                                    factors[[which(ids == relevant_ids[k,l])]]$factorValue
+                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
+                            }),
+                        experimental.factorValueURI = seq_len(nrow(relevant_ids)) %>%
+                            purrr::map_chr(function(k){
+                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
+                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
+                                    ids <- factors %>% purrr::map_int('id')
+                                    factors[[which(ids == relevant_ids[k,l])]]$valueUri
+                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
+                            }),
+                        subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
+                        subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                        probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                        genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
+                    )
+                    
+                } else { 
+                    # if no ids were present in the expression_values matrix,
+                    # there's nothing to return
+                    return(NULL)
+                }
             }
-        }) %>%
-            .[lengths(.) > 0] %>%
-            rbindlist()
-    }) %>%
-        rbindlist() %>%
-        unique() %>%
-        merge(rsd, by = "factor.ID", allow.cartesian = TRUE, all = TRUE) %>%
-        merge(data.table(
-            analysis.ID = d %>% accessField('id',NA_integer_),
-            platform.ID =d %>% accessField('arrayDesignsUsed',NA_integer_)
-        ), by = "analysis.ID", all = TRUE) %>%
-        .[, .(
-            # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
-            contrast.id = id,
-            experiment.ID, baseline.category, baseline.categoryURI, baseline.factorValue, baseline.factorValueURI,
-            experimental.factorValue = cf.Val, 
-            experimental.factorValueURI = cf.ValLongUri, 
-            subsetFactor.subset = subsetFactor.Enabled,
-            subsetFactor.category = subsetFactor.category, 
-            subsetFactor.categoryURI = subsetFactor.categoryURI,
-            subsetFactor.factorValue = subsetFactor.factorValue,
-            subsetFactor.factorValueURI = subsetFactor.factorValueURI,
-            probes.Analyzed,
-            genes.Analyzed, platform.ID
-        ), .(result.ID, id)] %>%
-        .[, !"id"]
+        }) %>% do.call(rbind,.)
+    }) %>% do.call(rbind,.)
 }
 
 #' Processes JSON as a result set
