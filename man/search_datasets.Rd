@@ -67,7 +67,6 @@ The fields of the output data.table are:
 \item \code{experiment.Name}: Full title of the dataset
 \item \code{experiment.ID}: Internal ID of the dataset.
 \item \code{experiment.Description}: Description of the dataset
-\item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
 \item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
 \item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
 \item \code{experiment.Database}: The name of the database where the dataset was taken from

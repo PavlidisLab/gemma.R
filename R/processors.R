@@ -676,7 +676,7 @@ processGeneLocation <- function(d) {
 #'
 #' @return A data table with information about the GO terms assigned to the
 #' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any
-#' object. Go terms were updated on June 10 2022.
+#' object.
 #' 
 #' The fields of the output data.table are:
 #' 
