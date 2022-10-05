@@ -361,6 +361,24 @@ registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sor
                  preprocessor = quote(processDatasets)
 )
 
+# search endpoint
+
+registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={limit}&resultTypes={resultType}',
+                 'search_gemma', open_api_name = 'search',
+                 keyword = 'misc',
+                 defaults = list(query = bquote(),
+                                 taxon = NA_character_,
+                                 platform = NA_character_,
+                                 limit = 20,
+                                 resultType = 'experiment'),
+                 validators = alist(query = validateSearchQuery,
+                                    taxon = validateTaxon,
+                                    platform = validateOptionalID,
+                                    limit = validatePositiveInteger,
+                                    resultType = validateResultType),
+                 preprocessor = quote(blank_processor)
+)
+
 
 # Clean up -----------
 doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
