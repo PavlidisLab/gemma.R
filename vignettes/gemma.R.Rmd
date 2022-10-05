@@ -321,7 +321,7 @@ to query and send separate requests.
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
     get_dataset_annotations(dataset) %>% 
         mutate(experiment.shortName = dataset) %>%
-        select(experiment.shortName, class.Type, class.Name, term.Name)
+        select(experiment.shortName, class.Name, term.Name)
 }) %>% do.call(rbind,.)
 ```
 
