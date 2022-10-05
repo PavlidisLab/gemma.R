@@ -585,6 +585,7 @@ processElements <- function(d) {
 #'     \item \code{gene.Ensembl}: Ensembl ID for the gene
 #'     \item \code{gene.NCBI}: NCBI id for the gene
 #'     \item \code{gene.Name}: Name of the gene
+#'     \item \code{gene.MFX.Rank}: Multifunctionality rank for the gene
 #'     \item \code{taxon.Name}: Name of the species
 #'     \item \code{taxon.Scientific}: Scientific name for the taxon
 #'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
@@ -604,7 +605,7 @@ processGenes <- function(d) {
         # gene.Aliases = d[["aliases"]],
         # gene.GO = d[["numGoTerms"]],
         # gene.Homologues = d[["homologues"]],
-        # gene.MFX.Rank = d[["multifunctionalityRank"]],
+        gene.MFX.Rank = accessField(d, "multifunctionalityRank",NA_real_),
         processTaxon(d %>% purrr::map('taxon'))
         # phenotypes = d[["phenotypes"]]
     )
