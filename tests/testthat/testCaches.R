@@ -4,15 +4,15 @@ test_that('caches work for base functions',{
 
   timeNonMemo =
   microbenchmark::microbenchmark(
-    search_datasets("bipolar", limit = 100, taxon = "human",
+      search_gemma("bipolar", limit = 100, taxon = "human",
                    memoise = FALSE),
     times = 1,unit = 'ms') %>% summary
 
-  result = search_datasets("bipolar", limit = 100, taxon = "human", memoise = TRUE)
+  result = search_gemma("bipolar", limit = 100, taxon = "human", memoise = TRUE)
 
   timeMemo =
     microbenchmark::microbenchmark(
-        search_datasets("bipolar", limit = 100, taxon = "human",
+        search_gemma("bipolar", limit = 100, taxon = "human",
                      memoise = TRUE),
       times = 1,unit = 'ms') %>% summary
 
@@ -20,7 +20,7 @@ test_that('caches work for base functions',{
 
   timeForgot =
     microbenchmark::microbenchmark(
-        search_datasets("bipolar", limit = 100, taxon = "human",
+        search_gemma("bipolar", limit = 100, taxon = "human",
                      memoise = TRUE),
       times = 1,unit = 'ms') %>% summary
 
@@ -135,15 +135,15 @@ test_that('in memory caches work',{
     
     timeNonMemo =
         microbenchmark::microbenchmark(
-            search_datasets("bipolar", limit = 100, taxon = "human",
+            search_gemma("bipolar", limit = 100, taxon = "human",
                             memoise = FALSE),
             times = 1,unit = 'ms') %>% summary
     
-    result = search_datasets("bipolar", limit = 100, taxon = "human", memoise = TRUE)
+    result = search_gemma("bipolar", limit = 100, taxon = "human", memoise = TRUE)
     
     timeMemo =
         microbenchmark::microbenchmark(
-            search_datasets("bipolar", limit = 100, taxon = "human",
+            search_gemma("bipolar", limit = 100, taxon = "human",
                             memoise = TRUE),
             times = 1,unit = 'ms') %>% summary
     
@@ -151,7 +151,7 @@ test_that('in memory caches work',{
     
     timeForgot =
         microbenchmark::microbenchmark(
-            search_datasets("bipolar", limit = 100, taxon = "human",
+            search_gemma("bipolar", limit = 100, taxon = "human",
                             memoise = TRUE),
             times = 1,unit = 'ms') %>% summary
     

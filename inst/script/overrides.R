@@ -211,7 +211,7 @@ NULL
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
 #' @return If \code{raw = FALSE}, a vector of IDs corresponding to the search results, if \code{raw = TRUE}, a list of search results that includes the result objects themselves.
 #' @examples 
-#' search_gemma('bipolar')
+#' search_gemma('bipolar') %>% get_datasets_by_ids()
 NULL
 
 #' generic_params
