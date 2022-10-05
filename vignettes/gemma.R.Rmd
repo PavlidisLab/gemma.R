@@ -81,7 +81,7 @@ data. In addition, we'll subset our results to datasets that have been
 batch corrected.
 
 ```{r search}
-search_datasets("bipolar", limit = 100, taxon = "human") %>%
+search_gemma('bipolar') %>% get_datasets_by_ids() %>%
     filter(geeq.batchCorrected == TRUE) %>%
     select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Accession, experiment.SampleCount)
 ```

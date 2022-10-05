@@ -57,6 +57,12 @@ test_that("datasetDEA queries work", {
     raw <- get_dataset_differential_expression_analyses(1, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
+    expect_equal(dat$result.ID, 
+                 raw %>% purrr::map('resultSets') %>% 
+                     purrr::map(function(x){x %>% 
+                             gemma.R:::accessField('id')}) %>% 
+                     unlist)
+    
 })
 
 test_that("datasetAnnotations queries work", {

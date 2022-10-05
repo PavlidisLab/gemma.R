@@ -306,26 +306,7 @@ registerEndpoint('genes/{gene}/goTerms',
                  validators = alist(gene = validateSingleID),
                  preprocessor = quote(processGO))
 
-# this merges two endpoints in one. leaving taxon empty calls everything
-# documentation for the query variable needs some work
-registerEndpoint("annotations/{taxon}/search/{query}/datasets?&offset={offset}&limit={limit}&sort={sort}",
-    "search_datasets",open_api_name = 'search_taxon_datasets',
-    keyword = "dataset",
-    defaults = list(
-        query = bquote(),
-        taxon = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
-    ),
-    validators = alist(
-        query = validateQuery,
-        taxon = validateOptionalTaxon,
-        limit = validateLimit,
-        sort = validateSort
-    ),
-    preprocessor = quote(processDatasets)
-)
+
 
 registerEndpoint("annotations/search/{query}",
     "search_annotations",
@@ -371,12 +352,12 @@ registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={
                                  platform = NA_character_,
                                  limit = 20,
                                  resultType = 'experiment'),
-                 validators = alist(query = validateSearchQuery,
-                                    taxon = validateTaxon,
+                 validators = alist(query = validateQuery,
+                                    taxon = validateOptionalTaxon,
                                     platform = validateOptionalID,
                                     limit = validatePositiveInteger,
                                     resultType = validateResultType),
-                 preprocessor = quote(blank_processor)
+                 preprocessor = quote(process_search)
 )
 
 

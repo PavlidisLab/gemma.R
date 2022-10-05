@@ -770,6 +770,13 @@ blank_processor <- function(data){
     return(data)
 }
 
+#' Returns the ids of the found results
+#' 
+#' @keywords internal
+process_search <- function(d){
+    d %>% purrr::map_int('resultId')
+}
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()

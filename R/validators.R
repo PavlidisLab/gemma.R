@@ -214,3 +214,26 @@ validateSort <- function(name, ...) {
     }
     sort
 }
+
+
+#' Validate result types
+#' 
+#' @param name The variable name
+#' @param ... result types
+#' @return Validated result types. Either returned as they are or they will be 
+#' replaced from human readable variants
+#' @keywords internal
+validateResultType <- function(name,...){
+    type = unlist(list(...))
+    if (length(type)>1){
+        stop('Must provide only one result type.')
+    }
+    type = switch (type,
+                   experiment = "ubic.gemma.model.expression.experiment.ExpressionExperiment",
+                   gene = "ubic.gemma.model.genome.Gene",
+                   platform = 'ubic.gemma.model.expression.arrayDesign.ArrayDesign',
+                   type
+    )
+    
+    return(type)
+}
