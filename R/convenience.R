@@ -318,18 +318,15 @@ get_differential_expression_values <- function(dataset = NA_character_,
                                                readableContrasts = FALSE,
                                                memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
-        rss <- get_result_sets(dataset,memoised = memoised)
-        if (!(resultSet %in% rss$resultSet.id)){
+        diffs <- get_dataset_differential_expression_analyses(dataset,raw = TRUE)
+        rss <- diffs %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% purrr::map('id')}) %>% unlist
+        if (!(resultSet %in% rss)){
             stop("The queried resultSet is not derived from this dataset. Check the available resultSets with `getDatasetResultSets()` or query without the dataset parameter.")
         }
     }
     else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
-        rss <- get_result_sets(dataset,memoised = memoised)
-         if (nrow(rss) > 1){
-            resultSet <- rss$resultSet.id %>% unique()
-        } else{
-            resultSet <- rss$resultSet.id
-        }
+        diffs <- get_dataset_differential_expression_analyses(dataset,raw = TRUE)
+        resultSet <- diffs %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% purrr::map('id')}) %>% unlist %>% unique
     } else if (is.na(dataset) == TRUE && is.na(resultSet) == FALSE){
         resultSet <- resultSet
     } else {
