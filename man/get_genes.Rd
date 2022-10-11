@@ -46,6 +46,7 @@ The fields of the output data.table are:
 \item \code{gene.Ensembl}: Ensembl ID for the gene
 \item \code{gene.NCBI}: NCBI id for the gene
 \item \code{gene.Name}: Name of the gene
+\item \code{gene.MFX.Rank}: Multifunctionality rank for the gene
 \item \code{taxon.Name}: Name of the species
 \item \code{taxon.Scientific}: Scientific name for the taxon
 \item \code{taxon.ID}: Internal identifier given to the species by Gemma

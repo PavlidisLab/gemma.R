@@ -1617,7 +1617,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
     fname <- "search_annotations"
     preprocessor <- processSearchAnnotations
     validators <- list(query = validateQuery)
-    endpoint <- "annotations/search/{encode(query)}"
+    endpoint <- "annotations/search?query={encode(query)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -1909,7 +1909,7 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
 #' @keywords misc
 #'
 #' @examples
-#' search_gemma("bipolar")
+#' search_gemma("bipolar") %>% get_datasets_by_ids()
 search_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
     limit = 20, resultType = "experiment", raw = getOption(
         "gemma.raw",

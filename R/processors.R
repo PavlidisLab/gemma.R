@@ -596,7 +596,6 @@ processElements <- function(d) {
 #'
 #' @keywords internal
 processGenes <- function(d) {
-
     data.table(
         gene.Symbol = accessField(d,'officialSymbol',NA_character_),
         gene.Ensembl = accessField(d,'ensemblId',NA_character_),

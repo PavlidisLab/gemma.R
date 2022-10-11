@@ -57,6 +57,6 @@ If \code{raw = FALSE}, a vector of IDs corresponding to the search results, if \
 Search everything in Gemma.
 }
 \examples{
-search_gemma("bipolar")
+search_gemma("bipolar") \%>\% get_datasets_by_ids()
 }
 \keyword{misc}
