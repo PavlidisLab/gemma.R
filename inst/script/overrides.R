@@ -209,9 +209,11 @@ NULL
 #' search_gemma
 #' @param query The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
-#' @return If \code{raw = FALSE}, a vector of IDs corresponding to the search results, if \code{raw = TRUE}, a list of search results that includes the result objects themselves.
+#' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
+#' a data.table containing the search results. If it is any other type, a list 
+#' of results. A list with additional details about the search if \code{raw = TRUE}
 #' @examples 
-#' search_gemma('bipolar') %>% get_datasets_by_ids()
+#' search_gemma('bipolar')
 NULL
 
 #' generic_params

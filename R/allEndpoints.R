@@ -1903,13 +1903,15 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
 #'
-#' @return If \code{raw = FALSE}, a vector of IDs corresponding to the search results, if \code{raw = TRUE}, a list of search results that includes the result objects themselves.
+#' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
+#' a data.table containing the search results. If it is any other type, a list
+#' of results. A list with additional details about the search if \code{raw = TRUE}
 #' @export
 #'
 #' @keywords misc
 #'
 #' @examples
-#' search_gemma("bipolar") %>% get_datasets_by_ids()
+#' search_gemma("bipolar")
 search_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
     limit = 20, resultType = "experiment", raw = getOption(
         "gemma.raw",

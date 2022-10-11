@@ -51,12 +51,14 @@ filename.}
 into the output object's attributes such as offset and available elements.}
 }
 \value{
-If \code{raw = FALSE}, a vector of IDs corresponding to the search results, if \code{raw = TRUE}, a list of search results that includes the result objects themselves.
+If \code{raw = FALSE} and resultType is experiment, gene or platform,
+a data.table containing the search results. If it is any other type, a list
+of results. A list with additional details about the search if \code{raw = TRUE}
 }
 \description{
 Search everything in Gemma.
 }
 \examples{
-search_gemma("bipolar") \%>\% get_datasets_by_ids()
+search_gemma("bipolar")
 }
 \keyword{misc}

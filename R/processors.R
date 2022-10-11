@@ -774,7 +774,18 @@ blank_processor <- function(data){
 #' 
 #' @keywords internal
 process_search <- function(d){
-    d %>% purrr::map_int('resultId')
+
+    if (attributes(d)$searchSettings$resultTypes[[1]] == "ubic.gemma.model.expression.experiment.ExpressionExperiment"){
+        d %>% purrr::map('resultObject') %>% processDatasets()
+    } else if(attributes(d)$searchSettings$resultTypes[[1]] == 'ubic.gemma.model.genome.Gene'){
+        d %>% purrr::map('resultObject') %>% processGenes()
+    } else if(attributes(d)$searchSettings$resultTypes[[1]] == "ubic.gemma.model.expression.arrayDesign.ArrayDesign"){
+        d %>% purrr::map('resultObject') %>% processPlatforms()
+    } else{
+        d %>% purrr::map('resultObject')
+    }
+    
+    
 }
 
 # processSVD <- function(d){
