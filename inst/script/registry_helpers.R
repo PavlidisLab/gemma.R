@@ -196,7 +196,8 @@ registerEndpoint <- function(endpoint,
         }) -> example_override
         if(any(example_override)){
             assertthat::assert_that(sum(example_override) == 1)
-            val = overrides[[fname]]$tags[[which(example_override)]]$val %>% strsplit('\n') %>% {.[[1]]}
+            val = overrides[[fname]]$tags[[which(example_override)]]$raw %>% strsplit('\n') %>% {.[[1]]}
+            val = val[val!=""]
             cat(paste0("#' ", val, "\n") %>% paste0(collapse = ""), file = document, append = TRUE)
         }
         cat(glue::glue("{fname} <- "), file = document, append = TRUE)
