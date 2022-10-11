@@ -54,8 +54,9 @@ test_that("getPlatformElementsGenes queries work", {
     raw <- get_platform_element_genes("GPL1355", probe = "AFFX_Rat_beta-actin_M_at", raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
+
     expect_equal(
         dat[, c(gene.Symbol, gene.Ensembl, taxon.ID)],
-        c(raw$officialSymbol, raw$ensemblId, raw$taxonId)
+        c(raw$officialSymbol, raw$ensemblId, raw$taxon$id)
     )
 })

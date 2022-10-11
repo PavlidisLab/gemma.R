@@ -14,22 +14,6 @@ test_that("getDatasetsInfo queries work", {
     expect_false(get_datasets_by_ids(sort = "-id")[1, 1] == get_datasets_by_ids(sort = "+id")[1, 1])
 })
 
-test_that("searchDatasets queries work", {
-    dat <- search_datasets("bipolar", limit = 20)
-    raw <- search_datasets("bipolar", limit = 20, raw = TRUE) %>% jsonlite:::simplify()
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(
-        dat[, c(experiment.ShortName, experiment.ID)],
-        c(raw$shortName, raw$id)
-    )
-    expect_equal(nrow(dat), 20)
-    expect_equal(
-        search_datasets("bipolar", taxon = "rat")[[1,"taxon.Name"]],
-        "rat"
-    )
-})
-
 test_that("datasetPlatforms queries work", {
     dat <- get_dataset_platforms(1)
     raw <- get_dataset_platforms(1, raw = TRUE) %>% jsonlite:::simplify()
@@ -57,6 +41,12 @@ test_that("datasetDEA queries work", {
     raw <- get_dataset_differential_expression_analyses(1, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
+    expect_equal(dat$result.ID, 
+                 raw %>% purrr::map('resultSets') %>% 
+                     purrr::map(function(x){x %>% 
+                             gemma.R:::accessField('id')}) %>% 
+                     unlist)
+    
 })
 
 test_that("datasetAnnotations queries work", {
@@ -65,8 +55,8 @@ test_that("datasetAnnotations queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(class.Type, class.Name, term.Name, term.URI)],
-        c(raw$objectClass, raw$className, raw$termName, raw$termUri)
+        dat[, c( class.Name, class.URI, term.Name, term.URI)],
+        c( raw$className, raw$classUri, raw$termName, raw$termUri)
     )
 })
 
@@ -83,3 +73,4 @@ test_that("datasetDesign queries work", {
     expect_type(get_dataset_design("GSE2018"), "list")
     expect_type(get_dataset_design("GSE2018", raw = TRUE), "raw") %>% jsonlite:::simplify()
 })
+

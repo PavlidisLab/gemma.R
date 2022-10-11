@@ -43,6 +43,20 @@ accessField <- function(d, field, natype = NA){
     }) %>% unlist
 }
 
+#' Avoid NULLS as data.table columns
+#' 
+#' @param x A value that might be null
+#' @param natype What to fill in when data is unavailable
+#' @return x as is or natypee
+#' @keywords internal
+nullCheck = function(x,natype= NA){
+    if(is.null(x)){
+        return(natype)
+    } else{
+        return(x)
+    }
+}
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process
@@ -60,7 +74,7 @@ processGemmaFactor <- function(d) {
         description =  d %>% accessField('description',NA_character_),
         category = d %>% accessField('categoryUri'),
         categoryURI = d %>% accessField('categoryUri'),
-        measurement = d %>% accessField('measurement'),
+        measurement = d %>% accessField('isMeasurement'),
         type = d %>% accessField('type')
     )
     
@@ -80,11 +94,10 @@ processGemmaArray <- function(d) {
         platform.ShortName = accessField(d,"shortName",NA_character_),
         platform.Name = accessField(d,"name",NA_character_),
         platform.ID = accessField(d,'id',NA_integer_),
-        platform.Taxon = accessField(d,'taxon',NA_character_),
-        platform.TaxonID = accessField(d,"taxonID",NA_integer_),
         platform.Type = accessField(d, "technologyType", NA_character_),
         platform.Description = accessField(d, "description", NA_character_),
-        platform.Troubled = accessField(d,"troubled",NA)
+        platform.Troubled = accessField(d,"troubled",NA),
+        d %>% purrr::map('taxon') %>% processTaxon()
     )
 }
 
@@ -108,7 +121,6 @@ processGemmaArray <- function(d) {
 #'     \item \code{experiment.Name}: Full title of the dataset
 #'     \item \code{experiment.ID}: Internal ID of the dataset.
 #'     \item \code{experiment.Description}: Description of the dataset
-#'     \item \code{experiment.Public}: Is the dataset publicly available. Only useful for logged in users with access to non-public data
 #'     \item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
 #'     \item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
 #'     \item \code{experiment.Database}: The name of the database where the dataset was taken from
@@ -121,8 +133,12 @@ processGemmaArray <- function(d) {
 #'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 #'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
-#'     \item \code{taxon.Name}: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma
-#'     \item \code{taxon.ID}: Internal ID given to the taxon by Gemma
+#'     \item \code{taxon.Name}: Name of the species
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
@@ -132,7 +148,6 @@ processDatasets <- function(d) {
         experiment.Name = accessField(d, "name",NA_character_),
         experiment.ID = accessField(d, "id",NA_integer_),
         experiment.Description = accessField(d, "description",NA_character_),
-        experiment.Public = accessField(d, "isPublic",NA),
         experiment.Troubled = accessField(d, "troubled",NA),
         experiment.Accession = accessField(d, "accession",NA_character_),
         experiment.Database = accessField(d, "externalDatabase",NA_character_),
@@ -146,8 +161,7 @@ processDatasets <- function(d) {
         geeq.rawData = d %>% purrr::map('geeq') %>% accessField("sScoreRawData",NA_integer_),
         geeq.qScore = d %>% purrr::map('geeq') %>% accessField("publicQualityScore",NA_real_),
         geeq.sScore = d %>% purrr::map('geeq') %>% accessField("publicSuitabilityScore",NA_real_),
-        taxon.Name = accessField(d, "taxon",NA_character_),
-        taxon.ID = accessField(d, "taxonId",NA_integer_)# ,
+        d %>% purrr::map('taxon') %>% processTaxon()# ,
         # technology.Type = d[["technologyType"]]
     )
 }
@@ -178,6 +192,8 @@ processSearchAnnotations <- function(d) {
     )
 }
 
+
+# good test cases 442, 448, 200, 174
 #' Processes JSON as a differential expression analysis
 #'
 #' @param d The JSON to process
@@ -215,87 +231,107 @@ processSearchAnnotations <- function(d) {
 processDEA <- function(d) {
 
     # Initialize internal variables to avoid R CMD check notes
-
-    divides <- data.table(
-        analysis.ID = accessField(d,'id',NA_integer_),
-        experiment.ID = ifelse(is.na(accessField(d,'sourceExperiment')), accessField(d,"bioAssaySetId", NA_integer_), accessField(d,"sourceExperiment", NA_integer_)),
-        subsetFactor.Enabled = accessField(d, "subset",NA),
-        subsetFactor = d %>% purrr::map('subsetFactorValue') %>% processGemmaFactor,
-        resultIds = d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('resultSetId')})
-    ) %>%
-        .[, .(result.ID = unlist(resultIds)), setdiff(names(.), "resultIds")]
-
-    rs <- lapply(d %>% purrr::map('resultSets'), function(r) {
-        data.table(
-            analysis.Threshold = accessField(r,'threshold',NA_real_),
-            analysis.ID = accessField(r,'analysisId',NA_integer_),
-            result.ID = accessField(r,"resultSetId",NA_integer_),
-            stats.DE = accessField(r,"numberOfDiffExpressedProbes",NA_integer_),
-            stats.Down = accessField(r,"downregulatedCount",NA_integer_),
-            stats.Up = accessField(r,"upregulatedCount",NA_integer_),
-            probes.Analyzed = accessField(r,"numberOfProbesAnalyzed",NA_integer_),
-            genes.Analyzed = accessField(r,"numberOfGenesAnalyzed",NA_integer_),
-            factor.ID = accessField(r,"factorIds",NA_integer_),
-            r %>% purrr::map('baselineGroup') %>%
-                {
-                    data.table(
-                        baseline.category= accessField(.,'category',NA_character_),
-                        baseline.categoryURI = accessField(.,"categoryUri",NA_character_),
-                        baseline.factorValue = accessField(.,"factorValue",NA_character_),
-                        baseline.factorValueURI = accessField(.,"valueUri",NA_character_)
-                    )
-                }
-        ) %>%
-            .[, .(factor.ID = unlist(factor.ID)), setdiff(names(.), "factor.ID")]
-    }) %>%
-        rbindlist() %>%
-        .[!is.na(baseline.category)]
-
-    rsd <- merge(rs, divides, by = c("result.ID", "analysis.ID"), all = TRUE)
-    lapply(unique(rsd[, factor.ID]), function(fid) {
-        lapply(d %>%
-                   purrr::map('factorValuesUsed') %>% 
-                   unlist(recursive = FALSE) %>% 
-                   {.[names(.) %in% fid]}, function(fv) {
-            if (!is.null(fv)) {
+    
+    result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
+    
+    result_factors <- seq_along(result_ids) %>% lapply(function(i){
+        seq_along(result_ids[[i]]) %>% lapply(function(j){
+            if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
+                experimental_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% {d[[i]]$factorValuesUsed[[as.character(.)]]}
+                factor_ids = experimental_factors %>% accessField('id',NA_integer_)
+                
                 out <- data.table(
-                    cf.Val = fv %>% accessField('factorValue',NA_character_),
-                    cf.ValLongUri = fv %>% accessField('valueUri',NA_character_),
-                    factor.ID = fv %>% accessField('factorId',NA_integer_),
-                    id = fv %>% accessField('id',NA_integer_)
+                    result.ID = d[[i]]$resultSets[[j]]$id,
+                    contrast.id = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_),
+                    experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
+                    baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
+                    baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
+                    baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
+                    baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
+                    experimental.factorValue = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('factorValue'),
+                    experimental.factorValueURI =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values  %>% accessField('id',NA_integer_)  %>% match(.,factor_ids) %>% {experimental_factors[.]}  %>% accessField('valueUri'),
+                    subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
+                    subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                    probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                    genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
                 
-                out <- out[!(cf.Val %in% rsd[factor.ID == fid, unique(baseline.factorValue)])]
+                out <- out[!experimental.factorValue == baseline.factorValue]
                 
+            }else{
+                # if more than 2 factors are present take a look at the 
+                # differential expression results to isolate the relevant results
+                # this adds quite a bit of overhead for studies like this but 
+                # they should be relatively rare. if coupled with memoisation
+                # overall hit on performance should not be too much
+                # this was needed because for multi-factor result-sets, the baseline
+                # for each factor is not specified
                 
-                return(out)
+                ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
+                    purrr::map('values')  %>%
+                    purrr::map(function(x){x %>% accessField('id')}) %>%
+                    expand.grid()
+                
+                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map('id')
+                
+                dif_exp <- get_differential_expression_values(resultSet = d[[i]]$resultSets[[j]]$id)
+                relevant_ids <- dif_exp[[1]] %>% colnames %>% 
+                    {.[grepl('[0-9]_pvalue',.)]} %>% strsplit('_') %>% lapply(function(x){
+                        x[c(-1,-length(x))] %>% as.integer()
+                    }) %>% as.data.frame %>% t
+                
+                if(ncol(relevant_ids)>0){
+                    relevant_id_factor_id <- relevant_ids[1,] %>% purrr::map_int(function(x){
+                        apply(ids,2,function(y){x %in% y}) %>% which %>% {factor_ids[[.]]}
+                    })
+                    
+                    colnames(relevant_ids) <- relevant_id_factor_id
+                    
+                    experimental_factors <- 
+                        d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                        purrr::map('id') %>%
+                        purrr::map(function(x){d[[i]]$factorValuesUsed[[as.character(x)]]})
+                    names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                        purrr::map_int('id')
+                    
+                    out <- data.table(
+                        result.ID = d[[i]]$resultSets[[j]]$id,
+                        contrast.id = unname(apply(relevant_ids,1,paste,collapse = '_')),
+                        experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
+                        baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
+                        baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
+                        baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
+                        baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
+                        experimental.factorValue = seq_len(nrow(relevant_ids)) %>%
+                            purrr::map_chr(function(k){
+                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
+                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
+                                    ids <- factors %>% purrr::map_int('id')
+                                    factors[[which(ids == relevant_ids[k,l])]]$factorValue
+                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
+                            }),
+                        experimental.factorValueURI = seq_len(nrow(relevant_ids)) %>%
+                            purrr::map_chr(function(k){
+                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
+                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
+                                    ids <- factors %>% purrr::map_int('id')
+                                    factors[[which(ids == relevant_ids[k,l])]]$valueUri
+                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
+                            }),
+                        subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
+                        subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                        probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                        genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
+                    )
+                    
+                } else { 
+                    # if no ids were present in the expression_values matrix,
+                    # there's nothing to return
+                    return(NULL)
+                }
             }
-        }) %>%
-            .[lengths(.) > 0] %>%
-            rbindlist()
-    }) %>%
-        rbindlist() %>%
-        unique() %>%
-        merge(rsd, by = "factor.ID", allow.cartesian = TRUE, all = TRUE) %>%
-        merge(data.table(
-            analysis.ID = d %>% accessField('id',NA_integer_),
-            platform.ID =d %>% accessField('arrayDesignsUsed',NA_integer_)
-        ), by = "analysis.ID", all = TRUE) %>%
-        .[, .(
-            # rsc.ID = paste("RSCID", result.ID, id, sep = "."),
-            contrast.id = id,
-            experiment.ID, baseline.category, baseline.categoryURI, baseline.factorValue, baseline.factorValueURI,
-            experimental.factorValue = cf.Val, 
-            experimental.factorValueURI = cf.ValLongUri, 
-            subsetFactor.subset = subsetFactor.Enabled,
-            subsetFactor.category = subsetFactor.category, 
-            subsetFactor.categoryURI = subsetFactor.categoryURI,
-            subsetFactor.factorValue = subsetFactor.factorValue,
-            subsetFactor.factorValueURI = subsetFactor.factorValueURI,
-            probes.Analyzed,
-            genes.Analyzed, platform.ID
-        ), .(result.ID, id)] %>%
-        .[, !"id"]
+        }) %>% do.call(rbind,.)
+    }) %>% do.call(rbind,.)
 }
 
 #' Processes JSON as a result set
@@ -381,7 +417,6 @@ processDatasetResultSets <- function(d) {
 processAnnotations <- function(d) {
 
     data.table(
-        class.Type = accessField(d,'objectClass',NA_character_),
         class.Name = accessField(d,"className",NA_character_),
         class.URI = accessField(d,"classUri",NA_character_),
         term.Name = accessField(d,"termName",NA_character_),
@@ -454,7 +489,7 @@ processSamples <- function(d) {
         sample.Accession = d %>% purrr::map('accession') %>% accessField('accession',NA_character_),
         sample.Database = d %>% purrr::map('accession') %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
-        sample.Characteristics = lapply(checkBounds(d[["sample"]][["characteristics"]]), processGemmaFactor),
+        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% purrr::map('characteristics'), processGemmaFactor),
         sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processGemmaFactor)}) %>% purrr::map(rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
@@ -475,14 +510,17 @@ processSamples <- function(d) {
 #'  \item \code{platform.Description}: Free text description of the platform
 #'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 #'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-#'  \item \code{taxon.Name}: Name of the species platform was made for
-#'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'  \item \code{platform.Type}: Technology type for the platform.
+#'  \item \code{taxon.Name}: Name of the species platform was made for
+#'  \item \code{taxon.Scientific}: Scientific name for the taxon
+#'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'  \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'  \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'  \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #'  }
 #'  
 #' @keywords internal
 processPlatforms <- function(d) {
-
     data.table(
         platform.ID = accessField(d,"id",NA_integer_),
         platform.ShortName = accessField(d, "shortName",NA_character_),
@@ -495,9 +533,8 @@ processPlatforms <- function(d) {
         # platform.ProbeAlignmentCount = accessField(d, "numProbeAlignments"),
         # platform.ProbeGeneCount = accessField(d, "numProbesToGenes"),
         # platform.ElementCount = accessField(d, "designElementCount"),
-        taxon.Name = accessField(d, "taxon",NA_character_),
-        taxon.ID = accessField(d, "taxonID",NA_integer_),
-        platform.Type = accessField(d, "technologyType",NA_character_)#,
+        platform.Type = accessField(d, "technologyType",NA_character_),
+        d %>% purrr::map('taxon') %>% processTaxon()#,
         # technology.Color = d[["color"]]
     )
 }
@@ -548,14 +585,17 @@ processElements <- function(d) {
 #'     \item \code{gene.Ensembl}: Ensembl ID for the gene
 #'     \item \code{gene.NCBI}: NCBI id for the gene
 #'     \item \code{gene.Name}: Name of the gene
-#'     \item \code{taxon.name}: Name of the taxon of origin
-#'     \item \code{taxon.ID}: Gemma ID for the taxon
+#'     \item \code{gene.MFX.Rank}: Multifunctionality rank for the gene
+#'     \item \code{taxon.Name}: Name of the species
 #'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
 processGenes <- function(d) {
-
     data.table(
         gene.Symbol = accessField(d,'officialSymbol',NA_character_),
         gene.Ensembl = accessField(d,'ensemblId',NA_character_),
@@ -564,10 +604,8 @@ processGenes <- function(d) {
         # gene.Aliases = d[["aliases"]],
         # gene.GO = d[["numGoTerms"]],
         # gene.Homologues = d[["homologues"]],
-        # gene.MFX.Rank = d[["multifunctionalityRank"]],
-        taxon.Name = accessField(d, "taxonCommonName",NA_character_),
-        taxon.ID = accessField(d, "taxonId",NA_integer_),
-        taxon.Scientific = accessField(d, "taxonScientificName",NA_character_)
+        gene.MFX.Rank = accessField(d, "multifunctionalityRank",NA_real_),
+        processTaxon(d %>% purrr::map('taxon'))
         # phenotypes = d[["phenotypes"]]
     )
 }
@@ -577,6 +615,15 @@ processGenes <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
+#' 
+#' \itemize{
+#'     \item \code{taxon.Name}: Name of the species
+#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'     \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+#' }
 #'
 #' @keywords internal
 processTaxon <- function(d) {
@@ -629,7 +676,7 @@ processGeneLocation <- function(d) {
 #'
 #' @return A data table with information about the GO terms assigned to the
 #' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any
-#' object. Go terms were updated on June 10 2022.
+#' object.
 #' 
 #' The fields of the output data.table are:
 #' 
@@ -721,6 +768,24 @@ processDEcontrasts <- function(rs, rsID) {
 #' @keywords internal
 blank_processor <- function(data){
     return(data)
+}
+
+#' Returns the ids of the found results
+#' 
+#' @keywords internal
+process_search <- function(d){
+
+    if (attributes(d)$searchSettings$resultTypes[[1]] == "ubic.gemma.model.expression.experiment.ExpressionExperiment"){
+        d %>% purrr::map('resultObject') %>% processDatasets()
+    } else if(attributes(d)$searchSettings$resultTypes[[1]] == 'ubic.gemma.model.genome.Gene'){
+        d %>% purrr::map('resultObject') %>% processGenes()
+    } else if(attributes(d)$searchSettings$resultTypes[[1]] == "ubic.gemma.model.expression.arrayDesign.ArrayDesign"){
+        d %>% purrr::map('resultObject') %>% processPlatforms()
+    } else{
+        d %>% purrr::map('resultObject')
+    }
+    
+    
 }
 
 # processSVD <- function(d){

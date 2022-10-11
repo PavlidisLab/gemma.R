@@ -1576,110 +1576,6 @@ memget_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memo
     )
 }
 
-#' Retrieve datasets within a given taxa associated to an annotation tags search
-#'
-#'
-#'
-#' @param query The search query. Either plain text ('traumatic'), or an ontology
-#' term (UBERON_0002048). Datasets that contain the given string in their short
-#' or full name will also be matched. Can be multiple identifiers separated by commas.
-#' @param taxon A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name
-#' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
-#' of objects. Has a maximum value of 100. Use together with \code{offset} and
-#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
-#' compile all data if needed.
-#' @param sort Order results by the given property and direction. The '+' sign indicate ascending order whereas the '-' indicate descending.
-#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-#' parsing. Raw results usually contain additional fields and flags that are
-#' omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the
-#' same inputs and use the result saved in cache if a result is already saved.
-#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
-#' @param file The name of a file to save the results to, or \code{NULL} to not write
-#' results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-#' it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified
-#' filename.
-#' @param attributes If \code{TRUE} additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
-#'
-#' @inherit processDatasets return
-#' @export
-#'
-#' @keywords dataset
-#'
-#' @examples
-#' search_datasets("bipolar")
-search_datasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
-    internal <- FALSE
-    keyword <- "dataset"
-    header <- ""
-    isFile <- FALSE
-    fname <- "search_datasets"
-    preprocessor <- processDatasets
-    validators <- list(
-        query = validateQuery, taxon = validateOptionalTaxon,
-        limit = validateLimit, sort = validateSort
-    )
-    endpoint <- "annotations/{encode(taxon)}/search/{encode(query)}/datasets?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
-    if (memoised) {
-        if (!is.na(file)) {
-            warning("Saving to files is not supported with memoisation.")
-        }
-        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
-            "cache_in_memory") {
-            return(mem_in_memory_cache("search_datasets",
-                query = query,
-                taxon = taxon, offset = offset, limit = limit,
-                sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
-            ))
-        } else {
-            out <- memsearch_datasets(
-                query = query, taxon = taxon,
-                offset = offset, limit = limit, sort = sort,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
-            )
-            return(out)
-        }
-    }
-    .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
-    )
-}
-
-#' Memoise search_datasets
-#'
-#' @noRd
-memsearch_datasets <- function(query, taxon = NA_character_, offset = 0L, limit = 20L,
-    sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-        "gemma.attributes",
-        TRUE
-    )) {
-    mem_call <- memoise::memoise(search_datasets, cache = gemmaCache())
-    mem_call(
-        query = query, taxon = taxon, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
-    )
-}
-
 #' Search for annotation tags
 #'
 #'
@@ -1721,7 +1617,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
     fname <- "search_annotations"
     preprocessor <- processSearchAnnotations
     validators <- list(query = validateQuery)
-    endpoint <- "annotations/search/{encode(query)}"
+    endpoint <- "annotations/search?query={encode(query)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -1977,6 +1873,111 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
         taxon = taxon, offset = offset, limit = limit, sort = sort,
         raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
         attributes = attributes
+    )
+}
+
+#' Search everything in Gemma.
+#'
+#'
+#'
+#' @param query The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.
+#' @param taxon A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name
+#' @param platform A platform numerical identifier or a platform short name
+#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' of objects. Has a maximum value of 100. Use together with \code{offset} and
+#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
+#' compile all data if needed.
+#' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
+#' it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#' @param attributes If \code{TRUE} additional information from the call will be added
+#' into the output object's attributes such as offset and available elements.
+#'
+#' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
+#' a data.table containing the search results. If it is any other type, a list
+#' of results. A list with additional details about the search if \code{raw = TRUE}
+#' @export
+#'
+#' @keywords misc
+#'
+#' @examples
+#' search_gemma("bipolar")
+search_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
+    limit = 20, resultType = "experiment", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoised", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    ), attributes = getOption("gemma.attributes", TRUE)) {
+    internal <- FALSE
+    keyword <- "misc"
+    header <- ""
+    isFile <- FALSE
+    fname <- "search_gemma"
+    preprocessor <- process_search
+    validators <- list(
+        query = validateQuery, taxon = validateOptionalTaxon,
+        platform = validateOptionalID, limit = validatePositiveInteger,
+        resultType = validateResultType
+    )
+    endpoint <- "search?query={encode(query)}&taxon={encode(taxon)}&platform={encode(platform)}&limit={encode(limit)}&resultTypes={encode(resultType)}"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("search_gemma",
+                query = query,
+                taxon = taxon, platform = platform, limit = limit,
+                resultType = resultType, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
+            ))
+        } else {
+            out <- memsearch_gemma(
+                query = query, taxon = taxon,
+                platform = platform, limit = limit, resultType = resultType,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
+                attributes = attributes
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname, validators, endpoint, environment(), isFile,
+        header, raw, overwrite, file, attributes, match.call()
+    )
+}
+
+#' Memoise search_gemma
+#'
+#' @noRd
+memsearch_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
+    limit = 20, resultType = "experiment", raw = getOption(
+        "gemma.raw",
+        FALSE
+    ), memoised = getOption("gemma.memoised", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    ), attributes = getOption("gemma.attributes", TRUE)) {
+    mem_call <- memoise::memoise(search_gemma, cache = gemmaCache())
+    mem_call(
+        query = query, taxon = taxon, platform = platform,
+        limit = limit, resultType = resultType, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite, attributes = attributes
     )
 }
 

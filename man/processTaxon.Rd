@@ -11,6 +11,15 @@ processTaxon(d)
 }
 \value{
 A processed data.table
+
+\itemize{
+\item \code{taxon.Name}: Name of the species
+\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{taxon.NCBI}: NCBI ID of the taxon
+\item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+}
 }
 \description{
 Processes JSON as a vector of taxa
