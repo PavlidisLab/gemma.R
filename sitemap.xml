@@ -22,6 +22,9 @@
     <loc>/news/index.html</loc>
   </url>
   <url>
+    <loc>/reference/accessField.html</loc>
+  </url>
+  <url>
     <loc>/reference/blank_processor.html</loc>
   </url>
   <url>
@@ -118,6 +121,9 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/nullCheck.html</loc>
+  </url>
+  <url>
     <loc>/reference/processAnnotations.html</loc>
   </url>
   <url>
@@ -178,10 +184,13 @@
     <loc>/reference/processTaxon.html</loc>
   </url>
   <url>
+    <loc>/reference/process_search.html</loc>
+  </url>
+  <url>
     <loc>/reference/search_annotations.html</loc>
   </url>
   <url>
-    <loc>/reference/search_datasets.html</loc>
+    <loc>/reference/search_gemma.html</loc>
   </url>
   <url>
     <loc>/reference/set_gemma_user.html</loc>
@@ -206,6 +215,9 @@
   </url>
   <url>
     <loc>/reference/validateQuery.html</loc>
+  </url>
+  <url>
+    <loc>/reference/validateResultType.html</loc>
   </url>
   <url>
     <loc>/reference/validateSingleID.html</loc>

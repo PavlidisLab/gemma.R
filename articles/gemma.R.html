@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.36</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.38</span>
       </span>
     </div>
 
@@ -140,18 +140,13 @@
 </h2>
 <p>The main goal of this wrapper is to enable easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">"bipolar"</span>, limit <span class="op">=</span> <span class="fl">100</span>, taxon <span class="op">=</span> <span class="st">"human"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_gemma.html">search_gemma</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   experiment.ShortName
-1:             GSE35974
-2:             GSE46416
-                                                   experiment.Name
-1:                 Expression data from the human cerebellum brain
-2: State- and trait-specific gene expression in euthymia and mania
+<pre><code>   experiment.ShortName                                       experiment.Name
+1:             GSE29318 Expression profile of FAC-sorted murine retinal cells
    experiment.ID experiment.Accession experiment.SampleCount
-1:          5939             GSE35974                    144
-2:          8997             GSE46416                     32</code></pre>
+1:         12310             GSE29318                      9</code></pre>
 <p>We are left with two datasets. For simplicity, we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997" class="external-link">GSE46416</a> since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -269,12 +264,18 @@ Gene expression distributions of bipolar patients during manic phase and control
 3:        Eno2 ENSRNOG00000013141     24334                      enolase 2
 4:        ENO2               &lt;NA&gt;    856579 phosphopyruvate hydratase ENO2
 5:        eno2 ENSDARG00000014287    402874                      enolase 2
-   taxon.Name taxon.ID         taxon.Scientific
-1:      human        1             Homo sapiens
-2:      mouse        2             Mus musculus
-3:        rat        3        Rattus norvegicus
-4:      yeast       11 Saccharomyces cerevisiae
-5:  zebrafish       12              Danio rerio</code></pre>
+   gene.MFX.Rank taxon.Name         taxon.Scientific taxon.ID taxon.NCBI
+1:     0.9284287      human             Homo sapiens        1       9606
+2:     0.8634338      mouse             Mus musculus        2      10090
+3:     0.8698729        rat        Rattus norvegicus        3      10116
+4:     0.6226795      yeast Saccharomyces cerevisiae       11       4932
+5:     0.8956117  zebrafish              Danio rerio       12       7955
+   taxon.Database.Name taxon.Database.ID
+1:                hg38                87
+2:                mm10                81
+3:                 rn6                86
+4:                &lt;NA&gt;                NA
+5:                &lt;NA&gt;                NA</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ncbi id for human ENO2</span></span>
 <span><span class="va">probes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_gene_probes.html">get_gene_probes</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
@@ -295,13 +296,20 @@ Gene expression distributions of bipolar patients during manic phase and control
 4:                                               CHUGAI 41K          36
 5:                                               NHGRI-6.5k         150
 6: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A           1
-   platform.Taxon platform.TaxonID platform.Type platform.Troubled
-1:          human                1      TWOCOLOR             FALSE
-2:          human                1      TWOCOLOR             FALSE
-3:          human                1      TWOCOLOR             FALSE
-4:          human                1      TWOCOLOR             FALSE
-5:          human                1      TWOCOLOR             FALSE
-6:          human                1      ONECOLOR             FALSE</code></pre>
+   platform.Type platform.Troubled taxon.Name taxon.Scientific taxon.ID
+1:      TWOCOLOR             FALSE      human     Homo sapiens        1
+2:      TWOCOLOR             FALSE      human     Homo sapiens        1
+3:      TWOCOLOR             FALSE      human     Homo sapiens        1
+4:      TWOCOLOR             FALSE      human     Homo sapiens        1
+5:      TWOCOLOR             FALSE      human     Homo sapiens        1
+6:      ONECOLOR             FALSE      human     Homo sapiens        1
+   taxon.NCBI taxon.Database.Name taxon.Database.ID
+1:       9606                hg38                87
+2:       9606                hg38                87
+3:       9606                hg38                87
+4:       9606                hg38                87
+5:       9606                hg38                87
+6:       9606                hg38                87</code></pre>
 </div>
 <div class="section level3">
 <h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
@@ -418,12 +426,15 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
                 experimental.factorValueURI subsetFactor.subset
 1: http://purl.obolibrary.org/obo/DOID_3312               FALSE
 2:                                                        FALSE
-   subsetFactor.category subsetFactor.categoryURI subsetFactor.factorValue
-1:                    NA                       NA                     &lt;NA&gt;
-2:                    NA                       NA                     &lt;NA&gt;
-   subsetFactor.factorValueURI probes.Analyzed genes.Analyzed platform.ID
-1:                        &lt;NA&gt;           21961          18959         652
-2:                        &lt;NA&gt;           21961          18959         652</code></pre>
+   subsetFactor.factorValue subsetFactor.factorValueURI
+1:                     &lt;NA&gt;                        &lt;NA&gt;
+2:                     &lt;NA&gt;                        &lt;NA&gt;
+   subsetFactor.description subsetFactor.category subsetFactor.categoryURI
+1:                     &lt;NA&gt;                    NA                       NA
+2:                     &lt;NA&gt;                    NA                       NA
+   subsetFactor.measurement subsetFactor.type probes.Analyzed genes.Analyzed
+1:                       NA                NA           21961          18959
+2:                       NA                NA           21961          18959</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dif_exp_values</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
 <span></span>
@@ -490,19 +501,19 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>experiment.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">class.Type</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
+<span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    experiment.shortName    class.Type     class.Name              term.Name
- 1:             GSE35974   FactorValue        disease       Bipolar Disorder
- 2:             GSE35974   BioMaterial biological sex                   male
- 3:             GSE35974   BioMaterial biological sex                 female
- 4:             GSE35974   FactorValue        disease          schizophrenia
- 5:             GSE35974 ExperimentTag  organism part             cerebellum
- 6:             GSE35974   FactorValue        disease      mental depression
- 7:             GSE12649   BioMaterial  organism part reference subject role
- 8:             GSE12649   BioMaterial        disease       Bipolar Disorder
- 9:             GSE12649 ExperimentTag  organism part      prefrontal cortex
-10:             GSE12649   BioMaterial        disease          schizophrenia</code></pre>
+<pre><code>    experiment.shortName     class.Name              term.Name
+ 1:             GSE35974 biological sex                   male
+ 2:             GSE35974        disease          schizophrenia
+ 3:             GSE35974        disease       Bipolar Disorder
+ 4:             GSE35974 biological sex                 female
+ 5:             GSE35974        disease      mental depression
+ 6:             GSE35974  organism part             cerebellum
+ 7:             GSE12649  organism part reference subject role
+ 8:             GSE12649  organism part      prefrontal cortex
+ 9:             GSE12649        disease       Bipolar Disorder
+10:             GSE12649        disease          schizophrenia</code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -556,21 +567,15 @@ NULL
 [[1]]$taxon$ncbiId
 [1] 10116
 
-[[1]]$taxon$isSpecies
-NULL
-
-[[1]]$taxon$isGenesUsable
-[1] TRUE
-
 [[1]]$taxon$externalDatabase
-[[1]]$taxon$externalDatabase$name
-[1] "rn6"
-
 [[1]]$taxon$externalDatabase$id
 [1] 86
 
-[[1]]$taxon$externalDatabase$checked
-[1] FALSE
+[[1]]$taxon$externalDatabase$name
+[1] "rn6"
+
+[[1]]$taxon$externalDatabase$uri
+NULL
 
 
 
@@ -607,21 +612,15 @@ NULL
 [[2]]$taxon$ncbiId
 [1] 9606
 
-[[2]]$taxon$isSpecies
-NULL
-
-[[2]]$taxon$isGenesUsable
-[1] TRUE
-
 [[2]]$taxon$externalDatabase
-[[2]]$taxon$externalDatabase$name
-[1] "hg38"
-
 [[2]]$taxon$externalDatabase$id
 [1] 87
 
-[[2]]$taxon$externalDatabase$checked
-[1] FALSE
+[[2]]$taxon$externalDatabase$name
+[1] "hg38"
+
+[[2]]$taxon$externalDatabase$uri
+NULL
 
 
 
@@ -658,21 +657,15 @@ NULL
 [[3]]$taxon$ncbiId
 [1] 10090
 
-[[3]]$taxon$isSpecies
-NULL
-
-[[3]]$taxon$isGenesUsable
-[1] TRUE
-
 [[3]]$taxon$externalDatabase
-[[3]]$taxon$externalDatabase$name
-[1] "mm10"
-
 [[3]]$taxon$externalDatabase$id
 [1] 81
 
-[[3]]$taxon$externalDatabase$checked
-[1] FALSE
+[[3]]$taxon$externalDatabase$name
+[1] "mm10"
+
+[[3]]$taxon$externalDatabase$uri
+NULL
 
 
 
@@ -740,32 +733,32 @@ other attached packages:
  [7] BiocGenerics_0.42.0         MatrixGenerics_1.8.1       
  [9] matrixStats_0.62.0          ggrepel_0.9.1              
 [11] ggplot2_3.3.6               dplyr_1.0.10               
-[13] gemma.R_0.99.36             BiocStyle_2.24.0           
+[13] gemma.R_0.99.38             BiocStyle_2.24.0           
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.4             sass_0.4.2             tidyr_1.2.1           
- [4] bit64_4.0.5            jsonlite_1.8.0         bslib_0.4.0           
- [7] BiocManager_1.30.18    highr_0.9              GenomeInfoDbData_1.2.8
-[10] yaml_2.3.5             pillar_1.8.1           lattice_0.20-45       
-[13] glue_1.6.2             digest_0.6.29          XVector_0.36.0        
-[16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.4-1          
-[19] pkgconfig_2.0.3        bookdown_0.29          zlibbioc_1.42.0       
-[22] purrr_0.3.4            scales_1.2.1           tibble_3.1.8          
-[25] generics_0.1.3         farver_2.1.1           ellipsis_0.3.2        
-[28] cachem_1.0.6           withr_2.5.0            cli_3.4.1             
-[31] magrittr_2.0.3         memoise_2.0.1          evaluate_0.16         
-[34] fs_1.5.2               fansi_1.0.3            textshaping_0.3.6     
-[37] tools_4.2.1            data.table_1.14.2      lifecycle_1.0.2       
-[40] stringr_1.4.1          munsell_0.5.0          DelayedArray_0.22.0   
-[43] compiler_4.2.1         pkgdown_2.0.6          jquerylib_0.1.4       
-[46] systemfonts_1.0.4      rlang_1.0.6            grid_4.2.1            
-[49] RCurl_1.98-1.8         rappdirs_0.3.3         bitops_1.0-7          
-[52] labeling_0.4.2         rmarkdown_2.16         gtable_0.3.1          
-[55] curl_4.3.2             R6_2.5.1               knitr_1.40            
-[58] fastmap_1.1.0          bit_4.0.4              utf8_1.2.2            
-[61] rprojroot_2.0.3        ragg_1.2.2             desc_1.4.2            
-[64] stringi_1.7.8          Rcpp_1.0.9             vctrs_0.4.1           
-[67] tidyselect_1.1.2       xfun_0.33             </code></pre>
+ [1] Rcpp_1.0.9             lubridate_1.8.0        lattice_0.20-45       
+ [4] rprojroot_2.0.3        digest_0.6.29          utf8_1.2.2            
+ [7] R6_2.5.1               evaluate_0.17          highr_0.9             
+[10] httr_1.4.4             pillar_1.8.1           zlibbioc_1.42.0       
+[13] rlang_1.0.6            curl_4.3.3             data.table_1.14.2     
+[16] jquerylib_0.1.4        Matrix_1.4-1           rmarkdown_2.17        
+[19] pkgdown_2.0.6          labeling_0.4.2         textshaping_0.3.6     
+[22] desc_1.4.2             stringr_1.4.1          RCurl_1.98-1.9        
+[25] bit_4.0.4              munsell_0.5.0          DelayedArray_0.22.0   
+[28] compiler_4.2.1         xfun_0.33              pkgconfig_2.0.3       
+[31] systemfonts_1.0.4      htmltools_0.5.3        tidyselect_1.2.0      
+[34] tibble_3.1.8           GenomeInfoDbData_1.2.8 bookdown_0.29         
+[37] fansi_1.0.3            withr_2.5.0            rappdirs_0.3.3        
+[40] bitops_1.0-7           grid_4.2.1             jsonlite_1.8.2        
+[43] gtable_0.3.1           lifecycle_1.0.3        magrittr_2.0.3        
+[46] scales_1.2.1           cli_3.4.1              stringi_1.7.8         
+[49] cachem_1.0.6           farver_2.1.1           XVector_0.36.0        
+[52] fs_1.5.2               bslib_0.4.0            ragg_1.2.3            
+[55] generics_0.1.3         vctrs_0.4.2            tools_4.2.1           
+[58] bit64_4.0.5            glue_1.6.2             purrr_0.3.5           
+[61] fastmap_1.1.0          yaml_2.3.5             colorspace_2.0-3      
+[64] BiocManager_1.30.18    memoise_2.0.1          knitr_1.40            
+[67] sass_0.4.2            </code></pre>
 </div>
   </div>
 

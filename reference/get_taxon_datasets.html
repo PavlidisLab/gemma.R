@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.36</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.99.38</span>
       </span>
     </div>
 
@@ -154,7 +154,6 @@ read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma
 <li><p><code>experiment.Name</code>: Full title of the dataset</p></li>
 <li><p><code>experiment.ID</code>: Internal ID of the dataset.</p></li>
 <li><p><code>experiment.Description</code>: Description of the dataset</p></li>
-<li><p><code>experiment.Public</code>: Is the dataset publicly available. Only useful for logged in users with access to non-public data</p></li>
 <li><p><code>experiment.Troubled</code>: Did an automatic process within gemma or a curator mark the dataset as "troubled"</p></li>
 <li><p><code>experiment.Accession</code>: Accession ID of the dataset in the external database it was taken from</p></li>
 <li><p><code>experiment.Database</code>: The name of the database where the dataset was taken from</p></li>
@@ -167,8 +166,12 @@ read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma
 <li><p><code>geeq.rawData</code>: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches</p></li>
 <li><p><code>geeq.qScore</code>: Data quality score given to the dataset by Gemma.</p></li>
 <li><p><code>geeq.sScore</code>: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design</p></li>
-<li><p><code>taxon.Name</code>: The taxa of the study. In Gemma each study will include a single species. If the original source has samples from multiple species, they will be split into different studies within Gemma</p></li>
-<li><p><code>taxon.ID</code>: Internal ID given to the taxon by Gemma</p></li>
+<li><p><code>taxon.Name</code>: Name of the species</p></li>
+<li><p><code>taxon.Scientific</code>: Scientific name for the taxon</p></li>
+<li><p><code>taxon.ID</code>: Internal identifier given to the species by Gemma</p></li>
+<li><p><code>taxon.NCBI</code>: NCBI ID of the taxon</p></li>
+<li><p><code>taxon.Database.Name</code>: Underlying database used in Gemma for the taxon</p></li>
+<li><p><code>taxon.Database.ID</code>: ID of the underyling database used in Gemma for the taxon</p></li>
 </ul></div>
 
     <div id="ref-examples">
@@ -258,48 +261,48 @@ read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  This series represents samples of multiple myeloma patients with and without bone lytic lesion by MRI.\nDate GSE755 Last Updated: May 29 2005\nContributors:  John D Shaughnessy Erik Rasmussen Yupo Ma Bart Barlogie Fenghuang Zhan Ronald Walker Erming Tian\nIncludes GDS531.\n Update date: Mar 29 2004.\n Dataset description GDS531: Comparison of gene expression in bone marrow plasma cells of multiple myeloma patients with and without bone lesions. Osteolytic lesions increase in multiple myeloma patients.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 A number of studies have shown that cigarette smoking produces a field defect, such that genetic mutations induced by smoking occur throughout the lung and its intra and extra-pulmonary airways. Based on this concept, we have begun this study, which has as its goal the definition of the normal airway transcriptome, an analysis of how that transcriptome is affected by cigarette smoke, and to explore the reversibility of altered gene expression when smoking has been discontinued. We have obtained brushings from intra-pulmonary airways (the right upper lobe carina) and scrapings from the buccal mucosa, from normal smoking and non-smoking volunteers (including 34 Current Smokers, 23 Never Smokers and 18 Former Smokers). RNA was isolated from these samples and gene expression profiles from intra-pulmonary airway epithelial cells were analyzed using Affymetrix U133A human gene expression arrays. All microarray data from the experiments described above have been stored, preprocessed and analyzed in a relational MySQL database that is accessible through our website at http://pulm.bumc.bu.edu/aged.\nDate GSE994 Last Updated: May 29 2005\nContributors:  Jennifer Beane Frank Schembri John Palma Gang Liu Jerome Brody Avrum Spira Xuemei Yang Vishal Shah\nIncludes GDS534.\n Update date: May 02 2004.\n Dataset description GDS534: Analysis of cigarette smoking-induced changes in  bronchial epithelia, and reversibility of effects when smoking is discontinued. May provide insight to molecular events leading to chronic obstructive pulmonary disease (COPD) and lung cancer.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     AR overexpression converts antagonists to weak agonists.\nDate GSE846 Last Updated: May 29 2005\nContributors:  Derek Welsbie Charles Sawyers Charlie Chen\nIncludes GDS536.\n Update date: Mar 30 2004.\n Dataset description GDS536: Examination of antagonist to agonist conversion in androgen receptor-expressing hormone-sensitive LNCaP prostate cancer cells. Cells challenged with increasing doses of R1881, or bicalutamide.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     experiment.Public experiment.Troubled experiment.Accession</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:              TRUE               FALSE              GSE2018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:              TRUE               FALSE              GSE4036</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:              TRUE               FALSE              GSE3489</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:              TRUE               FALSE              GSE1923</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:              TRUE               FALSE               GSE361</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:              TRUE               FALSE               GSE492</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:              TRUE               FALSE               GSE713</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:              TRUE               FALSE               GSE833</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:              TRUE               FALSE               GSE420</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:              TRUE               FALSE               GSE430</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:              TRUE               FALSE               GSE675</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:              TRUE               FALSE               GSE712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:              TRUE               FALSE               GSE701</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:              TRUE               FALSE               GSE685</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:              TRUE               FALSE               GSE593</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:              TRUE               FALSE               GSE837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:              TRUE               FALSE               GSE590</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:              TRUE               FALSE               GSE755</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:              TRUE               FALSE               GSE994</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:              TRUE               FALSE               GSE846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     experiment.Database                   experiment.URI experiment.SampleCount</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     13</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                 GEO http://www.ncbi.nlm.nih.gov/geo/                      9</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:                 GEO http://www.ncbi.nlm.nih.gov/geo/                    173</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:                 GEO http://www.ncbi.nlm.nih.gov/geo/                     17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     experiment.Troubled experiment.Accession experiment.Database</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:               FALSE              GSE2018                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:               FALSE              GSE4036                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:               FALSE              GSE3489                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:               FALSE              GSE1923                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:               FALSE               GSE361                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:               FALSE               GSE492                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:               FALSE               GSE713                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:               FALSE               GSE833                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:               FALSE               GSE420                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:               FALSE               GSE430                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:               FALSE               GSE675                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:               FALSE               GSE712                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:               FALSE               GSE701                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:               FALSE               GSE685                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:               FALSE               GSE593                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:               FALSE               GSE837                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:               FALSE               GSE590                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:               FALSE               GSE755                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:               FALSE               GSE994                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:               FALSE               GSE846                 GEO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       experiment.URI experiment.SampleCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://www.ncbi.nlm.nih.gov/geo/                     34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://www.ncbi.nlm.nih.gov/geo/                     28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: http://www.ncbi.nlm.nih.gov/geo/                     28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://www.ncbi.nlm.nih.gov/geo/                     15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://www.ncbi.nlm.nih.gov/geo/                     20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://www.ncbi.nlm.nih.gov/geo/                     12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://www.ncbi.nlm.nih.gov/geo/                     20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: http://www.ncbi.nlm.nih.gov/geo/                     11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: http://www.ncbi.nlm.nih.gov/geo/                     10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: http://www.ncbi.nlm.nih.gov/geo/                     14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: http://www.ncbi.nlm.nih.gov/geo/                     12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: http://www.ncbi.nlm.nih.gov/geo/                     13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: http://www.ncbi.nlm.nih.gov/geo/                     12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: http://www.ncbi.nlm.nih.gov/geo/                      9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: http://www.ncbi.nlm.nih.gov/geo/                     10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: http://www.ncbi.nlm.nih.gov/geo/                     33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: http://www.ncbi.nlm.nih.gov/geo/                     10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: http://www.ncbi.nlm.nih.gov/geo/                    173</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: http://www.ncbi.nlm.nih.gov/geo/                     75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20: http://www.ncbi.nlm.nih.gov/geo/                     17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     experiment.LastUpdated</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1:    2022-08-19 16:13:48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:    2022-08-25 15:48:45</span>
@@ -363,27 +366,48 @@ read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma
 <span class="r-out co"><span class="r-pr">#&gt;</span> 18:               FALSE                  0                0           -1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19:                TRUE                  1                1            1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20:               FALSE                  0                0           -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     geeq.qScore geeq.sScore taxon.Name taxon.ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  0.56574853      0.8750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.99712462      0.7500      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:  0.41874398      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  0.57060320      0.6250      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.41213549      0.3750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  0.85618481      0.3750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.28277088      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.02463236      0.2500      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  0.27564713      0.3750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  0.42020631      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  0.13442192      0.1250      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  0.14067185      0.1250      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  0.14080567      0.3750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:  0.27899242      0.4625      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:  0.42038687      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  0.13923961      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  0.28156465      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  0.40938871      0.5000      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  0.99693038      0.8750      human        1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  0.13468318      0.5000      human        1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     geeq.qScore geeq.sScore taxon.Name taxon.Scientific taxon.ID taxon.NCBI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  0.56574853      0.8750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.99712462      0.7500      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:  0.41874398      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:  0.57060320      0.6250      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.41213549      0.3750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  0.85618481      0.3750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:  0.28277088      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.02463236      0.2500      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:  0.27564713      0.3750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:  0.42020631      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:  0.13442192      0.1250      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:  0.14067185      0.1250      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:  0.14080567      0.3750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:  0.27899242      0.4625      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:  0.42038687      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:  0.13923961      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:  0.28156465      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:  0.40938871      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:  0.99693038      0.8750      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:  0.13468318      0.5000      human     Homo sapiens        1       9606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     taxon.Database.Name taxon.Database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                hg38                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20:                hg38                87</span>
 </code></pre></div>
     </div>
   </div>
