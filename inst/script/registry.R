@@ -308,7 +308,7 @@ registerEndpoint('genes/{gene}/goTerms',
 
 
 
-registerEndpoint("annotations/search/{query}",
+registerEndpoint("annotations/search?query={query}",
     "search_annotations",
     open_api_name = 'search_annotations',
     keyword = "misc",
