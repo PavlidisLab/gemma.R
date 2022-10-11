@@ -23,7 +23,7 @@ editor_options:
 ```{r, include = FALSE}
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE,gemma.memoised = TRUE)
-options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
+# options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
 knitr::opts_chunk$set(
     comment = ""
 )
