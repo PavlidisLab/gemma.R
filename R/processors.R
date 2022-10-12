@@ -49,7 +49,7 @@ accessField <- function(d, field, natype = NA){
 #' @param natype What to fill in when data is unavailable
 #' @return x as is or natypee
 #' @keywords internal
-nullCheck = function(x,natype= NA){
+nullCheck <- function(x,natype= NA){
     if(is.null(x)){
         return(natype)
     } else{
@@ -238,7 +238,7 @@ processDEA <- function(d) {
         seq_along(result_ids[[i]]) %>% lapply(function(j){
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
                 experimental_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% {d[[i]]$factorValuesUsed[[as.character(.)]]}
-                factor_ids = experimental_factors %>% accessField('id',NA_integer_)
+                factor_ids <- experimental_factors %>% accessField('id',NA_integer_)
 
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
