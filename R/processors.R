@@ -5,7 +5,7 @@ processDate <- function(x){
            `TRUE` = lubridate::ymd_hms(x), # parse ISO 8601 format
            `FALSE` = as.POSIXct(x / 1e3, origin = "1970-01-01"))
 }
-    
+
 
 #' Replace missing data with NAs
 #' @param x Data
@@ -24,10 +24,10 @@ checkBounds <- function(x,natype = NA){
 }
 
 #' Access the field in a list
-#' 
+#'
 #' This function accesses named field within the elements of a list. If an element
 #' lacks the field, it's filled in by natype.
-#' 
+#'
 #' @param d Input data list
 #' @param field Field name to access in each element
 #' @param natype What to fill in when field is unavailable
@@ -44,7 +44,7 @@ accessField <- function(d, field, natype = NA){
 }
 
 #' Avoid NULLS as data.table columns
-#' 
+#'
 #' @param x A value that might be null
 #' @param natype What to fill in when data is unavailable
 #' @return x as is or natypee
@@ -77,7 +77,7 @@ processGemmaFactor <- function(d) {
         measurement = d %>% accessField('isMeasurement'),
         type = d %>% accessField('type')
     )
-    
+
 }
 
 #' Processes JSON as an array
@@ -85,9 +85,9 @@ processGemmaFactor <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A data table with information about the probes representing the gene
-#' across different platforms. 
-#' 
-#' 
+#' across different platforms.
+#'
+#'
 #' @keywords internal
 processGemmaArray <- function(d) {
     data.table(
@@ -108,14 +108,14 @@ processGemmaArray <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A data table with information about the queried dataset(s). A list if
-#' \code{raw = TRUE}. Returns an empty list if no datasets matched. A successful 
-#' response may contain 'Geeq' information, which aims to provide a unified 
-#' metric to measure experiments by the quality of their data, and their 
+#' \code{raw = TRUE}. Returns an empty list if no datasets matched. A successful
+#' response may contain 'Geeq' information, which aims to provide a unified
+#' metric to measure experiments by the quality of their data, and their
 #' suitability for use in Gemma. You can
 #' read more about the geeq properties [here](https://pavlidislab.github.io/Gemma/geeq.html).
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
 #'     \item \code{experiment.Name}: Full title of the dataset
@@ -128,7 +128,7 @@ processGemmaArray <- function(d) {
 #'     \item \code{experiment.SampleCount}: Number of samples in the dataset
 #'     \item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
 #'     \item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset. This is a text field with possible details about the batch correction. Use \code{geeq.batchEffect} if a more structured field is needed.
-#'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found 
+#'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
 #'     \item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
 #'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
@@ -172,16 +172,16 @@ processDatasets <- function(d) {
 #'
 #' @return A data table with annotations (annotation search result value objects)
 #' matching the given identifiers. A list if \code{raw = TRUE}. A \code{400 error} if required parameters are missing.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{category.Name}: Category that the annotation belongs to
 #'     \item \code{category.URI}: URI for the category.Name
 #'     \item \code{value.Name}: Annotation term
 #'     \item \code{value.URI}: URI for the value.Name
 #' }
-#' 
+#'
 #' @keywords internal
 processSearchAnnotations <- function(d) {
     data.table(
@@ -202,9 +202,9 @@ processSearchAnnotations <- function(d) {
 #' analysis of the queried dataset. Note that this funciton does not return
 #' differential expression values themselves. Use \code{\link{get_differential_expression_values}}
 #' to get differential expression values (see examples).
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{result.ID}: Result set ID of the differential expression analysis.
 #'     May represent multiple factors in a single model.
@@ -231,15 +231,15 @@ processSearchAnnotations <- function(d) {
 processDEA <- function(d) {
 
     # Initialize internal variables to avoid R CMD check notes
-    
+
     result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
-    
+
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
                 experimental_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% {d[[i]]$factorValuesUsed[[as.character(.)]]}
                 factor_ids = experimental_factors %>% accessField('id',NA_integer_)
-                
+
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
                     contrast.id = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_),
@@ -255,45 +255,45 @@ processDEA <- function(d) {
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                     genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
-                
+
                 out <- out[!experimental.factorValue == baseline.factorValue]
-                
+
             }else{
-                # if more than 2 factors are present take a look at the 
+                # if more than 2 factors are present take a look at the
                 # differential expression results to isolate the relevant results
-                # this adds quite a bit of overhead for studies like this but 
+                # this adds quite a bit of overhead for studies like this but
                 # they should be relatively rare. if coupled with memoisation
                 # overall hit on performance should not be too much
                 # this was needed because for multi-factor result-sets, the baseline
                 # for each factor is not specified
-                
+
                 ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                     purrr::map('values')  %>%
                     purrr::map(function(x){x %>% accessField('id')}) %>%
                     expand.grid()
-                
+
                 factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map('id')
-                
+
                 dif_exp <- get_differential_expression_values(resultSet = d[[i]]$resultSets[[j]]$id)
-                relevant_ids <- dif_exp[[1]] %>% colnames %>% 
+                relevant_ids <- dif_exp[[1]] %>% colnames %>%
                     {.[grepl('[0-9]_pvalue',.)]} %>% strsplit('_') %>% lapply(function(x){
                         x[c(-1,-length(x))] %>% as.integer()
                     }) %>% as.data.frame %>% t
-                
+
                 if(ncol(relevant_ids)>0){
                     relevant_id_factor_id <- relevant_ids[1,] %>% purrr::map_int(function(x){
                         apply(ids,2,function(y){x %in% y}) %>% which %>% {factor_ids[[.]]}
                     })
-                    
+
                     colnames(relevant_ids) <- relevant_id_factor_id
-                    
-                    experimental_factors <- 
-                        d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+
+                    experimental_factors <-
+                        d[[i]]$resultSets[[j]]$experimentalFactors %>%
                         purrr::map('id') %>%
                         purrr::map(function(x){d[[i]]$factorValuesUsed[[as.character(x)]]})
-                    names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                    names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                         purrr::map_int('id')
-                    
+
                     out <- data.table(
                         result.ID = d[[i]]$resultSets[[j]]$id,
                         contrast.id = unname(apply(relevant_ids,1,paste,collapse = '_')),
@@ -323,8 +323,8 @@ processDEA <- function(d) {
                         probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                         genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                     )
-                    
-                } else { 
+
+                } else {
                     # if no ids were present in the expression_values matrix,
                     # there's nothing to return
                     return(NULL)
@@ -342,12 +342,12 @@ processDEA <- function(d) {
 #'
 #' @keywords internal
 processResultSetFactors <- function(d) {
-    
-    d$experimentalFactors %>% 
-        purrr::map('values') %>% 
-        purrr::map(function(x){data.frame(id = accessField(x,'id'), 
-                                           factorValue = accessField(x,'factorValue'), 
-                                           category = accessField(x,'category'))}) %>% 
+
+    d$experimentalFactors %>%
+        purrr::map('values') %>%
+        purrr::map(function(x){data.frame(id = accessField(x,'id'),
+                                           factorValue = accessField(x,'factorValue'),
+                                           category = accessField(x,'category'))}) %>%
         dplyr::bind_rows()
 
 }
@@ -357,20 +357,20 @@ processResultSetFactors <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A data table with the queried datasets' resultSet ID(s). A list if
-#' \code{raw = TRUE}. Use 
+#' \code{raw = TRUE}. Use
 #' \code{\link{get_differential_expression_values}} to get differential expression
 #' values (see examples). Use \code{\link{get_dataset_differential_expression_analyses}}
 #' to get more detailed information about a result set.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{resultSet.id}: Internal ID given to the result set. Can be used to access the results using \code{\link{get_differential_expression_values}}
 #'     \item \code{factor.category}: What is the category splitting the experimental groups in the result set (e.g. disease )
 #'     \item \code{factor.levels}: What are the conditions that are compared in the result set (e.g control, bipolar disorder)
-#' 
+#'
 #' }
-#' 
+#'
 #' @keywords internal
 processDatasetResultSets <- function(d) {
 
@@ -397,12 +397,12 @@ processDatasetResultSets <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A data table with information about the annotations of the queried 
-#' dataset. A list if \code{raw = TRUE}.A \code{404 error} if the given 
+#' @return A data table with information about the annotations of the queried
+#' dataset. A list if \code{raw = TRUE}.A \code{404 error} if the given
 #' identifier does not map to any object.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{class.Type}: Type of the annotation class
 #'     \item \code{class.Name}: Name of the annotation class (e.g. organism part)
@@ -410,8 +410,8 @@ processDatasetResultSets <- function(d) {
 #'     \item \code{term.Name}: Name of the annotation term (e.g. lung)
 #'     \item \code{term.URI}: URI for the annotation term
 #' }
-#' 
-#' 
+#'
+#'
 #'
 #' @keywords internal
 processAnnotations <- function(d) {
@@ -440,7 +440,7 @@ processFile <- function(content) {
         .[which(!startsWith(., "#"))[1]:length(.)] %>%
         # Strip comments
         paste0(collapse = "\n") %>%
-        paste0('\n') %>% 
+        paste0('\n') %>%
         {
             fread(text = .)
         }
@@ -463,7 +463,7 @@ processFile <- function(content) {
 #'
 #' @return A data table with information about the samples of the queried dataset. A list if
 #' \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any object.
-#' 
+#'
 #' The fields of the output data.table are:
 #' \itemize{
 #'     \item \code{sample.Name}: Internal name given to the sample.
@@ -501,7 +501,7 @@ processSamples <- function(d) {
 #'
 #' @return A data table with information about the platform(s). A list if \code{raw = TRUE}. A \code{404 error} if the given identifier
 #'  does not map to any object
-#'  
+#'
 #'  The fields of the output data.table are:
 #'  \itemize{
 #'  \item \code{platform.ID}: Internal identifier of the platform
@@ -518,7 +518,7 @@ processSamples <- function(d) {
 #'  \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
 #'  \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
 #'  }
-#'  
+#'
 #' @keywords internal
 processPlatforms <- function(d) {
     data.table(
@@ -546,9 +546,9 @@ processPlatforms <- function(d) {
 #' @return A data table with information about the probes representing a gene across
 #' all platrofms. A list if \code{raw = TRUE}.
 #' A \code{404 error} if the given identifier does not map to any genes.
-#' 
+#'
 #'  The fields of the output data.table are:
-#'  
+#'
 #'  \itemize{
 #'      \item \code{mapping.name}: Name of the mapping. Typically the probeset name
 #'      \item \code{mappping.description}: A free text field providing optional information about the mapping
@@ -561,7 +561,7 @@ processPlatforms <- function(d) {
 #'      \item \code{platform.Description}: Free text field describing the platform.
 #'      \item \code{platform.Troubled}: Whether the platform is marked as troubled by a Gemma curator.
 #'  }
-#' 
+#'
 #' @keywords internal
 processElements <- function(d) {
     data.table(
@@ -575,11 +575,11 @@ processElements <- function(d) {
 #'
 #' @param d The JSON to process
 #'
-#' @return A data table with information about the querried gene(s) 
+#' @return A data table with information about the querried gene(s)
 #' A list if \code{raw = TRUE}.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{gene.Symbol}: Symbol for the gene
 #'     \item \code{gene.Ensembl}: Ensembl ID for the gene
@@ -615,7 +615,7 @@ processGenes <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A processed data.table
-#' 
+#'
 #' \itemize{
 #'     \item \code{taxon.Name}: Name of the species
 #'     \item \code{taxon.Scientific}: Scientific name for the taxon
@@ -643,9 +643,9 @@ processTaxon <- function(d) {
 #'
 #' @return A data table with information about the physical location of the
 #' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any object.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{chromosome}: Name of the chromosome the gene is located
 #'     \item \code{strand}: Which strand the gene is located
@@ -677,15 +677,15 @@ processGeneLocation <- function(d) {
 #' @return A data table with information about the GO terms assigned to the
 #' queried gene. A list if \code{raw = TRUE}. A \code{404 error} if the given identifier does not map to any
 #' object.
-#' 
+#'
 #' The fields of the output data.table are:
-#' 
+#'
 #' \itemize{
 #'     \item \code{term.Name}: Name of the term
 #'     \item \code{term.ID}: ID of the term
 #'     \item \code{term.URI}: URI of the term
 #' }
-#' 
+#'
 #'
 #' @keywords internal
 processGO <- function(d) {
@@ -762,7 +762,7 @@ processDEcontrasts <- function(rs, rsID) {
 }
 
 #' A blank processor that returns data as is
-#' 
+#'
 #' @param data any data
 #' @return Data as is
 #' @keywords internal
@@ -771,7 +771,8 @@ blank_processor <- function(data){
 }
 
 #' Returns the ids of the found results
-#' 
+#' @return A data.table or a list of resultObjects
+#'
 #' @keywords internal
 process_search <- function(d){
 
@@ -784,8 +785,8 @@ process_search <- function(d){
     } else{
         d %>% purrr::map('resultObject')
     }
-    
-    
+
+
 }
 
 # processSVD <- function(d){

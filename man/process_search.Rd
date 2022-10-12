@@ -6,6 +6,9 @@
 \usage{
 process_search(d)
 }
+\value{
+A data.table or a list of resultObjects
+}
 \description{
 Returns the ids of the found results
 }
