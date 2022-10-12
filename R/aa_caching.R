@@ -12,9 +12,9 @@ gemmaCache <- function(){
   memoise::cache_filesystem(dir, algo = "xxhash64", compress = FALSE)
 }
 
-in_memory_cache = function(...){
-    args = list(...)
+in_memory_cache <- function(...){
+    args <- list(...)
     do.call(get(args[[1]]), args[-1])
 }
 
-mem_in_memory_cache = memoise::memoise(in_memory_cache, cache = memoise::cache_memory())
+mem_in_memory_cache <- memoise::memoise(in_memory_cache, cache = memoise::cache_memory())
