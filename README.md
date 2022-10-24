@@ -1,5 +1,5 @@
 
-# gemma.R: an R Wrapper for the Gemma API <img src='man/figures/logo.png' align="right" height="138" />
+# gemma.R: A wrapper for Gemma’s Restful API to access curated gene expression data and differential expression analyses <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
 

@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# gemma.R: an R Wrapper for the Gemma API <img src='man/figures/logo.png' align="right" height="138" />
+# gemma.R: A wrapper for Gemma's Restful API to access curated gene expression data and differential expression analyses <img src='man/figures/logo.png' align="right" height="138" />
 
 <!-- badges: start -->
 [![R build status](https://github.com/PavlidisLab/gemma.R/workflows/R-CMD-check-bioc/badge.svg)](https://github.com/PavlidisLab/gemma.R/actions)
