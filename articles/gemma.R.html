@@ -514,7 +514,7 @@ colnames(21): Control,1_DE50 Control,12 ...
   Bipolardisorderpatientmanicphase,16
   Bipolardisorderpatientmanicphase,21
 colData names(2): batch disease</code></pre>
-<p>Let’s check the expression for every sample to make sure they look OK:</p>
+<p>Let’s take a look at sample to sample correlation in our subset.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
 <span><span class="va">manicExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">manic</span>, <span class="st">"counts"</span><span class="op">)</span></span>
