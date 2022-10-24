@@ -2,7 +2,8 @@
 #'
 #'
 #'
-#' @param datasets Numerical dataset identifiers or dataset short names
+#' @param datasets Numerical dataset identifiers or dataset short names. If not
+#' specified, all datasets will be returned instead
 #' @param offset The offset of the first retrieved result.
 #' @param limit Optional, defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and

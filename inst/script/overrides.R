@@ -4,7 +4,8 @@
 
 #' get_datasets_by_ids
 #'
-#' @param datasets Numerical dataset identifiers or dataset short names
+#' @param datasets Numerical dataset identifiers or dataset short names. If not
+#' specified, all datasets will be returned instead
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))

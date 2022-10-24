@@ -17,7 +17,8 @@ get_datasets_by_ids(
 )
 }
 \arguments{
-\item{datasets}{Numerical dataset identifiers or dataset short names}
+\item{datasets}{Numerical dataset identifiers or dataset short names. If not
+specified, all datasets will be returned instead}
 
 \item{offset}{The offset of the first retrieved result.}
 
