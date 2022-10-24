@@ -41,12 +41,12 @@ test_that("datasetDEA queries work", {
     raw <- get_dataset_differential_expression_analyses(1, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
-    expect_equal(dat$result.ID, 
-                 raw %>% purrr::map('resultSets') %>% 
-                     purrr::map(function(x){x %>% 
-                             gemma.R:::accessField('id')}) %>% 
+    expect_equal(dat$result.ID,
+                 raw %>% purrr::map('resultSets') %>%
+                     purrr::map(function(x){x %>%
+                             gemma.R:::accessField('id')}) %>%
                      unlist)
-    
+
 })
 
 test_that("datasetAnnotations queries work", {
@@ -74,3 +74,7 @@ test_that("datasetDesign queries work", {
     expect_type(get_dataset_design("GSE2018", raw = TRUE), "raw") %>% jsonlite:::simplify()
 })
 
+
+test_that('search_datasets work',{
+    expect_type(search_datasets('bipolar','human'),'list')
+})
