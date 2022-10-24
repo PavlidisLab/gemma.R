@@ -1,6 +1,6 @@
 #' Authentication by user name
 #'
-#' Allows the user to access information that requires logging in to Gemma. To log out, run `setGemmaUser` without specifying the username or password.
+#' Allows the user to access information that requires logging in to Gemma. To log out, run `set_gemma_user` without specifying the username or password.
 #'
 #' @param username Your username (or empty, if logging out)
 #' @param password Your password (or empty, if logging out)
@@ -32,14 +32,14 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #'
 #' @return A table of annotations
 #' \itemize{
-#'     \item \code{ProbeName}: Probeset names provided by the platform. 
+#'     \item \code{ProbeName}: Probeset names provided by the platform.
 #'     Gene symbols for generic annotations
 #'     \item \code{GeneSymbols}: Genes that were found to be aligned to
-#'     the probe sequence. Note that it is possible for probes to be 
+#'     the probe sequence. Note that it is possible for probes to be
 #'     non-specific. Alignment to multiple genes are indicated with gene
 #'     symbols separated by "|"s
 #'     \item \code{GeneNames}: Name of the gene
-#'     \item \code{GOTerms}: GO Terms associated with the genes. \code{annotType} 
+#'     \item \code{GOTerms}: GO Terms associated with the genes. \code{annotType}
 #'     argument can be used to choose which terms should be included.
 #'     \item \code{GemmaIDs} and \code{NCBIids}: respective IDs for the genes.
 #' }
@@ -166,7 +166,7 @@ memget_platform_annotations <- function(platform,
 #' Compile gene expression data and metadata
 #'
 #' Return an annotated Bioconductor-compatible
-#' data structure or a long form tibble of the queried dataset, including 
+#' data structure or a long form tibble of the queried dataset, including
 #' expression data and the experimental design.
 #'
 #' @param dataset A dataset identifier.
@@ -188,12 +188,12 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
     exprM <- get_dataset_expression(dataset, filter,memoised = memoised)
-    
+
     # multi platform datasets may have repeated probesets which needs new names
     # most multiplatform datasets were merged into artifical probesets defined
     # within gemma but at the time of writing 365 was an exception
     duplicate_probes <- exprM$Probe[duplicated(exprM$Probe)]
-    
+
     for(dp in duplicate_probes){
         to_replace <- exprM$Probe[exprM$Probe %in% dp]
         to_paste <- sapply(seq_along(to_replace), function(i){
@@ -203,16 +203,16 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
               paste0('.',i)
           }
         })
-        
+
         exprM$Probe[exprM$Probe %in% dp] <- paste0(to_replace,to_paste)
     }
-    
-    
+
+
     rownames(exprM) <- exprM$Probe
     genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
     exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
         data.matrix()
-    
+
     design <- get_dataset_design(dataset,memoised = memoised)
 
     # This annotation table is required
@@ -267,7 +267,7 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
         )
     } else if(type=='tidy'){
         design <- tibble::rownames_to_column(design, "Sample")
-        exprM %>% as.data.frame %>% 
+        exprM %>% as.data.frame %>%
             tibble::rownames_to_column("Probe") %>%
             tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
             dplyr::inner_join(design, by = "Sample") %>%
@@ -278,7 +278,7 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #' Retrieve differential expression results
 #'
 #' Retrieves the differential expression result set(s) associated with the dataset.
-#' To get more information about the contrasts in individual resultSets and 
+#' To get more information about the contrasts in individual resultSets and
 #' annotation terms associated them, use [get_dataset_differential_expression_analyses()]
 #'
 #' In Gemma each result set corresponds to
@@ -306,15 +306,15 @@ get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = 
 #' using \code{\link{get_dataset_differential_expression_analyses}}. If TRUE IDs will
 #' be replaced with human readable contrast information.
 #' @inheritParams memoise
-#' 
+#'
 #' @return A list of data tables with differential expression
 #' values per result set.
 #' @keywords dataset
 #' @export
 #' @examples
 #' get_differential_expression_values("GSE2018")
-get_differential_expression_values <- function(dataset = NA_character_, 
-                                               resultSet = NA_integer_, 
+get_differential_expression_values <- function(dataset = NA_character_,
+                                               resultSet = NA_integer_,
                                                readableContrasts = FALSE,
                                                memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
@@ -393,7 +393,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @export
 gemma_call <- function(call,...,json = TRUE){
     attach(list(...),warn.conflicts = FALSE)
-    
+
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         out <- httr::GET(
             glue::glue(paste0(gemmaPath(),call)),
@@ -402,7 +402,7 @@ gemma_call <- function(call,...,json = TRUE){
     } else{
        out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
     }
-    
+
     if(json){
         out <- jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
     }

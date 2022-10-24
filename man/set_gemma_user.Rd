@@ -15,6 +15,6 @@ set_gemma_user(username = NULL, password = NULL)
 TRUE if authentication is successful, FALSE if not
 }
 \description{
-Allows the user to access information that requires logging in to Gemma. To log out, run \code{setGemmaUser} without specifying the username or password.
+Allows the user to access information that requires logging in to Gemma. To log out, run \code{set_gemma_user} without specifying the username or password.
 }
 \keyword{misc}
