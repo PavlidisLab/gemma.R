@@ -73,7 +73,8 @@ NULL
 NULL
 
 #' get_platforms_by_ids
-#' @param platforms Platform numerical identifiers or platform short names
+#' @param platforms Platform numerical identifiers or platform short names.  If not
+#' specified, all platforms will be returned instead
 #'
 #' @inherit processPlatforms return
 #'

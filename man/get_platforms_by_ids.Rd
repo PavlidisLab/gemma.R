@@ -17,7 +17,8 @@ get_platforms_by_ids(
 )
 }
 \arguments{
-\item{platforms}{Platform numerical identifiers or platform short names}
+\item{platforms}{Platform numerical identifiers or platform short names.  If not
+specified, all platforms will be returned instead}
 
 \item{offset}{The offset of the first retrieved result.}
 

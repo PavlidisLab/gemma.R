@@ -1039,7 +1039,8 @@ memsearch_datasets <- function(query, taxon = NA_character_, offset = 0L, limit 
 #'
 #'
 #'
-#' @param platforms Platform numerical identifiers or platform short names
+#' @param platforms Platform numerical identifiers or platform short names.  If not
+#' specified, all platforms will be returned instead
 #' @param offset The offset of the first retrieved result.
 #' @param limit Optional, defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
