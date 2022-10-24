@@ -219,7 +219,7 @@ manic <- dat[, dat$disease == "bipolar_disorder_|_manic_phase_|" |
 manic
 ```
 
-Let's check the expression for every sample to make sure they look OK:
+Let's take a look at sample to sample correlation in our subset.
 
 ```{r boxplot, fig.cap="Sample to sample correlations of bipolar patients during manic phase and controls."}
 # Get Expression matrix
