@@ -144,203 +144,77 @@
 <p>All datasets belonging to a taxon of interest can be accessed by using <a href="https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html" class="external-link"><code>get_taxon_datasets</code></a> while the function <a href="https://pavlidislab.github.io/gemma.R/reference/search_datasets.html" class="external-link"><code>search_datasets</code></a> can be used to further limit the results by a specified query containing key words, experiment names or ontology term URIs</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># all human datasets </span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    experiment.ShortName
- 1:              GSE2018
- 2:              GSE4036
- 3:              GSE3489
- 4:              GSE1923
- 5:               GSE361
- 6:               GSE492
- 7:               GSE713
- 8:               GSE833
- 9:               GSE420
-10:               GSE430
-11:               GSE675
-12:               GSE712
-13:               GSE701
-14:               GSE685
-15:               GSE593
-16:               GSE837
-17:               GSE590
-18:               GSE755
-19:               GSE994
-20:               GSE846
-                                                                           experiment.Name
- 1:                                                            Human Lung Transplant - BAL
- 2:                                                                perro-affy-human-186940
- 3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
- 4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
- 5:                                                   Mammary epithelial cell transduction
- 6:                               Effect of prostaglandin analogs on aqueous humor outflow
- 7:                                                        UV radiation-induced DNA damage
- 8:                                                          Amyotrophic lateral sclerosis
- 9:                                                                       Aortic stiffness
-10:  Effect of left ventricular assist device support on congestive heart failure patients
-11:                                     Time course analysis of response to HCMV infection
-12:                                        CVB3-infected HeLa cells (multiple time points)
-13:                 Transcriptional response of lymphoblastoid cells to ionizing radiation
-14:                                DACH1 inhibits TGF-beta signaling through binding Smad4
-15:                 Uterine Fibroid and Normal Myometrial Expression Profiles- U133 Arrays
-16:                                                                           angiogenesis
-17:                                                              USF1 haplotype comparison
-18:                                                         MRI lytic and no lytic lesions
-19:           Effects of cigarette smoke on the human airway epithelial cell transcriptome
-20:                                                                             Conversion
-    taxon.Name
- 1:      human
- 2:      human
- 3:      human
- 4:      human
- 5:      human
- 6:      human
- 7:      human
- 8:      human
- 9:      human
-10:      human
-11:      human
-12:      human
-13:      human
-14:      human
-15:      human
-16:      human
-17:      human
-18:      human
-19:      human
-20:      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:              GSE2018
+2:              GSE4036
+3:              GSE3489
+4:              GSE1923
+5:               GSE361
+6:               GSE492
+                                                                          experiment.Name
+1:                                                            Human Lung Transplant - BAL
+2:                                                                perro-affy-human-186940
+3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+5:                                                   Mammary epithelial cell transduction
+6:                               Effect of prostaglandin analogs on aqueous humor outflow
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human</code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'bipolar'</span>,taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># human datasets mentioning bipolar</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    experiment.ShortName
- 1:              GSE5389
- 2:              GSE4030
- 3:              GSE5388
- 4:              GSE7036
- 5:   McLean Hippocampus
- 6:           McLean_PFC
- 7:     stanley_feinberg
- 8:         stanley_kato
- 9:       stanley_sklarA
-10:       stanley_sklarB
-11:       stanley_vawter
-12:        stanley_young
-13:       stanley_altarA
-14:       stanley_altarB
-15:       stanley_altarC
-16:         stanley_bahn
-17:         stanley_chen
-18:       stanley_dobrin
-19:             GSE12679
-20:             GSE12654
-                                                                                                            experiment.Name
- 1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
- 2:                                                                                                 bunge-affy-arabi-162779
- 3: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
- 4:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
- 5:                                                                                                      McLean Hippocampus
- 6:                                                                                                              McLean_PFC
- 7:                                                                     Stanley consortium collection Cerebellum - Feinberg
- 8:                                                                                   Stanley array collection DLPFC - Kato
- 9:                                                                            Stanley consortium collection DLPFC - SklarA
-10:                                                                       Stanley consortium collection Cerebellum - SklarB
-11:                                                                                 Stanley array collection DLPFC - Vawter
-12:                                                                                  Stanley array collection DLPFC - Young
-13:                                                                                Stanley array collection DLPFC - Altar A
-14:                                                                           Stanley consortium collection DLPFC - Altar B
-15:                                                                           Stanley consortium collection DLPFC - Altar C
-16:                                                                                   Stanley array collection DLPFC - Bahn
-17:                                                                              Stanley consortium collection DLPFC - Chen
-18:                                                                                 Stanley array collection DLPFC - Dobrin
-19:               Laser capture microdissection of endothelial and neuronal cells from human dorsolateral prefrontal cortex
-20:                                                                     Gene expression from human prefrontal cortex (BA10)
-    taxon.Name
- 1:      human
- 2:      human
- 3:      human
- 4:      human
- 5:      human
- 6:      human
- 7:      human
- 8:      human
- 9:      human
-10:      human
-11:      human
-12:      human
-13:      human
-14:      human
-15:      human
-16:      human
-17:      human
-18:      human
-19:      human
-20:      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:              GSE5389
+2:              GSE4030
+3:              GSE5388
+4:              GSE7036
+5:   McLean Hippocampus
+6:           McLean_PFC
+                                                                                                           experiment.Name
+1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
+2:                                                                                                 bunge-affy-arabi-162779
+3: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
+4:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
+5:                                                                                                      McLean Hippocampus
+6:                                                                                                              McLean_PFC
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/DOID_3312'</span>, <span class="co"># ontology term URI for the bipolar disorder</span></span>
 <span>                taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    experiment.ShortName
- 1:              GSE5389
- 2:              GSE5388
- 3:              GSE7036
- 4:   McLean Hippocampus
- 5:           McLean_PFC
- 6:     stanley_feinberg
- 7:         stanley_kato
- 8:       stanley_sklarA
- 9:       stanley_sklarB
-10:       stanley_vawter
-11:        stanley_young
-12:       stanley_altarA
-13:       stanley_altarB
-14:       stanley_altarC
-15:         stanley_bahn
-16:         stanley_chen
-17:       stanley_dobrin
-18:             GSE12679
-19:             GSE12654
-20:             GSE12649
-                                                                                                            experiment.Name
- 1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
- 2: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
- 3:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
- 4:                                                                                                      McLean Hippocampus
- 5:                                                                                                              McLean_PFC
- 6:                                                                     Stanley consortium collection Cerebellum - Feinberg
- 7:                                                                                   Stanley array collection DLPFC - Kato
- 8:                                                                            Stanley consortium collection DLPFC - SklarA
- 9:                                                                       Stanley consortium collection Cerebellum - SklarB
-10:                                                                                 Stanley array collection DLPFC - Vawter
-11:                                                                                  Stanley array collection DLPFC - Young
-12:                                                                                Stanley array collection DLPFC - Altar A
-13:                                                                           Stanley consortium collection DLPFC - Altar B
-14:                                                                           Stanley consortium collection DLPFC - Altar C
-15:                                                                                   Stanley array collection DLPFC - Bahn
-16:                                                                              Stanley consortium collection DLPFC - Chen
-17:                                                                                 Stanley array collection DLPFC - Dobrin
-18:               Laser capture microdissection of endothelial and neuronal cells from human dorsolateral prefrontal cortex
-19:                                                                     Gene expression from human prefrontal cortex (BA10)
-20:                                                                     Gene expression from human prefrontal cortex (BA46)
-    taxon.Name
- 1:      human
- 2:      human
- 3:      human
- 4:      human
- 5:      human
- 6:      human
- 7:      human
- 8:      human
- 9:      human
-10:      human
-11:      human
-12:      human
-13:      human
-14:      human
-15:      human
-16:      human
-17:      human
-18:      human
-19:      human
-20:      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:              GSE5389
+2:              GSE5388
+3:              GSE7036
+4:   McLean Hippocampus
+5:           McLean_PFC
+6:     stanley_feinberg
+                                                                                                           experiment.Name
+1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
+2: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
+3:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
+4:                                                                                                      McLean Hippocampus
+5:                                                                                                              McLean_PFC
+6:                                                                     Stanley consortium collection Cerebellum - Feinberg
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human</code></pre>
 <p>Note that a single call of these functions will only return 20 results by default and a 100 results maximum, controlled by the <code>limit</code> argument. In order to get all available results, <code>offset</code> argument should be used to make multiple calls.</p>
 <p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
@@ -382,70 +256,28 @@
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># get human datasets</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchEffect</span> <span class="op">!=</span><span class="op">-</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="va">experiment.SampleCount</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># filter for datasets without batch effects and with a sample count more than 4</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>    experiment.ShortName
- 1:              GSE2018
- 2:              GSE4036
- 3:              GSE3489
- 4:              GSE1923
- 5:               GSE361
- 6:               GSE492
- 7:               GSE713
- 8:               GSE833
- 9:               GSE420
-10:               GSE430
-11:               GSE675
-12:               GSE712
-13:               GSE701
-14:               GSE685
-15:               GSE593
-16:               GSE837
-17:               GSE590
-18:               GSE755
-19:               GSE994
-20:               GSE846
-                                                                           experiment.Name
- 1:                                                            Human Lung Transplant - BAL
- 2:                                                                perro-affy-human-186940
- 3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
- 4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
- 5:                                                   Mammary epithelial cell transduction
- 6:                               Effect of prostaglandin analogs on aqueous humor outflow
- 7:                                                        UV radiation-induced DNA damage
- 8:                                                          Amyotrophic lateral sclerosis
- 9:                                                                       Aortic stiffness
-10:  Effect of left ventricular assist device support on congestive heart failure patients
-11:                                     Time course analysis of response to HCMV infection
-12:                                        CVB3-infected HeLa cells (multiple time points)
-13:                 Transcriptional response of lymphoblastoid cells to ionizing radiation
-14:                                DACH1 inhibits TGF-beta signaling through binding Smad4
-15:                 Uterine Fibroid and Normal Myometrial Expression Profiles- U133 Arrays
-16:                                                                           angiogenesis
-17:                                                              USF1 haplotype comparison
-18:                                                         MRI lytic and no lytic lesions
-19:           Effects of cigarette smoke on the human airway epithelial cell transcriptome
-20:                                                                             Conversion
-    taxon.Name
- 1:      human
- 2:      human
- 3:      human
- 4:      human
- 5:      human
- 6:      human
- 7:      human
- 8:      human
- 9:      human
-10:      human
-11:      human
-12:      human
-13:      human
-14:      human
-15:      human
-16:      human
-17:      human
-18:      human
-19:      human
-20:      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:              GSE2018
+2:              GSE4036
+3:              GSE3489
+4:              GSE1923
+5:               GSE361
+6:               GSE492
+                                                                          experiment.Name
+1:                                                            Human Lung Transplant - BAL
+2:                                                                perro-affy-human-186940
+3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+5:                                                   Mammary epithelial cell transduction
+6:                               Effect of prostaglandin analogs on aqueous humor outflow
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human</code></pre>
 <p>Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of free text to search can lead to more specific results. <a href="https://pavlidislab.github.io/gemma.R/reference/search_annotations.html" class="external-link"><code>search_annotations</code></a> function allows searching for annotation terms that might be relevant to your query.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
