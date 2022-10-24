@@ -54,7 +54,9 @@ Suggests:
     BiocStyle,
     microbenchmark,
     magick,
-    purrr
+    purrr,
+    pheatmap,
+    viridis
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
