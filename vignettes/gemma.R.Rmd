@@ -35,6 +35,8 @@ library(dplyr)
 library(ggplot2)
 library(ggrepel)
 library(SummarizedExperiment)
+library(pheatmap)
+library(viridis)
 ```
 
 ```{r, include = FALSE}
@@ -71,25 +73,109 @@ if (!requireNamespace("BiocManager", quietly = TRUE)) {
 BiocManager::install("gemma.R")
 ```
 
-# Downloading expression data
+# Searching for datasets of interest in Gemma
 
-The main goal of this wrapper is to enable easy access to Gemma's
-curated datasets for downstream analyses or meta-analyses combining
-multiple datasets. In this example, we want to find datasets that are
-associated with bipolar disorder, and we are only interested in human
-data. In addition, we'll subset our results to datasets that have been
-batch corrected.
+The package includes various functions to search for datasets fitting desired 
+criteria.
 
-```{r search}
-search_gemma('bipolar') %>%
-    filter(geeq.batchCorrected == TRUE) %>%
-    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Accession, experiment.SampleCount)
+All datasets belonging to a taxon of interest can be accessed by using [`get_taxon_datasets`](https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html)
+while the function [`search_datasets`](https://pavlidislab.github.io/gemma.R/reference/search_datasets.html) can be used to further limit the results by
+a specified query containing key words, experiment names or ontology term URIs
+
+```{r}
+get_taxon_datasets(taxon = 'human') %>%  # all human datasets 
+    select(experiment.ShortName, experiment.Name,taxon.Name)
+
+search_datasets('bipolar',taxon = 'human') %>% # human datasets mentioning bipolar
+    select(experiment.ShortName, experiment.Name,taxon.Name)
+
+search_datasets('http://purl.obolibrary.org/obo/DOID_3312', # ontology term URI for the bipolar disorder
+                taxon = 'human') %>% 
+    select(experiment.ShortName, experiment.Name,taxon.Name)
 ```
 
-We are left with two datasets. For simplicity, we'll pick
-[GSE46416](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997)
-since it has the smaller number of samples. Now that we have the ID for
-our experiment, we can fetch the data associated with it.
+Note that a single call of these functions will only return 20 results by default
+and a 100 results maximum, controlled by the `limit` argument. In order to get
+all available results, `offset` argument should be used to make multiple calls.
+
+To see how many available results are there, you can look at the
+attributes of the output objects where additional information from the
+API response is appended.
+
+```{r}
+# a quick call with a limit of 1 to get the result count
+result <- get_taxon_datasets(taxon = 'human',limit = 1) 
+print(attributes(result)$totalElements)
+```
+
+Since the maximum limit is a 100 getting all results available will require multiple calls.
+
+```{r,eval=FALSE}
+count = attributes(result)$totalElements
+all_results <- lapply(seq(0, count, 100), function(offset){
+    get_taxon_datasets(taxon = 'human',limit = 100, offset = offset)
+}) %>% do.call(rbind,.) %>% 
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% 
+    head()
+```
+```
+   experiment.ShortName
+1:              GSE2018
+2:              GSE4036
+3:              GSE3489
+4:              GSE1923
+5:               GSE361
+6:               GSE492
+                                                                          experiment.Name
+1:                                                            Human Lung Transplant - BAL
+2:                                                                perro-affy-human-186940
+3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+5:                                                   Mammary epithelial cell transduction
+6:                               Effect of prostaglandin analogs on aqueous humor outflow
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human
+```
+See [larger queries](#larger-queries) section for more details. To keep this vignette
+simpler we will keep using the first 20 results returned by default in examples below.
+
+Information provided about the datasets by these functions include details about
+the quality and design of the study that can be used to judge if it is suitable for
+your use case. For instance `geeq.batchEffect` column will be set to -1 if Gemma's
+preprocessing has detected batch effects that were unable to be resolved by batch
+correction and `experiment.SampleCount`
+will include the number of samples used in the experiment. More information about
+these and other fields can be found at the function documentation.
+
+```{r}
+get_taxon_datasets(taxon = 'human') %>% # get human datasets
+    filter(geeq.batchEffect !=-1 & experiment.SampleCount > 4) %>% # filter for datasets without batch effects and with a sample count more than 4
+    select(experiment.ShortName, experiment.Name,taxon.Name)
+```
+
+Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of
+free text to search can lead to more specific results. [`search_annotations`](https://pavlidislab.github.io/gemma.R/reference/search_annotations.html) function
+allows searching for annotation terms that might be relevant to your query.
+
+```{r}
+search_annotations('bipolar') %>% 
+    head
+```
+
+
+
+# Downloading expression data
+
+Upon identifying datasets of interest, more information about specific ones 
+can be requested. In this example we will be using GSE46416 which includes samples
+taken from healthy donors along with manic/euthymic phase bipolar disorder patients.
+
+The data associated with specific experiments can be accessed by using [`get_datasets_by_ids`](https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_ids.html)
 
 ```{r dataset}
 get_datasets_by_ids("GSE46416") %>%
@@ -97,7 +183,7 @@ get_datasets_by_ids("GSE46416") %>%
 ```
 
 To access the expression data in a convenient form, you can use
-[`get_dataset_object()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html).
+[`get_dataset_object`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html).
 It is a high-level wrapper that combines various endpoint calls to
 return an annotated
 [`SummarizedExperiment`](https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html)
@@ -135,23 +221,27 @@ manic
 
 Let's check the expression for every sample to make sure they look OK:
 
-```{r boxplot, fig.cap="Gene expression distributions of bipolar patients during manic phase and controls."}
+```{r boxplot, fig.cap="Sample to sample correlations of bipolar patients during manic phase and controls."}
 # Get Expression matrix
 manicExpr <- assay(manic, "counts")
-boxplot(manicExpr, pch = ".", xaxt = "n", xlab = "Sample", ylab = "Expression")
+
+
+manicExpr %>% 
+    cor %>% 
+    pheatmap(col =viridis(10),border_color = NA,angle_col = 45,fontsize = 7)
 ```
 
 You can also use
-[`get_dataset_expression()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html)
+[`get_dataset_expression`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html)
 to only get the expression matrix, and
-[`get_dataset_design()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html)
+[`get_dataset_design`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html)
 to get the experimental design matrix.
 
-## Platform Annotations
+# Platform Annotations
 
 Expression data in Gemma comes with annotations for the gene each
 expression profile corresponds to. Using the
-[`get_platform_annotations()`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html)
+[`get_platform_annotations`](https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html)
 function, these annotations can be retrieved independently of the
 expression data, along with additional annotations such as Gene Ontology
 terms.
@@ -168,7 +258,7 @@ head(get_platform_annotations('Generic_human'))
 
 If you are interested in a particular gene, you can see which platforms
 include it using
-[`get_gene_probes()`](https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html).
+[`get_gene_probes`](https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html).
 Note that functions to search gene work best with unambigious
 identifiers rather than symbols.
 
@@ -184,7 +274,7 @@ head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','plat
 
 ```
 
-## Differential expression analyses
+# Differential expression analyses
 
 Gemma contains precomputed differential expression analyses for most of
 its datasets. Analyses can involve more than one factor, such as "sex"
@@ -192,20 +282,60 @@ as well as "disease". Some datasets contain more than one analysis to
 account for different factors and their interactions. The results are
 stored as resultSets, each corresponding to one factor (or their
 interaction). You can access them using
-[`get_differential_expression_values()`](https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html).
+[`get_differential_expression_values`](https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html).
 From here on, we can explore and visualize the data to find the most
 differentially-expressed genes
 
-Note that `get_differential_expression_values()` has the argument
-`readableContrasts`. By default this is set to `FALSE`, resulting in the
-output columns being named based on the contrast IDs rather the more
-human readable columns used below. These contrast IDs can be used
-together with
-[`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html)
-during a systematic analysis.
+Note that `get_differential_expression_values` can return multiple differentials
+per study if a study has multiple factors to contrast. Since GSE46416 only has one
+extracting the first element of the returned list is all we need.
+```{r}
+dif_exp <- get_differential_expression_values('GSE46416')
+(dif_exp[[1]])
+```
+
+By default the columns names of the output correspond to contrast IDs. To see what
+conditions these IDs correspond to we can either use `get_dataset_differential_expression_analyses`
+to get the metadata about differentials of a given dataset, or set`readableContrasts` argument
+of `get_differential_expression_values` to `TRUE`. The former approach is usually better for
+a large scale systematic analysis while the latter is easier to read in an interactive session.
+
+`get_dataset_differential_expression_analyses` function returns structured metadata
+about the differentials.
+
+```{r}
+(contrasts <- get_dataset_differential_expression_analyses('GSE46416'))
+```
+
+`contrast.id` column corresponds to the column names in the
+output of `get_differential_expression_values` while `result.ID` corresponds to the
+name of the differential in the output object. Using them together will let one to access
+differentially expressed gene counts for each condition contrast
+
+```{r}
+# using result.ID and contrast.ID of the output above, we can access specific
+# results. Note that one study may have multiple contrast objects
+seq_len(nrow(contrasts)) %>% sapply(function(i){
+    result_set = dif_exp[[as.character(contrasts[i,]$result.ID)]]
+    p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.id}_pvalue")]]
+    
+    # multiple testing correction
+    sum(p.adjust(p_values,method = 'BH') < 0.05)
+}) -> dif_exp_genes
+
+data.frame(result.ID = contrasts$result.ID,
+           contrast.id = contrasts$contrast.id,
+           baseline.factorValue = contrasts$baseline.factorValue,
+           experimental.factorValue = contrasts$experimental.factorValue,
+           n_diff = dif_exp_genes)
+```
+
+Alternatively we, since we are only looking at one dataset and one contrast manually,
+we can simply use `readableContrasts`.
+
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
-de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]]
+(de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]])
 
 # Classify probes for plotting
 de$diffexpr <- "No"
@@ -251,39 +381,7 @@ ggplot(
     theme_minimal()
 ```
 
-Setting `readableContrasts=FALSE` (default) will allow easier
-programmatic access to differentials. For instance, lets get the number of
-differentially expressed genes for each contrast returned by [`get_dataset_differential_expression_analyses()`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html) for a study
-
-```{r}
-# return all contrasts for the dataset
-(contrasts <- get_dataset_differential_expression_analyses('GSE46416'))
-
-dif_exp_values = get_differential_expression_values('GSE46416')
-
-
-# using result.ID and contrast.ID of the output above, we can access specific
-# results. Note that one study may have multiple contrast objects
-seq_len(nrow(contrasts)) %>% sapply(function(i){
-    result_set = dif_exp_values[[as.character(contrasts[i,]$result.ID)]]
-    p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.id}_pvalue")]]
-    
-    # multiple testing correction
-    sum(p.adjust(p_values,method = 'BH') < 0.05)
-}) -> dif_exp_genes
-
-dif_exp_genes
-
-```
-## Larger queries
-
-Some endpoints accept multiple identifiers in a single function call.
-For example, getting information on 2 datasets at the same time.
-
-```{r triple-query}
-get_datasets_by_ids(datasets = c("GSE35974", "GSE46416")) %>%
-    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Accession, experiment.SampleCount, taxon.Name)
-```
+# Larger queries
 
 To query large amounts of data, the API has a pagination system which
 uses the `limit` and `offset` parameters. To avoid overloading the
@@ -373,7 +471,7 @@ different directory, use `options(gemma.cache = 'path')`.
 If you're done with your fetching and want to ensure no space is being
 used for cached results, or if you just want to ensure you're getting
 up-to-date data from Gemma, you can clear the cache using
-[`forget_gemma_memoised()`](https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html).
+[`forget_gemma_memoised`](https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html).
 
 ## Changing defaults
 
