@@ -1,6 +1,6 @@
 library(here)
 library(styler)
-# a cleanup is needed because the script relies on environment variables to 
+# a cleanup is needed because the script relies on environment variables to
 # determine what is already processed
 rm(list = ls(all.names = TRUE))
 options(gemmaAPI.document = 'R/allEndpoints.R')
@@ -179,6 +179,24 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  ),
                  preprocessor = quote(processDEA))
 
+registerEndpoint("annotations/{taxon}/search/datasets?query={query}",
+                 "search_datasets",
+                 open_api_name = 'search_datasets',
+                 keyword = "dataset",
+                 defaults = list(query = bquote(),
+                                 taxon = NA_character_,
+                                 offset = 0L,
+                                 limit = 20L,
+                                 sort = "+id"),
+                 validators = alist(query = validateQuery,
+                                    taxon = validateOptionalTaxon,
+                                    offset = validatePositiveInteger,
+                                    limit = validateLimit,
+                                    sort = validateSort),
+                 preprocessor = quote(processDatasets)
+)
+
+
 # registerEndpoint('datasets/{dataset}/svd',
 #                  'getDatasetSVD',
 #                  logname = 'svd',
@@ -187,7 +205,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 #                  defaults = list(dataset = bquote()),
 #                  validators = list(dataset = validateSingleID),
 #                  preprocessor = quote(processSVD)
-#     
+#
 # )
 
 
