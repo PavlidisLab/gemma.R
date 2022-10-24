@@ -986,7 +986,7 @@ search_datasets <- function(query, taxon = NA_character_, offset = 0L, limit = 2
         offset = validatePositiveInteger, limit = validateLimit,
         sort = validateSort
     )
-    endpoint <- "annotations/{encode(taxon)}/search/datasets?query={encode(query)}"
+    endpoint <- "annotations/{encode(taxon)}/search/datasets?query={encode(query)}&limit={encode(limit)}&offset={encode(offset)}&sort={encode(sort)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
