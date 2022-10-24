@@ -160,7 +160,7 @@ read more about the geeq properties <a href="https://pavlidislab.github.io/Gemma
 <li><p><code>experiment.URI</code>: URI of the original database</p></li>
 <li><p><code>experiment.SampleCount</code>: Number of samples in the dataset</p></li>
 <li><p><code>experiment.batchEffect</code>: A text field describing whether the dataset has batch effects</p></li>
-<li><p><code>experiment.batchCorrected</code>: Whether batch correction has been performed on the dataset. This is a text field with possible details about the batch correction. Use <code>geeq.batchEffect</code> if a more structured field is needed.</p></li>
+<li><p><code>geeq.batchCorrected</code>: Whether batch correction has been performed on the dataset.</p></li>
 <li><p><code>geeq.batchConfound</code>: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found</p></li>
 <li><p><code>geeq.batchEffect</code>: -1 if batch p value &lt; 0.0001, 1 if batch p value &gt; 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.</p></li>
 <li><p><code>geeq.rawData</code>: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches</p></li>
