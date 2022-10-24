@@ -1,5 +1,5 @@
 Package: gemma.R
-Title: A Wrapper for Gemma's Restful API
+Title: A Wrapper for Gemma's Restful API to access curated gene expression data and differential expression analyses
 Version: 0.99.41
 Authors@R: 
     c(person(given = "Javier", family = "Castillo-Arnemann", 
