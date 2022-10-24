@@ -84,14 +84,14 @@ a specified query containing key words, experiment names or ontology term URIs
 
 ```{r}
 get_taxon_datasets(taxon = 'human') %>%  # all human datasets 
-    select(experiment.ShortName, experiment.Name,taxon.Name)
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 
 search_datasets('bipolar',taxon = 'human') %>% # human datasets mentioning bipolar
-    select(experiment.ShortName, experiment.Name,taxon.Name)
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 
 search_datasets('http://purl.obolibrary.org/obo/DOID_3312', # ontology term URI for the bipolar disorder
                 taxon = 'human') %>% 
-    select(experiment.ShortName, experiment.Name,taxon.Name)
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 ```
 
 Note that a single call of these functions will only return 20 results by default
@@ -155,7 +155,7 @@ these and other fields can be found at the function documentation.
 ```{r}
 get_taxon_datasets(taxon = 'human') %>% # get human datasets
     filter(geeq.batchEffect !=-1 & experiment.SampleCount > 4) %>% # filter for datasets without batch effects and with a sample count more than 4
-    select(experiment.ShortName, experiment.Name,taxon.Name)
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 ```
 
 Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of
