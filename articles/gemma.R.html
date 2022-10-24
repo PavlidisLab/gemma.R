@@ -113,7 +113,9 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/slowkow/ggrepel" class="external-link">ggrepel</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">SummarizedExperiment</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/SummarizedExperiment" class="external-link">SummarizedExperiment</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">pheatmap</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://sjmgarnier.github.io/viridis/" class="external-link">viridis</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="about-gemma">About Gemma<a class="anchor" aria-label="anchor" href="#about-gemma"></a>
 </h2>
@@ -136,19 +138,346 @@
 </div>
 </div>
 <div class="section level2">
+<h2 id="searching-for-datasets-of-interest-in-gemma">Searching for datasets of interest in Gemma<a class="anchor" aria-label="anchor" href="#searching-for-datasets-of-interest-in-gemma"></a>
+</h2>
+<p>The package includes various functions to search for datasets fitting desired criteria.</p>
+<p>All datasets belonging to a taxon of interest can be accessed by using <a href="https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html" class="external-link"><code>get_taxon_datasets</code></a> while the function <a href="https://pavlidislab.github.io/gemma.R/reference/search_datasets.html" class="external-link"><code>search_datasets</code></a> can be used to further limit the results by a specified query containing key words, experiment names or ontology term URIs</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># all human datasets </span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>    experiment.ShortName
+ 1:              GSE2018
+ 2:              GSE4036
+ 3:              GSE3489
+ 4:              GSE1923
+ 5:               GSE361
+ 6:               GSE492
+ 7:               GSE713
+ 8:               GSE833
+ 9:               GSE420
+10:               GSE430
+11:               GSE675
+12:               GSE712
+13:               GSE701
+14:               GSE685
+15:               GSE593
+16:               GSE837
+17:               GSE590
+18:               GSE755
+19:               GSE994
+20:               GSE846
+                                                                           experiment.Name
+ 1:                                                            Human Lung Transplant - BAL
+ 2:                                                                perro-affy-human-186940
+ 3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+ 4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+ 5:                                                   Mammary epithelial cell transduction
+ 6:                               Effect of prostaglandin analogs on aqueous humor outflow
+ 7:                                                        UV radiation-induced DNA damage
+ 8:                                                          Amyotrophic lateral sclerosis
+ 9:                                                                       Aortic stiffness
+10:  Effect of left ventricular assist device support on congestive heart failure patients
+11:                                     Time course analysis of response to HCMV infection
+12:                                        CVB3-infected HeLa cells (multiple time points)
+13:                 Transcriptional response of lymphoblastoid cells to ionizing radiation
+14:                                DACH1 inhibits TGF-beta signaling through binding Smad4
+15:                 Uterine Fibroid and Normal Myometrial Expression Profiles- U133 Arrays
+16:                                                                           angiogenesis
+17:                                                              USF1 haplotype comparison
+18:                                                         MRI lytic and no lytic lesions
+19:           Effects of cigarette smoke on the human airway epithelial cell transcriptome
+20:                                                                             Conversion
+    taxon.Name
+ 1:      human
+ 2:      human
+ 3:      human
+ 4:      human
+ 5:      human
+ 6:      human
+ 7:      human
+ 8:      human
+ 9:      human
+10:      human
+11:      human
+12:      human
+13:      human
+14:      human
+15:      human
+16:      human
+17:      human
+18:      human
+19:      human
+20:      human</code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'bipolar'</span>,taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># human datasets mentioning bipolar</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>    experiment.ShortName
+ 1:              GSE5389
+ 2:              GSE4030
+ 3:              GSE5388
+ 4:              GSE7036
+ 5:   McLean Hippocampus
+ 6:           McLean_PFC
+ 7:     stanley_feinberg
+ 8:         stanley_kato
+ 9:       stanley_sklarA
+10:       stanley_sklarB
+11:       stanley_vawter
+12:        stanley_young
+13:       stanley_altarA
+14:       stanley_altarB
+15:       stanley_altarC
+16:         stanley_bahn
+17:         stanley_chen
+18:       stanley_dobrin
+19:             GSE12679
+20:             GSE12654
+                                                                                                            experiment.Name
+ 1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
+ 2:                                                                                                 bunge-affy-arabi-162779
+ 3: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
+ 4:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
+ 5:                                                                                                      McLean Hippocampus
+ 6:                                                                                                              McLean_PFC
+ 7:                                                                     Stanley consortium collection Cerebellum - Feinberg
+ 8:                                                                                   Stanley array collection DLPFC - Kato
+ 9:                                                                            Stanley consortium collection DLPFC - SklarA
+10:                                                                       Stanley consortium collection Cerebellum - SklarB
+11:                                                                                 Stanley array collection DLPFC - Vawter
+12:                                                                                  Stanley array collection DLPFC - Young
+13:                                                                                Stanley array collection DLPFC - Altar A
+14:                                                                           Stanley consortium collection DLPFC - Altar B
+15:                                                                           Stanley consortium collection DLPFC - Altar C
+16:                                                                                   Stanley array collection DLPFC - Bahn
+17:                                                                              Stanley consortium collection DLPFC - Chen
+18:                                                                                 Stanley array collection DLPFC - Dobrin
+19:               Laser capture microdissection of endothelial and neuronal cells from human dorsolateral prefrontal cortex
+20:                                                                     Gene expression from human prefrontal cortex (BA10)
+    taxon.Name
+ 1:      human
+ 2:      human
+ 3:      human
+ 4:      human
+ 5:      human
+ 6:      human
+ 7:      human
+ 8:      human
+ 9:      human
+10:      human
+11:      human
+12:      human
+13:      human
+14:      human
+15:      human
+16:      human
+17:      human
+18:      human
+19:      human
+20:      human</code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/DOID_3312'</span>, <span class="co"># ontology term URI for the bipolar disorder</span></span>
+<span>                taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>    experiment.ShortName
+ 1:              GSE5389
+ 2:              GSE5388
+ 3:              GSE7036
+ 4:   McLean Hippocampus
+ 5:           McLean_PFC
+ 6:     stanley_feinberg
+ 7:         stanley_kato
+ 8:       stanley_sklarA
+ 9:       stanley_sklarB
+10:       stanley_vawter
+11:        stanley_young
+12:       stanley_altarA
+13:       stanley_altarB
+14:       stanley_altarC
+15:         stanley_bahn
+16:         stanley_chen
+17:       stanley_dobrin
+18:             GSE12679
+19:             GSE12654
+20:             GSE12649
+                                                                                                            experiment.Name
+ 1:           Adult postmortem brain tissue (orbitofrontal cortex) from subjects with bipolar disorder and healthy controls
+ 2: Adult postmortem brain tissue (dorsolateral prefrontal cortex) from subjects with bipolar disorder and healthy controls
+ 3:                                               Expression profiling in monozygotic twins discordant for bipolar disorder
+ 4:                                                                                                      McLean Hippocampus
+ 5:                                                                                                              McLean_PFC
+ 6:                                                                     Stanley consortium collection Cerebellum - Feinberg
+ 7:                                                                                   Stanley array collection DLPFC - Kato
+ 8:                                                                            Stanley consortium collection DLPFC - SklarA
+ 9:                                                                       Stanley consortium collection Cerebellum - SklarB
+10:                                                                                 Stanley array collection DLPFC - Vawter
+11:                                                                                  Stanley array collection DLPFC - Young
+12:                                                                                Stanley array collection DLPFC - Altar A
+13:                                                                           Stanley consortium collection DLPFC - Altar B
+14:                                                                           Stanley consortium collection DLPFC - Altar C
+15:                                                                                   Stanley array collection DLPFC - Bahn
+16:                                                                              Stanley consortium collection DLPFC - Chen
+17:                                                                                 Stanley array collection DLPFC - Dobrin
+18:               Laser capture microdissection of endothelial and neuronal cells from human dorsolateral prefrontal cortex
+19:                                                                     Gene expression from human prefrontal cortex (BA10)
+20:                                                                     Gene expression from human prefrontal cortex (BA46)
+    taxon.Name
+ 1:      human
+ 2:      human
+ 3:      human
+ 4:      human
+ 5:      human
+ 6:      human
+ 7:      human
+ 8:      human
+ 9:      human
+10:      human
+11:      human
+12:      human
+13:      human
+14:      human
+15:      human
+16:      human
+17:      human
+18:      human
+19:      human
+20:      human</code></pre>
+<p>Note that a single call of these functions will only return 20 results by default and a 100 results maximum, controlled by the <code>limit</code> argument. In order to get all available results, <code>offset</code> argument should be used to make multiple calls.</p>
+<p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># a quick call with a limit of 1 to get the result count</span></span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] 5758</code></pre>
+<p>Since the maximum limit is a 100 getting all results available will require multiple calls.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
+<span><span class="va">all_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">count</span>, <span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   experiment.ShortName
+1:              GSE2018
+2:              GSE4036
+3:              GSE3489
+4:              GSE1923
+5:               GSE361
+6:               GSE492
+                                                                          experiment.Name
+1:                                                            Human Lung Transplant - BAL
+2:                                                                perro-affy-human-186940
+3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+5:                                                   Mammary epithelial cell transduction
+6:                               Effect of prostaglandin analogs on aqueous humor outflow
+   taxon.Name
+1:      human
+2:      human
+3:      human
+4:      human
+5:      human
+6:      human</code></pre>
+<p>See <a href="#larger-queries">larger queries</a> section for more details. To keep this vignette simpler we will keep using the first 20 results returned by default in examples below.</p>
+<p>Information provided about the datasets by these functions include details about the quality and design of the study that can be used to judge if it is suitable for your use case. For instance <code>geeq.batchEffect</code> column will be set to -1 if Gemma’s preprocessing has detected batch effects that were unable to be resolved by batch correction and <code>experiment.SampleCount</code> will include the number of samples used in the experiment. More information about these and other fields can be found at the function documentation.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># get human datasets</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchEffect</span> <span class="op">!=</span><span class="op">-</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="va">experiment.SampleCount</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># filter for datasets without batch effects and with a sample count more than 4</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
+<pre><code>    experiment.ShortName
+ 1:              GSE2018
+ 2:              GSE4036
+ 3:              GSE3489
+ 4:              GSE1923
+ 5:               GSE361
+ 6:               GSE492
+ 7:               GSE713
+ 8:               GSE833
+ 9:               GSE420
+10:               GSE430
+11:               GSE675
+12:               GSE712
+13:               GSE701
+14:               GSE685
+15:               GSE593
+16:               GSE837
+17:               GSE590
+18:               GSE755
+19:               GSE994
+20:               GSE846
+                                                                           experiment.Name
+ 1:                                                            Human Lung Transplant - BAL
+ 2:                                                                perro-affy-human-186940
+ 3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
+ 4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
+ 5:                                                   Mammary epithelial cell transduction
+ 6:                               Effect of prostaglandin analogs on aqueous humor outflow
+ 7:                                                        UV radiation-induced DNA damage
+ 8:                                                          Amyotrophic lateral sclerosis
+ 9:                                                                       Aortic stiffness
+10:  Effect of left ventricular assist device support on congestive heart failure patients
+11:                                     Time course analysis of response to HCMV infection
+12:                                        CVB3-infected HeLa cells (multiple time points)
+13:                 Transcriptional response of lymphoblastoid cells to ionizing radiation
+14:                                DACH1 inhibits TGF-beta signaling through binding Smad4
+15:                 Uterine Fibroid and Normal Myometrial Expression Profiles- U133 Arrays
+16:                                                                           angiogenesis
+17:                                                              USF1 haplotype comparison
+18:                                                         MRI lytic and no lytic lesions
+19:           Effects of cigarette smoke on the human airway epithelial cell transcriptome
+20:                                                                             Conversion
+    taxon.Name
+ 1:      human
+ 2:      human
+ 3:      human
+ 4:      human
+ 5:      human
+ 6:      human
+ 7:      human
+ 8:      human
+ 9:      human
+10:      human
+11:      human
+12:      human
+13:      human
+14:      human
+15:      human
+16:      human
+17:      human
+18:      human
+19:      human
+20:      human</code></pre>
+<p>Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of free text to search can lead to more specific results. <a href="https://pavlidislab.github.io/gemma.R/reference/search_annotations.html" class="external-link"><code>search_annotations</code></a> function allows searching for annotation terms that might be relevant to your query.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="va">head</span></span></code></pre></div>
+<pre><code>   category.Name                         category.URI
+1:          &lt;NA&gt;                                 &lt;NA&gt;
+2:       disease http://www.ebi.ac.uk/efo/EFO_0000408
+3:       disease http://www.ebi.ac.uk/efo/EFO_0000408
+4:       disease http://www.ebi.ac.uk/efo/EFO_0000408
+5:       disease http://www.ebi.ac.uk/efo/EFO_0000408
+6:       disease http://www.ebi.ac.uk/efo/EFO_0000408
+                                  value.Name
+1:                                   Bipolar
+2:                        bipolar I disorder
+3:                          Bipolar Disorder
+4:                        bipolar II disoder
+5:                         Bipolar depressed
+6: bipolar disorder not otherwise specified 
+                                   value.URI
+1:                                      &lt;NA&gt;
+2: http://purl.obolibrary.org/obo/DOID_14042
+3:  http://purl.obolibrary.org/obo/DOID_3312
+4:      http://www.ebi.ac.uk/efo/EFO_0009964
+5:                                      &lt;NA&gt;
+6:                                          </code></pre>
+</div>
+<div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
 </h2>
-<p>The main goal of this wrapper is to enable easy access to Gemma’s curated datasets for downstream analyses or meta-analyses combining multiple datasets. In this example, we want to find datasets that are associated with bipolar disorder, and we are only interested in human data. In addition, we’ll subset our results to datasets that have been batch corrected.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_gemma.html">search_gemma</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchCorrected</span> <span class="op">==</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   experiment.ShortName                                       experiment.Name
-1:             GSE29318 Expression profile of FAC-sorted murine retinal cells
-   experiment.ID experiment.Accession experiment.SampleCount
-1:         12310             GSE29318                      9</code></pre>
-<p>We are left with two datasets. For simplicity, we’ll pick <a href="https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8997" class="external-link">GSE46416</a> since it has the smaller number of samples. Now that we have the ID for our experiment, we can fetch the data associated with it.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>Upon identifying datasets of interest, more information about specific ones can be requested. In this example we will be using GSE46416 which includes samples taken from healthy donors along with manic/euthymic phase bipolar disorder patients.</p>
+<p>The data associated with specific experiments can be accessed by using <a href="https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_ids.html" class="external-link"><code>get_datasets_by_ids</code></a></p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Description</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   experiment.ShortName
@@ -159,18 +488,18 @@
 1:          8997
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        experiment.Description
 1: Gene expression profiles of bipolar disorder (BD) patients were assessed during both a manic and a euthymic phase and compared both intra-individually, and with the gene expression profiles of controls.\nLast Updated (by provider): Sep 05 2014\nContributors:  Christian C Witt Benedikt Brors Dilafruz Juraeva Jens Treutlein Carsten Sticht Stephanie H Witt Jana Strohmaier Helene Dukal Josef Frank Franziska Degenhardt Markus M Nöthen Sven Cichon Maren Lang Marcella Rietschel Sandra Meier Manuel Mattheisen</code></pre>
-<p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object()</code></a>. It is a high-level wrapper that combines various endpoint calls to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a> long form tibble for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object</code></a>. It is a high-level wrapper that combines various endpoint calls to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a> long form tibble for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_object.html">get_dataset_object</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,</span>
 <span>                          type <span class="op">=</span> <span class="st">'se'</span><span class="op">)</span> <span class="co"># SummarizedExperiment is the default output type</span></span></code></pre></div>
 <p>Note that the tidy format is less memory efficient but allows easy visualization and exploration with <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> and the rest of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.</p>
 <p>To show how subsetting works, we’ll keep the manic phase data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "reference_subject_role"              "euthymic_phase_|_Bipolar_Disorder_|"
 [3] "bipolar_disorder_|_manic_phase_|"   </code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
 <span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar_disorder_|_manic_phase_|"</span> <span class="op">|</span> </span>
 <span>        <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference_subject_role"</span><span class="op">]</span></span>
@@ -186,22 +515,27 @@ colnames(21): Control,1_DE50 Control,12 ...
   Bipolardisorderpatientmanicphase,21
 colData names(2): batch disease</code></pre>
 <p>Let’s check the expression for every sample to make sure they look OK:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
 <span><span class="va">manicExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">manic</span>, <span class="st">"counts"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">manicExpr</span>, pch <span class="op">=</span> <span class="st">"."</span>, xaxt <span class="op">=</span> <span class="st">"n"</span>, xlab <span class="op">=</span> <span class="st">"Sample"</span>, ylab <span class="op">=</span> <span class="st">"Expression"</span><span class="op">)</span></span></code></pre></div>
+<span></span>
+<span></span>
+<span><span class="va">manicExpr</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="va">cor</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span>col <span class="op">=</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,border_color <span class="op">=</span> <span class="cn">NA</span>,angle_col <span class="op">=</span> <span class="fl">45</span>,fontsize <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="gemma.R_files/figure-html/boxplot-1.png" alt="Gene expression distributions of bipolar patients during manic phase and controls." width="700"><p class="caption">
-Gene expression distributions of bipolar patients during manic phase and controls.
+<img src="gemma.R_files/figure-html/boxplot-1.png" alt="Sample to sample correlations of bipolar patients during manic phase and controls." width="700"><p class="caption">
+Sample to sample correlations of bipolar patients during manic phase and controls.
 </p>
 </div>
-<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html" class="external-link"><code>get_dataset_expression()</code></a> to only get the expression matrix, and <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html" class="external-link"><code>get_dataset_design()</code></a> to get the experimental design matrix.</p>
-<div class="section level3">
-<h3 id="platform-annotations">Platform Annotations<a class="anchor" aria-label="anchor" href="#platform-annotations"></a>
-</h3>
-<p>Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations()</code></a> function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.</p>
+<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html" class="external-link"><code>get_dataset_expression</code></a> to only get the expression matrix, and <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html" class="external-link"><code>get_dataset_design</code></a> to get the experimental design matrix.</p>
+</div>
+<div class="section level2">
+<h2 id="platform-annotations">Platform Annotations<a class="anchor" aria-label="anchor" href="#platform-annotations"></a>
+</h2>
+<p>Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations</code></a> function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.</p>
 <p>Examples:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>     ProbeName   GeneSymbols                                     GeneNames
 1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a
@@ -224,7 +558,7 @@ Gene expression distributions of bipolar patients during manic phase and control
 4:                         
 5:         32964       1559
 6:        303717      55788</code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'Generic_human'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>      ProbeName  GeneSymbols
 1:        LCN10        LCN10
@@ -254,8 +588,8 @@ Gene expression distributions of bipolar patients during manic phase and control
 4:   389635    139716
 5:  8090381 100287155
 6:   201914      9770</code></pre>
-<p>If you are interested in a particular gene, you can see which platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes()</code></a>. Note that functions to search gene work best with unambigious identifiers rather than symbols.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>If you are interested in a particular gene, you can see which platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>. Note that functions to search gene work best with unambigious identifiers rather than symbols.</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># lists genes in gemma matching the symbol or identifier</span></span>
 <span><span class="fu"><a href="../reference/get_genes.html">get_genes</a></span><span class="op">(</span><span class="st">'Eno2'</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   gene.Symbol       gene.Ensembl gene.NCBI                      gene.Name
@@ -276,7 +610,7 @@ Gene expression distributions of bipolar patients during manic phase and control
 3:                 rn6                86
 4:                &lt;NA&gt;                NA
 5:                &lt;NA&gt;                NA</code></pre>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ncbi id for human ENO2</span></span>
 <span><span class="va">probes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_gene_probes.html">get_gene_probes</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
 <span></span>
@@ -311,15 +645,223 @@ Gene expression distributions of bipolar patients during manic phase and control
 5:       9606                hg38                87
 6:       9606                hg38                87</code></pre>
 </div>
-<div class="section level3">
-<h3 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
-</h3>
-<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. Some datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values()</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes</p>
-<p>Note that <code><a href="../reference/get_differential_expression_values.html">get_differential_expression_values()</a></code> has the argument <code>readableContrasts</code>. By default this is set to <code>FALSE</code>, resulting in the output columns being named based on the contrast IDs rather the more human readable columns used below. These contrast IDs can be used together with <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html" class="external-link"><code>get_dataset_differential_expression_analyses()</code></a> during a systematic analysis.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,readableContrasts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<div class="section level2">
+<h2 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
+</h2>
+<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. Some datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes</p>
+<p>Note that <code>get_differential_expression_values</code> can return multiple differentials per study if a study has multiple factors to contrast. Since GSE46416 only has one extracting the first element of the returned list is all we need.</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dif_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
+<span><span class="op">(</span><span class="va">dif_exp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code>         Probe    NCBIid GeneSymbol
+    1: 2982730      4018        LPA
+    2: 2787851    166752      FREM3
+    3: 2477558                     
+    4: 2910917                     
+    5: 3983537    140886     PABPC5
+   ---                             
+21957: 3301011     64318      NOC3L
+21958: 2461654 100130249  LINC02961
+21959: 2360346      1141     CHRNB2
+21960: 2391172      7293    TNFRSF4
+21961: 2525718                     
+                                            GeneName  pvalue corrected_pvalue
+    1:                                lipoprotein(a) 0.91850           0.9521
+    2:          FRAS1 related extracellular matrix 3 0.58500           0.7348
+    3:                                               0.39650           0.5931
+    4:                                               0.65060           0.7815
+    5:         poly(A) binding protein cytoplasmic 5 0.10640           0.3227
+   ---                                                                       
+21957:           NOC3 like DNA replication regulator 0.06358           0.2647
+21958:   long intergenic non-protein coding RNA 2961 0.25470           0.4735
+21959: cholinergic receptor nicotinic beta 2 subunit 0.01213           0.1288
+21960:             TNF receptor superfamily member 4 0.13140           0.3516
+21961:                                               0.75260           0.8463
+          rank contrast_113004_log2fc contrast_113004_tstat
+    1: 0.96470               -0.02471              -0.35870
+    2: 0.79600                0.18950               1.01200
+    3: 0.66850                0.09179               1.13900
+    4: 0.83250                0.15640               0.67390
+    5: 0.32990                0.18450               2.03200
+   ---                                                     
+21957: 0.24020                0.14810               0.71780
+21958: 0.53800               -0.17630              -1.53600
+21959: 0.09417                0.10290               1.12300
+21960: 0.37370               -0.00863              -0.06482
+21961: 0.88930               -0.11050              -0.59600
+       contrast_113004_pvalue contrast_113005_log2fc contrast_113005_tstat
+    1:                0.72210               -0.02495               -0.3622
+    2:                0.31910                0.14030                0.7495
+    3:                0.26330                0.10160                1.2600
+    4:                0.50520                0.20960                0.9032
+    5:                0.05047                0.16030                1.7660
+   ---                                                                    
+21957:                0.47810               -0.33430               -1.6210
+21958:                0.13440               -0.02347               -0.2045
+21959:                0.26980                0.28670                3.1280
+21960:                0.94870                0.23120                1.7370
+21961:                0.55530               -0.13160               -0.7101
+       contrast_113005_pvalue
+    1:               0.719600
+    2:               0.459000
+    3:               0.216600
+    4:               0.373100
+    5:               0.086940
+   ---                       
+21957:               0.114800
+21958:               0.839300
+21959:               0.003721
+21960:               0.091960
+21961:               0.482700</code></pre>
+<p>By default the columns names of the output correspond to contrast IDs. To see what conditions these IDs correspond to we can either use <code>get_dataset_differential_expression_analyses</code> to get the metadata about differentials of a given dataset, or set<code>readableContrasts</code> argument of <code>get_differential_expression_values</code> to <code>TRUE</code>. The former approach is usually better for a large scale systematic analysis while the latter is easier to read in an interactive session.</p>
+<p><code>get_dataset_differential_expression_analyses</code> function returns structured metadata about the differentials.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   result.ID contrast.id experiment.ID baseline.category
+1:    550248      113004          8997           disease
+2:    550248      113005          8997           disease
+                   baseline.categoryURI   baseline.factorValue
+1: http://www.ebi.ac.uk/efo/EFO_0000408 reference subject role
+2: http://www.ebi.ac.uk/efo/EFO_0000408 reference subject role
+                      baseline.factorValueURI         experimental.factorValue
+1: http://purl.obolibrary.org/obo/OBI_0000220    bipolar disorder, manic phase
+2: http://purl.obolibrary.org/obo/OBI_0000220 euthymic phase, Bipolar Disorder
+                experimental.factorValueURI subsetFactor.subset
+1: http://purl.obolibrary.org/obo/DOID_3312               FALSE
+2:                                                        FALSE
+   subsetFactor.factorValue subsetFactor.factorValueURI
+1:                     &lt;NA&gt;                        &lt;NA&gt;
+2:                     &lt;NA&gt;                        &lt;NA&gt;
+   subsetFactor.description subsetFactor.category subsetFactor.categoryURI
+1:                     &lt;NA&gt;                    NA                       NA
+2:                     &lt;NA&gt;                    NA                       NA
+   subsetFactor.measurement subsetFactor.type probes.Analyzed genes.Analyzed
+1:                       NA                NA           21961          18959
+2:                       NA                NA           21961          18959</code></pre>
+<p><code>contrast.id</code> column corresponds to the column names in the output of <code>get_differential_expression_values</code> while <code>result.ID</code> corresponds to the name of the differential in the output object. Using them together will let one to access differentially expressed gene counts for each condition contrast</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># using result.ID and contrast.ID of the output above, we can access specific</span></span>
+<span><span class="co"># results. Note that one study may have multiple contrast objects</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">result_set</span> <span class="op">=</span> <span class="va">dif_exp</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="va">p_values</span> <span class="op">=</span> <span class="va">result_set</span><span class="op">[[</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"contrast_{contrasts[i,]$contrast.id}_pvalue"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
+<span>    </span>
+<span>    <span class="co"># multiple testing correction</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">p_values</span>,method <span class="op">=</span> <span class="st">'BH'</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">dif_exp_genes</span></span>
 <span></span>
-<span><span class="co"># Classify probes for plotting</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>result.ID <span class="op">=</span> <span class="va">contrasts</span><span class="op">$</span><span class="va">result.ID</span>,</span>
+<span>           contrast.id <span class="op">=</span> <span class="va">contrasts</span><span class="op">$</span><span class="va">contrast.id</span>,</span>
+<span>           baseline.factorValue <span class="op">=</span> <span class="va">contrasts</span><span class="op">$</span><span class="va">baseline.factorValue</span>,</span>
+<span>           experimental.factorValue <span class="op">=</span> <span class="va">contrasts</span><span class="op">$</span><span class="va">experimental.factorValue</span>,</span>
+<span>           n_diff <span class="op">=</span> <span class="va">dif_exp_genes</span><span class="op">)</span></span></code></pre></div>
+<pre><code>  result.ID contrast.id   baseline.factorValue         experimental.factorValue
+1    550248      113004 reference subject role    bipolar disorder, manic phase
+2    550248      113005 reference subject role euthymic phase, Bipolar Disorder
+  n_diff
+1      3
+2   1389</code></pre>
+<p>Alternatively we, since we are only looking at one dataset and one contrast manually, we can simply use <code>readableContrasts</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,readableContrasts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code>         Probe    NCBIid GeneSymbol
+    1: 2982730      4018        LPA
+    2: 2787851    166752      FREM3
+    3: 2477558                     
+    4: 2910917                     
+    5: 3983537    140886     PABPC5
+   ---                             
+21957: 3301011     64318      NOC3L
+21958: 2461654 100130249  LINC02961
+21959: 2360346      1141     CHRNB2
+21960: 2391172      7293    TNFRSF4
+21961: 2525718                     
+                                            GeneName  pvalue corrected_pvalue
+    1:                                lipoprotein(a) 0.91850           0.9521
+    2:          FRAS1 related extracellular matrix 3 0.58500           0.7348
+    3:                                               0.39650           0.5931
+    4:                                               0.65060           0.7815
+    5:         poly(A) binding protein cytoplasmic 5 0.10640           0.3227
+   ---                                                                       
+21957:           NOC3 like DNA replication regulator 0.06358           0.2647
+21958:   long intergenic non-protein coding RNA 2961 0.25470           0.4735
+21959: cholinergic receptor nicotinic beta 2 subunit 0.01213           0.1288
+21960:             TNF receptor superfamily member 4 0.13140           0.3516
+21961:                                               0.75260           0.8463
+          rank contrast_bipolar disorder, manic phase_logFoldChange
+    1: 0.96470                                             -0.02471
+    2: 0.79600                                              0.18950
+    3: 0.66850                                              0.09179
+    4: 0.83250                                              0.15640
+    5: 0.32990                                              0.18450
+   ---                                                             
+21957: 0.24020                                              0.14810
+21958: 0.53800                                             -0.17630
+21959: 0.09417                                              0.10290
+21960: 0.37370                                             -0.00863
+21961: 0.88930                                             -0.11050
+       contrast_bipolar disorder, manic phase_tstat
+    1:                                     -0.35870
+    2:                                      1.01200
+    3:                                      1.13900
+    4:                                      0.67390
+    5:                                      2.03200
+   ---                                             
+21957:                                      0.71780
+21958:                                     -1.53600
+21959:                                      1.12300
+21960:                                     -0.06482
+21961:                                     -0.59600
+       contrast_bipolar disorder, manic phase_pvalue
+    1:                                       0.72210
+    2:                                       0.31910
+    3:                                       0.26330
+    4:                                       0.50520
+    5:                                       0.05047
+   ---                                              
+21957:                                       0.47810
+21958:                                       0.13440
+21959:                                       0.26980
+21960:                                       0.94870
+21961:                                       0.55530
+       contrast_euthymic phase, Bipolar Disorder_logFoldChange
+    1:                                                -0.02495
+    2:                                                 0.14030
+    3:                                                 0.10160
+    4:                                                 0.20960
+    5:                                                 0.16030
+   ---                                                        
+21957:                                                -0.33430
+21958:                                                -0.02347
+21959:                                                 0.28670
+21960:                                                 0.23120
+21961:                                                -0.13160
+       contrast_euthymic phase, Bipolar Disorder_tstat
+    1:                                         -0.3622
+    2:                                          0.7495
+    3:                                          1.2600
+    4:                                          0.9032
+    5:                                          1.7660
+   ---                                                
+21957:                                         -1.6210
+21958:                                         -0.2045
+21959:                                          3.1280
+21960:                                          1.7370
+21961:                                         -0.7101
+       contrast_euthymic phase, Bipolar Disorder_pvalue
+    1:                                         0.719600
+    2:                                         0.459000
+    3:                                         0.216600
+    4:                                         0.373100
+    5:                                         0.086940
+   ---                                                 
+21957:                                         0.114800
+21958:                                         0.839300
+21959:                                         0.003721
+21960:                                         0.091960
+21961:                                         0.482700</code></pre>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Classify probes for plotting</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">&lt;-</span> <span class="st">"No"</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_bipolar disorder, manic phase_logFoldChange`</span> <span class="op">&gt;</span> <span class="fl">1.0</span> <span class="op">&amp;</span> </span>
 <span>        <span class="va">de</span><span class="op">$</span><span class="va">`contrast_bipolar disorder, manic phase_pvalue`</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"Up"</span></span>
@@ -354,7 +896,7 @@ Gene expression distributions of bipolar patients during manic phase and control
  8:                                                1.026
  9:                                                1.080
 10:                                                1.205</code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Downregulated probes</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">de</span>, <span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Down"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_bipolar disorder, manic phase_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -383,7 +925,7 @@ Gene expression distributions of bipolar patients during manic phase and control
  8:                                               -1.405
  9:                                               -1.071
 10:                                               -1.522</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add gene symbols as labels to DE genes</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">de</span><span class="op">$</span><span class="va">GeneSymbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span></span>
@@ -410,72 +952,18 @@ Gene expression distributions of bipolar patients during manic phase and control
 Differentially-expressed genes in bipolar patients during manic phase versus controls.
 </p>
 </div>
-<p>Setting <code>readableContrasts=FALSE</code> (default) will allow easier programmatic access to differentials. For instance, lets get the number of differentially expressed genes for each contrast returned by <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_differential_expression_analyses.html" class="external-link"><code>get_dataset_differential_expression_analyses()</code></a> for a study</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># return all contrasts for the dataset</span></span>
-<span><span class="op">(</span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   result.ID contrast.id experiment.ID baseline.category
-1:    550248      113004          8997           disease
-2:    550248      113005          8997           disease
-                   baseline.categoryURI   baseline.factorValue
-1: http://www.ebi.ac.uk/efo/EFO_0000408 reference subject role
-2: http://www.ebi.ac.uk/efo/EFO_0000408 reference subject role
-                      baseline.factorValueURI         experimental.factorValue
-1: http://purl.obolibrary.org/obo/OBI_0000220    bipolar disorder, manic phase
-2: http://purl.obolibrary.org/obo/OBI_0000220 euthymic phase, Bipolar Disorder
-                experimental.factorValueURI subsetFactor.subset
-1: http://purl.obolibrary.org/obo/DOID_3312               FALSE
-2:                                                        FALSE
-   subsetFactor.factorValue subsetFactor.factorValueURI
-1:                     &lt;NA&gt;                        &lt;NA&gt;
-2:                     &lt;NA&gt;                        &lt;NA&gt;
-   subsetFactor.description subsetFactor.category subsetFactor.categoryURI
-1:                     &lt;NA&gt;                    NA                       NA
-2:                     &lt;NA&gt;                    NA                       NA
-   subsetFactor.measurement subsetFactor.type probes.Analyzed genes.Analyzed
-1:                       NA                NA           21961          18959
-2:                       NA                NA           21961          18959</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dif_exp_values</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># using result.ID and contrast.ID of the output above, we can access specific</span></span>
-<span><span class="co"># results. Note that one study may have multiple contrast objects</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="va">result_set</span> <span class="op">=</span> <span class="va">dif_exp_values</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">$</span><span class="va">result.ID</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
-<span>    <span class="va">p_values</span> <span class="op">=</span> <span class="va">result_set</span><span class="op">[[</span><span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue</a></span><span class="op">(</span><span class="st">"contrast_{contrasts[i,]$contrast.id}_pvalue"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
-<span>    </span>
-<span>    <span class="co"># multiple testing correction</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/p.adjust.html" class="external-link">p.adjust</a></span><span class="op">(</span><span class="va">p_values</span>,method <span class="op">=</span> <span class="st">'BH'</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span><span class="op">}</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="va">dif_exp_genes</span></span>
-<span></span>
-<span><span class="va">dif_exp_genes</span></span></code></pre></div>
-<pre><code>[1]    3 1389</code></pre>
 </div>
-<div class="section level3">
-<h3 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
-</h3>
-<p>Some endpoints accept multiple identifiers in a single function call. For example, getting information on 2 datasets at the same time.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span>datasets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Accession</span>, <span class="va">experiment.SampleCount</span>, <span class="va">taxon.Name</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   experiment.ShortName
-1:             GSE35974
-2:             GSE46416
-                                                   experiment.Name
-1:                 Expression data from the human cerebellum brain
-2: State- and trait-specific gene expression in euthymia and mania
-   experiment.ID experiment.Accession experiment.SampleCount taxon.Name
-1:          5939             GSE35974                    144      human
-2:          8997             GSE46416                     32      human</code></pre>
+<div class="section level2">
+<h2 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
+</h2>
 <p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s).</p>
 <p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 681</code></pre>
 <p>After which you can use <code>offset</code> to access all available platforms.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.ShortName</span>, <span class="va">taxon.Name</span><span class="op">)</span></span>
@@ -493,11 +981,11 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 680:        1317             GPL30172      mouse
 681:        1318 Agilent_8x60K_Merged      mouse</code></pre>
 <p>Many endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error: Please specify one valid identifier for dataset.</code></pre>
 <p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>experiment.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -515,7 +1003,6 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
  9:             GSE12649        disease       Bipolar Disorder
 10:             GSE12649        disease          schizophrenia</code></pre>
 </div>
-</div>
 <div class="section level2">
 <h2 id="output-options">Output options<a class="anchor" aria-label="anchor" href="#output-options"></a>
 </h2>
@@ -523,7 +1010,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
 </h3>
 <p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = TRUE</code>. Instead of a data table, you’ll usually be served a list that represents the underlying JSON response.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   chromosome strand nucleotide length taxon.Name  taxon.Scientific taxon.ID
 1:         11      +   33890705 118714        rat Rattus norvegicus        3
@@ -533,7 +1020,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 1:      10116                 rn6                86
 2:       9606                hg38                87
 3:      10090                mm10                81</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
 [[1]]$id
@@ -694,13 +1181,13 @@ attr(,"call")
 <p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call whenever you want to refer to the cache, both to save data for future calls and use the saved data for repeated calls.</p>
 <p>By default this will create a cache in your local filesystem.</p>
 <p>You can see the path to your cache by using <code>rappdirs::user_cache_dir(appname = "gemmaR")</code>. If you want to use a different directory, use <code>options(gemma.cache = 'path')</code>.</p>
-<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html" class="external-link"><code>forget_gemma_memoised()</code></a>.</p>
+<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html" class="external-link"><code>forget_gemma_memoised</code></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
 <p>We’ve seen how to change <code>raw = TRUE</code>, <code>overwrite = TRUE</code> and <code>memoised = TRUE</code> in individual function calls. It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. See below for examples.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always refer to cache</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always overwrite when saving files</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always receive results as-is from Gemma</span></span></code></pre></div>
@@ -709,7 +1196,7 @@ attr(,"call")
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.1 (2022-06-23)
 Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -727,38 +1214,40 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] SummarizedExperiment_1.26.1 Biobase_2.56.0             
- [3] GenomicRanges_1.48.0        GenomeInfoDb_1.32.4        
- [5] IRanges_2.30.1              S4Vectors_0.34.0           
- [7] BiocGenerics_0.42.0         MatrixGenerics_1.8.1       
- [9] matrixStats_0.62.0          ggrepel_0.9.1              
-[11] ggplot2_3.3.6               dplyr_1.0.10               
-[13] gemma.R_0.99.41             BiocStyle_2.24.0           
+ [1] viridis_0.6.2               viridisLite_0.4.1          
+ [3] pheatmap_1.0.12             SummarizedExperiment_1.26.1
+ [5] Biobase_2.56.0              GenomicRanges_1.48.0       
+ [7] GenomeInfoDb_1.32.4         IRanges_2.30.1             
+ [9] S4Vectors_0.34.0            BiocGenerics_0.42.0        
+[11] MatrixGenerics_1.8.1        matrixStats_0.62.0         
+[13] ggrepel_0.9.1               ggplot2_3.3.6              
+[15] dplyr_1.0.10                gemma.R_0.99.41            
+[17] BiocStyle_2.24.0           
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.9             lubridate_1.8.0        lattice_0.20-45       
- [4] rprojroot_2.0.3        digest_0.6.30          utf8_1.2.2            
- [7] R6_2.5.1               evaluate_0.17          highr_0.9             
-[10] httr_1.4.4             pillar_1.8.1           zlibbioc_1.42.0       
-[13] rlang_1.0.6            curl_4.3.3             data.table_1.14.4     
-[16] jquerylib_0.1.4        Matrix_1.4-1           rmarkdown_2.17        
-[19] pkgdown_2.0.6          labeling_0.4.2         textshaping_0.3.6     
-[22] desc_1.4.2             stringr_1.4.1          RCurl_1.98-1.9        
-[25] bit_4.0.4              munsell_0.5.0          DelayedArray_0.22.0   
-[28] compiler_4.2.1         xfun_0.34              pkgconfig_2.0.3       
-[31] systemfonts_1.0.4      htmltools_0.5.3        tidyselect_1.2.0      
-[34] tibble_3.1.8           GenomeInfoDbData_1.2.8 bookdown_0.29         
-[37] fansi_1.0.3            withr_2.5.0            rappdirs_0.3.3        
-[40] bitops_1.0-7           grid_4.2.1             jsonlite_1.8.3        
-[43] gtable_0.3.1           lifecycle_1.0.3        magrittr_2.0.3        
-[46] scales_1.2.1           cli_3.4.1              stringi_1.7.8         
-[49] cachem_1.0.6           farver_2.1.1           XVector_0.36.0        
-[52] fs_1.5.2               bslib_0.4.0            ragg_1.2.3            
-[55] generics_0.1.3         vctrs_0.5.0            tools_4.2.1           
-[58] bit64_4.0.5            glue_1.6.2             purrr_0.3.5           
-[61] fastmap_1.1.0          yaml_2.3.6             colorspace_2.0-3      
-[64] BiocManager_1.30.18    memoise_2.0.1          knitr_1.40            
-[67] sass_0.4.2            </code></pre>
+ [1] httr_1.4.4             sass_0.4.2             bit64_4.0.5           
+ [4] jsonlite_1.8.3         bslib_0.4.0            highr_0.9             
+ [7] BiocManager_1.30.18    GenomeInfoDbData_1.2.8 yaml_2.3.6            
+[10] pillar_1.8.1           lattice_0.20-45        glue_1.6.2            
+[13] digest_0.6.30          RColorBrewer_1.1-3     XVector_0.36.0        
+[16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.4-1          
+[19] pkgconfig_2.0.3        bookdown_0.29          zlibbioc_1.42.0       
+[22] purrr_0.3.5            scales_1.2.1           tibble_3.1.8          
+[25] farver_2.1.1           generics_0.1.3         cachem_1.0.6          
+[28] withr_2.5.0            cli_3.4.1              magrittr_2.0.3        
+[31] memoise_2.0.1          evaluate_0.17          fs_1.5.2              
+[34] fansi_1.0.3            textshaping_0.3.6      tools_4.2.1           
+[37] data.table_1.14.4      lifecycle_1.0.3        stringr_1.4.1         
+[40] munsell_0.5.0          DelayedArray_0.22.0    compiler_4.2.1        
+[43] pkgdown_2.0.6          jquerylib_0.1.4        systemfonts_1.0.4     
+[46] rlang_1.0.6            grid_4.2.1             RCurl_1.98-1.9        
+[49] rappdirs_0.3.3         labeling_0.4.2         bitops_1.0-7          
+[52] rmarkdown_2.17         gtable_0.3.1           curl_4.3.3            
+[55] R6_2.5.1               lubridate_1.8.0        gridExtra_2.3         
+[58] knitr_1.40             fastmap_1.1.0          bit_4.0.4             
+[61] utf8_1.2.2             rprojroot_2.0.3        ragg_1.2.3            
+[64] desc_1.4.2             stringi_1.7.8          Rcpp_1.0.9            
+[67] vctrs_0.5.0            tidyselect_1.2.0       xfun_0.34             </code></pre>
 </div>
   </div>
 
