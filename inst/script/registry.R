@@ -179,7 +179,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  ),
                  preprocessor = quote(processDEA))
 
-registerEndpoint("annotations/{taxon}/search/datasets?query={query}",
+registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
                  "search_datasets",
                  open_api_name = 'search_datasets',
                  keyword = "dataset",
