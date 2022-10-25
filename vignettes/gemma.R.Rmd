@@ -108,7 +108,7 @@ result <- get_taxon_datasets(taxon = 'human',limit = 1)
 print(attributes(result)$totalElements)
 ```
 
-Since the maximum limit is a 100 getting all results available will require multiple calls.
+Since the maximum limit is 100 getting all results available will require multiple calls.
 
 ```{r,eval=FALSE}
 count = attributes(result)$totalElements
@@ -205,7 +205,7 @@ visualization and exploration with
 [ggplot2](https://ggplot2.tidyverse.org/index.html) and the rest of the
 [tidyverse](https://www.tidyverse.org/).
 
-To show how subsetting works, we'll keep the manic phase data and the
+To show how subsetting works, we'll keep the "manic phase" data and the
 `reference_subject_role`s, which refers to the control samples in Gemma
 datasets.
 
