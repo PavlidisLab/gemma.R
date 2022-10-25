@@ -221,8 +221,8 @@
 <code class="sourceCode R"><span><span class="co"># a quick call with a limit of 1 to get the result count</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 5758</code></pre>
-<p>Since the maximum limit is a 100 getting all results available will require multiple calls.</p>
+<pre><code>[1] 5765</code></pre>
+<p>Since the maximum limit is 100 getting all results available will require multiple calls.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="va">all_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">count</span>, <span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
@@ -325,7 +325,7 @@
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_object.html">get_dataset_object</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,</span>
 <span>                          type <span class="op">=</span> <span class="st">'se'</span><span class="op">)</span> <span class="co"># SummarizedExperiment is the default output type</span></span></code></pre></div>
 <p>Note that the tidy format is less memory efficient but allows easy visualization and exploration with <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> and the rest of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.</p>
-<p>To show how subsetting works, we’ll keep the manic phase data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
+<p>To show how subsetting works, we’ll keep the “manic phase” data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
