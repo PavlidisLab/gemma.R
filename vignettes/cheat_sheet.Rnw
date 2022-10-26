@@ -1,0 +1,9 @@
+\documentclass{article}
+\usepackage{pdfpages}
+%\VignetteIndexEntry{Gemma.R Cheatsheet}
+%\VignettePackage{gemma.R}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\includepdf[pages=-, fitpaper=true]{CheatSheet.pdf}
+\end{document}
