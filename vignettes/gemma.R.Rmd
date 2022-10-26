@@ -58,6 +58,10 @@ For detailed information on the curation process, read this
 [page](https://pavlidislab.github.io/Gemma/curation.html) or the latest
 [publication](https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045).
 
+# Package cheat sheet
+
+![](cheat_sheet.png){width=100%}
+
 # Installation instructions
 
 ## Bioconductor
@@ -491,6 +495,7 @@ options(gemma.raw = TRUE) # always receive results as-is from Gemma
 options(gemma.memoised = FALSE)
 
 ```
+
 
 # Session info
 
