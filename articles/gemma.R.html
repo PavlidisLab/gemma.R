@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -226,7 +226,7 @@
 <code class="sourceCode R"><span><span class="co"># a quick call with a limit of 1 to get the result count</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 5789</code></pre>
+<pre><code>[1] 5855</code></pre>
 <p>Since the maximum limit is 100 getting all results available will require multiple calls.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
@@ -287,27 +287,20 @@
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="va">head</span></span></code></pre></div>
-<pre><code>   category.Name                         category.URI
-1:          &lt;NA&gt;                                 &lt;NA&gt;
-2:       disease http://www.ebi.ac.uk/efo/EFO_0000408
-3:       disease http://www.ebi.ac.uk/efo/EFO_0000408
-4:       disease http://www.ebi.ac.uk/efo/EFO_0000408
-5:       disease http://www.ebi.ac.uk/efo/EFO_0000408
-6:       disease http://www.ebi.ac.uk/efo/EFO_0000408
-                                  value.Name
-1:                                   Bipolar
-2:                        bipolar I disorder
-3:                          Bipolar Disorder
-4:                        bipolar II disoder
-5:                         Bipolar depressed
-6: bipolar disorder not otherwise specified 
+<pre><code>   category.Name                         category.URI         value.Name
+1:          &lt;NA&gt;                                 &lt;NA&gt;            Bipolar
+2:       disease http://www.ebi.ac.uk/efo/EFO_0000408 bipolar I disorder
+3:       disease http://www.ebi.ac.uk/efo/EFO_0000408   Bipolar Disorder
+4:       disease http://www.ebi.ac.uk/efo/EFO_0000408 bipolar II disoder
+5:       disease http://www.ebi.ac.uk/efo/EFO_0000408  Bipolar depressed
+6:          &lt;NA&gt;                                 &lt;NA&gt;   Bipolar Disorder
                                    value.URI
 1:                                      &lt;NA&gt;
 2: http://purl.obolibrary.org/obo/DOID_14042
 3:  http://purl.obolibrary.org/obo/DOID_3312
 4:      http://www.ebi.ac.uk/efo/EFO_0009964
 5:                                      &lt;NA&gt;
-6:                                          </code></pre>
+6:                                      &lt;NA&gt;</code></pre>
 </div>
 <div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
@@ -565,7 +558,7 @@ Sample to sample correlations of bipolar patients during manic phase and control
 2: http://purl.obolibrary.org/obo/OBI_0000220 euthymic phase, Bipolar Disorder
                 experimental.factorValueURI subsetFactor.subset
 1: http://purl.obolibrary.org/obo/DOID_3312               FALSE
-2:                                                        FALSE
+2:                                     &lt;NA&gt;               FALSE
    subsetFactor.factorValue subsetFactor.factorValueURI
 1:                     &lt;NA&gt;                        &lt;NA&gt;
 2:                     &lt;NA&gt;                        &lt;NA&gt;
@@ -829,16 +822,16 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
 <pre><code>    experiment.shortName     class.Name              term.Name
- 1:             GSE35974 biological sex                   male
- 2:             GSE35974        disease          schizophrenia
- 3:             GSE35974        disease       Bipolar Disorder
- 4:             GSE35974 biological sex                 female
- 5:             GSE35974        disease      mental depression
- 6:             GSE35974  organism part             cerebellum
- 7:             GSE12649  organism part reference subject role
- 8:             GSE12649  organism part      prefrontal cortex
- 9:             GSE12649        disease       Bipolar Disorder
-10:             GSE12649        disease          schizophrenia</code></pre>
+ 1:             GSE35974        disease       Bipolar Disorder
+ 2:             GSE35974 biological sex                 female
+ 3:             GSE35974  organism part             cerebellum
+ 4:             GSE35974        disease          schizophrenia
+ 5:             GSE35974 biological sex                   male
+ 6:             GSE35974        disease      mental depression
+ 7:             GSE12649        disease       Bipolar Disorder
+ 8:             GSE12649        disease          schizophrenia
+ 9:             GSE12649  organism part reference subject role
+10:             GSE12649  organism part      prefrontal cortex</code></pre>
 </div>
 <div class="section level2">
 <h2 id="output-options">Output options<a class="anchor" aria-label="anchor" href="#output-options"></a>
@@ -861,7 +854,7 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
 [[1]]$id
-NULL
+[1] 84782783
 
 [[1]]$nucleotide
 [1] 33890705
@@ -898,15 +891,81 @@ NULL
 [[1]]$taxon$externalDatabase$name
 [1] "rn6"
 
+[[1]]$taxon$externalDatabase$description
+[1] "RGSC Rnor_6.0"
+
 [[1]]$taxon$externalDatabase$uri
 [1] "https://genome.ucsc.edu/cgi-bin/hgTracks?db=rn6"
+
+[[1]]$taxon$externalDatabase$releaseVersion
+NULL
+
+[[1]]$taxon$externalDatabase$releaseUrl
+NULL
+
+[[1]]$taxon$externalDatabase$lastUpdated
+NULL
+
+[[1]]$taxon$externalDatabase$externalDatabases
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$id
+[1] 116
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$name
+[1] "rn6 RNA-Seq annotations"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$description
+[1] "Annotations provided by NCBI Genome and used by the RNA-Seq pipeline for rat data."
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$uri
+[1] "https://www.ncbi.nlm.nih.gov/genome/annotation_euk/"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$releaseVersion
+[1] "106"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$releaseUrl
+[1] "https://www.ncbi.nlm.nih.gov/genome/annotation_euk/Rattus_norvegicus/106"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$lastUpdated
+[1] "2022-10-24T07:00:00.000+00:00"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[1]]$externalDatabases
+list()
+
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$id
+[1] 100
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$name
+[1] "rn4 annotations"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$description
+NULL
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$uri
+[1] "https://hgdownload.cse.ucsc.edu/goldenpath/rn4/database/"
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$releaseVersion
+NULL
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$releaseUrl
+NULL
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$lastUpdated
+NULL
+
+[[1]]$taxon$externalDatabase$externalDatabases[[2]]$externalDatabases
+list()
+
+
 
 
 
 
 [[2]]
 [[2]]$id
-NULL
+[1] 84362978
 
 [[2]]$nucleotide
 [1] 37365572
@@ -943,15 +1002,55 @@ NULL
 [[2]]$taxon$externalDatabase$name
 [1] "hg38"
 
+[[2]]$taxon$externalDatabase$description
+[1] "Genome Reference Consortium Human GRCh38.p13 (GCA_000001405.28)"
+
 [[2]]$taxon$externalDatabase$uri
 [1] "https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38"
+
+[[2]]$taxon$externalDatabase$releaseVersion
+[1] "GRCh38.p13"
+
+[[2]]$taxon$externalDatabase$releaseUrl
+NULL
+
+[[2]]$taxon$externalDatabase$lastUpdated
+[1] "2022-06-30T07:00:00.000+00:00"
+
+[[2]]$taxon$externalDatabase$externalDatabases
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$id
+[1] 94
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$name
+[1] "hg38 annotations"
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$description
+NULL
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$uri
+[1] "https://hgdownload.cse.ucsc.edu/goldenpath/hg38/database/"
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$releaseVersion
+[1] "GRCh38.p13"
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$releaseUrl
+NULL
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$lastUpdated
+[1] "2022-06-30T07:00:00.000+00:00"
+
+[[2]]$taxon$externalDatabase$externalDatabases[[1]]$externalDatabases
+list()
+
+
 
 
 
 
 [[3]]
 [[3]]$id
-NULL
+[1] 84610778
 
 [[3]]$nucleotide
 [1] 94370636
@@ -988,8 +1087,74 @@ NULL
 [[3]]$taxon$externalDatabase$name
 [1] "mm10"
 
+[[3]]$taxon$externalDatabase$description
+[1] "Genome Reference Consortium GRCm38, which includes approximately 2.6 Gb of sequence, is considered to be \"essentially complete\". The assembly includes chromosomes 1-19, X, Y, M (mitochondrial DNA) and chr*_random (unlocalized) and chrUn_* (unplaced clone contigs)."
+
 [[3]]$taxon$externalDatabase$uri
 [1] "https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10"
+
+[[3]]$taxon$externalDatabase$releaseVersion
+NULL
+
+[[3]]$taxon$externalDatabase$releaseUrl
+NULL
+
+[[3]]$taxon$externalDatabase$lastUpdated
+[1] "2022-06-30T07:00:00.000+00:00"
+
+[[3]]$taxon$externalDatabase$externalDatabases
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$id
+[1] 97
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$name
+[1] "mm10 annotations"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$description
+NULL
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$uri
+[1] "https://hgdownload.cse.ucsc.edu/goldenpath/mm10/database/"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$releaseVersion
+NULL
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$releaseUrl
+NULL
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$lastUpdated
+[1] "2022-06-30T07:00:00.000+00:00"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[1]]$externalDatabases
+list()
+
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$id
+[1] 115
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$name
+[1] "mm10 RNA-Seq annotations"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$description
+[1] "Annotations provided by NCBI Genome and used by the RNA-Seq pipeline for mouse data."
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$uri
+[1] "https://www.ncbi.nlm.nih.gov/genome/annotation_euk/"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$releaseVersion
+[1] "108"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$releaseUrl
+[1] "https://www.ncbi.nlm.nih.gov/genome/annotation_euk/Mus_musculus/108/"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$lastUpdated
+[1] "2022-10-24T07:00:00.000+00:00"
+
+[[3]]$taxon$externalDatabase$externalDatabases[[2]]$externalDatabases
+list()
+
+
 
 
 
@@ -1053,38 +1218,39 @@ attached base packages:
 other attached packages:
  [1] viridis_0.6.2               viridisLite_0.4.1          
  [3] pheatmap_1.0.12             SummarizedExperiment_1.28.0
- [5] Biobase_2.58.0              GenomicRanges_1.50.0       
- [7] GenomeInfoDb_1.34.0         IRanges_2.32.0             
- [9] S4Vectors_0.36.0            BiocGenerics_0.44.0        
-[11] MatrixGenerics_1.10.0       matrixStats_0.62.0         
-[13] ggrepel_0.9.1               ggplot2_3.3.6              
-[15] dplyr_1.0.10                gemma.R_1.0.0              
+ [5] Biobase_2.58.0              GenomicRanges_1.50.2       
+ [7] GenomeInfoDb_1.34.6         IRanges_2.32.0             
+ [9] S4Vectors_0.36.1            BiocGenerics_0.44.0        
+[11] MatrixGenerics_1.10.0       matrixStats_0.63.0         
+[13] ggrepel_0.9.2               ggplot2_3.4.0              
+[15] dplyr_1.0.10                gemma.R_1.1.0              
 [17] BiocStyle_2.26.0           
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.4             sass_0.4.2             bit64_4.0.5           
- [4] jsonlite_1.8.3         bslib_0.4.1            highr_0.9             
+ [1] httr_1.4.4             sass_0.4.4             bit64_4.0.5           
+ [4] jsonlite_1.8.4         bslib_0.4.2            highr_0.10            
  [7] BiocManager_1.30.19    GenomeInfoDbData_1.2.9 yaml_2.3.6            
 [10] pillar_1.8.1           lattice_0.20-45        glue_1.6.2            
-[13] digest_0.6.30          RColorBrewer_1.1-3     XVector_0.38.0        
-[16] colorspace_2.0-3       htmltools_0.5.3        Matrix_1.5-1          
-[19] pkgconfig_2.0.3        bookdown_0.29          zlibbioc_1.44.0       
-[22] purrr_0.3.5            scales_1.2.1           tibble_3.1.8          
-[25] farver_2.1.1           generics_0.1.3         cachem_1.0.6          
-[28] withr_2.5.0            cli_3.4.1              magrittr_2.0.3        
-[31] memoise_2.0.1          evaluate_0.17          fs_1.5.2              
-[34] fansi_1.0.3            textshaping_0.3.6      tools_4.2.2           
-[37] data.table_1.14.4      lifecycle_1.0.3        stringr_1.4.1         
-[40] munsell_0.5.0          DelayedArray_0.24.0    compiler_4.2.2        
-[43] pkgdown_2.0.6          jquerylib_0.1.4        systemfonts_1.0.4     
-[46] rlang_1.0.6            grid_4.2.2             RCurl_1.98-1.9        
-[49] rappdirs_0.3.3         labeling_0.4.2         bitops_1.0-7          
-[52] rmarkdown_2.17         gtable_0.3.1           curl_4.3.3            
-[55] R6_2.5.1               lubridate_1.8.0        gridExtra_2.3         
-[58] knitr_1.40             fastmap_1.1.0          bit_4.0.4             
-[61] utf8_1.2.2             rprojroot_2.0.3        ragg_1.2.3            
-[64] desc_1.4.2             stringi_1.7.8          Rcpp_1.0.9            
-[67] vctrs_0.5.0            tidyselect_1.2.0       xfun_0.34             </code></pre>
+[13] digest_0.6.31          RColorBrewer_1.1-3     XVector_0.38.0        
+[16] colorspace_2.0-3       htmltools_0.5.4        Matrix_1.5-1          
+[19] pkgconfig_2.0.3        bookdown_0.31          zlibbioc_1.44.0       
+[22] purrr_1.0.0            scales_1.2.1           timechange_0.1.1      
+[25] tibble_3.1.8           farver_2.1.1           generics_0.1.3        
+[28] cachem_1.0.6           withr_2.5.0            cli_3.5.0             
+[31] magrittr_2.0.3         memoise_2.0.1          evaluate_0.19         
+[34] fs_1.5.2               fansi_1.0.3            textshaping_0.3.6     
+[37] tools_4.2.2            data.table_1.14.6      lifecycle_1.0.3       
+[40] stringr_1.5.0          munsell_0.5.0          DelayedArray_0.24.0   
+[43] compiler_4.2.2         pkgdown_2.0.7          jquerylib_0.1.4       
+[46] systemfonts_1.0.4      rlang_1.0.6            grid_4.2.2            
+[49] RCurl_1.98-1.9         rappdirs_0.3.3         labeling_0.4.2        
+[52] bitops_1.0-7           rmarkdown_2.19         gtable_0.3.1          
+[55] curl_4.3.3             R6_2.5.1               lubridate_1.9.0       
+[58] gridExtra_2.3          knitr_1.41             fastmap_1.1.0         
+[61] bit_4.0.5              utf8_1.2.2             rprojroot_2.0.3       
+[64] ragg_1.2.4             desc_1.4.2             stringi_1.7.8         
+[67] Rcpp_1.0.9             vctrs_0.5.1            tidyselect_1.2.0      
+[70] xfun_0.36             </code></pre>
 </div>
   </div>
 
@@ -1105,7 +1271,7 @@ loaded via a namespace (and not attached):
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
