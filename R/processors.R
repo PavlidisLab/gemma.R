@@ -307,7 +307,7 @@ processDEA <- function(d) {
                                 seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
                                     factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                     ids <- factors %>% purrr::map_int('id')
-                                    factors[[which(ids == relevant_ids[k,l])]]$factorValue
+                                    factors[[which(ids == relevant_ids[k,l])]]$factorValue %>% nullCheck(NA_character_)
                                 }) %>% {do.call(paste,c(.,list(sep = '_')))}
                             }),
                         experimental.factorValueURI = seq_len(nrow(relevant_ids)) %>%
@@ -315,7 +315,7 @@ processDEA <- function(d) {
                                 seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
                                     factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                     ids <- factors %>% purrr::map_int('id')
-                                    factors[[which(ids == relevant_ids[k,l])]]$valueUri
+                                    factors[[which(ids == relevant_ids[k,l])]]$valueUri %>% nullCheck(NA_character_)
                                 }) %>% {do.call(paste,c(.,list(sep = '_')))}
                             }),
                         subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
