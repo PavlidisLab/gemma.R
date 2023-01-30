@@ -115,11 +115,12 @@ Vancouver, Canada<br><small class="dont-index">Source: <a href="https://github.c
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <p>Gemma.R contains a large number of datasets representing a wide array
-of conditions. It is therefore a useful tool for running meta-analysis
-based on publicly available datasets.</p>
-<p>In this example we will search Gemma for datasets comparing healthy
-controls and patients with Parkinson’s disease, and run a meta-analysis
-to discover genes consistently found to be related to the disease.</p>
+of conditions. Therefore it is a useful tool for running meta-analysis
+on publicly available datasets.</p>
+<p>In this example we search Gemma for datasets comparing healthy
+controls and patients with Parkinson’s Disease, and run a meta-analysis
+to discover genes consistently found to be differentially expressed in
+Parkinson’s Disease patients</p>
 <div class="section level2">
 <h2 id="querying-datasets-of-interest">Querying datasets of interest<a class="anchor" aria-label="anchor" href="#querying-datasets-of-interest"></a>
 </h2>
@@ -188,10 +189,10 @@ mention of the disease if it is included in the study description.</p>
 <p>While we know that all the resulting datasets were annotated for the
 term for Parkinson’s Disease, we currently do not know how many of them
 are comparisons of healthy controls and patients with Parkinson’s
-disease. Looking at the sample above, quite a few of them aren’t from
+Disease. Looking at the sample above, quite a few of them aren’t from
 humans in the first place. To find the datasets that are suitable for
 our purposes we need to first remove all non-human datasets, then ensure
-comparison performed is on Parkinson’s disease patients and controls</p>
+comparison performed is on Parkinson’s Disease patients and controls</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># isolate human datasets</span></span>
 <span><span class="va">human_results</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">taxon.Name</span> <span class="op">==</span> <span class="st">'human'</span><span class="op">)</span></span>
@@ -213,12 +214,12 @@ compare control and Parkinson’s Disease patients. This information is
 available via <code>get_dataset_differential_expression_analyses</code>
 which returns the experimental groups for differential expression
 analyses performed for the dataset. The columns we are primarily
-interested in are
-<code>baseline.factorValue</code>/<code>baseline.factorValueURI</code>
-which typically records the control group of the differential expression
-analysis and
-<code>experimental.factorValue</code>/<code>experimental.factorValueURI</code>
-which typically records the test case</p>
+interested in are <code>baseline.factorValue</code>,
+<code>baseline.factorValueURI</code> which typically records the control
+group of the differential expression analysis and
+<code>experimental.factorValue</code>,
+<code>experimental.factorValueURI</code> which typically records the
+test case</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">experiment_contrasts</span> <span class="op">&lt;-</span> <span class="va">human_results</span><span class="op">$</span><span class="va">experiment.ShortName</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
@@ -424,7 +425,7 @@ CYB561  1.694509e-16 3.898396e-13  -0.13820</code></pre>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span> <span class="co"># number of all genes</span></span></code></pre></div>
 <pre><code>[1] 15352</code></pre>
 <p>A quick sanity check would be to look at markers of dopaminergic cell
-types and how they rank compared to other genes. Parkinson’s disease is
+types and how they rank compared to other genes. Parkinson’s Disease is
 a neurodegenerative disorder, leading to death of dopaminergic cells. We
 should expect them to show up in our results.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
