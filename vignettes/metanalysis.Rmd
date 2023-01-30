@@ -18,10 +18,13 @@ editor_options:
 
 ```{r, include = FALSE}
 # Prevent certificate issues for GitHub actions
-options(gemma.SSL = FALSE,gemma.memoised = TRUE)
+options(gemma.SSL = FALSE,
+        gemma.memoised = TRUE,
+        datatable.print.trunc.cols = FALSE)
 # options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
 knitr::opts_chunk$set(
-    comment = ""
+    comment = "",
+    cache = TRUE
 )
 ```
 
@@ -57,7 +60,7 @@ results <- lapply(seq(0,result_count,100),function(i){
                     limit = 100,offset = i)
 }) %>% do.call(rbind,.)
 
-results %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
+results %>% select(experiment.ShortName,taxon.Name) %>% head
 ```
 
 A similar search is also possible using plain text
@@ -73,7 +76,7 @@ results_plain <- lapply(seq(0,result_count,100),function(i){
 
 
 results_plain %>% 
-    select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
+    select(experiment.ShortName,taxon.Name) %>% head
 ```
 
 These two queries return similar but not-identical results.
