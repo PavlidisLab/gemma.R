@@ -49,10 +49,12 @@ either using ontology terms like
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
-result_count <- attributes(search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 1))$totalElements
+result <- search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 1)
+result_count <- attributes(result)$totalElements
 
 results <- lapply(seq(0,result_count,100),function(i){
-    search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 100,offset = i)
+    search_datasets('http://purl.obolibrary.org/obo/DOID_14330',
+                    limit = 100,offset = i)
 }) %>% do.call(rbind,.)
 
 results %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
@@ -61,14 +63,17 @@ results %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
 A similar search is also possible using plain text
 
 ```{r}
-result_count <- attributes(search_datasets('parkinsons',limit = 1))$totalElements
+result <- search_datasets('parkinsons',limit = 1)
+result_count <- attributes(result)$totalElements
+
 
 results_plain <- lapply(seq(0,result_count,100),function(i){
     search_datasets('parkinsons',limit = 100,offset = i)
 }) %>% do.call(rbind,.)
 
 
-results_plain %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
+results_plain %>% 
+    select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
 ```
 
 These two queries return similar but not-identical results.
@@ -80,7 +85,9 @@ results_plain %>% nrow
 results %>% nrow
 
 # annotation term query is a subset of plain text query
-length(intersect(results_plain$experiment.ShortName ,results$experiment.ShortName))
+length(intersect(
+    results_plain$experiment.ShortName,
+    results$experiment.ShortName))
 ```
 
 We will be using the results from the annotation term search in the rest
@@ -127,12 +134,17 @@ records the control group of the differential expression analysis and
 records the test case
 
 ```{r}
-experiment_contrasts <- human_results$experiment.ShortName %>% lapply(function(x){
-    out = get_dataset_differential_expression_analyses(x)
-}) %>% do.call(rbind,.)
+experiment_contrasts <- human_results$experiment.ShortName %>% 
+    lapply(function(x){
+        out = get_dataset_differential_expression_analyses(x)
+        }) %>% do.call(rbind,.)
 
 experiment_contrasts %>%
-    select(experiment.ID,result.ID, baseline.factorValue,baseline.factorValueURI,experimental.factorValue,experimental.factorValueURI) %>% head
+    select(experiment.ID,result.ID,
+           baseline.factorValue,
+           baseline.factorValueURI,
+           experimental.factorValue,
+           experimental.factorValueURI) %>% head
 ```
 
 The factor we are interested in is Parkinson's Disease in
@@ -141,10 +153,16 @@ The factor we are interested in is Parkinson's Disease in
 `experimental.factorValueURI`.
 
 ```{r}
-parkin_contrasts <- experiment_contrasts %>% filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/DOID_14330")
+parkin_contrasts <- experiment_contrasts %>% 
+    filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/DOID_14330")
 
 parkin_contrasts %>%
-    select(experiment.ID,result.ID, baseline.factorValue,baseline.factorValueURI,experimental.factorValue,experimental.factorValueURI) %>% 
+    select(experiment.ID,
+           result.ID,
+           baseline.factorValue,
+           baseline.factorValueURI,
+           experimental.factorValue,
+           experimental.factorValueURI) %>% 
     head()
 ```
 
@@ -155,9 +173,9 @@ experiment name/ids or more specifically using the result.IDs
 
 ```{r}
 differentials <- parkin_contrasts$result.ID %>% lapply(function(x){
-    # take the first and only element of the output. the function returns a list because single
-    # experiments may have multiple resultSets. Here we use the resultSet argument to directly access
-    # the results we need
+    # take the first and only element of the output. the function returns a list 
+    # because single experiments may have multiple resultSets. Here we use the 
+    # resultSet argument to directly access the results we need
     get_differential_expression_values(resultSet = x)[[1]]
 })
 
@@ -195,7 +213,9 @@ condition_diffs <- seq_along(differentials) %>% lapply(function(i){
 
 # we can use result.IDs and contrast.IDs to uniquely name this. 
 # we add the experiment.id for readability
-names(condition_diffs) = paste0(parkin_contrasts$experiment.ID,'.',parkin_contrasts$result.ID,'.',parkin_contrasts$contrast.id)
+names(condition_diffs) = paste0(parkin_contrasts$experiment.ID,'.',
+                                parkin_contrasts$result.ID,'.',
+                                parkin_contrasts$contrast.id)
 
 condition_diffs[[1]] %>% head
 ```
@@ -229,7 +249,8 @@ Now we can run the test on every gene, followed by a multiple testing correction
 ```{r, fisher}
 fisher_results <- all_genes %>% lapply(function(x){
     p_vals <- condition_diffs %>% sapply(function(y){
-        # we will resolve multiple probesets by taking the minimum p value for this example
+        # we will resolve multiple probesets by taking the minimum p value for
+        # this example
         out = y[y$genes == x,]$p_vals
         if(length(out) == 0 ||all(is.na(out))){
             return(NA)
@@ -257,9 +278,13 @@ fisher_results <- all_genes %>% lapply(function(x){
 fisher_results <- as.data.frame(fisher_results)
 rownames(fisher_results) = all_genes
 
-fisher_results[,'Adjusted'] = p.adjust(fisher_results[,'Combined'],method = 'fdr')
+fisher_results[,'Adjusted'] <- p.adjust(fisher_results[,'Combined'],
+                                        method = 'fdr')
 
-fisher_results %>% arrange(Adjusted) %>% select(Combined,Adjusted,`Median FC`) %>% head
+fisher_results %>%
+    arrange(Adjusted) %>% 
+    select(Combined,Adjusted,`Median FC`) %>% 
+    head
 ```
 We end up with quite a few differentially expressed genes
 
