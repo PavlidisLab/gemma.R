@@ -91,17 +91,26 @@
 
       
 
-      </header><script src="gemma.R_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Accessing curated gene expression data with gemma.R</h1>
-                        <h4 data-toc-skip class="author">Javier Castillo-Arnemann</h4>
+      <h1 data-toc-skip>Accessing curated gene expression data with
+gemma.R</h1>
+                        <h4 data-toc-skip class="author">Javier
+Castillo-Arnemann</h4>
             <address class="author_afil">
-      Michael Smith Laboratories, University of British Columbia, Vancouver, Canada<br><h4 data-toc-skip class="author">Jordan Sicherman</h4>
+      Michael Smith Laboratories, University of British Columbia,
+Vancouver,
+Canada<br><h4 data-toc-skip class="author">Jordan
+Sicherman</h4>
             <address class="author_afil">
-      Michael Smith Laboratories, University of British Columbia, Vancouver, Canada<br><h4 data-toc-skip class="author">B. Ogan Mancarci</h4>
+      Michael Smith Laboratories, University of British Columbia,
+Vancouver,
+Canada<br><h4 data-toc-skip class="author">B.
+Ogan Mancarci</h4>
             <address class="author_afil">
-      Michael Smith Laboratories, University of British Columbia, Vancouver, Canada<br><small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/vignettes/gemma.R.Rmd" class="external-link"><code>vignettes/gemma.R.Rmd</code></a></small>
+      Michael Smith Laboratories, University of British Columbia,
+Vancouver, Canada<br><small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/vignettes/gemma.R.Rmd" class="external-link"><code>vignettes/gemma.R.Rmd</code></a></small>
       <div class="hidden name"><code>gemma.R.Rmd</code></div>
 
     </address>
@@ -122,8 +131,16 @@
 <div class="section level2">
 <h2 id="about-gemma">About Gemma<a class="anchor" aria-label="anchor" href="#about-gemma"></a>
 </h2>
-<p><a href="https://gemma.msl.ubc.ca/" class="external-link">Gemma</a> is a web site, database and a set of tools for the meta-analysis, re-use and sharing of genomics data, currently primarily targeted at the analysis of gene expression profiles. Gemma contains data from thousands of public studies, referencing thousands of published papers. Every dataset in Gemma has passed a rigorous curation process that re-annotates the expression platform at the sequence level, which allows for more consistent cross-platform comparisons and meta-analyses.</p>
-<p>For detailed information on the curation process, read this <a href="https://pavlidislab.github.io/Gemma/curation.html" class="external-link">page</a> or the latest <a href="https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045" class="external-link">publication</a>.</p>
+<p><a href="https://gemma.msl.ubc.ca/" class="external-link">Gemma</a> is a web site, database
+and a set of tools for the meta-analysis, re-use and sharing of genomics
+data, currently primarily targeted at the analysis of gene expression
+profiles. Gemma contains data from thousands of public studies,
+referencing thousands of published papers. Every dataset in Gemma has
+passed a rigorous curation process that re-annotates the expression
+platform at the sequence level, which allows for more consistent
+cross-platform comparisons and meta-analyses.</p>
+<p>For detailed information on the curation process, read this <a href="https://pavlidislab.github.io/Gemma/curation.html" class="external-link">page</a> or the
+latest <a href="https://academic.oup.com/database/article/doi/10.1093/database/baab006/6143045" class="external-link">publication</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="package-cheat-sheet">Package cheat sheet<a class="anchor" aria-label="anchor" href="#package-cheat-sheet"></a>
@@ -136,7 +153,8 @@
 <div class="section level3">
 <h3 id="bioconductor">Bioconductor<a class="anchor" aria-label="anchor" href="#bioconductor"></a>
 </h3>
-<p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> with the following code:</p>
+<p>You can install <code>gemma.R</code> through <a href="http://bioconductor.org/" class="external-link">Bioconductor</a> with the following
+code:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
@@ -148,8 +166,13 @@
 <div class="section level2">
 <h2 id="searching-for-datasets-of-interest-in-gemma">Searching for datasets of interest in Gemma<a class="anchor" aria-label="anchor" href="#searching-for-datasets-of-interest-in-gemma"></a>
 </h2>
-<p>The package includes various functions to search for datasets fitting desired criteria.</p>
-<p>All datasets belonging to a taxon of interest can be accessed by using <a href="https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html" class="external-link"><code>get_taxon_datasets</code></a> while the function <a href="https://pavlidislab.github.io/gemma.R/reference/search_datasets.html" class="external-link"><code>search_datasets</code></a> can be used to further limit the results by a specified query containing key words, experiment names or ontology term URIs</p>
+<p>The package includes various functions to search for datasets fitting
+desired criteria.</p>
+<p>All datasets belonging to a taxon of interest can be accessed by
+using <a href="https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html" class="external-link"><code>get_taxon_datasets</code></a>
+while the function <a href="https://pavlidislab.github.io/gemma.R/reference/search_datasets.html" class="external-link"><code>search_datasets</code></a>
+can be used to further limit the results by a specified query containing
+key words, experiment names or ontology term URIs</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># all human datasets </span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
@@ -223,14 +246,20 @@
 4:      human
 5:      human
 6:      human</code></pre>
-<p>Note that a single call of these functions will only return 20 results by default and a 100 results maximum, controlled by the <code>limit</code> argument. In order to get all available results, <code>offset</code> argument should be used to make multiple calls.</p>
-<p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
+<p>Note that a single call of these functions will only return 20
+results by default and a 100 results maximum, controlled by the
+<code>limit</code> argument. In order to get all available results,
+<code>offset</code> argument should be used to make multiple calls.</p>
+<p>To see how many available results are there, you can look at the
+attributes of the output objects where additional information from the
+API response is appended.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a quick call with a limit of 1 to get the result count</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 5904</code></pre>
-<p>Since the maximum limit is 100 getting all results available will require multiple calls.</p>
+<p>Since the maximum limit is 100 getting all results available will
+require multiple calls.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="va">all_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="va">count</span>, <span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
@@ -259,8 +288,17 @@
 4:      human
 5:      human
 6:      human</code></pre>
-<p>See <a href="#larger-queries">larger queries</a> section for more details. To keep this vignette simpler we will keep using the first 20 results returned by default in examples below.</p>
-<p>Information provided about the datasets by these functions include details about the quality and design of the study that can be used to judge if it is suitable for your use case. For instance <code>geeq.batchEffect</code> column will be set to -1 if Gemma’s preprocessing has detected batch effects that were unable to be resolved by batch correction and <code>experiment.SampleCount</code> will include the number of samples used in the experiment. More information about these and other fields can be found at the function documentation.</p>
+<p>See <a href="#larger-queries">larger queries</a> section for more
+details. To keep this vignette simpler we will keep using the first 20
+results returned by default in examples below.</p>
+<p>Information provided about the datasets by these functions include
+details about the quality and design of the study that can be used to
+judge if it is suitable for your use case. For instance
+<code>geeq.batchEffect</code> column will be set to -1 if Gemma’s
+preprocessing has detected batch effects that were unable to be resolved
+by batch correction and <code>experiment.SampleCount</code> will include
+the number of samples used in the experiment. More information about
+these and other fields can be found at the function documentation.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># get human datasets</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">geeq.batchEffect</span> <span class="op">!=</span><span class="op">-</span><span class="fl">1</span> <span class="op">&amp;</span> <span class="va">experiment.SampleCount</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># filter for datasets without batch effects and with a sample count more than 4</span></span>
@@ -286,7 +324,11 @@
 4:      human
 5:      human
 6:      human</code></pre>
-<p>Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of free text to search can lead to more specific results. <a href="https://pavlidislab.github.io/gemma.R/reference/search_annotations.html" class="external-link"><code>search_annotations</code></a> function allows searching for annotation terms that might be relevant to your query.</p>
+<p>Gemma uses multiple ontologies when annotating datasets and using the
+term URIs instead of free text to search can lead to more specific
+results. <a href="https://pavlidislab.github.io/gemma.R/reference/search_annotations.html" class="external-link"><code>search_annotations</code></a>
+function allows searching for annotation terms that might be relevant to
+your query.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="va">head</span></span></code></pre></div>
@@ -308,8 +350,12 @@
 <div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
 </h2>
-<p>Upon identifying datasets of interest, more information about specific ones can be requested. In this example we will be using GSE46416 which includes samples taken from healthy donors along with manic/euthymic phase bipolar disorder patients.</p>
-<p>The data associated with specific experiments can be accessed by using <a href="https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_ids.html" class="external-link"><code>get_datasets_by_ids</code></a></p>
+<p>Upon identifying datasets of interest, more information about
+specific ones can be requested. In this example we will be using
+GSE46416 which includes samples taken from healthy donors along with
+manic/euthymic phase bipolar disorder patients.</p>
+<p>The data associated with specific experiments can be accessed by
+using <a href="https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_ids.html" class="external-link"><code>get_datasets_by_ids</code></a></p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>, <span class="va">experiment.ID</span>, <span class="va">experiment.Description</span><span class="op">)</span></span></code></pre></div>
@@ -321,12 +367,23 @@
 1:          8997
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        experiment.Description
 1: Gene expression profiles of bipolar disorder (BD) patients were assessed during both a manic and a euthymic phase and compared both intra-individually, and with the gene expression profiles of controls.\nLast Updated (by provider): Sep 05 2014\nContributors:  Christian C Witt Benedikt Brors Dilafruz Juraeva Jens Treutlein Carsten Sticht Stephanie H Witt Jana Strohmaier Helene Dukal Josef Frank Franziska Degenhardt Markus M Nöthen Sven Cichon Maren Lang Marcella Rietschel Sandra Meier Manuel Mattheisen</code></pre>
-<p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object</code></a>. It is a high-level wrapper that combines various endpoint calls to return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a> or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a> that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a> long form tibble for downstream analyses. They include the expression matrix along with the experimental design, and ensure the sample names match between both when transforming/subsetting data.</p>
+<p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object</code></a>.
+It is a high-level wrapper that combines various endpoint calls to
+return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a>
+or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a>
+that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a>
+long form tibble for downstream analyses. They include the expression
+matrix along with the experimental design, and ensure the sample names
+match between both when transforming/subsetting data.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_object.html">get_dataset_object</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,</span>
 <span>                          type <span class="op">=</span> <span class="st">'se'</span><span class="op">)</span> <span class="co"># SummarizedExperiment is the default output type</span></span></code></pre></div>
-<p>Note that the tidy format is less memory efficient but allows easy visualization and exploration with <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> and the rest of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.</p>
-<p>To show how subsetting works, we’ll keep the “manic phase” data and the <code>reference_subject_role</code>s, which refers to the control samples in Gemma datasets.</p>
+<p>Note that the tidy format is less memory efficient but allows easy
+visualization and exploration with <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a> and the rest
+of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.</p>
+<p>To show how subsetting works, we’ll keep the “manic phase” data and
+the <code>reference_subject_role</code>s, which refers to the control
+samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -358,15 +415,22 @@ colData names(2): batch disease</code></pre>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/pheatmap/man/pheatmap.html" class="external-link">pheatmap</a></span><span class="op">(</span>col <span class="op">=</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,border_color <span class="op">=</span> <span class="cn">NA</span>,angle_col <span class="op">=</span> <span class="fl">45</span>,fontsize <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="gemma.R_files/figure-html/boxplot-1.png" alt="Sample to sample correlations of bipolar patients during manic phase and controls." width="700"><p class="caption">
-Sample to sample correlations of bipolar patients during manic phase and controls.
+Sample to sample correlations of bipolar patients during manic phase and
+controls.
 </p>
 </div>
-<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html" class="external-link"><code>get_dataset_expression</code></a> to only get the expression matrix, and <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html" class="external-link"><code>get_dataset_design</code></a> to get the experimental design matrix.</p>
+<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html" class="external-link"><code>get_dataset_expression</code></a>
+to only get the expression matrix, and <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html" class="external-link"><code>get_dataset_design</code></a>
+to get the experimental design matrix.</p>
 </div>
 <div class="section level2">
 <h2 id="platform-annotations">Platform Annotations<a class="anchor" aria-label="anchor" href="#platform-annotations"></a>
 </h2>
-<p>Expression data in Gemma comes with annotations for the gene each expression profile corresponds to. Using the <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations</code></a> function, these annotations can be retrieved independently of the expression data, along with additional annotations such as Gene Ontology terms.</p>
+<p>Expression data in Gemma comes with annotations for the gene each
+expression profile corresponds to. Using the <a href="https://pavlidislab.github.io/gemma.R/reference/get_platform_annotations.html" class="external-link"><code>get_platform_annotations</code></a>
+function, these annotations can be retrieved independently of the
+expression data, along with additional annotations such as Gene Ontology
+terms.</p>
 <p>Examples:</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -421,7 +485,10 @@ Sample to sample correlations of bipolar patients during manic phase and control
 4:   389635    139716
 5:  8090381 100287155
 6:   201914      9770</code></pre>
-<p>If you are interested in a particular gene, you can see which platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>. Note that functions to search gene work best with unambigious identifiers rather than symbols.</p>
+<p>If you are interested in a particular gene, you can see which
+platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>.
+Note that functions to search gene work best with unambigious
+identifiers rather than symbols.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># lists genes in gemma matching the symbol or identifier</span></span>
 <span><span class="fu"><a href="../reference/get_genes.html">get_genes</a></span><span class="op">(</span><span class="st">'Eno2'</span><span class="op">)</span></span></code></pre></div>
@@ -481,8 +548,18 @@ Sample to sample correlations of bipolar patients during manic phase and control
 <div class="section level2">
 <h2 id="differential-expression-analyses">Differential expression analyses<a class="anchor" aria-label="anchor" href="#differential-expression-analyses"></a>
 </h2>
-<p>Gemma contains precomputed differential expression analyses for most of its datasets. Analyses can involve more than one factor, such as “sex” as well as “disease”. Some datasets contain more than one analysis to account for different factors and their interactions. The results are stored as resultSets, each corresponding to one factor (or their interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values</code></a>. From here on, we can explore and visualize the data to find the most differentially-expressed genes</p>
-<p>Note that <code>get_differential_expression_values</code> can return multiple differentials per study if a study has multiple factors to contrast. Since GSE46416 only has one extracting the first element of the returned list is all we need.</p>
+<p>Gemma contains precomputed differential expression analyses for most
+of its datasets. Analyses can involve more than one factor, such as
+“sex” as well as “disease”. Some datasets contain more than one analysis
+to account for different factors and their interactions. The results are
+stored as resultSets, each corresponding to one factor (or their
+interaction). You can access them using <a href="https://pavlidislab.github.io/gemma.R/reference/get_differential_expression_values.html" class="external-link"><code>get_differential_expression_values</code></a>.
+From here on, we can explore and visualize the data to find the most
+differentially-expressed genes</p>
+<p>Note that <code>get_differential_expression_values</code> can return
+multiple differentials per study if a study has multiple factors to
+contrast. Since GSE46416 only has one extracting the first element of
+the returned list is all we need.</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dif_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
 <span><span class="op">(</span><span class="va">dif_exp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -546,8 +623,17 @@ Sample to sample correlations of bipolar patients during manic phase and control
 21959:               0.003721
 21960:               0.091960
 21961:               0.482700</code></pre>
-<p>By default the columns names of the output correspond to contrast IDs. To see what conditions these IDs correspond to we can either use <code>get_dataset_differential_expression_analyses</code> to get the metadata about differentials of a given dataset, or set<code>readableContrasts</code> argument of <code>get_differential_expression_values</code> to <code>TRUE</code>. The former approach is usually better for a large scale systematic analysis while the latter is easier to read in an interactive session.</p>
-<p><code>get_dataset_differential_expression_analyses</code> function returns structured metadata about the differentials.</p>
+<p>By default the columns names of the output correspond to contrast
+IDs. To see what conditions these IDs correspond to we can either use
+<code>get_dataset_differential_expression_analyses</code> to get the
+metadata about differentials of a given dataset, or
+set<code>readableContrasts</code> argument of
+<code>get_differential_expression_values</code> to <code>TRUE</code>.
+The former approach is usually better for a large scale systematic
+analysis while the latter is easier to read in an interactive
+session.</p>
+<p><code>get_dataset_differential_expression_analyses</code> function
+returns structured metadata about the differentials.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   result.ID contrast.id experiment.ID baseline.category
@@ -571,7 +657,11 @@ Sample to sample correlations of bipolar patients during manic phase and control
    subsetFactor.measurement subsetFactor.type probes.Analyzed genes.Analyzed
 1:                       NA                NA           21961          18959
 2:                       NA                NA           21961          18959</code></pre>
-<p><code>contrast.id</code> column corresponds to the column names in the output of <code>get_differential_expression_values</code> while <code>result.ID</code> corresponds to the name of the differential in the output object. Using them together will let one to access differentially expressed gene counts for each condition contrast</p>
+<p><code>contrast.id</code> column corresponds to the column names in
+the output of <code>get_differential_expression_values</code> while
+<code>result.ID</code> corresponds to the name of the differential in
+the output object. Using them together will let one to access
+differentially expressed gene counts for each condition contrast</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># using result.ID and contrast.ID of the output above, we can access specific</span></span>
 <span><span class="co"># results. Note that one study may have multiple contrast objects</span></span>
@@ -594,7 +684,8 @@ Sample to sample correlations of bipolar patients during manic phase and control
   n_diff
 1      3
 2   1389</code></pre>
-<p>Alternatively we, since we are only looking at one dataset and one contrast manually, we can simply use <code>readableContrasts</code>.</p>
+<p>Alternatively we, since we are only looking at one dataset and one
+contrast manually, we can simply use <code>readableContrasts</code>.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,readableContrasts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <pre><code>         Probe    NCBIid GeneSymbol
@@ -782,20 +873,28 @@ Sample to sample correlations of bipolar patients during manic phase and control
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="gemma.R_files/figure-html/diffExpr-1.png" alt="Differentially-expressed genes in bipolar patients during manic phase versus controls." width="700"><p class="caption">
-Differentially-expressed genes in bipolar patients during manic phase versus controls.
+Differentially-expressed genes in bipolar patients during manic phase
+versus controls.
 </p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="larger-queries">Larger queries<a class="anchor" aria-label="anchor" href="#larger-queries"></a>
 </h2>
-<p>To query large amounts of data, the API has a pagination system which uses the <code>limit</code> and <code>offset</code> parameters. To avoid overloading the server, calls are limited to a maximum of 100 entries, so the offset allows you to get the next batch of entries in the next call(s).</p>
-<p>To see how many available results are there, you can look at the attributes of the output objects where additional information from the API response is appended.</p>
+<p>To query large amounts of data, the API has a pagination system which
+uses the <code>limit</code> and <code>offset</code> parameters. To avoid
+overloading the server, calls are limited to a maximum of 100 entries,
+so the offset allows you to get the next batch of entries in the next
+call(s).</p>
+<p>To see how many available results are there, you can look at the
+attributes of the output objects where additional information from the
+API response is appended.</p>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 681</code></pre>
-<p>After which you can use <code>offset</code> to access all available platforms.</p>
+<p>After which you can use <code>offset</code> to access all available
+platforms.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -817,7 +916,8 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error: Please specify one valid identifier for dataset.</code></pre>
-<p>In these cases, you will have to loop over all the identifiers you wish to query and send separate requests.</p>
+<p>In these cases, you will have to loop over all the identifiers you
+wish to query and send separate requests.</p>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -842,7 +942,11 @@ Differentially-expressed genes in bipolar patients during manic phase versus con
 <div class="section level3">
 <h3 id="raw-data">Raw data<a class="anchor" aria-label="anchor" href="#raw-data"></a>
 </h3>
-<p>By default, Gemma API does some parsing on the raw API results to make it easier to work with inside of R. In the process, it drops some typically unused values. If you wish to fetch everything, use <code>raw = TRUE</code>. Instead of a data table, you’ll usually be served a list that represents the underlying JSON response.</p>
+<p>By default, Gemma API does some parsing on the raw API results to
+make it easier to work with inside of R. In the process, it drops some
+typically unused values. If you wish to fetch everything, use
+<code>raw = TRUE</code>. Instead of a data table, you’ll usually be
+served a list that represents the underlying JSON response.</p>
 <div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   chromosome strand nucleotide length taxon.Name  taxon.Scientific taxon.ID
@@ -1194,30 +1298,51 @@ attr(,"call")
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
 </h3>
-<p>Sometimes, you may wish to save results to a file for future inspection. You can do this simply by providing a filename to the <code>file</code> parameter. The extension for this file will be one of three options:</p>
+<p>Sometimes, you may wish to save results to a file for future
+inspection. You can do this simply by providing a filename to the
+<code>file</code> parameter. The extension for this file will be one of
+three options:</p>
 <ol style="list-style-type: decimal">
 <li>
-<code>.json</code>, if you requested results with <code>raw=TRUE</code>
+<code>.json</code>, if you requested results with
+<code>raw=TRUE</code>
 </li>
 <li>
 <code>.csv</code> if the results have no nested data tables</li>
 <li>
 <code>.rds</code> otherwise</li>
 </ol>
-<p>You can also specify whether or not the new fetched results are allowed to overwrite an existing file by specifying the <code>overwrite = TRUE</code> parameter.</p>
+<p>You can also specify whether or not the new fetched results are
+allowed to overwrite an existing file by specifying the
+<code>overwrite = TRUE</code> parameter.</p>
 </div>
 <div class="section level3">
 <h3 id="memoise-data">Memoise data<a class="anchor" aria-label="anchor" href="#memoise-data"></a>
 </h3>
-<p>To speed up results, you can remember past results so future queries can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a> package. To enable memoisation, simply set <code>memoised = TRUE</code> in the function call whenever you want to refer to the cache, both to save data for future calls and use the saved data for repeated calls.</p>
+<p>To speed up results, you can remember past results so future queries
+can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a>
+package. To enable memoisation, simply set <code>memoised = TRUE</code>
+in the function call whenever you want to refer to the cache, both to
+save data for future calls and use the saved data for repeated
+calls.</p>
 <p>By default this will create a cache in your local filesystem.</p>
-<p>You can see the path to your cache by using <code>rappdirs::user_cache_dir(appname = "gemmaR")</code>. If you want to use a different directory, use <code>options(gemma.cache = 'path')</code>.</p>
-<p>If you’re done with your fetching and want to ensure no space is being used for cached results, or if you just want to ensure you’re getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html" class="external-link"><code>forget_gemma_memoised</code></a>.</p>
+<p>You can see the path to your cache by using
+<code>rappdirs::user_cache_dir(appname = "gemmaR")</code>. If you want
+to use a different directory, use
+<code>options(gemma.cache = 'path')</code>.</p>
+<p>If you’re done with your fetching and want to ensure no space is
+being used for cached results, or if you just want to ensure you’re
+getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html" class="external-link"><code>forget_gemma_memoised</code></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="changing-defaults">Changing defaults<a class="anchor" aria-label="anchor" href="#changing-defaults"></a>
 </h3>
-<p>We’ve seen how to change <code>raw = TRUE</code>, <code>overwrite = TRUE</code> and <code>memoised = TRUE</code> in individual function calls. It’s possible that you want to always use the functions these ways without specifying the option every time. You can do this by simply changing the default, which is visible in the function definition. See below for examples.</p>
+<p>We’ve seen how to change <code>raw = TRUE</code>,
+<code>overwrite = TRUE</code> and <code>memoised = TRUE</code> in
+individual function calls. It’s possible that you want to always use the
+functions these ways without specifying the option every time. You can
+do this by simply changing the default, which is visible in the function
+definition. See below for examples.</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always refer to cache</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always overwrite when saving files</span></span>
@@ -1230,15 +1355,18 @@ attr(,"call")
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.2.2 (2022-10-31)
-Platform: x86_64-apple-darwin17.0 (64-bit)
-Running under: macOS Big Sur ... 10.16
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 22.04.1 LTS
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.2/Resources/lib/libRlapack.dylib
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 attached base packages:
 [1] stats4    stats     graphics  grDevices utils     datasets  methods  
