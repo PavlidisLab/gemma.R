@@ -37,12 +37,13 @@ library(ggplot2)
 ```
 
 Gemma.R contains a large number of datasets representing a wide array of
-conditions. It is therefore a useful tool for running meta-analysis
-based on publicly available datasets.
+conditions. Therefore it is a useful tool for running meta-analysis on publicly
+available datasets.
 
-In this example we will search Gemma for datasets comparing healthy
-controls and patients with Parkinson's disease, and run a meta-analysis
-to discover genes consistently found to be related to the disease.
+In this example we search Gemma for datasets comparing healthy
+controls and patients with Parkinson's Disease, and run a meta-analysis
+to discover genes consistently found to be differentially expressed in Parkinson's
+Disease patients
 
 # Querying datasets of interest
 
@@ -102,10 +103,10 @@ the disease if it is included in the study description.
 While we know that all the resulting datasets were annotated for the
 term for Parkinson's Disease, we currently do not know how many of them
 are comparisons of healthy controls and patients with Parkinson's
-disease. Looking at the sample above, quite a few of them aren't from
+Disease. Looking at the sample above, quite a few of them aren't from
 humans in the first place. To find the datasets that are suitable for
 our purposes we need to first remove all non-human datasets, then ensure
-comparison performed is on Parkinson's disease patients and controls
+comparison performed is on Parkinson's Disease patients and controls
 
 ```{r}
 # isolate human datasets
@@ -131,9 +132,9 @@ compare control and Parkinson's Disease patients. This information is
 available via `get_dataset_differential_expression_analyses` which
 returns the experimental groups for differential expression analyses
 performed for the dataset. The columns we are primarily interested in
-are `baseline.factorValue`/`baseline.factorValueURI` which typically
+are `baseline.factorValue`, `baseline.factorValueURI` which typically
 records the control group of the differential expression analysis and
-`experimental.factorValue`/`experimental.factorValueURI` which typically
+`experimental.factorValue`, `experimental.factorValueURI` which typically
 records the test case
 
 ```{r}
@@ -297,7 +298,7 @@ nrow(fisher_results) # number of all genes
 ```
 
 A quick sanity check would be to look at markers of dopaminergic cell types and how they rank compared to other genes.
-Parkinson's disease is a neurodegenerative disorder, leading to death of dopaminergic cells. We should expect them to show up in our
+Parkinson's Disease is a neurodegenerative disorder, leading to death of dopaminergic cells. We should expect them to show up in our
 results.
 
 ```{r}
