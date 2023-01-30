@@ -1,0 +1,295 @@
+---
+title: "A meta analysis on effects of Parkinson's Disease using Gemma.R"
+author:
+- name: B. Ogan Mancarci
+  affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
+package: gemma.R
+output:
+    BiocStyle::html_document
+header-includes:
+vignette: >
+    %\VignetteIndexEntry{A meta analysis on effects of Parkinson's Disease using Gemma.R}
+    %\VignetteEncoding{UTF-8}
+    %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include = FALSE}
+# Prevent certificate issues for GitHub actions
+options(gemma.SSL = FALSE,gemma.memoised = TRUE)
+# options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
+knitr::opts_chunk$set(
+    comment = ""
+)
+```
+
+```{r setup, message = FALSE}
+library(gemma.R)
+library(dplyr)
+library(poolr)
+library(magrittr)
+library(ggplot2)
+```
+
+Gemma.R contains a large number of datasets representing a wide array of
+conditions. It is therefore a useful tool for running meta-analysis
+based on publicly available datasets.
+
+In this example we will search Gemma for datasets comparing healthy
+controls and patients with Parkinson's disease, and run a meta-analysis
+to discover genes consistently found to be related to the disease.
+
+# Querying datasets of interest
+
+`search_datasets` function can be used to find datasets of interest,
+either using ontology terms like
+"<http://purl.obolibrary.org/obo/DOID_14330>" or plain text.
+
+```{r}
+# getting all resulting datasets using limit and offset arguments
+result_count <- attributes(search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 1))$totalElements
+
+results <- lapply(seq(0,result_count,100),function(i){
+    search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 100,offset = i)
+}) %>% do.call(rbind,.)
+
+results %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
+```
+
+A similar search is also possible using plain text
+
+```{r}
+result_count <- attributes(search_datasets('parkinsons',limit = 1))$totalElements
+
+results_plain <- lapply(seq(0,result_count,100),function(i){
+    search_datasets('parkinsons',limit = 100,offset = i)
+}) %>% do.call(rbind,.)
+
+
+results_plain %>% select(experiment.ShortName,experiment.Name,taxon.Name) %>% head
+```
+
+These two queries return similar but not-identical results.
+
+```{r}
+# plain text returns more results than the annotation term
+results_plain %>% nrow
+
+results %>% nrow
+
+# annotation term query is a subset of plain text query
+length(intersect(results_plain$experiment.ShortName ,results$experiment.ShortName))
+```
+
+We will be using the results from the annotation term search in the rest
+of this analysis since plain text search will match with any mention of
+the disease if it is included in the study description.
+
+# Filtering the datasets for suitability
+
+While we know that all the resulting datasets were annotated for the
+term for Parkinson's Disease, we currently do not know how many of them
+are comparisons of healthy controls and patients with Parkinson's
+disease. Looking at the sample above, quite a few of them aren't from
+humans in the first place. To find the datasets that are suitable for
+our purposes we need to first remove all non-human datasets, then ensure
+comparison performed is on Parkinson's disease patients and controls
+
+```{r}
+# isolate human datasets
+human_results <- results %>% filter(taxon.Name == 'human')
+
+nrow(human_results)
+```
+
+Next step is to ensure the datasets we are selecting are not affected by
+batch confounds. Gemma internally handles batch correction if batch
+information is available for the dataset. We will be looking at
+`geeq.batchEffect` column. As explained in the `search_datasets`
+documentation, this column will be set to -1 for datasets where batch
+confound is detected, 0 for datasets without available batch information
+and to 1 if the data is clear of batch confounds.
+
+```{r}
+human_results <- human_results %>% filter(geeq.batchEffect == 1)
+```
+
+We now want to ensure that the differential expressions we analyze
+compare control and Parkinson's Disease patients. This information is
+available via `get_dataset_differential_expression_analyses` which
+returns the experimental groups for differential expression analyses
+performed for the dataset. The columns we are primarily interested in
+are `baseline.factorValue`/`baseline.factorValueURI` which typically
+records the control group of the differential expression analysis and
+`experimental.factorValue`/`experimental.factorValueURI` which typically
+records the test case
+
+```{r}
+experiment_contrasts <- human_results$experiment.ShortName %>% lapply(function(x){
+    out = get_dataset_differential_expression_analyses(x)
+}) %>% do.call(rbind,.)
+
+experiment_contrasts %>%
+    select(experiment.ID,result.ID, baseline.factorValue,baseline.factorValueURI,experimental.factorValue,experimental.factorValueURI) %>% head
+```
+
+The factor we are interested in is Parkinson's Disease in
+`experimental.factorValue` or
+"<http://purl.obolibrary.org/obo/DOID_14330>" in
+`experimental.factorValueURI`.
+
+```{r}
+parkin_contrasts <- experiment_contrasts %>% filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/DOID_14330")
+
+parkin_contrasts %>%
+    select(experiment.ID,result.ID, baseline.factorValue,baseline.factorValueURI,experimental.factorValue,experimental.factorValueURI) %>% 
+    head()
+```
+
+Now that we have our relevant contrasts, we can download them using
+`get_differential_expression_values`. This function can be used download
+differential expression fold change and p values, either using the
+experiment name/ids or more specifically using the result.IDs
+
+```{r}
+differentials <- parkin_contrasts$result.ID %>% lapply(function(x){
+    # take the first and only element of the output. the function returns a list because single
+    # experiments may have multiple resultSets. Here we use the resultSet argument to directly access
+    # the results we need
+    get_differential_expression_values(resultSet = x)[[1]]
+})
+
+
+
+# some datasets might not have all the advertised differential expression results
+# calculated due to a variety of factors. here we remove the empty differentials
+
+missing_contrasts <- differentials %>% sapply(nrow) %>% {.==0}
+differentials <- differentials[!missing_contrasts]
+parkin_contrasts <- parkin_contrasts[!missing_contrasts,]
+
+```
+
+# Getting the p-values for the condition comparison
+
+`differentials` is now a list of data frames containing the differential
+expression information. To run a meta-analysis, we need to p values for
+the genes from the relevant contrasts.
+
+```{r}
+
+condition_diffs <- seq_along(differentials) %>% lapply(function(i){
+    # iterate over the differentials
+    diff = differentials[[i]]
+    # get the contrast information about the differential
+    contrast = parkin_contrasts[i,]
+    p_vals = diff[[paste0('contrast_',contrast$contrast.id,"_pvalue")]]
+    log2fc = diff[[paste0('contrast_',contrast$contrast.id,"_log2fc")]]
+    genes = diff$GeneSymbol
+    
+    
+    data.frame(genes,p_vals,log2fc)
+})
+
+# we can use result.IDs and contrast.IDs to uniquely name this. 
+# we add the experiment.id for readability
+names(condition_diffs) = paste0(parkin_contrasts$experiment.ID,'.',parkin_contrasts$result.ID,'.',parkin_contrasts$contrast.id)
+
+condition_diffs[[1]] %>% head
+```
+
+# Combining the acquired p values
+
+We will now apply Fisher's method to combine p values to find our genes
+of interest
+
+First step is to identify which genes are available in our results
+
+```{r}
+all_genes <- condition_diffs %>% lapply(function(x){
+    x$genes %>% unique
+}) %>% unlist %>% table
+
+# we will remove any gene that doesn't appear in at least half the results
+all_genes <- all_genes[all_genes>(length(condition_diffs)/2)]
+all_genes <- names(all_genes)
+
+# remove any probesets matching multiple genes. gemma separates these by using "|"
+all_genes <- all_genes[!grepl("|",all_genes,fixed = TRUE)]
+
+# remove the "". This comes from probesets not aligned to any genes
+all_genes <- all_genes[all_genes != ""]
+all_genes %>% head
+```
+
+Now we can run the test on every gene, followed by a multiple testing correction.
+
+```{r, fisher}
+fisher_results <- all_genes %>% lapply(function(x){
+    p_vals <- condition_diffs %>% sapply(function(y){
+        # we will resolve multiple probesets by taking the minimum p value for this example
+        out = y[y$genes == x,]$p_vals
+        if(length(out) == 0 ||all(is.na(out))){
+            return(NA)
+        } else{
+            return(min(out))
+        }
+    })
+    
+    fold_changes <- condition_diffs %>% sapply(function(y){
+        pv = y[y$genes == x,]$p_vals
+        if(length(pv) == 0 ||all(is.na(pv))){
+            return(NA)
+        } else{
+            return(y[y$genes == x,]$log2fc[which.min(pv)])
+        }
+    })
+    
+    median_fc = fold_changes %>% na.omit() %>% median
+    names(median_fc) = 'Median FC'
+    
+    combined = p_vals %>% na.omit() %>% fisher() %$% p
+    names(combined) = 'Combined'
+    c(p_vals,combined,median_fc)
+}) %>% do.call(rbind,.)
+fisher_results <- as.data.frame(fisher_results)
+rownames(fisher_results) = all_genes
+
+fisher_results[,'Adjusted'] = p.adjust(fisher_results[,'Combined'],method = 'fdr')
+
+fisher_results %>% arrange(Adjusted) %>% select(Combined,Adjusted,`Median FC`) %>% head
+```
+We end up with quite a few differentially expressed genes
+
+```{r}
+sum(fisher_results$Adjusted<0.05) # FDR<0.05
+nrow(fisher_results) # number of all genes
+```
+
+A quick sanity check would be to look at markers of dopaminergic cell types and how they rank compared to other genes.
+Parkinson's disease is a neurodegenerative disorder, leading to death of dopaminergic cells. We should expect them to show up in our
+results.
+
+```{r}
+# markers are taken from https://www.eneuro.org/content/4/6/ENEURO.0212-17.2017
+dopa_markers <-  c("ADCYAP1", "ATP2B2", "CACNA2D2", 
+"CADPS2", "CALB2", "CD200", "CDK5R2", "CELF4", "CHGA", "CHGB", 
+"CHRNA6", "CLSTN2", "CNTNAP2", "CPLX1", "CYB561", "DLK1", "DPP6", 
+"ELAVL2", "ENO2", "GABRG2", "GRB10", "GRIA3", "KCNAB2", "KLHL1", 
+"LIN7B", "MAPK8IP2", "NAPB", "NR4A2", "NRIP3", "HMP19", "NTNG1", 
+"PCBP3", "PCSK1", "PRKCG", "RESP18", "RET", "RGS8", "RNF157", 
+"SCG2", "SCN1A", "SLC12A5", "SLC4A10", "SLC6A17", "SLC6A3", "SMS", 
+"SNCG", "SPINT2", "SPOCK1", "SYP", "SYT4", "TACR3", "TENM1", 
+"TH", "USP29")
+
+fisher_results %>% 
+    arrange(Combined) %>% 
+    rownames %>%
+    {.%in% dopa_markers} %>%
+    which %>% 
+    hist(main = 'Rank distribution of dopaminergic markers')
+```
+
+We can see that the dopaminergic markers tend to have high ranks in our results.
