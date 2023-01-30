@@ -136,28 +136,14 @@ text.</p>
 <span>                    limit <span class="op">=</span> <span class="fl">100</span>,offset <span class="op">=</span> <span class="va">i</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>,<span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
-<pre><code>   experiment.ShortName
-1:              GSE1837
-2:                GSE30
-3:              GSE4788
-4:              GSE1157
-5:              GSE6613
-6:              GSE7621
-                                                                                                         experiment.Name
-1:                                           Comparison of  SNc and VTA dopaminergic neurons. Greene-5P50NS038399-050001
-2:                     Multiplex three dimensional brain gene expression mapping in a mouse model of Parkinson's disease
-3: Dysregulation of Gene Expression in the 1-Methyl-4-Phenyl-1,2,3,6-Tetrahydropyridine-Lesioined Mouse Substantia Nigra
-4:                                                                                           NINDS Rat Neuron Parkinsons
-5:                                                                         Parkinson's disease vs. controls, whole blood
-6:                  Expression data of substantia nigra from postmortem human brain of Parkinson's disease patients (PD)
-   taxon.Name
-1:        rat
-2:      mouse
-3:      mouse
-4:        rat
-5:      human
-6:      human</code></pre>
+<span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName taxon.Name
+1:              GSE1837        rat
+2:                GSE30      mouse
+3:              GSE4788      mouse
+4:              GSE1157        rat
+5:              GSE6613      human
+6:              GSE7621      human</code></pre>
 <p>A similar search is also possible using plain text</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'parkinsons'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -170,28 +156,14 @@ text.</p>
 <span></span>
 <span></span>
 <span><span class="va">results_plain</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>,<span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
-<pre><code>   experiment.ShortName
-1:              GSE1837
-2:                GSE30
-3:              GSE4788
-4:              GSE1157
-5:              GSE6613
-6:              GSE7621
-                                                                                                         experiment.Name
-1:                                           Comparison of  SNc and VTA dopaminergic neurons. Greene-5P50NS038399-050001
-2:                     Multiplex three dimensional brain gene expression mapping in a mouse model of Parkinson's disease
-3: Dysregulation of Gene Expression in the 1-Methyl-4-Phenyl-1,2,3,6-Tetrahydropyridine-Lesioined Mouse Substantia Nigra
-4:                                                                                           NINDS Rat Neuron Parkinsons
-5:                                                                         Parkinson's disease vs. controls, whole blood
-6:                  Expression data of substantia nigra from postmortem human brain of Parkinson's disease patients (PD)
-   taxon.Name
-1:        rat
-2:      mouse
-3:      mouse
-4:        rat
-5:      human
-6:      human</code></pre>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
+<pre><code>   experiment.ShortName taxon.Name
+1:              GSE1837        rat
+2:                GSE30      mouse
+3:              GSE4788      mouse
+4:              GSE1157        rat
+5:              GSE6613      human
+6:              GSE7621      human</code></pre>
 <p>These two queries return similar but not-identical results.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plain text returns more results than the annotation term</span></span>
