@@ -56,7 +56,8 @@ Suggests:
     magick,
     purrr,
     pheatmap,
-    viridis
+    viridis,
+    poolr
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
