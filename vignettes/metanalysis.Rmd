@@ -32,90 +32,56 @@ knitr::opts_chunk$set(
 library(gemma.R)
 library(dplyr)
 library(poolr)
-library(magrittr)
 library(ggplot2)
+library(stringr)
 ```
 
 Gemma.R contains a large number of datasets representing a wide array of
-conditions. Therefore it is a useful tool for running meta-analysis on publicly
-available datasets.
+conditions. These datasets are manually annotated by our curators to facilitate
+discovery and categorization making it a useful tool for meta-analysis.
 
 In this example we search Gemma for datasets comparing healthy
-controls and patients with Parkinson's Disease, and run a meta-analysis
-to discover genes consistently found to be differentially expressed in Parkinson's
-Disease patients
+controls and patients with Parkinson's Disease. Our curators use ontology terms
+to annotate datasets when possible. This allows us to use the Disease Ontology term
+"DOID:14330" to search for datasets and samplesa annotated with the term to make sure
+we are accessing datasets relevant for our purposes with minimal effort.
+
 
 # Querying datasets of interest
 
 `search_datasets` function can be used to find datasets of interest,
-either using ontology terms like
-"<http://purl.obolibrary.org/obo/DOID_14330>" or plain text.
+either using ontology terms or plain text. Since Parkinson's Disease has a unambigious
+ontology term in the Disease Ontology, we will be using it to avoid acquiring
+datasets that tangentially mention the disease in their descriptions. Here we also
+limit our results to only include human samples since we are not interested in 
+models from other species.
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
-result <- search_datasets('http://purl.obolibrary.org/obo/DOID_14330',limit = 1)
+result <- search_datasets('http://purl.obolibrary.org/obo/DOID_14330', 
+                          taxon = 'human',
+                          limit = 1)
 result_count <- attributes(result)$totalElements
 
 results <- lapply(seq(0,result_count,100),function(i){
     search_datasets('http://purl.obolibrary.org/obo/DOID_14330',
-                    limit = 100,offset = i)
+                    taxon = 'human',
+                    limit = 100,offset = i,)
 }) %>% do.call(rbind,.)
 
-results %>% select(experiment.ShortName,taxon.Name) %>% head
+results %>% select(experiment.ShortName,experiment.Name) %>% head
 ```
 
-A similar search is also possible using plain text
-
-```{r}
-result <- search_datasets('parkinsons',limit = 1)
-result_count <- attributes(result)$totalElements
-
-
-results_plain <- lapply(seq(0,result_count,100),function(i){
-    search_datasets('parkinsons',limit = 100,offset = i)
-}) %>% do.call(rbind,.)
-
-
-results_plain %>% 
-    select(experiment.ShortName,taxon.Name) %>% head
-```
-
-These two queries return similar but not-identical results.
-
-```{r}
-# plain text returns more results than the annotation term
-results_plain %>% nrow
-
-results %>% nrow
-
-# annotation term query is a subset of plain text query
-length(intersect(
-    results_plain$experiment.ShortName,
-    results$experiment.ShortName))
-```
-
-We will be using the results from the annotation term search in the rest
-of this analysis since plain text search will match with any mention of
-the disease if it is included in the study description.
 
 # Filtering the datasets for suitability
 
 While we know that all the resulting datasets were annotated for the
 term for Parkinson's Disease, we currently do not know how many of them
 are comparisons of healthy controls and patients with Parkinson's
-Disease. Looking at the sample above, quite a few of them aren't from
-humans in the first place. To find the datasets that are suitable for
-our purposes we need to first remove all non-human datasets, then ensure
-comparison performed is on Parkinson's Disease patients and controls
+Disease. We also do not know if the datasets have batch effects that may effect
+our findings.
 
-```{r}
-# isolate human datasets
-human_results <- results %>% filter(taxon.Name == 'human')
-
-nrow(human_results)
-```
-
-Next step is to ensure the datasets we are selecting are not affected by
+Here we start by ensuring the datasets we are selecting are not affected by
 batch confounds. Gemma internally handles batch correction if batch
 information is available for the dataset. We will be looking at
 `geeq.batchEffect` column. As explained in the `search_datasets`
@@ -124,7 +90,7 @@ confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
 
 ```{r}
-human_results <- human_results %>% filter(geeq.batchEffect == 1)
+results <- results %>% filter(geeq.batchEffect == 1)
 ```
 
 We now want to ensure that the differential expressions we analyze
@@ -138,7 +104,7 @@ records the control group of the differential expression analysis and
 records the test case
 
 ```{r}
-experiment_contrasts <- human_results$experiment.ShortName %>% 
+experiment_contrasts <- results$experiment.ShortName %>% 
     lapply(function(x){
         out = get_dataset_differential_expression_analyses(x)
         }) %>% do.call(rbind,.)
@@ -226,8 +192,9 @@ condition_diffs[[1]] %>% head
 
 # Combining the acquired p values
 
-We will now apply Fisher's method to combine p values to find our genes
-of interest
+Now that we have acquired the values we need for a meta-analysis from Gemma,
+we can proceed with any methodology we deem suitable for our analysis. In this
+example we will use a the `fisher` function from `poolr` package to apply Fisher's method when combining the p values.
 
 First step is to identify which genes are available in our results
 
