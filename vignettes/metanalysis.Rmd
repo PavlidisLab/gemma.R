@@ -43,13 +43,13 @@ discovery and categorization making it a useful tool for meta-analysis.
 In this example we search Gemma for datasets comparing healthy
 controls and patients with Parkinson's Disease. Our curators use ontology terms
 to annotate datasets when possible. This allows us to use the Disease Ontology term
-"DOID:14330" to search for datasets and samplesa annotated with the term to make sure
+"DOID:14330" to search for datasets and samples annotated with the term to make sure
 we are accessing datasets relevant for our purposes with minimal effort.
 
 
 # Querying datasets of interest
 
-`search_datasets` function can be used to find datasets of interest,
+The `search_datasets` function can be used to find datasets of interest,
 either using ontology terms or plain text. Since Parkinson's Disease has a unambigious
 ontology term in the Disease Ontology, we will be using it to avoid acquiring
 datasets that tangentially mention the disease in their descriptions. Here we also
@@ -78,11 +78,10 @@ results %>% select(experiment.ShortName,experiment.Name) %>% head
 While we know that all the resulting datasets were annotated for the
 term for Parkinson's Disease, we currently do not know how many of them
 are comparisons of healthy controls and patients with Parkinson's
-Disease. We also do not know if the datasets have batch effects that may effect
+Disease. We also do not know if the datasets have batch effects that may affect
 our findings.
 
-Here we start by ensuring the datasets we are selecting are not affected by
-batch confounds. Gemma internally handles batch correction if batch
+For this example, we decided we should not include data sets that have a batch confound (though that is up to the user). Gemma internally handles batch correction if batch
 information is available for the dataset. We will be looking at
 `geeq.batchEffect` column. As explained in the `search_datasets`
 documentation, this column will be set to -1 for datasets where batch
@@ -137,7 +136,7 @@ parkin_contrasts %>%
 ```
 
 Now that we have our relevant contrasts, we can download them using
-`get_differential_expression_values`. This function can be used download
+`get_differential_expression_values`. This function can be used to download
 differential expression fold change and p values, either using the
 experiment name/ids or more specifically using the result.IDs
 
@@ -149,11 +148,8 @@ differentials <- parkin_contrasts$result.ID %>% lapply(function(x){
     get_differential_expression_values(resultSet = x)[[1]]
 })
 
-
-
 # some datasets might not have all the advertised differential expression results
 # calculated due to a variety of factors. here we remove the empty differentials
-
 missing_contrasts <- differentials %>% sapply(nrow) %>% {.==0}
 differentials <- differentials[!missing_contrasts]
 parkin_contrasts <- parkin_contrasts[!missing_contrasts,]
@@ -163,7 +159,7 @@ parkin_contrasts <- parkin_contrasts[!missing_contrasts,]
 # Getting the p-values for the condition comparison
 
 `differentials` is now a list of data frames containing the differential
-expression information. To run a meta-analysis, we need to p values for
+expression information. To run a simple meta-analysis, we need the p values for
 the genes from the relevant contrasts.
 
 ```{r}
