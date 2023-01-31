@@ -6,3 +6,5 @@ docs
 .Rproj.user
 /doc/
 /Meta/
+vignettes/metanalysis_cache
+**/.DS_Store
