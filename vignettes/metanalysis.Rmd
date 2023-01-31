@@ -238,7 +238,7 @@ fisher_results <- all_genes %>% lapply(function(x){
     median_fc = fold_changes %>% na.omit() %>% median
     names(median_fc) = 'Median FC'
     
-    combined = p_vals %>% na.omit() %>% fisher() %$% p
+    combined = p_vals %>% na.omit() %>% fisher() %>% {.$p}
     names(combined) = 'Combined'
     c(p_vals,combined,median_fc)
 }) %>% do.call(rbind,.)
