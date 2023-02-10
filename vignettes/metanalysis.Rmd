@@ -20,11 +20,12 @@ editor_options:
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE,
         gemma.memoised = TRUE,
+        gemma.cache = 'gemma_cache',
         datatable.print.trunc.cols = FALSE)
 # options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
 knitr::opts_chunk$set(
     comment = "",
-    cache = TRUE
+    cache = FALSE
 )
 ```
 
@@ -105,6 +106,7 @@ records the test case
 ```{r}
 experiment_contrasts <- results$experiment.ShortName %>% 
     lapply(function(x){
+        cat(paste0(x,'\n'),append = TRUE,file = 'hede')
         out = get_dataset_differential_expression_analyses(x)
         }) %>% do.call(rbind,.)
 
@@ -134,6 +136,20 @@ parkin_contrasts %>%
            experimental.factorValueURI) %>% 
     head()
 ```
+
+<!-- In the next steps we will be downloading differential expression data in bulk to -->
+<!-- perform our meta-analysis. Since downloading and analyzing all these datasets -->
+<!-- takes quite some time, in this example we will limit ourselves to a smaller selection. -->
+<!--
+```{r}
+# We are using the first 5 contrasts to keep this analysis short
+# sanity_sets = c('GSE8397','GSE7621','GSE20168','GSE20291','GSE20292')
+# sanity_ids = results %>% filter(experiment.Accession %in% sanity_sets) %>%  .$experiment.ID
+
+# parkin_contrasts <- parkin_contrasts %>% filter(experiment.ID %in% sanity_ids)
+# parkin_contrasts <- parkin_contrasts[1:10,]
+```
+-->
 
 Now that we have our relevant contrasts, we can download them using
 `get_differential_expression_values`. This function can be used to download
@@ -173,7 +189,6 @@ condition_diffs <- seq_along(differentials) %>% lapply(function(i){
     log2fc = diff[[paste0('contrast_',contrast$contrast.id,"_log2fc")]]
     genes = diff$GeneSymbol
     
-    
     data.frame(genes,p_vals,log2fc)
 })
 
@@ -199,8 +214,10 @@ all_genes <- condition_diffs %>% lapply(function(x){
     x$genes %>% unique
 }) %>% unlist %>% table
 
-# we will remove any gene that doesn't appear in at least half the results
-all_genes <- all_genes[all_genes>(length(condition_diffs)/2)]
+# we will remove any gene that doesn't appear in all of the results
+# while this criteria is too strict, it does help this example to run 
+# considerably faster
+all_genes <- all_genes[all_genes==max(all_genes)]
 all_genes <- names(all_genes)
 
 # remove any probesets matching multiple genes. gemma separates these by using "|"
