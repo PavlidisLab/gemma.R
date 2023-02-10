@@ -195,6 +195,7 @@ test case</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">experiment_contrasts</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">experiment.ShortName</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">x</span>,<span class="st">'\n'</span><span class="op">)</span>,append <span class="op">=</span> <span class="cn">TRUE</span>,file <span class="op">=</span> <span class="st">'hede'</span><span class="op">)</span></span>
 <span>        <span class="va">out</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span>
 <span></span>
@@ -261,6 +262,20 @@ test case</p>
 4: http://purl.obolibrary.org/obo/DOID_14330
 5: http://purl.obolibrary.org/obo/DOID_14330
 6: http://purl.obolibrary.org/obo/DOID_14330</code></pre>
+<!-- In the next steps we will be downloading differential expression data in bulk to -->
+<!-- perform our meta-analysis. Since downloading and analyzing all these datasets -->
+<!-- takes quite some time, in this example we will limit ourselves to a smaller selection. -->
+<!--
+
+```r
+# We are using the first 5 contrasts to keep this analysis short
+# sanity_sets = c('GSE8397','GSE7621','GSE20168','GSE20291','GSE20292')
+# sanity_ids = results %>% filter(experiment.Accession %in% sanity_sets) %>%  .$experiment.ID
+
+# parkin_contrasts <- parkin_contrasts %>% filter(experiment.ID %in% sanity_ids)
+# parkin_contrasts <- parkin_contrasts[1:10,]
+```
+-->
 <p>Now that we have our relevant contrasts, we can download them using
 <code>get_differential_expression_values</code>. This function can be
 used to download differential expression fold change and p values,
@@ -296,7 +311,6 @@ we need the p values for the genes from the relevant contrasts.</p>
 <span>    <span class="va">log2fc</span> <span class="op">=</span> <span class="va">diff</span><span class="op">[[</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'contrast_'</span>,<span class="va">contrast</span><span class="op">$</span><span class="va">contrast.id</span>,<span class="st">"_log2fc"</span><span class="op">)</span><span class="op">]</span><span class="op">]</span></span>
 <span>    <span class="va">genes</span> <span class="op">=</span> <span class="va">diff</span><span class="op">$</span><span class="va">GeneSymbol</span></span>
 <span>    </span>
-<span>    </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">genes</span>,<span class="va">p_vals</span>,<span class="va">log2fc</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
 <span></span>
@@ -330,8 +344,10 @@ results</p>
 <span>    <span class="va">x</span><span class="op">$</span><span class="va">genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unique</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unlist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">table</span></span>
 <span></span>
-<span><span class="co"># we will remove any gene that doesn't appear in at least half the results</span></span>
-<span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="va">all_genes</span><span class="op">[</span><span class="va">all_genes</span><span class="op">&gt;</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">condition_diffs</span><span class="op">)</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co"># we will remove any gene that doesn't appear in all of the results</span></span>
+<span><span class="co"># while this criteria is too strict, it does help this example to run </span></span>
+<span><span class="co"># considerably faster</span></span>
+<span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="va">all_genes</span><span class="op">[</span><span class="va">all_genes</span><span class="op">==</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">all_genes</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">all_genes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># remove any probesets matching multiple genes. gemma separates these by using "|"</span></span>
@@ -340,7 +356,7 @@ results</p>
 <span><span class="co"># remove the "". This comes from probesets not aligned to any genes</span></span>
 <span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="va">all_genes</span><span class="op">[</span><span class="va">all_genes</span> <span class="op">!=</span> <span class="st">""</span><span class="op">]</span></span>
 <span><span class="va">all_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
-<pre><code>[1] "A1BG"   "A1CF"   "A2M"    "A2ML1"  "A4GALT" "A4GNT" </code></pre>
+<pre><code>[1] "A2M"   "AAAS"  "AAMP"  "AARS1" "AATK"  "ABAT" </code></pre>
 <p>Now we can run the test on every gene, followed by a multiple testing
 correction.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -383,19 +399,19 @@ correction.</p>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Combined</span>,<span class="va">Adjusted</span>,<span class="va">`Median FC`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="va">head</span></span></code></pre></div>
 <pre><code>            Combined     Adjusted Median FC
-CACNA1G 4.376967e-22 3.359760e-18  -0.15780
-SV2C    4.207862e-22 3.359760e-18  -0.15850
-SLC18A2 8.320978e-20 4.258122e-16  -0.64985
-OBSL1   1.011565e-17 3.882387e-14   0.05932
-DLK1    4.789217e-17 1.470481e-13  -0.55730
-CYB561  1.694509e-16 3.898396e-13  -0.13820</code></pre>
+CACNA1G 4.376967e-22 1.415949e-18  -0.15780
+SLC18A2 8.320978e-20 1.345918e-16  -0.64985
+DLK1    4.789217e-17 5.164373e-14  -0.55730
+RET     3.166743e-16 2.561104e-13  -0.35735
+CTBP2   4.038916e-16 2.613179e-13   0.28870
+FGF13   7.151713e-16 3.855965e-13  -0.47095</code></pre>
 <p>We end up with quite a few differentially expressed genes</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">$</span><span class="va">Adjusted</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="co"># FDR&lt;0.05</span></span></code></pre></div>
-<pre><code>[1] 10836</code></pre>
+<pre><code>[1] 2665</code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span> <span class="co"># number of all genes</span></span></code></pre></div>
-<pre><code>[1] 15352</code></pre>
+<pre><code>[1] 3235</code></pre>
 <p>A quick sanity check would be to look at markers of dopaminergic cell
 types and how they rank compared to other genes. Parkinson’s Disease is
 a neurodegenerative disorder, leading to death of dopaminergic cells. We
@@ -418,7 +434,7 @@ should expect them to show up in our results.</p>
 <span>    <span class="op">{</span><span class="va">.</span><span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">dopa_markers</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="va">which</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">'Rank distribution of dopaminergic markers'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="metanalysis_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<p><img src="metanalysis_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>We can see that the dopaminergic markers tend to have high ranks in
 our results.</p>
 </div>
