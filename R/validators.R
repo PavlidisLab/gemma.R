@@ -237,3 +237,12 @@ validateResultType <- function(name,...){
 
     return(type)
 }
+
+
+validateConsolidate <- function(name, ...){
+    consolidate <- unlist(list(...))
+    if(length(consolidate)>1 | (!consolidate %in% c(NA_character_,'pickmax','pickvar','average'))){
+        stop('consolidate must be NA, "pickmax", "pickmax" or "average"')
+    }
+    return(consolidate)
+}

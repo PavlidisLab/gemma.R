@@ -789,6 +789,13 @@ process_search <- function(d){
 
 }
 
+
+#' @keywords internal
+process_dataset_gene_expression <- function(d){
+    return(d)
+}
+
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()

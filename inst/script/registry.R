@@ -122,6 +122,24 @@ registerEndpoint("datasets/{dataset}/data?filter={filter}",
 )
 
 
+registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
+                 keyword = 'dataset',
+                 defaults = list(
+                     datasets = bquote(),
+                     genes = bquote(),
+                     keepNonSpecific = FALSE,
+                     consolidate = NA_character_
+                 ),
+                 validators = list(
+                     datasets = validateID,
+                     genes = validateID,
+                     keepNonSpecific = validateBoolean,
+                     consolidate = validateConsolidate
+                 ),
+                 preprocessor = quote(process_dataset_gene_expression))
+
+
 registerEndpoint('datasets/{dataset}/samples',
                  'get_dataset_samples', open_api_name = 'get_dataset_samples',
                  keyword = 'dataset',
