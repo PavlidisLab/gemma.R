@@ -792,7 +792,35 @@ process_search <- function(d){
 
 #' @keywords internal
 process_dataset_gene_expression <- function(d){
-    return(d)
+    datasets <- d %>% purrr::map('datasetId')
+    out<- lapply(d,function(x){
+        x$geneExpressionLevels %>% lapply(function(y){
+
+            expression <- y$vectors %>% lapply(function(z){
+                z$bioAssayExpressionLevels %>% purrr::map_dbl(function(t){
+                    if(is.double(t)){
+                        return(t)
+                    } else{
+                        return(NaN)
+                    }
+                })
+            }) %>% do.call(rbind,.)
+
+            gene_data <- data.table(
+                Probe = y$vectors %>% accessField('designElementName',NA_character_),
+                GeneSymbol = y$geneOfficialSymbol,
+                NCBIid = y$geneNcbiId
+            )
+
+            cbind(gene_data,expression)
+        }) %>% do.call(rbind,.)
+
+    })
+
+    names(out) <- datasets
+
+
+    return(out)
 }
 
 
