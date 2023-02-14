@@ -60,6 +60,17 @@ test_that("datasetAnnotations queries work", {
     )
 })
 
+test_that("get_dataset_expression_for_genes work", {
+    dat <- get_dataset_expression_for_genes(c(1,4),c(7265,7072,1809))
+    raw <- get_dataset_expression_for_genes(c(1,4),c(7265,7072,1809),raw = TRUE)
+    expect_length(dat,2)
+    expect_type(dat,"list")
+    expect_type(raw, 'list')
+    expect_s3_class(dat[[1]],'data.table')
+    expect_s3_class(dat[[2]],'data.table')
+})
+
+
 test_that("getDatasetExpression queries work", {
     # Skip during checks since long runtime causes RMD/biocCheck fails during CI
     # These tests pass when run locally
