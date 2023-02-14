@@ -432,6 +432,8 @@ processAnnotations <- function(d) {
 #'
 #' @keywords internal
 processFile <- function(content) {
+    attr <- attributes(content)
+    attributes(content)<- NULL
     tmp <- tempfile() # Make a temp file
     writeBin(content, tmp) # Save to that file
     tmp2 <- gzfile(tmp)
@@ -454,7 +456,8 @@ processFile <- function(content) {
     } else {
         ret <- processDesignMatrix(ret)
     }
-    ret
+    attributes(ret) = c(attributes(ret),attr)
+    return(ret)
 }
 
 #' Processes JSON as a vector of samples

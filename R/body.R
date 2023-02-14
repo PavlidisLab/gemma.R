@@ -64,11 +64,14 @@ gemmaPath <- function(){
         response <- eval(requestExpr, envir = envWhere)
     }
 
+
     if (response$status_code == 200) {
         mData <- tryCatch(
             {
                 if (isFile) {
-                    response$content
+                    out <- response$content
+                    attributes(out) = list(call=call)
+                    out
                 } else {
                     data <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
                     out <- data$data
@@ -111,7 +114,9 @@ gemmaPath <- function(){
                 } else if (extension == ".rds") {
                     saveRDS(mOut, file)
                 } else if (extension == '.gz'){
-                    writeBin(mOut,file)
+                    tmp <- mOut
+                    attributes(tmp) = NULL
+                    writeBin(tmp,file)
                 } else {
                     utils::write.csv2(mOut, file, row.names = FALSE)
                 }
