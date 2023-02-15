@@ -24,7 +24,10 @@ get_dataset_expression_for_genes(
 \item{keepNonSpecific}{logical. \code{FALSE} by default. If \code{TRUE}, results
 from probesets that are not specific to the gene will also be returned.}
 
-\item{consolidate}{An option for gene expression level consolidation.}
+\item{consolidate}{An option for gene expression level consolidation. If empty,
+will return every probe for the genes. "pickmax" to
+pick the probe with the highest expression, "pickvar" to pick the prove with
+the highest variance and "average" for returning the average expression}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
