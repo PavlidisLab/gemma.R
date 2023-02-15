@@ -137,6 +137,16 @@ parkin_contrasts %>%
     head()
 ```
 
+In the next steps we will be downloading expression data in bulk. If you are here to just
+try the code out, you can speed the process a bit by limiting the number of experiments
+to deal with
+
+```r
+# arbitrarily select a few datasets
+# not executed in this example
+parkin_contrasts <- parkin_contrasts[1:5,]
+```
+
 <!-- In the next steps we will be downloading differential expression data in bulk to -->
 <!-- perform our meta-analysis. Since downloading and analyzing all these datasets -->
 <!-- takes quite some time, in this example we will limit ourselves to a smaller selection. -->
@@ -302,3 +312,135 @@ fisher_results %>%
 ```
 
 We can see that the dopaminergic markers tend to have high ranks in our results.
+
+# Acquiring the expression data from a top gene
+
+Now that we have our results, we can take a look at how the expression of one of our top
+genes in these experiments. To do this we will use the `get_dataset_expression_for_genes` function
+to get the expression data. Once we get the expression data for our genes of interest, we will use 
+the `get_dataset_samples` function to identify which samples belongs to which experimental group.
+
+For starters, lets look at our top pick and the it's p values in the individual datasets
+
+```{r}
+# the top gene from our results
+gene <- fisher_results %>% arrange(Adjusted) %>% .[1,] %>% rownames
+gene
+
+
+p_values <- fisher_results %>%
+    arrange(Adjusted) %>% 
+    .[1,] %>% 
+    select(-Combined,-`Median FC`,-Adjusted) %>% 
+    unlist %>%
+    na.omit()
+
+# the gene has a p value < 0.05 in about half the datasets
+sum(p_values<0.05)
+length(p_values)
+
+# p values of the result in individual studies
+p_values %>% log2() %>% 
+    data.frame(`log p value` = .,dataset = 1:length(.),check.names = FALSE) %>% 
+    ggplot(aes(y = `log p value`,x = dataset)) +
+    geom_point() + 
+    geom_hline(yintercept = log2(0.05),color = 'firebrick') + 
+    geom_text(y = log2(0.05), x = 0, label = 'p < 0.05',vjust =-1,hjust = -0.1) + 
+    theme_bw() +
+    theme(axis.text.x = element_blank())
+```
+Next step is to acquire gene expression data from the relevant datasets using `get_dataset_expression_for_genes`
+
+```{r}
+# we need the NCBI id of the gene in question, lets get that from the original
+# results
+NCBIid <- differentials[[1]] %>% filter(GeneSymbol == gene) %>% .$NCBIid %>% unique
+NCBIid
+
+expression <- 
+    get_dataset_expression_for_genes(
+        datasets = parkin_contrasts$experiment.ID,
+        # to keep things simple in this example, we are simply using the probeset with
+        # the highest variance to represent the gene
+        genes = NCBIid,consolidate = 'pickvar') 
+
+expression[[1]]
+```
+
+Then we grab the metadata
+
+
+```{r}
+metadata <- parkin_contrasts$experiment.ID %>% lapply(function(x){
+    get_dataset_samples(x)
+})
+
+# for each sample in every study metadata includes a list of data.tables that includes
+# factor values associated with the sample. We will use this field to split samples
+# into experimental groups they belong to
+metadata[[1]]$sample.FactorValues[1]
+
+
+expression_frame <- seq_along(metadata) %>% lapply(function(i){
+    # identify samples with the Parkinson's disease term
+    
+    contrast_category <- parkin_contrasts[i,]$baseline.category
+    
+    pd_samples <- metadata[[i]]$sample.FactorValues %>% purrr::map_lgl(function(x){
+        x %>% 
+            filter(category %in% contrast_category) %>%
+            .$factorValueURI %in% "http://purl.obolibrary.org/obo/DOID_14330" %>%
+            any
+    })
+    
+    # certain contrasts are subsets of the whole dataset. here we isolate these
+    # samples if subsetting is involved
+    subset_category <- parkin_contrasts[i,]$subsetFactor.category
+    subset_factor <- parkin_contrasts[i,]$subsetFactor.factorValue
+    if(!is.na(subset_category)){
+        in_subset <- metadata[[i]]$sample.FactorValues %>% purrr::map_lgl(function(x){
+        x %>% 
+            filter(category %in% subset_category) %>%
+            .$factorValue %in% subset_factor
+            })
+    } else{
+        in_subset<- TRUE
+    }
+    
+    pd_sample_names = metadata[[i]][pd_samples & in_subset,]$sample.Name
+    ct_sample_names = metadata[[i]][!pd_samples & in_subset,]$sample.Name
+    
+    expression[[i]] %>% as.data.frame %>% {.[,pd_sample_names]} %>% unlist
+    
+    data.frame(
+        expression = c(
+            expression[[i]] %>% as.data.frame %>% {.[,pd_sample_names]} %>% unlist,
+            expression[[i]] %>% as.data.frame %>% {.[,ct_sample_names]} %>% unlist
+        ),
+        disease = c(rep("PD",length(pd_sample_names)),
+                    rep("Control",length(ct_sample_names))),
+        contrast = names(condition_diffs[i])
+    )
+}) %>% do.call(rbind,.)
+
+# get the contrast names for significance markers 
+signif_contrasts <- which(p_values < 0.05) %>% names
+
+expression_frame %>% 
+    filter(!is.na(expression)) %>% 
+    ggplot(aes(x = disease,y=expression)) + 
+    facet_wrap(~contrast,scales='free') + 
+    theme_bw() + 
+    theme(strip.text.x = element_blank()) + 
+    geom_boxplot(width = 0.5) + 
+    geom_point() + 
+    # significance markers
+    geom_text(data = data.frame(contrast = signif_contrasts,
+                             expression_frame %>% 
+                             group_by(contrast) %>% 
+                             summarise(expression = max(expression)) %>% 
+                             .[match(signif_contrasts,.$contrast),]),
+              x = 1.5, label = '*',size=5,vjust= 1)
+```
+
+
