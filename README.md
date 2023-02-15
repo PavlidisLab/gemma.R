@@ -25,14 +25,8 @@ You can install `gemma.R` through
 [Bioconductor](http://bioconductor.org/) with the following code:
 
 ``` r
-if (!requireNamespace("BiocManager", quietly = TRUE)) {
+if (!require("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-}
-
-# The following initializes usage of Bioc devel
-# it won't be necessary with the next version
-# of Bioconductor
-BiocManager::install(version='devel')
 
 BiocManager::install("gemma.R")
 ```
