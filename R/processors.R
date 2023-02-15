@@ -72,7 +72,7 @@ processGemmaFactor <- function(d) {
                              d %>% accessField('factorValue',NA_character_)),
         factorValueURI = d %>% accessField('valueUri',NA_character_),
         description =  d %>% accessField('description',NA_character_),
-        category = d %>% accessField('categoryUri'),
+        category = d %>% accessField('category'),
         categoryURI = d %>% accessField('categoryUri'),
         measurement = d %>% accessField('isMeasurement'),
         type = d %>% accessField('type')
