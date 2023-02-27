@@ -7,4 +7,5 @@ docs
 /doc/
 /Meta/
 vignettes/metanalysis_cache
+vignettes/gemma_cache
 **/.DS_Store
