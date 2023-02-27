@@ -341,9 +341,15 @@ we need the p values for the genes from the relevant contrasts.</p>
 </h2>
 <p>Now that we have acquired the values we need for a meta-analysis from
 Gemma, we can proceed with any methodology we deem suitable for our
-analysis. In this example we will use a very simple approach, <a href="https://en.wikipedia.org/wiki/Fisher%27s_method" class="external-link">Fisher’s combined
+analysis.</p>
+<p>In this example we will use a very simple approach, <a href="https://en.wikipedia.org/wiki/Fisher%27s_method" class="external-link">Fisher’s combined
 p-value test</a>. This is implemented in the <code>fisher</code>
-function from <code>poolr</code> package.</p>
+function from <code>poolr</code> package. Fisher’s method has the
+advantage that it operates on the p-values, which are in the processed
+differential expression results in Gemma. It has some disadvantages like
+ignoring the direction of the expression change (Gemma’s p-values are
+two-tailed) and is very sensitive to a single ‘outlier’ p-value, but for
+this demonstration we’ll go with it.</p>
 <p>The first step is to identify which genes are available in our
 results:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
