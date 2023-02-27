@@ -215,9 +215,10 @@ condition_diffs[[1]] %>% head
 
 Now that we have acquired the values we need for a meta-analysis from Gemma,
 we can proceed with any methodology we deem suitable for our analysis. In this
-example we will use a the `fisher` function from `poolr` package to apply Fisher's method when combining the p values.
+example we will use a very simple approach, [Fisher's combined p-value test](https://en.wikipedia.org/wiki/Fisher%27s_method). 
+This is implemented in the `fisher` function from `poolr` package.
 
-First step is to identify which genes are available in our results
+The first step is to identify which genes are available in our results:
 
 ```{r}
 all_genes <- condition_diffs %>% lapply(function(x){
@@ -280,14 +281,15 @@ fisher_results %>%
     select(Combined,Adjusted,`Median FC`) %>% 
     head
 ```
-We end up with quite a few differentially expressed genes
+
+We end up with quite a few differentially expressed genes in the meta-analysis (Fisher's method is very sensitive)
 
 ```{r}
 sum(fisher_results$Adjusted<0.05) # FDR<0.05
 nrow(fisher_results) # number of all genes
 ```
 
-A quick sanity check would be to look at markers of dopaminergic cell types and how they rank compared to other genes.
+Next we look at markers of dopaminergic cell types and how they rank compared to other genes.
 Parkinson's Disease is a neurodegenerative disorder, leading to death of dopaminergic cells. We should expect them to show up in our
 results.
 
@@ -308,25 +310,25 @@ fisher_results %>%
     rownames %>%
     {.%in% dopa_markers} %>%
     which %>% 
-    hist(main = 'Rank distribution of dopaminergic markers')
+    hist(breaks=20, main = 'Rank distribution of dopaminergic markers')
 ```
 
-We can see that the dopaminergic markers tend to have high ranks in our results.
+In agreement with our hypothesis, we can see that the dopaminergic markers tend to have high ranks in our results.
 
-# Acquiring the expression data from a top gene
+# Acquiring the expression data for a top gene
 
 Now that we have our results, we can take a look at how the expression of one of our top
 genes in these experiments. To do this we will use the `get_dataset_expression_for_genes` function
 to get the expression data. Once we get the expression data for our genes of interest, we will use 
 the `get_dataset_samples` function to identify which samples belongs to which experimental group.
 
-For starters, lets look at our top pick and the it's p values in the individual datasets
+> Note: as of this writing (early 2023), the Gemma.R methods used in this section are not yet released in Bioconductor; install via devtools to try it out.
+
+For starters, lets look at our top pick and the its p values in the individual datasets, on a log scale:
 
 ```{r}
 # the top gene from our results
 gene <- fisher_results %>% arrange(Adjusted) %>% .[1,] %>% rownames
-gene
-
 
 p_values <- fisher_results %>%
     arrange(Adjusted) %>% 
@@ -335,27 +337,29 @@ p_values <- fisher_results %>%
     unlist %>%
     na.omit()
 
-# the gene has a p value < 0.05 in about half the datasets
-sum(p_values<0.05)
-length(p_values)
+#sum(p_values<0.05)
+#length(p_values)
 
 # p values of the result in individual studies
-p_values %>% log2() %>% 
+p_values %>% log10() %>% 
     data.frame(`log p value` = .,dataset = 1:length(.),check.names = FALSE) %>% 
     ggplot(aes(y = `log p value`,x = dataset)) +
     geom_point() + 
-    geom_hline(yintercept = log2(0.05),color = 'firebrick') + 
-    geom_text(y = log2(0.05), x = 0, label = 'p < 0.05',vjust =-1,hjust = -0.1) + 
-    theme_bw() +
+    geom_hline(yintercept = log10(0.05),color = 'firebrick') + 
+    geom_text(y = log10(0.05), x = 0, label = 'p < 0.05',vjust =-1,hjust = -0.1) + 
+    theme_bw() + ggtitle(paste("P-values for top gene (", gene, ") in the data sets"))
     theme(axis.text.x = element_blank())
 ```
-Next step is to acquire gene expression data from the relevant datasets using `get_dataset_expression_for_genes`
+This shows that the gene is nominally significant in some but not all of the data sets.
+
+To examine this further, our next step is to acquire gene expression data from the 
+relevant datasets using `get_dataset_expression_for_genes`. We provide the IDs of the experiments and the NCBI ID of the gene.
 
 ```{r}
 # we need the NCBI id of the gene in question, lets get that from the original
 # results
 NCBIid <- differentials[[1]] %>% filter(GeneSymbol == gene) %>% .$NCBIid %>% unique
-NCBIid
+#NCBIid
 
 expression <- 
     get_dataset_expression_for_genes(
@@ -364,11 +368,10 @@ expression <-
         # the highest variance to represent the gene
         genes = NCBIid,consolidate = 'pickvar') 
 
-expression[[1]]
+#expression[[1]]
 ```
 
-Then we grab the metadata
-
+Then we grab the metadata for the samples so we can organize the data by disease condition vs. control:
 
 ```{r}
 metadata <- parkin_contrasts$experiment.ID %>% lapply(function(x){
@@ -379,7 +382,6 @@ metadata <- parkin_contrasts$experiment.ID %>% lapply(function(x){
 # factor values associated with the sample. We will use this field to split samples
 # into experimental groups they belong to
 metadata[[1]]$sample.FactorValues[1]
-
 
 expression_frame <- seq_along(metadata) %>% lapply(function(i){
     # identify samples with the Parkinson's disease term
@@ -425,7 +427,12 @@ expression_frame <- seq_along(metadata) %>% lapply(function(i){
 
 # get the contrast names for significance markers 
 signif_contrasts <- which(p_values < 0.05) %>% names
+```
 
+Finally, we'll make a plot showing the expression of the gene of interest in all the data sets.
+This helps us see the extent to which there is evidence of consistent differential expression.
+
+```{r}
 expression_frame %>% 
     filter(!is.na(expression)) %>% 
     ggplot(aes(x = disease,y=expression)) + 
@@ -433,7 +440,7 @@ expression_frame %>%
     theme_bw() + 
     theme(strip.text.x = element_blank()) + 
     geom_boxplot(width = 0.5) + 
-    geom_point() + 
+    geom_point() + ggtitle(paste("Expression of", gene, " per study"))
     # significance markers
     geom_text(data = data.frame(contrast = signif_contrasts,
                              expression_frame %>% 
