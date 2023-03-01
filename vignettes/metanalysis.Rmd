@@ -106,7 +106,6 @@ records the test case
 ```{r}
 experiment_contrasts <- results$experiment.ShortName %>% 
     lapply(function(x){
-        cat(paste0(x,'\n'),append = TRUE,file = 'hede')
         out = get_dataset_differential_expression_analyses(x)
         }) %>% do.call(rbind,.)
 
