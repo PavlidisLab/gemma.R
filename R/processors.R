@@ -722,6 +722,7 @@ processDesignMatrix <- function(m) {
 #' @keywords internal
 processExpressionMatrix <- function(m) {
 
+
     m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
     # here we standardize the output column names so that they fit output
     # from other endpoints
@@ -730,7 +731,7 @@ processExpressionMatrix <- function(m) {
     sample_ids <- samples %>% purrr::map('sample') %>% purrr::map_chr('name')
     sample_names <- samples %>% purrr::map_chr('name')
     sample_matches <- sample_ids %>% purrr::map_int(function(x){
-        grep(paste0(x,"_"),colnames(m),fixed = TRUE)
+        grep(paste0(make.names(x),"_"),colnames(m),fixed = TRUE)
     })
     colnames(m)[sample_matches] <- sample_names
 
