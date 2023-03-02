@@ -163,13 +163,51 @@ memget_platform_annotations <- function(platform,
 }
 
 
+make_design = function(samples,metaType){
+
+    categories <- samples$sample.FactorValues %>% purrr::map('category') %>% unlist %>% unique()
+    factorValues <- categories %>% lapply(function(x){
+        samples$sample.FactorValues %>% purrr::map_chr(function(y){
+            y %>% dplyr::filter(category == x) %>% {.$factorValue} %>% paste(collapse = ',')
+        })
+    })
+
+    category_uris <- samples$sample.FactorValues %>% purrr::map('categoryURI') %>% unlist %>% unique()
+    factorURIs <- category_uris %>% lapply(function(x){
+        samples$sample.FactorValues %>% purrr::map_chr(function(y){
+            y %>% dplyr::filter(categoryURI == x) %>% {.$factorValueURI} %>% paste(collapse = ',')
+        })
+    })
+
+    if(metaType == 'text'){
+        design_frame <- factorValues %>% as.data.frame()
+        colnames(design_frame) = categories
+    } else if (metaType == 'uri'){
+        design_frame <- factorURIs %>% as.data.frame()
+        colnames(design_frame) = category_uris
+    } else if (metaType == 'both'){
+        design_frame <- seq_along(design_frame) %>% lapply(function(i){
+            paste(factorValues[[i]],factorURIs[[i]],sep = '|')
+        }) %>% as.data.frame()
+        colnames(design_frame) <- paste(categories,category_uris,sep = '|')
+    }
+    rownames(design_frame) <- samples$sample.Name
+    design_frame <- design_frame %>% dplyr::mutate(factorValues = samples$sample.FactorValues, .before = 1)
+
+    return(design_frame)
+}
+
+
 #' Compile gene expression data and metadata
 #'
 #' Return an annotated Bioconductor-compatible
 #' data structure or a long form tibble of the queried dataset, including
 #' expression data and the experimental design.
 #'
-#' @param dataset A dataset identifier.
+#' @param datasets Dataset identifiers
+#' @param genes Optional. If empty, expression of all genes will be returned. An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
+#' @param keepNonSpecific logical. FALSE by default. If TRUE, results from probesets that are not specific to the gene will also be returned.
+#' @param consolidate If multiple pro
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
@@ -183,95 +221,188 @@ memget_platform_annotations <- function(platform,
 #' @export
 #' @examples
 #' get_dataset_object("GSE2018")
-get_dataset_object <- function(dataset, filter = FALSE, type = "se", memoised = getOption("gemma.memoised", FALSE)) {
+get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, consolidate = NA_character_, filter = FALSE, metaType = 'text', type = "se", memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se" && type != 'tidy') {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
-    exprM <- get_dataset_expression(dataset, filter,memoised = memoised)
 
-    # multi platform datasets may have repeated probesets which needs new names
-    # most multiplatform datasets were merged into artifical probesets defined
-    # within gemma but at the time of writing 365 was an exception
-    duplicate_probes <- exprM$Probe[duplicated(exprM$Probe)]
+    metadata <- datasets %>% lapply(function(dataset){
+        get_dataset_samples(dataset,memoised = memoised)
+    })
+    names(metadata) = datasets
 
-    for(dp in duplicate_probes){
-        to_replace <- exprM$Probe[exprM$Probe %in% dp]
-        to_paste <- sapply(seq_along(to_replace), function(i){
-          if(i == 1){
-              ''
-          }else{
-              paste0('.',i)
-          }
+    if(is.null(genes)){
+        expression <- datasets %>% lapply(function(dataset){
+            exp <- get_dataset_expression(dataset, filter,memoised = memoised)
+            meta <- metadata[[as.character(dataset)]]
+            # these replicate the arguments for get_dataset_expression_for_genes
+            if(!keepNonSpecific){
+                exp = exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
+            }
+            if(!is.na(consolidate) && consolidate == "pickmax"){
+                mean_exp <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
+                    mean(na.omit(x))
+                })
+                exp <- exp[order(mean_exp,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
+            } else if(!is.na(consolidate) && consolidate == 'pickvar'){
+                exp_var <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
+                    var(na.omit(x))
+                })
+                exp <- exp[order(exp_var,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
+            } else if(!is.na(consolidate) && consolidate == 'average'){
+                dups <- exp$GeneSymbol %>% {.[duplicated(.)]} %>% unique
+                dup_means <- dups %>% lapply(function(x){
+                    dup_subset <- exp[exp$GeneSymbol %in% x,]
+                    dup_mean <- dup_subset[,.SD,.SDcols = meta$sample.Name] %>% apply(2,mean)
+                    probe <- paste0('Averaged from ',paste0(dup_subset$Probe, collapse = ' '))
+                    dup_out <- data.frame(Probe = probe,
+                                          dup_subset[1,.SD,.SDcols = - c('Probe',meta$sample.Name)],
+                                          t(dup_mean),
+                                          check.names = FALSE)
+                }) %>% do.call(rbind,.)
+
+                exp <- exp[!exp$GeneSymbol %in% dups,]
+                exp <- rbind(exp,dup_means)
+
+            }
+
+            # multi platform datasets may have repeated probesets which needs new names
+            # most multiplatform datasets were merged into artifical probesets defined
+            # within gemma but at the time of writing 365 was an exception
+            duplicate_probes <- exp$Probe[duplicated(exp$Probe)]
+
+            for(dp in duplicate_probes){
+                to_replace <- exp$Probe[exp$Probe %in% dp]
+                to_paste <- sapply(seq_along(to_replace), function(i){
+                    if(i == 1){
+                        ''
+                    }else{
+                        paste0('.',i)
+                    }
+                })
+
+                exp$Probe[exp$Probe %in% dp] <- paste0(to_replace,to_paste)
+            }
+            return(exp)
         })
-
-        exprM$Probe[exprM$Probe %in% dp] <- paste0(to_replace,to_paste)
+        names(expression) = datasets
+    } else{
+        expression <- get_dataset_expression_for_genes(datasets,genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
     }
 
 
-    rownames(exprM) <- exprM$Probe
-    genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
-    exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
-        data.matrix()
+    designs <- metadata %>% lapply(function(meta){
+        make_design(meta,metaType)
+    })
 
-    design <- get_dataset_design(dataset,memoised = memoised)
 
-    # This annotation table is required
-    annots <- data.frame(
-        labelDescription = colnames(design),
-        row.names = colnames(design)
-    )
-    phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = annots)
+    if (type == 'se'){
+        out <- datasets %>% lapply(function(dataset){
+            exprM <- expression[[as.character(dataset)]]
+            design <- designs[[as.character(dataset)]]
 
-    # Reorder expression matrix to match design
-    exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-    # Experiment description
-    dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
-    other <- list(
-        database = dat$externalDatabase,
-        accesion = dat$accession,
-        GemmaQualityScore = dat$geeq$publicQualityScore,
-        GemmaSuitabilityScore = dat$geeq$geeq.sScore,
-        taxon = dat$taxon
-    )
+            rownames(exprM) <- exprM$Probe
+            genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
+            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
+                data.matrix()
 
-    title <- dat$name
-    abstract <- dat$description
-    url <- paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id)
+            exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-    if (type == "se") {
-        expData <- list(
-            title = title,
-            abstract = abstract,
-            url = url
-        )
-        expData <- c(expData, other)
-        SummarizedExperiment::SummarizedExperiment(
-            assays = list(counts = exprM),
-            rowData = genes,
-            colData = design,
-            metadata = expData
-        )
-    } else if (type == "eset") {
-        expData <- Biobase::MIAME(
-            title = title,
-            abstract = abstract,
-            url = url,
-            other = other
-        )
-        Biobase::ExpressionSet(
-            assayData = exprM,
-            phenoData = phenoData,
-            experimentData = expData,
-            annotation = get_dataset_platforms(dataset,memoised = memoised)$platform.ShortName
-        )
-    } else if(type=='tidy'){
-        design <- tibble::rownames_to_column(design, "Sample")
-        exprM %>% as.data.frame %>%
-            tibble::rownames_to_column("Probe") %>%
-            tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
-            dplyr::inner_join(design, by = "Sample") %>%
-            dplyr::rename(sample = .data$Sample, probe = .data$Probe)
+
+            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
+
+
+            expData <- list(
+                title = dat$name,
+                abstract = dat$description,
+                url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id),
+                database = dat$externalDatabase,
+                accesion = dat$accession,
+                GemmaQualityScore = dat$geeq$publicQualityScore,
+                GemmaSuitabilityScore = dat$geeq$geeq.sScore,
+                taxon = dat$taxon
+            )
+
+
+            SummarizedExperiment::SummarizedExperiment(
+                assays = list(counts = exprM),
+                rowData = genes,
+                colData = design,
+                metadata = expData
+            )
+        })
+        names(out) <- datasets
+
+    } else if(type == 'eset'){
+
+        out <- datasets %>% lapply(function(dataset){
+            exprM <- expression[[as.character(dataset)]]
+            design <- designs[[as.character(dataset)]]
+
+
+            rownames(exprM) <- exprM$Probe
+            genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
+            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
+                data.matrix()
+
+            exprM <- exprM[, match(rownames(design), colnames(exprM))]
+
+
+            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
+
+            expData <- Biobase::MIAME(
+                title = dat$name,
+                abstract = dat$description,
+                url =  paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id),
+                other = list(
+                    database = dat$externalDatabase,
+                    accesion = dat$accession,
+                    GemmaQualityScore = dat$geeq$publicQualityScore,
+                    GemmaSuitabilityScore = dat$geeq$geeq.sScore,
+                    taxon = dat$taxon
+                )
+            )
+
+            annots <- data.frame(
+                labelDescription = colnames(design),
+                row.names = colnames(design)
+            )
+
+            phenoData <- Biobase::AnnotatedDataFrame(data = design, varMetadata = annots)
+
+            Biobase::ExpressionSet(
+                assayData = exprM,
+                phenoData = phenoData,
+                experimentData = expData,
+                annotation = get_dataset_platforms(dataset,memoised = memoised)$platform.ShortName
+            )
+        })
+        names(out) <- datasets
+    } else if(type == 'tidy'){
+        out <- datasets %>% lapply(function(dataset){
+            exprM <- expression[[as.character(dataset)]]
+            design <- designs[[as.character(dataset)]]
+
+            rownames(exprM) <- exprM$Probe
+            genes <- exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]]
+            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
+                data.matrix()
+
+            exprM <- exprM[, match(rownames(design), colnames(exprM))]
+
+            design <- tibble::rownames_to_column(design, "Sample")
+
+
+            exprM %>% as.data.frame %>%
+                tibble::rownames_to_column("Probe") %>%
+                tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
+                dplyr::inner_join(genes, by ='Probe') %>%
+                dplyr::inner_join(design, by = "Sample") %>%
+                dplyr::rename(sample = .data$Sample, probe = .data$Probe)
+
+        }) %>% do.call(dplyr::bind_rows,.)
+
     }
 }
 
