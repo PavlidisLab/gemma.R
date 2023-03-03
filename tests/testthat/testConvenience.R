@@ -13,19 +13,19 @@ test_that("getDataset works properly", {
     skip_on_ci()
     skip_on_bioc()
     expr <- get_dataset_expression(1, filter = TRUE)
-    eset <- get_dataset_object("GSE2018", filter = TRUE, type = "eset")
-    sumexp <- get_dataset_object("GSE2018", filter = TRUE, type = "se")
-    design <- get_dataset_design(1)
+    eset <- get_dataset_object("GSE2018", keepNonSpecific = TRUE, filter = TRUE, type = "eset")
+    sumexp <- get_dataset_object("GSE2018",keepNonSpecific = TRUE, filter = TRUE, type = "se")
+    design <- get_dataset_samples(1)
 
-    expect_equal(nrow(expr), eset %>% nrow() %>% unname())
-    expect_equal(Biobase::featureNames(eset), expr$Probe)
-    expect_equal(Biobase::varLabels(eset), colnames(design))
+    expect_equal(nrow(expr), eset[[1]] %>% nrow() %>% unname())
+    expect_equal(Biobase::featureNames(eset[[1]]), expr$Probe)
+    expect_equal(eset[[1]] %>% colnames(), design$sample.Name)
 
-    expect_equal(nrow(expr), nrow(sumexp))
-    expect_equal(rownames(sumexp), expr$Probe)
+    expect_equal(nrow(expr), nrow(sumexp[[1]]))
+    expect_equal(rownames(sumexp[[1]]), expr$Probe)
     expect_equal(
-        colnames(SummarizedExperiment::colData(sumexp)),
-        colnames(design)
+        colnames(sumexp[[1]]),
+        design$sample.Name
     )
 })
 
@@ -35,12 +35,18 @@ test_that("getDatasetTidy works properly", {
     skip_on_ci()
     skip_on_bioc()
     dat <- get_dataset_expression(1)
-    tidy <- get_dataset_object(1,type = 'tidy')
-    design <- get_dataset_design(1)
+    tidy <- get_dataset_object(1,type = 'tidy',keepNonSpecific = TRUE)
+    design <- get_dataset_samples(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
     expect_equal((ncol(dat) - 4) * nrow(dat), nrow(tidy))
-    # Check design matrix
-    expect_equal(colnames(design), colnames(tidy[, 4:ncol(tidy)]))
+})
+
+test_that("get_dataset_object with multiple datasets and genes",{
+    genes <- c(8913,7840)
+    datasets <- c(549, 873, 1869)
+    tidy <- get_dataset_object(datasets,genes,type = 'tidy')
+    expect_equal(tidy$experiment.ID %>% unique, datasets)
+    expect_true(tidy$NCBIid %>% unique %in% genes %>% all)
 })
 
 test_that("getDatasetDE works properly",{

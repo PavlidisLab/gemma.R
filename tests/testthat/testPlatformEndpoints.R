@@ -22,7 +22,7 @@ test_that("getPlatformDatasets queries work", {
         dat[, c(experiment.ShortName, experiment.Name, experiment.SampleCount)],
         c(raw %>% purrr::map_chr('shortName'),
           raw %>% purrr::map_chr('name'),
-          raw %>% purrr::map_chr('bioAssayCount')
+          raw %>% purrr::map('bioAssayCount') %>% purrr::map_chr(as.character)
     ))
     expect_equal(get_platform_datasets(1, limit = 10) %>% nrow(), 10)
     expect_equal(get_platform_datasets(1, offset = 0,attributes = FALSE)[2, ], get_platform_datasets(1, offset = 1,attributes = FALSE)[1, ])

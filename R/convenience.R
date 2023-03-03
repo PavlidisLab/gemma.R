@@ -391,7 +391,7 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
 
-            exprM <- exprM[, match(rownames(design), colnames(exprM))]
+            exprM <- exprM[, match(rownames(design), colnames(exprM)),drop = FALSE]
 
             design <- tibble::rownames_to_column(design, "Sample")
 
@@ -409,6 +409,8 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
         }) %>% do.call(dplyr::bind_rows,.)
 
     }
+    
+    return(out)
 }
 
 #' Retrieve differential expression results
