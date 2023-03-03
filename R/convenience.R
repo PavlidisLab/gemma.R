@@ -381,6 +381,8 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
         names(out) <- datasets
     } else if(type == 'tidy'){
         out <- datasets %>% lapply(function(dataset){
+            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
+            
             exprM <- expression[[as.character(dataset)]]
             design <- designs[[as.character(dataset)]]
 
@@ -399,7 +401,10 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
                 tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
-                dplyr::rename(sample = .data$Sample, probe = .data$Probe)
+                dplyr::rename(sample = .data$Sample, probe = .data$Probe) %>%
+                dplyr::mutate(experiment.ID = dat$id, 
+                              experiment.ShortName = dat$shortName,
+                              .before = 1)
 
         }) %>% do.call(dplyr::bind_rows,.)
 
