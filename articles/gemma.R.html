@@ -369,10 +369,10 @@ using <a href="https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_i
 1: Gene expression profiles of bipolar disorder (BD) patients were assessed during both a manic and a euthymic phase and compared both intra-individually, and with the gene expression profiles of controls.\nLast Updated (by provider): Sep 05 2014\nContributors:  Christian C Witt Benedikt Brors Dilafruz Juraeva Jens Treutlein Carsten Sticht Stephanie H Witt Jana Strohmaier Helene Dukal Josef Frank Franziska Degenhardt Markus M Nöthen Sven Cichon Maren Lang Marcella Rietschel Sandra Meier Manuel Mattheisen</code></pre>
 <p>To access the expression data in a convenient form, you can use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_object.html" class="external-link"><code>get_dataset_object</code></a>.
 It is a high-level wrapper that combines various endpoint calls to
-return an annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a>
+return lists of annotated <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link"><code>SummarizedExperiment</code></a>
 or <a href="https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf" class="external-link"><code>ExpressionSet</code></a>
-that is compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a>
-long form tibble for downstream analyses. They include the expression
+objects that are compatible with other Bioconductor packages or a <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="external-link">tidyverse-friendly</a>
+long form tibble for downstream analyses. These include the expression
 matrix along with the experimental design, and ensure the sample names
 match between both when transforming/subsetting data.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -386,24 +386,23 @@ the <code>reference_subject_role</code>s, which refers to the control
 samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
-<span><span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] "reference_subject_role"              "euthymic_phase_|_Bipolar_Disorder_|"
-[3] "bipolar_disorder_|_manic_phase_|"   </code></pre>
+<span><span class="va">dat</span><span class="op">$</span><span class="va">GSE46416</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] "euthymic phase,Bipolar Disorder" "reference subject role"         
+[3] "bipolar disorder,manic phase"   </code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
-<span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[</span>, <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar_disorder_|_manic_phase_|"</span> <span class="op">|</span> </span>
-<span>        <span class="va">dat</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference_subject_role"</span><span class="op">]</span></span>
+<span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">$</span><span class="va">GSE46416</span><span class="op">[</span>, <span class="va">dat</span><span class="op">$</span><span class="va">GSE46416</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar disorder,manic phase"</span> <span class="op">|</span> </span>
+<span>        <span class="va">dat</span><span class="op">$</span><span class="va">GSE46416</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference subject role"</span><span class="op">]</span></span>
 <span><span class="va">manic</span></span></code></pre></div>
 <pre><code>class: SummarizedExperiment 
-dim: 21986 21 
+dim: 21410 21 
 metadata(8): title abstract ... GemmaSuitabilityScore taxon
 assays(1): counts
-rownames(21986): 2315430 2315554 ... 7385683 7385696
+rownames(21410): 2315430 2315554 ... 7385683 7385696
 rowData names(4): Probe GeneSymbol GeneName NCBIid
-colnames(21): Control,1_DE50 Control,12 ...
-  Bipolardisorderpatientmanicphase,16
-  Bipolardisorderpatientmanicphase,21
-colData names(2): batch disease</code></pre>
+colnames(21): Control, 15 Control, 8 ... Control, 2_DE40 Bipolar
+  disorder patient manic phase, 37
+colData names(3): factorValues block disease</code></pre>
 <p>Let’s take a look at sample to sample correlation in our subset.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
