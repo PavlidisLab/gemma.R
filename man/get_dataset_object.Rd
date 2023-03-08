@@ -5,14 +5,28 @@
 \title{Compile gene expression data and metadata}
 \usage{
 get_dataset_object(
-  dataset,
+  datasets,
+  genes = NULL,
+  keepNonSpecific = FALSE,
+  consolidate = NA_character_,
   filter = FALSE,
+  metaType = "text",
   type = "se",
   memoised = getOption("gemma.memoised", FALSE)
 )
 }
 \arguments{
-\item{dataset}{A dataset identifier.}
+\item{datasets}{A numerical dataset identifier or a dataset short name}
+
+\item{genes}{An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc}
+
+\item{keepNonSpecific}{logical. \code{FALSE} by default. If \code{TRUE}, results
+from probesets that are not specific to the gene will also be returned.}
+
+\item{consolidate}{An option for gene expression level consolidation. If empty,
+will return every probe for the genes. "pickmax" to
+pick the probe with the highest expression, "pickvar" to pick the prove with
+the highest variance and "average" for returning the average expression}
 
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 

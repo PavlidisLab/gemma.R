@@ -204,10 +204,6 @@ make_design = function(samples,metaType){
 #' data structure or a long form tibble of the queried dataset, including
 #' expression data and the experimental design.
 #'
-#' @param datasets Dataset identifiers
-#' @param genes Optional. If empty, expression of all genes will be returned. An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
-#' @param keepNonSpecific logical. FALSE by default. If TRUE, results from probesets that are not specific to the gene will also be returned.
-#' @param consolidate If multiple pro
 #' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
@@ -215,6 +211,7 @@ make_design = function(samples,metaType){
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
 #' for more details.
 #' @inheritParams memoise
+#' @inheritParams get_dataset_expression_for_genes
 #'
 #' @return A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
 #' @keywords dataset
@@ -241,12 +238,12 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
             }
             if(!is.na(consolidate) && consolidate == "pickmax"){
                 mean_exp <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
-                    mean(na.omit(x))
+                    mean(stats::na.omit(x))
                 })
                 exp <- exp[order(mean_exp,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
             } else if(!is.na(consolidate) && consolidate == 'pickvar'){
                 exp_var <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
-                    var(na.omit(x))
+                    stats::var(stats::na.omit(x))
                 })
                 exp <- exp[order(exp_var,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
             } else if(!is.na(consolidate) && consolidate == 'average'){
