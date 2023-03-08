@@ -67,9 +67,9 @@ nullCheck <- function(x,natype= NA){
 processGemmaFactor <- function(d) {
 
     data.table(
-        factorValue = ifelse(d %>% accessField('factorValue') %>% is.na(),
-                             d %>% accessField('value',NA_character_),
-                             d %>% accessField('factorValue',NA_character_)),
+        factorValue = ifelse(d %>% accessField('value') %>% is.na(),
+                             d %>% accessField('factorValue',NA_character_),
+                             d %>% accessField('value',NA_character_)),
         factorValueURI = d %>% accessField('valueUri',NA_character_),
         description =  d %>% accessField('description',NA_character_),
         category = d %>% accessField('category'),
