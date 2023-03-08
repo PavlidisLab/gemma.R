@@ -212,26 +212,46 @@ make_design = function(samples,metaType){
 #' for more details.
 #' @inheritParams memoise
 #' @inheritParams get_dataset_expression_for_genes
+#' @param metaType How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options
+#' @param resultSet Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
+#' the samples from the subset used in the result set ID.
+#' 
+#'  Must be the same length as \code{datasets}.
 #'
-#' @return A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
+#'
+#' @return A list of \code{\link[SummarizedExperiment]{SummarizedExperiment}}s,
+#' \code{\link[Biobase]{ExpressionSet}}s or a tibble containing metadata and 
+#' expression data for the queried datasets and genes. Metadata will be expanded to include 
+#' a variable number of factors that annotates samples from a dataset but will
+#' always include single "factorValues" column that houses data.tables that 
+#' include all annotations for a given sample.
 #' @keywords dataset
 #' @export
 #' @examples
 #' get_dataset_object("GSE2018")
-get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, consolidate = NA_character_, filter = FALSE, metaType = 'text', type = "se", memoised = getOption("gemma.memoised", FALSE)) {
+get_dataset_object <- function(datasets,
+                               genes = NULL,
+                               keepNonSpecific = FALSE, 
+                               consolidate = NA_character_,
+                               resultSets = NULL, 
+                               filter = FALSE, 
+                               metaType = 'text', 
+                               type = "se", 
+                               memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se" && type != 'tidy') {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
     }
 
-    metadata <- datasets %>% lapply(function(dataset){
+    metadata <- unique(datasets) %>% lapply(function(dataset){
         get_dataset_samples(dataset,memoised = memoised)
     })
-    names(metadata) = datasets
+    names(metadata) = unique(datasets)
 
     if(is.null(genes)){
-        expression <- datasets %>% lapply(function(dataset){
+        expression <- unique(datasets) %>% lapply(function(dataset){
             exp <- get_dataset_expression(dataset, filter,memoised = memoised)
             meta <- metadata[[as.character(dataset)]]
+
             # these replicate the arguments for get_dataset_expression_for_genes
             if(!keepNonSpecific){
                 exp = exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
@@ -284,19 +304,72 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
         })
         names(expression) = datasets
     } else{
-        expression <- get_dataset_expression_for_genes(datasets,genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
+        expression <- get_dataset_expression_for_genes(unique(datasets),genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
     }
 
 
     designs <- metadata %>% lapply(function(meta){
         make_design(meta,metaType)
     })
+    
+    # pack the information that will be included in all outputs
+    packed_data <- seq_along(datasets) %>% lapply(function(i){
+        dataset <- datasets[i]
+        # we don't want to pass data.tables by reference because 
+        # same datasets might be re-used
+        packed_info <- 
+            list(design = data.table::copy(designs[[as.character(dataset)]]),
+                 exp = data.table::copy(expression[[as.character(dataset)]]),
+                 result_set = resultSets[i],
+                 dat =  get_datasets_by_ids(dataset, raw = FALSE,memoised = memoised))
+        
 
+        
+        # reorders the expression to match the metadata
+        gene_info <- colnames(packed_info$exp)[!colnames(packed_info$exp) %in% rownames(packed_info$design)]
+        data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
+
+        if(!is.null(resultSets)){
+            diff <- get_dataset_differential_expression_analyses(dataset,memoised = memoised)
+            subset_category <- diff %>% 
+                dplyr::filter(result.ID == resultSets[i]) %>% 
+                .$subsetFactor.category %>% unique
+            subset_factor <- diff %>% 
+                dplyr::filter(result.ID == resultSets[i]) %>% 
+                .$subsetFactor.factorValue %>% unique
+            
+            assertthat::assert_that(length(subset_category)==1)
+            assertthat::assert_that(length(subset_factor)==1)
+            
+            if(!is.na(subset_category)){
+                in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
+                    x %>% dplyr::filter(category %in% subset_category) %>%
+                        .$factorValue %in% subset_factor
+                })
+            } else{
+                in_subset <- TRUE
+            }
+            packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[in_subset])]
+            packed_info$design <- packed_info$design[in_subset,]
+        }
+        
+        return(packed_info)
+    })
+    
+
+    if(!is.null(resultSets)){
+        names(packed_data) <- paste0(
+            packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID'),
+            '.',resultSets)
+    } else{
+        names(packed_data) <- packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID')
+    }
+    
 
     if (type == 'se'){
-        out <- datasets %>% lapply(function(dataset){
-            exprM <- expression[[as.character(dataset)]]
-            design <- designs[[as.character(dataset)]]
+        out <- packed_data %>% lapply(function(data){
+            exprM <- data$exp
+            design <- data$design
 
 
             rownames(exprM) <- exprM$Probe
@@ -304,21 +377,20 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
 
-            exprM <- exprM[, match(rownames(design), colnames(exprM))]
+            # reordering happens above
+            # exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-
-            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
 
 
             expData <- list(
-                title = dat$name,
-                abstract = dat$description,
-                url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id),
-                database = dat$externalDatabase,
-                accesion = dat$accession,
-                GemmaQualityScore = dat$geeq$publicQualityScore,
-                GemmaSuitabilityScore = dat$geeq$geeq.sScore,
-                taxon = dat$taxon
+                title = data$dat$experiment.Name,
+                abstract = data$dat$experiment.Description,
+                url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
+                database = data$dat$experiment.Database,
+                accesion = data$dat$experiment.Accession,
+                GemmaQualityScore = data$dat$geeq.qScore,
+                GemmaSuitabilityScore = data$dat$geeq.sScore,
+                taxon = data$dat$taxon.Name
             )
 
 
@@ -329,35 +401,33 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
                 metadata = expData
             )
         })
-        names(out) <- datasets
 
     } else if(type == 'eset'){
 
-        out <- datasets %>% lapply(function(dataset){
-            exprM <- expression[[as.character(dataset)]]
-            design <- designs[[as.character(dataset)]]
+        out <- packed_data %>% lapply(function(data){
+            exprM <- data$exp
+            design <- data$design
 
 
             rownames(exprM) <- exprM$Probe
             genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
+            
+            # reordering happens above
+            # exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-            exprM <- exprM[, match(rownames(design), colnames(exprM))]
-
-
-            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
 
             expData <- Biobase::MIAME(
-                title = dat$name,
-                abstract = dat$description,
-                url =  paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", dat$id),
+                title = data$dat$experiment.Name,
+                abstract = data$dat$experiment.Description,
+                url =   paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
                 other = list(
-                    database = dat$externalDatabase,
-                    accesion = dat$accession,
-                    GemmaQualityScore = dat$geeq$publicQualityScore,
-                    GemmaSuitabilityScore = dat$geeq$geeq.sScore,
-                    taxon = dat$taxon
+                    database = data$dat$experiment.Database,
+                    accesion = data$dat$experiment.Accession,
+                    GemmaQualityScore = data$dat$geeq.qScore,
+                    GemmaSuitabilityScore = data$dat$geeq.sScore,
+                    taxon = data$dat$taxon.Name
                 )
             )
 
@@ -377,12 +447,11 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
         })
         names(out) <- datasets
     } else if(type == 'tidy'){
-        out <- datasets %>% lapply(function(dataset){
-            dat <- get_datasets_by_ids(dataset, raw = TRUE,memoised = memoised) %>% jsonlite:::simplify()
-            
-            exprM <- expression[[as.character(dataset)]]
-            design <- designs[[as.character(dataset)]]
+        out <- packed_data %>% lapply(function(data){
 
+            exprM <- data$exp
+            design <- data$design
+            
             rownames(exprM) <- exprM$Probe
             genes <- exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]]
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
@@ -393,15 +462,20 @@ get_dataset_object <- function(datasets, genes = NULL, keepNonSpecific = FALSE, 
             design <- tibble::rownames_to_column(design, "Sample")
 
 
-            exprM %>% as.data.frame %>%
+            frm <- exprM %>% as.data.frame %>%
                 tibble::rownames_to_column("Probe") %>%
                 tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
                 dplyr::rename(sample = .data$Sample, probe = .data$Probe) %>%
-                dplyr::mutate(experiment.ID = dat$id, 
-                              experiment.ShortName = dat$shortName,
+                dplyr::mutate(experiment.ID = data$dat$experiment.ID, 
+                              experiment.ShortName = data$dat$experiment.ShortName,
                               .before = 1)
+            
+            if(!is.na(data$result_set)){
+                frm <- mutate(frm, result.ID = data$result_set,.before= 3)
+            }
+            return(frm)
 
         }) %>% do.call(dplyr::bind_rows,.)
 
