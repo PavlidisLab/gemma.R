@@ -9,6 +9,8 @@ get_dataset_object(
   genes = NULL,
   keepNonSpecific = FALSE,
   consolidate = NA_character_,
+  resultSets = NULL,
+  contrasts = NULL,
   filter = FALSE,
   metaType = "text",
   type = "se",
@@ -28,7 +30,16 @@ will return every probe for the genes. "pickmax" to
 pick the probe with the highest expression, "pickvar" to pick the prove with
 the highest variance and "average" for returning the average expression}
 
+\item{resultSets}{Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
+the samples from the subset used in the result set ID.
+Must be the same length as \code{datasets}.'}
+
+\item{contrasts}{Contrast IDs of a differential expression contrast. Optional. Need resultSets to be defined to work. If provided, the
+output will only include samples relevant to the specific contrats.}
+
 \item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
+
+\item{metaType}{How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options}
 
 \item{type}{"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 SummarizedExperiments which are more recent. See the Summarized experiment
@@ -42,7 +53,12 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 }
 \value{
-A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.
+A list of \code{\link[SummarizedExperiment]{SummarizedExperiment}}s,
+\code{\link[Biobase]{ExpressionSet}}s or a tibble containing metadata and
+expression data for the queried datasets and genes. Metadata will be expanded to include
+a variable number of factors that annotates samples from a dataset but will
+always include single "factorValues" column that houses data.tables that
+include all annotations for a given sample.
 }
 \description{
 Return an annotated Bioconductor-compatible
