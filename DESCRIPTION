@@ -42,7 +42,8 @@ Imports:
     S4Vectors,
     httr,
     rappdirs,
-    bit64
+    bit64,
+    assertthat
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
