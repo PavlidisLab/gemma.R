@@ -81,6 +81,8 @@ expression data and the experimental design.</p>
 <span>  genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  keepNonSpecific <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  consolidate <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  resultSets <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  contrasts <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  filter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  metaType <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"se"</span>,</span>
@@ -110,8 +112,23 @@ pick the probe with the highest expression, "pickvar" to pick the prove with
 the highest variance and "average" for returning the average expression</p></dd>
 
 
+<dt>resultSets</dt>
+<dd><p>Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
+the samples from the subset used in the result set ID.
+Must be the same length as <code>datasets</code>.'</p></dd>
+
+
+<dt>contrasts</dt>
+<dd><p>Contrast IDs of a differential expression contrast. Optional. Need resultSets to be defined to work. If provided, the
+output will only include samples relevant to the specific contrats.</p></dd>
+
+
 <dt>filter</dt>
 <dd><p>The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.</p></dd>
+
+
+<dt>metaType</dt>
+<dd><p>How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options</p></dd>
 
 
 <dt>type</dt>
@@ -133,7 +150,12 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
     <h2>Value</h2>
     
 
-<p>A SummarizedExperiment, ExpressionSet or tibble containing metadata and expression data for the queried dataset.</p>
+<p>A list of <code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a></code>s,
+<code><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html" class="external-link">ExpressionSet</a></code>s or a tibble containing metadata and
+expression data for the queried datasets and genes. Metadata will be expanded to include
+a variable number of factors that annotates samples from a dataset but will
+always include single "factorValues" column that houses data.tables that
+include all annotations for a given sample.</p>
     </div>
 
     <div id="ref-examples">
