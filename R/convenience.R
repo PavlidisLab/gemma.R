@@ -307,7 +307,7 @@ get_dataset_object <- function(datasets,
         expression <- get_dataset_expression_for_genes(unique(datasets),genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
     }
 
-
+    # bit of a bottleneck
     designs <- metadata %>% lapply(function(meta){
         make_design(meta,metaType)
     })
@@ -442,7 +442,7 @@ get_dataset_object <- function(datasets,
                 assayData = exprM,
                 phenoData = phenoData,
                 experimentData = expData,
-                annotation = get_dataset_platforms(dataset,memoised = memoised)$platform.ShortName
+                annotation = get_dataset_platforms(data$dat$experiment.ID,memoised = memoised)$platform.ShortName
             )
         })
         names(out) <- datasets
@@ -472,7 +472,7 @@ get_dataset_object <- function(datasets,
                               experiment.ShortName = data$dat$experiment.ShortName,
                               .before = 1)
             
-            if(!is.na(data$result_set)){
+            if(!is.null(data$result_set)){
                 frm <- mutate(frm, result.ID = data$result_set,.before= 3)
             }
             return(frm)
