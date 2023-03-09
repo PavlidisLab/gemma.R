@@ -386,8 +386,9 @@ the <code>reference_subject_role</code>s, which refers to the control
 samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
-<span><span class="va">dat</span><span class="op">$</span><span class="va">GSE46416</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="cn">NULL</span></span></code></pre>
+<span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>[1] "euthymic phase,Bipolar Disorder" "reference subject role"         
+[3] "bipolar disorder,manic phase"   </code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
 <span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar disorder,manic phase"</span> <span class="op">|</span> </span>
