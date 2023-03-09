@@ -77,8 +77,12 @@ expression data and the experimental design.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_dataset_object</span><span class="op">(</span></span>
-<span>  <span class="va">dataset</span>,</span>
+<span>  <span class="va">datasets</span>,</span>
+<span>  genes <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  keepNonSpecific <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  consolidate <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  filter <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  metaType <span class="op">=</span> <span class="st">"text"</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"se"</span>,</span>
 <span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -86,8 +90,24 @@ expression data and the experimental design.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>dataset</dt>
-<dd><p>A dataset identifier.</p></dd>
+    <dl><dt>datasets</dt>
+<dd><p>A numerical dataset identifier or a dataset short name</p></dd>
+
+
+<dt>genes</dt>
+<dd><p>An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc</p></dd>
+
+
+<dt>keepNonSpecific</dt>
+<dd><p>logical. <code>FALSE</code> by default. If <code>TRUE</code>, results
+from probesets that are not specific to the gene will also be returned.</p></dd>
+
+
+<dt>consolidate</dt>
+<dd><p>An option for gene expression level consolidation. If empty,
+will return every probe for the genes. "pickmax" to
+pick the probe with the highest expression, "pickvar" to pick the prove with
+the highest variance and "average" for returning the average expression</p></dd>
 
 
 <dt>filter</dt>
@@ -119,7 +139,7 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_object</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $GSE2018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> class: SummarizedExperiment </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> dim: 21244 34 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata(8): title abstract ... GemmaSuitabilityScore taxon</span>
