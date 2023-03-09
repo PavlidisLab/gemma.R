@@ -356,77 +356,25 @@ p_values %>% log10() %>%
 This shows that the gene is nominally significant in some but not all of the data sets.
 
 To examine this further, our next step is to acquire gene expression data from the 
-relevant datasets using `get_dataset_expression_for_genes`. We provide the IDs of the experiments and the NCBI ID of the gene.
+relevant datasets using `get_dataset_object`. We will use both dataset ids and resultSet ids
+when using this function since some of the returned analysis are only performed on a subset
+of the data. Providing resultSet ids allows us to harmonize the differential expression
+results with expression data by returning the relevant subset.
+
 
 ```{r}
+
+
 # we need the NCBI id of the gene in question, lets get that from the original
 # results
 NCBIid <- differentials[[1]] %>% filter(GeneSymbol == gene) %>% .$NCBIid %>% unique
 #NCBIid
 
-expression <- 
-    get_dataset_expression_for_genes(
-        datasets = parkin_contrasts$experiment.ID,
-        # to keep things simple in this example, we are simply using the probeset with
-        # the highest variance to represent the gene
-        genes = NCBIid,consolidate = 'pickvar') 
 
-#expression[[1]]
-```
-
-Then we grab the metadata for the samples so we can organize the data by disease condition vs. control:
-
-```{r}
-metadata <- parkin_contrasts$experiment.ID %>% lapply(function(x){
-    get_dataset_samples(x)
-})
-
-# for each sample in every study metadata includes a list of data.tables that includes
-# factor values associated with the sample. We will use this field to split samples
-# into experimental groups they belong to
-metadata[[1]]$sample.FactorValues[1]
-
-expression_frame <- seq_along(metadata) %>% lapply(function(i){
-    # identify samples with the Parkinson's disease term
-    
-    contrast_category <- parkin_contrasts[i,]$baseline.category
-    
-    pd_samples <- metadata[[i]]$sample.FactorValues %>% purrr::map_lgl(function(x){
-        x %>% 
-            filter(category %in% contrast_category) %>%
-            .$factorValueURI %in% "http://purl.obolibrary.org/obo/DOID_14330" %>%
-            any
-    })
-    
-    # certain contrasts are subsets of the whole dataset. here we isolate these
-    # samples if subsetting is involved
-    subset_category <- parkin_contrasts[i,]$subsetFactor.category
-    subset_factor <- parkin_contrasts[i,]$subsetFactor.factorValue
-    if(!is.na(subset_category)){
-        in_subset <- metadata[[i]]$sample.FactorValues %>% purrr::map_lgl(function(x){
-        x %>% 
-            filter(category %in% subset_category) %>%
-            .$factorValue %in% subset_factor
-            })
-    } else{
-        in_subset<- TRUE
-    }
-    
-    pd_sample_names = metadata[[i]][pd_samples & in_subset,]$sample.Name
-    ct_sample_names = metadata[[i]][!pd_samples & in_subset,]$sample.Name
-    
-    expression[[i]] %>% as.data.frame %>% {.[,pd_sample_names]} %>% unlist
-    
-    data.frame(
-        expression = c(
-            expression[[i]] %>% as.data.frame %>% {.[,pd_sample_names]} %>% unlist,
-            expression[[i]] %>% as.data.frame %>% {.[,ct_sample_names]} %>% unlist
-        ),
-        disease = c(rep("PD",length(pd_sample_names)),
-                    rep("Control",length(ct_sample_names))),
-        contrast = names(condition_diffs[i])
-    )
-}) %>% do.call(rbind,.)
+expression_frame <- get_dataset_object(dataset = parkin_contrasts$experiment.ID,
+                                       resultSets = parkin_contrasts$result.ID,
+                                       contrasts = parkin_contrasts$contrast.id,
+                                       genes = NCBIid,type = 'tidy',consolidate = 'pickvar')
 
 # get the contrast names for significance markers 
 signif_contrasts <- which(p_values < 0.05) %>% names
@@ -436,21 +384,37 @@ Finally, we'll make a plot showing the expression of the gene of interest in all
 This helps us see the extent to which there is evidence of consistent differential expression.
 
 ```{r}
-expression_frame %>% 
+expression_frame <- expression_frame %>%
     filter(!is.na(expression)) %>% 
-    ggplot(aes(x = disease,y=expression)) + 
-    facet_wrap(~contrast,scales='free') + 
+    # add a column to represent the contrast 
+    dplyr::mutate(contrasts = paste0(experiment.ID,'.',
+                                    result.ID,'.',
+                                    contrast.ID)) %>%
+    # simplify the labels
+    dplyr::mutate(disease = ifelse(disease == 'reference subject role','Control','PD'))
+
+# for adding human readable labels on the plot
+labeller <- function(x){
+    x %>% mutate(contrasts = contrasts %>% 
+                     strsplit('.',fixed = TRUE) %>%
+                     purrr::map_chr(1) %>%
+                     {expression_frame$experiment.ShortName[match(.,expression_frame$experiment.ID)]})
+}
+
+# pass it all to ggplot
+expression_frame %>% 
+    ggplot(aes(x = disease,y = expression)) + 
+    facet_wrap(~contrasts,scales = 'free',labeller = labeller) + 
     theme_bw() + 
-    theme(strip.text.x = element_blank()) + 
     geom_boxplot(width = 0.5) + 
-    geom_point() + ggtitle(paste("Expression of", gene, " per study"))
-    # significance markers
-    geom_text(data = data.frame(contrast = signif_contrasts,
-                             expression_frame %>% 
-                             group_by(contrast) %>% 
-                             summarise(expression = max(expression)) %>% 
-                             .[match(signif_contrasts,.$contrast),]),
+    geom_point() + ggtitle(paste("Expression of", gene, " per study")) + 
+    geom_text(data = data.frame(contrasts = signif_contrasts,
+                             expression_frame %>%
+                             group_by(contrasts) %>%
+                             summarise(expression = max(expression)) %>%
+                             .[match(signif_contrasts,.$contrasts),]),
               x = 1.5, label = '*',size=5,vjust= 1)
+
 ```
 
 
