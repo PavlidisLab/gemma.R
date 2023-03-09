@@ -218,8 +218,8 @@ datasets.
 dat$GSE46416$disease %>% unique()
 
 # Subset patients during manic phase and controls
-manic <- dat$GSE46416[, dat$GSE46416$disease == "bipolar disorder,manic phase" | 
-        dat$GSE46416$disease == "reference subject role"]
+manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder,manic phase" | 
+        dat[[1]]$disease == "reference subject role"]
 manic
 ```
 
