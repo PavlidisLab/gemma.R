@@ -246,7 +246,7 @@ processDEA <- function(d) {
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
                     baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                     baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                    baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
+                    baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$value %>% nullCheck(NA_character_),
                     baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
                     experimental.factorValue = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('factorValue'),
                     experimental.factorValueURI =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values  %>% accessField('id',NA_integer_)  %>% match(.,factor_ids) %>% {experimental_factors[.]}  %>% accessField('valueUri'),

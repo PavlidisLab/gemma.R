@@ -213,11 +213,11 @@ make_design = function(samples,metaType){
 #' @inheritParams memoise
 #' @inheritParams get_dataset_expression_for_genes
 #' @param metaType How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options
-#' @param resultSet Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
+#' @param resultSets Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
 #' the samples from the subset used in the result set ID.
-#' 
-#'  Must be the same length as \code{datasets}.
-#'
+#' Must be the same length as \code{datasets}.'
+#' @param contrasts Contrast IDs of a differential expression contrast. Optional. Need resultSets to be defined to work. If provided, the
+#' output will only include samples relevant to the specific contrats.
 #'
 #' @return A list of \code{\link[SummarizedExperiment]{SummarizedExperiment}}s,
 #' \code{\link[Biobase]{ExpressionSet}}s or a tibble containing metadata and 
@@ -233,7 +233,8 @@ get_dataset_object <- function(datasets,
                                genes = NULL,
                                keepNonSpecific = FALSE, 
                                consolidate = NA_character_,
-                               resultSets = NULL, 
+                               resultSets = NULL,
+                               contrasts = NULL,
                                filter = FALSE, 
                                metaType = 'text', 
                                type = "se", 
@@ -321,6 +322,7 @@ get_dataset_object <- function(datasets,
             list(design = data.table::copy(designs[[as.character(dataset)]]),
                  exp = data.table::copy(expression[[as.character(dataset)]]),
                  result_set = resultSets[i],
+                 contrast = contrasts[i],
                  dat =  get_datasets_by_ids(dataset, raw = FALSE,memoised = memoised))
         
 
@@ -349,18 +351,30 @@ get_dataset_object <- function(datasets,
             } else{
                 in_subset <- TRUE
             }
-            packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[in_subset])]
-            packed_info$design <- packed_info$design[in_subset,]
+            if(!is.null(contrasts)){
+                contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.id == contrasts[i])
+                in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
+                    x %>% dplyr::filter(category == contrast$baseline.category) %>%
+                        .$factorValue %in% c(contrast$baseline.factorValue,contrast$experimental.factorValue) %>% 
+                        all
+                })
+            } else{
+                in_contrast <- TRUE
+            }
+            packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[in_subset & in_contrast])]
+            packed_info$design <- packed_info$design[in_subset & in_contrast,]
         }
         
         return(packed_info)
     })
-    
 
     if(!is.null(resultSets)){
         names(packed_data) <- paste0(
             packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID'),
             '.',resultSets)
+        if(!is.null(contrasts)){
+            names(packed_data) <- paste0(names(packed_data),'.',contrasts)
+        }
     } else{
         names(packed_data) <- packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID')
     }
@@ -473,7 +487,10 @@ get_dataset_object <- function(datasets,
                               .before = 1)
             
             if(!is.null(data$result_set)){
-                frm <- mutate(frm, result.ID = data$result_set,.before= 3)
+                frm <- mutate(frm, result.ID = data$result_set,.before = 3)
+            }
+            if(!is.null(data$contrast)){
+                frm <- mutate(frm,  contrast.ID = data$contrast,.before = 3)
             }
             return(frm)
 
