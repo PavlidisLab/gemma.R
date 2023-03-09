@@ -215,7 +215,7 @@ datasets.
 
 ```{r}
 # Check the levels of the disease factor
-dat$GSE46416$disease %>% unique()
+dat[[1]]$disease %>% unique()
 
 # Subset patients during manic phase and controls
 manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder,manic phase" | 
