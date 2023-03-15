@@ -124,13 +124,13 @@ gemmaPath <- function(){
         }
         mOut
     } else if (response$status_code == 403) {
-        stop(response$status_code, ": Forbidden. You do not have permission to access this data.")
+        stop(call,'\n',response$status_code, ": Forbidden. You do not have permission to access this data.")
     } else if (response$status_code == 404) {
-        stop(response$status_code, ": Not found. Ensure your parameters are spelled correctly and that you're querying an existing ID.")
+        stop(call,'\n',response$status_code, ": Not found. Ensure your parameters are spelled correctly and that you're querying an existing ID.")
     } else if (response$status_code == 500) {
-        stop(response$status_code, ": Internal server error.")
+        stop(call,'\n',response$status_code, ": Internal server error.")
     } else if (response$status_code == 503) {
-        stop(response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
+        stop(call,'\n',response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
     } else {
         stop("HTTP code ", response$status_code)
     }
