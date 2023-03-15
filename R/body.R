@@ -132,7 +132,7 @@ gemmaPath <- function(){
     } else if (response$status_code == 503) {
         stop(call,'\n',response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
     } else {
-        stop("HTTP code ", response$status_code)
+        stop(call, '\n', "HTTP code ", response$status_code)
     }
 }
 
