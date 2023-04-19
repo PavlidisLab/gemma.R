@@ -749,10 +749,10 @@ processDEMatrix <- function(m) {
     m <- m[,!colnames(m) %in% c('id','probe_id','gene_id','gene_name'),with = FALSE]
     m %>%
         dplyr::rename(
-            Probe = .data$probe_name,
-            GeneSymbol = .data$gene_official_symbol,
-            GeneName = .data$gene_official_name,
-            NCBIid = .data$gene_ncbi_id
+            Probe = "probe_name",
+            GeneSymbol = "gene_official_symbol",
+            GeneName = "gene_official_name",
+            NCBIid = "gene_ncbi_id"
         )
 }
 

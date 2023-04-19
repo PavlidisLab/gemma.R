@@ -478,10 +478,10 @@ get_dataset_object <- function(datasets,
 
             frm <- exprM %>% as.data.frame %>%
                 tibble::rownames_to_column("Probe") %>%
-                tidyr::pivot_longer(-.data$Probe, names_to = "Sample", values_to = "expression") %>%
+                tidyr::pivot_longer(-"Probe", names_to = "Sample", values_to = "expression") %>%
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
-                dplyr::rename(sample = .data$Sample, probe = .data$Probe) %>%
+                dplyr::rename(sample = "Sample", probe = "Probe") %>%
                 dplyr::mutate(experiment.ID = data$dat$experiment.ID, 
                               experiment.ShortName = data$dat$experiment.ShortName,
                               .before = 1)
