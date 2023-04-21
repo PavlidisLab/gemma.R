@@ -49,16 +49,18 @@ api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('op
 
 
 # Dataset endpoints ----
-registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}",
+registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
     "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
     defaults = list(
         datasets = NA_character_,
+        filter = NA_character_,
         offset = 0L,
         limit = 20L,
         sort = "+id"
     ),
     validators = alist(
         datasets = validateOptionalID,
+        filter = validateFilter,
         offset = validatePositiveInteger,
         limit = validateLimit,
         sort = validateSort

@@ -6,6 +6,7 @@
 \usage{
 get_datasets_by_ids(
   datasets = NA_character_,
+  filter = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
@@ -19,6 +20,8 @@ get_datasets_by_ids(
 \arguments{
 \item{datasets}{Numerical dataset identifiers or dataset short names. If not
 specified, all datasets will be returned instead}
+
+\item{filter}{Filter results by matching the expression. The exact syntax is described in the attached external documentation.}
 
 \item{offset}{The offset of the first retrieved result.}
 

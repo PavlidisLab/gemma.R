@@ -260,5 +260,6 @@ NULL
 #' @param keepNonSpecific logical. \code{FALSE} by default. If \code{TRUE}, results
 #' from probesets that are not specific to the gene will also be returned.
 #' @return A list of data frames
-#' @param
+#' @examples
+#' get_dataset_expression_for_genes('GSE2018',genes=c(10225,2841))
 NULL

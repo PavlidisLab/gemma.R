@@ -4,6 +4,7 @@
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
+#' @param filter Filter results by matching the expression. The exact syntax is described in the attached external documentation.
 #' @param offset The offset of the first retrieved result.
 #' @param limit Optional, defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -34,15 +35,15 @@
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))
 get_datasets_by_ids <- function(
-        datasets = NA_character_, offset = 0L, limit = 20L,
-        sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-            "gemma.memoised",
+        datasets = NA_character_, filter = NA_character_, offset = 0L,
+        limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
             FALSE
-        ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        ), attributes = getOption("gemma.attributes", TRUE)) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -50,10 +51,11 @@ get_datasets_by_ids <- function(
     fname <- "get_datasets_by_ids"
     preprocessor <- processDatasets
     validators <- list(
-        datasets = validateOptionalID, offset = validatePositiveInteger,
-        limit = validateLimit, sort = validateSort
+        datasets = validateOptionalID, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validateLimit,
+        sort = validateSort
     )
-    endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    endpoint <- "datasets/{encode(datasets)}?&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}&filter={encode(filter)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -61,16 +63,16 @@ get_datasets_by_ids <- function(
         if ("character" %in% class(gemmaCache()) && gemmaCache() ==
             "cache_in_memory") {
             return(mem_in_memory_cache("get_datasets_by_ids",
-                datasets = datasets, offset = offset, limit = limit,
-                sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                datasets = datasets, filter = filter, offset = offset,
+                limit = limit, sort = sort, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite, attributes = attributes
             ))
         } else {
             out <- memget_datasets_by_ids(
                 datasets = datasets,
-                offset = offset, limit = limit, sort = sort,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                filter = filter, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite, attributes = attributes
             )
             return(out)
         }
@@ -85,20 +87,20 @@ get_datasets_by_ids <- function(
 #'
 #' @noRd
 memget_datasets_by_ids <- function(
-        datasets = NA_character_, offset = 0L, limit = 20L,
-        sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
-            "gemma.memoised",
+        datasets = NA_character_, filter = NA_character_, offset = 0L,
+        limit = 20L, sort = "+id", raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
             FALSE
-        ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        ), attributes = getOption("gemma.attributes", TRUE)) {
     mem_call <- memoise::memoise(get_datasets_by_ids, cache = gemmaCache())
     mem_call(
-        datasets = datasets, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        datasets = datasets, filter = filter, offset = offset,
+        limit = limit, sort = sort, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite, attributes = attributes
     )
 }
 
@@ -489,6 +491,7 @@ memget_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
 #' @keywords dataset
 #'
 #' @examples
+#' get_dataset_expression_for_genes("GSE2018", genes = c(10225, 2841))
 get_dataset_expression_for_genes <- function(
         datasets, genes, keepNonSpecific = FALSE, consolidate = NA_character_,
         raw = getOption("gemma.raw", FALSE), memoised = getOption(

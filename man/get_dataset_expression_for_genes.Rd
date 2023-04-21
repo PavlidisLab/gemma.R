@@ -54,4 +54,7 @@ A list of data frames
 \description{
 Retrieve the expression data matrix of a set of datasets and genes
 }
+\examples{
+get_dataset_expression_for_genes("GSE2018", genes = c(10225, 2841))
+}
 \keyword{dataset}

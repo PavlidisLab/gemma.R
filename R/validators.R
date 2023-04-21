@@ -216,6 +216,8 @@ validateSort <- function(name, ...) {
 }
 
 
+
+
 #' Validate result types
 #'
 #' @param name The variable name
@@ -245,4 +247,11 @@ validateConsolidate <- function(name, ...){
         stop('consolidate must be NA, "pickmax", "pickmax" or "average"')
     }
     return(consolidate)
+}
+
+
+validateFilter <- function(name, ...){
+    filter <-  unlist(list(...))
+    assertthat::assert_that(is.na(filter) || assertthat::is.string(filter),msg = "filter must be a string of length one")
+    return(filter)
 }
