@@ -143,6 +143,36 @@ into the output object's attributes such as offset and available elements.</p></
 <p>A list of data frames</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_expression_for_genes</span><span class="op">(</span><span class="st">"GSE2018"</span>, genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10225</span>, <span class="fl">2841</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        Probe GeneSymbol NCBIid BAL_21_A0B0 BAL_27b_A2B1 BAL_45b_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 210279_at      GPR18   2841    4.645752     4.823190     6.491834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 206761_at       CD96  10225    4.885323     5.048612     5.652679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_13_A0B0 BAL_20b_A1B1 BAL_19_A0B0 BAL_47b_A0B1 BAL_43_A0B0 BAL_40_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.940756     5.866830    4.583183      4.67893    4.465108    4.511050</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    5.074563     5.274486    4.649426      4.58239    4.547473    4.601733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_33_A0B1 BAL_39_A0B1 BAL_1_A0B0 BAL_47a_A0B0 BAL_27a_A0B0 BAL_4_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.417853    4.655186   4.595008     4.562611     4.605157   4.730091</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.468610    4.382357   4.334681     4.484899     4.659488   4.585755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_15b_A0B0 BAL_41_A1B0 BAL_25_A0B0 BAL_44a_A0B0 BAL_15a_A0B1 BAL_47c_A0B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     4.888572    4.477200    4.489553     4.510270     4.548352     4.680265</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     4.789748    4.601384    4.440793     4.428353     4.373278     4.513757</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_3_A1B0 BAL_37_A1B1 BAL_17_A0B0 BAL_42_A0B0 BAL_44b_A0B0 BAL_18_A1B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   4.832187    5.900882    4.579998    4.704303     4.568584    4.628231</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   4.608424    5.268568    4.326401    4.504018     4.307019    4.282581</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_12_A1B0 BAL_29_A1B0 BAL_46_A2B0 BAL_20a_A1B1 BAL_45a_A1B0 BAL_26_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.779467    4.678472    5.156934          NaN     4.687374    4.928508</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.557624    4.659488    5.062550          NaN     4.512525    4.790910</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_31_A0B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.910904</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.485695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"call")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://gemma.msl.ubc.ca/rest/v2/datasets/GSE2018/expressions/genes/10225%2C2841?keepNonSpecific=false"</span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

@@ -74,6 +74,7 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_datasets_by_ids</span><span class="op">(</span></span>
 <span>  datasets <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"+id"</span>,</span>
@@ -90,6 +91,10 @@
     <dl><dt>datasets</dt>
 <dd><p>Numerical dataset identifiers or dataset short names. If not
 specified, all datasets will be returned instead</p></dd>
+
+
+<dt>filter</dt>
+<dd><p>Filter results by matching the expression. The exact syntax is described in the attached external documentation.</p></dd>
 
 
 <dt>offset</dt>
