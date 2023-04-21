@@ -106,7 +106,796 @@ endpoints and/or raw output without any processing. Refer to the
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># get singular value decomposition for the dataset</span></span></span>
 <span class="r-in"><span><span class="fu">gemma_call</span><span class="op">(</span><span class="st">'datasets/{dataset}/svd'</span>,dataset <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in strsplit(URL, ""):</span> non-character argument</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[6]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[7]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[8]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[9]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[10]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[11]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[12]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[13]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[14]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[15]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[16]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[17]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[18]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[19]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[20]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[21]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[22]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[23]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[24]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[25]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[26]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[27]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[28]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[29]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[30]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[31]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[32]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[33]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$bioMaterialIds[[34]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.147462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08879356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07156613</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0563017</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05411161</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[6]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04469272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[7]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03610912</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[8]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03440618</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[9]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03250666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[10]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03166715</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[11]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02888146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[12]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02765948</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[13]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02698289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[14]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02435104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[15]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02363</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[16]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02154741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[17]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02012772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[18]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01970868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[19]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01889959</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[20]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01840312</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[21]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01665425</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[22]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01591834</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[23]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01566925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[24]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01487207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[25]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01412241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[26]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01379686</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[27]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01317481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[28]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01269458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[29]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01206858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[30]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01170639</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[31]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01126706</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[32]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01030402</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[33]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.009943119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$variances[[34]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.550993e-29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2565417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.16701</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04978845</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1155974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[1]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2320494</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.05411798</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.26732</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03195856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1636991</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[2]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2216792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.09402089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1044909</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3056481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0165048</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[3]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2336449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0002710698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3246593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2039988</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1776877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[4]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.09409088</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2867611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.01240434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.131708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2625582</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[5]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0794814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2301552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05666973</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.08879638</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0428941</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[6]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.07488979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03556735</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.02146145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1499427</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2980448</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[7]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4723833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2567207</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2224742</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03238129</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1668674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[8]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1496877</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1971014</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2383009</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04757208</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.002486732</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[9]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03636812</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1066055</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.149705</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3861373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08977869</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[10]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0004814266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.06896216</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.006969266</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.05856831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2004481</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[11]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2851788</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.01408718</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007534199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05931974</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.001581319</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[12]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.01659178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2038517</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3023202</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1886741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05603479</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[13]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04132356</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1755076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0639673</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1496958</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2376355</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[14]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09682491</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2915942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04438412</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04042695</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007718541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[15]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03980019</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1773411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.008116184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2203392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04204905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[16]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2228433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.178441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.06166545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.09392436</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05103681</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[17]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.142094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2012261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3422242</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.07219603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06258226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[18]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005812394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1410829</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2334997</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.009646479</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1683728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[19]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2430866</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2054826</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1486966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.007989942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04453887</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[20]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1537186</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1693694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03307538</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09532786</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.05785954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[21]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2189013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01192244</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2904327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04741516</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.08778672</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[22]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.06872011</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2779111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03941571</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1385087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2071325</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[23]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1192976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2087927</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1717211</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1223631</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1204426</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[24]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.08285722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08446707</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03910969</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3669847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.0636453</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[25]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1583923</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1338328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.04166888</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.135227</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2264577</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[26]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0702153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1707942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1302164</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1929044</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1648691</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[27]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.247038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.002822467</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.06714462</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2066145</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1069484</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[28]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1152556</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1157889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08672094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1307277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.4329855</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[29]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.03943056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.04951733</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3665627</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09834416</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.07707087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[30]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1153431</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08694636</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08983825</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3877697</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2291903</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[31]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.08341107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2962102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1803796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1264822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1227051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[32]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.06104441</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.06438306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1813171</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.2433043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0690864</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[33]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.3133474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]][[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.1496451</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]][[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.005743437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]][[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.03639479</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]][[4]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.4071967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data$vmatrix[[34]][[5]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.1615476</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </div>
