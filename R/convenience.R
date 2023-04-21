@@ -619,7 +619,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @export
 gemma_call <- function(call,...,json = TRUE){
     args <- unlist(list(...))
-    args <- args %>% lapply(URLencode)
+    args <- args %>% lapply(as.character) %>% lapply(URLencode)
     attach(args,warn.conflicts = FALSE)
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
