@@ -618,7 +618,9 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' gemma_call('datasets/{dataset}/svd',dataset = 1)
 #' @export
 gemma_call <- function(call,...,json = TRUE){
-    attach(list(...),warn.conflicts = FALSE)
+    args <- unlist(list(...))
+    args <- args %>% lapply(URLencode)
+    attach(args,warn.conflicts = FALSE)
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         out <- httr::GET(
