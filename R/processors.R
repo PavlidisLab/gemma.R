@@ -710,7 +710,7 @@ processGO <- function(d) {
 processDesignMatrix <- function(m) {
     # Remove redundant strings from sample names, unnecessary columns
     data.frame(m, row.names = stringr::str_extract(m$Bioassay, "(?<=Name=).*")) %>%
-        dplyr::select(-c(.data$ExternalID, .data$Bioassay))
+        dplyr::select(-c("ExternalID", "Bioassay"))
 }
 
 #' Processes expression matrix
