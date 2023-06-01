@@ -993,7 +993,7 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #'
 #' @examples
 #' result <- get_dataset_differential_expression_analyses("GSE2018")
-#' get_differential_expression_values(resultSet = result$result.ID)
+#' get_differential_expression_values(resultSet = result$result.ID[1])
 get_dataset_differential_expression_analyses <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
