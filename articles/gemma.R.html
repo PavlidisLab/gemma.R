@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -222,7 +222,7 @@ key words, experiment names or ontology term URIs</p>
 5:      human
 6:      human</code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/DOID_3312'</span>, <span class="co"># ontology term URI for the bipolar disorder</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/MONDO_0004985'</span>, <span class="co"># ontology term URI for the bipolar disorder</span></span>
 <span>                taxon <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
 <pre><code>   experiment.ShortName
@@ -257,7 +257,7 @@ API response is appended.</p>
 <code class="sourceCode R"><span><span class="co"># a quick call with a limit of 1 to get the result count</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_taxon_datasets.html">get_taxon_datasets</a></span><span class="op">(</span>taxon <span class="op">=</span> <span class="st">'human'</span>,limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 5976</code></pre>
+<pre><code>[1] 6010</code></pre>
 <p>Since the maximum limit is 100 getting all results available will
 require multiple calls.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -335,17 +335,17 @@ your query.</p>
 <pre><code>   category.Name                         category.URI         value.Name
 1:          &lt;NA&gt;                                 &lt;NA&gt;            Bipolar
 2:       disease http://www.ebi.ac.uk/efo/EFO_0000408 bipolar I disorder
-3:       disease http://www.ebi.ac.uk/efo/EFO_0000408   Bipolar Disorder
+3:       disease http://www.ebi.ac.uk/efo/EFO_0000408   bipolar disorder
 4:       disease http://www.ebi.ac.uk/efo/EFO_0000408 bipolar II disoder
 5:       disease http://www.ebi.ac.uk/efo/EFO_0000408  Bipolar depressed
 6:          &lt;NA&gt;                                 &lt;NA&gt;   Bipolar Disorder
-                                   value.URI
-1:                                      &lt;NA&gt;
-2: http://purl.obolibrary.org/obo/DOID_14042
-3:  http://purl.obolibrary.org/obo/DOID_3312
-4:      http://www.ebi.ac.uk/efo/EFO_0009964
-5:                                      &lt;NA&gt;
-6:                                      &lt;NA&gt;</code></pre>
+                                      value.URI
+1:                                         &lt;NA&gt;
+2: http://purl.obolibrary.org/obo/MONDO_0001866
+3: http://purl.obolibrary.org/obo/MONDO_0004985
+4:         http://www.ebi.ac.uk/efo/EFO_0009964
+5:                                         &lt;NA&gt;
+6:                                         &lt;NA&gt;</code></pre>
 </div>
 <div class="section level2">
 <h2 id="downloading-expression-data">Downloading expression data<a class="anchor" aria-label="anchor" href="#downloading-expression-data"></a>
@@ -387,7 +387,7 @@ samples in Gemma datasets.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] "euthymic phase,Bipolar Disorder" "reference subject role"         
+<pre><code>[1] "euthymic phase,bipolar disorder" "reference subject role"         
 [3] "bipolar disorder,manic phase"   </code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
@@ -643,10 +643,10 @@ returns structured metadata about the differentials.</p>
 2: http://www.ebi.ac.uk/efo/EFO_0000408 reference subject role
                       baseline.factorValueURI         experimental.factorValue
 1: http://purl.obolibrary.org/obo/OBI_0000220    bipolar disorder, manic phase
-2: http://purl.obolibrary.org/obo/OBI_0000220 euthymic phase, Bipolar Disorder
-                experimental.factorValueURI subsetFactor.subset
-1: http://purl.obolibrary.org/obo/DOID_3312               FALSE
-2:                                     &lt;NA&gt;               FALSE
+2: http://purl.obolibrary.org/obo/OBI_0000220 euthymic phase, bipolar disorder
+                    experimental.factorValueURI subsetFactor.subset
+1: http://purl.obolibrary.org/obo/MONDO_0004985               FALSE
+2:                                         &lt;NA&gt;               FALSE
    subsetFactor.factorValue subsetFactor.factorValueURI
 1:                     &lt;NA&gt;                        &lt;NA&gt;
 2:                     &lt;NA&gt;                        &lt;NA&gt;
@@ -679,7 +679,7 @@ differentially expressed gene counts for each condition contrast</p>
 <span>           n_diff <span class="op">=</span> <span class="va">dif_exp_genes</span><span class="op">)</span></span></code></pre></div>
 <pre><code>  result.ID contrast.id   baseline.factorValue         experimental.factorValue
 1    550248      113004 reference subject role    bipolar disorder, manic phase
-2    550248      113005 reference subject role euthymic phase, Bipolar Disorder
+2    550248      113005 reference subject role euthymic phase, bipolar disorder
   n_diff
 1      3
 2   1389</code></pre>
@@ -747,7 +747,7 @@ contrast manually, we can simply use <code>readableContrasts</code>.</p>
 21959:                                       0.26980
 21960:                                       0.94870
 21961:                                       0.55530
-       contrast_euthymic phase, Bipolar Disorder_logFoldChange
+       contrast_euthymic phase, bipolar disorder_logFoldChange
     1:                                                -0.02495
     2:                                                 0.14030
     3:                                                 0.10160
@@ -759,7 +759,7 @@ contrast manually, we can simply use <code>readableContrasts</code>.</p>
 21959:                                                 0.28670
 21960:                                                 0.23120
 21961:                                                -0.13160
-       contrast_euthymic phase, Bipolar Disorder_tstat
+       contrast_euthymic phase, bipolar disorder_tstat
     1:                                         -0.3622
     2:                                          0.7495
     3:                                          1.2600
@@ -771,7 +771,7 @@ contrast manually, we can simply use <code>readableContrasts</code>.</p>
 21959:                                          3.1280
 21960:                                          1.7370
 21961:                                         -0.7101
-       contrast_euthymic phase, Bipolar Disorder_pvalue
+       contrast_euthymic phase, bipolar disorder_pvalue
     1:                                         0.719600
     2:                                         0.459000
     3:                                         0.216600
@@ -924,14 +924,14 @@ wish to query and send separate requests.</p>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">class.Name</span>, <span class="va">term.Name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
 <pre><code>    experiment.shortName     class.Name              term.Name
- 1:             GSE35974        disease       Bipolar Disorder
+ 1:             GSE35974        disease       bipolar disorder
  2:             GSE35974 biological sex                 female
- 3:             GSE35974  organism part             cerebellum
- 4:             GSE35974        disease          schizophrenia
+ 3:             GSE35974        disease    depressive disorder
+ 4:             GSE35974  organism part             cerebellum
  5:             GSE35974 biological sex                   male
- 6:             GSE35974        disease      mental depression
- 7:             GSE12649        disease       Bipolar Disorder
- 8:             GSE12649        disease          schizophrenia
+ 6:             GSE35974        disease          schizophrenia
+ 7:             GSE12649        disease          schizophrenia
+ 8:             GSE12649        disease       bipolar disorder
  9:             GSE12649  organism part reference subject role
 10:             GSE12649  organism part      prefrontal cortex</code></pre>
 </div>
@@ -1353,13 +1353,13 @@ definition. See below for examples.</p>
 </h2>
 <div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.2.3 (2023-03-15)
+<pre><code>R version 4.3.0 (2023-04-21)
 Platform: x86_64-pc-linux-gnu (64-bit)
 Running under: Ubuntu 22.04.2 LTS
 
 Matrix products: default
-BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
+BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -1367,46 +1367,50 @@ locale:
  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
 [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
+time zone: UTC
+tzcode source: system (glibc)
+
 attached base packages:
 [1] stats4    stats     graphics  grDevices utils     datasets  methods  
 [8] base     
 
 other attached packages:
- [1] viridis_0.6.2               viridisLite_0.4.1          
- [3] pheatmap_1.0.12             SummarizedExperiment_1.28.0
- [5] Biobase_2.58.0              GenomicRanges_1.50.2       
- [7] GenomeInfoDb_1.34.9         IRanges_2.32.0             
- [9] S4Vectors_0.36.2            BiocGenerics_0.44.0        
-[11] MatrixGenerics_1.10.0       matrixStats_0.63.0         
+ [1] viridis_0.6.3               viridisLite_0.4.2          
+ [3] pheatmap_1.0.12             SummarizedExperiment_1.30.1
+ [5] Biobase_2.60.0              GenomicRanges_1.52.0       
+ [7] GenomeInfoDb_1.36.0         IRanges_2.34.0             
+ [9] S4Vectors_0.38.1            BiocGenerics_0.46.0        
+[11] MatrixGenerics_1.12.0       matrixStats_0.63.0         
 [13] ggrepel_0.9.3               ggplot2_3.4.2              
-[15] dplyr_1.1.1                 gemma.R_1.1.2              
-[17] BiocStyle_2.26.0           
+[15] dplyr_1.1.2                 gemma.R_1.2.1              
+[17] BiocStyle_2.28.0           
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.5             sass_0.4.5             bit64_4.0.5           
- [4] jsonlite_1.8.4         bslib_0.4.2            assertthat_0.2.1      
- [7] highr_0.10             BiocManager_1.30.20    GenomeInfoDbData_1.2.9
-[10] yaml_2.3.7             pillar_1.9.0           lattice_0.20-45       
-[13] glue_1.6.2             digest_0.6.31          RColorBrewer_1.1-3    
-[16] XVector_0.38.0         colorspace_2.1-0       htmltools_0.5.5       
-[19] Matrix_1.5-3           pkgconfig_2.0.3        bookdown_0.33         
-[22] zlibbioc_1.44.0        purrr_1.0.1            scales_1.2.1          
-[25] timechange_0.2.0       tibble_3.2.1           farver_2.1.1          
-[28] generics_0.1.3         cachem_1.0.7           withr_2.5.0           
-[31] cli_3.6.1              magrittr_2.0.3         memoise_2.0.1         
-[34] evaluate_0.20          fs_1.6.1               fansi_1.0.4           
-[37] textshaping_0.3.6      tools_4.2.3            data.table_1.14.8     
-[40] lifecycle_1.0.3        stringr_1.5.0          munsell_0.5.0         
-[43] DelayedArray_0.24.0    compiler_4.2.3         pkgdown_2.0.7         
-[46] jquerylib_0.1.4        systemfonts_1.0.4      rlang_1.1.0           
-[49] grid_4.2.3             RCurl_1.98-1.12        rappdirs_0.3.3        
-[52] labeling_0.4.2         bitops_1.0-7           rmarkdown_2.21        
-[55] gtable_0.3.3           curl_5.0.0             R6_2.5.1              
-[58] lubridate_1.9.2        gridExtra_2.3          knitr_1.42            
-[61] fastmap_1.1.1          bit_4.0.5              utf8_1.2.3            
-[64] rprojroot_2.0.3        ragg_1.2.5             desc_1.4.2            
-[67] stringi_1.7.12         Rcpp_1.0.10            vctrs_0.6.2           
-[70] tidyselect_1.2.0       xfun_0.38             </code></pre>
+ [1] tidyselect_1.2.0        farver_2.1.1            bitops_1.0-7           
+ [4] fastmap_1.1.1           RCurl_1.98-1.12         digest_0.6.31          
+ [7] timechange_0.2.0        lifecycle_1.0.3         magrittr_2.0.3         
+[10] compiler_4.3.0          rlang_1.1.1             sass_0.4.6             
+[13] tools_4.3.0             utf8_1.2.3              yaml_2.3.7             
+[16] data.table_1.14.8       knitr_1.43              S4Arrays_1.0.4         
+[19] labeling_0.4.2          bit_4.0.5               curl_5.0.0             
+[22] DelayedArray_0.26.3     RColorBrewer_1.1-3      withr_2.5.0            
+[25] purrr_1.0.1             desc_1.4.2              grid_4.3.0             
+[28] fansi_1.0.4             colorspace_2.1-0        scales_1.2.1           
+[31] cli_3.6.1               rmarkdown_2.21          crayon_1.5.2           
+[34] ragg_1.2.5              generics_0.1.3          httr_1.4.6             
+[37] cachem_1.0.8            stringr_1.5.0           zlibbioc_1.46.0        
+[40] assertthat_0.2.1        BiocManager_1.30.20     XVector_0.40.0         
+[43] vctrs_0.6.2             Matrix_1.5-4            jsonlite_1.8.4         
+[46] bookdown_0.34           bit64_4.0.5             systemfonts_1.0.4      
+[49] jquerylib_0.1.4         glue_1.6.2              pkgdown_2.0.7          
+[52] lubridate_1.9.2         stringi_1.7.12          gtable_0.3.3           
+[55] munsell_0.5.0           tibble_3.2.1            pillar_1.9.0           
+[58] rappdirs_0.3.3          htmltools_0.5.5         GenomeInfoDbData_1.2.10
+[61] R6_2.5.1                textshaping_0.3.6       rprojroot_2.0.3        
+[64] evaluate_0.21           lattice_0.21-8          highr_0.10             
+[67] memoise_2.0.1           bslib_0.4.2             Rcpp_1.0.10            
+[70] gridExtra_2.3           xfun_0.39               fs_1.6.2               
+[73] pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
 

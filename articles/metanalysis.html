@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.2.1</span>
       </span>
     </div>
 
@@ -121,9 +121,9 @@ meta-analysis.</p>
 <p>In this example we search Gemma for datasets comparing healthy
 controls and patients with Parkinson’s Disease. Our curators use
 ontology terms to annotate datasets when possible. This allows us to use
-the Disease Ontology term “DOID:14330” to search for datasets and
-samples annotated with the term to make sure we are accessing datasets
-relevant for our purposes with minimal effort.</p>
+the MONDO Disease Ontology term “MONDO:0005180” to search for datasets
+and samples annotated with the term to make sure we are accessing
+datasets relevant for our purposes with minimal effort.</p>
 <div class="section level2">
 <h2 id="querying-datasets-of-interest">Querying datasets of interest<a class="anchor" aria-label="anchor" href="#querying-datasets-of-interest"></a>
 </h2>
@@ -136,17 +136,16 @@ limit our results to only include human samples since we are not
 interested in models from other species.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># getting all resulting datasets using limit and offset arguments</span></span>
-<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/DOID_14330'</span>, </span>
+<span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/MONDO_0005180'</span>, </span>
 <span>                          taxon <span class="op">=</span> <span class="st">'human'</span>,</span>
 <span>                          limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">result_count</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">result_count</span>,<span class="fl">100</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/DOID_14330'</span>,</span>
+<span>    <span class="fu"><a href="../reference/search_datasets.html">search_datasets</a></span><span class="op">(</span><span class="st">'http://purl.obolibrary.org/obo/MONDO_0005180'</span>,</span>
 <span>                    taxon <span class="op">=</span> <span class="st">'human'</span>,</span>
 <span>                    limit <span class="op">=</span> <span class="fl">100</span>,offset <span class="op">=</span> <span class="va">i</span>,<span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span>
-<span></span>
 <span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>,<span class="va">experiment.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
 <pre><code>   experiment.ShortName
 1:              GSE6613
@@ -213,24 +212,24 @@ test case</p>
 6:           873    542683 substantia nigra pars reticulata
                          baseline.factorValueURI       experimental.factorValue
 1:   http://purl.obolibrary.org/obo/PATO_0000383                           male
-2:                                          &lt;NA&gt;       Parkinson's disease_male
-3:    http://purl.obolibrary.org/obo/OBI_0000220            Parkinson's disease
-4:    http://purl.obolibrary.org/obo/OBI_0000220            Parkinson's disease
+2:                                          &lt;NA&gt;         Parkinson disease_male
+3:    http://purl.obolibrary.org/obo/OBI_0000220              Parkinson disease
+4:    http://purl.obolibrary.org/obo/OBI_0000220              Parkinson disease
 5: http://purl.obolibrary.org/obo/UBERON_0001966 substantia nigra pars compacta
 6: http://purl.obolibrary.org/obo/UBERON_0001966         superior frontal gyrus
-                                                             experimental.factorValueURI
-1:                                           http://purl.obolibrary.org/obo/PATO_0000384
-2: http://purl.obolibrary.org/obo/DOID_14330_http://purl.obolibrary.org/obo/PATO_0000384
-3:                                             http://purl.obolibrary.org/obo/DOID_14330
-4:                                             http://purl.obolibrary.org/obo/DOID_14330
-5:                                         http://purl.obolibrary.org/obo/UBERON_0001965
-6:                                         http://purl.obolibrary.org/obo/UBERON_0002661</code></pre>
+                                                                experimental.factorValueURI
+1:                                              http://purl.obolibrary.org/obo/PATO_0000384
+2: http://purl.obolibrary.org/obo/MONDO_0005180_http://purl.obolibrary.org/obo/PATO_0000384
+3:                                             http://purl.obolibrary.org/obo/MONDO_0005180
+4:                                             http://purl.obolibrary.org/obo/MONDO_0005180
+5:                                            http://purl.obolibrary.org/obo/UBERON_0001965
+6:                                            http://purl.obolibrary.org/obo/UBERON_0002661</code></pre>
 <p>The factor we are interested in is Parkinson’s Disease in
-<code>experimental.factorValue</code> or “<a href="http://purl.obolibrary.org/obo/DOID_14330" class="external-link uri">http://purl.obolibrary.org/obo/DOID_14330</a>” in
+<code>experimental.factorValue</code> or “<a href="http://purl.obolibrary.org/obo/MONDO_0005180" class="external-link uri">http://purl.obolibrary.org/obo/MONDO_0005180</a>” in
 <code>experimental.factorValueURI</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parkin_contrasts</span> <span class="op">&lt;-</span> <span class="va">experiment_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experimental.factorValueURI</span> <span class="op">==</span> <span class="st">"http://purl.obolibrary.org/obo/DOID_14330"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experimental.factorValueURI</span> <span class="op">==</span> <span class="st">"http://purl.obolibrary.org/obo/MONDO_0005180"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">parkin_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ID</span>,</span>
@@ -248,19 +247,19 @@ test case</p>
 5:          2412    522741 reference subject role
 6:          3886    540574 reference subject role
                       baseline.factorValueURI experimental.factorValue
-1: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-2: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-3: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-4: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-5: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-6: http://purl.obolibrary.org/obo/OBI_0000220      Parkinson's disease
-                 experimental.factorValueURI
-1: http://purl.obolibrary.org/obo/DOID_14330
-2: http://purl.obolibrary.org/obo/DOID_14330
-3: http://purl.obolibrary.org/obo/DOID_14330
-4: http://purl.obolibrary.org/obo/DOID_14330
-5: http://purl.obolibrary.org/obo/DOID_14330
-6: http://purl.obolibrary.org/obo/DOID_14330</code></pre>
+1: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+2: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+3: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+4: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+5: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+6: http://purl.obolibrary.org/obo/OBI_0000220        Parkinson disease
+                    experimental.factorValueURI
+1: http://purl.obolibrary.org/obo/MONDO_0005180
+2: http://purl.obolibrary.org/obo/MONDO_0005180
+3: http://purl.obolibrary.org/obo/MONDO_0005180
+4: http://purl.obolibrary.org/obo/MONDO_0005180
+5: http://purl.obolibrary.org/obo/MONDO_0005180
+6: http://purl.obolibrary.org/obo/MONDO_0005180</code></pre>
 <p>In the next steps we will be downloading expression data in bulk. If
 you are here to just try the code out, you can speed the process a bit
 by limiting the number of experiments to deal with</p>
@@ -411,20 +410,20 @@ correction.</p>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Combined</span>,<span class="va">Adjusted</span>,<span class="va">`Median FC`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="va">head</span></span></code></pre></div>
 <pre><code>            Combined     Adjusted Median FC
-CACNA1G 7.668394e-22 4.101824e-18   -0.1138
-SLC18A2 2.743420e-19 7.337276e-16   -0.3606
-SV2C    3.015498e-18 5.376634e-15   -0.3655
-CTBP2   1.652753e-17 2.210144e-14    0.2861
-DLK1    3.466156e-17 3.708093e-14   -0.5313
-SYNCRIP 1.228858e-16 1.095527e-13   -0.2096</code></pre>
+CACNA1G 1.219208e-22 6.452049e-19  -0.15735
+SYNCRIP 5.479600e-21 1.449902e-17  -0.24275
+TH      2.000921e-20 3.529625e-17  -0.14640
+SLC18A2 2.731574e-20 3.613872e-17  -0.56655
+CTBP2   2.057455e-19 2.177611e-16   0.28870
+SV2C    9.347270e-18 8.244292e-15  -0.26200</code></pre>
 <p>We end up with quite a few differentially expressed genes in the
 meta-analysis (Fisher’s method is very sensitive)</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">$</span><span class="va">Adjusted</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="co"># FDR&lt;0.05</span></span></code></pre></div>
-<pre><code>[1] 4473</code></pre>
+<pre><code>[1] 4694</code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span> <span class="co"># number of all genes</span></span></code></pre></div>
-<pre><code>[1] 5349</code></pre>
+<pre><code>[1] 5292</code></pre>
 <p>Next we look at markers of dopaminergic cell types and how they rank
 compared to other genes. Parkinson’s Disease is a neurodegenerative
 disorder, leading to death of dopaminergic cells. We should expect them
