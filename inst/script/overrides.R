@@ -69,7 +69,7 @@ NULL
 #'
 #' @examples
 #' result = get_dataset_differential_expression_analyses("GSE2018")
-#' get_differential_expression_values(resultSet = result$result.ID)
+#' get_differential_expression_values(resultSet = result$result.ID[1])
 NULL
 
 #' get_platforms_by_ids
