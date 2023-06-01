@@ -44,11 +44,13 @@ gemmaPath <- function(){
             call,
             c(httr::authenticate(getOption('gemma.username'),
                                  getOption("gemma.password")),
-              httr::add_headers(header))))
+              httr::add_headers(header),
+              httr::user_agent(paste0('gemma.R:',packageVersion('gemma.R'))))))
     } else{
         requestExpr <- quote(httr::GET(
             call,
-            httr::add_headers(header)))
+            c(httr::add_headers(header),
+              httr::user_agent(paste0('gemma.R:',packageVersion('gemma.R'))))))
     }
 
     envWhere$call <- call
