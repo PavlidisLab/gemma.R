@@ -43,8 +43,8 @@ discovery and categorization making it a useful tool for meta-analysis.
 
 In this example we search Gemma for datasets comparing healthy
 controls and patients with Parkinson's Disease. Our curators use ontology terms
-to annotate datasets when possible. This allows us to use the Disease Ontology term
-"DOID:14330" to search for datasets and samples annotated with the term to make sure
+to annotate datasets when possible. This allows us to use the MONDO Disease Ontology term
+"MONDO:0005180" to search for datasets and samples annotated with the term to make sure
 we are accessing datasets relevant for our purposes with minimal effort.
 
 
@@ -59,17 +59,16 @@ models from other species.
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
-result <- search_datasets('http://purl.obolibrary.org/obo/DOID_14330', 
+result <- search_datasets('http://purl.obolibrary.org/obo/MONDO_0005180', 
                           taxon = 'human',
                           limit = 1)
 result_count <- attributes(result)$totalElements
 
 results <- lapply(seq(0,result_count,100),function(i){
-    search_datasets('http://purl.obolibrary.org/obo/DOID_14330',
+    search_datasets('http://purl.obolibrary.org/obo/MONDO_0005180',
                     taxon = 'human',
                     limit = 100,offset = i,)
 }) %>% do.call(rbind,.)
-
 results %>% select(experiment.ShortName,experiment.Name) %>% head
 ```
 
@@ -119,12 +118,12 @@ experiment_contrasts %>%
 
 The factor we are interested in is Parkinson's Disease in
 `experimental.factorValue` or
-"<http://purl.obolibrary.org/obo/DOID_14330>" in
+"<http://purl.obolibrary.org/obo/MONDO_0005180>" in
 `experimental.factorValueURI`.
 
 ```{r}
 parkin_contrasts <- experiment_contrasts %>% 
-    filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/DOID_14330")
+    filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/MONDO_0005180")
 
 parkin_contrasts %>%
     select(experiment.ID,

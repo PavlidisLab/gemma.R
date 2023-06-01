@@ -93,7 +93,7 @@ get_taxon_datasets(taxon = 'human') %>%  # all human datasets
 search_datasets('bipolar',taxon = 'human') %>% # human datasets mentioning bipolar
     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 
-search_datasets('http://purl.obolibrary.org/obo/DOID_3312', # ontology term URI for the bipolar disorder
+search_datasets('http://purl.obolibrary.org/obo/MONDO_0004985', # ontology term URI for the bipolar disorder
                 taxon = 'human') %>% 
     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 ```
