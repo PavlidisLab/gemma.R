@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
       </span>
     </div>
 
@@ -155,45 +155,57 @@ they uniquely represent a given contrast.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">get_dataset_differential_expression_analyses</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">get_dataset_differential_expression_analyses</span><span class="op">(</span><span class="st">"GSE2872"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span>resultSet <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">result.ID</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`525879`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid GeneSymbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   205680_at   4319      MMP10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   202890_at   9053       MAP7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   207753_at  57343     ZNF304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 218612_s_at  10078      TSSC4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 211883_x_at    634    CEACAM1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22246: 210744_s_at   3568      IL5RA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:   204693_at  11135   CDC42EP1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22248: 205324_s_at  24140      FTSJ1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22249: 200843_s_at   2058      EPRS1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:    36936_at   7264       GFUS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             GeneName  pvalue corrected_pvalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    matrix metallopeptidase 10 0.84060           0.9423</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:              microtubule associated protein 7 0.64770           0.8647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                       zinc finger protein 304 0.85960           0.9508</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: tumor suppressing subtransferable candidate 4 0.12460           0.4740</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                  CEA cell adhesion molecule 1 0.80960           0.9306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`548729`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             Probe NCBIid GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 1389430_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 1389429_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 1397405_at 315133      Ddx17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 1385332_at 366593      Dus4l</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 1382442_at 691335    Septin6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31066: 1393009_at 308568        Fv1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31067: 1376673_at  25705       Zeb1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31068: 1381039_at 171339      Dnah1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069: 1377772_at  63845     Tmeff1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070: 1379119_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                      GeneName</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                                                   DEAD-box helicase 17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                         dihydrouridine synthase 4-like</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                                               septin 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22246:          interleukin 5 receptor subunit alpha 0.50000           0.7889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22247:                      CDC42 effector protein 1 0.62570           0.8557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22248:             FtsJ RNA 2'-O-methyltransferase 1 0.39720           0.7232</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22249:             glutamyl-prolyl-tRNA synthetase 1 0.51230           0.7959</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22250:                         GDP-L-fucose synthase 0.01474           0.2203</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           rank contrast_1_log2fc contrast_1_tstat contrast_1_pvalue</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 0.89210          -0.01328          -0.2026           0.84060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 0.74910           0.04313           0.4610           0.64770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 0.90410           0.02816           0.1782           0.85960</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 0.26290          -0.12190          -1.5740           0.12460</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 0.86990           0.02672           0.2429           0.80960</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22246: 0.63360           0.06279           0.6818           0.50000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22247: 0.73110           0.04890           0.4922           0.62570</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22248: 0.54920          -0.12670          -0.8574           0.39720</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22249: 0.64370          -0.05590          -0.6622           0.51230</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22250: 0.06688          -0.28510          -2.5690           0.01474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31066:                                          Friend virus susceptibility 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31067:                                   zinc finger E-box binding homeobox 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31068:                                        dynein, axonemal, heavy chain 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069: transmembrane protein with EGF-like and two follistatin-like domains 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        pvalue corrected_pvalue   rank contrast_134441_log2fc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 0.9712           0.9999 0.9649              -0.026590</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 0.8385           0.9999 0.8061               0.076520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 0.6963           0.9999 0.6398               0.007954</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 0.9668           0.9999 0.9603              -0.150700</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 0.8910           0.9999 0.8691               0.056950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31066: 0.8689           0.9999 0.8422              -0.014160</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31067: 0.6223           0.9999 0.5548              -0.114900</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31068: 0.2490           0.9999 0.1715               0.113400</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069: 0.7922           0.9999 0.7501              -0.034940</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070: 0.8789           0.9999 0.8544               0.023880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_134441_tstat contrast_134441_pvalue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:              -0.11010                 0.9143</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:               0.35120                 0.7320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:               0.03917                 0.9694</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:              -0.55400                 0.5905</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:               0.33430                 0.7443</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31066:              -0.13000                 0.8989</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31067:              -0.88410                 0.3952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31068:               1.22800                 0.2447</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:              -0.17900                 0.8611</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:               0.29660                 0.7722</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
