@@ -18,8 +18,8 @@ NULL
 #' @inherit processDatasetResultSets return
 #'
 #' @examples
-#' resultSets <- get_result_sets('GSE2018')
-#' get_differential_expression_values(resultSet = resultSets$resultSet.id)
+#' resultSets <- get_result_sets('GSE2872')
+#' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
 NULL
 
 #' get_dataset_expression
@@ -68,7 +68,7 @@ NULL
 #' @inherit processDEA return
 #'
 #' @examples
-#' result = get_dataset_differential_expression_analyses("GSE2018")
+#' result = get_dataset_differential_expression_analyses("GSE2872")
 #' get_differential_expression_values(resultSet = result$result.ID[1])
 NULL
 

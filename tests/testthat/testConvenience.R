@@ -16,11 +16,11 @@ test_that("getDataset works properly", {
     eset <- get_dataset_object("GSE2018", keepNonSpecific = TRUE, filter = TRUE, type = "eset")
     sumexp <- get_dataset_object("GSE2018",keepNonSpecific = TRUE, filter = TRUE, type = "se")
     design <- get_dataset_samples(1)
-
+    
     expect_equal(nrow(expr), eset[[1]] %>% nrow() %>% unname())
     expect_equal(Biobase::featureNames(eset[[1]]), expr$Probe)
     expect_equal(eset[[1]] %>% colnames(), design$sample.Name)
-
+    
     expect_equal(nrow(expr), nrow(sumexp[[1]]))
     expect_equal(rownames(sumexp[[1]]), expr$Probe)
     expect_equal(
@@ -50,12 +50,11 @@ test_that("get_dataset_object with multiple datasets and genes",{
 })
 
 test_that("getDatasetDE works properly",{
-    dat <- get_differential_expression_values(1)
-    expect_gt(nrow(dat[[1]]), 10)
-    dat <- get_differential_expression_values(resultSet = names(dat))[[1]]
-    expect_gt(nrow(dat), 10)
     dat <- get_differential_expression_values(2)
     expect_equal(length(dat), 3)
+    expect_gt(nrow(dat[[1]]), 10)
+    dat <- get_differential_expression_values(resultSet = names(dat)[1])[[1]]
+    expect_gt(nrow(dat), 10)
 })
 
 

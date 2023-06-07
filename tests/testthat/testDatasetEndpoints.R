@@ -37,8 +37,8 @@ test_that("datasetSamples queries work", {
 })
 
 test_that("datasetDEA queries work", {
-    dat <- get_dataset_differential_expression_analyses(1)
-    raw <- get_dataset_differential_expression_analyses(1, raw = TRUE)
+    dat <- get_dataset_differential_expression_analyses(2)
+    raw <- get_dataset_differential_expression_analyses(2, raw = TRUE)
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(dat$result.ID %>% unique,

@@ -55,7 +55,7 @@ The fields of the output data.table are:
 Retrieve all result sets matching the provided criteria
 }
 \examples{
-resultSets <- get_result_sets("GSE2018")
-get_differential_expression_values(resultSet = resultSets$resultSet.id)
+resultSets <- get_result_sets("GSE2872")
+get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
 }
 \keyword{internal}

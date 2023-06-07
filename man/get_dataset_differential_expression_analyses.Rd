@@ -69,7 +69,7 @@ they uniquely represent a given contrast.
 Retrieve the differential analyses of a dataset
 }
 \examples{
-result <- get_dataset_differential_expression_analyses("GSE2018")
+result <- get_dataset_differential_expression_analyses("GSE2872")
 get_differential_expression_values(resultSet = result$result.ID[1])
 }
 \keyword{dataset}
