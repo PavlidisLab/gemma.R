@@ -623,17 +623,29 @@ gemma_call <- function(call,...,json = TRUE){
     attach(args,warn.conflicts = FALSE)
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
-        out <- httr::GET(
+        response <- httr::GET(
             glue::glue(paste0(gemmaPath(),call)),
             httr::authenticate(getOption('gemma.username'),
                                  getOption("gemma.password")))
     } else{
-       out <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
+        response <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
     }
-
-    if(json){
-        out <- jsonlite::fromJSON(rawToChar(out$content),simplifyVector = FALSE)
+    
+    if (response$status_code == 200) {
+        if(json){
+            response <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
+        }
+        return(response)
+    } else if (response$status_code == 403) {
+        stop(call,'\n',response$status_code, ": Forbidden. You do not have permission to access this data.")
+    } else if (response$status_code == 404) {
+        stop(call,'\n',response$status_code, ": Not found. Ensure your parameters are spelled correctly and that you're querying an existing ID.")
+    } else if (response$status_code == 500) {
+        stop(call,'\n',response$status_code, ": Internal server error.")
+    } else if (response$status_code == 503) {
+        stop(call,'\n',response$status_code, ": Service Unavailable. Gemma might be under maintenance.")
+    } else {
+        stop(call, '\n', "HTTP code ", response$status_code)
     }
-    return(out)
 
 }
