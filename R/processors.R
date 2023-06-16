@@ -80,6 +80,22 @@ processGemmaFactor <- function(d) {
 
 }
 
+#' Processes JSON as a factor
+#'
+#' @param d The JSON to process
+#'
+#' @return A processed data.table
+#'
+#' @keywords internal
+processCharacteristicBasicValueObject <- function(d){
+    data.table(
+        factorValue = d %>% accessField('value',NA_character_),
+        factorValueURI = d %>% accessField('valueUri',NA_character_),
+        category = d %>% accessField('category',NA_character_),
+        categoryURI = d %>% accessField('categoryUri',NA_character_)
+    )
+}
+
 #' Processes JSON as an array
 #'
 #' @param d The JSON to process
@@ -237,26 +253,30 @@ processDEA <- function(d) {
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
-                experimental_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% {d[[i]]$factorValuesUsed[[as.character(.)]]}
-                factor_ids <- experimental_factors %>% accessField('id',NA_integer_)
-
+                contrast.id =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
+                size = length(contrast.id)
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
-                    contrast.id = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_),
+                    contrast.id = contrast.id,
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
                     baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                     baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                    baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$value %>% nullCheck(NA_character_),
-                    baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
-                    experimental.factorValue = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('factorValue'),
-                    experimental.factorValueURI =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values  %>% accessField('id',NA_integer_)  %>% match(.,factor_ids) %>% {experimental_factors[.]}  %>% accessField('valueUri'),
+                    baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
+                    experimental.factors = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% 
+                        purrr::map('characteristics') %>% purrr::map(processCharacteristicBasicValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                     subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                     genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
 
-                out <- out[!experimental.factorValue == baseline.factorValue]
+
+                # remove control as a contrast with self. sorting is there to guarantee
+                # baseline and experimental values will match
+                out <- out[!(seq_len(nrow(out)) %>% sapply(function(k){
+                    identical(out$baseline.factors[[k]] %>% dplyr::arrange(factorValue,factorValueURI,category),
+                              out$experimental.factors[[k]] %>% dplyr::arrange(factorValue,factorValueURI,categoryURI))
+                }))]
 
             }else{
                 # if more than 2 factors are present take a look at the
@@ -293,6 +313,17 @@ processDEA <- function(d) {
                         purrr::map(function(x){d[[i]]$factorValuesUsed[[as.character(x)]]})
                     names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                         purrr::map_int('id')
+                    
+                    exp.factors <- seq_len(nrow(relevant_ids)) %>%
+                        purrr::map(function(k){
+                            seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
+                                factors <- experimental_factors[[colnames(relevant_ids)[l]]]
+                                ids <- factors %>% purrr::map_int('id')
+                                factors[[which(ids == relevant_ids[k,l])]]$characteristics %>% processCharacteristicBasicValueObject()
+                            }) %>% {do.call(rbind,.)}
+                        })
+                    
+                    size = length(exp.factors)
 
                     out <- data.table(
                         result.ID = d[[i]]$resultSets[[j]]$id,
@@ -300,24 +331,8 @@ processDEA <- function(d) {
                         experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
                         baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                         baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                        baseline.factorValue = d[[i]]$resultSets[[j]]$baselineGroup$factorValue %>% nullCheck(NA_character_),
-                        baseline.factorValueURI = d[[i]]$resultSets[[j]]$baselineGroup$valueUri %>% nullCheck(NA_character_),
-                        experimental.factorValue = seq_len(nrow(relevant_ids)) %>%
-                            purrr::map_chr(function(k){
-                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
-                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
-                                    ids <- factors %>% purrr::map_int('id')
-                                    factors[[which(ids == relevant_ids[k,l])]]$factorValue %>% nullCheck(NA_character_)
-                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
-                            }),
-                        experimental.factorValueURI = seq_len(nrow(relevant_ids)) %>%
-                            purrr::map_chr(function(k){
-                                seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
-                                    factors <- experimental_factors[[colnames(relevant_ids)[l]]]
-                                    ids <- factors %>% purrr::map_int('id')
-                                    factors[[which(ids == relevant_ids[k,l])]]$valueUri %>% nullCheck(NA_character_)
-                                }) %>% {do.call(paste,c(.,list(sep = '_')))}
-                            }),
+                        baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
+                        experimental.factors = exp.factors,
                         subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                         subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
                         probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
