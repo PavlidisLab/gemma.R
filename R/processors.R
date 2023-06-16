@@ -265,7 +265,11 @@ processDEA <- function(d) {
                     experimental.factors = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% 
                         purrr::map('characteristics') %>% purrr::map(processCharacteristicBasicValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
-                    subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                    subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
+                        purrr::map('characteristics') %>%
+                        purrr::map(processCharacteristicBasicValueObject) %>% 
+                        do.call(rbind,.) %>% list() %>%
+                        rep(size),
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                     genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
@@ -334,7 +338,11 @@ processDEA <- function(d) {
                         baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
                         experimental.factors = exp.factors,
                         subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
-                        subsetFactor = d[i] %>% purrr::map('subsetFactorValue')%>% processGemmaFactor(),
+                        subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
+                            purrr::map('characteristics') %>%
+                            purrr::map(processCharacteristicBasicValueObject) %>% 
+                            do.call(rbind,.) %>% list() %>%
+                            rep(size),
                         probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                         genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                     )
