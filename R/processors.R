@@ -229,18 +229,13 @@ processSearchAnnotations <- function(d) {
 #'     \item \code{experiment.ID}: Id of the source experiment
 #'     \item \code{baseline.category}: Category for the contrast
 #'     \item \code{baseline.categoryURI}: URI for the baseline category
-#'     \item \code{baseline.factorValue}: Factor value assigned as the baseline in the contrast. Typically represent control samples
-#'     \item \code{baseline.factorValueURI}: URI for the baseline.factorValue
-#'     \item \code{experimental.factorValue}: Factor value assigned to the experimental group.
-#'     \item \code{experimental.factorValueURI}: URI for the experimental.factorValue
+#'     \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
+#'     \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
 #'     \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 #'     \item \code{subsetFactor.category}: Category of the subset
-#'     \item \code{subsetFactor.categoryURI}: URI of the subset category
-#'     \item \code{subsetFactor.factorValue}: Factor Value of the subset
-#'     \item \code{subsetFactor.factorValueURI}: URI of the subset factor value
+#'     \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 #'     \item \code{probes.Analyzed}: Number of probesets represented in the contrast
 #'     \item \code{genes.Analyzed}: Number of genes represented in the contrast
-#'     \item \code{platform.ID}: Platform id for the contrast
 #' }
 #'
 #' @keywords internal
@@ -273,6 +268,7 @@ processDEA <- function(d) {
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                     genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
+                
 
 
                 # remove control as a contrast with self. sorting is there to guarantee
@@ -515,8 +511,8 @@ processSamples <- function(d) {
         sample.Accession = d %>% purrr::map('accession') %>% accessField('accession',NA_character_),
         sample.Database = d %>% purrr::map('accession') %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
-        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% purrr::map('characteristics'), processGemmaFactor),
-        sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processGemmaFactor)}) %>% purrr::map(rbindlist)# ,
+        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% purrr::map('characteristics'), processCharacteristicBasicValueObject),
+        sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processCharacteristicBasicValueObject)}) %>% purrr::map(rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
 }
