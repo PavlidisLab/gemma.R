@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_probes}
 \alias{get_gene_probes}
-\title{Retrieve the probes associated to a genes}
+\title{Retrieve the probes associated to a genes across all platforms}
 \usage{
 get_gene_probes(
   gene,
@@ -65,7 +65,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the probes associated to a genes
+Retrieve the probes associated to a genes across all platforms
 }
 \examples{
 get_gene_probes("DYRK1A")

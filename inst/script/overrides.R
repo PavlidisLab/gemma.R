@@ -1,11 +1,14 @@
 # use this file to override automatically generated documentation elements.
 # supported elements are title, description, examples, parameters and the return value.
 # add a NULL at the end of the documentation block to allow roxygen to parse
+# generic_params is matched for all cases
 
 #' get_datasets_by_ids
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))
@@ -151,6 +154,8 @@ NULL
 #' @param taxon Can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers available.
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
 #' Use the \code{\link{get_taxa_by_ids}} function to retrieve the necessary information. For convenience, below is a list of officially supported taxa:
 #' \tabular{rllr}{
 #'     \strong{ID} \tab \strong{Comm.name} \tab \strong{Scient.name}    \tab \strong{NcbiID}\cr
@@ -246,6 +251,8 @@ NULL
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
+#' @param sort Order results by the given property and direction. The '+' sign
+#' indicate ascending order whereas the '-' indicate descending.
 #' @param limit Optional, defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to

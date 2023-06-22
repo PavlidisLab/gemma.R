@@ -41,7 +41,7 @@ names(overrides) = overrides %>% sapply(function(x){
     x$tags[[which(title)]]$val
 })
 
-# download.file('https://dev.gemma.msl.ubc.ca/rest/v2/openapi.json',destfile = 'inst/script/openapi.json')
+download.file('https://dev.gemma.msl.ubc.ca/rest/v2/openapi.json',destfile = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
@@ -205,11 +205,13 @@ registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit
                  keyword = "dataset",
                  defaults = list(query = bquote(),
                                  taxon = NA_character_,
+                                 filter = NA_character_,
                                  offset = 0L,
                                  limit = 20L,
                                  sort = "+id"),
                  validators = alist(query = validateQuery,
                                     taxon = validateOptionalTaxon,
+                                    filter = validateFilter,
                                     offset = validatePositiveInteger,
                                     limit = validateLimit,
                                     sort = validateSort),

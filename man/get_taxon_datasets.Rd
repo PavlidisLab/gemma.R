@@ -39,7 +39,8 @@ of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}
 
-\item{sort}{Order results by the given property and direction. The '+' sign indicate ascending order whereas the '-' indicate descending.}
+\item{sort}{Order results by the given property and direction. The '+' sign
+indicate ascending order whereas the '-' indicate descending.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are

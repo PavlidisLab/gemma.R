@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_genes}
 \alias{get_genes}
-\title{Retrieve genes matching a gene identifier}
+\title{Retrieve genes matching gene identifiers}
 \usage{
 get_genes(
   genes,
@@ -56,7 +56,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve genes matching a gene identifier
+Retrieve genes matching gene identifiers
 }
 \examples{
 get_genes("DYRK1A")

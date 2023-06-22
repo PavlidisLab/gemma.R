@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_differential_expression_analyses}
 \alias{get_dataset_differential_expression_analyses}
-\title{Retrieve the differential analyses of a dataset}
+\title{Retrieve annotations and surface level stats for a dataset's differential analyses}
 \usage{
 get_dataset_differential_expression_analyses(
   dataset,
@@ -61,7 +61,7 @@ they uniquely represent a given contrast.
 }
 }
 \description{
-Retrieve the differential analyses of a dataset
+Retrieve annotations and surface level stats for a dataset's differential analyses
 }
 \examples{
 result <- get_dataset_differential_expression_analyses("GSE2872")
