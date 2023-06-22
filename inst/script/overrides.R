@@ -1,5 +1,6 @@
 # use this file to override automatically generated documentation elements.
-# supported elements are title, description, examples, parameters and the return value.
+# supported elements are title, description, details, examples, parameters and 
+# the return value.
 # add a NULL at the end of the documentation block to allow roxygen to parse
 # generic_params is matched for all cases
 
@@ -9,6 +10,9 @@
 #' specified, all datasets will be returned instead
 #' @param filter Filter results by matching expression. See details for an explanation
 #' of the syntax
+#' @details
+#' Additional details to add
+#' 
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))

@@ -268,6 +268,7 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
         mDesc <- overrides[[fname]]$tags[[which(description_override)]]$val %>% stringr::str_replace_all('\n',"\n#' ")
     }
     
+    
     # documentation overrides
     # uses examples file as an override if provided
 
@@ -295,6 +296,16 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
 
     cat(glue::glue("#' {mName}\n#'"), file = document, append = TRUE)
     cat(glue::glue("\n\n#' {mDesc}\n#'\n\n"), file = document, append = TRUE)
+    
+    overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
+        any(x %in% 'roxy_tag_details')
+    }) -> details_override
+    
+    if(any(details_override)){
+        assertthat::assert_that(sum(details_override)==1)
+        val = overrides[[fname]]$tags[[which(details_override)]]$val
+        cat(glue::glue("#' @details {val}\n#'\n\n"), file = document, append = TRUE)
+    }
 
 
     overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
