@@ -22,13 +22,14 @@ gemmaPath <- function(){
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes, .call) {
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE, .call) {
 
     # Set header
     if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
     }
     envWhere$header <- header
+    original_env = rlang::env_clone(envWhere)
 
     # Validate arguments
     if (!is.null(validators)) {
@@ -123,6 +124,10 @@ gemmaPath <- function(){
                     utils::write.csv2(mOut, file, row.names = FALSE)
                 }
             }
+        }
+        if(attributes){
+            attributes(mOut) <- c(attributes(mOut),
+                                 env = original_env)
         }
         mOut
     } else if (response$status_code == 403) {

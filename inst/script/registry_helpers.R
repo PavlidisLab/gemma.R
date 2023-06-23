@@ -100,11 +100,20 @@ registerEndpoint <- function(endpoint,
     fargs$memoised <- quote(getOption("gemma.memoised", FALSE))
     fargs$file <- quote(getOption("gemma.file", NA_character_))
     fargs$overwrite <- quote(getOption("gemma.overwrite", FALSE))
-    fargs$attributes <- quote(getOption("gemma.attributes", TRUE))
+    # fargs$attributes <- quote(getOption("gemma.attributes", TRUE))
 
     formals(f) <- fargs
     body(f) <- quote({
-        .body(fname, validators, endpoint, environment(), isFile, header, raw, overwrite, file, attributes, match.call())
+        .body(fname = fname, 
+              validators = validators, 
+              endpoint = endpoint, 
+              envWhere = environment(), 
+              isFile = isFile, header = header, 
+              raw = raw, 
+              overwrite = overwrite, 
+              file = file, 
+              attributes = TRUE, 
+              .call = match.call())
     })
 
     # here we create a call for the memoised version of the function that simply
