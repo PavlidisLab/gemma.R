@@ -236,8 +236,6 @@ NULL
 #' same inputs and use the result saved in cache if a result is already saved.
 #' Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always
 #' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.

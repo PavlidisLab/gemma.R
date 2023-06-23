@@ -10,7 +10,11 @@ test_that("getDatasetsInfo queries work", {
     expect_equal(get_datasets_by_ids(c("GSE2018", "GSE2872")) %>% nrow(), 2)
     expect_equal(get_datasets_by_ids(c(1, 2)) %>% nrow(), 2)
     expect_equal(get_datasets_by_ids(limit = 10) %>% nrow(), 10)
-    expect_equal(get_datasets_by_ids(offset = 2,attributes = FALSE)[1, 1], get_datasets_by_ids(offset = 0,attributes = FALSE)[3, 1])
+    a = get_datasets_by_ids(offset = 2)[1, 1]
+    b = get_datasets_by_ids(offset = 0)[3, 1]
+    attributes(a) = NULL
+    attributes(b) = NULL
+    expect_equal(a, b)
     expect_false(get_datasets_by_ids(sort = "-id")[1, 1] == get_datasets_by_ids(sort = "+id")[1, 1])
 })
 

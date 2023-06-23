@@ -10,8 +10,7 @@ get_dataset_expression(
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", FALSE),
-  attributes = getOption("gemma.attributes", TRUE)
+  overwrite = getOption("gemma.overwrite", FALSE)
 )
 }
 \arguments{
@@ -36,9 +35,6 @@ it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
-
-\item{attributes}{If \code{TRUE} additional information from the call will be added
-into the output object's attributes such as offset and available elements.}
 }
 \value{
 If raw is FALSE (default), a data table of the expression matrix for

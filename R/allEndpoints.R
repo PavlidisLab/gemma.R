@@ -2,6 +2,7 @@
 #'
 #'
 #'
+#'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
 #' @param filter Filter results by matching the expression. The exact syntax is described in the attached external documentation.
@@ -23,8 +24,6 @@
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDatasets return
 #' @export
@@ -43,7 +42,7 @@ get_datasets_by_ids <- function(
         ), overwrite = getOption(
             "gemma.overwrite",
             FALSE
-        ), attributes = getOption("gemma.attributes", TRUE)) {
+        )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -65,21 +64,23 @@ get_datasets_by_ids <- function(
             return(mem_in_memory_cache("get_datasets_by_ids",
                 datasets = datasets, filter = filter, offset = offset,
                 limit = limit, sort = sort, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_datasets_by_ids(
                 datasets = datasets,
                 filter = filter, offset = offset, limit = limit,
                 sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -95,12 +96,12 @@ memget_datasets_by_ids <- function(
         ), overwrite = getOption(
             "gemma.overwrite",
             FALSE
-        ), attributes = getOption("gemma.attributes", TRUE)) {
+        )) {
     mem_call <- memoise::memoise(get_datasets_by_ids, cache = gemmaCache())
     mem_call(
         datasets = datasets, filter = filter, offset = offset,
         limit = limit, sort = sort, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -121,8 +122,6 @@ memget_datasets_by_ids <- function(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return Varies
 #' @keywords internal
@@ -137,7 +136,7 @@ memget_datasets_by_ids <- function(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -153,21 +152,21 @@ memget_datasets_by_ids <- function(
             "cache_in_memory") {
             return(mem_in_memory_cache(".getResultSets",
                 resultSet = resultSet,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- mem.getResultSets(
                 resultSet = resultSet, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -183,11 +182,11 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(.getResultSets, cache = gemmaCache())
     mem_call(
         resultSet = resultSet, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -208,8 +207,6 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return Varies
 #' @keywords internal
@@ -224,7 +221,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- TRUE
     header <- ""
     isFile <- FALSE
@@ -240,20 +237,21 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
             "cache_in_memory") {
             return(mem_in_memory_cache(".getResultSetFactors",
                 resultSet = resultSet, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- mem.getResultSetFactors(
                 resultSet = resultSet,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -269,11 +267,11 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
     mem_call(
         resultSet = resultSet, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -294,8 +292,6 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDatasetResultSets return
 #' @export
@@ -311,7 +307,7 @@ get_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), memoi
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "internal"
     header <- ""
@@ -328,21 +324,21 @@ get_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), memoi
             "cache_in_memory") {
             return(mem_in_memory_cache("get_result_sets",
                 datasets = datasets,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_result_sets(
                 datasets = datasets, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -355,11 +351,11 @@ memget_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), me
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_result_sets, cache = gemmaCache())
     mem_call(
         datasets = datasets, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -383,8 +379,6 @@ memget_result_sets <- function(datasets, raw = getOption("gemma.raw", FALSE), me
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return If raw is FALSE (default), a data table of the expression matrix for
 #' the queried dataset. If raw is TRUE, returns the binary file in raw form.
@@ -403,7 +397,7 @@ get_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -420,21 +414,22 @@ get_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_expression",
                 dataset = dataset, filter = filter, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_expression(
                 dataset = dataset,
                 filter = filter, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -450,11 +445,11 @@ memget_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_expression, cache = gemmaCache())
     mem_call(
         dataset = dataset, filter = filter, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -482,8 +477,6 @@ memget_dataset_expression <- function(dataset, filter = FALSE, raw = getOption(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return A list of data frames
 #' @export
@@ -498,10 +491,7 @@ get_dataset_expression_for_genes <- function(
             "gemma.memoised",
             FALSE
         ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -556,21 +546,23 @@ get_dataset_expression_for_genes <- function(
             return(mem_in_memory_cache("get_dataset_expression_for_genes",
                 datasets = datasets, genes = genes, keepNonSpecific = keepNonSpecific,
                 consolidate = consolidate, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_expression_for_genes(
                 datasets = datasets,
                 genes = genes, keepNonSpecific = keepNonSpecific,
                 consolidate = consolidate, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -583,17 +575,14 @@ memget_dataset_expression_for_genes <- function(
             "gemma.memoised",
             FALSE
         ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_dataset_expression_for_genes,
         cache = gemmaCache()
     )
     mem_call(
         datasets = datasets, genes = genes, keepNonSpecific = keepNonSpecific,
         consolidate = consolidate, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -614,8 +603,6 @@ memget_dataset_expression_for_genes <- function(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processSamples return
 #' @export
@@ -630,7 +617,7 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -655,20 +642,21 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_samples",
                 dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_samples(
                 dataset = dataset,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -681,11 +669,11 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_samples, cache = gemmaCache())
     mem_call(
         dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -706,8 +694,6 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processPlatforms return
 #' @export
@@ -722,7 +708,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -747,20 +733,21 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_platforms",
                 dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_platforms(
                 dataset = dataset,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -773,11 +760,11 @@ memget_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_platforms, cache = gemmaCache())
     mem_call(
         dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -798,8 +785,6 @@ memget_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processAnnotations return
 #' @export
@@ -814,7 +799,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -839,20 +824,21 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_annotations",
                 dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_annotations(
                 dataset = dataset,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -865,11 +851,11 @@ memget_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FAL
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_annotations, cache = gemmaCache())
     mem_call(
         dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -890,8 +876,6 @@ memget_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FAL
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return A data table of the design matrix for the queried dataset.
 #' A \code{404 error} if the given identifier does not map to any object
@@ -907,7 +891,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -932,20 +916,21 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_design",
                 dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_design(
                 dataset = dataset, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -958,11 +943,11 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_design, cache = gemmaCache())
     mem_call(
         dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -983,8 +968,6 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDEA return
 #' @export
@@ -1000,7 +983,7 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1025,20 +1008,21 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_differential_expression_analyses",
                 dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_differential_expression_analyses(
                 dataset = dataset,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1051,13 +1035,13 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_dataset_differential_expression_analyses,
         cache = gemmaCache()
     )
     mem_call(
         dataset = dataset, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 
@@ -1099,8 +1083,6 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDatasets return
 #' @export
@@ -1114,10 +1096,10 @@ search_datasets <- function(
         sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
             "gemma.memoised",
             FALSE
-        ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
+        ),
+        file = getOption("gemma.file", NA_character_), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
         )) {
     internal <- FALSE
     keyword <- "dataset"
@@ -1139,23 +1121,25 @@ search_datasets <- function(
             "cache_in_memory") {
             return(mem_in_memory_cache("search_datasets",
                 query = query,
-                taxon = taxon, offset = offset, limit = limit,
-                sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                taxon = taxon, filter = filter, offset = offset,
+                limit = limit, sort = sort, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memsearch_datasets(
                 query = query, taxon = taxon,
-                offset = offset, limit = limit, sort = sort,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                filter = filter, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1167,16 +1151,12 @@ memsearch_datasets <- function(
         sort = "+id", raw = getOption("gemma.raw", FALSE), memoised = getOption(
             "gemma.memoised",
             FALSE
-        ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
         )) {
     mem_call <- memoise::memoise(search_datasets, cache = gemmaCache())
     mem_call(
-        query = query, taxon = taxon, offset = offset, limit = limit,
-        sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        query = query, taxon = taxon, filter = filter, offset = offset,
+        limit = limit, sort = sort, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
     )
 }
 
@@ -1204,8 +1184,6 @@ memsearch_datasets <- function(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processPlatforms return
 #' @export
@@ -1221,10 +1199,7 @@ get_platforms_by_ids <- function(
             "gemma.memoised",
             FALSE
         ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1245,21 +1220,22 @@ get_platforms_by_ids <- function(
             return(mem_in_memory_cache("get_platforms_by_ids",
                 platforms = platforms, offset = offset, limit = limit,
                 sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             ))
         } else {
             out <- memget_platforms_by_ids(
                 platforms = platforms,
                 offset = offset, limit = limit, sort = sort,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1272,15 +1248,12 @@ memget_platforms_by_ids <- function(
             "gemma.memoised",
             FALSE
         ), file = getOption("gemma.file", NA_character_),
-        overwrite = getOption("gemma.overwrite", FALSE), attributes = getOption(
-            "gemma.attributes",
-            TRUE
-        )) {
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_platforms_by_ids, cache = gemmaCache())
     mem_call(
         platforms = platforms, offset = offset, limit = limit,
         sort = sort, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1306,8 +1279,6 @@ memget_platforms_by_ids <- function(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDatasets return
 #' @export
@@ -1325,7 +1296,7 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1345,21 +1316,22 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
             "cache_in_memory") {
             return(mem_in_memory_cache("get_platform_datasets",
                 platform = platform, offset = offset, limit = limit,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_platform_datasets(
                 platform = platform,
                 offset = offset, limit = limit, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1375,12 +1347,11 @@ memget_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = g
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_platform_datasets, cache = gemmaCache())
     mem_call(
         platform = platform, offset = offset, limit = limit,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
     )
 }
 
@@ -1407,8 +1378,6 @@ memget_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = g
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processGenes return
 #' @export
@@ -1426,7 +1395,7 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1447,21 +1416,22 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
             return(mem_in_memory_cache("get_platform_element_genes",
                 platform = platform, probe = probe, offset = offset,
                 limit = limit, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             ))
         } else {
             out <- memget_platform_element_genes(
                 platform = platform,
                 probe = probe, offset = offset, limit = limit,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1477,14 +1447,14 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_platform_element_genes,
         cache = gemmaCache()
     )
     mem_call(
         platform = platform, probe = probe, offset = offset,
         limit = limit, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1505,8 +1475,6 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processGenes return
 #' @export
@@ -1522,7 +1490,7 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1539,20 +1507,21 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
             "cache_in_memory") {
             return(mem_in_memory_cache("get_genes",
                 genes = genes,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_genes(
                 genes = genes, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1565,11 +1534,11 @@ memget_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_genes, cache = gemmaCache())
     mem_call(
         genes = genes, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1590,8 +1559,6 @@ memget_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processGeneLocation return
 #' @export
@@ -1606,7 +1573,7 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1623,20 +1590,21 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
             "cache_in_memory") {
             return(mem_in_memory_cache("get_gene_locations",
                 gene = gene, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             ))
         } else {
             out <- memget_gene_locations(
                 gene = gene, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1649,11 +1617,11 @@ memget_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), mem
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_gene_locations, cache = gemmaCache())
     mem_call(
         gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1679,8 +1647,6 @@ memget_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), mem
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processElements return
 #' @export
@@ -1698,7 +1664,7 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1719,20 +1685,22 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
             return(mem_in_memory_cache("get_gene_probes",
                 gene = gene,
                 offset = offset, limit = limit, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_gene_probes(
                 gene = gene, offset = offset,
                 limit = limit, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1748,12 +1716,11 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_gene_probes, cache = gemmaCache())
     mem_call(
         gene = gene, offset = offset, limit = limit, raw = raw,
-        memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
+        memoised = FALSE, file = file, overwrite = overwrite
     )
 }
 
@@ -1774,8 +1741,6 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processGO return
 #' @export
@@ -1790,7 +1755,7 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1807,21 +1772,21 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
             "cache_in_memory") {
             return(mem_in_memory_cache("get_gene_go_terms",
                 gene = gene,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_gene_go_terms(
                 gene = gene, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1834,11 +1799,11 @@ memget_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memo
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_gene_go_terms, cache = gemmaCache())
     mem_call(
         gene = gene, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1859,8 +1824,6 @@ memget_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memo
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processSearchAnnotations return
 #' @export
@@ -1875,7 +1838,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "misc"
     header <- ""
@@ -1892,20 +1855,21 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
             "cache_in_memory") {
             return(mem_in_memory_cache("search_annotations",
                 query = query, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             ))
         } else {
             out <- memsearch_annotations(
                 query = query, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -1918,11 +1882,11 @@ memsearch_annotations <- function(query, raw = getOption("gemma.raw", FALSE), me
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(search_annotations, cache = gemmaCache())
     mem_call(
         query = query, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -1961,8 +1925,6 @@ memsearch_annotations <- function(query, raw = getOption("gemma.raw", FALSE), me
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return A data table with the queried taxa's details.
 #' @keywords internal
@@ -1975,7 +1937,7 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- TRUE
     header <- ""
     isFile <- FALSE
@@ -1991,21 +1953,21 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
             "cache_in_memory") {
             return(mem_in_memory_cache("get_taxa_by_ids",
                 taxa = taxa,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_taxa_by_ids(
                 taxa = taxa, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -2018,11 +1980,11 @@ memget_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memois
     ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_taxa_by_ids, cache = gemmaCache())
     mem_call(
         taxa = taxa, raw = raw, memoised = FALSE, file = file,
-        overwrite = overwrite, attributes = attributes
+        overwrite = overwrite
     )
 }
 
@@ -2062,8 +2024,6 @@ memget_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memois
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @inherit processDatasets return
 #' @export
@@ -2081,7 +2041,7 @@ get_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     internal <- FALSE
     keyword <- "taxon"
     header <- ""
@@ -2102,20 +2062,22 @@ get_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", raw
             return(mem_in_memory_cache("get_taxon_datasets",
                 taxon = taxon, offset = offset, limit = limit,
                 sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite, attributes = attributes
+                overwrite = overwrite
             ))
         } else {
             out <- memget_taxon_datasets(
                 taxon = taxon, offset = offset,
                 limit = limit, sort = sort, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -2131,12 +2093,11 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
     ), overwrite = getOption(
         "gemma.overwrite",
         FALSE
-    ), attributes = getOption("gemma.attributes", TRUE)) {
+    )) {
     mem_call <- memoise::memoise(get_taxon_datasets, cache = gemmaCache())
     mem_call(
         taxon = taxon, offset = offset, limit = limit, sort = sort,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-        attributes = attributes
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
     )
 }
 
@@ -2164,8 +2125,6 @@ memget_taxon_datasets <- function(taxon, offset = 0L, limit = 20, sort = "+id", 
 #' it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
-#' @param attributes If `TRUE` additional information from the call will be added
-#' into the output object's attributes such as offset and available elements.
 #'
 #' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
 #' a data.table containing the search results. If it is any other type, a list
@@ -2185,7 +2144,7 @@ search_gemma <- function(
         file = getOption("gemma.file", NA_character_), overwrite = getOption(
             "gemma.overwrite",
             FALSE
-        ), attributes = getOption("gemma.attributes", TRUE)) {
+        )) {
     internal <- FALSE
     keyword <- "misc"
     header <- ""
@@ -2208,21 +2167,22 @@ search_gemma <- function(
                 query = query,
                 taxon = taxon, platform = platform, limit = limit,
                 resultType = resultType, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite, attributes = attributes
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memsearch_gemma(
                 query = query, taxon = taxon,
                 platform = platform, limit = limit, resultType = resultType,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite,
-                attributes = attributes
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
     }
     .body(
-        fname, validators, endpoint, environment(), isFile,
-        header, raw, overwrite, file, attributes, match.call()
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        .call = match.call()
     )
 }
 
@@ -2238,12 +2198,12 @@ memsearch_gemma <- function(
         file = getOption("gemma.file", NA_character_), overwrite = getOption(
             "gemma.overwrite",
             FALSE
-        ), attributes = getOption("gemma.attributes", TRUE)) {
+        )) {
     mem_call <- memoise::memoise(search_gemma, cache = gemmaCache())
     mem_call(
         query = query, taxon = taxon, platform = platform,
         limit = limit, resultType = resultType, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite, attributes = attributes
+        file = file, overwrite = overwrite
     )
 }
 

@@ -649,3 +649,31 @@ gemma_call <- function(call,...,json = TRUE){
     }
 
 }
+
+
+#' Get all pages of a paginated call
+#' 
+#' Given a Gemma.R output with offset and limit arguments,
+#' returns the entire output.
+#' 
+#' @param query Output from a gemma.R function with offset and query argumend
+#' @param step_size Size of individual calls to the server. 100 is the maximum value
+#' @param binder Binding function for the calls. If \code{raw = FALSE} use \code{rbind} to
+#' combine the data.tables. If not, use \code{c} to combine lists
+#' @return A data.table or a list containing data from all pages.
+get_all_pages <- function(query,step_size = 100,binder = rbind){
+    attr = attributes(query)
+    count = attr$totalElements
+    
+    args = formals(attr$env$fname)
+    args_used = attr$env %>% as.list() %>% {.[names(args)]}
+    args_used$limit = step_size
+    
+    lapply(seq(0,count,step_size),function(offset){
+        step_args = args_used
+        step_args$offset = offset
+        
+        do.call(attr$env$fname,step_args)
+    }) %>% do.call(binder,.)
+    
+}
