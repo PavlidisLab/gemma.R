@@ -89,11 +89,28 @@ processGemmaFactor <- function(d) {
 #' @keywords internal
 processCharacteristicBasicValueObject <- function(d){
     data.table(
-        factorValue = d %>% accessField('value',NA_character_),
-        factorValueURI = d %>% accessField('valueUri',NA_character_),
+        value = d %>% accessField('value',NA_character_),
+        valueUri = d %>% accessField('valueUri',NA_character_),
         category = d %>% accessField('category',NA_character_),
         categoryURI = d %>% accessField('categoryUri',NA_character_)
     )
+}
+
+
+processFactorValueValueObject <- function(d){
+    if(is.null(d)){
+        return(data.table())
+    } else if(d$isMeasurement){
+        data.table(
+            value = nullCheck(d$factorValue,NA_character_),
+            valueUri = NA_character_,
+            category = nullCheck(d$category,natype = NA_character_),
+            categoryURI = nullCheck(d$categoryUri,natype = NA_character_)
+        )
+        
+    } else{
+        d$characteristics %>% processCharacteristicBasicValueObject
+    }
 }
 
 #' Processes JSON as an array
@@ -210,6 +227,7 @@ processSearchAnnotations <- function(d) {
 
 
 # good test cases 442, 448, 200, 174
+# for values 326
 #' Processes JSON as a differential expression analysis
 #'
 #' @param d The JSON to process
@@ -240,7 +258,6 @@ processSearchAnnotations <- function(d) {
 #'
 #' @keywords internal
 processDEA <- function(d) {
-
     # Initialize internal variables to avoid R CMD check notes
 
     result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
@@ -250,19 +267,19 @@ processDEA <- function(d) {
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
                 contrast.id =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
                 size = length(contrast.id)
+
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
                     contrast.id = contrast.id,
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
                     baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                     baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                    baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
+                    baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% processFactorValueValueObject %>% list() %>% rep(size),
                     experimental.factors = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% 
-                        purrr::map('characteristics') %>% purrr::map(processCharacteristicBasicValueObject),
+                        purrr::map(processFactorValueValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                     subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
-                        purrr::map('characteristics') %>%
-                        purrr::map(processCharacteristicBasicValueObject) %>% 
+                        purrr::map(processFactorValueValueObject) %>% 
                         do.call(rbind,.) %>% list() %>%
                         rep(size),
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
@@ -274,8 +291,8 @@ processDEA <- function(d) {
                 # remove control as a contrast with self. sorting is there to guarantee
                 # baseline and experimental values will match
                 out <- out[!(seq_len(nrow(out)) %>% sapply(function(k){
-                    identical(out$baseline.factors[[k]] %>% dplyr::arrange(factorValue,factorValueURI,category),
-                              out$experimental.factors[[k]] %>% dplyr::arrange(factorValue,factorValueURI,categoryURI))
+                    identical(out$baseline.factors[[k]] %>% dplyr::arrange(value,valueUri,category),
+                              out$experimental.factors[[k]] %>% dplyr::arrange(value,valueUri,categoryURI))
                 }))]
 
             }else{
