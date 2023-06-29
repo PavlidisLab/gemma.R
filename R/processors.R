@@ -102,7 +102,7 @@ processFactorValueValueObject <- function(d){
         return(data.table())
     } else if(d$isMeasurement){
         data.table(
-            value = nullCheck(d$factorValue,NA_character_),
+            value = nullCheck(d$measurement$value,NA_character_),
             valueUri = NA_character_,
             category = nullCheck(d$category,natype = NA_character_),
             categoryURI = nullCheck(d$categoryUri,natype = NA_character_)
