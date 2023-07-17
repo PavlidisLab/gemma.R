@@ -220,10 +220,10 @@ make_design = function(samples,metaType){
 #' output will only include samples relevant to the specific contrats.
 #'
 #' @return A list of \code{\link[SummarizedExperiment]{SummarizedExperiment}}s,
-#' \code{\link[Biobase]{ExpressionSet}}s or a tibble containing metadata and 
-#' expression data for the queried datasets and genes. Metadata will be expanded to include 
+#' \code{\link[Biobase]{ExpressionSet}}s or a tibble containing metadata and
+#' expression data for the queried datasets and genes. Metadata will be expanded to include
 #' a variable number of factors that annotates samples from a dataset but will
-#' always include single "factorValues" column that houses data.tables that 
+#' always include single "factorValues" column that houses data.tables that
 #' include all annotations for a given sample.
 #' @keywords dataset
 #' @export
@@ -231,13 +231,13 @@ make_design = function(samples,metaType){
 #' get_dataset_object("GSE2018")
 get_dataset_object <- function(datasets,
                                genes = NULL,
-                               keepNonSpecific = FALSE, 
+                               keepNonSpecific = FALSE,
                                consolidate = NA_character_,
                                resultSets = NULL,
                                contrasts = NULL,
-                               filter = FALSE, 
-                               metaType = 'text', 
-                               type = "se", 
+                               filter = FALSE,
+                               metaType = 'text',
+                               type = "se",
                                memoised = getOption("gemma.memoised", FALSE)) {
     if (type != "eset" && type != "se" && type != 'tidy') {
         stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
@@ -312,37 +312,37 @@ get_dataset_object <- function(datasets,
     designs <- metadata %>% lapply(function(meta){
         make_design(meta,metaType)
     })
-    
+
     # pack the information that will be included in all outputs
     packed_data <- seq_along(datasets) %>% lapply(function(i){
         dataset <- datasets[i]
-        # we don't want to pass data.tables by reference because 
+        # we don't want to pass data.tables by reference because
         # same datasets might be re-used
-        packed_info <- 
+        packed_info <-
             list(design = data.table::copy(designs[[as.character(dataset)]]),
                  exp = data.table::copy(expression[[as.character(dataset)]]),
                  result_set = resultSets[i],
                  contrast = contrasts[i],
                  dat =  get_datasets_by_ids(dataset, raw = FALSE,memoised = memoised))
-        
 
-        
+
+
         # reorders the expression to match the metadata
         gene_info <- colnames(packed_info$exp)[!colnames(packed_info$exp) %in% rownames(packed_info$design)]
         data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
 
         if(!is.null(resultSets)){
             diff <- get_dataset_differential_expression_analyses(dataset,memoised = memoised)
-            subset_category <- diff %>% 
-                dplyr::filter(result.ID == resultSets[i]) %>% 
+            subset_category <- diff %>%
+                dplyr::filter(result.ID == resultSets[i]) %>%
                 .$subsetFactor.category %>% unique
-            subset_factor <- diff %>% 
-                dplyr::filter(result.ID == resultSets[i]) %>% 
+            subset_factor <- diff %>%
+                dplyr::filter(result.ID == resultSets[i]) %>%
                 .$subsetFactor.factorValue %>% unique
-            
+
             assertthat::assert_that(length(subset_category)==1)
             assertthat::assert_that(length(subset_factor)==1)
-            
+
             if(!is.na(subset_category)){
                 in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
                     x %>% dplyr::filter(category %in% subset_category) %>%
@@ -355,7 +355,7 @@ get_dataset_object <- function(datasets,
                 contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.id == contrasts[i])
                 in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
                     x %>% dplyr::filter(category == contrast$baseline.category) %>%
-                        .$factorValue %in% c(contrast$baseline.factorValue,contrast$experimental.factorValue) %>% 
+                        .$factorValue %in% c(contrast$baseline.factorValue,contrast$experimental.factorValue) %>%
                         all
                 })
             } else{
@@ -364,7 +364,7 @@ get_dataset_object <- function(datasets,
             packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[in_subset & in_contrast])]
             packed_info$design <- packed_info$design[in_subset & in_contrast,]
         }
-        
+
         return(packed_info)
     })
 
@@ -378,7 +378,7 @@ get_dataset_object <- function(datasets,
     } else{
         names(packed_data) <- packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID')
     }
-    
+
 
     if (type == 'se'){
         out <- packed_data %>% lapply(function(data){
@@ -427,7 +427,7 @@ get_dataset_object <- function(datasets,
             genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
-            
+
             # reordering happens above
             # exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
@@ -465,7 +465,7 @@ get_dataset_object <- function(datasets,
 
             exprM <- data$exp
             design <- data$design
-            
+
             rownames(exprM) <- exprM$Probe
             genes <- exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]]
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
@@ -482,10 +482,10 @@ get_dataset_object <- function(datasets,
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
                 dplyr::rename(sample = "Sample", probe = "Probe") %>%
-                dplyr::mutate(experiment.ID = data$dat$experiment.ID, 
+                dplyr::mutate(experiment.ID = data$dat$experiment.ID,
                               experiment.ShortName = data$dat$experiment.ShortName,
                               .before = 1)
-            
+
             if(!is.null(data$result_set)){
                 frm <- mutate(frm, result.ID = data$result_set,.before = 3)
             }
@@ -497,7 +497,7 @@ get_dataset_object <- function(datasets,
         }) %>% do.call(dplyr::bind_rows,.)
 
     }
-    
+
     return(out)
 }
 
@@ -630,7 +630,7 @@ gemma_call <- function(call,...,json = TRUE){
     } else{
         response <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
     }
-    
+
     if (response$status_code == 200) {
         if(json){
             response <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
@@ -652,28 +652,29 @@ gemma_call <- function(call,...,json = TRUE){
 
 
 #' Get all pages of a paginated call
-#' 
+#'
 #' Given a Gemma.R output with offset and limit arguments,
 #' returns the entire output.
-#' 
+#'
 #' @param query Output from a gemma.R function with offset and query argumend
 #' @param step_size Size of individual calls to the server. 100 is the maximum value
 #' @param binder Binding function for the calls. If \code{raw = FALSE} use \code{rbind} to
 #' combine the data.tables. If not, use \code{c} to combine lists
 #' @return A data.table or a list containing data from all pages.
+#' @export
 get_all_pages <- function(query,step_size = 100,binder = rbind){
     attr = attributes(query)
     count = attr$totalElements
-    
+
     args = formals(attr$env$fname)
     args_used = attr$env %>% as.list() %>% {.[names(args)]}
     args_used$limit = step_size
-    
+
     lapply(seq(0,count,step_size),function(offset){
         step_args = args_used
         step_args$offset = offset
-        
+
         do.call(attr$env$fname,step_args)
     }) %>% do.call(binder,.)
-    
+
 }
