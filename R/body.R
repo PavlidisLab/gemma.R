@@ -101,34 +101,26 @@ gemmaPath <- function(){
             }
         }
 
-        if (!is.null(file) && !is.na(file)) {
-            extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
-            if (isFile && raw){
-                extension <- '.gz'
-            }
 
-            file <- paste0(tools::file_path_sans_ext(file), extension)
-
-            if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
-                warning(file, " exists. Not overwriting.")
-            } else {
-                if (extension == ".json") {
-                    write(jsonlite::toJSON(mOut, pretty = 2), file)
-                } else if (extension == ".rds") {
-                    saveRDS(mOut, file)
-                } else if (extension == '.gz'){
-                    tmp <- mOut
-                    attributes(tmp) = NULL
-                    writeBin(tmp,file)
-                } else {
-                    utils::write.csv2(mOut, file, row.names = FALSE)
-                }
-            }
-        }
         if(attributes){
             attributes(mOut) <- c(attributes(mOut),
                                  env = original_env)
         }
+        
+        
+        if (!is.null(file) && !is.na(file)) {
+            if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
+                warning(file, " exists. Not overwriting.")
+            }
+            
+            if(raw){
+                writeBin(response$content,file)
+            } else{
+                saveRDS(mOut, file)
+            }
+        }
+        
+        
         mOut
     } else if (response$status_code == 403) {
         stop(call,'\n',response$status_code, ": Forbidden. You do not have permission to access this data.")

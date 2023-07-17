@@ -249,8 +249,8 @@ NULL
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
 #' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise,
-#' it will be a RDS file.
+#' results to a file. If `raw == TRUE`, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #' @param sort Order results by the given property and direction. The '+' sign

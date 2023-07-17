@@ -199,6 +199,17 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  ),
                  preprocessor = quote(processDEA))
 
+registerEndpoint('datasets/{dataset}/quantitationTypes',
+                 'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processDEA))
+
 registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
                  "search_datasets",
                  open_api_name = 'search_datasets',
