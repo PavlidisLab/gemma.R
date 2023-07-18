@@ -67,3 +67,11 @@ test_that('gemmaCall works properly',{
     out<- gemma_call('datasets/{dataset}/svd',dataset = 1)
     expect_is(out,'list')
 })
+
+test_that('get_all_pages works properly',{
+    out <- get_datasets_by_ids(datasets = c(1,2,3),
+                        limit = 1) %>%
+        get_all_pages(step_size = 1)
+    expect_true(nrow(out)==3)
+    
+})
