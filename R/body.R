@@ -111,13 +111,16 @@ gemmaPath <- function(){
         if (!is.null(file) && !is.na(file)) {
             if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
                 warning(file, " exists. Not overwriting.")
+            } else{
+                dir.create(dirname(file),showWarnings = FALSE,recursive = TRUE)
+                if(raw){
+                    writeBin(response$content,file)
+                } else{
+                    saveRDS(mOut, file)
+                }
             }
             
-            if(raw){
-                writeBin(response$content,file)
-            } else{
-                saveRDS(mOut, file)
-            }
+
         }
         
         
