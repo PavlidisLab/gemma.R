@@ -4,20 +4,34 @@
 \alias{get_all_pages}
 \title{Get all pages of a paginated call}
 \usage{
-get_all_pages(query, step_size = 100, binder = rbind)
+get_all_pages(
+  query,
+  step_size = 100,
+  binder = rbind,
+  directory = NULL,
+  file = getOption("gemma.file", NA_character_),
+  overwrite = getOption("gemma.overwrite", FALSE)
+)
 }
 \arguments{
-\item{query}{Output from a gemma.R function with offset and query argumend}
+\item{query}{Output from a gemma.R function with offset and query argument}
 
 \item{step_size}{Size of individual calls to the server. 100 is the maximum value}
 
 \item{binder}{Binding function for the calls. If \code{raw = FALSE} use \code{rbind} to
 combine the data.tables. If not, use \code{c} to combine lists}
+
+\item{directory}{Directory to save the output from the individual calls to. If provided, each page
+is saved to separate files.}
+
+\item{file}{Name of the file to save the results to. If provided, combined output is saved as an RDS file.}
+
+\item{overwrite}{}
 }
 \value{
 A data.table or a list containing data from all pages.
 }
 \description{
-Given a Gemma.R output with offset and limit arguments,
-returns the entire output.
+Given a Gemma.R output from a function with offset and limit arguments,
+returns the output from all pages. All arguments other than offset, limit
 }

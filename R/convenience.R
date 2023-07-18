@@ -653,28 +653,55 @@ gemma_call <- function(call,...,json = TRUE){
 
 #' Get all pages of a paginated call
 #'
-#' Given a Gemma.R output with offset and limit arguments,
-#' returns the entire output.
+#' Given a Gemma.R output from a function with offset and limit arguments,
+#' returns the output from all pages. All arguments other than offset, limit
 #'
-#' @param query Output from a gemma.R function with offset and query argumend
+#' @param query Output from a gemma.R function with offset and query argument
 #' @param step_size Size of individual calls to the server. 100 is the maximum value
 #' @param binder Binding function for the calls. If \code{raw = FALSE} use \code{rbind} to
 #' combine the data.tables. If not, use \code{c} to combine lists
+#' @param directory Directory to save the output from the individual calls to. If provided, each page
+#' is saved to separate files.
+#' @param file Name of the file to save the results to. If provided, combined output is saved as an RDS file.
+#' @param overwrite 
 #' @return A data.table or a list containing data from all pages.
 #' @export
-get_all_pages <- function(query,step_size = 100,binder = rbind){
-    attr = attributes(query)
-    count = attr$totalElements
+get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NULL, file = getOption("gemma.file", NA_character_),overwrite = getOption("gemma.overwrite", FALSE)){
+    attr <- attributes(query)
+    count <- attr$totalElements
 
-    args = formals(attr$env$fname)
-    args_used = attr$env %>% as.list() %>% {.[names(args)]}
-    args_used$limit = step_size
+    args <- formals(attr$env$fname)
+    args_used <- attr$env %>% as.list() %>% {.[names(args)]}
+    args_used$limit <- step_size
+    args_used$overwrite <- overwrite
 
-    lapply(seq(0,count,step_size),function(offset){
-        step_args = args_used
-        step_args$offset = offset
+    out <- lapply(seq(0,count,step_size),function(offset){
+        step_args <- args_used
+        step_args$offset <- offset
 
+        if(!is.null(directory)){
+            step_args$file = file.path(directory,offset)
+        } else{
+            # file argument should not be preserved since it'll overwrite itself in
+            # each call
+            step_args$file <- NA_character_
+        }
+        
         do.call(attr$env$fname,step_args)
     }) %>% do.call(binder,.)
+    
+    if(!is.null(file) && !is.na(file)){
+        if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
+            warning(file, " exists. Not overwriting.")
+        } else{
+            dir.create(dirname(file),showWarnings = FALSE,recursive = TRUE)
+            saveRDS(out, file)
+        }
+    }
+    
+    return(out)
 
 }
+
+
+
