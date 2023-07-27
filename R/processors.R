@@ -293,7 +293,7 @@ processDEA <- function(d) {
                 out <- out[!(seq_len(nrow(out)) %>% sapply(function(k){
                     identical(out$baseline.factors[[k]] %>% dplyr::arrange(value,valueUri,category),
                               out$experimental.factors[[k]] %>% dplyr::arrange(value,valueUri,categoryURI))
-                }))]
+                })),]
 
             }else{
                 # if more than 2 factors are present take a look at the
