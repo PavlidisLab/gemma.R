@@ -762,15 +762,19 @@ processExpressionMatrix <- function(m) {
     m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
     # here we standardize the output column names so that they fit output
     # from other endpoints
+    m_cols = make.names(colnames(m))
+    
     dataset <- parent.frame(n=2)$dataset
     samples <- get_dataset_samples(dataset, raw = TRUE)
     sample_ids <- samples %>% purrr::map('sample') %>% purrr::map_chr('name')
     sample_names <- samples %>% purrr::map_chr('name')
-    sample_matches <- sample_ids %>% purrr::map_int(function(x){
-        grep(paste0(make.names(x),"_"),colnames(m),fixed = TRUE)
-    })
+    sample_matches <- sample_ids %>% gsub(' ','',.,fixed = TRUE) %>% 
+        make.names %>% purrr::map_int(function(x){
+            grep(paste0(x,'_'),m_cols, fixed = TRUE)
+        })
     colnames(m)[sample_matches] <- sample_names
-
+    assertthat::assert_that(all(sample_names %in% colnames(m)))
+    
     m
 }
 
