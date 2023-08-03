@@ -144,6 +144,33 @@ validateQuery <- function(name, ...) {
     paste0(query, collapse = ",")
 }
 
+#' Validate am optional query
+#'
+#' @param name The variable name
+#' @param ... Any queries
+#'
+#' @return The validated queries
+#'
+#' @keywords internal
+validateOptionalQuery <- function(name,...){
+    if (all(is.na(as.character(unlist(list(...)))))) {
+        ""
+    } else {
+        validateSingleQuery(name, ...)
+    }
+}
+
+validateSingleQuery <- function(name,...){
+    query <- unlist(list(...))
+    if (all(is.na(query)) || length(query) == 0){
+        stop(glue::glue("Please specify a query for {name}."), call. = FALSE)
+    } else if(length(query)>1){
+        stop(glue::glue("Please use a length one vector for {name}."), call. = FALSE)
+    }
+    
+    query
+}
+
 #' Validate a non-negative integer value
 #'
 #' @param name The variable name

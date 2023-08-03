@@ -68,6 +68,27 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
     preprocessor = quote(processDatasets)
 )
 
+
+registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={filter}&query={query}",
+                 "get_datasets",open_api_name = "get_datasets", keyword = "dataset",
+                 defaults = list(
+                     query = NA_character_,
+                     filter = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     sort = "+id"
+                 ),
+                 validators = alist(
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
+                 ),
+                 preprocessor = quote(processDatasets)
+)
+
+
 registerEndpoint(
     "resultSets/{resultSet}",
     ".getResultSets", open_api_name = 'get_result_set',
@@ -199,17 +220,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  ),
                  preprocessor = quote(processDEA))
 
-registerEndpoint('datasets/{dataset}/quantitationTypes',
-                 'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processDEA))
-
+# probably to be deprecated
 registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
                  "search_datasets",
                  open_api_name = 'search_datasets',

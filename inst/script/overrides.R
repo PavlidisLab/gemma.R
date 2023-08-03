@@ -19,6 +19,19 @@
 #' @inherit processDatasets return
 NULL
 
+#' get_datasets
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
+#' @details
+#' Additional details to add
+#' 
+#' @param query The search query. Either plain text ('traumatic'), or an ontology
+#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
+#'  contain the given string in their short of full name will also be matched.
+#' @examples
+#' get_datasets()
+#' get_datasets(query = "http://purl.obolibrary.org/obo/UBERON_0002048")
+NULL
 
 #' get_result_sets
 #'
@@ -210,6 +223,7 @@ NULL
 #' @return A data table with the queried taxa's details.
 NULL
 
+
 #' get_taxon_datasets
 #' @param taxon  can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.
@@ -231,7 +245,10 @@ NULL
 NULL
 
 #' search_gemma
-#' @param query The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.
+#' @param query The search query. Either plain text ('traumatic'), or an ontology
+#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
+#'  contain the given string in their short of full name will also be matched.  
+#'  Can be multiple identifiers separated by commas.
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
 #' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
 #' a data.table containing the search results. If it is any other type, a list
