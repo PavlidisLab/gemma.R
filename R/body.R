@@ -30,7 +30,7 @@ gemmaPath <- function(){
     }
     envWhere$header <- header
     original_env = rlang::env_clone(envWhere)
-
+    
     # Validate arguments
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -39,6 +39,11 @@ gemmaPath <- function(){
     }
     # Generate request
     call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
+    
+    # remove empty parameters
+    call<- call %>% stringr::str_split('&') %>% 
+        {.[[1]]} %>% {.[!grepl("\\=$",.)]} %>%
+        paste0(collapse = '&')
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         requestExpr <- quote(httr::GET(
