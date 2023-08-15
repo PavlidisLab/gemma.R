@@ -24,6 +24,8 @@ test_that("getPlatformDatasets queries work", {
           raw %>% purrr::map_chr('name'),
           raw %>% purrr::map('bioAssayCount') %>% purrr::map_chr(as.character)
     ))
+    
+
     expect_equal(get_platform_datasets(1, limit = 10) %>% nrow(), 10)
     a = get_platform_datasets(1, offset = 0)[2, ]
     b = get_platform_datasets(1, offset = 1)[1, ]

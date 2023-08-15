@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_differential_expression_analyses}
 \alias{get_dataset_differential_expression_analyses}
-\title{Retrieve the differential analyses of a dataset}
+\title{Retrieve annotations and surface level stats for a dataset's differential analyses}
 \usage{
 get_dataset_differential_expression_analyses(
   dataset,
@@ -25,8 +25,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-it will be a RDS file.}
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
@@ -47,22 +47,17 @@ they uniquely represent a given contrast.
 \item \code{experiment.ID}: Id of the source experiment
 \item \code{baseline.category}: Category for the contrast
 \item \code{baseline.categoryURI}: URI for the baseline category
-\item \code{baseline.factorValue}: Factor value assigned as the baseline in the contrast. Typically represent control samples
-\item \code{baseline.factorValueURI}: URI for the baseline.factorValue
-\item \code{experimental.factorValue}: Factor value assigned to the experimental group.
-\item \code{experimental.factorValueURI}: URI for the experimental.factorValue
+\item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
+\item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
 \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 \item \code{subsetFactor.category}: Category of the subset
-\item \code{subsetFactor.categoryURI}: URI of the subset category
-\item \code{subsetFactor.factorValue}: Factor Value of the subset
-\item \code{subsetFactor.factorValueURI}: URI of the subset factor value
+\item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 \item \code{probes.Analyzed}: Number of probesets represented in the contrast
 \item \code{genes.Analyzed}: Number of genes represented in the contrast
-\item \code{platform.ID}: Platform id for the contrast
 }
 }
 \description{
-Retrieve the differential analyses of a dataset
+Retrieve annotations and surface level stats for a dataset's differential analyses
 }
 \examples{
 result <- get_dataset_differential_expression_analyses("GSE2872")

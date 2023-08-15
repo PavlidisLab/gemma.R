@@ -1,17 +1,37 @@
 # use this file to override automatically generated documentation elements.
-# supported elements are title, description, examples, parameters and the return value.
+# supported elements are title, description, details, examples, parameters and 
+# the return value.
 # add a NULL at the end of the documentation block to allow roxygen to parse
+# generic_params is matched for all cases
 
 #' get_datasets_by_ids
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
+#' @details
+#' Additional details to add
+#' 
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))
 #' @inherit processDatasets return
 NULL
 
+#' get_datasets
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
+#' @details
+#' Additional details to add
+#' 
+#' @param query The search query. Either plain text ('traumatic'), or an ontology
+#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
+#'  contain the given string in their short of full name will also be matched.
+#' @examples
+#' get_datasets()
+#' get_datasets(query = "http://purl.obolibrary.org/obo/UBERON_0002048")
+NULL
 
 #' get_result_sets
 #'
@@ -151,6 +171,8 @@ NULL
 #' @param taxon Can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers available.
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
 #' Use the \code{\link{get_taxa_by_ids}} function to retrieve the necessary information. For convenience, below is a list of officially supported taxa:
 #' \tabular{rllr}{
 #'     \strong{ID} \tab \strong{Comm.name} \tab \strong{Scient.name}    \tab \strong{NcbiID}\cr
@@ -201,6 +223,7 @@ NULL
 #' @return A data table with the queried taxa's details.
 NULL
 
+
 #' get_taxon_datasets
 #' @param taxon  can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.
@@ -222,7 +245,10 @@ NULL
 NULL
 
 #' search_gemma
-#' @param query The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.
+#' @param query The search query. Either plain text ('traumatic'), or an ontology
+#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
+#'  contain the given string in their short of full name will also be matched.  
+#'  Can be multiple identifiers separated by commas.
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
 #' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
 #' a data.table containing the search results. If it is any other type, a list
@@ -240,10 +266,12 @@ NULL
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
 #' @param file The name of a file to save the results to, or `NULL` to not write
-#' results to a file. If `raw == TRUE`, the output will be a JSON file. Otherwise,
-#' it will be a RDS file.
+#' results to a file. If `raw == TRUE`, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
+#' @param sort Order results by the given property and direction. The '+' sign
+#' indicate ascending order whereas the '-' indicate descending.
 #' @param limit Optional, defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to

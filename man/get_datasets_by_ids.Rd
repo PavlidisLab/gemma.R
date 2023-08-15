@@ -20,7 +20,8 @@ get_datasets_by_ids(
 \item{datasets}{Numerical dataset identifiers or dataset short names. If not
 specified, all datasets will be returned instead}
 
-\item{filter}{Filter results by matching the expression. The exact syntax is described in the attached external documentation.}
+\item{filter}{Filter results by matching expression. See details for an explanation
+of the syntax}
 
 \item{offset}{The offset of the first retrieved result.}
 
@@ -29,7 +30,8 @@ of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}
 
-\item{sort}{Order results by the given property and direction. The '+' sign indicate ascending order whereas the '-' indicate descending.}
+\item{sort}{Order results by the given property and direction. The '+' sign
+indicate ascending order whereas the '-' indicate descending.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
@@ -41,8 +43,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-it will be a RDS file.}
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{search_gemma}
 \alias{search_gemma}
-\title{Search everything in Gemma.}
+\title{Search everything in Gemma}
 \usage{
 search_gemma(
   query,
@@ -17,7 +17,10 @@ search_gemma(
 )
 }
 \arguments{
-\item{query}{The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short of full name will also be matched ('GSE201', 'Bronchoalveolar lavage samples'.}
+\item{query}{The search query. Either plain text ('traumatic'), or an ontology
+term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
+contain the given string in their short of full name will also be matched.
+Can be multiple identifiers separated by commas.}
 
 \item{taxon}{A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name}
 
@@ -40,8 +43,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-it will be a RDS file.}
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
@@ -52,7 +55,7 @@ a data.table containing the search results. If it is any other type, a list
 of results. A list with additional details about the search if \code{raw = TRUE}
 }
 \description{
-Search everything in Gemma.
+Search everything in Gemma
 }
 \examples{
 search_gemma("bipolar")

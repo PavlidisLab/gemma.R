@@ -22,14 +22,15 @@ gemmaPath <- function(){
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes, .call) {
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE, .call) {
 
     # Set header
     if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
     }
     envWhere$header <- header
-
+    original_env = rlang::env_clone(envWhere)
+    
     # Validate arguments
     if (!is.null(validators)) {
         for (v in names(validators)) {
@@ -38,6 +39,11 @@ gemmaPath <- function(){
     }
     # Generate request
     call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
+    
+    # remove empty parameters
+    call<- call %>% stringr::str_split('&') %>% 
+        {.[[1]]} %>% {.[!grepl("\\=$",.)]} %>%
+        paste0(collapse = '&')
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         requestExpr <- quote(httr::GET(
@@ -100,30 +106,29 @@ gemmaPath <- function(){
             }
         }
 
+
+        if(attributes){
+            attributes(mOut) <- c(attributes(mOut),
+                                 env = original_env)
+        }
+        
+        
         if (!is.null(file) && !is.na(file)) {
-            extension <- ifelse(raw, ".json", ifelse(any(vapply(mOut, typeof, character(1)) == "list"), ".rds", ".csv"))
-            if (isFile && raw){
-                extension <- '.gz'
-            }
-
-            file <- paste0(tools::file_path_sans_ext(file), extension)
-
             if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
                 warning(file, " exists. Not overwriting.")
-            } else {
-                if (extension == ".json") {
-                    write(jsonlite::toJSON(mOut, pretty = 2), file)
-                } else if (extension == ".rds") {
+            } else{
+                dir.create(dirname(file),showWarnings = FALSE,recursive = TRUE)
+                if(raw){
+                    writeBin(response$content,file)
+                } else{
                     saveRDS(mOut, file)
-                } else if (extension == '.gz'){
-                    tmp <- mOut
-                    attributes(tmp) = NULL
-                    writeBin(tmp,file)
-                } else {
-                    utils::write.csv2(mOut, file, row.names = FALSE)
                 }
             }
+            
+
         }
+        
+        
         mOut
     } else if (response$status_code == 403) {
         stop(call,'\n',response$status_code, ": Forbidden. You do not have permission to access this data.")

@@ -7,6 +7,7 @@
 search_datasets(
   query,
   taxon = NA_character_,
+  filter = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
@@ -22,7 +23,10 @@ or full name will also be matched. Can be multiple identifiers separated by comm
 
 \item{taxon}{Can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 It is recommended to use Taxon ID for efficiency.
-Please note, that not all taxa have all the possible identifiers available.
+Please note, that not all taxa have all the possible identifiers available.}
+
+\item{filter}{Filter results by matching expression. See details for an explanation
+of the syntax
 Use the \code{\link{get_taxa_by_ids}} function to retrieve the necessary information. For convenience, below is a list of officially supported taxa:
 \tabular{rllr}{
 \strong{ID} \tab \strong{Comm.name} \tab \strong{Scient.name}    \tab \strong{NcbiID}\cr
@@ -42,7 +46,8 @@ of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}
 
-\item{sort}{Order results by the given property and direction. The '+' sign indicate ascending order whereas the '-' indicate descending.}
+\item{sort}{Order results by the given property and direction. The '+' sign
+indicate ascending order whereas the '-' indicate descending.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
@@ -54,8 +59,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-it will be a RDS file.}
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}

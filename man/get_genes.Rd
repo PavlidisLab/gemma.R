@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_genes}
 \alias{get_genes}
-\title{Retrieve genes matching a gene identifier}
+\title{Retrieve genes matching gene identifiers}
 \usage{
 get_genes(
   genes,
@@ -25,8 +25,8 @@ Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
 used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be a JSON file. Otherwise,
-it will be a RDS file.}
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
@@ -52,7 +52,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve genes matching a gene identifier
+Retrieve genes matching gene identifiers
 }
 \examples{
 get_genes("DYRK1A")
