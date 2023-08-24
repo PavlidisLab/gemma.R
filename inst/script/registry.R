@@ -47,6 +47,251 @@ api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVect
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
 
 
+# /resultSets/count get_number_of_result_sets ------
+# unimplemented
+# we don't need this here, not included
+
+# /resultSets/{resultSet}, get_result_set ------ 
+# only exposed internally for the higher level function
+
+registerEndpoint(
+    "resultSets/{resultSet}",
+    ".getResultSets", open_api_name = 'get_result_set',
+    isFile = TRUE, internal = TRUE,
+    header = "text/tab-separated-values",
+    defaults = list(
+        resultSet = NA_character_
+    ),
+    validators = alist(
+        resultSet = validateOptionalID
+    ),
+    preprocessor = quote(processFile)
+)
+
+# /resultSets/{resultSet_}
+# this is the cheat endpoint that drops the data from result sets but it uses the same arguments
+registerEndpoint(
+    "resultSets/{resultSet}?excludeResults=true",
+    ".getResultSetFactors", open_api_name = 'get_result_set',
+    internal = TRUE,
+    defaults = list(
+        resultSet = NA_character_
+    ),
+    validators = alist(
+        resultSet = validateOptionalID
+    ),
+    preprocessor = quote(processResultSetFactors)
+)
+
+# /resultSets, get_result_sets -----
+# unimplemented
+# this is not useful in gemma.R and can be replaced by get_dataset_differential_expression_analyses
+# the implementation below is also missing arguments
+
+# registerEndpoint(
+#     "resultSets?datasets={datasets}",
+#     "get_result_sets",open_api_name = 'get_result_sets',
+#     keyword = "internal",
+#     defaults = list(
+#         datasets = bquote()
+#     ),
+#     validators = alist(
+#         datasets = validateID
+#     ),
+#     preprocessor = quote(processDatasetResultSets)
+# )
+
+# /annotations/search, search_annotations --------
+
+registerEndpoint("annotations/search?query={query}",
+                 "search_annotations",
+                 open_api_name = 'search_annotations',
+                 keyword = "misc",
+                 defaults = list(query = bquote()),
+                 validators = alist(query = validateQuery),
+                 preprocessor = quote(processSearchAnnotations)
+)
+
+# /annotations/{taxon}/search search_datasets/search_taxon_datasets ----
+# reduntant with other endpoints, deprecated, consider removing
+# registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
+#                  "search_datasets",
+#                  open_api_name = 'search_datasets',
+#                  keyword = "dataset",
+#                  defaults = list(query = bquote(),
+#                                  taxon = NA_character_,
+#                                  filter = NA_character_,
+#                                  offset = 0L,
+#                                  limit = 20L,
+#                                  sort = "+id"),
+#                  validators = alist(query = validateQuery,
+#                                     taxon = validateOptionalTaxon,
+#                                     filter = validateFilter,
+#                                     offset = validatePositiveInteger,
+#                                     limit = validateLimit,
+#                                     sort = validateSort),
+#                  preprocessor = quote(processDatasets)
+# )
+
+# /datasets/{dataset}/annotations, get_dataset_annotations ----------
+registerEndpoint('datasets/{dataset}/annotations',
+                 'get_dataset_annotations',open_api_name = 'get_dataset_annotations',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processAnnotations))
+
+# /datasets/{dataset}/design, get_dataset_design -----
+registerEndpoint('datasets/{dataset}/design',
+                 'get_dataset_design', open_api_name = 'get_dataset_design',
+                 isFile = TRUE,
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processFile))
+
+
+# /datasets/{dataset}/expressions/differential ------
+# unimplemented
+# not sure how the parameters for this endpoint works and doesn't seem essential
+
+
+# /datasets/{dataset}/analyses/differential, get_dataset_differential_expression_analyses ------
+
+registerEndpoint('datasets/{dataset}/analyses/differential',
+                 'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote(),
+                     offset = 0L,
+                     limit = 20L
+                 ),
+                 validators = list(
+                     dataset = validateSingleID,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit
+                 ),
+                 preprocessor = quote(processDEA))
+
+
+# /datasets/{dataset}/analyses/differential/resultSets -----
+# unimplemented
+# unsure about the distinction between this and the get_dataset_differential_expression_analyses. 
+# seem to contain the reduntant information
+
+
+# /datasets/{dataset}/data -----
+# deprecated but still the main way to get data for gemma.R for now
+registerEndpoint("datasets/{dataset}/data?filter={filter}",
+                 "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
+                 isFile = TRUE,
+                 defaults = list(
+                     dataset = bquote(),
+                     filter = FALSE
+                 ),
+                 validators = alist(
+                     dataset = validateID,
+                     filter = validateBoolean
+                 ),
+                 preprocessor = quote(processFile)
+)
+
+
+# /datasets/{datasets}/expressions/genes/{genes}, get_dataset_expression_for_genes ------
+
+registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
+                 keyword = 'dataset',
+                 defaults = list(
+                     datasets = bquote(),
+                     genes = bquote(),
+                     keepNonSpecific = FALSE,
+                     consolidate = NA_character_
+                 ),
+                 validators = list(
+                     datasets = validateID,
+                     genes = validateID,
+                     keepNonSpecific = validateBoolean,
+                     consolidate = validateConsolidate
+                 ),
+                 preprocessor = quote(process_dataset_gene_expression))
+
+
+# datasets/{datasets}/expressions/pca -----
+# unimplemented
+
+
+# datasets/{dataset}/platforms ------
+
+registerEndpoint('datasets/{dataset}/platforms',
+                 'get_dataset_platforms', open_api_name = 'get_dataset_platforms',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processPlatforms))
+
+
+
+
+# datasets/{dataset}/data/processed ------
+# this should be the main way to get the expression data now
+# other one might be removed in next release
+
+registerEndpoint("datasets/{dataset}/data/processed",
+                 "get_dataset_processed_expression",open_api_name = 'get_dataset_processed_expression', keyword = "dataset",
+                 isFile = TRUE,
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = alist(
+                     dataset = validateID
+                 ),
+                 preprocessor = quote(processFile)
+)
+
+# datasets/{dataset}/quantitationTypes get_dataset_quantitation_types ----------
+
+registerEndpoint("datasets/{dataset}/quantitationTypes",
+                 "get_dataset_quantitation_types",open_api_name = 'get_dataset_quantitation_types', keyword = "dataset",
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = alist(
+                     dataset = validateID
+                 ),
+                 preprocessor = quote(processQuantitationTypeValueObject)
+)
+
+
+
+# datasets/{dataset}/data/raw, get_dataset_raw_expression ---------
+
+registerEndpoint("datasets/{dataset}/data/raw?quantitationType={quantitationType}",
+                 "get_dataset_processed_expression",open_api_name = 'get_dataset_processed_expression', keyword = "dataset",
+                 isFile = TRUE,
+                 defaults = list(
+                     dataset = bquote(),
+                     quantitationType = bquote()
+                 ),
+                 validators = alist(
+                     dataset = validateID,
+                     quantitationType = validateID
+                 ),
+                 preprocessor = quote(processFile)
+)
+
 
 # Dataset endpoints ----
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
@@ -89,78 +334,11 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
 )
 
 
-registerEndpoint(
-    "resultSets/{resultSet}",
-    ".getResultSets", open_api_name = 'get_result_set',
-    isFile = TRUE, internal = TRUE,
-    header = "text/tab-separated-values",
-    defaults = list(
-        resultSet = NA_character_
-    ),
-    validators = alist(
-        resultSet = validateOptionalID
-    ),
-    preprocessor = quote(processFile)
-)
-
-# this is the cheat endpoint that drops the data from result sets but it uses the same arguments
-registerEndpoint(
-    "resultSets/{resultSet}?excludeResults=true",
-    ".getResultSetFactors", open_api_name = 'get_result_set',
-    internal = TRUE,
-    defaults = list(
-        resultSet = NA_character_
-    ),
-    validators = alist(
-        resultSet = validateOptionalID
-    ),
-    preprocessor = quote(processResultSetFactors)
-)
-
-registerEndpoint(
-    "resultSets?datasets={datasets}",
-    "get_result_sets",open_api_name = 'get_result_sets',
-    keyword = "internal",
-    defaults = list(
-        datasets = bquote()
-    ),
-    validators = alist(
-        datasets = validateID
-    ),
-    preprocessor = quote(processDatasetResultSets)
-)
-
-registerEndpoint("datasets/{dataset}/data?filter={filter}",
-    "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
-    isFile = TRUE,
-    defaults = list(
-        dataset = bquote(),
-        filter = FALSE
-    ),
-    validators = alist(
-        dataset = validateID,
-        filter = validateBoolean
-    ),
-    preprocessor = quote(processFile)
-)
 
 
-registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
-                 keyword = 'dataset',
-                 defaults = list(
-                     datasets = bquote(),
-                     genes = bquote(),
-                     keepNonSpecific = FALSE,
-                     consolidate = NA_character_
-                 ),
-                 validators = list(
-                     datasets = validateID,
-                     genes = validateID,
-                     keepNonSpecific = validateBoolean,
-                     consolidate = validateConsolidate
-                 ),
-                 preprocessor = quote(process_dataset_gene_expression))
+
+
+
 
 
 registerEndpoint('datasets/{dataset}/samples',
@@ -174,71 +352,12 @@ registerEndpoint('datasets/{dataset}/samples',
                  ),
                  preprocessor = quote(processSamples))
 
-registerEndpoint('datasets/{dataset}/platforms',
-                 'get_dataset_platforms', open_api_name = 'get_dataset_platforms',
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processPlatforms))
-
-registerEndpoint('datasets/{dataset}/annotations',
-                 'get_dataset_annotations',open_api_name = 'get_dataset_annotations',
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processAnnotations))
 
 
-registerEndpoint('datasets/{dataset}/design',
-                 'get_dataset_design', open_api_name = 'get_dataset_design',
-                 isFile = TRUE,
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processFile))
 
-registerEndpoint('datasets/{dataset}/analyses/differential',
-                 'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processDEA))
 
-# probably to be deprecated
-registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
-                 "search_datasets",
-                 open_api_name = 'search_datasets',
-                 keyword = "dataset",
-                 defaults = list(query = bquote(),
-                                 taxon = NA_character_,
-                                 filter = NA_character_,
-                                 offset = 0L,
-                                 limit = 20L,
-                                 sort = "+id"),
-                 validators = alist(query = validateQuery,
-                                    taxon = validateOptionalTaxon,
-                                    filter = validateFilter,
-                                    offset = validatePositiveInteger,
-                                    limit = validateLimit,
-                                    sort = validateSort),
-                 preprocessor = quote(processDatasets)
-)
+
+
 
 
 # registerEndpoint('datasets/{dataset}/svd',
@@ -370,14 +489,7 @@ registerEndpoint('genes/{gene}/goTerms',
 
 
 
-registerEndpoint("annotations/search?query={query}",
-    "search_annotations",
-    open_api_name = 'search_annotations',
-    keyword = "misc",
-    defaults = list(query = bquote()),
-    validators = alist(query = validateQuery),
-    preprocessor = quote(processSearchAnnotations)
-)
+
 
 # taxon endpoints --------------
 

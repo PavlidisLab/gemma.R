@@ -6,6 +6,8 @@
 \usage{
 get_dataset_differential_expression_analyses(
   dataset,
+  offset = 0L,
+  limit = 20L,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
@@ -14,6 +16,13 @@ get_dataset_differential_expression_analyses(
 }
 \arguments{
 \item{dataset}{A numerical dataset identifier or a dataset short name}
+
+\item{offset}{The offset of the first retrieved result.}
+
+\item{limit}{Optional, defaults to 20. Limits the result to specified amount
+of objects. Has a maximum value of 100. Use together with \code{offset} and
+the \code{totalElements} \link[base:attributes]{attribute} in the output to
+compile all data if needed.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are

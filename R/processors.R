@@ -57,6 +57,9 @@ nullCheck <- function(x,natype= NA){
     }
 }
 
+
+
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process
@@ -875,6 +878,26 @@ process_dataset_gene_expression <- function(d){
     return(out)
 }
 
+processQuantitationTypeValueObject <- function(d){
+   data.table(
+       id = d %>% accessField('id'),
+       description = d %>% accessField('description'),
+       generalType = d %>% accessField('generalType'),
+       isBackground = d %>% accessField('isBackground'),
+       isBackgroundSubtracted = d %>% accessField('isBackgroundSubtracted'),
+       isBatchCorrected = d  %>% accessField('isBatchCorrected'),
+       isMaskedPreferred = d %>% accessField('isMaskedPreferred'),
+       isNormalized = d %>% accessField('isNormalized'),
+       isPreferred = d %>% accessField('isPreferred'),
+       isRatio = d %>% accessField('isRatio'),
+       isRecomputedFromRawData = d %>% accessField('isRecomputedFromRawData'),
+       name = d %>% accessField('name'),
+       representation = d %>% accessField('representation'),
+       scale = d %>% accessField('scale'),
+       type = d %>% accessField('type'),
+       vectorType = d %>% accessField('vectorType')
+   )
+}
 
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
