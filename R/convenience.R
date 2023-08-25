@@ -204,7 +204,6 @@ make_design = function(samples,metaType){
 #' data structure or a long form tibble of the queried dataset, including
 #' expression data and the experimental design.
 #'
-#' @param filter The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.
 #' @param type "se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 #' SummarizedExperiments which are more recent. See the Summarized experiment
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
@@ -235,7 +234,6 @@ get_dataset_object <- function(datasets,
                                consolidate = NA_character_,
                                resultSets = NULL,
                                contrasts = NULL,
-                               filter = FALSE,
                                metaType = 'text',
                                type = "se",
                                memoised = getOption("gemma.memoised", FALSE)) {
@@ -250,7 +248,7 @@ get_dataset_object <- function(datasets,
 
     if(is.null(genes)){
         expression <- unique(datasets) %>% lapply(function(dataset){
-            exp <- get_dataset_expression(dataset, filter,memoised = memoised)
+            exp <- get_dataset_processed_expression(dataset,memoised = memoised)
             meta <- metadata[[as.character(dataset)]]
 
             # these replicate the arguments for get_dataset_expression_for_genes

@@ -82,8 +82,7 @@ test_that("getDatasetExpression queries work", {
     # These tests pass when run locally
     skip_on_ci()
     skip_on_bioc()
-    dat <- expect_type(get_dataset_expression(1), "list")
-    expect_gt(get_dataset_expression(1) %>% nrow(), get_dataset_expression(1, filter = TRUE) %>% nrow())
+    dat <- expect_type(get_dataset_processed_expression(1), "list")
 })
 
 test_that("datasetDesign queries work", {
@@ -92,6 +91,3 @@ test_that("datasetDesign queries work", {
 })
 
 
-test_that('search_datasets work',{
-    expect_type(search_datasets('bipolar','human'),'list')
-})

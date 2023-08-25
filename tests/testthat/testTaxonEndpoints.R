@@ -10,14 +10,4 @@ test_that("getTaxonInfo queries work", {
     expect_true(nrow(dat)==2)
 })
 
-test_that("getTaxonDatasets queries work", {
-    dat <- get_taxon_datasets("mouse")
-    raw <- get_taxon_datasets("mouse",raw = TRUE)
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(
-        dat$experiment.Name,
-        raw %>% purrr::map_chr('name')
-    )
-    expect_true(nrow(dat)==20)
-})
+

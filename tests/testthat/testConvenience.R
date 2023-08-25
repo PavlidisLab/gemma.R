@@ -12,9 +12,9 @@ test_that("getDataset works properly", {
     # These tests pass when run locally
     skip_on_ci()
     skip_on_bioc()
-    expr <- get_dataset_expression(1, filter = TRUE)
-    eset <- get_dataset_object("GSE2018", keepNonSpecific = TRUE, filter = TRUE, type = "eset")
-    sumexp <- get_dataset_object("GSE2018",keepNonSpecific = TRUE, filter = TRUE, type = "se")
+    expr <- get_dataset_processed_expression(1)
+    eset <- get_dataset_object("GSE2018", keepNonSpecific = TRUE, type = "eset")
+    sumexp <- get_dataset_object("GSE2018",keepNonSpecific = TRUE, type = "se")
     design <- get_dataset_samples(1)
     
     expect_equal(nrow(expr), eset[[1]] %>% nrow() %>% unname())
@@ -34,7 +34,7 @@ test_that("getDatasetTidy works properly", {
     # These tests pass when run locally
     skip_on_ci()
     skip_on_bioc()
-    dat <- get_dataset_expression(1)
+    dat <- get_dataset_processed_expression(1)
     tidy <- get_dataset_object(1,type = 'tidy',keepNonSpecific = TRUE)
     design <- get_dataset_samples(1)
     # Check number of rows = samples * probes (4 columns are gene info, not samples)
