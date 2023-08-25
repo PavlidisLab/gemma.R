@@ -701,4 +701,39 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
 }
 
 
-
+#' Return all supported filter properties
+#' 
+#' Some functions such as \code{\link{get_datasets}} and \code{\link{get_platforms}}
+#' include a filter argument that allows creation of more complex queries. This
+#' function returns a list of supported properties to be used in those filters
+#' 
+#' @return A list of data.tables that contain supported properties and their data
+#' types
+#' 
+#' @examples 
+#' filter_properties()
+#' 
+#' @export
+filter_properties <- function(){
+    api_file <- jsonlite::fromJSON(glue::glue('{gemmaPath()}openapi.json'),simplifyVector = FALSE)
+    
+    dataset_filter <- api_file$components$schemas$FilterArgExpressionExperiment$`x-gemma-filterable-properties`
+    
+    
+    dataset_properties <- 
+        data.table(properties = dataset_filter %>% accessField('name'),
+               type =  dataset_filter %>% accessField('type'),
+               description =  dataset_filter %>% accessField('description'))
+    
+    platform_filter <- api_file$components$schemas$FilterArgArrayDesign$`x-gemma-filterable-properties`
+    
+    platform_properties <- 
+        data.table(properties = platform_filter %>% accessField('name'),
+                   type =  platform_filter %>% accessField('type'),
+                   description =  platform_filter %>% accessField('description'))
+    
+    out <- list(
+        dataset = dataset_properties,
+        platform = platform_properties
+    )
+}
