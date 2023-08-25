@@ -8,16 +8,7 @@
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
-#' @param filter Filter results by matching expression. See details for an explanation
-#' of the syntax
-#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
-#' species will return results for all species. These are appended
-#' to the filter and equivalent to filtering for \code{taxon.commonName} property
-#' @param uris A vector of ontology term URIs. Providing multiple terms will
-#' return results containing any of the terms and their children. These are
 #' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
-#' @details
-#' Additional details to add
 #' 
 #' @examples
 #' get_datasets_by_ids("GSE2018")
@@ -26,16 +17,6 @@
 NULL
 
 #' get_datasets
-#' @param filter Filter results by matching expression. See details for an explanation
-#' of the syntax
-#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
-#' species will return results for all species. These are appended
-#' to the filter and equivalent to filtering for \code{taxon.commonName} property
-#' @param uris A vector of ontology term URIs. Providing multiple terms will
-#' return results containing any of the terms and their children. These are
-#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
-#' @details
-#' A filter can be specified to identify datasets of desired properties. 
 #' 
 #' @param query The search query. Either plain text ('traumatic'), or an ontology
 #'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
@@ -110,11 +91,6 @@ NULL
 #' get_platforms_by_ids
 #' @param platforms Platform numerical identifiers or platform short names.  If not
 #' specified, all platforms will be returned instead
-#' @param filter Filter results by matching expression. See details for an explanation
-#' of the syntax
-#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
-#' species will return results for all species. These are appended
-#' to the filter and equivalent to filtering for \code{taxon.commonName} property#'
 #' @inherit processPlatforms return
 #'
 #' @examples
@@ -282,6 +258,15 @@ NULL
 NULL
 
 #' generic_params
+#' @param filter Filter results by matching expression. Use \code{\link(filter_properties)}
+#' function to get a list of all available parameters. These properties can be 
+#' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+#' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
+#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
+#' species will return results for all species. These are appended
+#' to the filter and equivalent to filtering for \code{taxon.commonName} property
+#' @param uris A vector of ontology term URIs. Providing multiple terms will
+#' return results containing any of the terms and their children. These are
 #' @param memoised Whether or not to save to cache for future calls with the
 #' same inputs and use the result saved in cache if a result is already saved.
 #' Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always

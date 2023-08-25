@@ -11,7 +11,6 @@ get_dataset_object(
   consolidate = NA_character_,
   resultSets = NULL,
   contrasts = NULL,
-  filter = FALSE,
   metaType = "text",
   type = "se",
   memoised = getOption("gemma.memoised", FALSE)
@@ -36,8 +35,6 @@ Must be the same length as \code{datasets}.'}
 
 \item{contrasts}{Contrast IDs of a differential expression contrast. Optional. Need resultSets to be defined to work. If provided, the
 output will only include samples relevant to the specific contrats.}
-
-\item{filter}{The filtered version corresponds to what is used in most Gemma analyses, removing some probes/elements. Unfiltered includes all elements.}
 
 \item{metaType}{How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options}
 

@@ -23,16 +23,17 @@ get_datasets(
 term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 contain the given string in their short of full name will also be matched.}
 
-\item{filter}{Filter results by matching expression. See details for an explanation
-of the syntax}
+\item{filter}{Filter results by matching expression. Use \code{\link(filter_properties)}
+function to get a list of all available parameters. These properties can be
+combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+(e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
 \item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
 species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
 \item{uris}{A vector of ontology term URIs. Providing multiple terms will
-return results containing any of the terms and their children. These are
-appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
+return results containing any of the terms and their children. These are}
 
 \item{offset}{The offset of the first retrieved result.}
 
@@ -65,9 +66,6 @@ Varies
 }
 \description{
 Retrieve all datasets
-}
-\details{
-A filter can be specified to identify datasets of desired properties.
 }
 \examples{
 get_datasets()

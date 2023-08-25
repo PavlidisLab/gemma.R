@@ -20,18 +20,20 @@ get_datasets_by_ids(
 }
 \arguments{
 \item{datasets}{Numerical dataset identifiers or dataset short names. If not
-specified, all datasets will be returned instead}
+specified, all datasets will be returned instead
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
-\item{filter}{Filter results by matching expression. See details for an explanation
-of the syntax}
+\item{filter}{Filter results by matching expression. Use \code{\link(filter_properties)}
+function to get a list of all available parameters. These properties can be
+combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+(e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
 \item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
 species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
 \item{uris}{A vector of ontology term URIs. Providing multiple terms will
-return results containing any of the terms and their children. These are
-appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
+return results containing any of the terms and their children. These are}
 
 \item{offset}{The offset of the first retrieved result.}
 
@@ -96,9 +98,6 @@ The fields of the output data.table are:
 }
 \description{
 Retrieve datasets by their identifiers
-}
-\details{
-Additional details to add
 }
 \examples{
 get_datasets_by_ids("GSE2018")

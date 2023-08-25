@@ -79,10 +79,32 @@ BiocManager::install("gemma.R")
 
 # Searching for datasets of interest in Gemma
 
-The package includes various functions to search for datasets fitting desired 
-criteria.
 
-All datasets belonging to a taxon of interest can be accessed by using [`get_taxon_datasets`](https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html)
+Using the [`get_datasets`](https://pavlidislab.github.io/gemma.R/reference/get_datasets.html) function, datasets fitting various criteria can be accessed. 
+
+```{r}
+# accessing all mouse and human datasets
+get_datasets(taxa = c('mouse','human')) %>% 
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+
+# accessing human datasets with the word "bipolar"
+get_datasets(query = 'bipolar',taxa = 'human') %>% 
+     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+
+# access human datasets that were annotated with the ontology term for the
+# bipolar disorder
+
+get_datasets(taxa ='human', 
+             uris = 'http://purl.obolibrary.org/obo/MONDO_0004985') %>%
+    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+```
+
+The package includes various functions to search for datasets fitting desired 
+criteria. 
+ 
+
+
+All datasets belonging to a taxon of interest can be accessed by using [`get_dataset`](https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html)
 while the function [`search_datasets`](https://pavlidislab.github.io/gemma.R/reference/search_datasets.html) can be used to further limit the results by
 a specified query containing key words, experiment names or ontology term URIs
 
