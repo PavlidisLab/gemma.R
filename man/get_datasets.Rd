@@ -7,6 +7,8 @@
 get_datasets(
   query = NA_character_,
   filter = NA_character_,
+  taxa = NA_character_,
+  uris = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
@@ -23,6 +25,14 @@ contain the given string in their short of full name will also be matched.}
 
 \item{filter}{Filter results by matching expression. See details for an explanation
 of the syntax}
+
+\item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
+species will return results for all species. These are appended
+to the filter and equivalent to filtering for \code{taxon.commonName} property}
+
+\item{uris}{A vector of ontology term URIs. Providing multiple terms will
+return results containing any of the terms and their children. These are
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
 \item{offset}{The offset of the first retrieved result.}
 
@@ -57,10 +67,13 @@ Varies
 Retrieve all datasets
 }
 \details{
-Additional details to add
+A filter can be specified to identify datasets of desired properties.
 }
 \examples{
 get_datasets()
-get_datasets(query = "http://purl.obolibrary.org/obo/UBERON_0002048")
+get_datasets(taxa = c("mouse", "human"), uris = "http://purl.obolibrary.org/obo/UBERON_0002048")
+# filter below is equivalent to the call above
+get_datasets(filter = "taxon.commonName in (mouse,human) and allCharacteristics.valueUri = http://purl.obolibrary.org/obo/UBERON_0002048")
+get_datasets(query = "lung")
 }
 \keyword{dataset}

@@ -10,6 +10,12 @@
 #' specified, all datasets will be returned instead
 #' @param filter Filter results by matching expression. See details for an explanation
 #' of the syntax
+#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
+#' species will return results for all species. These are appended
+#' to the filter and equivalent to filtering for \code{taxon.commonName} property
+#' @param uris A vector of ontology term URIs. Providing multiple terms will
+#' return results containing any of the terms and their children. These are
+#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
 #' @details
 #' Additional details to add
 #' 
@@ -22,15 +28,24 @@ NULL
 #' get_datasets
 #' @param filter Filter results by matching expression. See details for an explanation
 #' of the syntax
+#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
+#' species will return results for all species. These are appended
+#' to the filter and equivalent to filtering for \code{taxon.commonName} property
+#' @param uris A vector of ontology term URIs. Providing multiple terms will
+#' return results containing any of the terms and their children. These are
+#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
 #' @details
-#' Additional details to add
+#' A filter can be specified to identify datasets of desired properties. 
 #' 
 #' @param query The search query. Either plain text ('traumatic'), or an ontology
 #'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
 #'  contain the given string in their short of full name will also be matched.
 #' @examples
 #' get_datasets()
-#' get_datasets(query = "http://purl.obolibrary.org/obo/UBERON_0002048")
+#' get_datasets(taxa = c('mouse','human'), uris = 'http://purl.obolibrary.org/obo/UBERON_0002048')
+#' # filter below is equivalent to the call above
+#' get_datasets(filter = "taxon.commonName in (mouse,human) and allCharacteristics.valueUri = http://purl.obolibrary.org/obo/UBERON_0002048")
+#' get_datasets(query='lung')
 NULL
 
 #' get_result_sets
@@ -95,7 +110,11 @@ NULL
 #' get_platforms_by_ids
 #' @param platforms Platform numerical identifiers or platform short names.  If not
 #' specified, all platforms will be returned instead
-#'
+#' @param filter Filter results by matching expression. See details for an explanation
+#' of the syntax
+#' @param taxa A vector of taxon common names (e.g. human, mouse). Providing multiple
+#' species will return results for all species. These are appended
+#' to the filter and equivalent to filtering for \code{taxon.commonName} property#'
 #' @inherit processPlatforms return
 #'
 #' @examples
@@ -255,6 +274,11 @@ NULL
 #' of results. A list with additional details about the search if \code{raw = TRUE}
 #' @examples
 #' search_gemma('bipolar')
+NULL
+
+#' get_dataset_quantitation_types
+#' 
+#' @inherit processQuantitationTypeValueObject return
 NULL
 
 #' generic_params

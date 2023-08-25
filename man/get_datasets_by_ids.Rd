@@ -7,6 +7,8 @@
 get_datasets_by_ids(
   datasets = NA_character_,
   filter = NA_character_,
+  taxa = NA_character_,
+  uris = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
@@ -22,6 +24,14 @@ specified, all datasets will be returned instead}
 
 \item{filter}{Filter results by matching expression. See details for an explanation
 of the syntax}
+
+\item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
+species will return results for all species. These are appended
+to the filter and equivalent to filtering for \code{taxon.commonName} property}
+
+\item{uris}{A vector of ontology term URIs. Providing multiple terms will
+return results containing any of the terms and their children. These are
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
 \item{offset}{The offset of the first retrieved result.}
 

@@ -6,6 +6,8 @@
 \usage{
 get_platforms_by_ids(
   platforms = NA_character_,
+  filter = NA_character_,
+  taxa = NA_character_,
   offset = 0L,
   limit = 20L,
   sort = "+id",
@@ -18,6 +20,13 @@ get_platforms_by_ids(
 \arguments{
 \item{platforms}{Platform numerical identifiers or platform short names.  If not
 specified, all platforms will be returned instead}
+
+\item{filter}{Filter results by matching expression. See details for an explanation
+of the syntax}
+
+\item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
+species will return results for all species. These are appended
+to the filter and equivalent to filtering for \code{taxon.commonName} property#'}
 
 \item{offset}{The offset of the first retrieved result.}
 

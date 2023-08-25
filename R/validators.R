@@ -278,7 +278,34 @@ validateConsolidate <- function(name, ...){
 
 
 validateFilter <- function(name, ...){
+
     filter <-  unlist(list(...))
-    assertthat::assert_that(is.na(filter) || assertthat::is.string(filter),msg = "filter must be a string of length one")
+    assertthat::assert_that(is.null(filter) || is.na(filter) || assertthat::is.string(filter),msg = "filter must be a string of length one")
+    
+    if(is.null(filter) || is.na(filter)){
+        filter = ''
+    }
+    
+    # filter has a few helper arguments that it can borrow from
+    env <- parent.frame()
+    
+    if (!(all(is.na(env$original_env$taxa))||is.null(env$original_env$taxa))){
+        filter = addToFilter(filter,"taxon.commonName",env$original_env$taxa)
+    }
+    if (!(all(is.na(env$original_env$uris))||is.null(env$original_env$uris))){
+        filter = addToFilter(filter,"allCharacteristics.valueUri",env$original_env$uris)
+    }
+    
+    
+    return(filter)
+}
+
+addToFilter <- function(filter,property,terms){
+    
+    if(nchar(filter) > 0){
+        filter = paste0(filter,' and ')
+    }
+    
+    filter = glue::glue("{filter}{property} in ({paste(terms,collapse = ',')})")
     return(filter)
 }

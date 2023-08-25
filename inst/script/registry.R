@@ -190,19 +190,19 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 
 # /datasets/{dataset}/data -----
 # deprecated but still the main way to get data for gemma.R for now
-registerEndpoint("datasets/{dataset}/data?filter={filter}",
-                 "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
-                 isFile = TRUE,
-                 defaults = list(
-                     dataset = bquote(),
-                     filter = FALSE
-                 ),
-                 validators = alist(
-                     dataset = validateID,
-                     filter = validateBoolean
-                 ),
-                 preprocessor = quote(processFile)
-)
+# registerEndpoint("datasets/{dataset}/data?filter={filter}",
+#                  "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
+#                  isFile = TRUE,
+#                  defaults = list(
+#                      dataset = bquote(),
+#                      filter = FALSE
+#                  ),
+#                  validators = alist(
+#                      dataset = validateID,
+#                      filter = validateBoolean
+#                  ),
+#                  preprocessor = quote(processFile)
+# )
 
 
 # /datasets/{datasets}/expressions/genes/{genes}, get_dataset_expression_for_genes ------
@@ -232,7 +232,8 @@ registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific=
 # datasets/{dataset}/platforms ------
 
 registerEndpoint('datasets/{dataset}/platforms',
-                 'get_dataset_platforms', open_api_name = 'get_dataset_platforms',
+                 'get_dataset_platforms',
+                 open_api_name = 'get_dataset_platforms',
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -279,7 +280,7 @@ registerEndpoint("datasets/{dataset}/quantitationTypes",
 # datasets/{dataset}/data/raw, get_dataset_raw_expression ---------
 
 registerEndpoint("datasets/{dataset}/data/raw?quantitationType={quantitationType}",
-                 "get_dataset_processed_expression",open_api_name = 'get_dataset_processed_expression', keyword = "dataset",
+                 "get_dataset_raw_expression",open_api_name = 'get_dataset_raw_expression', keyword = "dataset",
                  isFile = TRUE,
                  defaults = list(
                      dataset = bquote(),
@@ -293,12 +294,69 @@ registerEndpoint("datasets/{dataset}/data/raw?quantitationType={quantitationType
 )
 
 
-# Dataset endpoints ----
+
+# datasets/{dataset}/samples, get_dataset_samples --------
+
+registerEndpoint('datasets/{dataset}/samples',
+                 'get_dataset_samples', open_api_name = 'get_dataset_samples',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processSamples))
+
+
+# datasets/{dataset}/svd --- 
+# not implemented
+# registerEndpoint('datasets/{dataset}/svd',
+#                  'getDatasetSVD',
+#                  logname = 'svd',
+#                  roxygen = "Dataset singular value decomposition",
+#                  keyword = 'dataset',
+#                  defaults = list(dataset = bquote()),
+#                  validators = list(dataset = validateSingleID),
+#                  preprocessor = quote(processSVD)
+#
+# )
+
+
+# datasets, get_datasets ------
+registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={filter}&query={query}",
+                 "get_datasets",open_api_name = "get_datasets", keyword = "dataset",
+                 defaults = list(
+                     query = NA_character_,
+                     filter = NA_character_,
+                     taxa = NA_character_,
+                     uris = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     sort = "+id"
+                 ),
+                 validators = alist(
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
+                 ),
+                 preprocessor = quote(processDatasets)
+)
+
+# datasets/annotations -----
+# currently unimplemented
+
+# datasets/{datasets}, get_datasets_by_ids -----
+
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
     "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
     defaults = list(
         datasets = NA_character_,
         filter = NA_character_,
+        taxa = NA_character_,
+        uris = NA_character_,
         offset = 0L,
         limit = 20L,
         sort = "+id"
@@ -314,98 +372,121 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 )
 
 
-registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={filter}&query={query}",
-                 "get_datasets",open_api_name = "get_datasets", keyword = "dataset",
+# datasets/categories -----
+# currently unimplemented
+
+# datasets/taxa -----
+# currently unimplemented
+
+# datasets/count -----
+# currently unimplemented
+
+# genes/{gene}/goTerms -------
+
+registerEndpoint('genes/{gene}/goTerms',
+                 'get_gene_go_terms', open_api_name = 'get_gene_go_terms',
+                 keyword = 'gene',
                  defaults = list(
-                     query = NA_character_,
-                     filter = NA_character_,
+                     gene = bquote()
+                 ),
+                 validators = alist(gene = validateSingleID),
+                 preprocessor = quote(processGO))
+
+
+# genes/{gene}/locations, get_gene_locations ----
+
+registerEndpoint('genes/{gene}/locations',
+                 'get_gene_locations', open_api_name = 'get_gene_locations',
+                 keyword = 'gene',
+                 defaults = list(
+                     gene = bquote()
+                 ),
+                 validators = alist(gene = validateSingleID),
+                 preprocessor = quote(processGeneLocation))
+
+
+
+# genes/{gene}/probes, get_gene_probes -----
+
+registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
+                 "get_gene_probes", open_api_name = 'get_gene_probes', keyword = "gene",
+                 defaults = list(
+                     gene = bquote(),
                      offset = 0L,
-                     limit = 20L,
-                     sort = "+id"
+                     limit = 20L
                  ),
                  validators = alist(
-                     query = validateOptionalQuery,
-                     filter = validateFilter,
+                     gene = validateSingleID,
                      offset = validatePositiveInteger,
-                     limit = validateLimit,
-                     sort = validateSort
+                     limit = validateLimit
+                 ),
+                 preprocessor = quote(processElements)
+)
+
+# genes/{genes}, get_genes-------
+
+registerEndpoint('genes/{(genes)}/',
+                 'get_genes',
+                 open_api_name = 'get_genes',
+                 keyword = 'gene',
+                 defaults = list(
+                     genes = bquote()
+                 ),
+                 validators = alist(genes = validateID),
+                 preprocessor = quote(processGenes))
+
+
+
+# platforms/count -----
+# unimplemented
+
+# platforms/{platform}/annotations -----
+# unimplemented
+
+
+# platform/{platform}/datasets, get_platform_datasets ----
+
+registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
+                 "get_platform_datasets",open_api_name = 'get_platform_datasets', keyword = "platform",
+                 defaults = list(
+                     platform = bquote(),
+                     offset = 0L,
+                     limit = 20L
+                 ),
+                 validators = alist(
+                     platform = validateSingleID,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit
                  ),
                  preprocessor = quote(processDatasets)
 )
 
+# platforms/{platform}/elements/{probes} -----
+# not implemented
 
-
-
-
-
-
-
-
-registerEndpoint('datasets/{dataset}/samples',
-                 'get_dataset_samples', open_api_name = 'get_dataset_samples',
-                 keyword = 'dataset',
+# platforms/{platform}/elements/{probe}/genes, get_platform_element_genes ----
+registerEndpoint("platforms/{platform}/elements/{probe}/genes?offset={offset}&limit={limit}",
+                 "get_platform_element_genes",
+                 open_api_name = 'get_platform_element_genes', keyword = "platform",
                  defaults = list(
-                     dataset = bquote()
+                     platform = bquote(),
+                     probe = bquote(),
+                     offset = 0L,
+                     limit = 20L
                  ),
-                 validators = list(
-                     dataset = validateSingleID
+                 validators = alist(
+                     platform = validateSingleID,
+                     probe = validateSingleID,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit
                  ),
-                 preprocessor = quote(processSamples))
-
-
-
-
-
-
-
-
-
-# registerEndpoint('datasets/{dataset}/svd',
-#                  'getDatasetSVD',
-#                  logname = 'svd',
-#                  roxygen = "Dataset singular value decomposition",
-#                  keyword = 'dataset',
-#                  defaults = list(dataset = bquote()),
-#                  validators = list(dataset = validateSingleID),
-#                  preprocessor = quote(processSVD)
-#
-# )
-
-
-# Platform endpoints ----
-registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}",
-    "get_platforms_by_ids",open_api_name = 'get_platforms_by_ids', keyword = "platform",
-    defaults = list(
-        platforms = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
-    ),
-    validators = alist(
-        platforms = validateOptionalID,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
-    ),
-    preprocessor = quote(processPlatforms)
+                 preprocessor = quote(processGenes)
 )
 
-registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
-    "get_platform_datasets",open_api_name = 'get_platform_datasets', keyword = "platform",
-    defaults = list(
-        platform = bquote(),
-        offset = 0L,
-        limit = 20L
-    ),
-    validators = alist(
-        platform = validateSingleID,
-        offset = validatePositiveInteger,
-        limit = validateLimit
-    ),
-    preprocessor = quote(processDatasets)
-)
 
-# reduntant with annotation files consider removing
+# platforms/{platform}/elements ----
+# unimplemented
+# reduntant with annotation files
 # registerEndpoint("platforms/{platform}/elements/{elements}?offset={offset}&limit={limit}",
 #     "get_platform_element", open_api_name = 'get_platform_element', keyword = "platform",
 #     defaults = list(
@@ -423,101 +504,32 @@ registerEndpoint("platforms/{platform}/datasets?offset={offset}&limit={limit}",
 #     preprocessor = quote(processElements)
 # )
 
-registerEndpoint("platforms/{platform}/elements/{probe}/genes?offset={offset}&limit={limit}",
-    "get_platform_element_genes",
-    open_api_name = 'get_platform_element_genes', keyword = "platform",
-    defaults = list(
-        platform = bquote(),
-        probe = bquote(),
-        offset = 0L,
-        limit = 20L
-    ),
-    validators = alist(
-        platform = validateSingleID,
-        probe = validateSingleID,
-        offset = validatePositiveInteger,
-        limit = validateLimit
-    ),
-    preprocessor = quote(processGenes)
-)
+# platforms -----
+# merged with platforms/{platform}
 
-# Gene endpoints ----
-registerEndpoint('genes/{(genes)}/',
-                 'get_genes',
-                 open_api_name = 'get_genes',
-                 keyword = 'gene',
+# platforms/{platform}, get_platforms_by_ids ---- 
+registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
+                 "get_platforms_by_ids",open_api_name = 'get_platforms_by_ids', keyword = "platform",
                  defaults = list(
-                     genes = bquote()
+                     platforms = NA_character_,
+                     filter = NA_character_,
+                     taxa = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     sort = "+id"
                  ),
-                 validators = alist(genes = validateID),
-                 preprocessor = quote(processGenes))
-
-registerEndpoint('genes/{gene}/locations',
-                 'get_gene_locations', open_api_name = 'get_gene_locations',
-                 keyword = 'gene',
-                 defaults = list(
-                     gene = bquote()
+                 validators = alist(
+                     platforms = validateOptionalID,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
                  ),
-                 validators = alist(gene = validateSingleID),
-                 preprocessor = quote(processGeneLocation))
-
-
-registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
-    "get_gene_probes", open_api_name = 'get_gene_probes', keyword = "gene",
-    defaults = list(
-        gene = bquote(),
-        offset = 0L,
-        limit = 20L
-    ),
-    validators = alist(
-        gene = validateSingleID,
-        offset = validatePositiveInteger,
-        limit = validateLimit
-    ),
-    preprocessor = quote(processElements)
+                 preprocessor = quote(processPlatforms)
 )
 
 
-registerEndpoint('genes/{gene}/goTerms',
-                 'get_gene_go_terms', open_api_name = 'get_gene_go_terms',
-                 keyword = 'gene',
-                 defaults = list(
-                     gene = bquote()
-                 ),
-                 validators = alist(gene = validateSingleID),
-                 preprocessor = quote(processGO))
-
-
-
-
-
-# taxon endpoints --------------
-
-registerEndpoint("taxa/{taxa}",
-                 "get_taxa_by_ids",
-                 open_api_name = 'get_taxa_by_ids',
-                 internal = TRUE,
-                 defaults = list(taxa = bquote()),
-                 validators = alist(taxa = validateTaxa),
-                 preprocessor = quote(processTaxon)
-)
-
-registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sort}",
-                 "get_taxon_datasets",open_api_name = 'get_taxon_datasets',
-                 keyword = "taxon",
-                 defaults = list(taxon = bquote(),
-                                 offset = 0L,
-                                 limit = 20,
-                                 sort = "+id"),
-                 validators = alist(taxon = validateTaxon,
-                                    offset = validatePositiveInteger,
-                                    limit = validatePositiveInteger,
-                                    sort = validateSort),
-                 preprocessor = quote(processDatasets)
-)
-
-# search endpoint
-
+# search -----
 registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={limit}&resultTypes={resultType}',
                  'search_gemma', open_api_name = 'search',
                  keyword = 'misc',
@@ -533,6 +545,50 @@ registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={
                                     resultType = validateResultType),
                  preprocessor = quote(process_search)
 )
+
+
+# taxa/{taxon}/genes/{gene}/locations----
+# unimplemented, redundant with get_gene_locations
+
+# taxa ----
+# use get_taxa in conveninence instead, unimplemented
+
+# taxa/{taxa}, get_taxa_by_ids -----
+
+registerEndpoint("taxa/{taxa}",
+                 "get_taxa_by_ids",
+                 open_api_name = 'get_taxa_by_ids',
+                 internal = TRUE,
+                 defaults = list(taxa = bquote()),
+                 validators = alist(taxa = validateTaxa),
+                 preprocessor = quote(processTaxon)
+)
+
+# taxa/{taxon}/datasets ----
+# unimplemented, redundant with get_datasets
+# below lacks the filter argument
+# registerEndpoint("taxa/{taxon}/datasets/?offset={offset}&limit={limit}&sort={sort}",
+#                  "get_taxon_datasets",open_api_name = 'get_taxon_datasets',
+#                  keyword = "taxon",
+#                  defaults = list(taxon = bquote(),
+#                                  offset = 0L,
+#                                  limit = 20,
+#                                  sort = "+id"),
+#                  validators = alist(taxon = validateTaxon,
+#                                     offset = validatePositiveInteger,
+#                                     limit = validatePositiveInteger,
+#                                     sort = validateSort),
+#                  preprocessor = quote(processDatasets)
+# )
+
+
+# taxa/{taxon}/genes/{gene} ------
+# unimplemented, use get_genes with ncbi ids instead
+
+# taxa/{taxon}/chromosomes/{chromosome}/genes -----
+# unimplemented
+
+
 
 
 # Clean up -----------
