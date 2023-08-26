@@ -736,4 +736,6 @@ filter_properties <- function(){
         dataset = dataset_properties,
         platform = platform_properties
     )
+    
+    return(out)
 }

@@ -23,12 +23,12 @@ get_datasets(
 term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 contain the given string in their short of full name will also be matched.}
 
-\item{filter}{Filter results by matching expression. Use \code{\link(filter_properties)}
+\item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
-\item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
+\item{taxa}{A vector of taxon common names (e.g. human, mouse, rat). Providing multiple
 species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
@@ -62,7 +62,39 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 filename.}
 }
 \value{
-Varies
+A data table with information about the queried dataset(s). A list if
+\code{raw = TRUE}. Returns an empty list if no datasets matched. A successful
+response may contain 'Geeq' information, which aims to provide a unified
+metric to measure experiments by the quality of their data, and their
+suitability for use in Gemma. You can
+read more about the geeq properties \href{https://pavlidislab.github.io/Gemma/geeq.html}{here}.
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+\item \code{experiment.Name}: Full title of the dataset
+\item \code{experiment.ID}: Internal ID of the dataset.
+\item \code{experiment.Description}: Description of the dataset
+\item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+\item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
+\item \code{experiment.Database}: The name of the database where the dataset was taken from
+\item \code{experiment.URI}: URI of the original database
+\item \code{experiment.SampleCount}: Number of samples in the dataset
+\item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
+\item \code{geeq.batchCorrected}: Whether batch correction has been performed on the dataset.
+\item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
+\item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
+\item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
+\item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
+\item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
+\item \code{taxon.Name}: Name of the species
+\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{taxon.NCBI}: NCBI ID of the taxon
+\item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+}
 }
 \description{
 Retrieve all datasets

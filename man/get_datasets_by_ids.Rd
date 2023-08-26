@@ -23,12 +23,12 @@ get_datasets_by_ids(
 specified, all datasets will be returned instead
 appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
-\item{filter}{Filter results by matching expression. Use \code{\link(filter_properties)}
+\item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
-\item{taxa}{A vector of taxon common names (e.g. human, mouse). Providing multiple
+\item{taxa}{A vector of taxon common names (e.g. human, mouse, rat). Providing multiple
 species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
