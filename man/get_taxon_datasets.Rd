@@ -12,7 +12,8 @@ get_taxon_datasets(
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
-  overwrite = getOption("gemma.overwrite", FALSE)
+  overwrite = getOption("gemma.overwrite", FALSE),
+  ...
 )
 }
 \arguments{
