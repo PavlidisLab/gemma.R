@@ -164,18 +164,25 @@ memget_platform_annotations <- function(platform,
 
 
 make_design = function(samples,metaType){
-
-    categories <- samples$sample.FactorValues %>% purrr::map('category') %>% unlist %>% unique()
+    categories <- samples$sample.FactorValues %>% 
+        purrr::map('category') %>% unlist %>% unique() %>%
+        {.[is.na(.)] = 'NA';.}
     factorValues <- categories %>% lapply(function(x){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y %>% dplyr::filter(category == x) %>% {.$factorValue} %>% paste(collapse = ',')
+            y$category[is.na(y$category)]='NA'
+                
+            y %>% dplyr::filter(category == x) %>% {.$value} %>% paste(collapse = ',')
         })
     })
 
-    category_uris <- samples$sample.FactorValues %>% purrr::map('categoryURI') %>% unlist %>% unique()
+    category_uris <- samples$sample.FactorValues %>% 
+        purrr::map('categoryURI') %>% unlist %>% unique() %>% 
+        {.[is.na(.)] = 'NA';.}
     factorURIs <- category_uris %>% lapply(function(x){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y %>% dplyr::filter(categoryURI == x) %>% {.$factorValueURI} %>% paste(collapse = ',')
+            y$categoryURI[is.na(y$categoryURI)]='NA'
+            
+            y %>% dplyr::filter(categoryURI == x) %>% {.$valueUri} %>% paste(collapse = ',')
         })
     })
 
@@ -193,7 +200,7 @@ make_design = function(samples,metaType){
     }
     rownames(design_frame) <- samples$sample.Name
     design_frame <- design_frame %>% dplyr::mutate(factorValues = samples$sample.FactorValues, .before = 1)
-
+    
     return(design_frame)
 }
 
