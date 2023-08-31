@@ -19,8 +19,6 @@ editor_options:
 ```{r, include = FALSE}
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE,
-        gemma.memoised = TRUE,
-        gemma.cache = 'gemma_cache',
         datatable.print.trunc.cols = FALSE)
 # options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
 knitr::opts_chunk$set(
