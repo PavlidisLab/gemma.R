@@ -741,7 +741,7 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
 #' 
 #' @export
 filter_properties <- function(){
-    api_file <- jsonlite::fromJSON(glue::glue('{gemmaPath()}openapi.json'),simplifyVector = FALSE)
+    api_file <- jsonlite::fromJSON(system.file('script/openapi.json',package = 'gemma.R'),simplifyVector = FALSE)
     
     dataset_filter <- api_file$components$schemas$FilterArgExpressionExperiment$`x-gemma-filterable-properties`
     
