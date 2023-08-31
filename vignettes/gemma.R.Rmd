@@ -31,6 +31,7 @@ knitr::opts_chunk$set(
 
 ```{r setup, message = FALSE}
 library(gemma.R)
+library(data.table)
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
@@ -99,90 +100,53 @@ get_datasets(taxa ='human',
     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 ```
 
-The package includes various functions to search for datasets fitting desired 
-criteria. 
- 
-
-
-All datasets belonging to a taxon of interest can be accessed by using [`get_dataset`](https://pavlidislab.github.io/gemma.R/reference/get_taxon_datasets.html)
-while the function [`search_datasets`](https://pavlidislab.github.io/gemma.R/reference/search_datasets.html) can be used to further limit the results by
-a specified query containing key words, experiment names or ontology term URIs
-
-```{r}
-get_taxon_datasets(taxon = 'human') %>%  # all human datasets 
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
-
-search_datasets('bipolar',taxon = 'human') %>% # human datasets mentioning bipolar
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
-
-search_datasets('http://purl.obolibrary.org/obo/MONDO_0004985', # ontology term URI for the bipolar disorder
-                taxon = 'human') %>% 
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
-```
-
 Note that a single call of these functions will only return 20 results by default
 and a 100 results maximum, controlled by the `limit` argument. In order to get
-all available results, `offset` argument should be used to make multiple calls.
-
-To see how many available results are there, you can look at the
-attributes of the output objects where additional information from the
-API response is appended.
+all available results, use `get_all_pages` function on the output of the function
 
 ```{r}
-# a quick call with a limit of 1 to get the result count
-result <- get_taxon_datasets(taxon = 'human',limit = 1) 
-print(attributes(result)$totalElements)
-```
-
-Since the maximum limit is 100 getting all results available will require multiple calls.
-
-```{r,eval=FALSE}
-count = attributes(result)$totalElements
-all_results <- lapply(seq(0, count, 100), function(offset){
-    get_taxon_datasets(taxon = 'human',limit = 100, offset = offset)
-}) %>% do.call(rbind,.) %>% 
+get_datasets(taxa = 'human') %>% 
+    get_all_pages() %>% 
     select(experiment.ShortName, experiment.Name,taxon.Name) %>% 
     head()
 ```
-```
-   experiment.ShortName
-1:              GSE2018
-2:              GSE4036
-3:              GSE3489
-4:              GSE1923
-5:               GSE361
-6:               GSE492
-                                                                          experiment.Name
-1:                                                            Human Lung Transplant - BAL
-2:                                                                perro-affy-human-186940
-3: Patterns of gene dysregulation in the frontal cortex of patients with HIV encephalitis
-4: Identification of PDGF-dependent patterns of gene expression in U87 glioblastoma cells
-5:                                                   Mammary epithelial cell transduction
-6:                               Effect of prostaglandin analogs on aqueous humor outflow
-   taxon.Name
-1:      human
-2:      human
-3:      human
-4:      human
-5:      human
-6:      human
-```
+
+
+
 See [larger queries](#larger-queries) section for more details. To keep this vignette
 simpler we will keep using the first 20 results returned by default in examples below.
 
-Information provided about the datasets by these functions include details about
-the quality and design of the study that can be used to judge if it is suitable for
-your use case. For instance `geeq.batchEffect` column will be set to -1 if Gemma's
+The `filter` parameter of get_datasets allows filtering for datasets with specific
+properties. A list of such properties can be accessed using `filter_properties`.
+
+```{r}
+filter_properties()$dataset %>% head
+```
+
+These properties can be used together to fine tune your results
+
+```{r}
+# all datasets with more than 4 samples annotated for any disease
+get_datasets(filter = 'bioAssayCount > 4 and allCharacteristics.category = disease')
+
+# all datasets with ontology terms for Alzheimer's disease and Parkinson's disease
+# this is equivalent to using the uris parameter
+get_datasets(filter = 'allCharacteristics.valueUri in (http://purl.obolibrary.org/obo/MONDO_0004975,http://purl.obolibrary.org/obo/MONDO_0005180
+)')
+```
+
+Dataset information provided by `get_datasets` also includes some quality information
+that can be used to determine the suitability of any given experiment. For instance `geeq.batchEffect` column will be set to -1 if Gemma's
 preprocessing has detected batch effects that were unable to be resolved by batch
-correction and `experiment.SampleCount`
-will include the number of samples used in the experiment. More information about
+correction. More information about
 these and other fields can be found at the function documentation.
 
 ```{r}
-get_taxon_datasets(taxon = 'human') %>% # get human datasets
-    filter(geeq.batchEffect !=-1 & experiment.SampleCount > 4) %>% # filter for datasets without batch effects and with a sample count more than 4
+get_datasets(taxa = 'human', filter = 'bioAssayCount > 4') %>% 
+     filter(geeq.batchEffect !=-1) %>% 
     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
 ```
+
 
 Gemma uses multiple ontologies when annotating datasets and using the term URIs instead of
 free text to search can lead to more specific results. [`search_annotations`](https://pavlidislab.github.io/gemma.R/reference/search_annotations.html) function
@@ -259,9 +223,12 @@ manicExpr %>%
 
 You can also use
 [`get_dataset_expression`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html)
-to only get the expression matrix, and
-[`get_dataset_design`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_design.html)
-to get the experimental design matrix.
+to only get the expression matrix, [`get_dataset_samples`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_samples.html) to get the metadata information. The output of this function can be simplified
+to match the version included in the output of `get_dataset_object`  by using [`make_design`](https://pavlidislab.github.io/gemma.R/reference/make_design) on the output.
+
+```{r}
+get_dataset_samples('GSE46416') %>% make_design('text') %>% head
+```
 
 # Platform Annotations
 
@@ -322,7 +289,7 @@ dif_exp <- get_differential_expression_values('GSE46416')
 
 By default the columns names of the output correspond to contrast IDs. To see what
 conditions these IDs correspond to we can either use `get_dataset_differential_expression_analyses`
-to get the metadata about differentials of a given dataset, or set`readableContrasts` argument
+to get the metadata about differentials of a given dataset, or set `readableContrasts` argument
 of `get_differential_expression_values` to `TRUE`. The former approach is usually better for
 a large scale systematic analysis while the latter is easier to read in an interactive session.
 
@@ -349,11 +316,18 @@ seq_len(nrow(contrasts)) %>% sapply(function(i){
     sum(p.adjust(p_values,method = 'BH') < 0.05)
 }) -> dif_exp_genes
 
-data.frame(result.ID = contrasts$result.ID,
-           contrast.id = contrasts$contrast.id,
-           baseline.factorValue = contrasts$baseline.factorValue,
-           experimental.factorValue = contrasts$experimental.factorValue,
-           n_diff = dif_exp_genes)
+contrasts <- data.table(result.ID = contrasts$result.ID,
+                        contrast.id = contrasts$contrast.id,
+                        baseline.factorValue = contrasts$baseline.factors,
+                        experimental.factorValue = contrasts$experimental.factors,
+                        n_diff = dif_exp_genes)
+
+contrasts
+
+
+contrasts$baseline.factorValue
+
+contrasts$experimental.factorValue
 ```
 
 Alternatively we, since we are only looking at one dataset and one contrast manually,
@@ -414,6 +388,15 @@ uses the `limit` and `offset` parameters. To avoid overloading the
 server, calls are limited to a maximum of 100 entries, so the offset
 allows you to get the next batch of entries in the next call(s).
 
+To simplify the process of accessing all available data, gemma.R includes the
+[`get_all_pages`](https://pavlidislab.github.io/gemma.R/reference/get_all_pages.html) function which can use the output from one page to make all the follow up requests
+
+```{r}
+get_platforms_by_ids() %>% 
+    get_all_pages()
+```
+
+Alternative way to access all pages is to do so manually. 
 To see how many available results are there, you can look at the
 attributes of the output objects where additional information from the
 API response is appended.
@@ -515,6 +498,7 @@ options(gemma.raw = TRUE) # always receive results as-is from Gemma
 
 ```{r,include = FALSE}
 options(gemma.memoised = FALSE)
+options(gemma.raw = FALSE)
 
 ```
 
