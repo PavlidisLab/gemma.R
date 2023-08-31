@@ -163,7 +163,23 @@ memget_platform_annotations <- function(platform,
 }
 
 
-make_design = function(samples,metaType){
+#' Make simplified design frames
+#' 
+#' Using on the output of \code{\link{get_dataset_samples}}, this function creates
+#' a simplified design table, granting one column to each experimental variable
+#' 
+#' @param samples An output from get_dataset_samples. The output should not be raw
+#' @param metaType Type of metadata to include in the output. "text", "uri" or "both"
+#' 
+#' @return A data.frame including the design table for the dataset
+#' 
+#' @examples 
+#' get_dataset_samples('GSE46416') %>% make_design('both') %>% class
+#' 
+#' @keywords misc
+#' 
+#' @export
+make_design = function(samples,metaType = "text"){
     categories <- samples$sample.FactorValues %>% 
         purrr::map('category') %>% unlist %>% unique() %>%
         {.[is.na(.)] = 'NA';.}
@@ -171,7 +187,7 @@ make_design = function(samples,metaType){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
             y$category[is.na(y$category)]='NA'
                 
-            y %>% dplyr::filter(category == x) %>% {.$value} %>% paste(collapse = ',')
+            y %>% dplyr::filter(category == x) %>% {.$value} %>% sort %>% paste(collapse = ',')
         })
     })
 
@@ -182,9 +198,10 @@ make_design = function(samples,metaType){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
             y$categoryURI[is.na(y$categoryURI)]='NA'
             
-            y %>% dplyr::filter(categoryURI == x) %>% {.$valueUri} %>% paste(collapse = ',')
+            y %>% dplyr::filter(categoryURI == x) %>% {.$valueUri} %>% sort %>% paste(collapse = ',')
         })
     })
+    
 
     if(metaType == 'text'){
         design_frame <- factorValues %>% as.data.frame()
@@ -193,7 +210,7 @@ make_design = function(samples,metaType){
         design_frame <- factorURIs %>% as.data.frame()
         colnames(design_frame) = category_uris
     } else if (metaType == 'both'){
-        design_frame <- seq_along(design_frame) %>% lapply(function(i){
+        design_frame <- seq_along(factorValues) %>% lapply(function(i){
             paste(factorValues[[i]],factorURIs[[i]],sep = '|')
         }) %>% as.data.frame()
         colnames(design_frame) <- paste(categories,category_uris,sep = '|')
