@@ -355,24 +355,26 @@ get_dataset_object <- function(datasets,
 
         if(!is.null(resultSets)){
             diff <- get_dataset_differential_expression_analyses(dataset,memoised = memoised)
-            subset_category <- diff %>%
+            subset <- diff %>%
                 dplyr::filter(result.ID == resultSets[i]) %>%
-                .$subsetFactor.category %>% unique
-            subset_factor <- diff %>%
-                dplyr::filter(result.ID == resultSets[i]) %>%
-                .$subsetFactor.factorValue %>% unique
+                .$subsetFactor %>% unique
 
-            assertthat::assert_that(length(subset_category)==1)
-            assertthat::assert_that(length(subset_factor)==1)
-
-            if(!is.na(subset_category)){
-                in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
-                    x %>% dplyr::filter(category %in% subset_category) %>%
-                        .$factorValue %in% subset_factor
+            assertthat::assert_that(length(subset)==1)
+            
+            
+            if(nrow(subset[[1]])!=0){
+                subset[[1]] <- subset[[1]] %>% mutate(merge = paste(category, value))
+                
+                in_subset <- packed_info$design$factorValues %>% 
+                    purrr::map_lgl(function(x){
+                        x %>% mutate(merge = paste(category,value)) %>% 
+                            filter(merge %in% subset[[1]]$merge) %>% 
+                            {nrow(.) == nrow(subset[[1]])}
                 })
             } else{
                 in_subset <- TRUE
             }
+
             if(!is.null(contrasts)){
                 contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.id == contrasts[i])
                 in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
