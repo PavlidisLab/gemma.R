@@ -50,7 +50,7 @@ we are accessing datasets relevant for our purposes with minimal effort.
 
 # Querying datasets of interest
 
-The `search_datasets` function can be used to find datasets of interest,
+The `get_datasets` function can be used to find datasets of interest,
 either using ontology terms or plain text. Since Parkinson's Disease has a unambigious
 ontology term in the Disease Ontology, we will be using it to avoid acquiring
 datasets that tangentially mention the disease in their descriptions. Here we also
@@ -59,16 +59,9 @@ models from other species.
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
-result <- search_datasets('http://purl.obolibrary.org/obo/MONDO_0005180', 
-                          taxon = 'human',
-                          limit = 1)
-result_count <- attributes(result)$totalElements
+results <- get_datasets(uris = 'http://purl.obolibrary.org/obo/MONDO_0005180',
+                       taxa ='human') %>% get_all_pages()
 
-results <- lapply(seq(0,result_count,100),function(i){
-    search_datasets('http://purl.obolibrary.org/obo/MONDO_0005180',
-                    taxon = 'human',
-                    limit = 100,offset = i,)
-}) %>% do.call(rbind,.)
 results %>% select(experiment.ShortName,experiment.Name) %>% head
 ```
 
@@ -83,7 +76,7 @@ our findings.
 
 For this example, we decided we should not include data sets that have a batch confound (though that is up to the user). Gemma internally handles batch correction if batch
 information is available for the dataset. We will be looking at
-`geeq.batchEffect` column. As explained in the `search_datasets`
+`geeq.batchEffect` column. As explained in the `get_datasets`
 documentation, this column will be set to -1 for datasets where batch
 confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
@@ -97,9 +90,9 @@ compare control and Parkinson's Disease patients. This information is
 available via `get_dataset_differential_expression_analyses` which
 returns the experimental groups for differential expression analyses
 performed for the dataset. The columns we are primarily interested in
-are `baseline.factorValue`, `baseline.factorValueURI` which typically
+are `baseline.factor` which typically
 records the control group of the differential expression analysis and
-`experimental.factorValue`, `experimental.factorValueURI` which typically
+`experimental.factor` which typically
 records the test case
 
 ```{r}
@@ -108,13 +101,11 @@ experiment_contrasts <- results$experiment.ShortName %>%
         out = get_dataset_differential_expression_analyses(x)
         }) %>% do.call(rbind,.)
 
-experiment_contrasts %>%
-    select(experiment.ID,result.ID,
-           baseline.factorValue,
-           baseline.factorValueURI,
-           experimental.factorValue,
-           experimental.factorValueURI) %>% head
 ```
+
+The contrasts we are interested in should have a `baseline.category` of "disease"
+and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's experimental.factor as the URI for a factor.
+
 
 The factor we are interested in is Parkinson's Disease in
 `experimental.factorValue` or
@@ -123,17 +114,13 @@ The factor we are interested in is Parkinson's Disease in
 
 ```{r}
 parkin_contrasts <- experiment_contrasts %>% 
-    filter(experimental.factorValueURI == "http://purl.obolibrary.org/obo/MONDO_0005180")
+    filter(baseline.category == 'disease') %>% 
+    filter(sapply(experimental.factors,function(x){
+        "http://purl.obolibrary.org/obo/MONDO_0005180" %in% x$valueUri
+        }))
 
-parkin_contrasts %>%
-    select(experiment.ID,
-           result.ID,
-           baseline.factorValue,
-           baseline.factorValueURI,
-           experimental.factorValue,
-           experimental.factorValueURI) %>% 
-    head()
 ```
+
 
 In the next steps we will be downloading expression data in bulk. If you are here to just
 try the code out, you can speed the process a bit by limiting the number of experiments
@@ -370,7 +357,7 @@ NCBIid <- differentials[[1]] %>% filter(GeneSymbol == gene) %>% .$NCBIid %>% uni
 #NCBIid
 
 
-expression_frame <- get_dataset_object(dataset = parkin_contrasts$experiment.ID,
+expression_frame <- get_dataset_object(datasets = parkin_contrasts$experiment.ID,
                                        resultSets = parkin_contrasts$result.ID,
                                        contrasts = parkin_contrasts$contrast.id,
                                        genes = NCBIid,type = 'tidy',consolidate = 'pickvar')
