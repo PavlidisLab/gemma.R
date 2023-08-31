@@ -79,7 +79,7 @@ documentation, this column will be set to -1 for datasets where batch
 confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
 
-```{r}
+```{r,eval = FALSE}
 results <- results %>% filter(geeq.batchEffect == 1)
 ```
 

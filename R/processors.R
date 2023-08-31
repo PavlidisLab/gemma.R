@@ -278,6 +278,8 @@ processDEA <- function(d) {
                     baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                     baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
                     baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% processFactorValueValueObject %>% list() %>% rep(size),
+                    # experimental.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category %>% nullCheck(NA_character_),
+                    # experimental.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
                     experimental.factors = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% 
                         purrr::map(processFactorValueValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
@@ -352,6 +354,8 @@ processDEA <- function(d) {
                         baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
                         baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
                         baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
+                        # experimental.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category %>% nullCheck(NA_character_),
+                        # experimental.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
                         experimental.factors = exp.factors,
                         subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                         subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
@@ -520,6 +524,7 @@ processFile <- function(content) {
 #'
 #' @keywords internal
 processSamples <- function(d) {
+    
 
     data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
