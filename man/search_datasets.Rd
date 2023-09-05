@@ -64,6 +64,8 @@ filename.}
 
 \item{attributes}{If \code{TRUE} additional information from the call will be added
 into the output object's attributes such as offset and available elements.}
+
+\item{...}{Kept for compatibility, ignored.}
 }
 \value{
 A data table with information about the queried dataset(s). A list if

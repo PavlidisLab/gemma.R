@@ -19,7 +19,8 @@ Using on the output of \code{\link{get_dataset_samples}}, this function creates
 a simplified design table, granting one column to each experimental variable
 }
 \examples{
-get_dataset_samples('GSE46416') \%>\% make_design('both') \%>\% class
+samples <- get_dataset_samples('GSE46416') 
+make_design(samples)
 
 }
 \keyword{misc}

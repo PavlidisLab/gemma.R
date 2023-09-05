@@ -730,7 +730,7 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
 
 #' Return all supported filter properties
 #' 
-#' Some functions such as \code{\link{get_datasets}} and \code{\link{get_platforms}}
+#' Some functions such as \code{\link{get_datasets}} and \code{\link{get_platforms_by_ids}}
 #' include a filter argument that allows creation of more complex queries. This
 #' function returns a list of supported properties to be used in those filters
 #' 

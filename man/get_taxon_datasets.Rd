@@ -57,6 +57,8 @@ it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
 
+\item{...}{Kept for compatibility. Ignored}
+
 \item{attributes}{If \code{TRUE} additional information from the call will be added
 into the output object's attributes such as offset and available elements.}
 }

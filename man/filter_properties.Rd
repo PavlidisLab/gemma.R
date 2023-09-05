@@ -11,7 +11,7 @@ A list of data.tables that contain supported properties and their data
 types
 }
 \description{
-Some functions such as \code{\link{get_datasets}} and \code{\link{get_platforms}}
+Some functions such as \code{\link{get_datasets}} and \code{\link{get_platforms_by_ids}}
 include a filter argument that allows creation of more complex queries. This
 function returns a list of supported properties to be used in those filters
 }

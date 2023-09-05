@@ -76,7 +76,7 @@ get_dataset_expression <- function(dataset,
 #' filename.
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
-#'
+#' @param ... Kept for compatibility. Ignored
 #' @inherit processDatasets return
 #' @export
 #'
@@ -144,6 +144,7 @@ get_taxon_datasets <- function(taxon,
 #' filename.
 #' @param attributes If \code{TRUE} additional information from the call will be added
 #' into the output object's attributes such as offset and available elements.
+#' @param ... Kept for compatibility, ignored.
 #'
 #' @inherit processDatasets return
 #' @export
