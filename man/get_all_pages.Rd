@@ -24,9 +24,12 @@ combine the data.tables. If not, use \code{c} to combine lists}
 \item{directory}{Directory to save the output from the individual calls to. If provided, each page
 is saved to separate files.}
 
-\item{file}{Name of the file to save the results to. If provided, combined output is saved as an RDS file.}
+\item{file}{The name of a file to save the results to, or \code{NULL} to not write
+results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 
-\item{overwrite}{}
+\item{overwrite}{Whether or not to overwrite if a file exists at the specified
+filename.}
 }
 \value{
 A data.table or a list containing data from all pages.
