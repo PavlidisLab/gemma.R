@@ -79,16 +79,10 @@ documentation, this column will be set to -1 for datasets where batch
 confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
 
-```{r,eval = FALSE}
+```{r}
 results <- results %>% filter(geeq.batchEffect == 1)
 ```
-```{r,include = FALSE}
-results <- results %>% filter(experiment.ID %in% c(549L, 873L, 1090L, 1869L, 1881L, 1885L, 2412L, 3886L, 3887L, 
-3888L, 5670L, 5806L, 5808L, 6484L, 9494L, 12120L, 12123L, 12709L, 
-12743L, 13122L, 15666L, 15905L, 16576L, 17290L, 19160L, 20509L, 
-23458L, 23683L, 23781L, 24361L, 24651L, 25096L, 25626L, 25781L, 
-25905L, 25956L, 26757L))
-```
+
 
 We now want to ensure that the differential expressions we analyze
 compare control and Parkinson's Disease patients. This information is
