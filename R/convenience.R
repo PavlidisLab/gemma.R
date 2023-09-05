@@ -174,7 +174,8 @@ memget_platform_annotations <- function(platform,
 #' @return A data.frame including the design table for the dataset
 #' 
 #' @examples 
-#' get_dataset_samples('GSE46416') %>% make_design('both') %>% class
+#' samples <- get_dataset_samples('GSE46416') 
+#' make_design(samples)
 #' 
 #' @keywords misc
 #' 
