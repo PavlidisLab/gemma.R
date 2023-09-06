@@ -20,7 +20,11 @@ editor_options:
 # Prevent certificate issues for GitHub actions
 options(gemma.SSL = FALSE,
         datatable.print.trunc.cols = FALSE)
-# options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
+
+# temporary options not to be commited
+options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
+options(gemma.memoised = TRUE)
+
 knitr::opts_chunk$set(
     comment = "",
     cache = FALSE
@@ -452,3 +456,8 @@ expression_frame %>%
 ```
 
 
+# Session info
+
+```{r}
+sessionInfo()
+```

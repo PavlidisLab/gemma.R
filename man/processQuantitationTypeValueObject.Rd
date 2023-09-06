@@ -6,6 +6,9 @@
 \usage{
 processQuantitationTypeValueObject(d)
 }
+\arguments{
+\item{d}{The JSON to process}
+}
 \value{
 A data.table containing the quantitation types
 

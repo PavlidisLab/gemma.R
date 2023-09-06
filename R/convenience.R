@@ -364,12 +364,12 @@ get_dataset_object <- function(datasets,
             
             
             if(nrow(subset[[1]])!=0){
-                subset[[1]] <- subset[[1]] %>% mutate(merge = paste(category, value))
+                subset[[1]] <- subset[[1]] %>% dplyr::mutate(merge = paste(category, value))
                 
                 in_subset <- packed_info$design$factorValues %>% 
                     purrr::map_lgl(function(x){
-                        x %>% mutate(merge = paste(category,value)) %>% 
-                            filter(merge %in% subset[[1]]$merge) %>% 
+                        x %>% dplyr::mutate(merge = paste(category,value)) %>% 
+                            dplyr::filter(merge %in% subset[[1]]$merge) %>% 
                             {nrow(.) == nrow(subset[[1]])}
                 })
             } else{
@@ -512,10 +512,10 @@ get_dataset_object <- function(datasets,
                               .before = 1)
 
             if(!is.null(data$result_set)){
-                frm <- mutate(frm, result.ID = data$result_set,.before = 3)
+                frm <- dplyr::mutate(frm, result.ID = data$result_set,.before = 3)
             }
             if(!is.null(data$contrast)){
-                frm <- mutate(frm,  contrast.ID = data$contrast,.before = 3)
+                frm <- dplyr::mutate(frm,  contrast.ID = data$contrast,.before = 3)
             }
             return(frm)
 

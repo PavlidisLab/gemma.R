@@ -886,6 +886,8 @@ process_dataset_gene_expression <- function(d){
 
 #' processQuantitationTypeValueObject
 #' 
+#' @param d The JSON to process
+#' 
 #' @return A data.table containing the quantitation types
 #' 
 #' The fields of the output data.table are:
