@@ -29,7 +29,7 @@ gemmaPath <- function(){
         names(header) <- "Accept"
     }
     envWhere$header <- header
-    original_env = rlang::env_clone(envWhere)
+    original_env <- rlang::env_clone(envWhere)
     
     # Validate arguments
     if (!is.null(validators)) {
@@ -78,7 +78,7 @@ gemmaPath <- function(){
             {
                 if (isFile) {
                     out <- response$content
-                    attributes(out) = list(call=call)
+                    attributes(out) <- list(call=call)
                     out
                 } else {
                     data <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
