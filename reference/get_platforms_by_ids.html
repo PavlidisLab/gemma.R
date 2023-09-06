@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.0</span>
       </span>
     </div>
 
@@ -74,14 +74,15 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_platforms_by_ids</span><span class="op">(</span></span>
 <span>  platforms <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  filter <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>  taxa <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
 <span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>  sort <span class="op">=</span> <span class="st">"+id"</span>,</span>
 <span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
-<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>  attributes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.attributes"</span>, <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  overwrite <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.overwrite"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -90,6 +91,19 @@
     <dl><dt>platforms</dt>
 <dd><p>Platform numerical identifiers or platform short names.  If not
 specified, all platforms will be returned instead</p></dd>
+
+
+<dt>filter</dt>
+<dd><p>Filter results by matching expression. Use <code><a href="filter_properties.html">filter_properties</a></code>
+function to get a list of all available parameters. These properties can be
+combined using "and" "or" clauses and may contain common operators such as "=", "&lt;" or "in".
+(e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id &lt; 1000")</p></dd>
+
+
+<dt>taxa</dt>
+<dd><p>A vector of taxon common names (e.g. human, mouse, rat). Providing multiple
+species will return results for all species. These are appended
+to the filter and equivalent to filtering for <code>taxon.commonName</code> property</p></dd>
 
 
 <dt>offset</dt>
@@ -104,7 +118,8 @@ compile all data if needed.</p></dd>
 
 
 <dt>sort</dt>
-<dd><p>Order results by the given property and direction. The '+' sign indicate ascending order whereas the '-' indicate descending.</p></dd>
+<dd><p>Order results by the given property and direction. The '+' sign
+indicate ascending order whereas the '-' indicate descending.</p></dd>
 
 
 <dt>raw</dt>
@@ -122,18 +137,13 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
 
 <dt>file</dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
-results to a file. If <code>raw == TRUE</code>, the output will be a JSON file. Otherwise,
-it will be a RDS file.</p></dd>
+results to a file. If <code>raw == TRUE</code>, the output will be the raw endpoint from the
+API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.</p></dd>
 
 
 <dt>overwrite</dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified
 filename.</p></dd>
-
-
-<dt>attributes</dt>
-<dd><p>If <code>TRUE</code> additional information from the call will be added
-into the output object's attributes such as offset and available elements.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -181,7 +191,7 @@ does not map to any object</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  The GeneChip Rat Genome 230 2.0 Array is a powerful tool for toxicology, neurobiology, and other applications using rat as a model organism.  - Provides comprehensive coverage of the transcribed rat genome on a single array - Comprised of more than 31,000 probe sets, analyzing over 30,000 transcripts and variants from over 28,000 well-substantiated rat genes - The publicly available draft of the rat genome and leading public rat databases were used to refine sequences and provide a higher quality of data output  All probe sets represented on the GeneChip Rat Expression Set 230 are included on the GeneChip Rat Genome 230 2.0 Array. Sequences used in the design of the GeneChip Rat Genome 230 2.0 Array were selected from GenBank, dbEST, and RefSeq. The sequence clusters were created from the UniGene database (Build 99, June 2002) and then refined by analysis and comparison with the publicly available draft assembly of the rat genome from the Baylor College of Medicine Human Genome Sequencing Center (June 2002).  The GeneChip Rat Genome 230 2.0 Array includes representation of the RefSeq database sequences and probe sets related to sequences and refined EST clusters previously represented on the GeneChip Rat Genome U34 Set.  Oligonucleotide probes complementary to each corresponding sequence are synthesized in situ on the arrays. Eleven pairs of oligonucleotide probes are used to measure the level of transcription of each sequence represented on the GeneChip Rat Genome 230 2.0 Array.  Annotations derived from Affymetrix CSV file dated 6/23/2004\nFrom GPL1355\nLast Updated: May 31 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    platform.Troubled platform.ExperimentCount platform.Type taxon.Name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:             FALSE                      407      ONECOLOR      human</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:             FALSE                      411      ONECOLOR      human</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:             FALSE                      294      ONECOLOR        rat</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name taxon.Database.ID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:      Homo sapiens        1       9606                hg38                87</span>

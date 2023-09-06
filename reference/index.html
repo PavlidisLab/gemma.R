@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.0</span>
       </span>
     </div>
 
@@ -72,7 +72,7 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="get_dataset_annotations.html">get_dataset_annotations()</a></code> </p>
         </td>
-        <td><p>Retrieve the annotations analysis of a dataset</p></td>
+        <td><p>Retrieve the annotations of a dataset</p></td>
       </tr><tr><td>
           <p><code><a href="get_dataset_design.html">get_dataset_design()</a></code> </p>
         </td>
@@ -80,11 +80,7 @@
       </tr><tr><td>
           <p><code><a href="get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses()</a></code> </p>
         </td>
-        <td><p>Retrieve the differential analyses of a dataset</p></td>
-      </tr><tr><td>
-          <p><code><a href="get_dataset_expression.html">get_dataset_expression()</a></code> </p>
-        </td>
-        <td><p>Retrieve the expression data of a dataset</p></td>
+        <td><p>Retrieve annotations and surface level stats for a dataset's differential analyses</p></td>
       </tr><tr><td>
           <p><code><a href="get_dataset_expression_for_genes.html">get_dataset_expression_for_genes()</a></code> </p>
         </td>
@@ -96,11 +92,27 @@
       </tr><tr><td>
           <p><code><a href="get_dataset_platforms.html">get_dataset_platforms()</a></code> </p>
         </td>
-        <td><p>Retrieve the platform of a dataset</p></td>
+        <td><p>Retrieve the platforms of a dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="get_dataset_processed_expression.html">get_dataset_processed_expression()</a></code> </p>
+        </td>
+        <td><p>Retrieve processed expression data of a dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="get_dataset_quantitation_types.html">get_dataset_quantitation_types()</a></code> </p>
+        </td>
+        <td><p>Retrieve quantitation types of a dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="get_dataset_raw_expression.html">get_dataset_raw_expression()</a></code> </p>
+        </td>
+        <td><p>Retrieve raw expression data of a dataset</p></td>
       </tr><tr><td>
           <p><code><a href="get_dataset_samples.html">get_dataset_samples()</a></code> </p>
         </td>
         <td><p>Retrieve the samples of a dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="get_datasets.html">get_datasets()</a></code> </p>
+        </td>
+        <td><p>Retrieve all datasets</p></td>
       </tr><tr><td>
           <p><code><a href="get_datasets_by_ids.html">get_datasets_by_ids()</a></code> </p>
         </td>
@@ -109,10 +121,6 @@
           <p><code><a href="get_differential_expression_values.html">get_differential_expression_values()</a></code> </p>
         </td>
         <td><p>Retrieve differential expression results</p></td>
-      </tr><tr><td>
-          <p><code><a href="search_datasets.html">search_datasets()</a></code> </p>
-        </td>
-        <td><p>Retrieve datasets associated to an annotation tags search</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="platform-endpoints">Platform endpoints <a href="#platform-endpoints" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Endpoints accessing platforms, and their associated properties and files.</p>
@@ -124,7 +132,7 @@
       </tr><tr><td>
           <p><code><a href="get_platform_datasets.html">get_platform_datasets()</a></code> </p>
         </td>
-        <td><p>Retrieve all experiments within a given platform</p></td>
+        <td><p>Retrieve all experiments using a given platform</p></td>
       </tr><tr><td>
           <p><code><a href="get_platform_element_genes.html">get_platform_element_genes()</a></code> </p>
         </td>
@@ -148,24 +156,24 @@
       </tr><tr><td>
           <p><code><a href="get_gene_probes.html">get_gene_probes()</a></code> </p>
         </td>
-        <td><p>Retrieve the probes associated to a genes</p></td>
+        <td><p>Retrieve the probes associated to a genes across all platforms</p></td>
       </tr><tr><td>
           <p><code><a href="get_genes.html">get_genes()</a></code> </p>
         </td>
-        <td><p>Retrieve genes matching a gene identifier</p></td>
+        <td><p>Retrieve genes matching gene identifiers</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="taxon-endpoints">Taxon endpoints <a href="#taxon-endpoints" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Endpoints accessing taxons.</p>
         </th>
-      </tr></tbody><tbody><tr><td>
-          <p><code><a href="get_taxon_datasets.html">get_taxon_datasets()</a></code> </p>
-        </td>
-        <td><p>Retrieve the datasets for a given taxon</p></td>
-      </tr></tbody><tbody><tr><th colspan="2">
+      </tr></tbody><tbody></tbody><tbody><tr><th colspan="2">
           <h2 id="other-functions">Other functions <a href="#other-functions" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Remaining endpoints and helper functions.</p>
         </th>
       </tr></tbody><tbody><tr><td>
+          <p><code><a href="filter_properties.html">filter_properties()</a></code> </p>
+        </td>
+        <td><p>Return all supported filter properties</p></td>
+      </tr><tr><td>
           <p><code><a href="forget_gemma_memoised.html">forget_gemma_memoised()</a></code> </p>
         </td>
         <td><p>Clear gemma.R cache</p></td>
@@ -174,9 +182,17 @@
         </td>
         <td><p>Custom gemma call</p></td>
       </tr><tr><td>
+          <p><code><a href="get_all_pages.html">get_all_pages()</a></code> </p>
+        </td>
+        <td><p>Get all pages of a paginated call</p></td>
+      </tr><tr><td>
           <p><code><a href="get_taxa.html">get_taxa()</a></code> </p>
         </td>
         <td><p>Get taxa</p></td>
+      </tr><tr><td>
+          <p><code><a href="make_design.html">make_design()</a></code> </p>
+        </td>
+        <td><p>Make simplified design frames</p></td>
       </tr><tr><td>
           <p><code><a href="search_annotations.html">search_annotations()</a></code> </p>
         </td>
@@ -184,7 +200,7 @@
       </tr><tr><td>
           <p><code><a href="search_gemma.html">search_gemma()</a></code> </p>
         </td>
-        <td><p>Search everything in Gemma.</p></td>
+        <td><p>Search everything in Gemma</p></td>
       </tr><tr><td>
           <p><code><a href="set_gemma_user.html">set_gemma_user()</a></code> </p>
         </td>

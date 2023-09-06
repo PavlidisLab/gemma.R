@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.0</span>
       </span>
     </div>
 
@@ -103,18 +103,13 @@ they uniquely represent a given contrast.</p></li>
 <li><p><code>experiment.ID</code>: Id of the source experiment</p></li>
 <li><p><code>baseline.category</code>: Category for the contrast</p></li>
 <li><p><code>baseline.categoryURI</code>: URI for the baseline category</p></li>
-<li><p><code>baseline.factorValue</code>: Factor value assigned as the baseline in the contrast. Typically represent control samples</p></li>
-<li><p><code>baseline.factorValueURI</code>: URI for the baseline.factorValue</p></li>
-<li><p><code>experimental.factorValue</code>: Factor value assigned to the experimental group.</p></li>
-<li><p><code>experimental.factorValueURI</code>: URI for the experimental.factorValue</p></li>
+<li><p><code>baseline.factors</code>: Characteristics of the baseline. This field is a data.table</p></li>
+<li><p><code>experimental.factors</code>: Characteristics of the experimental group. This field is a data.table</p></li>
 <li><p><code>subsetFactor.subset</code>: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.</p></li>
 <li><p><code>subsetFactor.category</code>: Category of the subset</p></li>
-<li><p><code>subsetFactor.categoryURI</code>: URI of the subset category</p></li>
-<li><p><code>subsetFactor.factorValue</code>: Factor Value of the subset</p></li>
-<li><p><code>subsetFactor.factorValueURI</code>: URI of the subset factor value</p></li>
+<li><p><code>subsetFactor</code>: Characteristics of the subset. This field is a data.table</p></li>
 <li><p><code>probes.Analyzed</code>: Number of probesets represented in the contrast</p></li>
 <li><p><code>genes.Analyzed</code>: Number of genes represented in the contrast</p></li>
-<li><p><code>platform.ID</code>: Platform id for the contrast</p></li>
 </ul></div>
 
   </div>

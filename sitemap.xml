@@ -43,6 +43,9 @@
     <loc>/reference/encode.html</loc>
   </url>
   <url>
+    <loc>/reference/filter_properties.html</loc>
+  </url>
+  <url>
     <loc>/reference/forget_gemma_memoised.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/gemma_call.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_all_pages.html</loc>
   </url>
   <url>
     <loc>/reference/get_dataset_annotations.html</loc>
@@ -79,7 +85,19 @@
     <loc>/reference/get_dataset_platforms.html</loc>
   </url>
   <url>
+    <loc>/reference/get_dataset_processed_expression.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_dataset_quantitation_types.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_dataset_raw_expression.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_dataset_samples.html</loc>
+  </url>
+  <url>
+    <loc>/reference/get_datasets.html</loc>
   </url>
   <url>
     <loc>/reference/get_datasets_by_ids.html</loc>
@@ -112,9 +130,6 @@
     <loc>/reference/get_platforms_by_ids.html</loc>
   </url>
   <url>
-    <loc>/reference/get_result_sets.html</loc>
-  </url>
-  <url>
     <loc>/reference/get_taxa.html</loc>
   </url>
   <url>
@@ -127,10 +142,16 @@
     <loc>/reference/index.html</loc>
   </url>
   <url>
+    <loc>/reference/make_design.html</loc>
+  </url>
+  <url>
     <loc>/reference/nullCheck.html</loc>
   </url>
   <url>
     <loc>/reference/processAnnotations.html</loc>
+  </url>
+  <url>
+    <loc>/reference/processCharacteristicBasicValueObject.html</loc>
   </url>
   <url>
     <loc>/reference/processDEA.html</loc>
@@ -178,6 +199,9 @@
     <loc>/reference/processPlatforms.html</loc>
   </url>
   <url>
+    <loc>/reference/processQuantitationTypeValueObject.html</loc>
+  </url>
+  <url>
     <loc>/reference/processResultSetFactors.html</loc>
   </url>
   <url>
@@ -215,6 +239,9 @@
   </url>
   <url>
     <loc>/reference/validateOptionalID.html</loc>
+  </url>
+  <url>
+    <loc>/reference/validateOptionalQuery.html</loc>
   </url>
   <url>
     <loc>/reference/validateOptionalTaxon.html</loc>
