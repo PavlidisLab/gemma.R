@@ -19,3 +19,4 @@ function returns a list of supported properties to be used in those filters
 filter_properties()
 
 }
+\keyword{misc}

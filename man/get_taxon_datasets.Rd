@@ -100,3 +100,4 @@ This function is deprecated in favor of \code{\link{get_datasets}}
 \examples{
 get_taxon_datasets("human")
 }
+\keyword{internal}

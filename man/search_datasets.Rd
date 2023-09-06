@@ -108,3 +108,4 @@ This function is deprecated in favor of \code{\link{get_datasets}}
 \examples{
 search_datasets("bipolar", taxon = "human")
 }
+\keyword{internal}

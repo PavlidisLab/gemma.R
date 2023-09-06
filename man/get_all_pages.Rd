@@ -38,3 +38,4 @@ A data.table or a list containing data from all pages.
 Given a Gemma.R output from a function with offset and limit arguments,
 returns the output from all pages. All arguments other than offset, limit
 }
+\keyword{misc}
