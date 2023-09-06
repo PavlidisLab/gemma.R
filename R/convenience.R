@@ -693,6 +693,7 @@ gemma_call <- function(call,...,json = TRUE){
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #' @return A data.table or a list containing data from all pages.
+#' @keywords misc
 #' @export
 get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NULL, file = getOption("gemma.file", NA_character_),overwrite = getOption("gemma.overwrite", FALSE)){
     attr <- attributes(query)
@@ -740,9 +741,11 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
 #' @return A list of data.tables that contain supported properties and their data
 #' types
 #' 
+#' 
 #' @examples 
 #' filter_properties()
 #' 
+#' @keywords misc
 #' @export
 filter_properties <- function(){
     api_file <- jsonlite::fromJSON(system.file('script/openapi.json',package = 'gemma.R'),simplifyVector = FALSE)

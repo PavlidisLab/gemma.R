@@ -19,6 +19,8 @@
 #' 
 #' @inherit get_dataset_processed_expression return
 #' 
+#' @keywords internal
+#' 
 #' @export
 #' @examples 
 #' get_dataset_expression("GSE2018")
@@ -79,7 +81,7 @@ get_dataset_expression <- function(dataset,
 #' @param ... Kept for compatibility. Ignored
 #' @inherit processDatasets return
 #' @export
-#'
+#' @keywords internal
 #'
 #' @examples
 #' get_taxon_datasets("human")
@@ -149,7 +151,7 @@ get_taxon_datasets <- function(taxon,
 #' @inherit processDatasets return
 #' @export
 #'
-#'
+#' @keywords internal
 #' @examples
 #' search_datasets("bipolar", taxon = "human")
 search_datasets <- function(query, taxon = NA_character_, 
