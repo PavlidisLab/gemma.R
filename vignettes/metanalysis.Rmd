@@ -21,9 +21,9 @@ editor_options:
 options(gemma.SSL = FALSE,
         datatable.print.trunc.cols = FALSE)
 
-# temporary options not to be commited
-options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
-options(gemma.memoised = TRUE)
+# temporary options
+# options(gemma.API = "https://dev.gemma.msl.ubc.ca/rest/v2/")
+# options(gemma.memoised = TRUE)
 
 knitr::opts_chunk$set(
     comment = "",
