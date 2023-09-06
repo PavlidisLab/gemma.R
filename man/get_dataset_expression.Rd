@@ -34,6 +34,10 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
 }
+\value{
+If raw is FALSE (default), a data table of the expression matrix for
+the queried dataset. If raw is TRUE, returns the binary file in raw form.
+}
 \description{
 This function is deprecated in favor of \code{\link{get_dataset_processed_expression}}
 }

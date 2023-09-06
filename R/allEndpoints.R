@@ -804,12 +804,14 @@ memget_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #'
-#' @return Varies
+#' @return If raw is FALSE (default), a data table of the expression matrix for
+#' the queried dataset. If raw is TRUE, returns the binary file in raw form.
 #' @export
 #'
 #' @keywords dataset
 #'
 #' @examples
+#' get_dataset_processed_expression("GSE2018")
 get_dataset_processed_expression <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -894,6 +896,7 @@ memget_dataset_processed_expression <- function(dataset, raw = getOption("gemma.
 #' @keywords dataset
 #'
 #' @examples
+#' get_dataset_quantitation_types("GSE59918")
 get_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
@@ -959,7 +962,9 @@ memget_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.ra
 #'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
-#' @param quantitationType A quantitation type id or a quantitation type name
+#' @param quantitationType Quantitation type id. These can be acquired
+#' using \code{\link{get_dataset_quantitation_types}} function. This endpoint can
+#' only return non-processed quantitation types.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -973,12 +978,15 @@ memget_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.ra
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #'
-#' @return Varies
+#' @return If raw is FALSE (default), a data table of the expression matrix for
+#' the queried dataset. If raw is TRUE, returns the binary file in raw form.
 #' @export
 #'
 #' @keywords dataset
 #'
 #' @examples
+#' q_types <- get_dataset_quantitation_types("GSE59918")
+#' get_dataset_raw_expression("GSE59918", q_types$id[q_types$name == "Counts"])
 get_dataset_raw_expression <- function(dataset, quantitationType, raw = getOption(
         "gemma.raw",
         FALSE

@@ -40,14 +40,26 @@ NULL
 #' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
 NULL
 
-#' get_dataset_expression
-#' @param filter The filtered version (`filter = TRUE`) corresponds to what is
-#' used in most Gemma analyses, removing some probes/elements. Unfiltered
-#' includes all elements.
+
+#' get_dataset_processed_expression
 #' @return If raw is FALSE (default), a data table of the expression matrix for
 #' the queried dataset. If raw is TRUE, returns the binary file in raw form.
 #' @examples
-#' get_dataset_expression("GSE2018")
+#' get_dataset_processed_expression("GSE2018")
+NULL
+
+#' get_dataset_raw_expression
+#' 
+#' @param quantitationType Quantitation type id. These can be acquired
+#' using \code{\link{get_dataset_quantitation_types}} function. This endpoint can
+#' only return non-processed quantitation types.
+#' 
+#' @return If raw is FALSE (default), a data table of the expression matrix for
+#' the queried dataset. If raw is TRUE, returns the binary file in raw form.
+#'  
+#' @examples 
+#' q_types <- get_dataset_quantitation_types('GSE59918')
+#' get_dataset_raw_expression("GSE59918",q_types$id[q_types$name == 'Counts'])
 NULL
 
 #' get_dataset_samples
@@ -257,6 +269,9 @@ NULL
 #' get_dataset_quantitation_types
 #' 
 #' @inherit processQuantitationTypeValueObject return
+#' 
+#' @examples 
+#' get_dataset_quantitation_types('GSE59918')
 NULL
 
 #' generic_params

@@ -32,9 +32,13 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 filename.}
 }
 \value{
-Varies
+If raw is FALSE (default), a data table of the expression matrix for
+the queried dataset. If raw is TRUE, returns the binary file in raw form.
 }
 \description{
 Retrieve processed expression data of a dataset
+}
+\examples{
+get_dataset_processed_expression("GSE2018")
 }
 \keyword{dataset}

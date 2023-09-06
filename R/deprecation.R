@@ -17,6 +17,8 @@
 #' filename. 
 #' @param filter This argument is ignored due to deprecation of the function
 #' 
+#' @inherit get_dataset_processed_expression return
+#' 
 #' @export
 #' @examples 
 #' get_dataset_expression("GSE2018")

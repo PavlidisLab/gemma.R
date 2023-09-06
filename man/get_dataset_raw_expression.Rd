@@ -16,7 +16,9 @@ get_dataset_raw_expression(
 \arguments{
 \item{dataset}{A numerical dataset identifier or a dataset short name}
 
-\item{quantitationType}{A quantitation type id or a quantitation type name}
+\item{quantitationType}{Quantitation type id. These can be acquired
+using \code{\link{get_dataset_quantitation_types}} function. This endpoint can
+only return non-processed quantitation types.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
@@ -35,9 +37,14 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 filename.}
 }
 \value{
-Varies
+If raw is FALSE (default), a data table of the expression matrix for
+the queried dataset. If raw is TRUE, returns the binary file in raw form.
 }
 \description{
 Retrieve raw expression data of a dataset
+}
+\examples{
+q_types <- get_dataset_quantitation_types("GSE59918")
+get_dataset_raw_expression("GSE59918", q_types$id[q_types$name == "Counts"])
 }
 \keyword{dataset}

@@ -268,8 +268,8 @@ processDEA <- function(d) {
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
-                contrast.id =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
-                size = length(contrast.id)
+                contrast.id <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
+                size <- length(contrast.id)
 
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
@@ -345,7 +345,7 @@ processDEA <- function(d) {
                             }) %>% {do.call(rbind,.)}
                         })
                     
-                    size = length(exp.factors)
+                    size <- length(exp.factors)
 
                     out <- data.table(
                         result.ID = d[[i]]$resultSets[[j]]$id,
@@ -499,7 +499,7 @@ processFile <- function(content) {
     } else {
         ret <- processDesignMatrix(ret)
     }
-    attributes(ret) = c(attributes(ret),attr)
+    attributes(ret) <- c(attributes(ret),attr)
     return(ret)
 }
 
@@ -770,7 +770,7 @@ processExpressionMatrix <- function(m) {
     m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
     # here we standardize the output column names so that they fit output
     # from other endpoints
-    m_cols = make.names(colnames(m))
+    m_cols <- make.names(colnames(m))
     
     dataset <- parent.frame(n=2)$dataset
     samples <- get_dataset_samples(dataset, raw = TRUE)

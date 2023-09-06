@@ -70,7 +70,10 @@ For detailed information on the curation process, read this
 You can install `gemma.R` through
 [Bioconductor](http://bioconductor.org/) with the following code:
 
-```{r 'install', eval = FALSE}
+```r
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
 BiocManager::install("gemma.R")
 ```
 

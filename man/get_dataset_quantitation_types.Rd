@@ -54,4 +54,7 @@ recomputing raw data files Gemma had access to.
 \description{
 Retrieve quantitation types of a dataset
 }
+\examples{
+get_dataset_quantitation_types("GSE59918")
+}
 \keyword{dataset}

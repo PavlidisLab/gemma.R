@@ -180,13 +180,13 @@ memget_platform_annotations <- function(platform,
 #' @keywords misc
 #' 
 #' @export
-make_design = function(samples,metaType = "text"){
+make_design <- function(samples,metaType = "text"){
     categories <- samples$sample.FactorValues %>% 
         purrr::map('category') %>% unlist %>% unique() %>%
-        {.[is.na(.)] = 'NA';.}
+        {.[is.na(.)] <- 'NA';.}
     factorValues <- categories %>% lapply(function(x){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y$category[is.na(y$category)]='NA'
+            y$category[is.na(y$category)]<-'NA'
                 
             y %>% dplyr::filter(category == x) %>% {.$value} %>% sort %>% paste(collapse = ',')
         })
@@ -194,10 +194,10 @@ make_design = function(samples,metaType = "text"){
 
     category_uris <- samples$sample.FactorValues %>% 
         purrr::map('categoryURI') %>% unlist %>% unique() %>% 
-        {.[is.na(.)] = 'NA';.}
+        {.[is.na(.)] <- 'NA';.}
     factorURIs <- category_uris %>% lapply(function(x){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y$categoryURI[is.na(y$categoryURI)]='NA'
+            y$categoryURI[is.na(y$categoryURI)]<-'NA'
             
             y %>% dplyr::filter(categoryURI == x) %>% {.$valueUri} %>% sort %>% paste(collapse = ',')
         })
@@ -206,10 +206,10 @@ make_design = function(samples,metaType = "text"){
 
     if(metaType == 'text'){
         design_frame <- factorValues %>% as.data.frame()
-        colnames(design_frame) = categories
+        colnames(design_frame) <- categories
     } else if (metaType == 'uri'){
         design_frame <- factorURIs %>% as.data.frame()
-        colnames(design_frame) = category_uris
+        colnames(design_frame) <- category_uris
     } else if (metaType == 'both'){
         design_frame <- seq_along(factorValues) %>% lapply(function(i){
             paste(factorValues[[i]],factorURIs[[i]],sep = '|')
@@ -269,7 +269,7 @@ get_dataset_object <- function(datasets,
     metadata <- unique(datasets) %>% lapply(function(dataset){
         get_dataset_samples(dataset,memoised = memoised)
     })
-    names(metadata) = unique(datasets)
+    names(metadata) <- unique(datasets)
 
     if(is.null(genes)){
         expression <- unique(datasets) %>% lapply(function(dataset){
@@ -278,7 +278,7 @@ get_dataset_object <- function(datasets,
 
             # these replicate the arguments for get_dataset_expression_for_genes
             if(!keepNonSpecific){
-                exp = exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
+                exp <- exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
             }
             if(!is.na(consolidate) && consolidate == "pickmax"){
                 mean_exp <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
@@ -326,7 +326,7 @@ get_dataset_object <- function(datasets,
             }
             return(exp)
         })
-        names(expression) = datasets
+        names(expression) <- datasets
     } else{
         expression <- get_dataset_expression_for_genes(unique(datasets),genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
     }
@@ -708,7 +708,7 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
         step_args$offset <- offset
 
         if(!is.null(directory)){
-            step_args$file = file.path(directory,offset)
+            step_args$file <- file.path(directory,offset)
         } else{
             # file argument should not be preserved since it'll overwrite itself in
             # each call
