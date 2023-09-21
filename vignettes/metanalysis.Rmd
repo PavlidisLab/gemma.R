@@ -53,7 +53,7 @@ we are accessing datasets relevant for our purposes with minimal effort.
 # Querying datasets of interest
 
 The `get_datasets` function can be used to find datasets of interest,
-either using ontology terms or plain text. Since Parkinson's Disease has a unambigious
+either using ontology terms or plain text. Since Parkinson's Disease has a unambiguous
 ontology term in the Disease Ontology, we will be using it to avoid acquiring
 datasets that tangentially mention the disease in their descriptions. Here we also
 limit our results to only include human samples since we are not interested in 
