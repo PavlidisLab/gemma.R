@@ -57,12 +57,16 @@ either using ontology terms or plain text. Since Parkinson's Disease has a unamb
 ontology term in the Disease Ontology, we will be using it to avoid acquiring
 datasets that tangentially mention the disease in their descriptions. Here we also
 limit our results to only include human samples since we are not interested in 
-models from other species.
+models from other species and samples that are explicitly from the brain using the
+ontology term for brain. See documentation for the function for a detailed explanation
+of available options
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
-results <- get_datasets(uris = 'http://purl.obolibrary.org/obo/MONDO_0005180',
+results <- get_datasets(filter = "allCharacteristics.valueUri = http://purl.obolibrary.org/obo/MONDO_0005180 and allCharacteristics.valueUri = http://purl.obolibrary.org/obo/UBERON_0000955",
                        taxa ='human') %>% get_all_pages()
+
+
 
 results %>% select(experiment.ShortName,experiment.Name) %>% head
 ```
@@ -83,16 +87,10 @@ documentation, this column will be set to -1 for datasets where batch
 confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
 
-```{r,eval = FALSE}
+```{r}
 results <- results %>% filter(geeq.batchEffect == 1)
 ```
-```{r,include = FALSE}
-results <- results %>% filter(experiment.ID %in% c(549L, 873L, 1090L, 1869L, 1881L, 1885L, 2412L, 3886L, 3887L, 
-3888L, 5670L, 5806L, 5808L, 6484L, 9494L, 12120L, 12123L, 12709L, 
-12743L, 13122L, 15666L, 15905L, 16576L, 17290L, 19160L, 20509L, 
-23458L, 23683L, 23781L, 24361L, 24651L, 25096L, 25626L, 25781L, 
-25905L, 25956L, 26757L))
-```
+
 
 We now want to ensure that the differential expressions we analyze
 compare control and Parkinson's Disease patients. This information is
@@ -113,7 +111,7 @@ experiment_contrasts <- results$experiment.ShortName %>%
 ```
 
 The contrasts we are interested in should have a `baseline.category` of "disease"
-and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's experimental.factor as the URI for a factor.
+and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's experimental.factors column as the URI for a factor.
 
 
 The factor we are interested in is Parkinson's Disease in
@@ -388,7 +386,7 @@ p_values %>% log10() %>%
     geom_point() + 
     geom_hline(yintercept = log10(0.05),color = 'firebrick') + 
     geom_text(y = log10(0.05), x = 0, label = 'p < 0.05',vjust =-1,hjust = -0.1) + 
-    theme_bw() + ggtitle(paste("P-values for top gene (", gene, ") in the data sets"))
+    theme_bw() + ggtitle(paste("P-values for top gene (", gene, ") in the data sets")) +
     theme(axis.text.x = element_blank())
 ```
 This shows that the gene is nominally significant in some but not all of the data sets.
