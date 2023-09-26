@@ -281,6 +281,10 @@ fisher_results %>%
 ```{r fisher, include = FALSE}
 library(parallel)
 cores = detectCores()
+if (Sys.info()['sysname'] == 'Windows'){
+    cores = 1
+}
+
 fisher_results <- all_genes %>% mclapply(function(x){
     p_vals <- condition_diffs %>% sapply(function(y){
         # we will resolve multiple probesets by taking the minimum p value for
