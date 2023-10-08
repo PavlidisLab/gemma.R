@@ -46,5 +46,5 @@ test_that("getGeneGO queries work", {
     # expect_equal(
     #     dat[, c(term.Name, term.ID, term.URI)],
     #     c(raw$term, raw$goId, raw$uri)
-    )
+    #)
 })
