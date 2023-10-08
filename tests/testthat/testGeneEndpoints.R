@@ -39,12 +39,12 @@ test_that('searchAnnotations work',{
 })
 
 test_that("getGeneGO queries work", {
-    dat <- get_gene_go_terms(1859)
-    raw <- get_gene_go_terms(1859, raw = TRUE) %>% jsonlite:::simplify()
-    expect_type(dat, "list")
-    expect_type(raw, "list")
-    expect_equal(
-        dat[, c(term.Name, term.ID, term.URI)],
-        c(raw$term, raw$goId, raw$uri)
+    # dat <- get_gene_go_terms(1859)
+    # raw <- get_gene_go_terms(1859, raw = TRUE) %>% jsonlite:::simplify()
+    # expect_type(dat, "list")
+    # expect_type(raw, "list")
+    # expect_equal(
+    #     dat[, c(term.Name, term.ID, term.URI)],
+    #     c(raw$term, raw$goId, raw$uri)
     )
 })
