@@ -427,9 +427,9 @@ accessed using <code>filter_properties</code>.</p>
  3:    2023-09-25 17:26:29
  4:    2023-09-18 20:32:07
  5:    2023-09-18 21:15:13
- 6:    2023-09-18 21:16:15
+ 6:    2023-10-03 19:39:07
  7:    2022-08-16 16:43:25
- 8:    2022-08-08 18:13:54
+ 8:    2023-10-03 19:39:08
  9:    2022-08-12 14:03:02
 10:    2023-09-07 21:19:21
 11:    2023-01-11 22:51:30
@@ -658,7 +658,7 @@ accessed using <code>filter_properties</code>.</p>
 19:   http://www.ncbi.nlm.nih.gov/geo/                     38
 20:   http://www.ncbi.nlm.nih.gov/geo/                     16
     experiment.LastUpdated
- 1:    2023-09-07 21:18:16
+ 1:    2023-10-03 19:39:09
  2:    2023-09-07 21:58:30
  3:    2022-09-04 21:47:58
  4:    2022-08-31 06:55:09
@@ -954,25 +954,18 @@ terms.</p>
 6:       RASSF2       RASSF2
                                                                  GeneNames
 1:                                                            lipocalin 10
-2:                                     stromal antigen 3-like 5 pseudogene
+2:                      STAG3 cohesin complex component like 5, pseudogene
 3: arf-GAP with GTPase, ANK repeat and PH domain-containing protein 2-like
 4:                                       GRB2 associated binding protein 3
 5:                                       hypothetical protein LOC100287155
 6:                                  Ras association domain family member 2
-                                                                                                                                                                                                                                                                                                    GOTerms
-1:                                                                                                                                                                                                                                                                                    GO:0005576|GO:0036094
-2:                                                                                                                                                                                                                                                                                                         
-3:                                                                                                                                                                                                                                                                                                         
-4:                                                                                                                                                                                                                                                              GO:0005737|GO:0030225|GO:0035591|GO:0007165
-5:                                                                                                                                                                                                                                                                                                         
-6: GO:0045670|GO:0005737|GO:0005515|GO:0005634|GO:0050821|GO:0005654|GO:0005794|GO:1901222|GO:1901223|GO:0046849|GO:0032991|GO:0048872|GO:0046330|GO:0001501|GO:0000776|GO:0005886|GO:0031954|GO:0007049|GO:0045667|GO:0004672|GO:0043065|GO:0045860|GO:0007165|GO:0033137|GO:0001503|GO:0005829|GO:0038168
-   GemmaIDs   NCBIids
-1:   441399    414332
-2:  8799043 101735302
-3:  8779607 101059976
-4:   389635    139716
-5:  8090381 100287155
-6:   201914      9770</code></pre>
+   GOTerms GemmaIDs   NCBIids
+1:      NA   441399    414332
+2:      NA  8799043 101735302
+3:      NA  8779607 101059976
+4:      NA   389635    139716
+5:      NA  8090381 100287155
+6:      NA   201914      9770</code></pre>
 <p>If you are interested in a particular gene, you can see which
 platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>.
 Note that functions to search gene work best with unambigious
@@ -1439,7 +1432,7 @@ up requests</p>
   2:             FALSE                      295      ONECOLOR        rat
   3:             FALSE                     1358      ONECOLOR      mouse
   4:             FALSE                     1553      ONECOLOR      human
-  5:             FALSE                      211      ONECOLOR      mouse
+  5:             FALSE                      208      ONECOLOR      mouse
  ---                                                                    
 685:             FALSE                        2    SEQUENCING      human
 686:             FALSE                        0      TWOCOLOR      human
@@ -1537,7 +1530,7 @@ served a list that represents the underlying JSON response.</p>
 <pre><code>   chromosome strand nucleotide length taxon.Name  taxon.Scientific taxon.ID
 1:         11      +   33890705 118714        rat Rattus norvegicus        3
 2:         21      +   37365572 160785      human      Homo sapiens        1
-3:         16      +   94370636 125741      mouse      Mus musculus        2
+3:         16      +   94370769 125608      mouse      Mus musculus        2
    taxon.NCBI taxon.Database.Name taxon.Database.ID
 1:      10116                 rn6                86
 2:       9606                hg38                87
@@ -1546,7 +1539,7 @@ served a list that represents the underlying JSON response.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[[1]]
 [[1]]$id
-[1] 84782783
+[1] 120910616
 
 [[1]]$nucleotide
 [1] 33890705
@@ -1657,7 +1650,7 @@ list()
 
 [[2]]
 [[2]]$id
-[1] 84362978
+[1] 120419022
 
 [[2]]$nucleotide
 [1] 37365572
@@ -1768,13 +1761,13 @@ list()
 
 [[3]]
 [[3]]$id
-[1] 84610778
+[1] 120734638
 
 [[3]]$nucleotide
-[1] 94370636
+[1] 94370769
 
 [[3]]$nucleotideLength
-[1] 125741
+[1] 125608
 
 [[3]]$strand
 [1] "+"
@@ -1880,7 +1873,7 @@ list()
 attr(,"call")
 [1] "https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/locations"
 attr(,"env")
-&lt;environment: 0x55adf93eead0&gt;</code></pre>
+&lt;environment: 0x564c6f30e418&gt;</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -1950,12 +1943,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -1968,7 +1959,7 @@ other attached packages:
  [1] viridis_0.6.4               viridisLite_0.4.2          
  [3] pheatmap_1.0.12             SummarizedExperiment_1.30.2
  [5] Biobase_2.60.0              GenomicRanges_1.52.0       
- [7] GenomeInfoDb_1.36.3         IRanges_2.34.1             
+ [7] GenomeInfoDb_1.36.4         IRanges_2.34.1             
  [9] S4Vectors_0.38.2            BiocGenerics_0.46.0        
 [11] MatrixGenerics_1.12.3       matrixStats_1.0.0          
 [13] ggrepel_0.9.3               ggplot2_3.4.3              
@@ -1982,22 +1973,22 @@ loaded via a namespace (and not attached):
 [10] compiler_4.3.1          rlang_1.1.1             sass_0.4.7             
 [13] tools_4.3.1             utf8_1.2.3              yaml_2.3.7             
 [16] knitr_1.44              S4Arrays_1.0.6          labeling_0.4.3         
-[19] bit_4.0.5               curl_5.0.2              DelayedArray_0.26.7    
-[22] RColorBrewer_1.1-3      abind_1.4-5             withr_2.5.0            
+[19] bit_4.0.5               curl_5.1.0              DelayedArray_0.26.7    
+[22] RColorBrewer_1.1-3      abind_1.4-5             withr_2.5.1            
 [25] purrr_1.0.2             desc_1.4.2              grid_4.3.1             
 [28] fansi_1.0.4             colorspace_2.1-0        scales_1.2.1           
 [31] cli_3.6.1               rmarkdown_2.25          crayon_1.5.2           
 [34] ragg_1.2.5              generics_0.1.3          httr_1.4.7             
 [37] cachem_1.0.8            stringr_1.5.0           zlibbioc_1.46.0        
 [40] assertthat_0.2.1        BiocManager_1.30.22     XVector_0.40.0         
-[43] vctrs_0.6.3             Matrix_1.6-1.1          jsonlite_1.8.7         
+[43] vctrs_0.6.3             Matrix_1.5-4.1          jsonlite_1.8.7         
 [46] bookdown_0.35           bit64_4.0.5             systemfonts_1.0.4      
 [49] jquerylib_0.1.4         glue_1.6.2              pkgdown_2.0.7          
-[52] lubridate_1.9.2         stringi_1.7.12          gtable_0.3.4           
+[52] lubridate_1.9.3         stringi_1.7.12          gtable_0.3.4           
 [55] munsell_0.5.0           tibble_3.2.1            pillar_1.9.0           
 [58] rappdirs_0.3.3          htmltools_0.5.6         GenomeInfoDbData_1.2.10
 [61] R6_2.5.1                textshaping_0.3.6       rprojroot_2.0.3        
-[64] evaluate_0.21           lattice_0.21-8          memoise_2.0.1          
+[64] evaluate_0.22           lattice_0.21-8          memoise_2.0.1          
 [67] bslib_0.5.1             Rcpp_1.0.11             gridExtra_2.3          
 [70] xfun_0.40               fs_1.6.3                pkgconfig_2.0.3        </code></pre>
 </div>
