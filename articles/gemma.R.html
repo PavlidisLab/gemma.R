@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.99.4</span>
       </span>
     </div>
 
@@ -198,19 +198,19 @@ function, datasets fitting various criteria can be accessed.</p>
 <span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>query <span class="op">=</span> <span class="st">'bipolar'</span>,taxa <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.ShortName</span>, <span class="va">experiment.Name</span>,<span class="va">taxon.Name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
 <pre><code>   experiment.ShortName
-1:             GSE67645
-2:   McLean Hippocampus
-3:              byne-cc
-4:             GSE45484
-5:            GSE134497
-6:            GSE160761
-                                                                                                                                                                                     experiment.Name
-1: Transcriptome dynamics of developing photoreceptors in 3-D retina cultures recapitulates temporal sequence of human cone and rod differentiation revealing cell surface markers and gene networks
-2:                                                                                                                                                                                McLean Hippocampus
-3:                                                                                                                                              Corpus Callosum data from Stanley collection samples
-4:                                        Gene-expression differences in peripheral blood between lithium responders and non-responders in the “Lithium Treatment -Moderate dose Use Study” (LiTMUS)
-5:                                                                                                                      Total RNA sequecing for human induced pluripotent derived cerebral organoids
-6:                                                            RNA sequencing  in human  iPSCs derived from  bipolar  patients  to identify important therapeutic molecular targets of Valproate(VPA)
+1:   McLean Hippocampus
+2:              byne-cc
+3:             GSE45484
+4:            GSE134497
+5:            GSE160761
+6:          GSE179921.2
+                                                                                                                                                           experiment.Name
+1:                                                                                                                                                      McLean Hippocampus
+2:                                                                                                                    Corpus Callosum data from Stanley collection samples
+3:              Gene-expression differences in peripheral blood between lithium responders and non-responders in the “Lithium Treatment -Moderate dose Use Study” (LiTMUS)
+4:                                                                                            Total RNA sequecing for human induced pluripotent derived cerebral organoids
+5:                                  RNA sequencing  in human  iPSCs derived from  bipolar  patients  to identify important therapeutic molecular targets of Valproate(VPA)
+6: Split part 2 of: TCF7L2 lncRNA: A Link between Bipolar Disorder and Body Mass Index through Glucocorticoid Signaling [RNA-Seq] [collection of material = Experiment 1 ]
    taxon.Name
 1:      human
 2:      human
@@ -865,10 +865,10 @@ samples in Gemma datasets.</p>
 <span>        <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference subject role"</span><span class="op">]</span></span>
 <span><span class="va">manic</span></span></code></pre></div>
 <pre><code>class: SummarizedExperiment 
-dim: 21410 21 
+dim: 21407 21 
 metadata(8): title abstract ... GemmaSuitabilityScore taxon
 assays(1): counts
-rownames(21410): 2315430 2315554 ... 7385683 7385696
+rownames(21407): 2315430 2315554 ... 7385683 7385696
 rowData names(4): Probe GeneSymbol GeneName NCBIid
 colnames(21): Control, 15 Control, 8 ... Control, 2_DE40 Bipolar
   disorder patient manic phase, 37
@@ -929,13 +929,13 @@ terms.</p>
 4:   207273_at                                                            
 5: 216025_x_at        CYP2C9 cytochrome P450 family 2 subfamily C member 9
 6: 218191_s_at        LMBRD1                     LMBR1 domain containing 1
-                                                                                                                                                                                                                                                                                                                                                                      GOTerms
-1:                                                                                                                          GO:0005737|GO:0005525|GO:0051301|GO:0005515|GO:0000226|GO:0005634|GO:0007017|GO:0000278|GO:0005874|GO:0005200|GO:0005198|GO:0005881|GO:0030705|GO:0015630|GO:0031982|GO:0070062|GO:0050807|GO:0036464|GO:0042802|GO:0055037|GO:0005829|GO:0031594
-2:                                                                                                                                                                                                                                                                                                                                                                           
-3:                                                                                                                                                                                                                                                                                    GO:0008270|GO:0043161|GO:0016567|GO:0031463|GO:0005829|GO:0031462|GO:1990756|GO:2000627
-4:                                                                                                                                                                                                                                                                                                                                                                           
-5: GO:0005737|GO:0052741|GO:0008405|GO:0008404|GO:0020037|GO:0008203|GO:0008202|GO:0043231|GO:0008392|GO:0034875|GO:0070330|GO:0019373|GO:0006805|GO:0005506|GO:0005789|GO:0097267|GO:0005886|GO:0032787|GO:0042178|GO:0004497|GO:0046456|GO:0008210|GO:0008395|GO:0016712|GO:0019627|GO:0042759|GO:0006082|GO:0070989|GO:0043603|GO:0018676|GO:0018675|GO:0016491|GO:0016098
-6:                                                                                                                                                GO:0031419|GO:0072583|GO:0005789|GO:0005515|GO:0005886|GO:0005765|GO:0030136|GO:0005774|GO:0005158|GO:0007369|GO:0045334|GO:0061462|GO:0140318|GO:0043231|GO:0038016|GO:0032050|GO:0035612|GO:0072665|GO:0016020|GO:0016021
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        GOTerms
+1: GO:0045121|GO:0005634|GO:0005515|GO:0015630|GO:0000226|GO:0051301|GO:0016787|GO:0005737|GO:0005525|GO:0005874|GO:0030705|GO:0031982|GO:0007017|GO:0046872|GO:0005198|GO:0005200|GO:0000278|GO:0005881|GO:0001764|GO:0051402|GO:0072384|GO:0034612|GO:0044877|GO:0007613|GO:0007098|GO:0007224|GO:0071277|GO:0021542|GO:0009612|GO:0055037|GO:0005886|GO:0000793|GO:0048873|GO:0010001|GO:0042802|GO:0001964|GO:0021987|GO:0036464|GO:0006886|GO:0008542|GO:0050808|GO:0050807|GO:0070062|GO:0061744|GO:0048853|GO:0005879|GO:0008344|GO:0031594|GO:0010467|GO:0140058|GO:0021696|GO:0005829|GO:0046982|GO:0046785|GO:1902065
+2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GO:2000627|GO:0016567|GO:0031462|GO:0031463|GO:1990756|GO:0140958|GO:0043161|GO:0008270|GO:0005829
+4:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+5:                                                                                                                                                                                                                                                              GO:0043231|GO:0016098|GO:0005737|GO:0016491|GO:0018676|GO:0008210|GO:0034875|GO:0005506|GO:0008405|GO:0008203|GO:0052741|GO:0006805|GO:0004497|GO:0008404|GO:0005789|GO:0018675|GO:0020037|GO:0019373|GO:0008392|GO:0070989|GO:0042178|GO:0005886|GO:0008202|GO:0043603|GO:0042759|GO:0016712|GO:0097267|GO:0070330|GO:0046456|GO:0032787|GO:0008395|GO:0019627
+6:                                                                                                                                                                                                                                                                                                                                                                                                                                   GO:0061462|GO:0005515|GO:0035612|GO:0043231|GO:0005886|GO:0032050|GO:0031419|GO:0005158|GO:0140318|GO:0045334|GO:0005765|GO:0072583|GO:0030136|GO:0007369|GO:0016020|GO:0038016|GO:0005789
         GemmaIDs    NCBIids
 1: 360802|172797 84790|7846
 2:                         
@@ -980,11 +980,11 @@ identifiers rather than symbols.</p>
 4:        ENO2               &lt;NA&gt;    856579 phosphopyruvate hydratase ENO2
 5:        eno2 ENSDARG00000014287    402874                      enolase 2
    gene.MFX.Rank taxon.Name         taxon.Scientific taxon.ID taxon.NCBI
-1:     0.9284287      human             Homo sapiens        1       9606
-2:     0.8634338      mouse             Mus musculus        2      10090
-3:     0.8698729        rat        Rattus norvegicus        3      10116
-4:     0.6226795      yeast Saccharomyces cerevisiae       11       4932
-5:     0.8956117  zebrafish              Danio rerio       12       7955
+1:     0.9033096      human             Homo sapiens        1       9606
+2:     0.8980022      mouse             Mus musculus        2      10090
+3:     0.8822730        rat        Rattus norvegicus        3      10116
+4:     0.6279932      yeast Saccharomyces cerevisiae       11       4932
+5:     0.8830854  zebrafish              Danio rerio       12       7955
    taxon.Database.Name taxon.Database.ID
 1:                hg38                87
 2:                mm10                81
@@ -1398,11 +1398,11 @@ up requests</p>
   4:           4             GPL570
   5:           5              GPL81
  ---                               
-685:        1323           GPL29480
-686:        1325            GPL5621
-687:        1326           GPL10732
-688:        1327           GPL11044
-689:        1328            GPL7182
+684:        1323           GPL29480
+685:        1325            GPL5621
+686:        1326           GPL10732
+687:        1327           GPL11044
+688:        1328            GPL7182
                                                                  platform.Name
   1:                  Affymetrix GeneChip Human Genome U133 Array Set HG-U133A
   2:                              Affymetrix GeneChip Rat Genome 230 2.0 Array
@@ -1410,11 +1410,11 @@ up requests</p>
   4:                      Affymetrix GeneChip Human Genome U133 Plus 2.0 Array
   5:               Affymetrix GeneChip Murine Genome U74 Version 2 Set MG-U74A
  ---                                                                          
-685:                                                  DNBSEQ-T7 (Homo sapiens)
-686:                                                SFGF HEEBO Human Set v1.00
-687:                                               Mouse-Agilent-22K-D20030711
-688: Affymetrix GeneChip Mouse Genome 430 2.0 Array [CDF: Mouse4302_Mm_REFSEQ]
-689:                                         Harvard_Human_BeadChip_23K_Ref8v3
+684:                                                  DNBSEQ-T7 (Homo sapiens)
+685:                                                SFGF HEEBO Human Set v1.00
+686:                                               Mouse-Agilent-22K-D20030711
+687: Affymetrix GeneChip Mouse Genome 430 2.0 Array [CDF: Mouse4302_Mm_REFSEQ]
+688:                                         Harvard_Human_BeadChip_23K_Ref8v3
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.Description
   1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006
   2:  The GeneChip Rat Genome 230 2.0 Array is a powerful tool for toxicology, neurobiology, and other applications using rat as a model organism.  - Provides comprehensive coverage of the transcribed rat genome on a single array - Comprised of more than 31,000 probe sets, analyzing over 30,000 transcripts and variants from over 28,000 well-substantiated rat genes - The publicly available draft of the rat genome and leading public rat databases were used to refine sequences and provide a higher quality of data output  All probe sets represented on the GeneChip Rat Expression Set 230 are included on the GeneChip Rat Genome 230 2.0 Array. Sequences used in the design of the GeneChip Rat Genome 230 2.0 Array were selected from GenBank, dbEST, and RefSeq. The sequence clusters were created from the UniGene database (Build 99, June 2002) and then refined by analysis and comparison with the publicly available draft assembly of the rat genome from the Baylor College of Medicine Human Genome Sequencing Center (June 2002).  The GeneChip Rat Genome 230 2.0 Array includes representation of the RefSeq database sequences and probe sets related to sequences and refined EST clusters previously represented on the GeneChip Rat Genome U34 Set.  Oligonucleotide probes complementary to each corresponding sequence are synthesized in situ on the arrays. Eleven pairs of oligonucleotide probes are used to measure the level of transcription of each sequence represented on the GeneChip Rat Genome 230 2.0 Array.  Annotations derived from Affymetrix CSV file dated 6/23/2004\nFrom GPL1355\nLast Updated: May 31 2005
@@ -1422,23 +1422,23 @@ up requests</p>
   4:                                                                                                                                                                                                                                                                                                                                                                                                                                          Complete coverage of the Human Genome U133 Set plus 6,500 additional genes for analysis of over 47,000 transcripts All probe sets represented on the GeneChip Human Genome U133 Set are identically replicated on the GeneChip Human Genome U133 Plus 2.0 Array. The sequences from which these probe sets were derived were selected from GenBank®, dbEST, and RefSeq. The sequence clusters were created from the UniGene database (Build 133, April 20, 2001) and then refined by analysis and comparison with a number of other publicly available databases, including the Washington University EST trace repository and the University of California, Santa Cruz Golden-Path human genome database (April 2001 release). In addition, there are 9,921 new probe sets representing approximately 6,500 new genes. These gene sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from the UniGene database (Build 159, January 25, 2003) and refined by analysis and comparison with a number of other publicly available databases, including the Washington University EST trace repository and the NCBI human genome assembly (Build 31). \nFrom GPL570\nLast Updated: Mar 09 2006
   5:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            The MG-U74 set includes 3 arrays with a total of 36899 entries and was indexed 29-Jan-2002. The set represents ~36,000 full length genes and EST clusters derived from sequence clusters in Build 74 of the Mouse Unigene Database. MG-U74A represents all sequences (~6,000) in the Mouse UniGene database (Build 74) that have been functionally characterized, as well as ~6,000 EST clusters.  This platform can also be used to submit data for the MG-U74A [version 1] array.  Keywords = high density oligonucleotide array\r\nFrom GPL81\r\nLast Updated: Nov 17 2005
  ---                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-685:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-686:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Probes: Constitutive Exonic Probes (30,718): that will recognize all known transcripts of a gene. Alternatively Spliced / Skipped Exonic Probes (8,441): will recognize exons that are present in some, but not all transcripts of a gene. Non Coding RNA Probes (196): recogning non-protein coding transcripts (ribosomal RNAs, miRNAs). BCR / TCR Genic / Regional Probes (372): recognizing transcripts from genes that undergo somatic rearrangement. Other Probes (843): recognizing human mitochondrion derived DNA sequences.   Controls: A total of 4,189 controls are included in the set, including Negative Controls (398 and 194 buffer only): Buffer only and 410 random sequences are positioned throughout the set to assist in determining background. Positive Controls (864): recognizing a small subset of human transcripts. Doped Controls (1,384): recognizing non-human sequences that can be spiked into RNA samples
-687:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-688:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               This identical to GPL1261 but a custom CDF environment was used to extract data.  The .cdf and mapping files, as well as an R package are provided as supplementary files.
-689:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+684:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+685:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Probes: Constitutive Exonic Probes (30,718): that will recognize all known transcripts of a gene. Alternatively Spliced / Skipped Exonic Probes (8,441): will recognize exons that are present in some, but not all transcripts of a gene. Non Coding RNA Probes (196): recogning non-protein coding transcripts (ribosomal RNAs, miRNAs). BCR / TCR Genic / Regional Probes (372): recognizing transcripts from genes that undergo somatic rearrangement. Other Probes (843): recognizing human mitochondrion derived DNA sequences.   Controls: A total of 4,189 controls are included in the set, including Negative Controls (398 and 194 buffer only): Buffer only and 410 random sequences are positioned throughout the set to assist in determining background. Positive Controls (864): recognizing a small subset of human transcripts. Doped Controls (1,384): recognizing non-human sequences that can be spiked into RNA samples
+686:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+687:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               This identical to GPL1261 but a custom CDF environment was used to extract data.  The .cdf and mapping files, as well as an R package are provided as supplementary files.
+688:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
      platform.Troubled platform.ExperimentCount platform.Type taxon.Name
-  1:             FALSE                      411      ONECOLOR      human
-  2:             FALSE                      295      ONECOLOR        rat
-  3:             FALSE                     1358      ONECOLOR      mouse
-  4:             FALSE                     1553      ONECOLOR      human
-  5:             FALSE                      208      ONECOLOR      mouse
+  1:             FALSE                      404      ONECOLOR      human
+  2:             FALSE                      294      ONECOLOR        rat
+  3:             FALSE                     1306      ONECOLOR      mouse
+  4:             FALSE                     1494      ONECOLOR      human
+  5:             FALSE                      204      ONECOLOR      mouse
  ---                                                                    
-685:             FALSE                        2    SEQUENCING      human
-686:             FALSE                        0      TWOCOLOR      human
-687:             FALSE                        1      ONECOLOR      mouse
-688:             FALSE                        0      ONECOLOR      mouse
-689:             FALSE                        1      ONECOLOR      human
+684:             FALSE                        2    SEQUENCING      human
+685:             FALSE                        0      TWOCOLOR      human
+686:             FALSE                        0      ONECOLOR      mouse
+687:             FALSE                        0      ONECOLOR      mouse
+688:             FALSE                        0      ONECOLOR      human
       taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name
   1:      Homo sapiens        1       9606                hg38
   2: Rattus norvegicus        3      10116                 rn6
@@ -1446,11 +1446,11 @@ up requests</p>
   4:      Homo sapiens        1       9606                hg38
   5:      Mus musculus        2      10090                mm10
  ---                                                          
+684:      Homo sapiens        1       9606                hg38
 685:      Homo sapiens        1       9606                hg38
-686:      Homo sapiens        1       9606                hg38
+686:      Mus musculus        2      10090                mm10
 687:      Mus musculus        2      10090                mm10
-688:      Mus musculus        2      10090                mm10
-689:      Homo sapiens        1       9606                hg38
+688:      Homo sapiens        1       9606                hg38
      taxon.Database.ID
   1:                87
   2:                86
@@ -1458,11 +1458,11 @@ up requests</p>
   4:                87
   5:                81
  ---                  
+684:                87
 685:                87
-686:                87
+686:                81
 687:                81
-688:                81
-689:                87</code></pre>
+688:                87</code></pre>
 <p>Alternative way to access all pages is to do so manually. To see how
 many available results are there, you can look at the attributes of the
 output objects where additional information from the API response is
@@ -1470,7 +1470,7 @@ appended.</p>
 <div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 689</code></pre>
+<pre><code>[1] 688</code></pre>
 <p>After which you can use <code>offset</code> to access all available
 platforms.</p>
 <div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
@@ -1485,11 +1485,11 @@ platforms.</p>
   4:           4             GPL570      human
   5:           5              GPL81      mouse
  ---                                          
-685:        1323           GPL29480      human
-686:        1325            GPL5621      human
-687:        1326           GPL10732      mouse
-688:        1327           GPL11044      mouse
-689:        1328            GPL7182      human</code></pre>
+684:        1323           GPL29480      human
+685:        1325            GPL5621      human
+686:        1326           GPL10732      mouse
+687:        1327           GPL11044      mouse
+688:        1328            GPL7182      human</code></pre>
 <p>Many endpoints only support a single identifier:</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -1873,7 +1873,7 @@ list()
 attr(,"call")
 [1] "https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/locations"
 attr(,"env")
-&lt;environment: 0x5643fbc789f8&gt;</code></pre>
+&lt;environment: 0x55f79d0245f8&gt;</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -1943,12 +1943,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -1964,9 +1962,9 @@ other attached packages:
  [7] GenomeInfoDb_1.36.4         IRanges_2.34.1             
  [9] S4Vectors_0.38.2            BiocGenerics_0.46.0        
 [11] MatrixGenerics_1.12.3       matrixStats_1.0.0          
-[13] ggrepel_0.9.3               ggplot2_3.4.3              
+[13] ggrepel_0.9.4               ggplot2_3.4.4              
 [15] dplyr_1.1.3                 data.table_1.14.8          
-[17] gemma.R_1.99.2              BiocStyle_2.28.1           
+[17] gemma.R_1.99.4              BiocStyle_2.28.1           
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.0        farver_2.1.1            bitops_1.0-7           
@@ -1980,17 +1978,17 @@ loaded via a namespace (and not attached):
 [25] purrr_1.0.2             desc_1.4.2              grid_4.3.1             
 [28] fansi_1.0.5             colorspace_2.1-0        scales_1.2.1           
 [31] cli_3.6.1               rmarkdown_2.25          crayon_1.5.2           
-[34] ragg_1.2.5              generics_0.1.3          httr_1.4.7             
+[34] ragg_1.2.6              generics_0.1.3          httr_1.4.7             
 [37] cachem_1.0.8            stringr_1.5.0           zlibbioc_1.46.0        
 [40] assertthat_0.2.1        BiocManager_1.30.22     XVector_0.40.0         
-[43] vctrs_0.6.3             Matrix_1.6-1.1          jsonlite_1.8.7         
-[46] bookdown_0.35           bit64_4.0.5             systemfonts_1.0.4      
+[43] vctrs_0.6.4             Matrix_1.5-4.1          jsonlite_1.8.7         
+[46] bookdown_0.36           bit64_4.0.5             systemfonts_1.0.5      
 [49] jquerylib_0.1.4         glue_1.6.2              pkgdown_2.0.7          
 [52] lubridate_1.9.3         stringi_1.7.12          gtable_0.3.4           
 [55] munsell_0.5.0           tibble_3.2.1            pillar_1.9.0           
 [58] rappdirs_0.3.3          htmltools_0.5.6.1       GenomeInfoDbData_1.2.10
-[61] R6_2.5.1                textshaping_0.3.6       rprojroot_2.0.3        
-[64] evaluate_0.22           lattice_0.21-9          memoise_2.0.1          
+[61] R6_2.5.1                textshaping_0.3.7       rprojroot_2.0.3        
+[64] evaluate_0.22           lattice_0.21-8          memoise_2.0.1          
 [67] bslib_0.5.1             Rcpp_1.0.11             gridExtra_2.3          
 [70] xfun_0.40               fs_1.6.3                pkgconfig_2.0.3        </code></pre>
 </div>
