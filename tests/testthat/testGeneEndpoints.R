@@ -38,7 +38,7 @@ test_that('searchAnnotations work',{
     expect_true(all(names(annots) %in% c("category.Name", "category.URI", "value.Name", "value.URI")))
 })
 
-test_that("getGeneGO queries work", {
+#test_that("getGeneGO queries work", {
     # dat <- get_gene_go_terms(1859)
     # raw <- get_gene_go_terms(1859, raw = TRUE) %>% jsonlite:::simplify()
     # expect_type(dat, "list")
@@ -47,4 +47,4 @@ test_that("getGeneGO queries work", {
     #     dat[, c(term.Name, term.ID, term.URI)],
     #     c(raw$term, raw$goId, raw$uri)
     #)
-})
+#})
