@@ -29,6 +29,7 @@
 #'
 #' @import data.table
 #' @import bit64
+#' @import digest
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 NULL
