@@ -1,6 +1,6 @@
 Package: gemma.R
 Title: A wrapper for Gemma's Restful API to access curated gene expression data and differential expression analyses
-Version: 1.99.6
+Version: 2.0.0
 Authors@R: 
     c(person(given = "Javier", family = "Castillo-Arnemann", 
              role = c("aut"), email = "javiercastilloar@gmail.com",
