@@ -16,7 +16,8 @@ setGemmaPath <- function(path){
     }else if(path == 'prod'){
         path <- "https://gemma.msl.ubc.ca/rest/v2/"
     }
-    options(gemma.API = path)$gemma.API
+    options(gemma.API = path)
+    gemmaPath()
 }
 
 #' Prototype function body
