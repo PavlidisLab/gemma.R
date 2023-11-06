@@ -5,6 +5,20 @@ gemmaPath <- function(){
     getOption("gemma.API", "https://gemma.msl.ubc.ca/rest/v2/")
 }
 
+
+#' Set gemma path
+#' @param path "dev", "prod" or a link to use to access gemma API
+#' @return Link to Gemma API 
+#' @keywords internal
+setGemmaPath <- function(path){
+    if(path == 'dev'){
+        path <- "https://dev.gemma.msl.ubc.ca/rest/v2/"
+    }else if(path == 'prod'){
+        path <- "https://gemma.msl.ubc.ca/rest/v2/"
+    }
+    options(gemma.API = path)$gemma.API
+}
+
 #' Prototype function body
 #'
 #' This should not be called directly, but is called from the API functions.
