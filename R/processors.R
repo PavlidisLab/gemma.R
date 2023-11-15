@@ -34,13 +34,17 @@ checkBounds <- function(x,natype = NA){
 #' @return A vector of elements
 #' @keywords internal
 accessField <- function(d, field, natype = NA){
-    lapply(d,function(e){
+    field <- lapply(d,function(e){
         out <- checkBounds(e[[field]], natype)
         if(is.null(out)){
             out <- natype
         }
         return(out)
     }) %>% unlist
+    if(is.null(field)){
+        field <- array(dim=0)
+    }
+    return(field)
 }
 
 #' Avoid NULLS as data.table columns
