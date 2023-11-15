@@ -60,28 +60,6 @@ nullCheck <- function(x,natype= NA){
 
 
 
-#' Processes JSON as a factor
-#'
-#' @param d The JSON to process
-#'
-#' @return A processed data.table
-#'
-#' @keywords internal
-processGemmaFactor <- function(d) {
-
-    data.table(
-        factorValue = ifelse(d %>% accessField('value') %>% is.na(),
-                             d %>% accessField('factorValue',NA_character_),
-                             d %>% accessField('value',NA_character_)),
-        factorValueURI = d %>% accessField('valueUri',NA_character_),
-        description =  d %>% accessField('description',NA_character_),
-        category = d %>% accessField('category'),
-        categoryURI = d %>% accessField('categoryUri'),
-        measurement = d %>% accessField('isMeasurement'),
-        type = d %>% accessField('type')
-    )
-
-}
 
 #' Processes JSON as a factor
 #'
