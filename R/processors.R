@@ -267,20 +267,31 @@ processDEA <- function(d) {
 
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
+            
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
                 contrast.id <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
-                size <- length(contrast.id)
-
+                
+                baseline_id <- d[[i]]$resultSets[[j]]$baselineGroup$id
+                
+                non_control_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[!contrast.id %in% baseline_id]
+                non_control_ids <- contrast.id[!contrast.id %in% baseline_id]
+                size <- length(non_control_ids)
+                
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
-                    contrast.id = contrast.id,
-                    experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
-                    baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
-                    baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                    baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% processFactorValueValueObject %>% list() %>% rep(size),
+                    contrast.id = non_control_ids,
+                    experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment),
+                                           d[[i]]$bioAssaySetId, 
+                                           accessField(d,"sourceExperiment", NA_integer_)),
+                    baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>%
+                        nullCheck(NA_character_),
+                    baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>%
+                        nullCheck(NA_character_),
+                    baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
+                        processFactorValueValueObject %>% list() %>% rep(size),
                     # experimental.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category %>% nullCheck(NA_character_),
                     # experimental.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
-                    experimental.factors = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% 
+                    experimental.factors = non_control_factors %>% 
                         purrr::map(processFactorValueValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                     subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
@@ -290,15 +301,6 @@ processDEA <- function(d) {
                     probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                     genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
-                
-
-
-                # remove control as a contrast with self. sorting is there to guarantee
-                # baseline and experimental values will match
-                out <- out[!(seq_len(nrow(out)) %>% sapply(function(k){
-                    identical(out$baseline.factors[[k]] %>% dplyr::arrange(value,valueUri,category),
-                              out$experimental.factors[[k]] %>% dplyr::arrange(value,valueUri,categoryURI))
-                })),]
 
             }else{
                 # if more than 2 factors are present take a look at the
