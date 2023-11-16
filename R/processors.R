@@ -72,29 +72,67 @@ nullCheck <- function(x,natype= NA){
 #' @return A processed data.table
 #'
 #' @keywords internal
-processCharacteristicBasicValueObject <- function(d){
+processCharacteristicValueObject <- function(d){
     data.table(
+        category = d %>% accessField('category',NA_character_),
+        categoryURI = d %>% accessField('categoryUri',NA_character_),
         value = d %>% accessField('value',NA_character_),
         valueUri = d %>% accessField('valueUri',NA_character_),
+        valueId = d %>% accessField('valueId',NA_character_)
+    )
+}
+
+
+processStatementValueObject <- function(d){
+    data.table(
         category = d %>% accessField('category',NA_character_),
-        categoryURI = d %>% accessField('categoryUri',NA_character_)
+        categoryURI = d %>% accessField('categoryUri',NA_character_),
+        subject = d %>% accessField('subject', NA_character_),
+        subjectUri = d %>% accessField('subjectUri',NA_character_),
+        subjectId = d %>% accessField('subjectId',NA_character_),
+        predicate = d %>% accessField('predicate',NA_character_),
+        predicateUri = d %>% accessField('predicateUri',NA_character_),
+        object = d %>% accessField('object',NA_character_),
+        objectUri = d %>% accessField('objectUri',NA_character_)
     )
 }
 
 
 processFactorValueValueObject <- function(d){
     if(is.null(d)){
-        return(data.table())
-    } else if(d$isMeasurement){
+        return(data.table(
+            category = array(dim=0),
+            categoryURI = array(dim=0),
+            value = array(dim=0),
+            valueUri = array(dim=0),
+            predicate = array(dim=0),
+            predicateUri = array(dim=0),
+            object = array(dim=0),
+            objectUri = array(dim=0)
+        ))
+    } else if(!is.null(d$isMeasurement) && d$isMeasurement){
         data.table(
+            category = nullCheck(d$category,natype = NA_character_),
+            categoryURI = nullCheck(d$categoryUri,natype = NA_character_),
             value = nullCheck(d$measurement$value,NA_character_),
             valueUri = NA_character_,
-            category = nullCheck(d$category,natype = NA_character_),
-            categoryURI = nullCheck(d$categoryUri,natype = NA_character_)
+            predicate = NA_character_,
+            predicateUri = NA_character_,
+            object = NA_character_,
+            objectUri = NA_character_
         )
         
     } else{
-        d$characteristics %>% processCharacteristicBasicValueObject
+        characteristics <- d$characteristics %>% processCharacteristicValueObject()
+        statements <- d$statements %>% processStatementValueObject()
+        # remove characteristics already covered by statements
+        characteristics <- characteristics[!characteristics$valueId %in% statements$subjectId,]
+        # edit characteristics fields to match statements
+        statements %>% setnames(old = c("subject",'subjectUri','subjectId'),
+                                     new = c("value","valueUri","valueId"),skip_absent = TRUE)
+        out <- rbind(characteristics,statements,fill= TRUE)
+        out <- out[,!"valueId"]
+        return(out)
     }
 }
 
@@ -212,7 +250,9 @@ processSearchAnnotations <- function(d) {
 
 
 # good test cases 442, 448, 200, 174
+# 200 also has statements
 # for values 326
+# GSE106 has measurements
 #' Processes JSON as a differential expression analysis
 #'
 #' @param d The JSON to process
@@ -249,11 +289,13 @@ processDEA <- function(d) {
 
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         seq_along(result_ids[[i]]) %>% lapply(function(j){
-            
+
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
                 contrast.id <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
                 
                 baseline_id <- d[[i]]$resultSets[[j]]$baselineGroup$id
+                
+                baseline_factor <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[contrast.id == baseline_id]
                 
                 non_control_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[!contrast.id %in% baseline_id]
                 non_control_ids <- contrast.id[!contrast.id %in% baseline_id]
@@ -265,14 +307,11 @@ processDEA <- function(d) {
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment),
                                            d[[i]]$bioAssaySetId, 
                                            accessField(d,"sourceExperiment", NA_integer_)),
-                    baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>%
-                        nullCheck(NA_character_),
-                    baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>%
+                    factor.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category,
+                    factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
                         nullCheck(NA_character_),
                     baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
                         processFactorValueValueObject %>% list() %>% rep(size),
-                    # experimental.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category %>% nullCheck(NA_character_),
-                    # experimental.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
                     experimental.factors = non_control_factors %>% 
                         purrr::map(processFactorValueValueObject),
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
@@ -325,7 +364,7 @@ processDEA <- function(d) {
                             seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
                                 factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                 ids <- factors %>% purrr::map_int('id')
-                                factors[[which(ids == relevant_ids[k,l])]]$characteristics %>% processCharacteristicBasicValueObject()
+                                factors[[which(ids == relevant_ids[k,l])]]$characteristics %>% processCharacteristicValueObject()
                             }) %>% {do.call(rbind,.)}
                         })
                     
@@ -335,16 +374,17 @@ processDEA <- function(d) {
                         result.ID = d[[i]]$resultSets[[j]]$id,
                         contrast.id = unname(apply(relevant_ids,1,paste,collapse = '_')),
                         experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
-                        baseline.category = d[[i]]$resultSets[[j]]$baselineGroup$category %>% nullCheck(NA_character_),
-                        baseline.categoryURI = d[[i]]$resultSets[[j]]$baselineGroup$categoryUri %>% nullCheck(NA_character_),
-                        baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup$characteristics %>% processCharacteristicBasicValueObject() %>% list() %>% rep(size),
-                        # experimental.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category %>% nullCheck(NA_character_),
-                        # experimental.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
+                        factor.category = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                            purrr::map_chr('category') %>% unlist %>% sort %>%
+                            paste(collapse = ','),
+                        factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                            purrr::map_chr('categoryUri') %>% unlist %>% sort %>% paste(collapse = ','),
+                        baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
+                            processFactorValueValueObject %>% list() %>% rep(size),
                         experimental.factors = exp.factors,
                         subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                         subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
-                            purrr::map('characteristics') %>%
-                            purrr::map(processCharacteristicBasicValueObject) %>% 
+                            purrr::map(processFactorValueValueObject) %>% 
                             do.call(rbind,.) %>% list() %>%
                             rep(size),
                         probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
@@ -508,23 +548,32 @@ processFile <- function(content) {
 #'
 #' @keywords internal
 processSamples <- function(d) {
-    
-
-    data.table(
+        data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
         sample.Name = accessField(d,'name',NA_character_),
         sample.ID = d %>% purrr::map('sample') %>% accessField('id',NA_integer_),
         # sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
         sample.Description = accessField(d,"description",NA_character_),
         sample.Outlier = accessField(d, "outlier",NA),
-        sample.Accession = d %>% purrr::map('accession') %>% accessField('accession',NA_character_),
-        sample.Database = d %>% purrr::map('accession') %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
+        sample.Accession = d %>% purrr::map('accession') %>% 
+            accessField('accession',NA_character_),
+        sample.Database = d %>% purrr::map('accession') %>% 
+            purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
-        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% purrr::map('characteristics'), processCharacteristicBasicValueObject),
-        sample.FactorValues = d %>% purrr::map('sample') %>% purrr::map('factorValueObjects') %>% purrr::map(function(x){x %>% purrr::map('characteristics')}) %>% purrr::map(function(x){x %>% purrr::map(processCharacteristicBasicValueObject)}) %>% purrr::map(rbindlist)# ,
+        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% 
+                                            purrr::map('characteristics'), 
+                                        processCharacteristicValueObject) %>% 
+            purrr::map(function(x){
+                x[,!"valueId"]
+            }),
+        sample.FactorValues = d %>% purrr::map('sample') %>% 
+            purrr::map('factorValueObjects') %>% 
+            purrr::map(function(x){x %>% purrr::map(processFactorValueValueObject)}) %>% 
+            purrr::map(data.table::rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
 }
+
 
 #' Processes JSON as a vector of platforms
 #'
