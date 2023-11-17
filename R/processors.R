@@ -1,15 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
 #' Processes JSON as an array
 #'
 #' @param d The JSON to process
