@@ -39,6 +39,10 @@ library(ggplot2)
 library(stringr)
 ```
 
+```{r, include = FALSE}
+gemma.R:::setGemmaPath('prod')
+```
+
 Gemma.R contains a large number of datasets representing a wide array of
 conditions. These datasets are manually annotated by our curators to facilitate
 discovery and categorization making it a useful tool for meta-analysis.
@@ -97,9 +101,9 @@ compare control and Parkinson's Disease patients. This information is
 available via `get_dataset_differential_expression_analyses` which
 returns the experimental groups for differential expression analyses
 performed for the dataset. The columns we are primarily interested in
-are `baseline.factor` which typically
+are `baseline.factors` which typically
 records the control group of the differential expression analysis and
-`experimental.factor` which typically
+`experimental.factors` which typically
 records the test case
 
 ```{r}
@@ -110,7 +114,7 @@ experiment_contrasts <- results$experiment.ShortName %>%
 
 ```
 
-The contrasts we are interested in should have a `baseline.category` of "disease"
+The contrasts we are interested in should have a `factor.category` of "disease"
 and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's experimental.factors column as the URI for a factor.
 
 
@@ -121,7 +125,7 @@ The factor we are interested in is Parkinson's Disease in
 
 ```{r}
 parkin_contrasts <- experiment_contrasts %>% 
-    filter(baseline.category == 'disease') %>% 
+    filter(factor.category == 'disease') %>% 
     filter(sapply(experimental.factors,function(x){
         "http://purl.obolibrary.org/obo/MONDO_0005180" %in% x$valueUri
         }))

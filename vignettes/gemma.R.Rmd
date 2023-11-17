@@ -41,6 +41,7 @@ library(viridis)
 ```
 
 ```{r, include = FALSE}
+gemma.R:::setGemmaPath('prod')
 forget_gemma_memoised() # to make sure local tests don't succeed because of history
 ```
 
