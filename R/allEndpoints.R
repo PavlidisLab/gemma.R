@@ -60,7 +60,7 @@
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -146,7 +146,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -233,7 +233,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -325,7 +325,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -418,7 +418,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -544,7 +544,7 @@ get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, l
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -680,7 +680,7 @@ get_dataset_expression_for_genes <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -775,7 +775,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -860,7 +860,7 @@ get_dataset_processed_expression <- function(dataset, raw = getOption("gemma.raw
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -946,7 +946,7 @@ get_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.raw",
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1041,7 +1041,7 @@ get_dataset_raw_expression <- function(dataset, quantitationType, raw = getOptio
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1138,7 +1138,7 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1253,7 +1253,7 @@ get_datasets <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1367,7 +1367,7 @@ get_datasets_by_ids <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1453,7 +1453,7 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1537,7 +1537,7 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1634,7 +1634,7 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1722,7 +1722,7 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1818,7 +1818,7 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1919,7 +1919,7 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2033,7 +2033,7 @@ get_platforms_by_ids <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2141,7 +2141,7 @@ search_gemma <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2246,7 +2246,7 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        .call = match.call()
+        open_api_name = open_api_name, .call = match.call()
     )
 }
 
