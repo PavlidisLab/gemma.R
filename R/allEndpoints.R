@@ -30,6 +30,7 @@
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_result_set"
     internal <- TRUE
     header <- "text/tab-separated-values"
     isFile <- TRUE
@@ -115,6 +116,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_result_set"
     internal <- TRUE
     header <- ""
     isFile <- FALSE
@@ -200,6 +202,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "search_annotations"
     internal <- FALSE
     keyword <- "misc"
     header <- ""
@@ -283,6 +286,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_annotations"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -375,6 +379,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_design"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -475,6 +480,7 @@ get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, l
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_differential_expression_analyses"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -596,12 +602,14 @@ memget_dataset_differential_expression_analyses <- function(dataset, offset = 0L
 #'
 #' @examples
 #' get_dataset_expression_for_genes("GSE2018", genes = c(10225, 2841))
-get_dataset_expression_for_genes <- function(datasets, genes, keepNonSpecific = FALSE, consolidate = NA_character_,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+get_dataset_expression_for_genes <- function(
+        datasets, genes, keepNonSpecific = FALSE, consolidate = NA_character_,
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
+    open_api_name <- "get_dataset_expression_for_genes"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -679,12 +687,13 @@ get_dataset_expression_for_genes <- function(datasets, genes, keepNonSpecific = 
 #' Memoise get_dataset_expression_for_genes
 #'
 #' @noRd
-memget_dataset_expression_for_genes <- function(datasets, genes, keepNonSpecific = FALSE, consolidate = NA_character_,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+memget_dataset_expression_for_genes <- function(
+        datasets, genes, keepNonSpecific = FALSE, consolidate = NA_character_,
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_dataset_expression_for_genes,
         cache = gemmaCache()
     )
@@ -727,6 +736,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_platforms"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -819,6 +829,7 @@ get_dataset_processed_expression <- function(dataset, raw = getOption("gemma.raw
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_processed_expression"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -904,6 +915,7 @@ get_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.raw",
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_quantitation_types"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -997,6 +1009,7 @@ get_dataset_raw_expression <- function(dataset, quantitationType, raw = getOptio
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_raw_expression"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1086,6 +1099,7 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_dataset_samples"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1192,13 +1206,15 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' # filter below is equivalent to the call above
 #' get_datasets(filter = "taxon.commonName in (mouse,human) and allCharacteristics.valueUri = http://purl.obolibrary.org/obo/UBERON_0002048")
 #' get_datasets(query = "lung")
-get_datasets <- function(query = NA_character_, filter = NA_character_, taxa = NA_character_,
-    uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+get_datasets <- function(
+        query = NA_character_, filter = NA_character_, taxa = NA_character_,
+        uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
+    open_api_name <- "get_datasets"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1244,13 +1260,14 @@ get_datasets <- function(query = NA_character_, filter = NA_character_, taxa = N
 #' Memoise get_datasets
 #'
 #' @noRd
-memget_datasets <- function(query = NA_character_, filter = NA_character_, taxa = NA_character_,
-    uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+memget_datasets <- function(
+        query = NA_character_, filter = NA_character_, taxa = NA_character_,
+        uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_datasets, cache = gemmaCache())
     mem_call(
         query = query, filter = filter, taxa = taxa, uris = uris,
@@ -1303,13 +1320,15 @@ memget_datasets <- function(query = NA_character_, filter = NA_character_, taxa 
 #' @examples
 #' get_datasets_by_ids("GSE2018")
 #' get_datasets_by_ids(c("GSE2018", "GSE2872"))
-get_datasets_by_ids <- function(datasets = NA_character_, filter = NA_character_, taxa = NA_character_,
-    uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+get_datasets_by_ids <- function(
+        datasets = NA_character_, filter = NA_character_, taxa = NA_character_,
+        uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
+    open_api_name <- "get_datasets_by_ids"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1355,13 +1374,14 @@ get_datasets_by_ids <- function(datasets = NA_character_, filter = NA_character_
 #' Memoise get_datasets_by_ids
 #'
 #' @noRd
-memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_character_, taxa = NA_character_,
-    uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+memget_datasets_by_ids <- function(
+        datasets = NA_character_, filter = NA_character_, taxa = NA_character_,
+        uris = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_datasets_by_ids, cache = gemmaCache())
     mem_call(
         datasets = datasets, filter = filter, taxa = taxa,
@@ -1402,6 +1422,7 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_gene_go_terms"
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1485,6 +1506,7 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_gene_locations"
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1576,6 +1598,7 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_gene_probes"
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1668,6 +1691,7 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_genes"
     internal <- FALSE
     keyword <- "gene"
     header <- ""
@@ -1759,6 +1783,7 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_platform_datasets"
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1858,6 +1883,7 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_platform_element_genes"
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -1961,13 +1987,15 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
 #' @examples
 #' get_platforms_by_ids("GPL1355")
 #' get_platforms_by_ids(c("GPL1355", "GPL96"))
-get_platforms_by_ids <- function(platforms = NA_character_, filter = NA_character_,
-    taxa = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+get_platforms_by_ids <- function(
+        platforms = NA_character_, filter = NA_character_,
+        taxa = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
+    open_api_name <- "get_platforms_by_ids"
     internal <- FALSE
     keyword <- "platform"
     header <- ""
@@ -2012,13 +2040,14 @@ get_platforms_by_ids <- function(platforms = NA_character_, filter = NA_characte
 #' Memoise get_platforms_by_ids
 #'
 #' @noRd
-memget_platforms_by_ids <- function(platforms = NA_character_, filter = NA_character_,
-    taxa = NA_character_, offset = 0L, limit = 20L, sort = "+id",
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+memget_platforms_by_ids <- function(
+        platforms = NA_character_, filter = NA_character_,
+        taxa = NA_character_, offset = 0L, limit = 20L, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_platforms_by_ids, cache = gemmaCache())
     mem_call(
         platforms = platforms, filter = filter, taxa = taxa,
@@ -2064,15 +2093,17 @@ memget_platforms_by_ids <- function(platforms = NA_character_, filter = NA_chara
 #'
 #' @examples
 #' search_gemma("bipolar")
-search_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
-    limit = 20, resultType = "experiment", raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+search_gemma <- function(
+        query, taxon = NA_character_, platform = NA_character_,
+        limit = 20, resultType = "experiment", raw = getOption(
+            "gemma.raw",
+            FALSE
+        ), memoised = getOption("gemma.memoised", FALSE),
+        file = getOption("gemma.file", NA_character_), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
+    open_api_name <- "search"
     internal <- FALSE
     keyword <- "misc"
     header <- ""
@@ -2117,15 +2148,16 @@ search_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
 #' Memoise search_gemma
 #'
 #' @noRd
-memsearch_gemma <- function(query, taxon = NA_character_, platform = NA_character_,
-    limit = 20, resultType = "experiment", raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+memsearch_gemma <- function(
+        query, taxon = NA_character_, platform = NA_character_,
+        limit = 20, resultType = "experiment", raw = getOption(
+            "gemma.raw",
+            FALSE
+        ), memoised = getOption("gemma.memoised", FALSE),
+        file = getOption("gemma.file", NA_character_), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
     mem_call <- memoise::memoise(search_gemma, cache = gemmaCache())
     mem_call(
         query = query, taxon = taxon, platform = platform,
@@ -2184,6 +2216,7 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
         "gemma.overwrite",
         FALSE
     )) {
+    open_api_name <- "get_taxa_by_ids"
     internal <- TRUE
     header <- ""
     isFile <- FALSE

@@ -34,10 +34,11 @@ setGemmaPath <- function(path){
 #' @param raw Whether to return JSON (`TRUE`) or data.table (`FALSE`)
 #' @param overwrite Whether or not to overwrite the file if @param file is specified
 #' @param file A filename to save results to
+#' @param open_api_name name of the call in the openapi file.
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE, .call) {
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE,open_api_name, .call) {
 
     # Set header
     if (header == "text/tab-separated-values") {

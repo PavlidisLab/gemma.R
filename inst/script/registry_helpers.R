@@ -112,7 +112,8 @@ registerEndpoint <- function(endpoint,
               raw = raw, 
               overwrite = overwrite, 
               file = file, 
-              attributes = TRUE, 
+              attributes = TRUE,
+              open_api_name = open_api_name,
               .call = match.call())
     })
 
@@ -145,7 +146,7 @@ registerEndpoint <- function(endpoint,
         as.call()
 
     # Add our variables
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal")) {
+    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal","open_api_name")) {
         if (is.character(get(i))) {
             v <- glue::glue('"{get(i)}"')
         } else if (is.list(get(i))) {
