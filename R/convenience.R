@@ -181,40 +181,42 @@ memget_platform_annotations <- function(platform,
 #' 
 #' @export
 make_design <- function(samples,metaType = "text"){
-    categories <- samples$sample.FactorValues %>% 
-        purrr::map('category') %>% unlist %>% unique() %>%
-        {.[is.na(.)] <- 'NA';.}
-    factorValues <- categories %>% lapply(function(x){
+    
+    categories <- samples$sample.FactorValues %>% purrr::map(
+        function(x){
+            x %>% dplyr::select('factor.ID','factor.category','factor.category.URI')
+        }) %>% do.call(rbind,.) %>% unique
+    
+    
+    factorURIs <- categories$factor.ID %>% lapply(function(x){
         samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y$category[is.na(y$category)]<-'NA'
-                
-            y %>% dplyr::filter(category == x) %>% {.$value} %>% sort %>% paste(collapse = ',')
-        })
-    })
-
-    category_uris <- samples$sample.FactorValues %>% 
-        purrr::map('categoryURI') %>% unlist %>% unique() %>% 
-        {.[is.na(.)] <- 'NA';.}
-    factorURIs <- category_uris %>% lapply(function(x){
-        samples$sample.FactorValues %>% purrr::map_chr(function(y){
-            y$categoryURI[is.na(y$categoryURI)]<-'NA'
+            y$factor.ID[is.na(y$factor.ID)]<-'NA'
             
-            y %>% dplyr::filter(categoryURI == x) %>% {.$valueUri} %>% sort %>% paste(collapse = ',')
+            y %>% dplyr::filter(factor.ID == x) %>% {.$value.URI} %>% sort %>% paste(collapse = ',')
         })
     })
     
-
+    text <- categories$factor.ID %>% lapply(function(x){
+        samples$sample.FactorValues %>% purrr::map_chr(function(y){
+            y$factor.ID[is.na(y$factor.ID)]<-'NA'
+            
+            y %>% dplyr::filter(factor.ID == x) %>% 
+                dplyr::mutate(text = ifelse(is.na(summary),value,summary)) %>% 
+                {.$text} %>% unique %>% sort %>% paste(collapse = ',')
+        })
+    })
+    
     if(metaType == 'text'){
-        design_frame <- factorValues %>% as.data.frame()
-        colnames(design_frame) <- categories
+        design_frame <- text %>% as.data.frame()
+        colnames(design_frame) <- categories$factor.category
     } else if (metaType == 'uri'){
         design_frame <- factorURIs %>% as.data.frame()
-        colnames(design_frame) <- category_uris
+        colnames(design_frame) <- categories$factor.category.URI
     } else if (metaType == 'both'){
-        design_frame <- seq_along(factorValues) %>% lapply(function(i){
-            paste(factorValues[[i]],factorURIs[[i]],sep = '|')
+        design_frame <- seq_along(text) %>% lapply(function(i){
+            paste(text[[i]],factorURIs[[i]],sep = '|')
         }) %>% as.data.frame()
-        colnames(design_frame) <- paste(categories,category_uris,sep = '|')
+        colnames(design_frame) <- paste( categories$factor.category,categories$factor.category.URI,sep = '|')
     }
     rownames(design_frame) <- samples$sample.Name
     design_frame <- design_frame %>% dplyr::mutate(factorValues = samples$sample.FactorValues, .before = 1)
