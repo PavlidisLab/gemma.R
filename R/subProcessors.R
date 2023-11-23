@@ -143,7 +143,6 @@ processFactorValueValueObject <- function(d){
 
 
 processFactorValueValueObject_samples <- function(d){
-    browser()
     if(is.null(d)){
         return(data.table(
             category = array(dim=0),
