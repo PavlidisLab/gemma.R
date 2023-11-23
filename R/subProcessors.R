@@ -106,7 +106,8 @@ processFactorValueValueObject <- function(d){
             predicate = array(dim=0),
             predicateUri = array(dim=0),
             object = array(dim=0),
-            objectUri = array(dim=0)
+            objectUri = array(dim=0),
+            summary = array(dim=0)
         ))
     } else if(!is.null(d$isMeasurement) && d$isMeasurement){
         data.table(
@@ -117,7 +118,8 @@ processFactorValueValueObject <- function(d){
             predicate = NA_character_,
             predicateUri = NA_character_,
             object = NA_character_,
-            objectUri = NA_character_
+            objectUri = NA_character_,
+            summary = NA_character_
         )
         
     } else{
@@ -126,9 +128,10 @@ processFactorValueValueObject <- function(d){
         # remove characteristics already covered by statements
         characteristics <- characteristics[!characteristics$valueId %in% statements$subjectId,]
         # edit characteristics fields to match statements
-        statements %>% setnames(old = c("subject",'subjectUri','subjectId'),
+        statements %>% data.table::setnames(old = c("subject",'subjectUri','subjectId'),
                                 new = c("value","valueUri","valueId"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
+        out$summary <- d$summary %>% nullCheck(NA_character_)
         out <- out[,!"valueId"]
         return(out)
     }
