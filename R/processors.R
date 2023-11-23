@@ -166,7 +166,7 @@ processDEA <- function(d) {
                 
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
-                    contrast.id = non_control_ids,
+                    contrast.ID = non_control_ids,
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment),
                                            d[[i]]$bioAssaySetId, 
                                            accessField(d,"sourceExperiment", NA_integer_)),
@@ -236,7 +236,7 @@ processDEA <- function(d) {
 
                     out <- data.table(
                         result.ID = d[[i]]$resultSets[[j]]$id,
-                        contrast.id = unname(apply(relevant_ids,1,paste,collapse = '_')),
+                        contrast.ID = unname(apply(relevant_ids,1,paste,collapse = '_')),
                         experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
                         factor.category = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
                             purrr::map_chr('category') %>% unlist %>% sort %>%
