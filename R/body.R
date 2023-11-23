@@ -124,6 +124,7 @@ setGemmaPath <- function(path){
 
 
         if(attributes){
+            original_env$response <- mData
             attributes(mOut) <- c(attributes(mOut),
                                  env = original_env)
         }
