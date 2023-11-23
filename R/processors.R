@@ -173,6 +173,8 @@ processDEA <- function(d) {
                     factor.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category,
                     factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
                         nullCheck(NA_character_),
+                    factor.ID =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% 
+                        nullCheck(NA_integer_),
                     baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
                         processFactorValueValueObject %>% list() %>% rep(size),
                     experimental.factors = non_control_factors %>% 
@@ -221,13 +223,12 @@ processDEA <- function(d) {
                         purrr::map(function(x){d[[i]]$factorValuesUsed[[as.character(x)]]})
                     names(experimental_factors) <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                         purrr::map_int('id')
-                    
                     exp.factors <- seq_len(nrow(relevant_ids)) %>%
                         purrr::map(function(k){
                             seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
                                 factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                 ids <- factors %>% purrr::map_int('id')
-                                factors[[which(ids == relevant_ids[k,l])]]$characteristics %>% processCharacteristicValueObject()
+                                factors[[which(ids == relevant_ids[k,l])]]%>% processFactorValueValueObject
                             }) %>% {do.call(rbind,.)}
                         })
                     
@@ -242,6 +243,7 @@ processDEA <- function(d) {
                             paste(collapse = ','),
                         factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
                             purrr::map_chr('categoryUri') %>% unlist %>% sort %>% paste(collapse = ','),
+                        factor.ID = d[[i]]$resultSets[[j]]$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=','),
                         baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
                             processFactorValueValueObject %>% list() %>% rep(size),
                         experimental.factors = exp.factors,
