@@ -73,10 +73,10 @@ nullCheck <- function(x,natype= NA){
 processCharacteristicValueObject <- function(d){
     data.table(
         category = d %>% accessField('category',NA_character_),
-        categoryURI = d %>% accessField('categoryUri',NA_character_),
+        category.URI = d %>% accessField('categoryUri',NA_character_),
         value = d %>% accessField('value',NA_character_),
-        valueUri = d %>% accessField('valueUri',NA_character_),
-        valueId = d %>% accessField('valueId',NA_character_)
+        value.URI = d %>% accessField('valueUri',NA_character_),
+        value.ID = d %>% accessField('valueId',NA_character_)
     )
 }
 
@@ -84,41 +84,42 @@ processCharacteristicValueObject <- function(d){
 processStatementValueObject <- function(d){
     data.table(
         category = d %>% accessField('category',NA_character_),
-        categoryURI = d %>% accessField('categoryUri',NA_character_),
+        category.URI = d %>% accessField('categoryUri',NA_character_),
         subject = d %>% accessField('subject', NA_character_),
-        subjectUri = d %>% accessField('subjectUri',NA_character_),
-        subjectId = d %>% accessField('subjectId',NA_character_),
+        subject.URI = d %>% accessField('subjectUri',NA_character_),
+        subject.ID = d %>% accessField('subjectId',NA_character_),
         predicate = d %>% accessField('predicate',NA_character_),
-        predicateUri = d %>% accessField('predicateUri',NA_character_),
+        predicate.URI = d %>% accessField('predicateUri',NA_character_),
         object = d %>% accessField('object',NA_character_),
-        objectUri = d %>% accessField('objectUri',NA_character_)
+        object.URI = d %>% accessField('objectUri',NA_character_)
     )
 }
 
 
 processFactorValueValueObject <- function(d){
+    
     if(is.null(d)){
         return(data.table(
             category = array(dim=0),
-            categoryURI = array(dim=0),
+            category.URI = array(dim=0),
             value = array(dim=0),
-            valueUri = array(dim=0),
+            value.URI = array(dim=0),
             predicate = array(dim=0),
-            predicateUri = array(dim=0),
+            predicate.URI = array(dim=0),
             object = array(dim=0),
-            objectUri = array(dim=0),
+            objectURI = array(dim=0),
             summary = array(dim=0)
         ))
     } else if(!is.null(d$isMeasurement) && d$isMeasurement){
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
-            categoryURI = nullCheck(d$categoryUri,natype = NA_character_),
+            category.URI = nullCheck(d$categoryUri,natype = NA_character_),
             value = nullCheck(d$measurement$value,NA_character_),
-            valueUri = NA_character_,
+            value.URI = NA_character_,
             predicate = NA_character_,
-            predicateUri = NA_character_,
+            predicate.URI = NA_character_,
             object = NA_character_,
-            objectUri = NA_character_,
+            object.URI = NA_character_,
             summary = NA_character_
         )
         
@@ -126,13 +127,13 @@ processFactorValueValueObject <- function(d){
         characteristics <- d$characteristics %>% processCharacteristicValueObject()
         statements <- d$statements %>% processStatementValueObject()
         # remove characteristics already covered by statements
-        characteristics <- characteristics[!characteristics$valueId %in% statements$subjectId,]
+        characteristics <- characteristics[!characteristics$value.ID %in% statements$subject.ID,]
         # edit characteristics fields to match statements
-        statements %>% data.table::setnames(old = c("subject",'subjectUri','subjectId'),
-                                new = c("value","valueUri","valueId"),skip_absent = TRUE)
+        statements %>% data.table::setnames(old = c("subject",'subject.URI','subject.ID'),
+                                new = c("value","value.URI","value.ID"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
         out$summary <- d$summary %>% nullCheck(NA_character_)
-        out <- out[,!"valueId"]
+        out <- out[,!"value.ID"]
         return(out)
     }
 }

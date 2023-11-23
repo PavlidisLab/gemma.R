@@ -171,7 +171,7 @@ processDEA <- function(d) {
                                            d[[i]]$bioAssaySetId, 
                                            accessField(d,"sourceExperiment", NA_integer_)),
                     factor.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category,
-                    factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
+                    factor.category.URI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
                         nullCheck(NA_character_),
                     factor.ID =  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id %>% 
                         nullCheck(NA_integer_),
@@ -241,7 +241,7 @@ processDEA <- function(d) {
                         factor.category = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
                             purrr::map_chr('category') %>% unlist %>% sort %>%
                             paste(collapse = ','),
-                        factor.categoryURI = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
+                        factor.category.URI = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
                             purrr::map_chr('categoryUri') %>% unlist %>% sort %>% paste(collapse = ','),
                         factor.ID = d[[i]]$resultSets[[j]]$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=','),
                         baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
@@ -429,11 +429,11 @@ processSamples <- function(d) {
                                             purrr::map('characteristics'), 
                                         processCharacteristicValueObject) %>% 
             purrr::map(function(x){
-                x[,!"valueId"]
+                x[,!"value.ID"]
             }),
         sample.FactorValues = d %>% purrr::map('sample') %>% 
             purrr::map('factorValueObjects') %>% 
-            purrr::map(function(x){x %>% purrr::map(processFactorValueValueObject)}) %>% 
+            purrr::map(function(x){x %>% purrr::map(processFactorValueValueObject_samples)}) %>% 
             purrr::map(data.table::rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )
