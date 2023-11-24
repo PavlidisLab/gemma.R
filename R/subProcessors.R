@@ -97,6 +97,7 @@ processStatementValueObject <- function(d){
 
 
 processFactorValueValueObject <- function(d){
+
     if(is.null(d)){
         return(data.table(
             category = array(dim=0),
@@ -109,10 +110,9 @@ processFactorValueValueObject <- function(d){
             object.URI = array(dim=0),
             summary = array(dim=0),
             id = array(dim = 0),
-            factor.ID = array(dim = 0),
+            factor.ID = array(dim = 0)
         ))
-    } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| !is.null(d$measurement)){
-
+    } else if(!is.null(d$measurement)){
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
             category.URI = nullCheck(d$categoryUri,natype = NA_character_),
@@ -166,8 +166,7 @@ processFactorValueBasicValueObject <- function(d){
             factor.category = array(dim=0),
             factor.category.URI = array(dim=0)
         ))
-    } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| !is.null(d$measurement)){
-
+    } else if(!is.null(d$measurement)){
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
             category.URI = nullCheck(d$categoryUri,natype = NA_character_),
