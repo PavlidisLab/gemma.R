@@ -154,6 +154,7 @@ processDEA <- function(d) {
         seq_along(result_ids[[i]]) %>% lapply(function(j){
 
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
+
                 contrast.id <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
                 
                 baseline_id <- d[[i]]$resultSets[[j]]$baselineGroup$id
@@ -163,6 +164,16 @@ processDEA <- function(d) {
                 non_control_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[!contrast.id %in% baseline_id]
                 non_control_ids <- contrast.id[!contrast.id %in% baseline_id]
                 size <- length(non_control_ids)
+                
+                exp.factors <- non_control_factors %>% 
+                    purrr::map(processFactorValueValueObject) %>%
+                    purrr::map(function(x){
+                        x$factor.category <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category
+                        x$factor.category.URI <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
+                            nullCheck(NA_character_)
+                        x
+                    })
+                
                 
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
@@ -177,8 +188,7 @@ processDEA <- function(d) {
                         nullCheck(NA_integer_),
                     baseline.factors = d[[i]]$resultSets[[j]]$baselineGroup %>% 
                         processFactorValueValueObject %>% list() %>% rep(size),
-                    experimental.factors = non_control_factors %>% 
-                        purrr::map(processFactorValueValueObject),
+                    experimental.factors = exp.factors,
                     subsetFactor.subset = d[[i]]$isSubset %>% nullCheck(),
                     subsetFactor = d[i] %>% purrr::map('subsetFactorValue') %>% 
                         purrr::map(processFactorValueValueObject) %>% 
@@ -196,13 +206,15 @@ processDEA <- function(d) {
                 # overall hit on performance should not be too much
                 # this was needed because for multi-factor result-sets, the baseline
                 # for each factor is not specified
+                
 
                 ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                     purrr::map('values')  %>%
                     purrr::map(function(x){x %>% accessField('id')}) %>%
                     expand.grid()
 
-                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map('id')
+                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map_int('id')
+                
 
                 dif_exp <- get_differential_expression_values(resultSet = d[[i]]$resultSets[[j]]$id)
                 relevant_ids <- dif_exp[[1]] %>% colnames %>%
@@ -228,7 +240,20 @@ processDEA <- function(d) {
                             seq_along(relevant_ids[k,]) %>% purrr::map(function(l){
                                 factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                 ids <- factors %>% purrr::map_int('id')
-                                factors[[which(ids == relevant_ids[k,l])]]%>% processFactorValueValueObject
+                                out <- factors[[which(ids == relevant_ids[k,l])]]%>% processFactorValueValueObject
+                               
+                                out$factor.category <- 
+                                    d[[i]]$resultSets[[j]]$experimentalFactors[[
+                                        which(factor_ids %in% colnames(relevant_ids)[l])
+                                        ]]$category %>% 
+                                    nullCheck(NA_character_)
+                                
+                                out$factor.category.URI <- d[[i]]$resultSets[[j]]$experimentalFactors[[
+                                    which(factor_ids %in% colnames(relevant_ids)[l])
+                                    ]]$categoryUri %>% 
+                                    nullCheck(NA_character_)
+                                return(out)
+                                    
                             }) %>% {do.call(rbind,.)}
                         })
                     
@@ -433,7 +458,7 @@ processSamples <- function(d) {
             }),
         sample.FactorValues = d %>% purrr::map('sample') %>% 
             purrr::map('factorValueObjects') %>% 
-            purrr::map(function(x){x %>% purrr::map(processFactorValueValueObject_samples)}) %>% 
+            purrr::map(function(x){x %>% purrr::map(processFactorValueBasicValueObject)}) %>% 
             purrr::map(data.table::rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
         )

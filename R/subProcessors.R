@@ -106,10 +106,13 @@ processFactorValueValueObject <- function(d){
             predicate = array(dim=0),
             predicate.URI = array(dim=0),
             object = array(dim=0),
-            objectURI = array(dim=0),
-            summary = array(dim=0)
+            object.URI = array(dim=0),
+            summary = array(dim=0),
+            id = array(dim = 0),
+            factor.ID = array(dim = 0),
         ))
     } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| !is.null(d$measurement)){
+
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
             category.URI = nullCheck(d$categoryUri,natype = NA_character_),
@@ -119,7 +122,9 @@ processFactorValueValueObject <- function(d){
             predicate.URI = NA_character_,
             object = NA_character_,
             object.URI = NA_character_,
-            summary = NA_character_
+            summary = NA_character_,
+            id =  d$id %>% nullCheck(NA_integer_),
+            factor.ID = d$factorId  %>% nullCheck(NA_integer_)
         )
         
     } else{
@@ -132,16 +137,19 @@ processFactorValueValueObject <- function(d){
                                 new = c("value","value.URI","value.ID"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
         out$summary <- d$summary %>% nullCheck(NA_character_)
+        out$id = d$id %>% nullCheck(NA_integer_)
+        
+        out$factor.ID <- d$factorId  %>% nullCheck(NA_integer_)
+        
         out <- out[,!"value.ID"]
-        
-        
+
         return(out)
     }
 }
 
 
 
-processFactorValueValueObject_samples <- function(d){
+processFactorValueBasicValueObject <- function(d){
     if(is.null(d)){
         return(data.table(
             category = array(dim=0),
@@ -152,9 +160,14 @@ processFactorValueValueObject_samples <- function(d){
             predicate.URI = array(dim=0),
             object = array(dim=0),
             object.URI = array(dim=0),
-            summary = array(dim=0)
+            summary = array(dim=0),
+            id = array(dim = 0),
+            factor.ID = array(dim=0),
+            factor.category = array(dim=0),
+            factor.category.URI = array(dim=0)
         ))
     } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| !is.null(d$measurement)){
+
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
             category.URI = nullCheck(d$categoryUri,natype = NA_character_),
@@ -165,9 +178,10 @@ processFactorValueValueObject_samples <- function(d){
             object = NA_character_,
             object.URI = NA_character_,
             summary = NA_character_,
-            factor.ID = d$experimentalFactorId,
-            factor.category = d$experimentalFactorCategory$category,
-            factor.category.URI = d$experimentalFactorCategory$categoryUri
+            id = d$id %>% nullCheck(NA_integer_),
+            factor.ID = d$experimentalFactorId %>% nullCheck(NA_integer_),
+            factor.category = d$experimentalFactorCategory$category %>% nullCheck(NA_character_),
+            factor.category.URI = d$experimentalFactorCategory$categoryUri %>% nullCheck(NA_character_)
         )
         
     } else{
@@ -180,6 +194,7 @@ processFactorValueValueObject_samples <- function(d){
                                             new = c("value","value.URI","value.ID"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
         out$summary <- d$summary %>% nullCheck(NA_character_)
+        out$id = d$id %>% nullCheck(NA_integer_)
         out$factor.ID = d$experimentalFactorId %>% nullCheck(NA_character_)
         out$factor.category = d$experimentalFactorCategory$category
         out$factor.category.URI = d$experimentalFactorCategory$categoryUri
