@@ -97,7 +97,6 @@ processStatementValueObject <- function(d){
 
 
 processFactorValueValueObject <- function(d){
-
     if(is.null(d)){
         return(data.table(
             category = array(dim=0),
@@ -110,7 +109,7 @@ processFactorValueValueObject <- function(d){
             objectURI = array(dim=0),
             summary = array(dim=0)
         ))
-    } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| is.null(d$measurement)){
+    } else if((!is.null(d$isMeasurement) && d$isMeasurement)|| !is.null(d$measurement)){
         data.table(
             category = nullCheck(d$category,natype = NA_character_),
             category.URI = nullCheck(d$categoryUri,natype = NA_character_),
