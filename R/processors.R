@@ -113,7 +113,7 @@ processSearchAnnotations <- function(d) {
 
 
 # good test cases 442, 448, 200, 174
-# 200 also has statements
+# 200 also has statements, 548 double statements
 # for values 326
 # GSE106 has measurements
 #' Processes JSON as a differential expression analysis
@@ -166,14 +166,7 @@ processDEA <- function(d) {
                 size <- length(non_control_ids)
                 
                 exp.factors <- non_control_factors %>% 
-                    purrr::map(processFactorValueValueObject) %>%
-                    purrr::map(function(x){
-                        x$factor.category <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category
-                        x$factor.category.URI <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
-                            nullCheck(NA_character_)
-                        x
-                    })
-                
+                    purrr::map(processFactorValueValueObject)
                 
                 out <- data.table(
                     result.ID = d[[i]]$resultSets[[j]]$id,
@@ -241,17 +234,6 @@ processDEA <- function(d) {
                                 factors <- experimental_factors[[colnames(relevant_ids)[l]]]
                                 ids <- factors %>% purrr::map_int('id')
                                 out <- factors[[which(ids == relevant_ids[k,l])]]%>% processFactorValueValueObject
-                               
-                                out$factor.category <- 
-                                    d[[i]]$resultSets[[j]]$experimentalFactors[[
-                                        which(factor_ids %in% colnames(relevant_ids)[l])
-                                        ]]$category %>% 
-                                    nullCheck(NA_character_)
-                                
-                                out$factor.category.URI <- d[[i]]$resultSets[[j]]$experimentalFactors[[
-                                    which(factor_ids %in% colnames(relevant_ids)[l])
-                                    ]]$categoryUri %>% 
-                                    nullCheck(NA_character_)
                                 return(out)
                                     
                             }) %>% {do.call(rbind,.)}

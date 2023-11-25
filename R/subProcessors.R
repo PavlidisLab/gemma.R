@@ -97,54 +97,7 @@ processStatementValueObject <- function(d){
 
 
 processFactorValueValueObject <- function(d){
-
-    if(is.null(d)){
-        return(data.table(
-            category = array(dim=0),
-            category.URI = array(dim=0),
-            value = array(dim=0),
-            value.URI = array(dim=0),
-            predicate = array(dim=0),
-            predicate.URI = array(dim=0),
-            object = array(dim=0),
-            object.URI = array(dim=0),
-            summary = array(dim=0),
-            id = array(dim = 0),
-            factor.ID = array(dim = 0)
-        ))
-    } else if(!is.null(d$measurement)){
-        data.table(
-            category = nullCheck(d$category,natype = NA_character_),
-            category.URI = nullCheck(d$categoryUri,natype = NA_character_),
-            value = nullCheck(d$measurement$value,NA_character_),
-            value.URI = NA_character_,
-            predicate = NA_character_,
-            predicate.URI = NA_character_,
-            object = NA_character_,
-            object.URI = NA_character_,
-            summary = NA_character_,
-            id =  d$id %>% nullCheck(NA_integer_),
-            factor.ID = d$factorId  %>% nullCheck(NA_integer_)
-        )
-        
-    } else{
-        characteristics <- d$characteristics %>% processCharacteristicValueObject()
-        statements <- d$statements %>% processStatementValueObject()
-        # remove characteristics already covered by statements
-        characteristics <- characteristics[!characteristics$value.ID %in% statements$subject.ID,]
-        # edit characteristics fields to match statements
-        statements %>% data.table::setnames(old = c("subject",'subject.URI','subject.ID'),
-                                new = c("value","value.URI","value.ID"),skip_absent = TRUE)
-        out <- rbind(characteristics,statements,fill= TRUE)
-        out$summary <- d$summary %>% nullCheck(NA_character_)
-        out$id = d$id %>% nullCheck(NA_integer_)
-        
-        out$factor.ID <- d$factorId  %>% nullCheck(NA_integer_)
-        
-        out <- out[,!"value.ID"]
-
-        return(out)
-    }
+    processFactorValueBasicValueObject(d)
 }
 
 
