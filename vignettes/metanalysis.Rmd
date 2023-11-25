@@ -120,14 +120,13 @@ and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's expe
 
 The factor we are interested in is Parkinson's Disease in
 `experimental.factorValue` or
-"<http://purl.obolibrary.org/obo/MONDO_0005180>" in
-`experimental.factorValueURI`.
+"<http://purl.obolibrary.org/obo/MONDO_0005180>" in `experimental.factors`'s `value.URI`.
 
 ```{r}
 parkin_contrasts <- experiment_contrasts %>% 
     filter(factor.category == 'disease') %>% 
     filter(sapply(experimental.factors,function(x){
-        "http://purl.obolibrary.org/obo/MONDO_0005180" %in% x$valueUri
+        "http://purl.obolibrary.org/obo/MONDO_0005180" %in% x$value.URI
         }))
 
 ```
@@ -191,8 +190,8 @@ condition_diffs <- seq_along(differentials) %>% lapply(function(i){
     diff = differentials[[i]]
     # get the contrast information about the differential
     contrast = parkin_contrasts[i,]
-    p_vals = diff[[paste0('contrast_',contrast$contrast.id,"_pvalue")]]
-    log2fc = diff[[paste0('contrast_',contrast$contrast.id,"_log2fc")]]
+    p_vals = diff[[paste0('contrast_',contrast$contrast.ID,"_pvalue")]]
+    log2fc = diff[[paste0('contrast_',contrast$contrast.ID,"_log2fc")]]
     genes = diff$GeneSymbol
     
     data.frame(genes,p_vals,log2fc)
@@ -202,7 +201,7 @@ condition_diffs <- seq_along(differentials) %>% lapply(function(i){
 # we add the experiment.id for readability
 names(condition_diffs) = paste0(parkin_contrasts$experiment.ID,'.',
                                 parkin_contrasts$result.ID,'.',
-                                parkin_contrasts$contrast.id)
+                                parkin_contrasts$contrast.ID)
 
 condition_diffs[[1]] %>% head
 ```
@@ -417,7 +416,7 @@ NCBIid <- differentials[[1]] %>% filter(GeneSymbol == gene) %>% .$NCBIid %>% uni
 
 expression_frame <- get_dataset_object(datasets = parkin_contrasts$experiment.ID,
                                        resultSets = parkin_contrasts$result.ID,
-                                       contrasts = parkin_contrasts$contrast.id,
+                                       contrasts = parkin_contrasts$contrast.ID,
                                        genes = NCBIid,type = 'tidy',consolidate = 'pickvar')
 
 # get the contrast names for significance markers 

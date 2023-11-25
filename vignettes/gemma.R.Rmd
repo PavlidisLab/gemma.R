@@ -300,7 +300,7 @@ about the differentials.
 (contrasts <- get_dataset_differential_expression_analyses('GSE46416'))
 ```
 
-`contrast.id` column corresponds to the column names in the
+`contrast.ID` column corresponds to the column names in the
 output of `get_differential_expression_values` while `result.ID` corresponds to the
 name of the differential in the output object. Using them together will let one to access
 differentially expressed gene counts for each condition contrast
@@ -317,7 +317,7 @@ seq_len(nrow(contrasts)) %>% sapply(function(i){
 }) -> dif_exp_genes
 
 contrasts <- data.table(result.ID = contrasts$result.ID,
-                        contrast.id = contrasts$contrast.id,
+                        contrast.id = contrasts$contrast.ID,
                         baseline.factorValue = contrasts$baseline.factors,
                         experimental.factorValue = contrasts$experimental.factors,
                         n_diff = dif_exp_genes)
