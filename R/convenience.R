@@ -379,7 +379,7 @@ get_dataset_object <- function(datasets,
             }
 
             if(!is.null(contrasts)){
-                contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.id == contrasts[i])
+                contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.ID == contrasts[i])
                 in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
                     x %>% dplyr::filter(category == contrast$factor.category) %>%
                         .$factorValue %in% c(contrast$baseline.factorValue,contrast$experimental.factorValue) %>%
