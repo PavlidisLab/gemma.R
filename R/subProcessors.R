@@ -137,8 +137,7 @@ processFactorValueBasicValueObject <- function(d){
         )
         
     } else{
-        browser()
-        
+
         characteristics <- d$characteristics %>% processCharacteristicValueObject()
         statements <- d$statements %>% processStatementValueObject()
         # remove characteristics already covered by statements
