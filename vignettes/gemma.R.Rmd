@@ -310,7 +310,7 @@ differentially expressed gene counts for each condition contrast
 # results. Note that one study may have multiple contrast objects
 seq_len(nrow(contrasts)) %>% sapply(function(i){
     result_set = dif_exp[[as.character(contrasts[i,]$result.ID)]]
-    p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.id}_pvalue")]]
+    p_values = result_set[[glue::glue("contrast_{contrasts[i,]$contrast.ID}_pvalue")]]
     
     # multiple testing correction
     sum(p.adjust(p_values,method = 'BH') < 0.05)
