@@ -137,6 +137,8 @@ processFactorValueBasicValueObject <- function(d){
         )
         
     } else{
+        browser()
+        
         characteristics <- d$characteristics %>% processCharacteristicValueObject()
         statements <- d$statements %>% processStatementValueObject()
         # remove characteristics already covered by statements
@@ -146,10 +148,10 @@ processFactorValueBasicValueObject <- function(d){
                                             new = c("value","value.URI","value.ID"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
         out$summary <- d$summary %>% nullCheck(NA_character_)
-        out$id = d$id %>% nullCheck(NA_integer_)
-        out$factor.ID = d$experimentalFactorId %>% nullCheck(NA_character_)
-        out$factor.category = d$experimentalFactorCategory$category
-        out$factor.category.URI = d$experimentalFactorCategory$categoryUri
+        out$id <- d$id %>% nullCheck(NA_integer_)
+        out$factor.ID <- d$experimentalFactorId %>% nullCheck(NA_character_)
+        out$factor.category <- d$experimentalFactorCategory$category %>% nullCheck(NA_character_)
+        out$factor.category.URI <- d$experimentalFactorCategory$categoryUri %>% nullCheck(NA_character_)
         out <- out[,!"value.ID"]
         
         
