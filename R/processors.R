@@ -63,16 +63,16 @@ processGemmaArray <- function(d) {
 #' @keywords internal
 processDatasets <- function(d) {
     data.table(
-        experiment.ShortName = accessField(d,'shortName',NA_character_),
-        experiment.Name = accessField(d, "name",NA_character_),
+        experiment.shortName = accessField(d,'shortName',NA_character_),
+        experiment.name = accessField(d, "name",NA_character_),
         experiment.ID = accessField(d, "id",NA_integer_),
-        experiment.Description = accessField(d, "description",NA_character_),
-        experiment.Troubled = accessField(d, "troubled",NA),
-        experiment.Accession = accessField(d, "accession",NA_character_),
-        experiment.Database = accessField(d, "externalDatabase",NA_character_),
+        experiment.description = accessField(d, "description",NA_character_),
+        experiment.troubled = accessField(d, "troubled",NA),
+        experiment.accession = accessField(d, "accession",NA_character_),
+        experiment.database = accessField(d, "externalDatabase",NA_character_),
         experiment.URI = accessField(d, "externalUri",NA_character_),
-        experiment.SampleCount = accessField(d, "bioAssayCount",NA_integer_),
-        experiment.LastUpdated = processDate(accessField(d, "lastUpdated",NA_real_)),
+        experiment.sampleCount = accessField(d, "bioAssayCount",NA_integer_),
+        experiment.lastUpdated = processDate(accessField(d, "lastUpdated",NA_real_)),
         experiment.batchEffect = accessField(d, "batchEffect",NA_character_),
         geeq.batchCorrected = d %>% purrr::map('geeq') %>% accessField('batchCorrected',NA),
         geeq.batchConfound = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchConfound",NA_integer_),
@@ -104,9 +104,9 @@ processDatasets <- function(d) {
 #' @keywords internal
 processSearchAnnotations <- function(d) {
     data.table(
-        category.Name = accessField(d,'category',NA_character_),
+        category.name = accessField(d,'category',NA_character_),
         category.URI = accessField(d,"categoryUri",NA_character_),
-        value.Name = accessField(d,"value",NA_character_),
+        value.name = accessField(d,"value",NA_character_),
         value.URI = accessField(d,"valueUri",NA_character_)
     )
 }
@@ -187,8 +187,8 @@ processDEA <- function(d) {
                         purrr::map(processFactorValueValueObject) %>% 
                         do.call(rbind,.) %>% list() %>%
                         rep(size),
-                    probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
-                    genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
+                    probes.analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                    genes.analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                 )
 
             }else{
@@ -259,8 +259,8 @@ processDEA <- function(d) {
                             purrr::map(processFactorValueValueObject) %>% 
                             do.call(rbind,.) %>% list() %>%
                             rep(size),
-                        probes.Analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
-                        genes.Analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
+                        probes.analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
+                        genes.analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
                     )
 
                 } else {
@@ -356,9 +356,9 @@ processDatasetResultSets <- function(d) {
 processAnnotations <- function(d) {
 
     data.table(
-        class.Name = accessField(d,"className",NA_character_),
+        class.name = accessField(d,"className",NA_character_),
         class.URI = accessField(d,"classUri",NA_character_),
-        term.Name = accessField(d,"termName",NA_character_),
+        term.name = accessField(d,"termName",NA_character_),
         term.URI = accessField(d,"termUri",NA_character_)
     )
 }
@@ -422,23 +422,23 @@ processFile <- function(content) {
 processSamples <- function(d) {
         data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
-        sample.Name = accessField(d,'name',NA_character_),
+        sample.name = accessField(d,'name',NA_character_),
         sample.ID = d %>% purrr::map('sample') %>% accessField('id',NA_integer_),
         # sample.Correspondence = checkBounds(d[["sample"]][["description"]]),
-        sample.Description = accessField(d,"description",NA_character_),
-        sample.Outlier = accessField(d, "outlier",NA),
-        sample.Accession = d %>% purrr::map('accession') %>% 
+        sample.description = accessField(d,"description",NA_character_),
+        sample.outlier = accessField(d, "outlier",NA),
+        sample.accession = d %>% purrr::map('accession') %>% 
             accessField('accession',NA_character_),
-        sample.Database = d %>% purrr::map('accession') %>% 
+        sample.database = d %>% purrr::map('accession') %>% 
             purrr::map('externalDatabase') %>% accessField('name',NA_character_),
         # sample.Processed = processDate(d[["processingDate"]]),# not sure what this format is, the function fails
-        sample.Characteristics = lapply(d %>% purrr::map('sample') %>% 
+        sample.characteristics = lapply(d %>% purrr::map('sample') %>% 
                                             purrr::map('characteristics'), 
                                         processCharacteristicValueObject) %>% 
             purrr::map(function(x){
                 x[,!"value.ID"]
             }),
-        sample.FactorValues = d %>% purrr::map('sample') %>% 
+        sample.factorValues = d %>% purrr::map('sample') %>% 
             purrr::map('factorValueObjects') %>% 
             purrr::map(function(x){x %>% purrr::map(processFactorValueBasicValueObject)}) %>% 
             purrr::map(data.table::rbindlist)# ,
@@ -475,17 +475,17 @@ processSamples <- function(d) {
 processPlatforms <- function(d) {
     data.table(
         platform.ID = accessField(d,"id",NA_integer_),
-        platform.ShortName = accessField(d, "shortName",NA_character_),
-        platform.Name = accessField(d, "name",NA_character_),
-        platform.Description = accessField(d, "description",NA_character_),
-        platform.Troubled = accessField(d, "troubled",NA),
-        platform.ExperimentCount = accessField(d, "expressionExperimentCount",NA_integer_),
+        platform.shortName = accessField(d, "shortName",NA_character_),
+        platform.name = accessField(d, "name",NA_character_),
+        platform.description = accessField(d, "description",NA_character_),
+        platform.troubled = accessField(d, "troubled",NA),
+        platform.experimentCount = accessField(d, "expressionExperimentCount",NA_integer_),
         # platform.GeneCount = accessField(d, "numGenes"),
         # platform.ProbeSequenceCount = accessField(d, "numProbeSequences"),
         # platform.ProbeAlignmentCount = accessField(d, "numProbeAlignments"),
         # platform.ProbeGeneCount = accessField(d, "numProbesToGenes"),
         # platform.ElementCount = accessField(d, "designElementCount"),
-        platform.Type = accessField(d, "technologyType",NA_character_),
+        platform.type = accessField(d, "technologyType",NA_character_),
         d %>% purrr::map('taxon') %>% processTaxon()#,
         # technology.Color = d[["color"]]
     )
@@ -517,8 +517,8 @@ processPlatforms <- function(d) {
 #' @keywords internal
 processElements <- function(d) {
     data.table(
-        mapping.Name = accessField(d,'name',NA_character_),
-        mapping.Description =accessField(d,'description',NA_character_),
+        mapping.name = accessField(d,'name',NA_character_),
+        mapping.description =accessField(d,'description',NA_character_),
         processGemmaArray(d %>% purrr::map('arrayDesign'))
     )
 }
@@ -549,14 +549,14 @@ processElements <- function(d) {
 #' @keywords internal
 processGenes <- function(d) {
     data.table(
-        gene.Symbol = accessField(d,'officialSymbol',NA_character_),
-        gene.Ensembl = accessField(d,'ensemblId',NA_character_),
+        gene.symbol = accessField(d,'officialSymbol',NA_character_),
+        gene.ensembl = accessField(d,'ensemblId',NA_character_),
         gene.NCBI = accessField(d,"ncbiId",NA_integer_),
-        gene.Name = accessField(d, "officialName",NA_character_),
+        gene.name = accessField(d, "officialName",NA_character_),
         # gene.Aliases = d[["aliases"]],
         # gene.GO = d[["numGoTerms"]],
         # gene.Homologues = d[["homologues"]],
-        gene.MFX.Rank = accessField(d, "multifunctionalityRank",NA_real_),
+        gene.MFX.rank = accessField(d, "multifunctionalityRank",NA_real_),
         processTaxon(d %>% purrr::map('taxon'))
         # phenotypes = d[["phenotypes"]]
     )
@@ -580,12 +580,12 @@ processGenes <- function(d) {
 #' @keywords internal
 processTaxon <- function(d) {
     data.table(
-        taxon.Name = accessField(d,'commonName',NA_character_),
-        taxon.Scientific = accessField(d, "scientificName",NA_character_),
+        taxon.name = accessField(d,'commonName',NA_character_),
+        taxon.scientific = accessField(d, "scientificName",NA_character_),
         taxon.ID = accessField(d,'id',NA_integer_),
         taxon.NCBI = accessField(d,"ncbiId",NA_integer_),
-        taxon.Database.Name = d %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
-        taxon.Database.ID = d %>% purrr::map('externalDatabase') %>% accessField('id',NA_integer_)
+        taxon.database.name = d %>% purrr::map('externalDatabase') %>% accessField('name',NA_character_),
+        taxon.database.ID = d %>% purrr::map('externalDatabase') %>% accessField('id',NA_integer_)
     )
 }
 
@@ -643,7 +643,7 @@ processGeneLocation <- function(d) {
 processGO <- function(d) {
 
     data.table(
-        term.Name = accessField(d,'term',NA_character_),
+        term.name = accessField(d,'term',NA_character_),
         term.ID = accessField(d, "goId", NA_character_),
         term.URI = accessField(d, "uri", NA_character_)
     )
