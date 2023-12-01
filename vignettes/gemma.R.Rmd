@@ -86,18 +86,18 @@ Using the [`get_datasets`](https://pavlidislab.github.io/gemma.R/reference/get_d
 ```{r}
 # accessing all mouse and human datasets
 get_datasets(taxa = c('mouse','human')) %>% 
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+    select(experiment.shortName, experiment.name,taxon.name) %>% head
 
 # accessing human datasets with the word "bipolar"
 get_datasets(query = 'bipolar',taxa = 'human') %>% 
-     select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+     select(experiment.shortName, experiment.name,taxon.name) %>% head
 
 # access human datasets that were annotated with the ontology term for the
 # bipolar disorder
 
 get_datasets(taxa ='human', 
              uris = 'http://purl.obolibrary.org/obo/MONDO_0004985') %>%
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+    select(experiment.shortName, experiment.name,taxon.name) %>% head
 ```
 
 Note that a single call of these functions will only return 20 results by default
@@ -107,7 +107,7 @@ all available results, use `get_all_pages` function on the output of the functio
 ```{r}
 get_datasets(taxa = 'human') %>% 
     get_all_pages() %>% 
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% 
+    select(experiment.shortName, experiment.name,taxon.name) %>% 
     head()
 ```
 
@@ -144,7 +144,7 @@ these and other fields can be found at the function documentation.
 ```{r}
 get_datasets(taxa = 'human', filter = 'bioAssayCount > 4') %>% 
      filter(geeq.batchEffect !=-1) %>% 
-    select(experiment.ShortName, experiment.Name,taxon.Name) %>% head
+    select(experiment.shortName, experiment.name,taxon.name) %>% head
 ```
 
 
@@ -169,7 +169,7 @@ The data associated with specific experiments can be accessed by using [`get_dat
 
 ```{r dataset}
 get_datasets_by_ids("GSE46416") %>%
-    select(experiment.ShortName, experiment.Name, experiment.ID, experiment.Description)
+    select(experiment.shortName, experiment.name, experiment.ID, experiment.Description)
 ```
 
 To access the expression data in a convenient form, you can use
@@ -411,7 +411,7 @@ After which you can use `offset` to access all available platforms.
 ```{r}
 lapply(seq(0,platform_count,100), function(offset){
     get_platforms_by_ids(limit = 100, offset = offset) %>%
-        select(platform.ID, platform.ShortName, taxon.Name)
+        select(platform.ID, platform.shortName, taxon.name)
 }) %>% do.call(rbind,.)
 ```
 
@@ -428,7 +428,7 @@ to query and send separate requests.
 lapply(c("GSE35974", "GSE12649"), function(dataset) {
     get_dataset_annotations(dataset) %>% 
         mutate(experiment.shortName = dataset) %>%
-        select(experiment.shortName, class.Name, term.Name)
+        select(experiment.shortName, class.name, term.name)
 }) %>% do.call(rbind,.)
 ```
 
