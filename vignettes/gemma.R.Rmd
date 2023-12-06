@@ -169,7 +169,7 @@ The data associated with specific experiments can be accessed by using [`get_dat
 
 ```{r dataset}
 get_datasets_by_ids("GSE46416") %>%
-    select(experiment.shortName, experiment.name, experiment.ID, experiment.Description)
+    select(experiment.shortName, experiment.name, experiment.ID, experiment.description)
 ```
 
 To access the expression data in a convenient form, you can use
