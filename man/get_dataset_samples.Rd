@@ -39,12 +39,12 @@ The fields of the output data.table are:
 \itemize{
 \item \code{sample.Name}: Internal name given to the sample.
 \item \code{sample.ID}: Internal ID of the sample
-\item \code{sample.Description}: Free text description of the sample
-\item \code{sample.Outlier}: Whether or not the sample is marked as an outlier
-\item \code{sample.Accession}: Accession ID of the sample in it's original database
-\item \code{sample.Database}: Database of origin for the sample
-\item \code{sample.Characteristics}: Characteristics of the sample. This field is a data table
-\item \code{sample.FactorValues}: Experimental factor values of the sample. This field is a data table
+\item \code{sample.description}: Free text description of the sample
+\item \code{sample.outlier}: Whether or not the sample is marked as an outlier
+\item \code{sample.accession}: Accession ID of the sample in it's original database
+\item \code{sample.database}: Database of origin for the sample
+\item \code{sample.characteristics}: Characteristics of the sample. This field is a data table
+\item \code{sample.factorValues}: Experimental factor values of the sample. This field is a data table
 }
 }
 \description{

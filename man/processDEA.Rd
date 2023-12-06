@@ -30,8 +30,8 @@ they uniquely represent a given contrast.
 \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 \item \code{subsetFactor.category}: Category of the subset
 \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
-\item \code{probes.Analyzed}: Number of probesets represented in the contrast
-\item \code{genes.Analyzed}: Number of genes represented in the contrast
+\item \code{probes.analyzed}: Number of probesets represented in the contrast
+\item \code{genes.analyzed}: Number of genes represented in the contrast
 }
 }
 \description{
