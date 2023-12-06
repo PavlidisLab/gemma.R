@@ -15,6 +15,8 @@ setGemmaPath <- function(path){
         path <- "https://dev.gemma.msl.ubc.ca/rest/v2/"
     }else if(path == 'prod'){
         path <- "https://gemma.msl.ubc.ca/rest/v2/"
+    } else if(path == 'staging'){
+        path <- "https://staging-gemma.msl.ubc.ca/rest/v2/"
     }
     options(gemma.API = path)
     gemmaPath()
