@@ -14,6 +14,7 @@ vignette: >
 editor_options: 
   markdown: 
     wrap: 72
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -121,13 +122,18 @@ and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's expe
 The factor we are interested in is Parkinson's Disease in
 `experimental.factorValue` or
 "<http://purl.obolibrary.org/obo/MONDO_0005180>" in `experimental.factors`'s `value.URI`.
+We also need to make sure that the baseline that the sample is compared against is 
+a control experiment, samples annotated with "reference subject role" or "<http://purl.obolibrary.org/obo/OBI_0000220>"
 
 ```{r}
 parkin_contrasts <- experiment_contrasts %>% 
     filter(factor.category == 'disease') %>% 
     filter(sapply(experimental.factors,function(x){
         "http://purl.obolibrary.org/obo/MONDO_0005180" %in% x$value.URI
-        }))
+        }) &
+           sapply(baseline.factors,function(x){
+               "http://purl.obolibrary.org/obo/OBI_0000220" %in% x$value.URI
+               }))
 
 ```
 
