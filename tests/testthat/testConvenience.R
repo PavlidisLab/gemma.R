@@ -49,6 +49,34 @@ test_that("get_dataset_object with multiple datasets and genes",{
     expect_true(tidy$NCBIid %>% unique %in% genes %>% all)
 })
 
+
+test_that('get_dataset_object with resultSets',{
+    dea <- get_dataset_differential_expression_analyses(442)
+    
+    obj <- get_dataset_object(rep(442,times=nrow(dea)),
+                              resultSets = dea$result.ID,
+                              contrasts = dea$contrast.ID,type = 'list')
+    
+    expect_true(length(obj)==nrow(dea))
+    
+    for(i in seq_along(obj)){
+        ids <- obj[[i]]$design$factorValues %>% purrr::map('id') 
+        subset_id <- dea$subsetFactor[[i]]$id
+        
+        experimental_ids <- dea$experimental.factors[[i]]$id
+        control_ids <- dea$baseline.factors[[i]]$id
+        
+        expect_true(ids %>% purrr::map_lgl(function(x){
+            subset_id %in% x
+        }) %>% all)
+        
+        expect_true(ids %>% purrr::map_lgl(function(x){
+            any(x %in% c(control_ids,experimental_ids))
+        }) %>% all)
+        
+    }
+})
+
 test_that("getDatasetDE works properly",{
     dat <- get_differential_expression_values(2)
     expect_equal(length(dat), 3)
