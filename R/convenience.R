@@ -218,9 +218,8 @@ make_design <- function(samples,metaType = "text"){
         }) %>% as.data.frame()
         colnames(design_frame) <- paste( categories$factor.category,categories$factor.category.URI,sep = '|')
     }
-    rownames(design_frame) <- samples$sample.Name
     design_frame <- design_frame %>% dplyr::mutate(factorValues = samples$sample.factorValues, .before = 1)
-    
+    rownames(design_frame) <- samples$sample.name
     return(design_frame)
 }
 
