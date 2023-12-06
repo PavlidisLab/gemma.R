@@ -36,15 +36,15 @@ processGemmaArray <- function(d) {
 #' The fields of the output data.table are:
 #'
 #' \itemize{
-#'     \item \code{experiment.ShortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
-#'     \item \code{experiment.Name}: Full title of the dataset
+#'     \item \code{experiment.shortName}: Shortname given to the dataset within Gemma. Often corresponds to accession ID
+#'     \item \code{experiment.name}: Full title of the dataset
 #'     \item \code{experiment.ID}: Internal ID of the dataset.
-#'     \item \code{experiment.Description}: Description of the dataset
-#'     \item \code{experiment.Troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
-#'     \item \code{experiment.Accession}: Accession ID of the dataset in the external database it was taken from
-#'     \item \code{experiment.Database}: The name of the database where the dataset was taken from
+#'     \item \code{experiment.description}: Description of the dataset
+#'     \item \code{experiment.troubled}: Did an automatic process within gemma or a curator mark the dataset as "troubled"
+#'     \item \code{experiment.accession}: Accession ID of the dataset in the external database it was taken from
+#'     \item \code{experiment.database}: The name of the database where the dataset was taken from
 #'     \item \code{experiment.URI}: URI of the original database
-#'     \item \code{experiment.SampleCount}: Number of samples in the dataset
+#'     \item \code{experiment.sampleCount}: Number of samples in the dataset
 #'     \item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
 #'     \item \code{geeq.batchCorrected}: Whether batch correction has been performed on the dataset.
 #'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
@@ -115,6 +115,7 @@ processSearchAnnotations <- function(d) {
 # good test cases 442, 448, 200, 174
 # 200 also has statements, 548 double statements
 # for values 326
+# GSE26366 has a gene fusion
 # GSE106 has measurements
 #' Processes JSON as a differential expression analysis
 #'
@@ -140,8 +141,8 @@ processSearchAnnotations <- function(d) {
 #'     \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 #'     \item \code{subsetFactor.category}: Category of the subset
 #'     \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
-#'     \item \code{probes.Analyzed}: Number of probesets represented in the contrast
-#'     \item \code{genes.Analyzed}: Number of genes represented in the contrast
+#'     \item \code{probes.analyzed}: Number of probesets represented in the contrast
+#'     \item \code{genes.analyzed}: Number of genes represented in the contrast
 #' }
 #'
 #' @keywords internal
@@ -410,12 +411,12 @@ processFile <- function(content) {
 #' \itemize{
 #'     \item \code{sample.Name}: Internal name given to the sample.
 #'     \item \code{sample.ID}: Internal ID of the sample
-#'     \item \code{sample.Description}: Free text description of the sample
-#'     \item \code{sample.Outlier}: Whether or not the sample is marked as an outlier
-#'     \item \code{sample.Accession}: Accession ID of the sample in it's original database
-#'     \item \code{sample.Database}: Database of origin for the sample
-#'     \item \code{sample.Characteristics}: Characteristics of the sample. This field is a data table
-#'     \item \code{sample.FactorValues}: Experimental factor values of the sample. This field is a data table
+#'     \item \code{sample.description}: Free text description of the sample
+#'     \item \code{sample.outlier}: Whether or not the sample is marked as an outlier
+#'     \item \code{sample.accession}: Accession ID of the sample in it's original database
+#'     \item \code{sample.database}: Database of origin for the sample
+#'     \item \code{sample.characteristics}: Characteristics of the sample. This field is a data table
+#'     \item \code{sample.factorValues}: Experimental factor values of the sample. This field is a data table
 #' }
 #'
 #' @keywords internal
@@ -463,12 +464,12 @@ processSamples <- function(d) {
 #'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
 #'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
 #'  \item \code{platform.Type}: Technology type for the platform.
-#'  \item \code{taxon.Name}: Name of the species platform was made for
-#'  \item \code{taxon.Scientific}: Scientific name for the taxon
+#'  \item \code{taxon.name}: Name of the species platform was made for
+#'  \item \code{taxon.scientific}: Scientific name for the taxon
 #'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'  \item \code{taxon.NCBI}: NCBI ID of the taxon
-#'  \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
-#'  \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+#'  \item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+#'  \item \code{taxon.database.ID}: ID of the underyling database used in Gemma for the taxon
 #'  }
 #'
 #' @keywords internal
@@ -569,12 +570,12 @@ processGenes <- function(d) {
 #' @return A processed data.table
 #'
 #' \itemize{
-#'     \item \code{taxon.Name}: Name of the species
-#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.name}: Name of the species
+#'     \item \code{taxon.scientific}: Scientific name for the taxon
 #'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'     \item \code{taxon.NCBI}: NCBI ID of the taxon
-#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
-#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+#'     \item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal

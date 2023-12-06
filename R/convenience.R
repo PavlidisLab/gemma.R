@@ -182,6 +182,8 @@ memget_platform_annotations <- function(platform,
 #' @export
 make_design <- function(samples,metaType = "text"){
     
+    metaType <- match.arg(metaType, c('text','uri','both'))
+    
     categories <- samples$sample.factorValues %>% purrr::map(
         function(x){
             x %>% dplyr::select('factor.ID','factor.category','factor.category.URI')
@@ -263,17 +265,19 @@ get_dataset_object <- function(datasets,
                                metaType = 'text',
                                type = "se",
                                memoised = getOption("gemma.memoised", FALSE)) {
-    if (type != "eset" && type != "se" && type != 'tidy') {
-        stop("Please enter a valid type: 'se' for SummarizedExperiment or 'eset' for ExpressionSet and 'tidy' for a long form tibble.")
+    if (type != "eset" && type != "se" && type != 'tidy' && type != 'list') {
+        stop("Please enter a valid type: 'se' for SummarizedExperiment, 'eset' for ExpressionSet, 'tidy' for a long form tibble, 'list' for an R list")
     }
+    
+    unique_sets = unique(datasets)
 
-    metadata <- unique(datasets) %>% lapply(function(dataset){
+    metadata <- unique_sets %>% lapply(function(dataset){
         get_dataset_samples(dataset,memoised = memoised)
     })
-    names(metadata) <- unique(datasets)
+    names(metadata) <- unique_sets
 
     if(is.null(genes)){
-        expression <- unique(datasets) %>% lapply(function(dataset){
+        expression <- unique_sets %>% lapply(function(dataset){
             exp <- get_dataset_processed_expression(dataset,memoised = memoised)
             meta <- metadata[[as.character(dataset)]]
 
@@ -282,12 +286,12 @@ get_dataset_object <- function(datasets,
                 exp <- exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
             }
             if(!is.na(consolidate) && consolidate == "pickmax"){
-                mean_exp <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
+                mean_exp <- exp[,.SD,.SDcols = meta$sample.name] %>% apply(1,function(x){
                     mean(stats::na.omit(x))
                 })
                 exp <- exp[order(mean_exp,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
             } else if(!is.na(consolidate) && consolidate == 'pickvar'){
-                exp_var <- exp[,.SD,.SDcols = meta$sample.Name] %>% apply(1,function(x){
+                exp_var <- exp[,.SD,.SDcols = meta$sample.name] %>% apply(1,function(x){
                     stats::var(stats::na.omit(x))
                 })
                 exp <- exp[order(exp_var,decreasing = TRUE),] %>% {.[!duplicated(.$GeneSymbol),]}
@@ -295,7 +299,7 @@ get_dataset_object <- function(datasets,
                 dups <- exp$GeneSymbol %>% {.[duplicated(.)]} %>% unique
                 dup_means <- dups %>% lapply(function(x){
                     dup_subset <- exp[exp$GeneSymbol %in% x,]
-                    dup_mean <- dup_subset[,.SD,.SDcols = meta$sample.Name] %>% apply(2,mean)
+                    dup_mean <- dup_subset[,.SD,.SDcols = meta$sample.name] %>% apply(2,mean)
                     probe <- paste0('Averaged from ',paste0(dup_subset$Probe, collapse = ' '))
                     dup_out <- data.frame(Probe = probe,
                                           dup_subset[1,.SD,.SDcols = - c('Probe',meta$sample.Name)],
@@ -327,9 +331,13 @@ get_dataset_object <- function(datasets,
             }
             return(exp)
         })
-        names(expression) <- datasets
+        names(expression) <-  unique_sets
     } else{
-        expression <- get_dataset_expression_for_genes(unique(datasets),genes = genes, keepNonSpecific = keepNonSpecific,consolidate = consolidate,memoised = memoised)
+        expression <- get_dataset_expression_for_genes(unique_sets,
+                                                       genes = genes, 
+                                                       keepNonSpecific = keepNonSpecific,
+                                                       consolidate = consolidate,
+                                                       memoised = memoised)
     }
 
     # bit of a bottleneck
@@ -365,13 +373,10 @@ get_dataset_object <- function(datasets,
             
             
             if(nrow(subset[[1]])!=0){
-                subset[[1]] <- subset[[1]] %>% dplyr::mutate(merge = paste(category, value))
+                subset_ids <- subset %>% purrr::map('id') %>% unlist
                 
-                in_subset <- packed_info$design$factorValues %>% 
-                    purrr::map_lgl(function(x){
-                        x %>% dplyr::mutate(merge = paste(category,value)) %>% 
-                            dplyr::filter(merge %in% subset[[1]]$merge) %>% 
-                            {nrow(.) == nrow(subset[[1]])}
+                in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
+                    any(x$id %in% subset_ids)
                 })
             } else{
                 in_subset <- TRUE
@@ -379,10 +384,12 @@ get_dataset_object <- function(datasets,
 
             if(!is.null(contrasts)){
                 contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.ID == contrasts[i])
+                
+                baseline_id <- contrast$baseline.factors %>% purrr::map('id') %>% unlist
+                contrast_id <- contrast$experimental.factors %>% purrr::map('id') %>% unlist
+                
                 in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
-                    x %>% dplyr::filter(category == contrast$factor.category) %>%
-                        .$factorValue %in% c(contrast$baseline.factorValue,contrast$experimental.factorValue) %>%
-                        all
+                    any(x$id %in% c(baseline_id,contrast_id))
                 })
             } else{
                 in_contrast <- TRUE
@@ -423,13 +430,13 @@ get_dataset_object <- function(datasets,
 
 
             expData <- list(
-                title = data$dat$experiment.Name,
-                abstract = data$dat$experiment.Description,
+                title = data$dat$experiment.name,
+                abstract = data$dat$experiment.description,
                 url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
-                database = data$dat$experiment.Database,
-                accesion = data$dat$experiment.Accession,
-                GemmaQualityScore = data$dat$geeq.qScore,
-                GemmaSuitabilityScore = data$dat$geeq.sScore,
+                database = data$dat$experiment.database,
+                accesion = data$dat$experiment.accession,
+                gemmaQualityScore = data$dat$geeq.qScore,
+                gemmaSuitabilityScore = data$dat$geeq.sScore,
                 taxon = data$dat$taxon.Name
             )
 
@@ -463,8 +470,8 @@ get_dataset_object <- function(datasets,
                 abstract = data$dat$experiment.Description,
                 url =   paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
                 other = list(
-                    database = data$dat$experiment.Database,
-                    accesion = data$dat$experiment.Accession,
+                    database = data$dat$experiment.database,
+                    accesion = data$dat$experiment.accession,
                     GemmaQualityScore = data$dat$geeq.qScore,
                     GemmaSuitabilityScore = data$dat$geeq.sScore,
                     taxon = data$dat$taxon.Name
@@ -482,7 +489,7 @@ get_dataset_object <- function(datasets,
                 assayData = exprM,
                 phenoData = phenoData,
                 experimentData = expData,
-                annotation = get_dataset_platforms(data$dat$experiment.ID,memoised = memoised)$platform.ShortName
+                annotation = get_dataset_platforms(data$dat$experiment.ID,memoised = memoised)$platform.shortName
             )
         })
         names(out) <- datasets
@@ -509,7 +516,7 @@ get_dataset_object <- function(datasets,
                 dplyr::inner_join(design, by = "Sample") %>%
                 dplyr::rename(sample = "Sample", probe = "Probe") %>%
                 dplyr::mutate(experiment.ID = data$dat$experiment.ID,
-                              experiment.ShortName = data$dat$experiment.ShortName,
+                              experiment.shortName = data$dat$experiment.shortName,
                               .before = 1)
 
             if(!is.null(data$result_set)){
@@ -522,6 +529,8 @@ get_dataset_object <- function(datasets,
 
         }) %>% do.call(dplyr::bind_rows,.)
 
+    } else if(type=='list'){
+        return(packed_data)
     }
 
     return(out)

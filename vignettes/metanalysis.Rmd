@@ -72,7 +72,7 @@ results <- get_datasets(filter = "allCharacteristics.valueUri = http://purl.obol
 
 
 
-results %>% select(experiment.ShortName,experiment.Name) %>% head
+results %>% select(experiment.shortName,experiment.name) %>% head
 ```
 
 
@@ -107,7 +107,7 @@ records the control group of the differential expression analysis and
 records the test case
 
 ```{r}
-experiment_contrasts <- results$experiment.ShortName %>% 
+experiment_contrasts <- results$experiment.shortName %>% 
     lapply(function(x){
         out = get_dataset_differential_expression_analyses(x)
         }) %>% do.call(rbind,.)
@@ -441,7 +441,7 @@ labeller <- function(x){
     x %>% mutate(contrasts = contrasts %>% 
                      strsplit('.',fixed = TRUE) %>%
                      purrr::map_chr(1) %>%
-                     {expression_frame$experiment.ShortName[match(.,expression_frame$experiment.ID)]})
+                     {expression_frame$experiment.shortName[match(.,expression_frame$experiment.ID)]})
 }
 
 # pass it all to ggplot
