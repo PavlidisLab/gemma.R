@@ -1,0 +1,164 @@
+---
+title: "A guide to metadata for samples and differential expression analyses"
+author:
+- name: B. Ogan Mancarci
+  affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
+package: packageName
+output:
+  BiocStyle::html_document
+vignette: |
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, message = FALSE}
+library(gemma.R)
+library(dplyr)
+```
+
+
+
+```{r}
+# temporary
+gemma.R:::setGemmaPath('dev')
+```
+
+
+
+# Introduction 
+
+The data in Gemma are manually annotated by curators with terms, often using an ontology term on both dataset and sample level. In Gemma.R three primary functions allow access to these annotations for a given dataset. 
+
+- `get_dataset_annotations`: This function returns annotations associated with a dataset. These try to serve as tags describing the dataset as a whole and they characteristics that samples within the datasets have while also including some additional terms.
+
+- `get_dataset_samples`: This function returns samples and associated annotations related to their experimental groups for an experiment
+
+- `get_dataset_differential_expression_analyses`: This function returns information about differential expression analyses automatically performed by Gemma for a given experiment. Each row of the output is a contrast where a specific property or an interaction of properties are described.
+
+
+## Dataset tags
+
+Terms returned via `get_dataset_annotations` are tags used to describe a dataset in general terms.
+
+```{r}
+get_dataset_annotations(548)
+```
+
+These tags come as a class/term pairs and inherit any terms that is assigned to any of the samples.
+
+
+## Factor values
+
+Samples and differential expression contrasts in Gemma are annotated with factor
+values. These values contain statements that describe these samples and which
+samples belong to which experimental in a differential expression analysis
+respectively.
+
+### Sample factor values
+
+In gemma.R these values are stored in nested `data.table`s and can be
+found by accessing the relevant columns of the outputs. Annotations for samples
+can be accessed using `get_dataset_samples`. `sample.factorValues` column contains
+the relevant information
+
+```{r}
+samples <- get_dataset_samples(548)
+samples$sample.factorValues[[4]]
+```
+
+The example above shows a single factor value object for one sample. The rows of this
+`data.table` are statements that belong to a factor value. Below each column of this
+nested table is described. If a given field is filled by an ontology term, the corresponding
+URI column will contain the ontology URI for the field.
+
+- `category`/`category.URI`: Category of the individual statement, such as treatment,
+phenotype or strain
+- `value`/`value.URI`: The subject of the statement.
+- `predicate`/`predicate.URI`: When a subject alone is not enough to describe all
+details, a statement can contain a predicate and an object. The predicate describes
+the relationship between the subject of the statement and the object.
+- `object`/`object.URI`: The object of a statement is a property further describing
+it's value such as the dosage of a drug or a timepoint.
+- `summary`: A plain text summary of the factorValue. Different statements will
+have the same summary if they are part of the same factor value
+- `ID`: An integer identifier for the specific factor value. A factor is a discrete
+property which may be composed of multiple statements. In the example above dosage
+and duration of delivery for morphine both describe what the treatment on the sample
+is, therefore make up a single factor. This ID can be used to match factorValues attached
+to samples an differential expression experiments.
+- `factor.ID`: An integer identifier for the factor. A factor holds specific factor
+values. This ID can be used to match the factor between samples and between samples
+and differential expression experiments
+- `factor.category`/`factor.category.URI`: The category of the whole factor. Usually
+this is the same with the `category` of the statements making up the factor value but
+describes the factor as a whole instead of the individual statements.
+
+gemma.R includes a convenience function to create a simplified design matrix out of
+these factor values for a given experiment. This will unpack the nested data.frames and
+provide a more human readable output.
+
+```{r}
+design <- make_design(samples)
+design[,-1] # first column is just a copy of the original factor values
+```
+
+### Differential expression analysis factor values
+
+For most experiments it contains, Gemma performs automated differential expression
+analyses. The kinds of analyses that will be performed is informed by the factor values
+belonging to the samples.
+
+```{r}
+dea <- get_dataset_differential_expression_analyses(548)
+dea
+```
+
+Each row of this data.table represents a differential expression contrast. Connected
+to a fold change and a p value in the output of `get_differential_expression_values`
+function. If we look at the `contrast.ID` we will see the factor value identifiers returned
+in the `ID` column of our `sample.factorValues`. These represent which factor value
+is used as the experimental factor. Note that some rows will have two IDs appended
+together. These rows are contrasts where interaction effects are measured. For simplicity,
+we will start from a contrast without an interaction effect.
+
+```{r}
+contrast <- dea[8,]
+```
+
+We can understand conditions are compared in this contrast by looking at its `baseline.factors`
+and `experimental.factors`. 
+
+```{r}
+contrast$baseline.factors
+
+contrast$experimental.factors
+```
+
+In this example, we can see we are comparing the control group to the morphine
+delivery of a specific dose and duration.
+
+While not applicable to this example, a third place that can contain factorValues is
+the `subsetFactor`. Certain differential expression analyses disclude certain samples
+based on a given factor. If this was the case for this experiment, this column would
+have been populated with the factor value needed to be included in this contrast.
+
+
+The ids of the factor values included in `baseline.factors` and `experimental.factors` along
+with `subsetFactor` can be used to determine which samples represent a given contrast. 
+For convenience, `get_dataset_object` function which is used to compile metadata
+and expression data of an experiment in a single object, includes `resultSets` and `contrasts`
+argument which will return the data already composed of samples representing a particular contrast.
+
+```{r}
+obj <-  get_dataset_object(548,resultSets = 523098,contrasts = 16455,type = 'list')
+design <- obj$`548.523098.16455`$design %>% arrange(treatment)
+design[,-1]
+```
+
+
+# Session info {.unnumbered}
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
