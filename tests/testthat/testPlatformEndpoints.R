@@ -4,7 +4,7 @@ test_that("getPlatformsInfo queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(platform.ID, platform.ShortName, platform.Name, platform.Description, platform.ExperimentCount)] %>% paste0(collapse = ""),
+        dat[, c(platform.ID, platform.shortName, platform.name, platform.description, platform.experimentCount)] %>% paste0(collapse = ""),
         c(raw[[1]]$"id", raw[[1]]$"shortName", raw[[1]]$"name", raw[[1]]$"description", raw[[1]]$"expressionExperimentCount") %>% paste0(collapse = "")
     )
     expect_equal(get_platforms_by_ids(c(1, 2)) %>% nrow(), 2)
@@ -19,7 +19,7 @@ test_that("getPlatformDatasets queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(experiment.ShortName, experiment.Name, experiment.SampleCount)],
+        dat[, c(experiment.shortName, experiment.name, experiment.sampleCount)],
         c(raw %>% purrr::map_chr('shortName'),
           raw %>% purrr::map_chr('name'),
           raw %>% purrr::map('bioAssayCount') %>% purrr::map_chr(as.character)
@@ -62,7 +62,7 @@ test_that("getPlatformElementsGenes queries work", {
     expect_type(raw, "list")
 
     expect_equal(
-        dat[, c(gene.Symbol, gene.Ensembl, taxon.ID)],
+        dat[, c(gene.symbol, gene.ensembl, taxon.ID)],
         c(raw$officialSymbol, raw$ensemblId, raw$taxon$id)
     )
 })

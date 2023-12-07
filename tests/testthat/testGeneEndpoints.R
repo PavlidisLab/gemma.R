@@ -4,7 +4,7 @@ test_that("getGenesInfo queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(gene.Symbol, gene.Ensembl, gene.Name, taxon.Name)],
+        dat[, c(gene.symbol, gene.ensembl, gene.name, taxon.name)],
         c(raw$officialSymbol, raw$ensemblId, raw$officialName, raw$taxon$commonName)
     )
 })
@@ -26,7 +26,7 @@ test_that("getGeneProbes queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(mapping.Name, mapping.Description)],
+        dat[, c(mapping.name, mapping.description)],
         c(raw$name, raw$description)
     )
     expect_equal(get_gene_probes(1859, limit = 10) %>% nrow(), 10)
@@ -35,7 +35,7 @@ test_that("getGeneProbes queries work", {
 test_that('searchAnnotations work',{
     annots = search_annotations("traumatic")
     expect_s3_class(annots,'data.table')
-    expect_true(all(names(annots) %in% c("category.Name", "category.URI", "value.Name", "value.URI")))
+    expect_true(all(names(annots) %in% c("category.name", "category.URI", "value.name", "value.URI")))
 })
 
 #test_that("getGeneGO queries work", {

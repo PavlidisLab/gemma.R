@@ -10,12 +10,12 @@
 #' @keywords internal
 processGemmaArray <- function(d) {
     data.table(
-        platform.ShortName = accessField(d,"shortName",NA_character_),
-        platform.Name = accessField(d,"name",NA_character_),
+        platform.shortName = accessField(d,"elementName",NA_character_),
+        platform.name = accessField(d,"name",NA_character_),
         platform.ID = accessField(d,'id',NA_integer_),
-        platform.Type = accessField(d, "technologyType", NA_character_),
-        platform.Description = accessField(d, "description", NA_character_),
-        platform.Troubled = accessField(d,"troubled",NA),
+        platform.type = accessField(d, "technologyType", NA_character_),
+        platform.description = accessField(d, "description", NA_character_),
+        platform.troubled = accessField(d,"troubled",NA),
         d %>% purrr::map('taxon') %>% processTaxon()
     )
 }
@@ -344,10 +344,9 @@ processDatasetResultSets <- function(d) {
 #' The fields of the output data.table are:
 #'
 #' \itemize{
-#'     \item \code{class.Type}: Type of the annotation class
-#'     \item \code{class.Name}: Name of the annotation class (e.g. organism part)
+#'     \item \code{class.name}: Name of the annotation class (e.g. organism part)
 #'     \item \code{class.URI}: URI for the annotation class
-#'     \item \code{term.Name}: Name of the annotation term (e.g. lung)
+#'     \item \code{term.name}: Name of the annotation term (e.g. lung)
 #'     \item \code{term.URI}: URI for the annotation term
 #' }
 #'
@@ -508,11 +507,11 @@ processPlatforms <- function(d) {
 #'      \item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
 #'      \item \code{platform.Name}: Full name of the platform
 #'      \item \code{platform.ID}: Id number of the platform given by Gemma
-#'      \item \code{platform.Taxon}: Species the platform was designed for
-#'      \item \code{platform.TaxonID}: Id number of the species given by Gemma
-#'      \item \code{platform.Type}: Type of the platform.
-#'      \item \code{platform.Description}: Free text field describing the platform.
-#'      \item \code{platform.Troubled}: Whether the platform is marked as troubled by a Gemma curator.
+#'      \item \code{platform.taxon}: Species the platform was designed for
+#'      \item \code{platform.taxonID}: Id number of the species given by Gemma
+#'      \item \code{platform.type}: Type of the platform.
+#'      \item \code{platform.description}: Free text field describing the platform.
+#'      \item \code{platform.troubled}: Whether the platform is marked as troubled by a Gemma curator.
 #'  }
 #'
 #' @keywords internal

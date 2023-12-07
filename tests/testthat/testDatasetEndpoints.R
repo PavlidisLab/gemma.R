@@ -4,7 +4,7 @@ test_that("getDatasetsInfo queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(experiment.ShortName, experiment.ID)] %>% paste0(collapse = ""),
+        dat[, c(experiment.shortName, experiment.ID)] %>% paste0(collapse = ""),
         raw[, c("shortName", "id")] %>% paste0(collapse = "")
     )
     expect_equal(get_datasets_by_ids(c("GSE2018", "GSE2872")) %>% nrow(), 2)
@@ -26,7 +26,7 @@ test_that("datasetPlatforms queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(platform.ID, platform.ShortName, platform.Description)],
+        dat[, c(platform.ID, platform.shortName, platform.description)],
         c(raw$id, raw$shortName, raw$description)
     )
 })
@@ -37,7 +37,7 @@ test_that("datasetSamples queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(sample.Name, sample.ID, sample.Description)],
+        dat[, c(sample.name, sample.ID, sample.description)],
         c(raw$name, raw$id, raw$description)
     )
 })
@@ -61,7 +61,7 @@ test_that("datasetAnnotations queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c( class.Name, class.URI, term.Name, term.URI)],
+        dat[, c( class.name, class.URI, term.name, term.URI)],
         c( raw$className, raw$classUri, raw$termName, raw$termUri)
     )
 })
