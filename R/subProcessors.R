@@ -114,7 +114,7 @@ processFactorValueBasicValueObject <- function(d){
             object = array(dim=0),
             object.URI = array(dim=0),
             summary = array(dim=0),
-            id = array(dim = 0),
+            ID = array(dim = 0),
             factor.ID = array(dim=0),
             factor.category = array(dim=0),
             factor.category.URI = array(dim=0)
@@ -130,7 +130,7 @@ processFactorValueBasicValueObject <- function(d){
             object = NA_character_,
             object.URI = NA_character_,
             summary = NA_character_,
-            id = d$id %>% nullCheck(NA_integer_),
+            ID = d$id %>% nullCheck(NA_integer_),
             factor.ID = d$experimentalFactorId %>% nullCheck(NA_integer_),
             factor.category = d$experimentalFactorCategory$category %>% nullCheck(NA_character_),
             factor.category.URI = d$experimentalFactorCategory$categoryUri %>% nullCheck(NA_character_)
@@ -147,7 +147,7 @@ processFactorValueBasicValueObject <- function(d){
                                             new = c("value","value.URI","value.ID"),skip_absent = TRUE)
         out <- rbind(characteristics,statements,fill= TRUE)
         out$summary <- d$summary %>% nullCheck(NA_character_)
-        out$id <- d$id %>% nullCheck(NA_integer_)
+        out$ID <- d$id %>% nullCheck(NA_integer_)
         out$factor.ID <- d$experimentalFactorId %>% nullCheck(NA_character_)
         out$factor.category <- d$experimentalFactorCategory$category %>% nullCheck(NA_character_)
         out$factor.category.URI <- d$experimentalFactorCategory$categoryUri %>% nullCheck(NA_character_)
