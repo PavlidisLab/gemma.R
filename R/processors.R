@@ -152,7 +152,8 @@ processDEA <- function(d) {
     result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
 
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
-        seq_along(result_ids[[i]]) %>% lapply(function(j){
+        
+        results <- seq_along(result_ids[[i]]) %>% lapply(function(j){
 
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
 
@@ -271,6 +272,30 @@ processDEA <- function(d) {
                 }
             }
         }) %>% do.call(rbind,.)
+        
+        # process baseline factors for interaction effects
+        contrast_factors <- results$factor.ID %>% strsplit(',')
+        interactions <- contrast_factors %>%
+            purrr::map_int(length) %>% 
+            {.>1} %>%
+            which
+        
+        for(j in interactions){
+            factors <- contrast_factors[[j]]
+            
+            baselines <- factors %>% lapply(function(x){
+                baseline <- results %>% filter(factor.ID==x) %$% 
+                    baseline.factors %>% unique
+                # baseline is accessed per result set. all should be the same
+                # this should hold unless something upstream changes
+                assertthat::assert_that(length(baseline)==1) 
+                return(baseline[[1]])
+            }) %>% do.call(rbind,.)
+            
+            results$baseline.factors[[j]] = baselines
+        }
+        
+        return(results)
     }) %>% do.call(rbind,.)
 }
 
