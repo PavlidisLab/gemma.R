@@ -384,12 +384,11 @@ get_dataset_object <- function(datasets,
 
             if(!is.null(contrasts)){
                 contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.ID == contrasts[i])
-                
                 baseline_id <- contrast$baseline.factors %>% purrr::map('ID') %>% unlist
                 contrast_id <- contrast$experimental.factors %>% purrr::map('ID') %>% unlist
                 
                 in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
-                    any(x$ID %in% c(baseline_id,contrast_id))
+                    all(contrast_id %in% x$ID) | all(baseline_id %in% x$ID)
                 })
             } else{
                 in_contrast <- TRUE
