@@ -100,7 +100,7 @@ provide a more human readable output.
 
 ```{r}
 design <- make_design(samples)
-design[,-1] # first column is just a copy of the original factor values
+design[,-1] %>% head # first column is just a copy of the original factor values
 ```
 
 ### Differential expression analysis factor values
