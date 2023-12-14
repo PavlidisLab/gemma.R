@@ -274,7 +274,7 @@ processDEA <- function(d) {
         }) %>% do.call(rbind,.)
         
         # process baseline factors for interaction effects
-        contrast_factors <- results$factor.ID %>% strsplit(',')
+        contrast_factors <- results$factor.ID %>% as.character %>% strsplit(',')
         interactions <- contrast_factors %>%
             purrr::map_int(length) %>% 
             {.>1} %>%
