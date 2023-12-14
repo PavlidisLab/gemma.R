@@ -60,7 +60,8 @@ Suggests:
     pheatmap,
     viridis,
     poolr,
-    digest
+    digest,
+    kableExtra
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
