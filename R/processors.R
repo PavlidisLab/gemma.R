@@ -152,8 +152,8 @@ processDEA <- function(d) {
     result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
 
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
-        
         results <- seq_along(result_ids[[i]]) %>% lapply(function(j){
+            
 
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
 
@@ -175,7 +175,7 @@ processDEA <- function(d) {
                     contrast.ID = non_control_ids,
                     experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment),
                                            d[[i]]$bioAssaySetId, 
-                                           accessField(d,"sourceExperiment", NA_integer_)),
+                                           d[[i]]$sourceExperiment),
                     factor.category = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category,
                     factor.category.URI = d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri %>%
                         nullCheck(NA_character_),
@@ -246,7 +246,7 @@ processDEA <- function(d) {
                     out <- data.table(
                         result.ID = d[[i]]$resultSets[[j]]$id,
                         contrast.ID = unname(apply(relevant_ids,1,paste,collapse = '_')),
-                        experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, accessField(d,"sourceExperiment", NA_integer_)),
+                        experiment.ID = ifelse(is.null(d[[i]]$sourceExperiment), d[[i]]$bioAssaySetId, d[[i]]$sourceExperiment),
                         factor.category = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
                             purrr::map_chr('category') %>% unlist %>% sort %>%
                             paste(collapse = ','),
