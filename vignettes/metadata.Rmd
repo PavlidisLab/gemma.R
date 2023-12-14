@@ -3,7 +3,7 @@ title: "A guide to metadata for samples and differential expression analyses"
 author:
 - name: B. Ogan Mancarci
   affiliation: Michael Smith Laboratories, University of British Columbia, Vancouver, Canada
-package: packageName
+package: gemma.R
 output:
   BiocStyle::html_document
 vignette: |
@@ -15,15 +15,21 @@ vignette: |
 ```{r setup, message = FALSE}
 library(gemma.R)
 library(dplyr)
+library(knitr)
+library(kableExtra)
+library(pheatmap)
+
+library(pander)
 ```
 
-
+```{r, include = FALSE}
+options('gemma.memoised' = TRUE)
+```
 
 ```{r}
 # temporary
 gemma.R:::setGemmaPath('dev')
 ```
-
 
 
 # Introduction 
@@ -36,26 +42,30 @@ The data in Gemma are manually annotated by curators with terms, often using an 
 
 - `get_dataset_differential_expression_analyses`: This function returns information about differential expression analyses automatically performed by Gemma for a given experiment. Each row of the output is a contrast where a specific property or an interaction of properties are described.
 
+In the examples below we will be referring to [GSE18728](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=2914) experiment, where
+drug resistant cancer patients and 
 
-## Dataset tags
+# Dataset tags
 
 Terms returned via `get_dataset_annotations` are tags used to describe a dataset in general terms.
 
 ```{r}
-get_dataset_annotations(548)
+get_dataset_annotations('GSE18728') %>%
+    kable() %>% kable_styling()
 ```
 
 These tags come as a class/term pairs and inherit any terms that is assigned to any of the samples.
+Therefore we can see all chemicals and cell types used in the experiment.
 
 
-## Factor values
+# Factor values
 
 Samples and differential expression contrasts in Gemma are annotated with factor
 values. These values contain statements that describe these samples and which
 samples belong to which experimental in a differential expression analysis
 respectively.
 
-### Sample factor values
+## Sample factor values
 
 In gemma.R these values are stored in nested `data.table`s and can be
 found by accessing the relevant columns of the outputs. Annotations for samples
@@ -63,8 +73,9 @@ can be accessed using `get_dataset_samples`. `sample.factorValues` column contai
 the relevant information
 
 ```{r}
-samples <- get_dataset_samples(548)
-samples$sample.factorValues[[4]]
+samples <- get_dataset_samples('GSE18728')
+samples$sample.factorValues[[1]] %>% 
+    kable() %>% kable_styling()
 ```
 
 The example above shows a single factor value object for one sample. The rows of this
@@ -77,71 +88,147 @@ phenotype or strain
 - `value`/`value.URI`: The subject of the statement.
 - `predicate`/`predicate.URI`: When a subject alone is not enough to describe all
 details, a statement can contain a predicate and an object. The predicate describes
-the relationship between the subject of the statement and the object.
+the relationship between the subject of the statement and the object. In the example
+above, these are used to represent resistance to cancer drugs.
 - `object`/`object.URI`: The object of a statement is a property further describing
 it's value such as the dosage of a drug or a timepoint.
 - `summary`: A plain text summary of the factorValue. Different statements will
 have the same summary if they are part of the same factor value
-- `ID`: An integer identifier for the specific factor value. A factor is a discrete
-property which may be composed of multiple statements. In the example above dosage
-and duration of delivery for morphine both describe what the treatment on the sample
-is, therefore make up a single factor. This ID can be used to match factorValues attached
-to samples an differential expression experiments.
+- `ID`: An integer identifier for the specific factor value. In the example above,
+phenotype of the patient is defined as a single factor value made up of two statements
+stating that the patient is resistant to both capecitabine and docetaxel trihydrate. This
+factor value has the ID of `r samples$sample.factorValues[[1]] %>% filter(value == 'capecitabine') %>% {.$ID}`
+which is shared by both rows containing the statements describing it. 
+This ID will repeat for every other patient that has the same drug resistance
+or differential expression results using that factor as a part of their contrast. For
+instance we can see which samples that was subjected to this condition using this ID
+instead of trying to match the other columns describing the statements
+```{r}
+id <- samples$sample.factorValues[[1]] %>% 
+    filter(value == 'capecitabine') %>% {.$ID}
+
+# count how many patients has this phenotype
+samples$sample.factorValues %>% sapply(\(x){
+    id %in% x$ID
+}) %>% sum
+
+```
 - `factor.ID`: An integer identifier for the factor. A factor holds specific factor
-values. This ID can be used to match the factor between samples and between samples
+values. For the example above whether or not a patient has drug resistance is
+stored under the id `r samples$sample.factorValues[[1]] %>% filter(value == 'capecitabine') %>% {.$factor.ID}`
+
+We can use this to fetch all distinct phenotypes
+```{r}
+id <- samples$sample.factorValues[[1]] %>% 
+    filter(value == 'capecitabine') %>% {.$factor.ID} 
+
+samples$sample.factorValues %>% lapply(\(x){
+    x %>% filter(factor.ID == id) %>% {.$summary}
+}) %>% unlist %>% unique
+```
+This shows us the dataset has control patients and patients who are resistant to
+capecitabine and trihydrate.
+. This ID can be used to match the factor between samples and between samples
 and differential expression experiments
 - `factor.category`/`factor.category.URI`: The category of the whole factor. Usually
-this is the same with the `category` of the statements making up the factor value but
-describes the factor as a whole instead of the individual statements.
+this is the same with the `category` of the statements making up the factor value.
+However in cases like the example above, where the value describes a treatment while
+the factor overall represents a phenotype, they can differ.
 
 gemma.R includes a convenience function to create a simplified design matrix out of
 these factor values for a given experiment. This will unpack the nested data.frames and
-provide a more human readable output.
+provide a more human readable output, giving each available factor it's own column.
 
 ```{r}
 design <- make_design(samples)
-design[,-1] %>% head # first column is just a copy of the original factor values
+design[,-1] %>% head %>%  # first column is just a copy of the original factor values
+    kable() %>% kable_styling()
 ```
 
-### Differential expression analysis factor values
+Using this output, here we look at the sample sizes for different experimental groups.
+```{r}
+design %>%
+    group_by(treatment,phenotype,`collection of material`) %>% 
+    summarize(n= n()) %>% 
+    arrange(desc(n)) %>% 
+    kable() %>% kable_styling()
+
+```
+
+## Differential expression analysis factor values
 
 For most experiments it contains, Gemma performs automated differential expression
 analyses. The kinds of analyses that will be performed is informed by the factor values
 belonging to the samples.
 
 ```{r}
-dea <- get_dataset_differential_expression_analyses(548)
-dea
+# removing columns containing factor values and URIs for brevity
+remove_columns <- c('baseline.factors','experimental.factors','subsetFactor','factor.category.URI')
+
+dea <- get_dataset_differential_expression_analyses("GSE18728")
+
+dea[,.SD,.SDcols = !remove_columns] %>% 
+     kable() %>% kable_styling()
 ```
 
-Each row of this data.table represents a differential expression contrast. Connected
-to a fold change and a p value in the output of `get_differential_expression_values`
-function. If we look at the `contrast.ID` we will see the factor value identifiers returned
-in the `ID` column of our `sample.factorValues`. These represent which factor value
-is used as the experimental factor. Note that some rows will have two IDs appended
-together. These rows are contrasts where interaction effects are measured. For simplicity,
-we will start from a contrast without an interaction effect.
+The example above shows the differential expression analyses results. Each row of this data.table 
+represents a differential expression contrast connected to a fold change and a p value in the output of 
+`get_differential_expression_values` function.
+If we look at the `contrast.ID` 
+we will see the factor value identifiers returned in the `ID` column of our 
+`sample.factorValues`. These represent which factor value is used as the 
+experimental factor. Note that some rows will have two IDs appended together. These
+represent the interaction effects of multiple factors. For simplicty, we will start
+from a contrast without an interaction.
 
 ```{r}
-contrast <- dea[8,]
+contrast <- dea[1,]
 ```
-
-We can understand conditions are compared in this contrast by looking at its `baseline.factors`
-and `experimental.factors`. 
 
 ```{r}
-contrast$baseline.factors
+# removing URIs for brevity
+uri_columns = c('category.URI',
+                'object.URI',
+                'value.URI',
+                'predicate.URI',
+                'factor.category.URI')
 
-contrast$experimental.factors
+contrast$baseline.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
+    kable() %>% kable_styling()
+
+contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
+    kable() %>% kable_styling()
 ```
 
-In this example, we can see we are comparing the control group to the morphine
-delivery of a specific dose and duration.
+Here, we can see the baseline is the non-resistant controls, being compared to drug resistant patients.
 
-While not applicable to this example, a third place that can contain factorValues is
+If we examine a factor with interaction, both baseline and experimental factor value columns will contain
+two factor values.
+
+
+```{r}
+contrast <- dea[2,]
+```
+
+```{r}
+contrast$baseline.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
+    kable() %>% kable_styling()
+
+contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
+    kable() %>% kable_styling()
+```
+
+A third place that can contain factorValues is
 the `subsetFactor`. Certain differential expression analyses disclude certain samples
-based on a given factor. If this was the case for this experiment, this column would
-have been populated with the factor value needed to be included in this contrast.
+based on a given factor. In this example we can see the curators added a specific
+factor to remove some samples from differential expression analyses
+
+```{r}
+contrast$subsetFactor[[1]][,.SD,.SDcols = !uri_columns] %>%
+     kable() %>% kable_styling()
+```
+
+Looking at the design table we made above, you can see that these were samples where treatment was not specified.
 
 
 The ids of the factor values included in `baseline.factors` and `experimental.factors` along
@@ -151,11 +238,54 @@ and expression data of an experiment in a single object, includes `resultSets` a
 argument which will return the data already composed of samples representing a particular contrast.
 
 ```{r}
-obj <-  get_dataset_object(548,resultSets = 523098,contrasts = 16455,type = 'list')
-design <- obj$`548.523098.16455`$design %>% arrange(treatment)
-design[,-1]
+obj <-  get_dataset_object("GSE18728",resultSets = contrast$result.ID,contrasts = contrast$contrast.ID,type = 'list')
+obj$`2914.506926.76119_134951`$design[,-1] %>% head %>% 
+    kable() %>% kable_styling()
 ```
 
+
+We suggested that the `contrast.ID` of a contrast also corresponded to a column 
+in the differential expression results, acquired by `get_differential_expression_values`.
+We can use what we have learned to take a look at the expression of genes at the top of the
+phenotype, treatment interaction. Each result.ID returns its separate table when accessing diferential expression values.
+
+```{r}
+dif_vals <- get_differential_expression_values('GSE18728')
+dif_vals[[as.character(contrast$result.ID)]] %>% head %>%  
+    kable() %>% kable_styling()
+```
+To get the top genes found associated with this interaction we access the columns with
+the correct `contrast.ID`.
+
+```{r}
+# getting the top 10 genes
+top_genes <- dif_vals[[as.character(contrast$result.ID)]] %>% 
+    arrange(across(paste0('contrast_',contrast$contrast.ID,'_pvalue'))) %>% 
+    filter(GeneSymbol!='' | grepl("|",GeneSymbol,fixed = TRUE)) %>% # remove blank genes or probes with multiple genes
+    {.[1:10,]}
+top_genes %>% select(Probe,NCBIid,GeneSymbol) %>% 
+      kable() %>% kable_styling()
+```
+
+Since the output of `get_dataset_object` is already 
+
+
+```{r}
+exp_subset<- obj[[1]]$exp %>% 
+    filter(Probe %in% top_genes$Probe)
+genes <- top_genes$GeneSymbol
+
+# ordering design file
+design <- obj[[1]]$design %>% arrange(treatment,phenotype)
+
+# shorten the resistance label a bit
+design$phenotype[design$phenotype == "capecitabine has phenotype resistant to, docetaxel trihydrate has phenotype resistant to"] = "drug resistant"
+
+exp_subset[,.SD,.SDcols = rownames(design)] %>% t  %>% scale %>% t %>%
+    pheatmap(cluster_rows = FALSE,cluster_cols = FALSE,labels_row = genes,
+             annotation_col =design %>% select(phenotype,treatment))
+
+```
 
 # Session info {.unnumbered}
 
