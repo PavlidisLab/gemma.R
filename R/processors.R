@@ -279,12 +279,11 @@ processDEA <- function(d) {
             purrr::map_int(length) %>% 
             {.>1} %>%
             which
-        
         for(j in interactions){
             factors <- contrast_factors[[j]]
             
             baselines <- factors %>% lapply(function(x){
-                baseline <- results %>% filter(factor.ID==x) %$% 
+                baseline <- results[results$factor.ID == x,] %$% 
                     baseline.factors %>% unique
                 # baseline is accessed per result set. all should be the same
                 # this should hold unless something upstream changes

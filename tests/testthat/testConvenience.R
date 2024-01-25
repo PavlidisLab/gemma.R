@@ -20,13 +20,13 @@ test_that("getDataset works properly", {
     
     expect_equal(nrow(expr), eset[[1]] %>% nrow() %>% unname())
     expect_equal(Biobase::featureNames(eset[[1]]), expr$Probe)
-    expect_equal(eset[[1]] %>% colnames(), design$sample.Name)
+    expect_equal(eset[[1]] %>% colnames(), design$sample.name)
     
     expect_equal(nrow(expr), nrow(sumexp[[1]]))
     expect_equal(rownames(sumexp[[1]]), expr$Probe)
     expect_equal(
         colnames(sumexp[[1]]),
-        design$sample.Name
+        design$sample.name
     )
 })
 
@@ -61,11 +61,11 @@ test_that('get_dataset_object with resultSets',{
     expect_true(length(obj)==nrow(dea))
     
     for(i in seq_along(obj)){
-        ids <- obj[[i]]$design$factorValues %>% purrr::map('id') 
-        subset_id <- dea$subsetFactor[[i]]$id
+        ids <- obj[[i]]$design$factorValues %>% purrr::map('ID') 
+        subset_id <- dea$subsetFactor[[i]]$ID
         
-        experimental_ids <- dea$experimental.factors[[i]]$id
-        control_ids <- dea$baseline.factors[[i]]$id
+        experimental_ids <- dea$experimental.factors[[i]]$ID
+        control_ids <- dea$baseline.factors[[i]]$ID
         
         expect_true(ids %>% purrr::map_lgl(function(x){
             subset_id %in% x
