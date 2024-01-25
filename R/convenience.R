@@ -471,10 +471,9 @@ get_dataset_object <- function(datasets,
             # reordering happens above
             # exprM <- exprM[, match(rownames(design), colnames(exprM))]
 
-
             expData <- Biobase::MIAME(
-                title = data$dat$experiment.Name,
-                abstract = data$dat$experiment.Description,
+                title = data$dat$experiment.name,
+                abstract = data$dat$experiment.description,
                 url =   paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
                 other = list(
                     database = data$dat$experiment.database,
