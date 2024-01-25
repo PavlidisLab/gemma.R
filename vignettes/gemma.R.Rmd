@@ -247,7 +247,7 @@ head(get_platform_annotations('GPL96'))
 ```
 
 ```{r}
-head(get_platform_annotations('Generic_human'))
+head(get_platform_annotations('Generic_human_ncbiIds'))
 ```
 
 If you are interested in a particular gene, you can see which platforms
@@ -340,23 +340,23 @@ we can simply use `readableContrasts`.
 
 # Classify probes for plotting
 de$diffexpr <- "No"
-de$diffexpr[de$`contrast_bipolar disorder, manic phase_logFoldChange` > 1.0 & 
-        de$`contrast_bipolar disorder, manic phase_pvalue` < 0.05] <- "Up"
-de$diffexpr[de$`contrast_bipolar disorder, manic phase_logFoldChange` < -1.0 & 
-        de$`contrast_bipolar disorder, manic phase_pvalue` < 0.05] <- "Down"
+de$diffexpr[de$`contrast_bipolar disorder has_modifier manic phase_logFoldChange` > 1.0 & 
+        de$`contrast_bipolar disorder has_modifier manic phase_pvalue` < 0.05] <- "Up"
+de$diffexpr[de$`contrast_bipolar disorder has_modifier manic phase_logFoldChange` < -1.0 & 
+        de$`contrast_bipolar disorder has_modifier manic phase_pvalue` < 0.05] <- "Down"
 
 # Upregulated probes
 filter(de, diffexpr == "Up") %>%
-    arrange(`contrast_bipolar disorder, manic phase_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_bipolar disorder, manic phase_pvalue`, 
-        `contrast_bipolar disorder, manic phase_logFoldChange`) %>%
+    arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
+        `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
     head(10)
 
 # Downregulated probes
 filter(de, diffexpr == "Down") %>%
-    arrange(`contrast_bipolar disorder, manic phase_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_bipolar disorder, manic phase_pvalue`, 
-        `contrast_bipolar disorder, manic phase_logFoldChange`) %>%
+    arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
+        `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
     head(10)
 
 # Add gene symbols as labels to DE genes
@@ -367,8 +367,8 @@ de$delabel[de$diffexpr != "No"] <- de$GeneSymbol[de$diffexpr != "No"]
 ggplot(
     data = de,
     aes(
-        x = `contrast_bipolar disorder, manic phase_logFoldChange`,
-        y = -log10(`contrast_bipolar disorder, manic phase_pvalue`),
+        x = `contrast_bipolar disorder has_modifier manic phase_logFoldChange`,
+        y = -log10(`contrast_bipolar disorder has_modifier manic phase_pvalue`),
         color = diffexpr,
         label = delabel
     )
