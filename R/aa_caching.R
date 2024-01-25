@@ -17,4 +17,13 @@ in_memory_cache <- function(...){
     do.call(get(args[[1]]), args[-1])
 }
 
+#' Enable and disable memoisation of gemma.R functions
+#' @param memoised boolean. If TRUE memoisation will be enabled
+#' @return Option set for memoisation
+#' @keywords internal
+gemma_memoise <- function(memoised = NULL){
+    options('gemma.memoised' = setting)
+    getOption('gemma.memoised',FALSE)
+}
+
 mem_in_memory_cache <- memoise::memoise(in_memory_cache, cache = memoise::cache_memory())
