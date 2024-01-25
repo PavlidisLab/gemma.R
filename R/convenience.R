@@ -32,7 +32,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #'
 #' @return A table of annotations
 #' \itemize{
-#'     \item \code{ElementName}: Probeset names provided by the platform.
+#'     \item \code{ProbeName}: Probeset names provided by the platform.
 #'     Gene symbols for generic annotations
 #'     \item \code{GeneSymbols}: Genes that were found to be aligned to
 #'     the probe sequence. Note that it is possible for probes to be
