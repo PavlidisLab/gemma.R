@@ -97,7 +97,7 @@ have the same summary if they are part of the same factor value
 - `ID`: An integer identifier for the specific factor value. In the example above,
 phenotype of the patient is defined as a single factor value made up of two statements
 stating that the patient is resistant to both capecitabine and docetaxel trihydrate. This
-factor value has the ID of `r samples$sample.factorValues[[1]] %>% filter(value == 'capecitabine') %>% {.$ID}`
+factor value has the ID of `r samples$sample.factorValues[[1]] %>% filter(value == 'resistant to') %>% {.$ID} %>% unique`
 which is shared by both rows containing the statements describing it. 
 This ID will repeat for every other patient that has the same drug resistance
 or differential expression results using that factor as a part of their contrast. For
@@ -105,7 +105,7 @@ instance we can see which samples that was subjected to this condition using thi
 instead of trying to match the other columns describing the statements
 ```{r}
 id <- samples$sample.factorValues[[1]] %>% 
-    filter(value == 'capecitabine') %>% {.$ID}
+    filter(value == 'resistant to') %>% {.$ID} %>% unique
 
 # count how many patients has this phenotype
 samples$sample.factorValues %>% sapply(\(x){
@@ -120,7 +120,7 @@ stored under the id `r samples$sample.factorValues[[1]] %>% filter(value == 'cap
 We can use this to fetch all distinct phenotypes
 ```{r}
 id <- samples$sample.factorValues[[1]] %>% 
-    filter(value == 'capecitabine') %>% {.$factor.ID} 
+    filter(value == 'resistant to') %>% {.$factor.ID} %>% unique
 
 samples$sample.factorValues %>% lapply(\(x){
     x %>% filter(factor.ID == id) %>% {.$summary}
@@ -267,8 +267,6 @@ top_genes %>% select(Probe,NCBIid,GeneSymbol) %>%
       kable() %>% kable_styling()
 ```
 
-Since the output of `get_dataset_object` is already 
-
 
 ```{r}
 exp_subset<- obj[[1]]$exp %>% 
@@ -279,7 +277,7 @@ genes <- top_genes$GeneSymbol
 design <- obj[[1]]$design %>% arrange(treatment,phenotype)
 
 # shorten the resistance label a bit
-design$phenotype[design$phenotype == "capecitabine has phenotype resistant to, docetaxel trihydrate has phenotype resistant to"] = "drug resistant"
+design$phenotype[design$phenotype == "resistant to toward capecitabine, resistant to toward docetaxel trihydrate"] = "drug resistant"
 
 exp_subset[,.SD,.SDcols = rownames(design)] %>% t  %>% scale %>% t %>%
     pheatmap(cluster_rows = FALSE,cluster_cols = FALSE,labels_row = genes,
