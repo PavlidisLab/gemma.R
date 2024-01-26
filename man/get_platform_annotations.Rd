@@ -49,6 +49,6 @@ Gets Gemma's platform annotations including mappings of microarray probes to gen
 }
 \examples{
 head(get_platform_annotations("GPL96"))
-head(get_platform_annotations('Generic_human'))
+head(get_platform_annotations('Generic_human_ncbiIds'))
 }
 \keyword{platform}
