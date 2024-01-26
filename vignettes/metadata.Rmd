@@ -26,10 +26,6 @@ library(pander)
 options('gemma.memoised' = TRUE)
 ```
 
-```{r}
-# temporary
-gemma.R:::setGemmaPath('dev')
-```
 
 
 # Introduction 
