@@ -47,7 +47,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #' @export
 #' @examples
 #' head(get_platform_annotations("GPL96"))
-#' head(get_platform_annotations('Generic_human'))
+#' head(get_platform_annotations('Generic_human_ncbiIds'))
 get_platform_annotations <- function(platform,
     annotType = c("noParents","allParents","bioProcess"),
     file = getOption("gemma.file", NA_character_),
