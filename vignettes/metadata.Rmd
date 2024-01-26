@@ -18,8 +18,6 @@ library(dplyr)
 library(knitr)
 library(kableExtra)
 library(pheatmap)
-
-library(pander)
 ```
 
 ```{r, include = FALSE}
