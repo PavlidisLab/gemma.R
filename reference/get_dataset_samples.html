@@ -41,6 +41,9 @@
       <a href="../articles/gemma.R.html">Accessing curated gene expression data with gemma.R</a>
     </li>
     <li>
+      <a href="../articles/metadata.html">A guide to metadata for samples and differential expression analyses</a>
+    </li>
+    <li>
       <a href="../articles/metanalysis.html">A meta analysis on effects of Parkinson's Disease using Gemma.R</a>
     </li>
   </ul></li>
@@ -121,45 +124,45 @@ filename.</p></dd>
 
 <p>The fields of the output data.table are:</p><ul><li><p><code>sample.Name</code>: Internal name given to the sample.</p></li>
 <li><p><code>sample.ID</code>: Internal ID of the sample</p></li>
-<li><p><code>sample.Description</code>: Free text description of the sample</p></li>
-<li><p><code>sample.Outlier</code>: Whether or not the sample is marked as an outlier</p></li>
-<li><p><code>sample.Accession</code>: Accession ID of the sample in it's original database</p></li>
-<li><p><code>sample.Database</code>: Database of origin for the sample</p></li>
-<li><p><code>sample.Characteristics</code>: Characteristics of the sample. This field is a data table</p></li>
-<li><p><code>sample.FactorValues</code>: Experimental factor values of the sample. This field is a data table</p></li>
+<li><p><code>sample.description</code>: Free text description of the sample</p></li>
+<li><p><code>sample.outlier</code>: Whether or not the sample is marked as an outlier</p></li>
+<li><p><code>sample.accession</code>: Accession ID of the sample in it's original database</p></li>
+<li><p><code>sample.database</code>: Database of origin for the sample</p></li>
+<li><p><code>sample.characteristics</code>: Characteristics of the sample. This field is a data table</p></li>
+<li><p><code>sample.factorValues</code>: Experimental factor values of the sample. This field is a data table</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_dataset_samples</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     sample.Name sample.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sample.name sample.ID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:   BAL_1_A0B0        31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: BAL_27a_A0B0        20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:  BAL_43_A0B0         9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:  BAL_13_A0B0        29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:  BAL_29_A1B0        18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6: BAL_44b_A0B0         7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                       sample.Description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                       sample.description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36426\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36437\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36448\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36428\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                             Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=1 and B=0 (Non-acute rejection).\nSource GEO sample is GSM36439\nLast updated (according to GEO): May 27 2005</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:  Bronchoalveolar lavage cells from a patient with an ISHLT biopsy score of A=0 and B=0 (Non-acute rejection). One of two samples from the same patient, different visits\nSource GEO sample is GSM36450\nLast updated (according to GEO): May 27 2005</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.Outlier sample.Accession sample.Database sample.Characteristics</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.outlier sample.accession sample.database sample.characteristics</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:          FALSE         GSM36426             GEO      &lt;data.table[2x4]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:          FALSE         GSM36437             GEO      &lt;data.table[2x4]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:          FALSE         GSM36448             GEO      &lt;data.table[2x4]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:          FALSE         GSM36428             GEO      &lt;data.table[2x4]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:          FALSE         GSM36439             GEO      &lt;data.table[2x4]&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:          FALSE         GSM36450             GEO      &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.FactorValues</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   &lt;data.table[2x4]&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   &lt;data.table[2x4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sample.factorValues</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:  &lt;data.table[2x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:  &lt;data.table[2x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  &lt;data.table[2x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  &lt;data.table[2x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:  &lt;data.table[2x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:  &lt;data.table[2x13]&gt;</span>
 </code></pre></div>
     </div>
   </div>

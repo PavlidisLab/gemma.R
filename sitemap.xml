@@ -13,6 +13,9 @@
     <loc>/articles/index.html</loc>
   </url>
   <url>
+    <loc>/articles/metadata.html</loc>
+  </url>
+  <url>
     <loc>/articles/metanalysis.html</loc>
   </url>
   <url>
@@ -59,6 +62,12 @@
   </url>
   <url>
     <loc>/reference/gemma_call.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gemma_kable.html</loc>
+  </url>
+  <url>
+    <loc>/reference/gemma_memoise.html</loc>
   </url>
   <url>
     <loc>/reference/get_all_pages.html</loc>
@@ -151,7 +160,7 @@
     <loc>/reference/processAnnotations.html</loc>
   </url>
   <url>
-    <loc>/reference/processCharacteristicBasicValueObject.html</loc>
+    <loc>/reference/processCharacteristicValueObject.html</loc>
   </url>
   <url>
     <loc>/reference/processDEA.html</loc>
@@ -185,9 +194,6 @@
   </url>
   <url>
     <loc>/reference/processGemmaArray.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGemmaFactor.html</loc>
   </url>
   <url>
     <loc>/reference/processGeneLocation.html</loc>

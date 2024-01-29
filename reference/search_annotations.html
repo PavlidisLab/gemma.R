@@ -41,6 +41,9 @@
       <a href="../articles/gemma.R.html">Accessing curated gene expression data with gemma.R</a>
     </li>
     <li>
+      <a href="../articles/metadata.html">A guide to metadata for samples and differential expression analyses</a>
+    </li>
+    <li>
       <a href="../articles/metanalysis.html">A meta analysis on effects of Parkinson's Disease using Gemma.R</a>
     </li>
   </ul></li>
@@ -131,69 +134,312 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">search_annotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     category.Name                            category.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:     treatment    http://www.ebi.ac.uk/efo/EFO_0000727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: Disease model http://gemma.msl.ubc.ca/ont/TGEMO_00101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: organism part    http://www.ebi.ac.uk/efo/EFO_0000635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:     treatment    http://www.ebi.ac.uk/efo/EFO_0000727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:       disease    http://www.ebi.ac.uk/efo/EFO_0000408</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: organism part    http://www.ebi.ac.uk/efo/EFO_0000635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: organism part    http://www.ebi.ac.uk/efo/EFO_0000635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18: organism part    http://www.ebi.ac.uk/efo/EFO_0000635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20: organism part    http://www.ebi.ac.uk/efo/EFO_0000635</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                            value.Name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                                                          traumatic encephalopathy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                                                            traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                                                            traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                                                  traumatic optic neuropathy (TON)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                                                                    post-traumatic stress disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                                                           post-traumatic epilepsy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                                                       Previous traumatic delivery</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: Hippocampus LCM Neurons, traumatic brain injury, Scramble virus control, 2wk, pool from 3 animals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                                                       Mild traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                                                 treatment: traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                                            Chronic Traumatic Encelopathy - severe</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                            Chronic Traumatic Encelopathy - repetitive head injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                                           treatment: traumatic brain injury (TBI)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                                                  received: traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                                                              Chronic Traumatic Encelopathy - mild</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                                                            lateral cortex, traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                 Hippocampus LCM Neurons, traumatic brain injury, Saline, 2wk, pool from 3 animals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:        Hippocampus LCM Neurons, traumatic brain injury, nNos3 knockdown, 2wk, pool from 3 animals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                                treatment: contralateral to traumatic brain injury</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:         Hippocampus LCM Neurons, traumatic brain injury, GPX2 knockdown, 2wk, pool from 3 animals</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://purl.obolibrary.org/obo/MONDO_0043512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://purl.obolibrary.org/obo/MONDO_0858950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0005146</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://purl.obolibrary.org/obo/MONDO_0043264</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                         &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      category.name                               category.URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   6:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   7:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   8:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   9:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  10:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  11:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  12:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  13:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  14:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  15:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  16:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  17:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  18:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  19:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  20:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  21:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  22:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  23:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  24:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  25:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  26:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  27:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  28:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  29:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  30:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  31:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  32:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  33:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  34:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  35:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  36:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  37:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  38:         group                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  39:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  40:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  41:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  42:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  43:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  44:         group                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  45:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  46:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  47:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  48:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  49:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  50:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  51:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  52:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  53:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  54:      genotype       http://www.ebi.ac.uk/efo/EFO_0000513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  55:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  56:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  57:         group                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  58:      received                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  59:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  60:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  61:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  62:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  63:      genotype       http://www.ebi.ac.uk/efo/EFO_0000513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  64:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  65:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  66:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  67:      protocol http://purl.obolibrary.org/obo/OBI_0000272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  68:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  69:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  70:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  71:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  72:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  73:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  74:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  75:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  76:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  77:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  78:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  79:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  80:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  81:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  82:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  83:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  84:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  85:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  86:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  87:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  88:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  89:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  90:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  91:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  92:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  93:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  94:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  95:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  96:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  97:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  98:     BioSource                                       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  99:     treatment       http://www.ebi.ac.uk/efo/EFO_0000727</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100:       disease       http://www.ebi.ac.uk/efo/EFO_0000408</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      category.name                               category.URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  value.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                               traumatic encephalopathy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   6:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   7:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   8:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   9:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  10:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  11:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  12:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  13:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  14:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  15:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  16:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  17:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  18:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  19:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  20:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  21:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  22:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  23:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  24:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  25:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  26:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  27:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  28:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  29:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  30:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  31:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  32:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  33:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  34:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  35:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  36:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  37:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  38:                       traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  39:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  40:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  41:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  42:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  43:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  44:                       traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  45:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  46:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  47:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  48:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  49:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  50:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  51:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  52:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  53:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  54:                       traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  55:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  56:                           traumatic brain injury (TBI)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  57:                       traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  58:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  59:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  60:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  61:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  62:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  63:                       traumatic optic neuropathy (TON)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  64:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  65:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  66:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  67:                                 traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  68:                         post-traumatic stress disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  69:                                post-traumatic epilepsy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  70:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  71:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  72:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  73:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  74:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  75:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  76:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  77:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  78:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  79:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  80: Chronic Traumatic Encelopathy - repetitive head injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  81:                   Chronic Traumatic Encelopathy - mild</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  82: Chronic Traumatic Encelopathy - repetitive head injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  83:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  84:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  85:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  86: Chronic Traumatic Encelopathy - repetitive head injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  87:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  88:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  89:                            Mild traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  90:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  91: Chronic Traumatic Encelopathy - repetitive head injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  92:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  93:                            Mild traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  94:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  95:                            Mild traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  96:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  97: Chronic Traumatic Encelopathy - repetitive head injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  98:                 lateral cortex, traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  99:                contralateral to traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100:                 Chronic Traumatic Encelopathy - severe</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                  value.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         value.URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: http://purl.obolibrary.org/obo/MONDO_0043512</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: http://purl.obolibrary.org/obo/MONDO_0858950</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   6:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   7:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   8:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   9:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  10:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  11:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  12:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  13:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  14:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  15:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  16:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  17:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  18:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  19:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  20:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  21:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  22:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  23:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  24:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  25:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  26:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  27:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  28:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  29:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  30:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  31:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  32:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  33:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  34:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  35:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  36:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  37:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  38:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  39:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  40:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  41:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  42:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  43:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  44:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  45:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  46:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  47:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  48:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  49:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  50:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  51:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  52:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  53:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  54:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  55:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  56:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  57:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  58:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  59:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  60:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  61:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  62:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  63:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  64:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  65:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  66:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  67:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  68: http://purl.obolibrary.org/obo/MONDO_0005146</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  69: http://purl.obolibrary.org/obo/MONDO_0043264</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  70:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  71:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  72:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  73:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  74:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  75:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  76:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  77:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  78:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  79:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  80:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  81:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  82:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  83:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  84:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  85:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  86:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  87:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  88:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  89:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  90:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  91:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  92:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  93:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  94:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  95:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  96:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  97:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  98:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  99:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 100:                                         &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         value.URI</span>
 </code></pre></div>
     </div>
   </div>

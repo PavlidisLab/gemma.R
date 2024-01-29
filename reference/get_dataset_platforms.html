@@ -41,6 +41,9 @@
       <a href="../articles/gemma.R.html">Accessing curated gene expression data with gemma.R</a>
     </li>
     <li>
+      <a href="../articles/metadata.html">A guide to metadata for samples and differential expression analyses</a>
+    </li>
+    <li>
       <a href="../articles/metanalysis.html">A meta analysis on effects of Parkinson's Disease using Gemma.R</a>
     </li>
   </ul></li>
@@ -126,26 +129,26 @@ does not map to any object</p>
 <li><p><code>platform.Troubled</code>: Whether or not the platform was marked "troubled" by a Gemma process or a curator</p></li>
 <li><p><code>platform.ExperimentCount</code>: Number of experiments using the platform within Gemma</p></li>
 <li><p><code>platform.Type</code>: Technology type for the platform.</p></li>
-<li><p><code>taxon.Name</code>: Name of the species platform was made for</p></li>
-<li><p><code>taxon.Scientific</code>: Scientific name for the taxon</p></li>
+<li><p><code>taxon.name</code>: Name of the species platform was made for</p></li>
+<li><p><code>taxon.scientific</code>: Scientific name for the taxon</p></li>
 <li><p><code>taxon.ID</code>: Internal identifier given to the species by Gemma</p></li>
 <li><p><code>taxon.NCBI</code>: NCBI ID of the taxon</p></li>
-<li><p><code>taxon.Database.Name</code>: Underlying database used in Gemma for the taxon</p></li>
-<li><p><code>taxon.Database.ID</code>: ID of the underyling database used in Gemma for the taxon</p></li>
+<li><p><code>taxon.database.name</code>: Underlying database used in Gemma for the taxon</p></li>
+<li><p><code>taxon.database.ID</code>: ID of the underyling database used in Gemma for the taxon</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_platforms</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    platform.ID platform.ShortName</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    platform.ID platform.shortName</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:           1              GPL96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                               platform.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                               platform.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: Affymetrix GeneChip Human Genome U133 Array Set HG-U133A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.Description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.description</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:  The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    platform.Troubled platform.ExperimentCount platform.Type taxon.Name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:             FALSE                      404      ONECOLOR      human</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.Scientific taxon.ID taxon.NCBI taxon.Database.Name taxon.Database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    platform.troubled platform.experimentCount platform.type taxon.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:             FALSE                      402      ONECOLOR      human</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.scientific taxon.ID taxon.NCBI taxon.database.name taxon.database.ID</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     Homo sapiens        1       9606                hg38                87</span>
 </code></pre></div>
     </div>
