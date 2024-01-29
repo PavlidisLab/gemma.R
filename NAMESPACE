@@ -3,6 +3,7 @@
 export(filter_properties)
 export(forget_gemma_memoised)
 export(gemma_call)
+export(gemma_kable)
 export(get_all_pages)
 export(get_dataset_annotations)
 export(get_dataset_design)
