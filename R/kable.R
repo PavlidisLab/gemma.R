@@ -2,7 +2,7 @@
 #' 
 #' Creates a \code{\link[knitr]{kable}} where certain columns are automatically
 #' shortened to better fit a document.
-#' 
+#' @keywords misc
 #' @param table A data.table or data.frame outputted by a gemma.R function
 #' @export
 gemma_kable <- function(table){

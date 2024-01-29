@@ -13,3 +13,4 @@ gemma_kable(table)
 Creates a \code{\link[knitr]{kable}} where certain columns are automatically
 shortened to better fit a document.
 }
+\keyword{misc}
