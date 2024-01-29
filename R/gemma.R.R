@@ -45,4 +45,4 @@ utils::globalVariables(c("platform.ID", "analysis.ID", "analysis.Threshold", "ba
                          "resultIds", "stats.DE", "stats.Down", "stats.Up", "subsetFactor.category", 
                          "subsetFactor.categoryURI", "subsetFactor.Enabled", "subsetFactor.factorValue", 
                          "subsetFactor.factorValueURI", "valueUri", "category", 
-                         "categoryURI", "experimental.factorValue","value","contrast.id"))
+                         "categoryURI", "experimental.factorValue","value","contrast.ID","%$%",'baseline.factors'))
