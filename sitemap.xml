@@ -73,6 +73,9 @@
     <loc>/reference/get_all_pages.html</loc>
   </url>
   <url>
+    <loc>/reference/get_child_terms.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_dataset_annotations.html</loc>
   </url>
   <url>
