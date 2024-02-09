@@ -788,3 +788,25 @@ filter_properties <- function(){
     
     return(out)
 }
+
+
+#' Return child terms of a term
+#' 
+#' When querying for ontology terms, Gemma propagates these terms to include
+#' any datasets with their child terms in the results. This function returns 
+#' these children for any number of terms, including all children
+#' and the terms itself in the output vector
+#' 
+#' @return An array containing descendends of the annotation terms, including
+#' the terms themselves
+#' 
+#' 
+#' @examples 
+#' get_child_terms("http://purl.obolibrary.org/obo/MONDO_0000408")
+#' 
+#' @keywords misc
+#' @export
+get_child_terms <- function(terms){
+    output <- get_datasets(uris = terms,limit = 1)
+    attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
+}

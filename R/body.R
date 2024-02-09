@@ -41,7 +41,6 @@ setGemmaPath <- function(path){
 #'
 #' @noRd
 .body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE,open_api_name, .call) {
-
     # Set header
     if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
