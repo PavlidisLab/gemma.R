@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -134,6 +134,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">q_types</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_dataset_quantitation_types.html">get_dataset_quantitation_types</a></span><span class="op">(</span><span class="st">"GSE59918"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_dataset_raw_expression</span><span class="op">(</span><span class="st">"GSE59918"</span>, <span class="va">q_types</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="va">q_types</span><span class="op">$</span><span class="va">name</span> <span class="op">==</span> <span class="st">"Counts"</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            Probe GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;int&gt;     &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: 100034253      Gnl3l</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: 100036765     Ccdc92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3: 100049583      Trex1</span>
@@ -146,6 +147,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:     94341     Kcnj13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:     94342       Bag6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                             GeneName    NCBIid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                               &lt;char&gt;     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                    G protein nucleolar 3 like 100034253</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                              coiled-coil domain containing 92 100036765</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                              three prime repair exonuclease 1 100049583</span>
@@ -158,6 +160,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215: potassium inwardly-rectifying channel, subfamily J, member 13     94341</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                                             BAG cochaperone 6     94342</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hypothalamus Ctrl_rep4 rat hypothalamus Ctrl_rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             &lt;num&gt;                      &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                      729.0                     1059.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                     4629.4                     4147.9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                      373.0                      422.0</span>
@@ -170,6 +173,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                      282.0                      237.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                     4690.0                     5472.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hypothalamus Ctrl_rep3 rat hypothalamus Ctrl_rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             &lt;num&gt;                      &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                      932.0                      953.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                     3527.7                     4084.7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                      345.0                      388.0</span>
@@ -182,6 +186,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                      246.0                      120.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                     4698.0                     4465.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hypothalamus Fru_rep1 rat hypothalamus Fru_rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            &lt;num&gt;                     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    1191.0                    1224.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                    4681.6                    4380.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                     420.0                     356.0</span>
@@ -194,6 +199,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                      85.0                       6.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                    5406.0                    5364.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hypothalamus Fru_rep3 rat hypothalamus Fru_rep4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            &lt;num&gt;                     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    1187.0                     263.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                    4158.3                    3229.1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                     416.0                     449.0</span>
@@ -206,6 +212,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                     142.0                      73.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                    5576.0                    3896.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hippocampus Ctrl_rep3 rat hippocampus Ctrl_rep4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            &lt;num&gt;                     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    1126.0                    648.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                    1273.7                    768.66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                      72.0                     64.00</span>
@@ -218,6 +225,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                     269.0                   1199.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                    2807.0                   1978.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hippocampus Ctrl_rep2 rat hippocampus Ctrl_rep1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            &lt;num&gt;                     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                    770.00                    539.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                    871.83                    774.63</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                     55.00                     59.00</span>
@@ -230,6 +238,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                    641.00                   1165.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                   1626.00                   1661.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hippocampus Fru_rep3 rat hippocampus Fru_rep4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;num&gt;                    &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                   589.00                  1090.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                   782.76                   684.74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                    60.00                    57.00</span>
@@ -242,6 +251,7 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31215:                   281.00                  2345.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31216:                  1594.00                  2064.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        rat hippocampus Fru_rep1 rat hippocampus Fru_rep2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           &lt;num&gt;                    &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                   834.00                   769.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2:                   868.61                   862.79</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     3:                    66.00                    96.00</span>

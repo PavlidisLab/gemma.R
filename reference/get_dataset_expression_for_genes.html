@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -145,31 +145,38 @@ filename.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_expression_for_genes</span><span class="op">(</span><span class="st">"GSE2018"</span>, genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10225</span>, <span class="fl">2841</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        Probe GeneSymbol NCBIid BAL_21_A0B0 BAL_27b_A2B1 BAL_45b_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt;     &lt;char&gt;  &lt;int&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 210279_at      GPR18   2841    4.784791     5.266263     5.948961</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: 206761_at       CD96  10225    4.731956     5.003438     5.268057</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_13_A0B0 BAL_20b_A1B1 BAL_19_A0B0 BAL_47b_A0B1 BAL_43_A0B0 BAL_40_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;num&gt;        &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.688759     5.831111    4.746777     4.692016    4.447625    4.686329</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.725440     5.258778    4.568647     4.582452    4.488685    4.662121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_33_A0B1 BAL_39_A0B1 BAL_1_A0B0 BAL_47a_A0B0 BAL_27a_A0B0 BAL_4_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;num&gt;       &lt;num&gt;      &lt;num&gt;        &lt;num&gt;        &lt;num&gt;      &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.460669    4.660488   4.637970     4.582546     4.654372   4.695328</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.512166    4.443481   4.406503     4.525138     4.721373   4.656544</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_15b_A0B0 BAL_41_A1B0 BAL_25_A0B0 BAL_44a_A0B0 BAL_15a_A0B1 BAL_47c_A0B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;num&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:     4.768349    4.471560    4.483595     4.538479     4.562564     4.648810</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:     4.712064    4.656262    4.437924     4.480109     4.443919     4.542716</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_3_A1B0 BAL_37_A1B1 BAL_17_A0B0 BAL_42_A0B0 BAL_44b_A0B0 BAL_18_A1B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;num&gt;       &lt;num&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:   4.821701    5.837180    4.509543    4.663407     4.556524    4.569245</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:   4.677616    5.227731    4.415465    4.580567     4.386026    4.374732</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_12_A1B0 BAL_29_A1B0 BAL_46_A2B0 BAL_20a_A1B1 BAL_45a_A1B0 BAL_26_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;num&gt;       &lt;num&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;       &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.654849    4.691512    5.469026          NaN     4.656690    5.232383</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.503594    4.661147    5.013087          NaN     4.541356    4.887611</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    BAL_31_A0B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    4.874795</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:    4.550056</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"call")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://gemma.msl.ubc.ca/rest/v2/datasets/GSE2018/expressions/genes/10225%2C2841?keepNonSpecific=false"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"env")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5621fb038528&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x562462f34a28&gt;</span>
 </code></pre></div>
     </div>
   </div>

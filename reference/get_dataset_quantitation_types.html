@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -142,16 +142,19 @@ recomputing raw data files Gemma had access to.</p></li>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_quantitation_types</span><span class="op">(</span><span class="st">"GSE59918"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        id                        name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     &lt;int&gt;                      &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 535697                        RPKM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: 535696                      Counts</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: 535695 log2cpm - Processed version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4: 535694                     log2cpm</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                      description</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                           &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                   Reads (or fragments) per kb of gene model per million reads</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                                    Read counts for gene model</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: Processed data (as per Gemma) for analysis, based on the preferred quantitation type raw data</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                     log-2 transformed read counts per million</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         type  scale preferred recomputed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;char&gt; &lt;char&gt;    &lt;lgcl&gt;     &lt;lgcl&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:       raw LINEAR     FALSE       TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:       raw  COUNT     FALSE       TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3: processed   LOG2     FALSE       TRUE</span>

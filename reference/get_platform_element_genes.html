@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -160,10 +160,13 @@ A list if <code>raw = TRUE</code>.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_platform_element_genes</span><span class="op">(</span><span class="st">"GPL1355"</span>, <span class="st">"AFFX_Rat_beta-actin_M_at"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.symbol       gene.ensembl gene.NCBI   gene.name gene.MFX.rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;             &lt;char&gt;     &lt;int&gt;      &lt;char&gt;         &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:        Actb ENSRNOG00000034254     81822 actin, beta     0.9847745</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.name  taxon.scientific taxon.ID taxon.NCBI taxon.database.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;              &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:        rat Rattus norvegicus        3      10116                 rn6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:                86</span>
 </code></pre></div>
     </div>

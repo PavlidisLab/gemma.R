@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.2</span>
       </span>
     </div>
 
@@ -134,6 +134,7 @@ argument can be used to choose which terms should be included.</p></li>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      ProbeName   GeneSymbols                                     GeneNames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;        &lt;char&gt;                                        &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:   216678_at                                                            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:   216345_at        ZSWIM8            zinc finger SWIM-type containing 8</span>
@@ -141,6 +142,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5: 216025_x_at        CYP2C9 cytochrome P450 family 2 subfamily C member 9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6: 218191_s_at        LMBRD1                     LMBR1 domain containing 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         GOTerms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: GO:0045121|GO:0005634|GO:0005515|GO:0015630|GO:0000226|GO:0051301|GO:0016787|GO:0005737|GO:0005525|GO:0005874|GO:0030705|GO:0031982|GO:0007017|GO:0046872|GO:0005198|GO:0005200|GO:0000278|GO:0005881|GO:0001764|GO:0051402|GO:0072384|GO:0034612|GO:0044877|GO:0007613|GO:0007098|GO:0007224|GO:0071277|GO:0021542|GO:0009612|GO:0055037|GO:0005886|GO:0000793|GO:0048873|GO:0010001|GO:0042802|GO:0001964|GO:0021987|GO:0036464|GO:0006886|GO:0008542|GO:0050808|GO:0050807|GO:0070062|GO:0061744|GO:0048853|GO:0005879|GO:0008344|GO:0031594|GO:0010467|GO:0140058|GO:0021696|GO:0005829|GO:0046982|GO:0046785|GO:1902065</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           GO:2000627|GO:0016567|GO:0031462|GO:0031463|GO:1990756|GO:0140958|GO:0043161|GO:0008270|GO:0005829</span>
@@ -148,6 +150,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                                                                                                                                                                                                                              GO:0043231|GO:0016098|GO:0005737|GO:0016491|GO:0018676|GO:0008210|GO:0034875|GO:0005506|GO:0008405|GO:0008203|GO:0052741|GO:0006805|GO:0004497|GO:0008404|GO:0005789|GO:0018675|GO:0020037|GO:0019373|GO:0008392|GO:0070989|GO:0042178|GO:0005886|GO:0008202|GO:0043603|GO:0042759|GO:0016712|GO:0097267|GO:0070330|GO:0046456|GO:0032787|GO:0008395|GO:0019627</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                                                                                                                                                                                                                                                                                                                                                                                                                   GO:0061462|GO:0005515|GO:0035612|GO:0043231|GO:0005886|GO:0032050|GO:0031419|GO:0005158|GO:0140318|GO:0045334|GO:0005765|GO:0072583|GO:0030136|GO:0007369|GO:0016020|GO:0038016|GO:0005789</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         GemmaIDs    NCBIids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;char&gt;     &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 360802|172797 84790|7846</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                         </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:        235733      23053</span>
@@ -156,6 +159,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:        303717      55788</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">'Generic_human_ncbiIds'</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ElementName  GeneSymbols</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;       &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:       55236         UBA6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:       79664         ICE2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:   100126270     FMR1-AS1</span>
@@ -163,6 +167,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:   124900245 LOC124900245</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:   102725051 LOC102725051</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                GeneNames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                   &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:           ubiquitin like modifier activating enzyme 6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2: interactor of little elongation complex ELL subunit 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                  FMR1 antisense RNA 1</span>
@@ -170,6 +175,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:                           small nucleolar RNA SNORA40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:                          uncharacterized LOC102725051</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                            GOTerms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                             &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: GO:0005515|GO:0006511|GO:0032446|GO:0021766|GO:0019780|GO:0004792|GO:0007612|GO:0016567|GO:0005737|GO:0060996|GO:0005829|GO:0007626|GO:0005524|GO:0004839|GO:0016779|GO:0021764</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                        GO:0016604|GO:0005515|GO:0008023|GO:0005654|GO:0000791|GO:0045945|GO:0042795|GO:0005829|GO:0042796|GO:0015030|GO:0035363</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                                                                                                                                      GO:0043066</span>
@@ -177,6 +183,7 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                                                                                                                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                                                                                                                                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    GemmaIDs   NCBIids</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:   295849     55236</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:   336840     79664</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:  3157248 100126270</span>
