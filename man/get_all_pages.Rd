@@ -25,8 +25,7 @@ combine the data.tables. If not, use \code{c} to combine lists}
 is saved to separate files.}
 
 \item{file}{The name of a file to save the results to, or \code{NULL} to not write
-results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
-API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
+results to a file. This function always saves the output as an RDS file. Otherwise, it will be a RDS file.}
 
 \item{overwrite}{Whether or not to overwrite if a file exists at the specified
 filename.}
