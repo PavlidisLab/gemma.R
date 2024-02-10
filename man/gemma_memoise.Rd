@@ -4,15 +4,19 @@
 \alias{gemma_memoise}
 \title{Enable and disable memoisation of gemma.R functions}
 \usage{
-gemma_memoise(memoised = NULL)
+gemma_memoise(
+  memoised = FALSE,
+  cache = rappdirs::user_cache_dir(appname = "gemmaR")
+)
 }
 \arguments{
 \item{memoised}{boolean. If TRUE memoisation will be enabled}
-}
-\value{
-Option set for memoisation
+
+\item{cache}{File path or "cache_in_memory". File path will chose a location
+to save the cache files for memoisation. "cache_in_memory" will store the cache
+in the current R session}
 }
 \description{
 Enable and disable memoisation of gemma.R functions
 }
-\keyword{internal}
+\keyword{misc}
