@@ -506,6 +506,8 @@ registerEndpoint("platforms/{platform}/elements/{probe}/genes?offset={offset}&li
 
 # platforms -----
 # merged with platforms/{platform}
+# this endpoint has no unique parameters of its own unlike get_datasets
+# which is why it's not separated
 
 # platforms/{platform}, get_platforms_by_ids ---- 
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
