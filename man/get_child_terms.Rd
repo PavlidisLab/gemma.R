@@ -6,6 +6,9 @@
 \usage{
 get_child_terms(terms)
 }
+\arguments{
+\item{terms}{An array of terms}
+}
 \value{
 An array containing descendends of the annotation terms, including
 the terms themselves

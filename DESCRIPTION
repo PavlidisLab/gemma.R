@@ -1,6 +1,6 @@
 Package: gemma.R
 Title: A wrapper for Gemma's Restful API to access curated gene expression data and differential expression analyses
-Version: 2.1.2
+Version: 2.9.0
 Authors@R: 
     c(person(given = "Javier", family = "Castillo-Arnemann", 
              role = c("aut"), email = "javiercastilloar@gmail.com",
@@ -60,7 +60,6 @@ Suggests:
     pheatmap,
     viridis,
     poolr,
-    digest,
     kableExtra
 Config/testthat/edition: 2
 VignetteBuilder: knitr

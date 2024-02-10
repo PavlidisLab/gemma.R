@@ -797,6 +797,8 @@ filter_properties <- function(){
 #' these children for any number of terms, including all children
 #' and the terms itself in the output vector
 #' 
+#' @param terms An array of terms
+#' 
 #' @return An array containing descendends of the annotation terms, including
 #' the terms themselves
 #' 
