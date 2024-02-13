@@ -226,6 +226,85 @@ make_design <- function(samples,metaType = "text"){
 }
 
 
+#' Get a subset of an array of factorValues
+#' @param factorValue unimplemented
+#' @param differential_expressions  
+#' @keywords internal
+#' @return a boolean vector, samples representing the resultSet and/or the contrast
+#' are set to TRUE
+subset_factorValues <- function(factorValues,
+                                factorValue = NULL,
+                                differential_expressions = NULL,
+                                resultSet = NULL,
+                                contrast = NULL){
+    
+    out <- rep(TRUE,length(factorValues))
+    
+    
+    if(!is.null(factorValue)){
+        # unimplemented
+    }
+    
+    if(!is.null(differential_expressions)){
+        
+        # this should never trigger but just in case...
+        assertthat::assert_that(
+            factorValues %>% do.call(rbind,.) %>% dplyr::select(ID,factor.ID) %>% unique %>% .$ID %>% table %>% {all(.==1)},
+            msg = "ID's cannot be repeated across factors")
+        
+        
+        
+        subset <- differential_expressions %>%   dplyr::filter(result.ID == resultSet) %>% .$subsetFactor %>% unique
+        # result set should have the same subset for all contrasts
+        assertthat::assert_that(length(subset)==1)
+        
+        if(nrow(subset[[1]])!=0){
+            
+            subset_ids <- subset %>% purrr::map('ID') %>% unlist
+            
+            in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
+                any(x$ID %in% subset_ids)
+            })
+            
+            
+            # subset_ids <- subset[[1]] %>%
+            #     dplyr::mutate(comb = paste0(ID,'.',factor.ID)) %>% {.$comb}
+            # 
+            # in_subset <- factorValues %>% purrr::map_lgl(function(x){
+            #     x %>%  dplyr::mutate(comb = paste0(ID,'.',factor.ID)) %>% {.$comb} %>%
+            #         {all(subset_ids %in% .)}
+            # })
+            
+            out <- out & in_subset
+        }
+        
+        
+        if(!is.null(contrast)){
+            cn <- differential_expressions %>% dplyr::filter(result.ID == resultSet & contrast.ID == contrast)
+            baseline_id <- cn$baseline.factors %>% purrr::map('ID') %>% unlist%>% unique
+            baseline_factor_id <- cn$baseline.factors %>% purrr::map('factor.ID') %>% unlist%>% unique
+            
+            contrast_id <- cn$experimental.factors %>% purrr::map('ID') %>% unlist %>% unique
+            contrast_factor_id <-  cn$experimental.factors %>%  purrr::map('factor.ID') %>% unlist %>% unique
+            
+            contrast_id<- contrast_id[match(baseline_factor_id,contrast_factor_id)]
+            
+            in_contrast <- factorValues %>% purrr::map_lgl(function(x){
+                all(contrast_id %in% x$ID) | 
+                    all(baseline_id %in% x$ID) |
+                    all(c(contrast_id[1],baseline_id[2]) %in% x$ID) |
+                    all(c(contrast_id[2],baseline_id[1]) %in% x$ID)
+            })
+            
+            out <- out & in_contrast
+            
+        }
+    }
+}
+
+
+
+
 #' Compile gene expression data and metadata
 #'
 #' Return an annotated Bioconductor-compatible
@@ -236,7 +315,9 @@ make_design <- function(samples,metaType = "text"){
 #' SummarizedExperiments which are more recent. See the Summarized experiment
 #' \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 #' or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
-#' for more details.
+#' for more details. "tidy" for a long form data frame compatible with tidyverse functions.
+#' 'list' to return a list containing individual data frames containing expression values,
+#' design and the experiment.
 #' @inheritParams memoise
 #' @inheritParams get_dataset_expression_for_genes
 #' @param metaType How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options
@@ -364,45 +445,19 @@ get_dataset_object <- function(datasets,
         data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
 
         if(!is.null(resultSets)){
+            
+            
             diff <- get_dataset_differential_expression_analyses(dataset,memoised = memoised)
-            subset <- diff %>%
-                dplyr::filter(result.ID == resultSets[i]) %>%
-                .$subsetFactor %>% unique
-
-            assertthat::assert_that(length(subset)==1)
             
+            # passing the original samples is fine since expression data is
+            # reordered not design file
+            relevant <- subset_factorValues(packed_info$design$factorValues,
+                                            differential_expressions = diff,
+                                            resultSet = resultSets[i],
+                                            contrast = contrasts[i])
             
-            if(nrow(subset[[1]])!=0){
-                subset_ids <- subset %>% purrr::map('ID') %>% unlist
-                
-                in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
-                    any(x$ID %in% subset_ids)
-                })
-            } else{
-                in_subset <- TRUE
-            }
-
-            if(!is.null(contrasts)){
-                contrast <- diff %>% dplyr::filter(result.ID == resultSets[i] & contrast.ID == contrasts[i])
-                baseline_id <- contrast$baseline.factors %>% purrr::map('ID') %>% unlist%>% unique
-                baseline_factor_id <- contrast$baseline.factors %>% purrr::map('factor.ID') %>% unlist%>% unique
-                contrast_id <- contrast$experimental.factors %>% purrr::map('ID') %>% unlist %>% unique
-                contrast_factor_id <-  contrast$experimental.factors %>%  purrr::map('factor.ID') %>% unlist %>% unique
-                
-                contrast_id<- contrast_id[match(baseline_factor_id,contrast_factor_id)]
-                
-                
-                in_contrast <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
-                    all(contrast_id %in% x$ID) | 
-                        all(baseline_id %in% x$ID) |
-                        all(c(contrast_id[1],baseline_id[2]) %in% x$ID) |
-                        all(c(contrast_id[2],baseline_id[1]) %in% x$ID)
-                })
-            } else{
-                in_contrast <- TRUE
-            }
-            packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[in_subset & in_contrast])]
-            packed_info$design <- packed_info$design[in_subset & in_contrast,]
+            packed_info$exp <- packed_info$exp[,.SD,.SDcols = c(gene_info, rownames(packed_info$design)[relevant])]
+            packed_info$design <- packed_info$design[relevant,]
         }
 
         return(packed_info)

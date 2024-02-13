@@ -42,7 +42,9 @@ output will only include samples relevant to the specific contrats.}
 SummarizedExperiments which are more recent. See the Summarized experiment
 \href{https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html}{vignette}
 or the ExpressionSet \href{https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf}{vignette}
-for more details.}
+for more details. "tidy" for a long form data frame compatible with tidyverse functions.
+'list' to return a list containing individual data frames containing expression values,
+design and the experiment.}
 
 \item{memoised}{Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
