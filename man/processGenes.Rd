@@ -16,17 +16,18 @@ A list if \code{raw = TRUE}.
 The fields of the output data.table are:
 
 \itemize{
-\item \code{gene.Symbol}: Symbol for the gene
-\item \code{gene.Ensembl}: Ensembl ID for the gene
+\item \code{gene.symbol}: Symbol for the gene
+\item \code{gene.ensembl}: Ensembl ID for the gene
 \item \code{gene.NCBI}: NCBI id for the gene
-\item \code{gene.Name}: Name of the gene
-\item \code{gene.MFX.Rank}: Multifunctionality rank for the gene
-\item \code{taxon.Name}: Name of the species
-\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{gene.name}: Name of the gene
+\item \code{gene.aliases}: Gene aliases. Each row includes a vector
+\item \code{gene.MFX.rank}: Multifunctionality rank for the gene
+\item \code{taxon.name}: Name of the species
+\item \code{taxon.scientific}: Scientific name for the taxon
 \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 \item \code{taxon.NCBI}: NCBI ID of the taxon
-\item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
-\item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+\item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.database.ID}: ID of the underlying database used in Gemma for the taxon
 }
 }
 \description{
