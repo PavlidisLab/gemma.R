@@ -143,31 +143,32 @@ A list if <code>raw = TRUE</code>.</p>
 <p>The fields of the output data.table are:</p>
 
 
-<ul><li><p><code>gene.Symbol</code>: Symbol for the gene</p></li>
-<li><p><code>gene.Ensembl</code>: Ensembl ID for the gene</p></li>
+<ul><li><p><code>gene.symbol</code>: Symbol for the gene</p></li>
+<li><p><code>gene.ensembl</code>: Ensembl ID for the gene</p></li>
 <li><p><code>gene.NCBI</code>: NCBI id for the gene</p></li>
-<li><p><code>gene.Name</code>: Name of the gene</p></li>
-<li><p><code>gene.MFX.Rank</code>: Multifunctionality rank for the gene</p></li>
-<li><p><code>taxon.Name</code>: Name of the species</p></li>
-<li><p><code>taxon.Scientific</code>: Scientific name for the taxon</p></li>
+<li><p><code>gene.name</code>: Name of the gene</p></li>
+<li><p><code>gene.aliases</code>: Gene aliases. Each row includes a vector</p></li>
+<li><p><code>gene.MFX.rank</code>: Multifunctionality rank for the gene</p></li>
+<li><p><code>taxon.name</code>: Name of the species</p></li>
+<li><p><code>taxon.scientific</code>: Scientific name for the taxon</p></li>
 <li><p><code>taxon.ID</code>: Internal identifier given to the species by Gemma</p></li>
 <li><p><code>taxon.NCBI</code>: NCBI ID of the taxon</p></li>
-<li><p><code>taxon.Database.Name</code>: Underlying database used in Gemma for the taxon</p></li>
-<li><p><code>taxon.Database.ID</code>: ID of the underyling database used in Gemma for the taxon</p></li>
+<li><p><code>taxon.database.name</code>: Underlying database used in Gemma for the taxon</p></li>
+<li><p><code>taxon.database.ID</code>: ID of the underlying database used in Gemma for the taxon</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_platform_element_genes</span><span class="op">(</span><span class="st">"GPL1355"</span>, <span class="st">"AFFX_Rat_beta-actin_M_at"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.symbol       gene.ensembl gene.NCBI   gene.name gene.MFX.rank</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;             &lt;char&gt;     &lt;int&gt;      &lt;char&gt;         &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        Actb ENSRNOG00000034254     81822 actin, beta     0.9847745</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.name  taxon.scientific taxon.ID taxon.NCBI taxon.database.name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        rat Rattus norvegicus        3      10116                 rn6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.symbol       gene.ensembl gene.NCBI   gene.name gene.aliases</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;             &lt;char&gt;     &lt;int&gt;      &lt;char&gt;       &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:        Actb ENSRNOG00000034254     81822 actin, beta         Actx</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.MFX.rank taxon.name  taxon.scientific taxon.ID taxon.NCBI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;     &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.9847745        rat Rattus norvegicus        3      10116</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.name taxon.database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;             &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                 rn6                86</span>
 </code></pre></div>
     </div>
   </div>

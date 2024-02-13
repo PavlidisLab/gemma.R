@@ -1017,20 +1017,20 @@ identifiers rather than symbols.</p>
 3:        Eno2 ENSRNOG00000013141     24334                      enolase 2
 4:        ENO2               &lt;NA&gt;    856579 phosphopyruvate hydratase ENO2
 5:        eno2 ENSDARG00000014287    402874                      enolase 2
-   gene.MFX.rank taxon.name         taxon.scientific taxon.ID taxon.NCBI
-           &lt;num&gt;     &lt;char&gt;                   &lt;char&gt;    &lt;int&gt;      &lt;int&gt;
-1:     0.9033096      human             Homo sapiens        1       9606
-2:     0.8980022      mouse             Mus musculus        2      10090
-3:     0.8822730        rat        Rattus norvegicus        3      10116
-4:     0.6279932      yeast Saccharomyces cerevisiae       11       4932
-5:     0.8830854  zebrafish              Danio rerio       12       7955
-   taxon.database.name taxon.database.ID
-                &lt;char&gt;             &lt;int&gt;
-1:                hg38                87
-2:                mm10                81
-3:                 rn6                86
-4:                &lt;NA&gt;                NA
-5:                &lt;NA&gt;                NA</code></pre>
+   gene.aliases gene.MFX.rank taxon.name         taxon.scientific taxon.ID
+         &lt;list&gt;         &lt;num&gt;     &lt;char&gt;                   &lt;char&gt;    &lt;int&gt;
+1: HEL-S-27....     0.9033096      human             Homo sapiens        1
+2: D6Ertd37....     0.8980022      mouse             Mus musculus        2
+3:   NSE, RNEN3     0.8822730        rat        Rattus norvegicus        3
+4:                  0.6279932      yeast Saccharomyces cerevisiae       11
+5: eno3, fc....     0.8830854  zebrafish              Danio rerio       12
+   taxon.NCBI taxon.database.name taxon.database.ID
+        &lt;int&gt;              &lt;char&gt;             &lt;int&gt;
+1:       9606                hg38                87
+2:      10090                mm10                81
+3:      10116                 rn6                86
+4:       4932                &lt;NA&gt;                NA
+5:       7955                &lt;NA&gt;                NA</code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ncbi id for human ENO2</span></span>
 <span><span class="va">probes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_gene_probes.html">get_gene_probes</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
@@ -2025,7 +2025,7 @@ list()
 attr(,"call")
 [1] "https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/locations"
 attr(,"env")
-&lt;environment: 0x564104cb4618&gt;</code></pre>
+&lt;environment: 0x55d37bd1fdc8&gt;</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -2095,12 +2095,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -2135,14 +2133,14 @@ loaded via a namespace (and not attached):
 [34] ragg_1.2.7              generics_0.1.3          httr_1.4.7             
 [37] cachem_1.0.8            stringr_1.5.1           zlibbioc_1.48.0        
 [40] assertthat_0.2.1        BiocManager_1.30.22     XVector_0.42.0         
-[43] vctrs_0.6.5             Matrix_1.6-5            jsonlite_1.8.8         
+[43] vctrs_0.6.5             Matrix_1.6-1.1          jsonlite_1.8.8         
 [46] bookdown_0.37           bit64_4.0.5             systemfonts_1.0.5      
 [49] jquerylib_0.1.4         glue_1.7.0              pkgdown_2.0.7          
 [52] lubridate_1.9.3         stringi_1.8.3           gtable_0.3.4           
 [55] munsell_0.5.0           tibble_3.2.1            pillar_1.9.0           
 [58] rappdirs_0.3.3          htmltools_0.5.7         GenomeInfoDbData_1.2.11
 [61] R6_2.5.1                textshaping_0.3.7       evaluate_0.23          
-[64] lattice_0.22-5          highr_0.10              memoise_2.0.1          
+[64] lattice_0.21-9          highr_0.10              memoise_2.0.1          
 [67] bslib_0.6.1             Rcpp_1.0.12             gridExtra_2.3          
 [70] SparseArray_1.2.4       xfun_0.42               fs_1.6.3               
 [73] pkgconfig_2.0.3        </code></pre>
