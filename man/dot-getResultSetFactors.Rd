@@ -38,6 +38,6 @@ Varies
 Retrieve a single analysis result set by its identifier
 }
 \examples{
-.getResultSetFactors(523099)
+gemma.R:::.getResultSetFactors(523099)
 }
 \keyword{internal}

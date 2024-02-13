@@ -38,6 +38,6 @@ Varies
 Retrieve a single analysis result set by its identifier
 }
 \examples{
-.getResultSets(523099)
+gemma.R:::.getResultSets(523099)
 }
 \keyword{internal}

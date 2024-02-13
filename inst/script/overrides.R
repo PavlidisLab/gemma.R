@@ -319,12 +319,12 @@ NULL
 #' .getResultSets
 #' 
 #' @examples
-#' .getResultSets(523099)
+#' gemma.R:::.getResultSets(523099)
 NULL
 
 
 #' .getResultSetFactors
 #' 
 #' @examples
-#' .getResultSetFactors(523099)
+#' gemma.R:::.getResultSetFactors(523099)
 NULL
