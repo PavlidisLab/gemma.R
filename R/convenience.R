@@ -300,6 +300,7 @@ subset_factorValues <- function(factorValues,
             
         }
     }
+    return(out)
 }
 
 
