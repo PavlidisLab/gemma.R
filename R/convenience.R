@@ -262,7 +262,7 @@ subset_factorValues <- function(factorValues,
             
             subset_ids <- subset %>% purrr::map('ID') %>% unlist
             
-            in_subset <- packed_info$design$factorValues %>% purrr::map_lgl(function(x){
+            in_subset <- factorValues %>% purrr::map_lgl(function(x){
                 any(x$ID %in% subset_ids)
             })
             
