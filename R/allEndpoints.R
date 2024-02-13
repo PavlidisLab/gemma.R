@@ -20,6 +20,7 @@
 #' @keywords internal
 #'
 #' @examples
+#' .getResultSets(523099)
 .getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
@@ -106,6 +107,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' @keywords internal
 #'
 #' @examples
+#' .getResultSetFactors(523099)
 .getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE

@@ -315,3 +315,16 @@ NULL
 #' @examples
 #' get_dataset_expression_for_genes('GSE2018',genes=c(10225,2841))
 NULL
+
+#' .getResultSets
+#' 
+#' @examples
+#' .getResultSets(523099)
+NULL
+
+
+#' .getResultSetFactors
+#' 
+#' @examples
+#' .getResultSetFactors(523099)
+NULL
