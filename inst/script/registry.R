@@ -85,7 +85,10 @@ registerEndpoint(
 
 # /resultSets, get_result_sets -----
 # unimplemented
-# this is not useful in gemma.R and can be replaced by get_dataset_differential_expression_analyses
+# this endpoint can be potentially useful if we can use 
+# make better use of its filter argument. talk to guillaume 
+# to see if there is a good way to do it
+# otherwise it can be replaced by get_dataset_differential_expression_analyses
 # the implementation below is also missing arguments
 
 # registerEndpoint(
@@ -506,6 +509,8 @@ registerEndpoint("platforms/{platform}/elements/{probe}/genes?offset={offset}&li
 
 # platforms -----
 # merged with platforms/{platform}
+# this endpoint has no unique parameters of its own unlike get_datasets
+# which is why it's not separated
 
 # platforms/{platform}, get_platforms_by_ids ---- 
 registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",

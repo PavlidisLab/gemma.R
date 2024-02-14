@@ -315,3 +315,16 @@ NULL
 #' @examples
 #' get_dataset_expression_for_genes('GSE2018',genes=c(10225,2841))
 NULL
+
+#' .getResultSets
+#' 
+#' @examples
+#' gemma.R:::.getResultSets(523099)
+NULL
+
+
+#' .getResultSetFactors
+#' 
+#' @examples
+#' gemma.R:::.getResultSetFactors(523099)
+NULL
