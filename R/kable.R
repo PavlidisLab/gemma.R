@@ -8,9 +8,9 @@
 gemma_kable <- function(table){
     
     for(i in seq_len(ncol(table))){
-        if(class(table[[i]]) == 'character'){
+        if( 'character' %in% class(table[[i]])){
             to_replace <- nchar(table[[i]])>30 & !is.na(table[[i]])
-            table[[i]][to_replace]  <- table[[i]][to_replace] %>% sapply(function(x){
+            table[[i]][to_replace]  <- table[[i]][to_replace] %>% purrr::map_chr(function(x){
                 if(grepl('^http',x)){
                     x <- glue::glue("{stringr::str_extract(x,'^.*?[.].*?[./]')}../{basename(x)}")
                 } else{
