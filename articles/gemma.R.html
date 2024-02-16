@@ -205,20 +205,20 @@ function, datasets fitting various criteria can be accessed.</p>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>,<span class="va">taxon.name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
 <pre><code>   experiment.shortName
                  &lt;char&gt;
-1:   McLean Hippocampus
-2:              byne-cc
-3:             GSE45484
-4:            GSE134497
-5:            GSE160761
-6:          GSE179921.2
-                                                                                                                                                           experiment.name
-                                                                                                                                                                    &lt;char&gt;
-1:                                                                                                                                                      McLean Hippocampus
-2:                                                                                                                    Corpus Callosum data from Stanley collection samples
-3:              Gene-expression differences in peripheral blood between lithium responders and non-responders in the “Lithium Treatment -Moderate dose Use Study” (LiTMUS)
-4:                                                                                            Total RNA sequecing for human induced pluripotent derived cerebral organoids
-5:                                  RNA sequencing  in human  iPSCs derived from  bipolar  patients  to identify important therapeutic molecular targets of Valproate(VPA)
-6: Split part 2 of: TCF7L2 lncRNA: A Link between Bipolar Disorder and Body Mass Index through Glucocorticoid Signaling [RNA-Seq] [collection of material = Experiment 1 ]
+1:             GSE67645
+2:   McLean Hippocampus
+3:              byne-cc
+4:             GSE45484
+5:            GSE134497
+6:            GSE160761
+                                                                                                                                                                                     experiment.name
+                                                                                                                                                                                              &lt;char&gt;
+1: Transcriptome dynamics of developing photoreceptors in 3-D retina cultures recapitulates temporal sequence of human cone and rod differentiation revealing cell surface markers and gene networks
+2:                                                                                                                                                                                McLean Hippocampus
+3:                                                                                                                                              Corpus Callosum data from Stanley collection samples
+4:                                        Gene-expression differences in peripheral blood between lithium responders and non-responders in the “Lithium Treatment -Moderate dose Use Study” (LiTMUS)
+5:                                                                                                                      Total RNA sequecing for human induced pluripotent derived cerebral organoids
+6:                                                            RNA sequencing  in human  iPSCs derived from  bipolar  patients  to identify important therapeutic molecular targets of Valproate(VPA)
    taxon.name
        &lt;char&gt;
 1:      human
@@ -1528,19 +1528,19 @@ up requests</p>
 <div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="../reference/get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>     platform.ID platform.shortName
-           &lt;int&gt;             &lt;char&gt;
-  1:           1              GPL96
-  2:           2            GPL1355
-  3:           3            GPL1261
-  4:           4             GPL570
-  5:           5              GPL81
- ---                               
-630:        1326           GPL10732
-631:        1327           GPL11044
-632:        1329           GPL24973
-633:        1330           GPL33408
-634:        1331           GPL32159
+<pre><code>     platform.ID  platform.shortName
+           &lt;int&gt;              &lt;char&gt;
+  1:           1               GPL96
+  2:           2             GPL1355
+  3:           3             GPL1261
+  4:           4              GPL570
+  5:           5               GPL81
+ ---                                
+630:        1326            GPL10732
+631:        1327            GPL11044
+632:        1330            GPL33408
+633:        1331            GPL32159
+634:        1332 014850_4x44K_Merged
                                                                  platform.name
                                                                         &lt;char&gt;
   1:                  Affymetrix GeneChip Human Genome U133 Array Set HG-U133A
@@ -1551,9 +1551,9 @@ up requests</p>
  ---                                                                          
 630:                                               Mouse-Agilent-22K-D20030711
 631: Affymetrix GeneChip Mouse Genome 430 2.0 Array [CDF: Mouse4302_Mm_REFSEQ]
-632:                                                     MinION (Mus musculus)
-633:                                          NextSeq 1000 (Rattus norvegicus)
-634:                                               NextSeq 1000 (Mus musculus)
+632:                                          NextSeq 1000 (Rattus norvegicus)
+633:                                               NextSeq 1000 (Mus musculus)
+634:                 Agilent-014850 Whole Human Genome Microarray 4x44K G4112F
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          platform.description
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        &lt;char&gt;
   1:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                The U133 set includes 2 arrays with a total of 44928 entries and was indexed 29-Jan-2002. The set includes over 1,000,000 unique oligonucleotide features covering more than 39,000 transcript variants, which in turn represent greater than 33,000 of the best characterized human genes. Sequences were selected from GenBank, dbEST, and RefSeq. Sequence clusters were created from Build 133 of UniGene (April 20, 2001) and refined by analysis and comparison with a number of other publicly available databases including the Washington University EST trace repository and the University of California, Santa Cruz golden-path human genome database (April 2001 release). In addition, ESTs were analyzed for untrimmed low-quality sequence information, correct orientation, false priming, false clustering, alternative splicing and alternative polyadenylation.  Keywords = high density oligonucleotide array\nFrom GPL96\nLast Updated: Mar 09 2006
@@ -1566,20 +1566,20 @@ up requests</p>
 631:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               This identical to GPL1261 but a custom CDF environment was used to extract data.  The .cdf and mapping files, as well as an R package are provided as supplementary files.
 632:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 633:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-634:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+634:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Created by merging the following array designs: ArrayDesign Id=598 Name=Agilent-012391 Whole Human Genome Oligo Microarray G4112A (Probe Name version) Short Name=GPL6848,GPL6480
      platform.troubled platform.experimentCount platform.type taxon.name
                 &lt;lgcl&gt;                    &lt;int&gt;        &lt;char&gt;     &lt;char&gt;
   1:             FALSE                      403      ONECOLOR      human
   2:             FALSE                      295      ONECOLOR        rat
   3:             FALSE                     1311      ONECOLOR      mouse
-  4:             FALSE                     1500      ONECOLOR      human
-  5:             FALSE                      201      ONECOLOR      mouse
+  4:             FALSE                     1499      ONECOLOR      human
+  5:             FALSE                      200      ONECOLOR      mouse
  ---                                                                    
 630:             FALSE                        0      ONECOLOR      mouse
 631:             FALSE                        0      ONECOLOR      mouse
-632:             FALSE                        0    SEQUENCING      mouse
-633:             FALSE                        0    SEQUENCING        rat
-634:             FALSE                        1    SEQUENCING      mouse
+632:             FALSE                        0    SEQUENCING        rat
+633:             FALSE                        1    SEQUENCING      mouse
+634:             FALSE                        0      DUALMODE      human
       taxon.scientific taxon.ID taxon.NCBI taxon.database.name
                 &lt;char&gt;    &lt;int&gt;      &lt;int&gt;              &lt;char&gt;
   1:      Homo sapiens        1       9606                hg38
@@ -1590,9 +1590,9 @@ up requests</p>
  ---                                                          
 630:      Mus musculus        2      10090                mm10
 631:      Mus musculus        2      10090                mm10
-632:      Mus musculus        2      10090                mm10
-633: Rattus norvegicus        3      10116                 rn6
-634:      Mus musculus        2      10090                mm10
+632: Rattus norvegicus        3      10116                 rn6
+633:      Mus musculus        2      10090                mm10
+634:      Homo sapiens        1       9606                hg38
      taxon.database.ID
                  &lt;int&gt;
   1:                87
@@ -1603,9 +1603,9 @@ up requests</p>
  ---                  
 630:                81
 631:                81
-632:                81
-633:                86
-634:                81</code></pre>
+632:                86
+633:                81
+634:                87</code></pre>
 <p>Alternative way to access all pages is to do so manually. To see how
 many available results are there, you can look at the attributes of the
 output objects where additional information from the API response is
@@ -1621,19 +1621,19 @@ platforms.</p>
 <span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.shortName</span>, <span class="va">taxon.name</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
-<pre><code>     platform.ID platform.shortName taxon.name
-           &lt;int&gt;             &lt;char&gt;     &lt;char&gt;
-  1:           1              GPL96      human
-  2:           2            GPL1355        rat
-  3:           3            GPL1261      mouse
-  4:           4             GPL570      human
-  5:           5              GPL81      mouse
- ---                                          
-630:        1326           GPL10732      mouse
-631:        1327           GPL11044      mouse
-632:        1329           GPL24973      mouse
-633:        1330           GPL33408        rat
-634:        1331           GPL32159      mouse</code></pre>
+<pre><code>     platform.ID  platform.shortName taxon.name
+           &lt;int&gt;              &lt;char&gt;     &lt;char&gt;
+  1:           1               GPL96      human
+  2:           2             GPL1355        rat
+  3:           3             GPL1261      mouse
+  4:           4              GPL570      human
+  5:           5               GPL81      mouse
+ ---                                           
+630:        1326            GPL10732      mouse
+631:        1327            GPL11044      mouse
+632:        1330            GPL33408        rat
+633:        1331            GPL32159      mouse
+634:        1332 014850_4x44K_Merged      human</code></pre>
 <p>Many endpoints only support a single identifier:</p>
 <div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -2019,7 +2019,7 @@ list()
 attr(,"call")
 [1] "https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/locations"
 attr(,"env")
-&lt;environment: 0x55bcf4255d00&gt;</code></pre>
+&lt;environment: 0x55bdc4286088&gt;</code></pre>
 </div>
 <div class="section level3">
 <h3 id="file-outputs">File outputs<a class="anchor" aria-label="anchor" href="#file-outputs"></a>
@@ -2089,12 +2089,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -2129,14 +2127,14 @@ loaded via a namespace (and not attached):
 [34] ragg_1.2.7              generics_0.1.3          httr_1.4.7             
 [37] cachem_1.0.8            stringr_1.5.1           zlibbioc_1.48.0        
 [40] assertthat_0.2.1        BiocManager_1.30.22     XVector_0.42.0         
-[43] vctrs_0.6.5             Matrix_1.6-5            jsonlite_1.8.8         
+[43] vctrs_0.6.5             Matrix_1.6-1.1          jsonlite_1.8.8         
 [46] bookdown_0.37           bit64_4.0.5             systemfonts_1.0.5      
 [49] jquerylib_0.1.4         glue_1.7.0              pkgdown_2.0.7          
 [52] lubridate_1.9.3         stringi_1.8.3           gtable_0.3.4           
 [55] munsell_0.5.0           tibble_3.2.1            pillar_1.9.0           
 [58] rappdirs_0.3.3          htmltools_0.5.7         GenomeInfoDbData_1.2.11
 [61] R6_2.5.1                textshaping_0.3.7       evaluate_0.23          
-[64] lattice_0.22-5          highr_0.10              memoise_2.0.1          
+[64] lattice_0.21-9          highr_0.10              memoise_2.0.1          
 [67] bslib_0.6.1             Rcpp_1.0.12             gridExtra_2.3          
 [70] SparseArray_1.2.4       xfun_0.42               fs_1.6.3               
 [73] pkgconfig_2.0.3        </code></pre>
