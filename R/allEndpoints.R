@@ -172,6 +172,116 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
     )
 }
 
+#' Retrieve all result sets matching the provided criteria
+#'
+#'
+#'
+#' @param datasets A numerical dataset identifier or a dataset short name
+#' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
+#' function to get a list of all available parameters. These properties can be
+#' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+#' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
+#' @param offset The offset of the first retrieved result.
+#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' of objects. Has a maximum value of 100. Use together with \code{offset} and
+#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
+#' compile all data if needed.
+#' @param sort Order results by the given property and direction. The '+' sign
+#' indicate ascending order whereas the '-' indicate descending.
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
+#' @export
+#'
+#' @keywords misc
+#'
+#' @examples
+#' resultSets <- get_result_sets("523099")
+#' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
+get_result_sets <- function(
+        datasets = NA_character_, filter = NA_character_, offset = 0,
+        limit = 20, sort = "+id", raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
+    open_api_name <- "get_result_sets"
+    internal <- FALSE
+    keyword <- "misc"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_result_sets"
+    preprocessor <- processDifferentialExpressionAnalysisResultSetValueObject
+    validators <- list(
+        datasets = validateOptionalID, filter = validateFilter,
+        offset = validatePositiveInteger, limit = validateLimit,
+        sort = validateSort
+    )
+    endpoint <- "resultSets?datasets={encode(datasets)}&filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_result_sets",
+                datasets = datasets,
+                filter = filter, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite
+            ))
+        } else {
+            out <- memget_result_sets(
+                datasets = datasets, filter = filter,
+                offset = offset, limit = limit, sort = sort,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_result_sets
+#'
+#' @noRd
+memget_result_sets <- function(
+        datasets = NA_character_, filter = NA_character_, offset = 0,
+        limit = 20, sort = "+id", raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
+    mem_call <- memoise::memoise(get_result_sets, cache = gemmaCache())
+    mem_call(
+        datasets = datasets, filter = filter, offset = offset,
+        limit = limit, sort = sort, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
+
 #' Search for annotation tags
 #'
 #'
@@ -446,11 +556,6 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
-#' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
-#' of objects. Has a maximum value of 100. Use together with \code{offset} and
-#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
-#' compile all data if needed.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -472,13 +577,10 @@ memget_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), 
 #' @examples
 #' result <- get_dataset_differential_expression_analyses("GSE2872")
 #' get_differential_expression_values(resultSet = result$result.ID[1])
-get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
+get_dataset_differential_expression_analyses <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -497,30 +599,6 @@ get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, l
             )
         }
         validateID(name, ...)
-    }, offset = function(name, ...) {
-        args <- list(...)
-        if (length(unlist(args)) != 1 || any(is.na(unlist(args))) ||
-            !is.numeric(unlist(args)) || any(vapply(args, "%%",
-            1,
-            FUN.VALUE = numeric(1)
-        ) != 0) || any(vapply(args,
-            sign,
-            FUN.VALUE = numeric(1)
-        ) < 0)) {
-            stop(glue::glue("Please only specify positive integer values for {name}."),
-                call. = FALSE
-            )
-        }
-        unlist(args)
-    }, limit = function(name, ...) {
-        validatePositiveInteger(name, ...)
-        args <- list(...)
-        if (unlist(args) <= 0 || unlist(args) > 100) {
-            stop(glue::glue("Please specify a limit between 1 and 100 (inclusive)"),
-                call. = FALSE
-            )
-        }
-        unlist(args)
     })
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
     if (memoised) {
@@ -530,14 +608,13 @@ get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, l
         if ("character" %in% class(gemmaCache()) && gemmaCache() ==
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_differential_expression_analyses",
-                dataset = dataset, offset = offset, limit = limit,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_differential_expression_analyses(
                 dataset = dataset,
-                offset = offset, limit = limit, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
@@ -553,13 +630,10 @@ get_dataset_differential_expression_analyses <- function(dataset, offset = 0L, l
 #' Memoise get_dataset_differential_expression_analyses
 #'
 #' @noRd
-memget_dataset_differential_expression_analyses <- function(dataset, offset = 0L, limit = 20L, raw = getOption(
-        "gemma.raw",
+memget_dataset_differential_expression_analyses <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
         "gemma.overwrite",
         FALSE
     )) {
@@ -567,8 +641,8 @@ memget_dataset_differential_expression_analyses <- function(dataset, offset = 0L
         cache = gemmaCache()
     )
     mem_call(
-        dataset = dataset, offset = offset, limit = limit,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
     )
 }
 

@@ -53,7 +53,11 @@ api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('op
 
 # /resultSets/{resultSet}, get_result_set ------ 
 # only exposed internally for the higher level function
+# get_differential_expression_values
 
+# considered exposing this as is but decided not to since it's name is easily
+# confusable with the get_result_sets endpoint wile doing drastically different
+# things.
 registerEndpoint(
     "resultSets/{resultSet}",
     ".getResultSets", open_api_name = 'get_result_set',
@@ -91,18 +95,33 @@ registerEndpoint(
 # otherwise it can be replaced by get_dataset_differential_expression_analyses
 # the implementation below is also missing arguments
 
-# registerEndpoint(
-#     "resultSets?datasets={datasets}",
-#     "get_result_sets",open_api_name = 'get_result_sets',
-#     keyword = "internal",
-#     defaults = list(
-#         datasets = bquote()
-#     ),
-#     validators = alist(
-#         datasets = validateID
-#     ),
-#     preprocessor = quote(processDatasetResultSets)
-# )
+# this endpoint does everything get_dataset_differential_expression_analyses does
+# while prodiving the additional functionality of just accessing the data of a single
+# resultset using it's id. keeping both for now but I should change documentation
+# to emphasize this one instead
+
+
+registerEndpoint(
+    "resultSets?datasets={datasets}&filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+    "get_result_sets",open_api_name = 'get_result_sets',
+    keyword = "misc",
+    defaults = list(
+        datasets = NA_character_,
+        # database entires not supported for now.. not sure if there's a good use for them
+        filter = NA_character_,
+        offset = 0,
+        limit = 20,
+        sort = '+id'
+    ),
+    validators = alist(
+        datasets = validateOptionalID,
+        filter = validateFilter,
+        offset = validatePositiveInteger,
+        limit = validateLimit,
+        sort = validateSort
+    ),
+    preprocessor = quote(processDifferentialExpressionAnalysisResultSetValueObject)
+)
 
 # /annotations/search, search_annotations --------
 

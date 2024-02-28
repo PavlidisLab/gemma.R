@@ -33,11 +33,18 @@ NULL
 
 #' get_result_sets
 #'
-#' @inherit processDatasetResultSets return
+#' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
 #'
 #' @examples
-#' resultSets <- get_result_sets('GSE2872')
+#' resultSets <- get_result_sets('523099')
 #' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
+NULL
+
+
+#' .getResultSets
+#' 
+#' @examples
+#' gemma.R:::.getResultSets(523099)
 NULL
 
 
@@ -316,11 +323,7 @@ NULL
 #' get_dataset_expression_for_genes('GSE2018',genes=c(10225,2841))
 NULL
 
-#' .getResultSets
-#' 
-#' @examples
-#' gemma.R:::.getResultSets(523099)
-NULL
+
 
 
 #' .getResultSetFactors
