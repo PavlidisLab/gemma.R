@@ -39,6 +39,7 @@ library(ggrepel)
 library(SummarizedExperiment)
 library(pheatmap)
 library(viridis)
+library(listviewer)
 ```
 
 ```{r, include = FALSE}
@@ -87,18 +88,24 @@ Using the [`get_datasets`](https://pavlidislab.github.io/gemma.R/reference/get_d
 ```{r}
 # accessing all mouse and human datasets
 get_datasets(taxa = c('mouse','human')) %>% 
-    select(experiment.shortName, experiment.name,taxon.name) %>% head
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 
 # accessing human datasets with the word "bipolar"
 get_datasets(query = 'bipolar',taxa = 'human') %>% 
-     select(experiment.shortName, experiment.name,taxon.name) %>% head
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 
 # access human datasets that were annotated with the ontology term for the
 # bipolar disorder
 
 get_datasets(taxa ='human', 
              uris = 'http://purl.obolibrary.org/obo/MONDO_0004985') %>%
-    select(experiment.shortName, experiment.name,taxon.name) %>% head
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 ```
 
 Note that a single call of these functions will only return 20 results by default
@@ -108,8 +115,9 @@ all available results, use `get_all_pages` function on the output of the functio
 ```{r}
 get_datasets(taxa = 'human') %>% 
     get_all_pages() %>% 
-    select(experiment.shortName, experiment.name,taxon.name) %>% 
-    head()
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 ```
 
 
@@ -121,19 +129,25 @@ The `filter` parameter of get_datasets allows filtering for datasets with specif
 properties. A list of such properties can be accessed using `filter_properties`.
 
 ```{r}
-filter_properties()$dataset %>% head
+filter_properties()$dataset %>% head %>% gemma_kable()
 ```
 
 These properties can be used together to fine tune your results
 
 ```{r}
 # all datasets with more than 4 samples annotated for any disease
-get_datasets(filter = 'bioAssayCount > 4 and allCharacteristics.category = disease')
+get_datasets(filter = 'bioAssayCount > 4 and allCharacteristics.category = disease') %>%
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 
 # all datasets with ontology terms for Alzheimer's disease and Parkinson's disease
 # this is equivalent to using the uris parameter
 get_datasets(filter = 'allCharacteristics.valueUri in (http://purl.obolibrary.org/obo/MONDO_0004975,http://purl.obolibrary.org/obo/MONDO_0005180
-)')
+)')  %>%
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 ```
 
 Dataset information provided by `get_datasets` also includes some quality information
@@ -145,7 +159,9 @@ these and other fields can be found at the function documentation.
 ```{r}
 get_datasets(taxa = 'human', filter = 'bioAssayCount > 4') %>% 
      filter(geeq.batchEffect !=-1) %>% 
-    select(experiment.shortName, experiment.name,taxon.name) %>% head
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 ```
 
 
@@ -155,7 +171,7 @@ allows searching for annotation terms that might be relevant to your query.
 
 ```{r}
 search_annotations('bipolar') %>% 
-    head
+    head %>% gemma_kable()
 ```
 
 
@@ -170,7 +186,9 @@ The data associated with specific experiments can be accessed by using [`get_dat
 
 ```{r dataset}
 get_datasets_by_ids("GSE46416") %>%
-    select(experiment.shortName, experiment.name, experiment.ID, experiment.description)
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
 ```
 
 To access the expression data in a convenient form, you can use
@@ -228,7 +246,8 @@ to only get the expression matrix, [`get_dataset_samples`](https://pavlidislab.g
 to match the version included in the output of `get_dataset_object`  by using [`make_design`](https://pavlidislab.github.io/gemma.R/reference/make_design) on the output.
 
 ```{r}
-get_dataset_samples('GSE46416') %>% make_design('text') %>% head
+get_dataset_samples('GSE46416') %>% make_design('text') %>% head %>%
+    gemma_kable()
 ```
 
 # Platform Annotations
@@ -243,11 +262,11 @@ terms.
 Examples:
 
 ```{r}
-head(get_platform_annotations('GPL96'))
+head(get_platform_annotations('GPL96') %>% select(-GOTerms))
 ```
 
 ```{r}
-head(get_platform_annotations('Generic_human_ncbiIds'))
+head(get_platform_annotations('Generic_human_ncbiIds') %>% select(-GOTerms))
 ```
 
 If you are interested in a particular gene, you can see which platforms
@@ -258,13 +277,14 @@ identifiers rather than symbols.
 
 ```{r}
 # lists genes in gemma matching the symbol or identifier
-get_genes('Eno2')
+get_genes('Eno2') %>% gemma_kable()
 
 # ncbi id for human ENO2
 probes <- get_gene_probes(2026)
 
 # remove the description for brevity of output
-head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','platform.Description')])
+head(probes[,.SD, .SDcols = !colnames(probes) %in% c('mapping.Description','platform.Description')]) %>%
+    gemma_kable()
 
 ```
 
@@ -285,7 +305,7 @@ per study if a study has multiple factors to contrast. Since GSE46416 only has o
 extracting the first element of the returned list is all we need.
 ```{r}
 dif_exp <- get_differential_expression_values('GSE46416')
-(dif_exp[[1]])
+dif_exp[[1]] %>% head %>% gemma_kable()
 ```
 
 By default the columns names of the output correspond to contrast IDs. To see what
@@ -298,7 +318,8 @@ a large scale systematic analysis while the latter is easier to read in an inter
 about the differentials.
 
 ```{r}
-(contrasts <- get_dataset_differential_expression_analyses('GSE46416'))
+contrasts <- get_dataset_differential_expression_analyses('GSE46416')
+contrasts %>% gemma_kable()
 ```
 
 `contrast.ID` column corresponds to the column names in the
@@ -323,7 +344,7 @@ contrasts <- data.table(result.ID = contrasts$result.ID,
                         experimental.factorValue = contrasts$experimental.factors,
                         n_diff = dif_exp_genes)
 
-contrasts
+contrasts %>% gemma_kable()
 
 
 contrasts$baseline.factorValue
@@ -336,7 +357,8 @@ we can simply use `readableContrasts`.
 
 
 ```{r diffExpr, fig.cap="Differentially-expressed genes in bipolar patients during manic phase versus controls.", fig.wide=TRUE, warning = FALSE}
-(de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]])
+de <- get_differential_expression_values("GSE46416",readableContrasts = TRUE)[[1]]
+de %>% head %>% gemma_kable
 
 # Classify probes for plotting
 de$diffexpr <- "No"
@@ -350,14 +372,14 @@ filter(de, diffexpr == "Up") %>%
     arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
     select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
         `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
-    head(10)
+    head(10) %>% gemma_kable()
 
 # Downregulated probes
 filter(de, diffexpr == "Down") %>%
     arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
     select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
         `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
-    head(10)
+    head(10) %>% gemma_kable()
 
 # Add gene symbols as labels to DE genes
 de$delabel <- ""
@@ -394,7 +416,7 @@ To simplify the process of accessing all available data, gemma.R includes the
 
 ```{r}
 get_platforms_by_ids() %>% 
-    get_all_pages()
+    get_all_pages() %>% head %>% gemma_kable()
 ```
 
 Alternative way to access all pages is to do so manually. 
@@ -413,7 +435,8 @@ After which you can use `offset` to access all available platforms.
 lapply(seq(0,platform_count,100), function(offset){
     get_platforms_by_ids(limit = 100, offset = offset) %>%
         select(platform.ID, platform.shortName, taxon.name)
-}) %>% do.call(rbind,.)
+}) %>% do.call(rbind,.) %>% 
+    head %>% gemma_kable()
 ```
 
 Many endpoints only support a single identifier:
@@ -430,7 +453,7 @@ lapply(c("GSE35974", "GSE12649"), function(dataset) {
     get_dataset_annotations(dataset) %>% 
         mutate(experiment.shortName = dataset) %>%
         select(experiment.shortName, class.name, term.name)
-}) %>% do.call(rbind,.)
+}) %>% do.call(rbind,.) %>% gemma_kable()
 ```
 
 # Output options
@@ -444,9 +467,9 @@ typically unused values. If you wish to fetch everything, use
 that represents the underlying JSON response.
 
 ```{r}
-get_gene_locations("DYRK1A")
+get_gene_locations("DYRK1A") %>% gemma_kable()
 
-get_gene_locations("DYRK1A", raw = TRUE)
+get_gene_locations("DYRK1A", raw = TRUE) %>% jsonedit()
 ```
 
 ## File outputs
