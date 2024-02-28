@@ -836,9 +836,16 @@ filter_properties <- function(){
                    type =  platform_filter %>% accessField('type'),
                    description =  platform_filter %>% accessField('description'))
     
+    
+    resultSet_filter <-  api_file$components$schemas$FilterArgExpressionAnalysisResultSet$`x-gemma-filterable-properties`
+    resultSet_properties <- data.table(properties = resultSet_filter %>% accessField('name'),
+                                       type =  resultSet_filter %>% accessField('type'),
+                                       description =  resultSet_filter %>% accessField('description'))
+        
     out <- list(
         dataset = dataset_properties,
-        platform = platform_properties
+        platform = platform_properties,
+        resultSet = resultSet_properties
     )
     
     return(out)
