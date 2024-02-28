@@ -15,8 +15,6 @@ vignette: |
 ```{r setup, message = FALSE}
 library(gemma.R)
 library(dplyr)
-library(knitr)
-library(kableExtra)
 library(pheatmap)
 ```
 
@@ -45,7 +43,7 @@ Terms returned via `get_dataset_annotations` are tags used to describe a dataset
 
 ```{r}
 get_dataset_annotations('GSE18728') %>%
-    kable() %>% kable_styling()
+    gemma_kable
 ```
 
 These tags come as a class/term pairs and inherit any terms that is assigned to any of the samples.
@@ -69,7 +67,7 @@ the relevant information
 ```{r}
 samples <- get_dataset_samples('GSE18728')
 samples$sample.factorValues[[1]] %>% 
-    kable() %>% kable_styling()
+    gemma_kable()
 ```
 
 The example above shows a single factor value object for one sample. The rows of this
@@ -136,7 +134,7 @@ provide a more human readable output, giving each available factor it's own colu
 ```{r}
 design <- make_design(samples)
 design[,-1] %>% head %>%  # first column is just a copy of the original factor values
-    kable() %>% kable_styling()
+    gemma_kable()
 ```
 
 Using this output, here we look at the sample sizes for different experimental groups.
@@ -145,7 +143,7 @@ design %>%
     group_by(treatment,phenotype,`collection of material`) %>% 
     summarize(n= n()) %>% 
     arrange(desc(n)) %>% 
-    kable() %>% kable_styling()
+    gemma_kable()
 
 ```
 
@@ -162,7 +160,7 @@ remove_columns <- c('baseline.factors','experimental.factors','subsetFactor','fa
 dea <- get_dataset_differential_expression_analyses("GSE18728")
 
 dea[,.SD,.SDcols = !remove_columns] %>% 
-     kable() %>% kable_styling()
+    gemma_kable()
 ```
 
 The example above shows the differential expression analyses results. Each row of this data.table 
@@ -188,10 +186,10 @@ uri_columns = c('category.URI',
                 'factor.category.URI')
 
 contrast$baseline.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
-    kable() %>% kable_styling()
+     gemma_kable()
 
 contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
-    kable() %>% kable_styling()
+     gemma_kable()
 ```
 
 Here, we can see the baseline is the non-resistant controls, being compared to drug resistant patients.
@@ -206,10 +204,10 @@ contrast <- dea[2,]
 
 ```{r}
 contrast$baseline.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
-    kable() %>% kable_styling()
+     gemma_kable()
 
 contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>% 
-    kable() %>% kable_styling()
+     gemma_kable()
 ```
 
 A third place that can contain factorValues is
@@ -219,7 +217,7 @@ factor to remove some samples from differential expression analyses
 
 ```{r}
 contrast$subsetFactor[[1]][,.SD,.SDcols = !uri_columns] %>%
-     kable() %>% kable_styling()
+     gemma_kable()
 ```
 
 Looking at the design table we made above, you can see that these were samples where treatment was not specified.
@@ -233,8 +231,8 @@ argument which will return the data already composed of samples representing a p
 
 ```{r}
 obj <-  get_dataset_object("GSE18728",resultSets = contrast$result.ID,contrasts = contrast$contrast.ID,type = 'list')
-obj$`2914.506926.76119_134951`$design[,-1] %>% head %>% 
-    kable() %>% kable_styling()
+obj[[1]]$design[,-1] %>% 
+    head %>% gemma_kable()
 ```
 
 
@@ -246,7 +244,7 @@ phenotype, treatment interaction. Each result.ID returns its separate table when
 ```{r}
 dif_vals <- get_differential_expression_values('GSE18728')
 dif_vals[[as.character(contrast$result.ID)]] %>% head %>%  
-    kable() %>% kable_styling()
+     gemma_kable()
 ```
 To get the top genes found associated with this interaction we access the columns with
 the correct `contrast.ID`.
@@ -258,7 +256,7 @@ top_genes <- dif_vals[[as.character(contrast$result.ID)]] %>%
     filter(GeneSymbol!='' | grepl("|",GeneSymbol,fixed = TRUE)) %>% # remove blank genes or probes with multiple genes
     {.[1:10,]}
 top_genes %>% select(Probe,NCBIid,GeneSymbol) %>% 
-      kable() %>% kable_styling()
+     gemma_kable()
 ```
 
 
