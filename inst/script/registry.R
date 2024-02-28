@@ -173,14 +173,10 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  'get_dataset_differential_expression_analyses', open_api_name = 'get_dataset_differential_expression_analyses',
                  keyword = 'dataset',
                  defaults = list(
-                     dataset = bquote(),
-                     offset = 0L,
-                     limit = 20L
+                     dataset = bquote()
                  ),
                  validators = list(
-                     dataset = validateSingleID,
-                     offset = validatePositiveInteger,
-                     limit = validateLimit
+                     dataset = validateSingleID
                  ),
                  preprocessor = quote(processDEA))
 
