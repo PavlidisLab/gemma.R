@@ -314,6 +314,7 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
     if(any(details_override)){
         assertthat::assert_that(sum(details_override)==1)
         val = overrides[[fname]]$tags[[which(details_override)]]$val
+        val = val %>% strsplit('\n') %>% {.[[1]]} %>% paste(collapse = "\n#' ")
         cat(glue::glue("#' @details {val}\n#'\n\n"), file = document, append = TRUE)
     }
 
