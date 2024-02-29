@@ -20,7 +20,6 @@
 #' @keywords internal
 #'
 #' @examples
-#' # gemma.R:::.getResultSets(523099)
 .getResultSets <- function(resultSet = NA_character_, raw = getOption(
         "gemma.raw",
         FALSE
