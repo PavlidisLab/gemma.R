@@ -85,98 +85,17 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
     )
 }
 
-#' Retrieve a single analysis result set by its identifier
-#'
-#'
-#'
-#' @param resultSet An expression analysis result set numerical identifier.
-#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-#' parsing. Raw results usually contain additional fields and flags that are
-#' omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the
-#' same inputs and use the result saved in cache if a result is already saved.
-#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
-#' @param file The name of a file to save the results to, or \code{NULL} to not write
-#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
-#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified
-#' filename.
-#'
-#' @return Varies
-#' @keywords internal
-#'
-#' @examples
-#' gemma.R:::.getResultSetFactors(523099)
-.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    open_api_name <- "get_result_set"
-    internal <- TRUE
-    header <- ""
-    isFile <- FALSE
-    fname <- ".getResultSetFactors"
-    preprocessor <- processResultSetFactors
-    validators <- list(resultSet = validateOptionalID)
-    endpoint <- "resultSets/{encode(resultSet)}?excludeResults=true"
-    if (memoised) {
-        if (!is.na(file)) {
-            warning("Saving to files is not supported with memoisation.")
-        }
-        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
-            "cache_in_memory") {
-            return(mem_in_memory_cache(".getResultSetFactors",
-                resultSet = resultSet, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
-            ))
-        } else {
-            out <- mem.getResultSetFactors(
-                resultSet = resultSet,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
-            )
-            return(out)
-        }
-    }
-    .body(
-        fname = fname, validators = validators, endpoint = endpoint,
-        envWhere = environment(), isFile = isFile, header = header,
-        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
-    )
-}
-
-#' Memoise .getResultSetFactors
-#'
-#' @noRd
-mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
-        "gemma.raw",
-        FALSE
-    ), memoised = getOption("gemma.memoised", FALSE), file = getOption(
-        "gemma.file",
-        NA_character_
-    ), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
-    mem_call <- memoise::memoise(.getResultSetFactors, cache = gemmaCache())
-    mem_call(
-        resultSet = resultSet, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
-
 #' Retrieve all result sets matching the provided criteria
 #'
+#' Returns queried result set
 #'
+#' @details Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}.
+#' The principal difference being the ability to restrict your result sets, being able to
+#' query across multiple datasets and being able to use the filter argument
+#' to search based on result set properties.
 #'
 #' @param datasets A numerical dataset identifier or a dataset short name
+#' @param resultSets
 #' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
@@ -210,15 +129,13 @@ mem.getResultSetFactors <- function(resultSet = NA_character_, raw = getOption(
 #' resultSets <- get_result_sets("523099")
 #' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
 get_result_sets <- function(
-        datasets = NA_character_, filter = NA_character_, offset = 0,
-        limit = 20, sort = "+id", raw = getOption("gemma.raw", FALSE),
-        memoised = getOption("gemma.memoised", FALSE), file = getOption(
-            "gemma.file",
-            NA_character_
-        ), overwrite = getOption(
-            "gemma.overwrite",
+        datasets = NA_character_, resultSets = NA_character_,
+        filter = NA_character_, offset = 0, limit = 20, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
             FALSE
-        )) {
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     open_api_name <- "get_result_sets"
     internal <- FALSE
     keyword <- "misc"
@@ -227,9 +144,9 @@ get_result_sets <- function(
     fname <- "get_result_sets"
     preprocessor <- processDifferentialExpressionAnalysisResultSetValueObject
     validators <- list(
-        datasets = validateOptionalID, filter = validateFilter,
-        offset = validatePositiveInteger, limit = validateLimit,
-        sort = validateSort
+        datasets = validateOptionalID, resultSets = validateOptionalID,
+        filter = validateFilter, offset = validatePositiveInteger,
+        limit = validateLimit, sort = validateSort
     )
     endpoint <- "resultSets?datasets={encode(datasets)}&filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&sort={encode(sort)}"
     if (memoised) {
@@ -240,15 +157,16 @@ get_result_sets <- function(
             "cache_in_memory") {
             return(mem_in_memory_cache("get_result_sets",
                 datasets = datasets,
-                filter = filter, offset = offset, limit = limit,
-                sort = sort, raw = raw, memoised = FALSE, file = file,
-                overwrite = overwrite
+                resultSets = resultSets, filter = filter, offset = offset,
+                limit = limit, sort = sort, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_result_sets(
-                datasets = datasets, filter = filter,
-                offset = offset, limit = limit, sort = sort,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                datasets = datasets, resultSets = resultSets,
+                filter = filter, offset = offset, limit = limit,
+                sort = sort, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite
             )
             return(out)
         }
@@ -265,20 +183,18 @@ get_result_sets <- function(
 #'
 #' @noRd
 memget_result_sets <- function(
-        datasets = NA_character_, filter = NA_character_, offset = 0,
-        limit = 20, sort = "+id", raw = getOption("gemma.raw", FALSE),
-        memoised = getOption("gemma.memoised", FALSE), file = getOption(
-            "gemma.file",
-            NA_character_
-        ), overwrite = getOption(
-            "gemma.overwrite",
+        datasets = NA_character_, resultSets = NA_character_,
+        filter = NA_character_, offset = 0, limit = 20, sort = "+id",
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
             FALSE
-        )) {
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_result_sets, cache = gemmaCache())
     mem_call(
-        datasets = datasets, filter = filter, offset = offset,
-        limit = limit, sort = sort, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
+        datasets = datasets, resultSets = resultSets, filter = filter,
+        offset = offset, limit = limit, sort = sort, raw = raw,
+        memoised = FALSE, file = file, overwrite = overwrite
     )
 }
 

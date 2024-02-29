@@ -6,6 +6,7 @@
 \usage{
 get_result_sets(
   datasets = NA_character_,
+  resultSets = NA_character_,
   filter = NA_character_,
   offset = 0,
   limit = 20,
@@ -71,7 +72,13 @@ they uniquely represent a given contrast.
 }
 }
 \description{
-Retrieve all result sets matching the provided criteria
+Returns queried result set
+}
+\details{
+Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}.
+The principal difference being the ability to restrict your result sets, being able to
+query across multiple datasets and being able to use the filter argument
+to search based on result set properties.
 }
 \examples{
 resultSets <- get_result_sets("523099")

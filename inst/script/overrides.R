@@ -32,6 +32,13 @@ NULL
 NULL
 
 #' get_result_sets
+#' 
+#' Returns queried result set
+#' 
+#' Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}. 
+#' The principal difference being the ability to restrict your result sets, being able to
+#' query across multiple datasets and being able to use the filter argument
+#' to search based on result set properties.
 #'
 #' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
 #'

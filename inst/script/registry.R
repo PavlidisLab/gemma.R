@@ -56,7 +56,7 @@ api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('op
 # get_differential_expression_values
 
 # considered exposing this as is but decided not to since it's name is easily
-# confusable with the get_result_sets endpoint wile doing drastically different
+# confusable with the get_result_sets endpoint while doing drastically different
 # things.
 registerEndpoint(
     "resultSets/{resultSet}",
@@ -74,18 +74,19 @@ registerEndpoint(
 
 # /resultSets/{resultSet_}
 # this is the cheat endpoint that drops the data from result sets but it uses the same arguments
-registerEndpoint(
-    "resultSets/{resultSet}?excludeResults=true",
-    ".getResultSetFactors", open_api_name = 'get_result_set',
-    internal = TRUE,
-    defaults = list(
-        resultSet = NA_character_
-    ),
-    validators = alist(
-        resultSet = validateOptionalID
-    ),
-    preprocessor = quote(processResultSetFactors)
-)
+# it was made obsolete since get_result_sets works just as well
+# registerEndpoint(
+#     "resultSets/{resultSet}?excludeResults=true",
+#     ".getResultSetFactors", open_api_name = 'get_result_set',
+#     internal = TRUE,
+#     defaults = list(
+#         resultSet = NA_character_
+#     ),
+#     validators = alist(
+#         resultSet = validateOptionalID
+#     ),
+#     preprocessor = quote(processResultSetFactors)
+# )
 
 # /resultSets, get_result_sets -----
 # unimplemented
@@ -107,6 +108,7 @@ registerEndpoint(
     keyword = "misc",
     defaults = list(
         datasets = NA_character_,
+        resultSets = NA_character_, 
         # database entires not supported for now.. not sure if there's a good use for them
         filter = NA_character_,
         offset = 0,
@@ -115,6 +117,7 @@ registerEndpoint(
     ),
     validators = alist(
         datasets = validateOptionalID,
+        resultSets = validateOptionalID,
         filter = validateFilter,
         offset = validatePositiveInteger,
         limit = validateLimit,

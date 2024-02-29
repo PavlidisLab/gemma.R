@@ -278,7 +278,7 @@ validateConsolidate <- function(name, ...){
 
 
 validateFilter <- function(name, ...){
-
+    
     filter <-  unlist(list(...))
     assertthat::assert_that(is.null(filter) || is.na(filter) || assertthat::is.string(filter),msg = "filter must be a string of length one")
     
@@ -296,6 +296,9 @@ validateFilter <- function(name, ...){
         filter <- addToFilter(filter,"allCharacteristics.valueUri",env$original_env$uris)
     }
     
+   if (!(all(is.na(env$original_env$resultSets))||is.null(env$original_env$resultSets)) && env$fname == 'get_result_sets'){
+        filter <- addToFilter(filter,"id",env$original_env$resultSets)
+    }    
     
     return(filter)
 }
