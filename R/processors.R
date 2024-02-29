@@ -161,8 +161,6 @@ processDEA <- function(d) {
                 
                 baseline_id <- d[[i]]$resultSets[[j]]$baselineGroup$id
                 
-                baseline_factor <-  d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[contrast.id == baseline_id]
-                
                 non_control_factors <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$values[!contrast.id %in% baseline_id]
                 non_control_ids <- contrast.id[!contrast.id %in% baseline_id]
                 size <- length(non_control_ids)
@@ -331,8 +329,6 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
         if(length(x$experimentalFactors) == 1){
             contrast_id <- x$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
             baseline_id <- x$baselineGroup$id
-            
-            baseline_factor <- x$experimentalFactors[[1]]$values[!contrast_id %in% baseline_id]
             
             non_control_factors <- x$experimentalFactors[[1]]$values[!contrast_id %in% baseline_id]
             non_control_ids <- contrast_id[!contrast_id %in% baseline_id]

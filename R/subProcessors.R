@@ -108,7 +108,7 @@ processFactorValueBasicValueObject <- function(d){
             category = array(dim=0),
             category.URI = array(dim=0),
             value = array(dim=0),
-            valueURI = array(dim=0),
+            value.URI = array(dim=0),
             predicate = array(dim=0),
             predicate.URI = array(dim=0),
             object = array(dim=0),
