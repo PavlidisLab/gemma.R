@@ -37,9 +37,6 @@
     <loc>/reference/checkBounds.html</loc>
   </url>
   <url>
-    <loc>/reference/dot-getResultSetFactors.html</loc>
-  </url>
-  <url>
     <loc>/reference/dot-getResultSets.html</loc>
   </url>
   <url>
@@ -142,6 +139,9 @@
     <loc>/reference/get_platforms_by_ids.html</loc>
   </url>
   <url>
+    <loc>/reference/get_result_sets.html</loc>
+  </url>
+  <url>
     <loc>/reference/get_taxa.html</loc>
   </url>
   <url>
@@ -155,6 +155,9 @@
   </url>
   <url>
     <loc>/reference/make_design.html</loc>
+  </url>
+  <url>
+    <loc>/reference/memoise.html</loc>
   </url>
   <url>
     <loc>/reference/nullCheck.html</loc>
@@ -182,6 +185,9 @@
   </url>
   <url>
     <loc>/reference/processDesignMatrix.html</loc>
+  </url>
+  <url>
+    <loc>/reference/processDifferentialExpressionAnalysisResultSetValueObject.html</loc>
   </url>
   <url>
     <loc>/reference/processElements.html</loc>

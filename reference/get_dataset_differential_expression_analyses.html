@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.9.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.99.1</span>
       </span>
     </div>
 
@@ -77,8 +77,6 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_dataset_differential_expression_analyses</span><span class="op">(</span></span>
 <span>  <span class="va">dataset</span>,</span>
-<span>  offset <span class="op">=</span> <span class="fl">0L</span>,</span>
-<span>  limit <span class="op">=</span> <span class="fl">20L</span>,</span>
 <span>  raw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.raw"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.file"</span>, <span class="cn">NA_character_</span><span class="op">)</span>,</span>
@@ -90,17 +88,6 @@
     <h2>Arguments</h2>
     <dl><dt>dataset</dt>
 <dd><p>A numerical dataset identifier or a dataset short name</p></dd>
-
-
-<dt>offset</dt>
-<dd><p>The offset of the first retrieved result.</p></dd>
-
-
-<dt>limit</dt>
-<dd><p>Optional, defaults to 20. Limits the result to specified amount
-of objects. Has a maximum value of 100. Use together with <code>offset</code> and
-the <code>totalElements</code> <a href="https://rdrr.io/r/base/attributes.html" class="external-link">attribute</a> in the output to
-compile all data if needed.</p></dd>
 
 
 <dt>raw</dt>
