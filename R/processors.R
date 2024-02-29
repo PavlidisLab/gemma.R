@@ -329,7 +329,7 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
                          x$analysis$sourceExperiment)
         
         if(length(x$experimentalFactors) == 1){
-            contrast_id <- x$experimentalFactors[[1]]$values %>% accessField('id',NA_integer)
+            contrast_id <- x$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
             baseline_id <- x$baselineGroup$id
             
             baseline_factor <- x$experimentalFactors[[1]]$values[!contrast_id %in% baseline_id]

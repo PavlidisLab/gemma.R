@@ -20,6 +20,12 @@ get_result_sets(
 \arguments{
 \item{datasets}{A numerical dataset identifier or a dataset short name}
 
+\item{resultSets}{A resultSet identifier. Note that result set identifiers
+are not static and can change when Gemma re-runs analyses internally. Whem
+using these as inputs, try to make sure you access a currently existing
+result set ID by basing them on result sets returned for a particular dataset or
+filter used in \code{\link{get_result_sets}}}
+
 \item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
