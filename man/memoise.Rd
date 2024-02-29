@@ -12,3 +12,4 @@ used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 \description{
 Memoise doc
 }
+\keyword{internal}
