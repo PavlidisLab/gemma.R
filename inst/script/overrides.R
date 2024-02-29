@@ -43,15 +43,17 @@ NULL
 #' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
 #'
 #' @examples
-#' resultSets <- get_result_sets('523099')
-#' get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
+#' get_result_sets(dataset = 1)
+#' 
+#' # get all contrasts comparing disease states. use filter_properties to see avaialble options
+#' get_result_sets(filter = 'baselineGroup.characteristics.value = disease')
 NULL
 
 
 #' .getResultSets
 #' 
 #' @examples
-#' gemma.R:::.getResultSets(523099)
+#' # gemma.R:::.getResultSets(523099)
 NULL
 
 

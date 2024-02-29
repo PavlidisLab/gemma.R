@@ -81,7 +81,8 @@ query across multiple datasets and being able to use the filter argument
 to search based on result set properties.
 }
 \examples{
-resultSets <- get_result_sets("523099")
-get_differential_expression_values(resultSet = resultSets$resultSet.id[1])
+get_result_sets(dataset = 1)
+# get all contrasts comparing disease states. use filter_properties to see avaialble options
+get_result_sets(filter = "baselineGroup.characteristics.value = disease")
 }
 \keyword{misc}
