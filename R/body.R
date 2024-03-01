@@ -60,9 +60,7 @@ setGemmaPath <- function(path){
     # remove empty parameters
     call<- call %>% stringr::str_split('&|\\?') %>% 
         {.[[1]]} %>% {.[!grepl("\\=$",.)]} %>%
-        {ifelse(length(.)>1,
-                c(paste(.[1],.[2],sep = "?"),.[c(-1,-2)]),
-                .)} %>%
+        {if(length(.>1)){c(paste(.[1],.[2],sep = "?"),.[c(-1,-2)])}else{.}} %>%
         paste0(collapse = '&')
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
