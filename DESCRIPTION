@@ -61,7 +61,8 @@ Suggests:
     viridis,
     poolr,
     kableExtra,
-    listviewer
+    listviewer,
+    shiny
 Config/testthat/edition: 2
 VignetteBuilder: knitr
 biocViews: 
