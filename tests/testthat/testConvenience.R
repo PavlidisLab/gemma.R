@@ -93,6 +93,7 @@ test_that('getGenomeVersions works properly',{
 })
 
 test_that('gemmaCall works properly',{
+    dataset = c(1,2,3) # tests for collusion
     out<- gemma_call('datasets/{dataset}/svd',dataset = 1)
     expect_is(out,'list')
 })

@@ -717,7 +717,10 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 gemma_call <- function(call,...,json = TRUE){
     args <- unlist(list(...))
     args <- args %>% lapply(as.character) %>% lapply(utils::URLencode)
-    attach(args,warn.conflicts = FALSE)
+    env = environment()
+    lapply(names(args),function(x){
+        assign(x,args[[x]],envir = env)
+    })
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         response <- httr::GET(
@@ -725,7 +728,7 @@ gemma_call <- function(call,...,json = TRUE){
             httr::authenticate(getOption('gemma.username'),
                                  getOption("gemma.password")))
     } else{
-        response <- httr::GET(glue::glue(paste0(gemmaPath(),call)))
+        response <- httr::GET(glue::glue(paste0(gemmaPath(),call),.envir = env))
     }
 
     if (response$status_code == 200) {
