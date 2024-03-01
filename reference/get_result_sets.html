@@ -185,15 +185,15 @@ to search based on result set properties.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_result_sets</span><span class="op">(</span>dataset <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    result.ID contrast.ID experiment.ID factor.category factor.category.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;       &lt;int&gt;         &lt;int&gt;          &lt;char&gt;              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    573187           1             1         disease             disease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    factor.ID baseline.factors experimental.factors subsetFactor.subset</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;           &lt;list&gt;               &lt;list&gt;              &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         1     disease,....         disease,....               FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    subsetFactor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: logical(....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    result.ID contrast.ID experiment.ID factor.category</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;       &lt;int&gt;         &lt;int&gt;          &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    573187           1             1         disease</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     factor.category.URI factor.ID baseline.factors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;     &lt;int&gt;           &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ebi.ac.uk/efo/EFO_0000408         1     disease,....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    experimental.factors subsetFactor.subset subsetFactor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;list&gt;              &lt;lgcl&gt;       &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         disease,....               FALSE logical(....</span>
 <span class="r-in"><span><span class="co"># get all contrasts comparing disease states. use filter_properties to see avaialble options</span></span></span>
 <span class="r-in"><span><span class="fu">get_result_sets</span><span class="op">(</span>filter <span class="op">=</span> <span class="st">"baselineGroup.characteristics.value = disease"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
@@ -219,7 +219,7 @@ to search based on result set properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"call")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "https://gemma.msl.ubc.ca/rest/v2/resultSets?filter=baselineGroup.characteristics.value%20%3D%20disease&amp;offset=0&amp;limit=20&amp;sort=%2Bid"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"env")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563a81c20068&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x561e7aa3b0b0&gt;</span>
 </code></pre></div>
     </div>
   </div>
