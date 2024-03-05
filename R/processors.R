@@ -804,29 +804,34 @@ processExpressionMatrix <- function(m) {
 #' @keywords internal
 processDEMatrix <- function(m) {
     result_set <- get_result_sets(resultSets = parent.frame(n=2)$resultSet)
-    
-    
+
     m <- m[,!colnames(m) %in% c('id','probe_id','gene_id','gene_name'),with = FALSE]
-    m %>%
+    
+
+    m <- m %>%
         dplyr::rename(
             Probe = "probe_name",
             GeneSymbol = "gene_official_symbol",
             GeneName = "gene_official_name",
             NCBIid = "gene_ncbi_id"
         )
+    
     # match the order of factors with the order returned from the result set endpoints
-    colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] <- 
-        colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] %>% strsplit('_') %>% sapply(function(x){
-            ifelse(!glue::glue("{x[2]}_{x[3]}") %in% result_set$contrast.ID,
-                   paste(x,collapse = '_'),
-                   {
-                       # just to make sure something horribly wrong is happening
-                       # assertthat::assert_that(glue::glue("{x[3]}_{x[2]}") %in% result_set$contrast.ID)
-                       o <- x[2]; x[2] <- x[3]; x[3] <- o;
-                       paste(x,collapse = '_')
-                   })
-            
-        })
+    if(any(grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m)))){
+        colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] <- 
+            colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] %>% strsplit('_') %>% sapply(function(x){
+                ifelse(!glue::glue("{x[2]}_{x[3]}") %in% result_set$contrast.ID,
+                       paste(x,collapse = '_'),
+                       {
+                           # just to make sure something horribly wrong is happening
+                           # assertthat::assert_that(glue::glue("{x[3]}_{x[2]}") %in% result_set$contrast.ID)
+                           o <- x[2]; x[2] <- x[3]; x[3] <- o;
+                           paste(x,collapse = '_')
+                       })
+                
+            }) 
+    }
+
     
     return(m)
 }
