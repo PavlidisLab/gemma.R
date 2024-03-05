@@ -192,13 +192,8 @@ processDEA <- function(d) {
                 )
 
             }else{
-                # if more than 2 factors are present take a look at the
-                # differential expression results to isolate the relevant results
-                # this adds quite a bit of overhead for studies like this but
-                # they should be relatively rare. if coupled with memoisation
-                # overall hit on performance should not be too much
-                # this was needed because for multi-factor result-sets, the baseline
-                # for each factor is not specified
+                # if more than 2 factors are present take a look at the the other
+                # factor values to idenfity the baseline values
 
                 ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                     purrr::map('values')  %>%
@@ -341,7 +336,6 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             paste(collapse = ',')
         
         
-        
         factor.ID <- x$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=',')
         
         subsetFactor.subset <- !is.null(x$analysis$subsetFactorValue)
@@ -359,7 +353,8 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             baseline.factors <- x$baselineGroup %>% processFactorValueValueObject() %>% list() %>% rep(size)
             
         } else{
-            
+            # if more than 2 factors are present take a look at the the other
+            # factor values to idenfity the baseline values
             ids <- x$experimentalFactors %>% purrr::map('values') %>% 
                 purrr::map(function(x){x %>% accessField('id')}) %>% 
                 expand.grid()
