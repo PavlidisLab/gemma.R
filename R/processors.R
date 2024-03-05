@@ -199,7 +199,6 @@ processDEA <- function(d) {
                 # overall hit on performance should not be too much
                 # this was needed because for multi-factor result-sets, the baseline
                 # for each factor is not specified
-                
 
                 ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                     purrr::map('values')  %>%
@@ -322,116 +321,103 @@ processDEA <- function(d) {
 #' @keywords internal
 processDifferentialExpressionAnalysisResultSetValueObject = function(d){
     d %>% lapply(function(x){
-        exp_id <- ifelse(is.null(x$analysis$sourceExperiment),
-                         x$analysis$bioAssaySetId,
-                         x$analysis$sourceExperiment)
+        experiment.ID <- ifelse(is.null(x$analysis$sourceExperiment),
+                                x$analysis$bioAssaySetId,
+                                x$analysis$sourceExperiment)
+        
+        result.ID <- x$id
+        # re-order experimental factors based on their IDs to ensure compatibility
+        # with dif exp tables
+        factor_ids <- x$experimentalFactors %>% purrr::map_int('id')
+        x$experimentalFactors <- x$experimentalFactors[order(factor_ids)]
+        
+        
+        factor.category <- x$experimentalFactors %>%
+            purrr::map_chr('category') %>% unlist %>% sort %>%
+            paste(collapse = ',')
+        
+        factor.category.URI <- x$experimentalFactors %>%
+            purrr::map_chr('categoryUri') %>% unlist %>% sort %>%
+            paste(collapse = ',')
+        
+        
+        
+        factor.ID <- x$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=',')
+        
+        subsetFactor.subset <- !is.null(x$analysis$subsetFactorValue)
         
         if(length(x$experimentalFactors) == 1){
             contrast_id <- x$experimentalFactors[[1]]$values %>% accessField('id',NA_integer_)
             baseline_id <- x$baselineGroup$id
             
             non_control_factors <- x$experimentalFactors[[1]]$values[!contrast_id %in% baseline_id]
-            non_control_ids <- contrast_id[!contrast_id %in% baseline_id]
-            size <- length(non_control_ids)
+            contrast.ID <- contrast_id[!contrast_id %in% baseline_id]
+            size <- length(contrast.ID)
             
-            exp_factors <- non_control_factors %>% 
+            experimental.factors <- non_control_factors %>% 
                 purrr::map(processFactorValueValueObject)
+            baseline.factors <- x$baselineGroup %>% processFactorValueValueObject() %>% list() %>% rep(size)
             
-            out<- data.table(
-                result.ID = x$id,
-                contrast.ID = non_control_ids,
-                experiment.ID = exp_id,
-                factor.category = x$experimentalFactors[[1]]$category,
-                factor.category.URI = x$experimentalFactors[[1]]$categoryUri %>% nullCheck(NA_character_),
-                factor.ID = x$experimentalFactors[[1]]$id %>% nullCheck(NA_integer_),
-                baseline.factors = x$baselineGroup %>% processFactorValueValueObject() %>% list() %>% rep(size),
-                experimental.factors = exp_factors,
-                subsetFactor.subset = !is.null(x$analysis$subsetFactorValue),
-                subsetFactor = x$analysis$subsetFactorValue %>%
-                    processFactorValueValueObject() %>% list() %>% rep(size)
-            )
-            return(out)
         } else{
+            
             ids <- x$experimentalFactors %>% purrr::map('values') %>% 
                 purrr::map(function(x){x %>% accessField('id')}) %>% 
                 expand.grid()
             
             factor_ids <- x$experimentalFactors %>% purrr::map_int('id')
-            names(ids) = factor_ids
-            
-            # all_baselines <- d %>% purrr::map('baselineGroup')
-            # names(all_baselines) <- all_baselines %>% accessField('experimentalFactorId')
-            # all_baselines <- all_baselines[!is.na(names(all_baselines))]
-            # 
-            # baseline_factors <- all_baselines[as.character(factor_ids)] %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+            names(ids) <- factor_ids
             
             
-            dif_exp <- get_differential_expression_values(resultSet = x$id)
-            relevant_ids <- dif_exp[[1]] %>% colnames %>%
-                {.[grepl('[0-9]_pvalue',.)]} %>% strsplit('_') %>% lapply(function(y){
-                    y[c(-1,-length(x))] %>% as.integer()
-                }) %>% as.data.frame %>% t
+            all_sets <- get_result_sets(datasets = experiment.ID,raw = TRUE)
+            baseline_ids <- all_sets %>% lapply(function(y){
+                y$baselineGroup$id
+            }) %>% unlist
             
-            if(ncol(relevant_ids)>0){
-                
-                relevant_id_factor_id <- relevant_ids[1,] %>% purrr::map_int(function(x){
-                    apply(ids,2,function(y){x %in% y}) %>% which %>% {factor_ids[[.]]}
-                })
-                colnames(relevant_ids) <- relevant_id_factor_id
-                
-                # this endpoint might not have access to others of the same dataset
-                # so we use the dif exp data we already needed to identify the
-                # baseline. if dif exp data is not longer needed in the future
-                # it would be faster to use the endpoint itself to access
-                # other baselines instead of doing this. wait for PavlidisLab/Gemma#974
-                # to be closed
-                baseline_ids <- seq_len(ncol(ids)) %>% 
-                    sapply(function(i){
-                        is = ids[,colnames(relevant_ids)][,i] %>% unique
-                        is[!is %in% relevant_ids[,i]]
-                    })
-                
-                all_factors <- x$experimentalFactors %>% lapply(function(y){
-                    y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+            relevant_ids <- ids[apply(ids,1, function(y){!any(y %in% baseline_ids)}),]
+            
+            
+            
+            colnames(relevant_ids) <-factor_ids
+            
+            
+            all_factors <- x$experimentalFactors %>% lapply(function(y){
+                y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+            }) %>% do.call(rbind,.)
+            
+            baseline_factors <- seq_along(baseline_ids) %>% lapply(function(i){
+                all_factors %>%
+                    dplyr::filter(ID == baseline_ids[i] & factor.ID == colnames(relevant_ids)[i])
+            }) %>% do.call(rbind,.)
+            
+            experimental.factors <- seq_len(nrow(relevant_ids)) %>% purrr::map(function(i){
+                seq_along(relevant_ids[i,]) %>% purrr::map(function(j){
+                    all_factors %>% dplyr::filter(ID == relevant_ids[i,j] & factor.ID == colnames(relevant_ids)[j]) 
                 }) %>% do.call(rbind,.)
-                
-                baseline_factors <- seq_along(baseline_ids) %>% lapply(function(i){
-                    all_factors %>%
-                        dplyr::filter(ID == baseline_ids[i] & factor.ID == colnames(relevant_ids)[i])
-                }) %>% do.call(rbind,.)
-                
-                exp_factors <- seq_len(nrow(relevant_ids)) %>% purrr::map(function(i){
-                    seq_along(relevant_ids[i,]) %>% purrr::map(function(j){
-                        all_factors %>% dplyr::filter(ID == relevant_ids[i,j] & factor.ID == colnames(relevant_ids)[j]) 
-                    }) %>% do.call(rbind,.)
-                })
-                
-                size <- length(exp_factors)
-                
-                out <- data.table(
-                    result.ID = x$id,
-                    contrast.ID = unname(apply(relevant_ids,1,paste,collapse = '_')),
-                    experiment.ID = exp_id,
-                    factor.category = x$experimentalFactors %>%
-                        purrr::map_chr('category') %>% unlist %>% sort %>%
-                        paste(collapse = ','),
-                    factor.category.URI = x$experimentalFactors %>%
-                        purrr::map_chr('categoryUri') %>% unlist %>% sort %>%
-                        paste(collapse = ','),
-                    factor.ID = x$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=','),
-                    baseline.factors = list(baseline_factors) %>% rep(size),
-                    experimental.factors = exp_factors,
-                    subsetFactor.subset = !is.null(x$analysis$subsetFactorValue),
-                    subsetFactor =  x$analysis$subsetFactorValue %>%
-                        processFactorValueValueObject() %>% list() %>% rep(size)
-                )
-                return(out)
-            } else {
-                # if no ids were present in the expression_values matrix,
-                # there's nothing to return
-                NULL
-            }
+            })
+            
+            size <- length(experimental.factors)
+            
+            contrast.ID <- unname(apply(relevant_ids,1,paste,collapse = '_'))
+            baseline.factors <- list(baseline_factors) %>% rep(size)
         }
+        subsetFactor <- x$analysis$subsetFactorValue %>%
+            processFactorValueValueObject() %>% list() %>% rep(size)
+        
+        out <- data.table(
+            result.ID = result.ID,
+            contrast.ID = contrast.ID,
+            experiment.ID = experiment.ID,
+            factor.category = factor.category,
+            factor.category.URI = factor.category.URI,
+            factor.ID = factor.ID,
+            baseline.factors = baseline.factors,
+            experimental.factors = experimental.factors,
+            subsetFactor.subset = subsetFactor.subset,
+            subsetFactor =  subsetFactor
+        )
+        
+        return(out)
+        
     }) %>% do.call(rbind,.)
 }
 
