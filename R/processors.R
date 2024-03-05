@@ -154,7 +154,6 @@ processDEA <- function(d) {
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
         results <- seq_along(result_ids[[i]]) %>% lapply(function(j){
             
-            result.ID <- d[[i]]$resultSets[[j]]$id
             experiment.ID<- ifelse(is.null(d[[i]]$sourceExperiment),
                                    d[[i]]$bioAssaySetId, 
                                    d[[i]]$sourceExperiment)
@@ -226,7 +225,7 @@ processDEA <- function(d) {
             }
             
             out <- data.table(
-                result.ID = result.ID,
+                result.ID = d[[i]]$resultSets[[j]]$id,
                 contrast.ID = contrast.ID,
                 experiment.ID = experiment.ID,
                 factor.category = d[[i]]$resultSets[[j]]$experimentalFactors %>% 
@@ -281,7 +280,6 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
                                 x$analysis$bioAssaySetId,
                                 x$analysis$sourceExperiment)
         
-        result.ID <- x$id
         # re-order experimental factors based on their IDs to ensure compatibility
         # with dif exp tables
         factor_ids <- x$experimentalFactors %>% purrr::map_int('id')
@@ -327,15 +325,11 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
                 y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
             }) %>% do.call(rbind,.)
             
-            baseline_factors <- seq_along(baseline_ids) %>% lapply(function(i){
-                all_factors %>%
-                    dplyr::filter(ID == baseline_ids[i] & factor.ID == colnames(relevant_ids)[i])
-            }) %>% do.call(rbind,.)
+            baseline_factors <- all_factors %>% dplyr::filter(ID %in% baseline_ids)
+            
             
             experimental.factors <- seq_len(nrow(relevant_ids)) %>% purrr::map(function(i){
-                seq_along(relevant_ids[i,]) %>% purrr::map(function(j){
-                    all_factors %>% dplyr::filter(ID == relevant_ids[i,j] & factor.ID == colnames(relevant_ids)[j]) 
-                }) %>% do.call(rbind,.)
+                all_factors %>% dplyr::filter(ID %in% relevant_ids[i,])
             })
             
             size <- length(experimental.factors)
@@ -345,7 +339,7 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
         }
 
         out <- data.table(
-            result.ID = result.ID,
+            result.ID = x$id,
             contrast.ID = contrast.ID,
             experiment.ID = experiment.ID,
             factor.category = x$experimentalFactors %>%
