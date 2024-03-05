@@ -814,10 +814,9 @@ processDEMatrix <- function(m) {
             GeneName = "gene_official_name",
             NCBIid = "gene_ncbi_id"
         )
-    
     # match the order of factors with the order returned from the result set endpoints
-    colnames(m)[grepl('contrast_',colnames(m))] <- 
-        colnames(m)[grepl('contrast_',colnames(m))] %>% strsplit('_') %>% sapply(function(x){
+    colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] <- 
+        colnames(m)[grepl('contrast_[0-9]+?_[0-9]+?_',colnames(m))] %>% strsplit('_') %>% sapply(function(x){
             ifelse(!glue::glue("{x[2]}_{x[3]}") %in% result_set$contrast.ID,
                    paste(x,collapse = '_'),
                    {
