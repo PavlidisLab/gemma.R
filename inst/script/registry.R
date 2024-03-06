@@ -279,7 +279,7 @@ registerEndpoint('datasets/{dataset}/design',
                  preprocessor = quote(processFile))
 
 
-# /datasets/{dataset}/expressions/differential ------
+# /datasets/{datasets}/expressions/differential ------
 # unimplemented
 # not sure how the parameters for this endpoint works and doesn't seem essential
 
