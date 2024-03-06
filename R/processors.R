@@ -148,20 +148,21 @@ processSearchAnnotations <- function(d) {
 #' @keywords internal
 processDEA <- function(d) {
     # Initialize internal variables to avoid R CMD check notes
-
     result_ids <- d %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% accessField('id')})
 
     result_factors <- seq_along(result_ids) %>% lapply(function(i){
+        
+        experiment.ID<- ifelse(is.null(d[[i]]$sourceExperiment),
+                               d[[i]]$bioAssaySetId, 
+                               d[[i]]$sourceExperiment)
+        
         results <- seq_along(result_ids[[i]]) %>% lapply(function(j){
-            
-            experiment.ID<- ifelse(is.null(d[[i]]$sourceExperiment),
-                                   d[[i]]$bioAssaySetId, 
-                                   d[[i]]$sourceExperiment)
-            
+
             # re-order experimental factors based on their IDs to ensure compatibility
             # with dif exp tables
             factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map_int('id')
-            d[[i]]$resultSets[[j]]$experimentalFactors[order(factor_ids)]
+            d[[i]]$resultSets[[j]]$experimentalFactors <- 
+                d[[i]]$resultSets[[j]]$experimentalFactors[order(factor_ids)]
             
 
             if(length(d[[i]]$resultSets[[j]]$experimentalFactors)==1){
