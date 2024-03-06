@@ -826,7 +826,7 @@ processDEMatrix <- function(m) {
                        paste(x,collapse = '_'),
                        {
                            # just to make sure something horribly wrong is happening
-                           # assertthat::assert_that(glue::glue("{x[3]}_{x[2]}") %in% result_set$contrast.ID)
+                           assertthat::assert_that(glue::glue("{x[3]}_{x[2]}") %in% result_set$contrast.ID)
                            o <- x[2]; x[2] <- x[3]; x[3] <- o;
                            paste(x,collapse = '_')
                        })
