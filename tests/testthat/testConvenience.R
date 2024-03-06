@@ -84,6 +84,25 @@ test_that("getDatasetDE works properly",{
     expect_gt(nrow(dat[[1]]), 10)
     dat <- get_differential_expression_values(resultSet = names(dat)[1])[[1]]
     expect_gt(nrow(dat), 10)
+    
+    # check compatibility with get_result_sets and get_dataset_differential_expression_analyses
+    dat <- get_differential_expression_values('GSE18728')
+    dataset_de <- get_dataset_differential_expression_analyses('GSE18728')
+    result_set <- get_result_sets('GSE18728')
+    
+    testthat::expect_true(all(dataset_de$contrast.ID %in% result_set$contrast.ID))
+    
+    for (ds in names(dat)){
+        d = dat[[ds]]
+        
+        expected_cols <- dataset_de %>% dplyr::filter(result.ID == ds) %>% {
+            glue::glue("contrast_{.$contrast.ID}_log2fc")
+        }
+        
+        testthat::expect_true(all(expected_cols %in% colnames(d)))
+        
+    }
+
 })
 
 
