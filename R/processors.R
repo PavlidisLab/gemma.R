@@ -786,14 +786,15 @@ processExpressionMatrix <- function(m) {
                 return(o)
             }
         })
-    sample_names <- sample_names[!is.na(sample_matches)]
+    sample_names_reord <- sample_names[!is.na(sample_matches)]
     sample_matches <- sample_matches[!is.na(sample_matches)]
 
-
-    colnames(m)[sample_matches] <- sample_names
+    # reorder to match sample output
+    colnames(m)[sample_matches] <- sample_names_reord
     assertthat::assert_that(all(sample_names %in% colnames(m)))
-
-    m
+    
+    non_samples <- colnames(m)[!colnames(m) %in% sample_names]
+    m %>% data.table::setcolorder(c(non_samples,sample_names))
 }
 
 #' Processes differential expression matrix
