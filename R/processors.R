@@ -10,7 +10,7 @@
 #' @keywords internal
 processGemmaArray <- function(d) {
     data.table(
-        platform.shortName = accessField(d,"elementName",NA_character_),
+        platform.shortName = accessField(d,"shortName",NA_character_),
         platform.name = accessField(d,"name",NA_character_),
         platform.ID = accessField(d,'id',NA_integer_),
         platform.type = accessField(d, "technologyType", NA_character_),
