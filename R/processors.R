@@ -440,6 +440,7 @@ processDatasetResultSets <- function(d) {
 #'     \item \code{class.URI}: URI for the annotation class
 #'     \item \code{term.name}: Name of the annotation term (e.g. lung)
 #'     \item \code{term.URI}: URI for the annotation term
+#'     \item \code{object.class}: Class of object that the term originated from.
 #' }
 #'
 #'
@@ -451,7 +452,8 @@ processAnnotations <- function(d) {
         class.name = accessField(d,"className",NA_character_),
         class.URI = accessField(d,"classUri",NA_character_),
         term.name = accessField(d,"termName",NA_character_),
-        term.URI = accessField(d,"termUri",NA_character_)
+        term.URI = accessField(d,"termUri",NA_character_),
+        object.class = accessField(d,'objectClass',NA_character_)
     )
 }
 
