@@ -801,7 +801,8 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
             saveRDS(out, file)
         }
     }
-    
+    attributes(out)$call_origin = attr$call
+    attributes(out)$env_origin = attr$env
     return(out)
 }
 
@@ -877,3 +878,10 @@ get_child_terms <- function(terms){
     output <- get_datasets(uris = terms,limit = 1)
     attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
 }
+
+
+
+#' Update result
+#' 
+#' Re-runs the function used to create a gemma.R output 
+#' to update 
