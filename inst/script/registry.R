@@ -110,20 +110,8 @@ NULL
 #     preprocessor = quote(processResultSetFactors)
 # )
 
+
 # /resultSets, get_result_sets -----
-# unimplemented
-# this endpoint can be potentially useful if we can use 
-# make better use of its filter argument. talk to guillaume 
-# to see if there is a good way to do it
-# otherwise it can be replaced by get_dataset_differential_expression_analyses
-# the implementation below is also missing arguments
-
-# this endpoint does everything get_dataset_differential_expression_analyses does
-# while prodiving the additional functionality of just accessing the data of a single
-# resultset using it's id. keeping both for now but I should change documentation
-# to emphasize this one instead
-
-#' get_result_sets
 #' 
 #' Returns queried result set
 #' 
@@ -257,6 +245,9 @@ registerEndpoint('datasets/{dataset}/annotations',
                  preprocessor = quote(processAnnotations))
 
 # /datasets/{dataset}/design, get_dataset_design -----
+# this endpoint is not very useful since the names it comes with
+# is annoying to match names provided in the samples endpoint
+# make_design replaces this consider removing
 
 #' get_dataset_design
 #'
@@ -315,7 +306,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 
 
 # /datasets/{dataset}/data -----
-# deprecated but still the main way to get data for gemma.R for now
+# deprecated and removed
 # registerEndpoint("datasets/{dataset}/data?filter={filter}",
 #                  "get_dataset_expression",open_api_name = 'get_dataset_expression', keyword = "dataset",
 #                  isFile = TRUE,
