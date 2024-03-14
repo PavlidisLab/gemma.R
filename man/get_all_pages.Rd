@@ -14,7 +14,7 @@ get_all_pages(
 )
 }
 \arguments{
-\item{query}{Output from a gemma.R function with offset and query argument}
+\item{query}{Output from a gemma.R function with offset and limit argument}
 
 \item{step_size}{Size of individual calls to the server. 100 is the maximum value}
 
