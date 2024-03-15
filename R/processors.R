@@ -138,8 +138,7 @@ processSearchAnnotations <- function(d) {
 #'     \item \code{baseline.categoryURI}: URI for the baseline category
 #'     \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
 #'     \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
-#'     \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
-#'     \item \code{subsetFactor.category}: Category of the subset
+#'     \item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 #'     \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 #'     \item \code{probes.analyzed}: Number of probesets represented in the contrast
 #'     \item \code{genes.analyzed}: Number of genes represented in the contrast
@@ -238,7 +237,7 @@ processDEA <- function(d) {
                     purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=','),
                 baseline.factors = baseline.factors,
                 experimental.factors = experimental.factors,
-                subsetFactor.subset = !is.null(d[[i]]$subsetFactorValue),
+                isSubset = !is.null(d[[i]]$subsetFactorValue),
                 subsetFactor = d[[i]]$subsetFactorValue %>% processFactorValueValueObject %>% list %>% rep(size),
                 probes.analyzed = d[[i]]$resultSets[[j]]$numberOfProbesAnalyzed %>% nullCheck(NA_integer_),
                 genes.analyzed =  d[[i]]$resultSets[[j]]$numberOfGenesAnalyzed %>% nullCheck(NA_integer_)
@@ -465,20 +464,7 @@ processAnnotations <- function(d) {
 processFile <- function(content) {
     attr <- attributes(content)
     attributes(content)<- NULL
-    tmp <- tempfile() # Make a temp file
-    writeBin(content, tmp) # Save to that file
-    tmp2 <- gzfile(tmp)
-    ret <- tmp2 %>%
-        readLines() %>%
-        .[which(!startsWith(., "#"))[1]:length(.)] %>%
-        # Strip comments
-        paste0(collapse = "\n") %>%
-        paste0('\n') %>%
-        {
-            fread(text = .)
-        }
-    close(tmp2)
-    unlink(tmp) # Delete the temp file
+    ret <- read_gzipped_tsv(content)
     # Process matrix according to data type
     if (colnames(ret)[1] == "Probe") {
         ret <- processExpressionMatrix(ret)
@@ -766,7 +752,6 @@ processDesignMatrix <- function(m) {
 #'
 #' @keywords internal
 processExpressionMatrix <- function(m) {
-
 
     m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
     # here we standardize the output column names so that they fit output

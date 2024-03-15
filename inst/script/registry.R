@@ -55,7 +55,35 @@ api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('op
 # unimplemented
 # we don't need this here, not included
 
-# /resultSets/{resultSet}, get_result_set ------ 
+
+
+# /resultSets/{resultSet} ----------
+# this is the cheat endpoint that drops the data from result sets but it uses the same arguments
+# it was made obsolete since get_result_sets works just as well
+
+#' .getResultSetFactors
+#' 
+#' @examples
+#' gemma.R:::.getResultSetFactors(523099)
+NULL
+
+
+
+# registerEndpoint(
+#     "resultSets/{resultSet}?excludeResults=true",
+#     ".getResultSetFactors", open_api_name = 'get_result_set',
+#     internal = TRUE,
+#     defaults = list(
+#         resultSet = NA_character_
+#     ),
+#     validators = alist(
+#         resultSet = validateOptionalID
+#     ),
+#     preprocessor = quote(processResultSetFactors)
+# )
+
+
+# /resultSets/{resultSet_}, get_result_set_as_tsv ------ 
 # only exposed internally for the higher level function
 # get_differential_expression_values
 
@@ -84,31 +112,6 @@ registerEndpoint(
     preprocessor = quote(processFile)
 )
 
-
-# /resultSets/{resultSet_}
-# this is the cheat endpoint that drops the data from result sets but it uses the same arguments
-# it was made obsolete since get_result_sets works just as well
-
-#' .getResultSetFactors
-#' 
-#' @examples
-#' gemma.R:::.getResultSetFactors(523099)
-NULL
-
-
-
-# registerEndpoint(
-#     "resultSets/{resultSet}?excludeResults=true",
-#     ".getResultSetFactors", open_api_name = 'get_result_set',
-#     internal = TRUE,
-#     defaults = list(
-#         resultSet = NA_character_
-#     ),
-#     validators = alist(
-#         resultSet = validateOptionalID
-#     ),
-#     preprocessor = quote(processResultSetFactors)
-# )
 
 
 # /resultSets, get_result_sets -----
@@ -840,7 +843,7 @@ registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={
                  defaults = list(query = bquote(),
                                  taxon = NA_character_,
                                  platform = NA_character_,
-                                 limit = 20,
+                                 limit = 100,
                                  resultType = 'experiment'),
                  validators = alist(query = validateQuery,
                                     taxon = validateOptionalTaxon,

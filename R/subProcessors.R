@@ -7,6 +7,27 @@ processDate <- function(x){
 }
 
 
+read_gzipped_tsv <- function(content){
+
+    tmp <- tempfile() # Make a temp file
+    writeBin(content, tmp) # Save to that file
+    tmp2 <- gzfile(tmp)
+    ret <- tmp2 %>%
+        readLines() %>%
+        .[which(!startsWith(., "#"))[1]:length(.)] %>%
+        # Strip comments
+        paste0(collapse = "\n") %>%
+        paste0('\n') %>%
+        {
+            fread(text = .)
+        }
+    close(tmp2)
+    unlink(tmp)
+    
+    return(ret)
+}
+
+
 #' Replace missing data with NAs
 #' @param x Data
 #' @param natype type of NA to replace the missing data with
