@@ -756,7 +756,7 @@ gemma_call <- function(call,...,json = TRUE){
 #' Given a Gemma.R output from a function with offset and limit arguments,
 #' returns the output from all pages. All arguments other than offset, limit
 #'
-#' @param query Output from a gemma.R function with offset and query argument
+#' @param query Output from a gemma.R function with offset and limit argument
 #' @param step_size Size of individual calls to the server. 100 is the maximum value
 #' @param binder Binding function for the calls. If \code{raw = FALSE} use \code{rbind} to
 #' combine the data.tables. If not, use \code{c} to combine lists
@@ -770,6 +770,8 @@ gemma_call <- function(call,...,json = TRUE){
 #' @keywords misc
 #' @export
 get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NULL, file = getOption("gemma.file", NA_character_),overwrite = getOption("gemma.overwrite", FALSE)){
+    current_env <-  rlang::env_clone(environment())
+    current_env$query <- NULL
     attr <- attributes(query)
     count <- attr$totalElements
 
@@ -801,7 +803,9 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
             saveRDS(out, file)
         }
     }
-    
+    attributes(out)$call_origin <- attr$call
+    attributes(out)$env_origin <- attr$env
+    attributes(out)$env <- current_env
     return(out)
 }
 
@@ -876,4 +880,55 @@ filter_properties <- function(){
 get_child_terms <- function(terms){
     output <- get_datasets(uris = terms,limit = 1)
     attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
+}
+
+
+
+#' Update result
+#' 
+#' Re-runs the function used to create a gemma.R output 
+#' to update the data at hand. Useful if you have a reason
+#' to believe parts of the data has changed since your last
+#' accession and you wish to update while decoupling the update
+#' process from your original code used to generate the data.
+#' 
+#' Note that if you have used the file and overwrite arguments
+#' with the original call, this will also repeat to regenarete
+#' the file based on your initial preference
+#' 
+#' @param query Output from a gemma.R function
+#' @param recall If TRUE (default), 
+#' @keywords misc
+#' @examples
+#' annots <- get_dataset_annotations(1)
+#' # wait for a couple of years..
+#' # wonder if the results are the same
+#' updated_annots <- update_result(annots)
+#' 
+#' # also works with outputs of get_all_pages
+#' platforms <- get_platforms_by_ids()  %>% get_all_pages
+#' updated_platforms <- update_result(platforms)
+#' 
+#' @export
+update_result<- function(query){
+    attr <- attributes(query)
+    
+    # call_origin and env_origin are attached to get_all_pages outputs
+    if(!"env_origin" %in% names(attr)){
+        args <- formals(attr$env$fname)
+        args_used <- attr$env %>% as.list() %>% {.[names(args)]}
+        return(do.call(attr$env$fname,args_used))
+    } else{
+        # the inital call must be repeated since
+        # the count may have changes
+        args <- formals(attr$env_origin$fname)
+        args_used <- attr$env_origin %>% as.list() %>% {.[names(args)]}
+        poke_call <- do.call(attr$env_origin$fname,args_used)
+        
+        pages_args <- formals(get_all_pages)
+        pages_args_used <- attr$env %>% as.list %>% {.[names(pages_args)]}
+        pages_args_used$query <- poke_call
+        
+        return(do.call(get_all_pages,pages_args_used))
+    }
 }

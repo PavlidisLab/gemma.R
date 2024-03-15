@@ -43,6 +43,7 @@ The fields of the output data.table are:
 \item \code{class.URI}: URI for the annotation class
 \item \code{term.name}: Name of the annotation term (e.g. lung)
 \item \code{term.URI}: URI for the annotation term
+\item \code{object.class}: Class of object that the term originated from.
 }
 }
 \description{

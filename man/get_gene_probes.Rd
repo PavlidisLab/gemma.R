@@ -48,8 +48,8 @@ A \code{404 error} if the given identifier does not map to any genes.
 The fields of the output data.table are:
 
 \itemize{
-\item \code{mapping.name}: Name of the mapping. Typically the probeset name
-\item \code{mappping.description}: A free text field providing optional information about the mapping
+\item \code{element.name}: Name of the element. Typically the probeset name
+\item \code{element.description}: A free text field providing optional information about the element
 \item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
 \item \code{platform.Name}: Full name of the platform
 \item \code{platform.ID}: Id number of the platform given by Gemma
