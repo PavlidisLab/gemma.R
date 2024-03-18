@@ -26,7 +26,7 @@ test_that("getGeneProbes queries work", {
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
-        dat[, c(mapping.name, mapping.description)],
+        dat[, c(element.name, element.description)],
         c(raw$name, raw$description)
     )
     expect_equal(get_gene_probes(1859, limit = 10) %>% nrow(), 10)
