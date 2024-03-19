@@ -49,8 +49,7 @@ they uniquely represent a given contrast.
 \item \code{baseline.categoryURI}: URI for the baseline category
 \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
 \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
-\item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
-\item \code{subsetFactor.category}: Category of the subset
+\item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 \item \code{probes.analyzed}: Number of probesets represented in the contrast
 \item \code{genes.analyzed}: Number of genes represented in the contrast
