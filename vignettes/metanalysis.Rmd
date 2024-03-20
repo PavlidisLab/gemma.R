@@ -172,7 +172,7 @@ differentials <- parkin_contrasts$result.ID %>% lapply(function(x){
     # take the first and only element of the output. the function returns a list 
     # because single experiments may have multiple resultSets. Here we use the 
     # resultSet argument to directly access the results we need
-    get_differential_expression_values(resultSet = x)[[1]]
+    get_differential_expression_values(resultSets = x)[[1]]
 })
 
 # some datasets might not have all the advertised differential expression results

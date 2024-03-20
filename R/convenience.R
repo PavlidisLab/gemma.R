@@ -623,7 +623,9 @@ get_dataset_object <- function(datasets,
 #' the subsets being determined by the levels of the confounding factor.
 #'
 #' @param dataset A dataset identifier.
-#' @param resultSet A resultSet identifier.
+#' @param resultSets resultSet identifiers. If a dataset is not provided, all 
+#' result sets will be downloaded. If it is provided it will only be used
+#' to ensure all result sets belong to the dataset.
 #' @param readableContrasts If \code{FALSE} (default), the returned columns will
 #' use internal constrasts IDs as names. Details about the contrasts can be accessed
 #' using \code{\link{get_dataset_differential_expression_analyses}}. If TRUE IDs will
@@ -637,26 +639,26 @@ get_dataset_object <- function(datasets,
 #' @examples
 #' get_differential_expression_values("GSE2018")
 get_differential_expression_values <- function(dataset = NA_character_,
-                                               resultSet = NA_integer_,
+                                               resultSets = NA_integer_,
                                                readableContrasts = FALSE,
                                                memoised = getOption("gemma.memoised", FALSE)) {
-    if (is.na(dataset) == FALSE && is.na(resultSet) == FALSE){
-        diffs <- get_dataset_differential_expression_analyses(dataset,raw = TRUE)
-        rss <- diffs %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% purrr::map('id')}) %>% unlist
-        if (!(resultSet %in% rss)){
+    if (is.na(dataset) == FALSE && !isEmpty(resultSets)){
+        diffs <- get_dataset_differential_expression_analyses(dataset)
+        rss <- diffs$result.ID
+        if (!all(resultSets %in% rss)){
             stop("The queried resultSet is not derived from this dataset. Check the available resultSets with `getDatasetResultSets()` or query without the dataset parameter.")
         }
     }
-    else if (is.na(dataset) == FALSE && is.na(resultSet) == TRUE){
-        diffs <- get_dataset_differential_expression_analyses(dataset,raw = TRUE)
-        resultSet <- diffs %>% purrr::map('resultSets') %>% purrr::map(function(x){x %>% purrr::map('id')}) %>% unlist %>% unique
-    } else if (is.na(dataset) == TRUE && is.na(resultSet) == FALSE){
-        resultSet <- resultSet
+    else if (is.na(dataset) == FALSE && isEmpty(resultSets)){
+        diffs <- get_dataset_differential_expression_analyses(dataset)
+        resultSets <- diffs$result.ID %>% unique
+    } else if (is.na(dataset) == TRUE && !isEmpty(resultSets)){
+        resultSets <- resultSets
     } else {
         stop("Specify a dataset or a resultSet ID.")
     }
 
-    rs <- lapply(resultSet, function(x){
+    rs <- lapply(resultSets, function(x){
         out <- .getResultSets(x,memoised = memoised)
         if(nrow(out)==0){
             msg <- paste0("ResultSet ",x," failed to return a populated table.")
@@ -671,7 +673,7 @@ get_differential_expression_values <- function(dataset = NA_character_,
             return(out)
         }
     })
-    names(rs) <- resultSet
+    names(rs) <- resultSets
 
     rs
 }

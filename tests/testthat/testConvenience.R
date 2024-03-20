@@ -82,7 +82,7 @@ test_that("getDatasetDE works properly",{
     dat <- get_differential_expression_values(2)
     expect_equal(length(dat), 3)
     expect_gt(nrow(dat[[1]]), 10)
-    dat <- get_differential_expression_values(resultSet = names(dat)[1])[[1]]
+    dat <- get_differential_expression_values(resultSets = names(dat)[1])[[1]]
     expect_gt(nrow(dat), 10)
     
     # check compatibility with get_result_sets and get_dataset_differential_expression_analyses

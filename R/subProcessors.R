@@ -84,6 +84,17 @@ nullCheck <- function(x,natype= NA){
 }
 
 
+#' Check for empty arguments
+#' 
+#' Gemma functions accept typed NAs instead of simple NULLS. I believe this was
+#' done as a non-standard-in-R way of specifying data types for the users. Usually
+#' this is fine but it makes checking for emptyness a bit annoying since a user
+#' can still provide NULLs to make them empty
+#' @param x A parameter that can be NA or NULL when empty
+isEmpty <- function(x){
+    is.null(x) || all(is.na(x))
+}
+
 #' Processes JSON as a factor
 #'
 #' @param d The JSON to process

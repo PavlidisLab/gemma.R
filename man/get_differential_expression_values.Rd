@@ -6,7 +6,7 @@
 \usage{
 get_differential_expression_values(
   dataset = NA_character_,
-  resultSet = NA_integer_,
+  resultSets = NA_integer_,
   readableContrasts = FALSE,
   memoised = getOption("gemma.memoised", FALSE)
 )
@@ -14,7 +14,9 @@ get_differential_expression_values(
 \arguments{
 \item{dataset}{A dataset identifier.}
 
-\item{resultSet}{A resultSet identifier.}
+\item{resultSets}{resultSet identifiers. If a dataset is not provided, all
+result sets will be downloaded. If it is provided it will only be used
+to ensure all result sets belong to the dataset.}
 
 \item{readableContrasts}{If \code{FALSE} (default), the returned columns will
 use internal constrasts IDs as names. Details about the contrasts can be accessed
