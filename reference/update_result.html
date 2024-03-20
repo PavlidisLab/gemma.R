@@ -111,10 +111,8 @@ the file based on your initial preference</p>
 <span class="r-in"><span><span class="va">updated_annots</span> <span class="op">&lt;-</span> <span class="fu">update_result</span><span class="op">(</span><span class="va">annots</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># also works with outputs of get_all_pages</span></span></span>
-<span class="r-in"><span><span class="va">platforms</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span><span class="op">)</span>  <span class="op">%&gt;%</span> <span class="va">get_all_pages</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in get_platforms_by_ids() %&gt;% get_all_pages:</span> could not find function "%&gt;%"</span>
+<span class="r-in"><span><span class="va">platforms</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="fu"><a href="get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">updated_platforms</span> <span class="op">&lt;-</span> <span class="fu">update_result</span><span class="op">(</span><span class="va">platforms</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'platforms' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
