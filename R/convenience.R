@@ -899,7 +899,6 @@ get_child_terms <- function(terms){
 #' the file based on your initial preference
 #' 
 #' @param query Output from a gemma.R function
-#' @param recall If TRUE (default), 
 #' @keywords misc
 #' @examples
 #' annots <- get_dataset_annotations(1)

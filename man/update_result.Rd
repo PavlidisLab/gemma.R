@@ -8,8 +8,6 @@ update_result(query)
 }
 \arguments{
 \item{query}{Output from a gemma.R function}
-
-\item{recall}{If TRUE (default),}
 }
 \description{
 Re-runs the function used to create a gemma.R output
