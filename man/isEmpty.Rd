@@ -15,3 +15,4 @@ done as a non-standard-in-R way of specifying data types for the users. Usually
 this is fine but it makes checking for emptyness a bit annoying since a user
 can still provide NULLs to make them empty
 }
+\keyword{internal}

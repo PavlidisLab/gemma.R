@@ -91,6 +91,7 @@ nullCheck <- function(x,natype= NA){
 #' this is fine but it makes checking for emptyness a bit annoying since a user
 #' can still provide NULLs to make them empty
 #' @param x A parameter that can be NA or NULL when empty
+#' @keywords internal
 isEmpty <- function(x){
     is.null(x) || all(is.na(x))
 }
