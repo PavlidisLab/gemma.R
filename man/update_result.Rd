@@ -30,7 +30,7 @@ annots <- get_dataset_annotations(1)
 updated_annots <- update_result(annots)
 
 # also works with outputs of get_all_pages
-platforms <- get_platforms_by_ids()  \%>\% get_all_pages
+platforms <- get_all_pages(get_platforms_by_ids())
 updated_platforms <- update_result(platforms)
 
 }
