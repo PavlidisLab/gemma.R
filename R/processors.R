@@ -834,7 +834,7 @@ processDEMatrix <- function(m) {
 #'
 #' @keywords internal
 processDEcontrasts <- function(rs, rsID) {
-    factors <- get_result_sets(filter = glue::glue('id = {rsID}'))$experimental.factors %>%
+    factors <- get_result_sets(resultSets = rsID)$experimental.factors %>%
         do.call(rbind,.) %>% unique
 
     colnames(rs) <- stringr::str_replace(colnames(rs), "log2fc", "logFoldChange")

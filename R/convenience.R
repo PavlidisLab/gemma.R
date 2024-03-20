@@ -655,7 +655,7 @@ get_differential_expression_values <- function(dataset = NA_character_,
     } else if (is.na(dataset) == TRUE && !isEmpty(resultSets)){
         resultSets <- resultSets
     } else {
-        stop("Specify a dataset or a resultSet ID.")
+        stop("Specify a dataset or resultSet IDs.")
     }
 
     rs <- lapply(resultSets, function(x){
