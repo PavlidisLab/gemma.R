@@ -237,7 +237,7 @@ subset_factorValues <- function(factorValues,
                                 differential_expressions = NULL,
                                 resultSet = NULL,
                                 contrast = NULL){
-    
+    browser()
     out <- rep(TRUE,length(factorValues))
     
     
@@ -427,7 +427,7 @@ get_dataset_object <- function(datasets,
         make_design(meta,metaType)
     })
     
-    dat = get_datasets_by_ids(datasets,raw = FALSE, memoised = memoised)
+    dat = get_datasets_by_ids(unique_sets,raw = FALSE, memoised = memoised)
 
     # pack the information that will be included in all outputs
     packed_data <- seq_along(datasets) %>% lapply(function(i){
