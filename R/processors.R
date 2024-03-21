@@ -871,7 +871,7 @@ process_search <- function(d){
 process_dataset_gene_expression <- function(d){
     datasets <- d %>% purrr::map('datasetId')
     out<- lapply(d,function(x){
-        x$geneExpressionLevels %>% lapply(function(y){
+        dataset_exp <- x$geneExpressionLevels %>% lapply(function(y){
 
             expression <- y$vectors %>% lapply(function(z){
                 z$bioAssayExpressionLevels %>% purrr::map_dbl(function(t){
@@ -891,6 +891,10 @@ process_dataset_gene_expression <- function(d){
 
             cbind(gene_data,expression)
         }) %>% do.call(rbind,.)
+        samples = get_dataset_samples(x$datasetId)
+        data.table::setcolorder(dataset_exp,
+                                c(colnames(dataset_exp)[!colnames(dataset_exp) %in% samples$sample.name],
+                                  samples$sample.name))
 
     })
 
