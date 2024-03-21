@@ -426,6 +426,8 @@ get_dataset_object <- function(datasets,
     designs <- metadata %>% lapply(function(meta){
         make_design(meta,metaType)
     })
+    
+    dat = get_datasets_by_ids(datasets,raw = FALSE, memoised = memoised)
 
     # pack the information that will be included in all outputs
     packed_data <- seq_along(datasets) %>% lapply(function(i){
@@ -437,7 +439,7 @@ get_dataset_object <- function(datasets,
                  exp = data.table::copy(expression[[as.character(dataset)]]),
                  result_set = resultSets[i],
                  contrast = contrasts[i],
-                 dat =  get_datasets_by_ids(dataset, raw = FALSE,memoised = memoised))
+                 dat =  dat %>% dplyr::filter(experiment.ID==dataset))
 
 
 
