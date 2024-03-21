@@ -365,7 +365,7 @@ get_dataset_object <- function(datasets,
 
             # these replicate the arguments for get_dataset_expression_for_genes
             if(!keepNonSpecific){
-                exp <- exp[!grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == "",]
+                exp <- exp[!(grepl("|",exp$GeneSymbol,fixed = TRUE) | exp$GeneSymbol == ""),]
             }
             if(!is.na(consolidate) && consolidate == "pickmax"){
                 mean_exp <- exp[,.SD,.SDcols = meta$sample.name] %>% apply(1,function(x){
