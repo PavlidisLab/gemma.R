@@ -237,7 +237,6 @@ subset_factorValues <- function(factorValues,
                                 differential_expressions = NULL,
                                 resultSet = NULL,
                                 contrast = NULL){
-    browser()
     out <- rep(TRUE,length(factorValues))
     
     
