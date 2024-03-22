@@ -438,7 +438,7 @@ get_dataset_object <- function(datasets,
                  exp = data.table::copy(expression[[as.character(dataset)]]),
                  result_set = resultSets[i],
                  contrast = contrasts[i],
-                 dat =  dat %>% dplyr::filter(experiment.ID==dataset))
+                 dat =  dat %>% dplyr::filter(experiment.ID==dataset || experiment.shortName == dataset))
 
 
 
@@ -464,7 +464,6 @@ get_dataset_object <- function(datasets,
 
         return(packed_info)
     })
-
     if(!is.null(resultSets)){
         names(packed_data) <- paste0(
             packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID'),
