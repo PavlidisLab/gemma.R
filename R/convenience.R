@@ -438,7 +438,7 @@ get_dataset_object <- function(datasets,
                  exp = data.table::copy(expression[[as.character(dataset)]]),
                  result_set = resultSets[i],
                  contrast = contrasts[i],
-                 dat =  dat %>% dplyr::filter(experiment.ID==dataset || experiment.shortName == dataset))
+                 dat =  dat %>% dplyr::filter(experiment.ID==dataset | experiment.shortName == dataset))
 
 
 
