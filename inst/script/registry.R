@@ -828,7 +828,7 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
 #'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
 #'  contain the given string in their short of full name will also be matched.  
 #'  Can be multiple identifiers separated by commas.
-#'  @param limit Defaults to 100 with a maximum value of 2000.
+#' @param limit Defaults to 100 with a maximum value of 2000.
 #'  Limits the number of returned results. Note 
 #'  that this function does not support pagination.
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.

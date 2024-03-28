@@ -26,10 +26,9 @@ Can be multiple identifiers separated by commas.}
 
 \item{platform}{A platform numerical identifier or a platform short name}
 
-\item{limit}{Defaults to 20. Limits the result to specified amount
-of objects. Has a maximum value of 100. Use together with \code{offset} and
-the \code{totalElements} \link[base:attributes]{attribute} in the output to
-compile all data if needed.}
+\item{limit}{Defaults to 100 with a maximum value of 2000.
+Limits the number of returned results. Note
+that this function does not support pagination.}
 
 \item{resultType}{The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.}
 
