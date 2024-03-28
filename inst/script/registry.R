@@ -828,6 +828,9 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
 #'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
 #'  contain the given string in their short of full name will also be matched.  
 #'  Can be multiple identifiers separated by commas.
+#'  @param limit Defaults to 100 with a maximum value of 2000.
+#'  Limits the number of returned results. Note 
+#'  that this function does not support pagination.
 #' @param resultType The kind of results that should be included in the output. Can be experiment, gene, platform or a long object type name, documented in the API documentation.
 #' @return If \code{raw = FALSE} and resultType is experiment, gene or platform,
 #' a data.table containing the search results. If it is any other type, a list
@@ -1008,7 +1011,7 @@ doFinalize()
 #' filename.
 #' @param sort Order results by the given property and direction. The '+' sign
 #' indicate ascending order whereas the '-' indicate descending.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.

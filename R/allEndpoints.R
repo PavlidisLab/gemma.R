@@ -87,12 +87,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 
 #' Retrieve all result sets matching the provided criteria
 #'
-#' Returns queried result set
 #'
-#' @details Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}.
-#' The principal difference being the ability to restrict your result sets, being able to
-#' query across multiple datasets and being able to use the filter argument
-#' to search based on result set properties.
 #'
 #' @param datasets A numerical dataset identifier or a dataset short name
 #' @param resultSets A resultSet identifier. Note that result set identifiers
@@ -105,7 +100,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 #' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -124,15 +119,12 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #'
-#' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
+#' @return Varies
 #' @export
 #'
 #' @keywords misc
 #'
 #' @examples
-#' get_result_sets(dataset = 1)
-#' # get all contrasts comparing disease states. use filter_properties to see avaialble options
-#' get_result_sets(filter = "baselineGroup.characteristics.value = disease")
 get_result_sets <- function(
         datasets = NA_character_, resultSets = NA_character_,
         filter = NA_character_, offset = 0, limit = 20, sort = "+id",
@@ -1173,7 +1165,7 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' @param uris A vector of ontology term URIs. Providing multiple terms will
 #' return results containing any of the terms and their children. These are
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -1290,7 +1282,7 @@ memget_datasets <- function(
 #' @param uris A vector of ontology term URIs. Providing multiple terms will
 #' return results containing any of the terms and their children. These are
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -1561,7 +1553,7 @@ memget_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), mem
 #'
 #' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -1746,7 +1738,7 @@ memget_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = 
 #'
 #' @param platform A platform numerical identifier or a platform short name
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -1846,7 +1838,7 @@ memget_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = g
 #' @param platform A platform numerical identifier or a platform short name
 #' @param probe A probe name or it's numerical identifier
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -1957,7 +1949,7 @@ memget_platform_element_genes <- function(platform, probe, offset = 0L, limit = 
 #' species will return results for all species. These are appended
 #' to the filter and equivalent to filtering for \code{taxon.commonName} property
 #' @param offset The offset of the first retrieved result.
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -2061,9 +2053,12 @@ memget_platforms_by_ids <- function(
 #' term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
 #' contain the given string in their short of full name will also be matched.
 #' Can be multiple identifiers separated by commas.
+#' @param limit Defaults to 100 with a maximum value of 2000.
+#' Limits the number of returned results. Note
+#' that this function does not support pagination.
 #' @param taxon A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name
 #' @param platform A platform numerical identifier or a platform short name
-#' @param limit Optional, defaults to 20. Limits the result to specified amount
+#' @param limit Defaults to 20. Limits the result to specified amount
 #' of objects. Has a maximum value of 100. Use together with \code{offset} and
 #' the \code{totalElements} \link[base:attributes]{attribute} in the output to
 #' compile all data if needed.
@@ -2092,7 +2087,7 @@ memget_platforms_by_ids <- function(
 #' search_gemma("bipolar")
 search_gemma <- function(
         query, taxon = NA_character_, platform = NA_character_,
-        limit = 20, resultType = "experiment", raw = getOption(
+        limit = 100, resultType = "experiment", raw = getOption(
             "gemma.raw",
             FALSE
         ), memoised = getOption("gemma.memoised", FALSE),
@@ -2147,7 +2142,7 @@ search_gemma <- function(
 #' @noRd
 memsearch_gemma <- function(
         query, taxon = NA_character_, platform = NA_character_,
-        limit = 20, resultType = "experiment", raw = getOption(
+        limit = 100, resultType = "experiment", raw = getOption(
             "gemma.raw",
             FALSE
         ), memoised = getOption("gemma.memoised", FALSE),

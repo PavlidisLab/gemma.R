@@ -8,7 +8,7 @@ search_gemma(
   query,
   taxon = NA_character_,
   platform = NA_character_,
-  limit = 20,
+  limit = 100,
   resultType = "experiment",
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
@@ -26,7 +26,7 @@ Can be multiple identifiers separated by commas.}
 
 \item{platform}{A platform numerical identifier or a platform short name}
 
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount
+\item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}

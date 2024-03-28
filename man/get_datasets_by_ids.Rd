@@ -37,7 +37,7 @@ return results containing any of the terms and their children. These are}
 
 \item{offset}{The offset of the first retrieved result.}
 
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount
+\item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}

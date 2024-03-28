@@ -22,7 +22,7 @@ get_platform_element_genes(
 
 \item{offset}{The offset of the first retrieved result.}
 
-\item{limit}{Optional, defaults to 20. Limits the result to specified amount
+\item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
 the \code{totalElements} \link[base:attributes]{attribute} in the output to
 compile all data if needed.}
