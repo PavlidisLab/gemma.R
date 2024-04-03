@@ -82,7 +82,7 @@
     <h2>Value</h2>
     
 
-<p>A data table with information about the queried result sets Note that this funciton does not return
+<p>A data table with information about the queried result sets. Note that this function does not return
 differential expression values themselves. Use <code><a href="get_differential_expression_values.html">get_differential_expression_values</a></code></p>
 
 
@@ -94,12 +94,12 @@ May represent multiple factors in a single model.</p></li>
 <li><p><code>contrast.ID</code>: Id of the specific contrast factor. Together with the result.ID
 they uniquely represent a given contrast.</p></li>
 <li><p><code>experiment.ID</code>: Id of the source experiment</p></li>
-<li><p><code>baseline.category</code>: Category for the contrast</p></li>
-<li><p><code>baseline.categoryURI</code>: URI for the baseline category</p></li>
+<li><p><code>factor.category</code>: Category for the contrast</p></li>
+<li><p><code>factor.category.URI</code>: URI for the contrast category</p></li>
+<li><p><code>factor.ID</code>: ID of the factor</p></li>
 <li><p><code>baseline.factors</code>: Characteristics of the baseline. This field is a data.table</p></li>
 <li><p><code>experimental.factors</code>: Characteristics of the experimental group. This field is a data.table</p></li>
-<li><p><code>subsetFactor.subset</code>: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.</p></li>
-<li><p><code>subsetFactor.category</code>: Category of the subset</p></li>
+<li><p><code>isSubset</code>: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.</p></li>
 <li><p><code>subsetFactor</code>: Characteristics of the subset. This field is a data.table</p></li>
 </ul></div>
 
