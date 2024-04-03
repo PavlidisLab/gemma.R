@@ -15,7 +15,7 @@ A data table with information about the samples of the queried dataset. A list i
 
 The fields of the output data.table are:
 \itemize{
-\item \code{sample.Name}: Internal name given to the sample.
+\item \code{sample.name}: Internal name given to the sample.
 \item \code{sample.ID}: Internal ID of the sample
 \item \code{sample.description}: Free text description of the sample
 \item \code{sample.outlier}: Whether or not the sample is marked as an outlier

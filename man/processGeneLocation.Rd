@@ -21,10 +21,10 @@ The fields of the output data.table are:
 \item \code{nucleotide}: Nucleotide number for the gene
 \item \code{length}: Gene length
 \item \code{taxon.name}: Name of the taxon
-\item \code{taxon.Scientific}: Scientific name for the taxon
+\item \code{taxon.scientific}: Scientific name for the taxon
 \item \code{taxon.ID}: Internal ID for the taxon given by Gemma
 \item \code{taxon.NCBI}: NCBI ID for the taxon
-\item \code{taxon.Database.Name}: Name of the database used in Gemma for the taxon
+\item \code{taxon.database.name}: Name of the database used in Gemma for the taxon
 }
 }
 \description{

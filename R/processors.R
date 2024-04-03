@@ -52,12 +52,12 @@ processGemmaArray <- function(d) {
 #'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 #'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
-#'     \item \code{taxon.Name}: Name of the species
-#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.name}: Name of the species
+#'     \item \code{taxon.scientific}: Scientific name for the taxon
 #'     \item \code{taxon.ID}: Internal identifier given to the species by Gemma
 #'     \item \code{taxon.NCBI}: NCBI ID of the taxon
-#'     \item \code{taxon.Database.Name}: Underlying database used in Gemma for the taxon
-#'     \item \code{taxon.Database.ID}: ID of the underyling database used in Gemma for the taxon
+#'     \item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+#'     \item \code{taxon.database.ID}: ID of the underyling database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
@@ -95,9 +95,9 @@ processDatasets <- function(d) {
 #' The fields of the output data.table are:
 #'
 #' \itemize{
-#'     \item \code{category.Name}: Category that the annotation belongs to
+#'     \item \code{category.name}: Category that the annotation belongs to
 #'     \item \code{category.URI}: URI for the category.Name
-#'     \item \code{value.Name}: Annotation term
+#'     \item \code{value.name}: Annotation term
 #'     \item \code{value.URI}: URI for the value.Name
 #' }
 #'
@@ -488,7 +488,7 @@ processFile <- function(content) {
 #'
 #' The fields of the output data.table are:
 #' \itemize{
-#'     \item \code{sample.Name}: Internal name given to the sample.
+#'     \item \code{sample.name}: Internal name given to the sample.
 #'     \item \code{sample.ID}: Internal ID of the sample
 #'     \item \code{sample.description}: Free text description of the sample
 #'     \item \code{sample.outlier}: Whether or not the sample is marked as an outlier
@@ -537,12 +537,12 @@ processSamples <- function(d) {
 #'  The fields of the output data.table are:
 #'  \itemize{
 #'  \item \code{platform.ID}: Internal identifier of the platform
-#'  \item \code{platform.ShortName}: Shortname of the platform.
-#'  \item \code{platform.Name}: Full name of the platform.
-#'  \item \code{platform.Description}: Free text description of the platform
-#'  \item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
-#'  \item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-#'  \item \code{platform.Type}: Technology type for the platform.
+#'  \item \code{platform.shortName}: Shortname of the platform.
+#'  \item \code{platform.name}: Full name of the platform.
+#'  \item \code{platform.description}: Free text description of the platform
+#'  \item \code{platform.troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
+#'  \item \code{platform.experimentCount}: Number of experiments using the platform within Gemma
+#'  \item \code{platform.type}: Technology type for the platform.
 #'  \item \code{taxon.name}: Name of the species platform was made for
 #'  \item \code{taxon.scientific}: Scientific name for the taxon
 #'  \item \code{taxon.ID}: Internal identifier given to the species by Gemma
@@ -584,8 +584,8 @@ processPlatforms <- function(d) {
 #'  \itemize{
 #'      \item \code{element.name}: Name of the element. Typically the probeset name
 #'      \item \code{element.description}: A free text field providing optional information about the element
-#'      \item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
-#'      \item \code{platform.Name}: Full name of the platform
+#'      \item \code{platform.shortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
+#'      \item \code{platform.name}: Full name of the platform
 #'      \item \code{platform.ID}: Id number of the platform given by Gemma
 #'      \item \code{platform.taxon}: Species the platform was designed for
 #'      \item \code{platform.taxonID}: Id number of the species given by Gemma
@@ -688,10 +688,10 @@ processTaxon <- function(d) {
 #'     \item \code{nucleotide}: Nucleotide number for the gene
 #'     \item \code{length}: Gene length
 #'     \item \code{taxon.name}: Name of the taxon
-#'     \item \code{taxon.Scientific}: Scientific name for the taxon
+#'     \item \code{taxon.scientific}: Scientific name for the taxon
 #'     \item \code{taxon.ID}: Internal ID for the taxon given by Gemma
 #'     \item \code{taxon.NCBI}: NCBI ID for the taxon
-#'     \item \code{taxon.Database.Name}: Name of the database used in Gemma for the taxon
+#'     \item \code{taxon.database.name}: Name of the database used in Gemma for the taxon
 #' }
 #'
 #' @keywords internal
@@ -717,7 +717,7 @@ processGeneLocation <- function(d) {
 #' The fields of the output data.table are:
 #'
 #' \itemize{
-#'     \item \code{term.Name}: Name of the term
+#'     \item \code{term.name}: Name of the term
 #'     \item \code{term.ID}: ID of the term
 #'     \item \code{term.URI}: URI of the term
 #' }

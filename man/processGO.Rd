@@ -17,7 +17,7 @@ object.
 The fields of the output data.table are:
 
 \itemize{
-\item \code{term.Name}: Name of the term
+\item \code{term.name}: Name of the term
 \item \code{term.ID}: ID of the term
 \item \code{term.URI}: URI of the term
 }

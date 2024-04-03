@@ -14,7 +14,7 @@ get_platform_annotations(
 )
 }
 \arguments{
-\item{platform}{A platform identifier @seealso getPlatforms}
+\item{platform}{A platform numerical identifiers or platform short name.}
 
 \item{annotType}{Which GO terms should the output include}
 

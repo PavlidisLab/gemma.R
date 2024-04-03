@@ -23,7 +23,7 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #'
 #' Gets Gemma's platform annotations including mappings of microarray probes to genes.
 #'
-#' @param platform A platform identifier @seealso getPlatforms
+#' @param platform A platform numerical identifiers or platform short name.
 #' @param annotType Which GO terms should the output include
 #' @param file Where to save the annotation file to, or empty to just load into memory
 #' @param overwrite Whether or not to overwrite an existing file

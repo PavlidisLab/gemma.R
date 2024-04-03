@@ -16,12 +16,12 @@ does not map to any object
 The fields of the output data.table are:
 \itemize{
 \item \code{platform.ID}: Internal identifier of the platform
-\item \code{platform.ShortName}: Shortname of the platform.
-\item \code{platform.Name}: Full name of the platform.
-\item \code{platform.Description}: Free text description of the platform
-\item \code{platform.Troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
-\item \code{platform.ExperimentCount}: Number of experiments using the platform within Gemma
-\item \code{platform.Type}: Technology type for the platform.
+\item \code{platform.shortName}: Shortname of the platform.
+\item \code{platform.name}: Full name of the platform.
+\item \code{platform.description}: Free text description of the platform
+\item \code{platform.troubled}: Whether or not the platform was marked "troubled" by a Gemma process or a curator
+\item \code{platform.experimentCount}: Number of experiments using the platform within Gemma
+\item \code{platform.type}: Technology type for the platform.
 \item \code{taxon.name}: Name of the species platform was made for
 \item \code{taxon.scientific}: Scientific name for the taxon
 \item \code{taxon.ID}: Internal identifier given to the species by Gemma

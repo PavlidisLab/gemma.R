@@ -2,7 +2,6 @@
 % Please edit documentation in R/gemma.R.R
 \docType{package}
 \name{gemma.R}
-\alias{gemma.R-package}
 \alias{gemma.R}
 \title{gemma.R package: Access curated gene expression data and differential expression analyses}
 \description{
@@ -27,15 +26,6 @@ All software-related questions should be posted to the Bioconductor Support Site
 \references{
 Lim, N. et al., Curation of over 10 000 transcriptomic studies to enable
 data reuse, Database, 2021. \url{https://doi.org/10.1093/database/baab006}
-}
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://pavlidislab.github.io/gemma.R/}
-  \item \url{https://github.com/PavlidisLab/gemma.R}
-  \item Report bugs at \url{https://github.com/PavlidisLab/gemma.R/issues}
-}
-
 }
 \author{
 Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency

@@ -19,8 +19,8 @@ The fields of the output data.table are:
 \itemize{
 \item \code{element.name}: Name of the element. Typically the probeset name
 \item \code{element.description}: A free text field providing optional information about the element
-\item \code{platform.ShortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
-\item \code{platform.Name}: Full name of the platform
+\item \code{platform.shortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
+\item \code{platform.name}: Full name of the platform
 \item \code{platform.ID}: Id number of the platform given by Gemma
 \item \code{platform.taxon}: Species the platform was designed for
 \item \code{platform.taxonID}: Id number of the species given by Gemma
