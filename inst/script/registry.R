@@ -115,6 +115,7 @@ registerEndpoint(
 
 
 # /resultSets, get_result_sets -----
+#' get_result_sets
 #' 
 #' Returns queried result set
 #' 
@@ -554,7 +555,6 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
 #'
 #' @param datasets Numerical dataset identifiers or dataset short names. If not
 #' specified, all datasets will be returned instead
-#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
 #' 
 #' @examples
 #' get_datasets_by_ids("GSE2018")
@@ -997,6 +997,7 @@ doFinalize()
 #' to the filter and equivalent to filtering for \code{taxon.commonName} property
 #' @param uris A vector of ontology term URIs. Providing multiple terms will
 #' return results containing any of the terms and their children. These are
+#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
 #' @param memoised Whether or not to save to cache for future calls with the
 #' same inputs and use the result saved in cache if a result is already saved.
 #' Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always

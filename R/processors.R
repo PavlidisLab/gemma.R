@@ -96,9 +96,9 @@ processDatasets <- function(d) {
 #'
 #' \itemize{
 #'     \item \code{category.name}: Category that the annotation belongs to
-#'     \item \code{category.URI}: URI for the category.Name
+#'     \item \code{category.URI}: URI for the category.name
 #'     \item \code{value.name}: Annotation term
-#'     \item \code{value.URI}: URI for the value.Name
+#'     \item \code{value.URI}: URI for the value.name
 #' }
 #'
 #' @keywords internal
@@ -134,8 +134,9 @@ processSearchAnnotations <- function(d) {
 #'     \item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
 #'     they uniquely represent a given contrast.
 #'     \item \code{experiment.ID}: Id of the source experiment
-#'     \item \code{baseline.category}: Category for the contrast
-#'     \item \code{baseline.categoryURI}: URI for the baseline category
+#'     \item \code{factor.category}: Category for the contrast
+#'     \item \code{factor.category.URI}: URI for the contrast category
+#'     \item \code{factor.ID}: ID of the factor
 #'     \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
 #'     \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
 #'     \item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
@@ -253,7 +254,7 @@ processDEA <- function(d) {
 
 #' Process JSON of a result set
 #' 
-#' @return A data table with information about the queried result sets Note that this funciton does not return
+#' @return A data table with information about the queried result sets. Note that this function does not return
 #' differential expression values themselves. Use \code{\link{get_differential_expression_values}}
 #' to get differential expression values
 #' 
@@ -264,12 +265,12 @@ processDEA <- function(d) {
 #'     \item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
 #'     they uniquely represent a given contrast.
 #'     \item \code{experiment.ID}: Id of the source experiment
-#'     \item \code{baseline.category}: Category for the contrast
-#'     \item \code{baseline.categoryURI}: URI for the baseline category
+#'     \item \code{factor.category}: Category for the contrast
+#'     \item \code{factor.category.URI}: URI for the contrast category
+#'     \item \code{factor.ID}: ID of the factor
 #'     \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
 #'     \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
-#'     \item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
-#'     \item \code{subsetFactor.category}: Category of the subset
+#'     \item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 #'     \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 #' }
 #' 
@@ -351,7 +352,7 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             factor.ID = x$experimentalFactors %>%  purrr::map_int('id') %>% unlist %>% sort %>% paste(collapse=','),
             baseline.factors = baseline.factors,
             experimental.factors = experimental.factors,
-            subsetFactor.subset = !is.null(x$analysis$subsetFactorValue),
+            isSubset = !is.null(x$analysis$subsetFactorValue),
             subsetFactor =  x$analysis$subsetFactorValue %>%
                 processFactorValueValueObject() %>% list() %>% rep(size)
         )
@@ -587,11 +588,15 @@ processPlatforms <- function(d) {
 #'      \item \code{platform.shortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
 #'      \item \code{platform.name}: Full name of the platform
 #'      \item \code{platform.ID}: Id number of the platform given by Gemma
-#'      \item \code{platform.taxon}: Species the platform was designed for
-#'      \item \code{platform.taxonID}: Id number of the species given by Gemma
 #'      \item \code{platform.type}: Type of the platform.
 #'      \item \code{platform.description}: Free text field describing the platform.
 #'      \item \code{platform.troubled}: Whether the platform is marked as troubled by a Gemma curator.
+#'      \item \code{taxon.name}: Name of the species platform was made for
+#'      \item \code{taxon.scientific}: Scientific name for the taxon
+#'      \item \code{taxon.ID}: Internal identifier given to the species by Gemma
+#'      \item \code{taxon.NCBI}: NCBI ID of the taxon
+#'      \item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+#'      \item \code{taxon.database.ID}: ID of the underyling database used in Gemma for the taxon
 #'  }
 #'
 #' @keywords internal

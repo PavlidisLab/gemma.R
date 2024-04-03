@@ -53,11 +53,15 @@ The fields of the output data.table are:
 \item \code{platform.shortName}: Shortname of the platform given by Gemma. Typically the GPL identifier.
 \item \code{platform.name}: Full name of the platform
 \item \code{platform.ID}: Id number of the platform given by Gemma
-\item \code{platform.taxon}: Species the platform was designed for
-\item \code{platform.taxonID}: Id number of the species given by Gemma
 \item \code{platform.type}: Type of the platform.
 \item \code{platform.description}: Free text field describing the platform.
 \item \code{platform.troubled}: Whether the platform is marked as troubled by a Gemma curator.
+\item \code{taxon.name}: Name of the species platform was made for
+\item \code{taxon.scientific}: Scientific name for the taxon
+\item \code{taxon.ID}: Internal identifier given to the species by Gemma
+\item \code{taxon.NCBI}: NCBI ID of the taxon
+\item \code{taxon.database.name}: Underlying database used in Gemma for the taxon
+\item \code{taxon.database.ID}: ID of the underyling database used in Gemma for the taxon
 }
 }
 \description{

@@ -33,7 +33,8 @@ species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
 \item{uris}{A vector of ontology term URIs. Providing multiple terms will
-return results containing any of the terms and their children. These are}
+return results containing any of the terms and their children. These are
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
 \item{offset}{The offset of the first retrieved result.}
 

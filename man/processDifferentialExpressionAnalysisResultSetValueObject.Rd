@@ -7,7 +7,7 @@
 processDifferentialExpressionAnalysisResultSetValueObject(d)
 }
 \value{
-A data table with information about the queried result sets Note that this funciton does not return
+A data table with information about the queried result sets. Note that this function does not return
 differential expression values themselves. Use \code{\link{get_differential_expression_values}}
 to get differential expression values
 
@@ -17,12 +17,12 @@ May represent multiple factors in a single model.
 \item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
 they uniquely represent a given contrast.
 \item \code{experiment.ID}: Id of the source experiment
-\item \code{baseline.category}: Category for the contrast
-\item \code{baseline.categoryURI}: URI for the baseline category
+\item \code{factor.category}: Category for the contrast
+\item \code{factor.category.URI}: URI for the contrast category
+\item \code{factor.ID}: ID of the factor
 \item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
 \item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
-\item \code{subsetFactor.subset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
-\item \code{subsetFactor.category}: Category of the subset
+\item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
 \item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
 }
 }

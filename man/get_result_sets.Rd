@@ -58,9 +58,37 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 filename.}
 }
 \value{
-Varies
+A data table with information about the queried result sets. Note that this function does not return
+differential expression values themselves. Use \code{\link{get_differential_expression_values}}
+to get differential expression values
+
+\itemize{
+\item \code{result.ID}: Result set ID of the differential expression analysis.
+May represent multiple factors in a single model.
+\item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
+they uniquely represent a given contrast.
+\item \code{experiment.ID}: Id of the source experiment
+\item \code{factor.category}: Category for the contrast
+\item \code{factor.category.URI}: URI for the contrast category
+\item \code{factor.ID}: ID of the factor
+\item \code{baseline.factors}: Characteristics of the baseline. This field is a data.table
+\item \code{experimental.factors}: Characteristics of the experimental group. This field is a data.table
+\item \code{isSubset}: TRUE if the result set belong to a subset, FALSE if not. Subsets are created when performing differential expression to avoid unhelpful comparisons.
+\item \code{subsetFactor}: Characteristics of the subset. This field is a data.table
+}
 }
 \description{
-Retrieve all result sets matching the provided criteria
+Returns queried result set
+}
+\details{
+Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}.
+The principal difference being the ability to restrict your result sets, being able to
+query across multiple datasets and being able to use the filter argument
+to search based on result set properties.
+}
+\examples{
+get_result_sets(dataset = 1)
+# get all contrasts comparing disease states. use filter_properties to see avaialble options
+get_result_sets(filter = "baselineGroup.characteristics.value = disease")
 }
 \keyword{misc}

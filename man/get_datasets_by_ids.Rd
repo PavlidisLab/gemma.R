@@ -20,8 +20,7 @@ get_datasets_by_ids(
 }
 \arguments{
 \item{datasets}{Numerical dataset identifiers or dataset short names. If not
-specified, all datasets will be returned instead
-appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
+specified, all datasets will be returned instead}
 
 \item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be
@@ -33,7 +32,8 @@ species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
 \item{uris}{A vector of ontology term URIs. Providing multiple terms will
-return results containing any of the terms and their children. These are}
+return results containing any of the terms and their children. These are
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
 \item{offset}{The offset of the first retrieved result.}
 

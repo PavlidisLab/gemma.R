@@ -17,9 +17,9 @@ The fields of the output data.table are:
 
 \itemize{
 \item \code{category.name}: Category that the annotation belongs to
-\item \code{category.URI}: URI for the category.Name
+\item \code{category.URI}: URI for the category.name
 \item \code{value.name}: Annotation term
-\item \code{value.URI}: URI for the value.Name
+\item \code{value.URI}: URI for the value.name
 }
 }
 \description{
