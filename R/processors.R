@@ -41,7 +41,7 @@ processGemmaArray <- function(d) {
 #'     \item \code{experiment.database}: The name of the database where the dataset was taken from
 #'     \item \code{experiment.URI}: URI of the original database
 #'     \item \code{experiment.sampleCount}: Number of samples in the dataset
-#'     \item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
+#'     \item \code{experiment.batchEffectText}: A text field describing whether the dataset has batch effects
 #'     \item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset.
 #'     \item \code{experiment.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
 #'     \item \code{experiment.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
@@ -69,7 +69,7 @@ processDatasets <- function(d) {
         experiment.URI = accessField(d, "externalUri",NA_character_),
         experiment.sampleCount = accessField(d, "bioAssayCount",NA_integer_),
         experiment.lastUpdated = processDate(accessField(d, "lastUpdated",NA_real_)),
-        experiment.batchEffect = accessField(d, "batchEffect",NA_character_),
+        experiment.batchEffectText = accessField(d, "batchEffect",NA_character_),
         experiment.batchCorrected = d %>% purrr::map('geeq') %>% accessField('batchCorrected',NA),
         experiment.batchConfound = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchConfound",NA_integer_),
         experiment.batchEffect = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchEffect",NA_integer_),
