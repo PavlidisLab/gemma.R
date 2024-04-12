@@ -87,13 +87,13 @@ our findings.
 
 For this example, we decided we should not include data sets that have a batch confound (though that is up to the user). Gemma internally handles batch correction if batch
 information is available for the dataset. We will be looking at
-`geeq.batchEffect` column. As explained in the `get_datasets`
+`experiment.batchEffect` column. As explained in the `get_datasets`
 documentation, this column will be set to -1 for datasets where batch
 confound is detected, 0 for datasets without available batch information
 and to 1 if the data is clear of batch confounds.
 
 ```{r}
-results <- results %>% filter(geeq.batchEffect == 1)
+results <- results %>% filter(experiment.batchEffect == 1)
 ```
 
 

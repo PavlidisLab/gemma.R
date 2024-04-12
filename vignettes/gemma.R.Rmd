@@ -151,14 +151,14 @@ get_datasets(filter = 'allCharacteristics.valueUri in (http://purl.obolibrary.or
 ```
 
 Dataset information provided by `get_datasets` also includes some quality information
-that can be used to determine the suitability of any given experiment. For instance `geeq.batchEffect` column will be set to -1 if Gemma's
+that can be used to determine the suitability of any given experiment. For instance `experiment.batchEffect` column will be set to -1 if Gemma's
 preprocessing has detected batch effects that were unable to be resolved by batch
 correction. More information about
 these and other fields can be found at the function documentation.
 
 ```{r}
 get_datasets(taxa = 'human', filter = 'bioAssayCount > 4') %>% 
-     filter(geeq.batchEffect !=-1) %>% 
+     filter(experiment.batchEffect !=-1) %>% 
     select(experiment.shortName, experiment.name, 
            experiment.description,taxon.name) %>%
     head %>% gemma_kable
