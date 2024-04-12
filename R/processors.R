@@ -27,11 +27,7 @@ processGemmaArray <- function(d) {
 #' @param d The JSON to process
 #'
 #' @return A data table with information about the queried dataset(s). A list if
-#' \code{raw = TRUE}. Returns an empty list if no datasets matched. A successful
-#' response may contain 'Geeq' information, which aims to provide a unified
-#' metric to measure experiments by the quality of their data, and their
-#' suitability for use in Gemma. You can
-#' read more about the geeq properties [here](https://pavlidislab.github.io/Gemma/geeq.html).
+#' \code{raw = TRUE}. Returns an empty list if no datasets matched.
 #'
 #' The fields of the output data.table are:
 #'
