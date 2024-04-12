@@ -46,10 +46,10 @@ processGemmaArray <- function(d) {
 #'     \item \code{experiment.URI}: URI of the original database
 #'     \item \code{experiment.sampleCount}: Number of samples in the dataset
 #'     \item \code{experiment.batchEffect}: A text field describing whether the dataset has batch effects
-#'     \item \code{geeq.batchCorrected}: Whether batch correction has been performed on the dataset.
-#'     \item \code{geeq.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
-#'     \item \code{geeq.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
-#'     \item \code{geeq.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
+#'     \item \code{experiment.batchCorrected}: Whether batch correction has been performed on the dataset.
+#'     \item \code{experiment.batchConfound}: 0 if batch info isn't available, -1 if batch counfoud is detected, 1 if batch information is available and no batch confound found
+#'     \item \code{experiment.batchEffect}: -1 if batch p value < 0.0001, 1 if batch p value > 0.1, 0 if otherwise and when there is no batch information is available or when the data is confounded with batches.
+#'     \item \code{experiment.rawData}: -1 if no raw data available, 1 if raw data was available. When available, Gemma reprocesses raw data to get expression values and batches
 #'     \item \code{geeq.qScore}: Data quality score given to the dataset by Gemma.
 #'     \item \code{geeq.sScore}: Suitability score given to the dataset by Gemma. Refers to factors like batches, platforms and other aspects of experimental design
 #'     \item \code{taxon.name}: Name of the species
@@ -74,10 +74,10 @@ processDatasets <- function(d) {
         experiment.sampleCount = accessField(d, "bioAssayCount",NA_integer_),
         experiment.lastUpdated = processDate(accessField(d, "lastUpdated",NA_real_)),
         experiment.batchEffect = accessField(d, "batchEffect",NA_character_),
-        geeq.batchCorrected = d %>% purrr::map('geeq') %>% accessField('batchCorrected',NA),
-        geeq.batchConfound = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchConfound",NA_integer_),
-        geeq.batchEffect = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchEffect",NA_integer_),
-        geeq.rawData = d %>% purrr::map('geeq') %>% accessField("sScoreRawData",NA_integer_),
+        experiment.batchCorrected = d %>% purrr::map('geeq') %>% accessField('batchCorrected',NA),
+        experiment.batchConfound = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchConfound",NA_integer_),
+        experiment.batchEffect = d %>% purrr::map('geeq') %>% accessField("qScorePublicBatchEffect",NA_integer_),
+        experiment.rawData = d %>% purrr::map('geeq') %>% accessField("sScoreRawData",NA_integer_),
         geeq.qScore = d %>% purrr::map('geeq') %>% accessField("publicQualityScore",NA_real_),
         geeq.sScore = d %>% purrr::map('geeq') %>% accessField("publicSuitabilityScore",NA_real_),
         d %>% purrr::map('taxon') %>% processTaxon()# ,
