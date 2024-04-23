@@ -1,9 +1,9 @@
-pandoc: 3.1.1
-pkgdown: 2.0.8
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
   gemma.R: gemma.R.html
   metadata: metadata.html
   metanalysis: metanalysis.html
-last_built: 2024-04-13T00:07Z
+last_built: 2024-04-23T23:05Z
 
