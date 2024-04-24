@@ -17,10 +17,10 @@ search_gemma(
 )
 }
 \arguments{
-\item{query}{The search query. Either plain text ('traumatic'), or an ontology
-term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-contain the given string in their short of full name will also be matched.
-Can be multiple identifiers separated by commas.}
+\item{query}{The search query. Queries can include plain text or ontology
+terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+("BRCA?") and fuzzy matches ("alpha~").}
 
 \item{taxon}{A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name}
 

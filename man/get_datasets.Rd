@@ -19,9 +19,10 @@ get_datasets(
 )
 }
 \arguments{
-\item{query}{The search query. Either plain text ('traumatic'), or an ontology
-term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-contain the given string in their short of full name will also be matched.}
+\item{query}{The search query. Queries can include plain text or ontology
+terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+("BRCA?") and fuzzy matches ("alpha~").}
 
 \item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be

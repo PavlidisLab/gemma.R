@@ -205,7 +205,10 @@ memget_result_sets <- function(datasets = NA_character_, resultSets = NA_charact
 #'
 #'
 #'
-#' @param query The search query
+#' @param query The search query. Queries can include plain text or ontology
+#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+#' ("BRCA?") and fuzzy matches ("alpha~").
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1156,9 +1159,10 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #'
 #'
 #'
-#' @param query The search query. Either plain text ('traumatic'), or an ontology
-#' term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-#' contain the given string in their short of full name will also be matched.
+#' @param query The search query. Queries can include plain text or ontology
+#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+#' ("BRCA?") and fuzzy matches ("alpha~").
 #' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
@@ -2048,10 +2052,10 @@ memget_platforms_by_ids <- function(platforms = NA_character_, filter = NA_chara
 #'
 #'
 #'
-#' @param query The search query. Either plain text ('traumatic'), or an ontology
-#' term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-#' contain the given string in their short of full name will also be matched.
-#' Can be multiple identifiers separated by commas.
+#' @param query The search query. Queries can include plain text or ontology
+#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+#' ("BRCA?") and fuzzy matches ("alpha~").
 #' @param taxon A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name
 #' @param platform A platform numerical identifier or a platform short name
 #' @param limit Defaults to 100 with a maximum value of 2000.

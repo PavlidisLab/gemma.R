@@ -163,7 +163,6 @@ registerEndpoint(
 # /annotations/search, search_annotations --------
 
 #' search_annotations
-#' @param query The search query
 #' @examples
 #' search_annotations("traumatic")
 #' @inherit processSearchAnnotations return
@@ -182,8 +181,6 @@ registerEndpoint("annotations/search?query={query}",
 # reduntant with other endpoints, deprecated, consider removing
 
 #' search_datasets
-#' @param query The search query. Either plain text ('traumatic'), or an ontology term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that contain the given string in their short
-#'  or full name will also be matched. Can be multiple identifiers separated by commas.
 #' @param taxon Can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
 #' It is recommended to use Taxon ID for efficiency.
 #' Please note, that not all taxa have all the possible identifiers available.
@@ -512,9 +509,6 @@ registerEndpoint('datasets/{dataset}/samples',
 #' 
 #' @inherit processDatasets return
 #' 
-#' @param query The search query. Either plain text ('traumatic'), or an ontology
-#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
-#'  contain the given string in their short of full name will also be matched.
 #' @examples
 #' get_datasets()
 #' get_datasets(taxa = c('mouse','human'), uris = 'http://purl.obolibrary.org/obo/UBERON_0002048')
@@ -824,10 +818,6 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
 # search -----
 
 #' search_gemma
-#' @param query The search query. Either plain text ('traumatic'), or an ontology
-#'  term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that 
-#'  contain the given string in their short of full name will also be matched.  
-#'  Can be multiple identifiers separated by commas.
 #' @param limit Defaults to 100 with a maximum value of 2000.
 #'  Limits the number of returned results. Note 
 #'  that this function does not support pagination.
@@ -983,6 +973,10 @@ doFinalize()
 
 
 #' generic_params
+#' @param query The search query. Queries can include plain text or ontology 
+#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters 
+#' ("BRCA?") and fuzzy matches ("alpha~").
 #' @param resultSets A resultSet identifier. Note that result set identifiers
 #' are not static and can change when Gemma re-runs analyses internally. Whem
 #' using these as inputs, try to make sure you access a currently existing

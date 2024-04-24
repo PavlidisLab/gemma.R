@@ -13,7 +13,10 @@ search_annotations(
 )
 }
 \arguments{
-\item{query}{The search query}
+\item{query}{The search query. Queries can include plain text or ontology
+terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+("BRCA?") and fuzzy matches ("alpha~").}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
