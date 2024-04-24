@@ -91,10 +91,10 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>query</dt>
-<dd><p>The search query. Either plain text ('traumatic'), or an ontology
-term URI ('http://purl.obolibrary.org/obo/UBERON_0002048'). Datasets that
-contain the given string in their short of full name will also be matched.
-Can be multiple identifiers separated by commas.</p></dd>
+<dd><p>The search query. Queries can include plain text or ontology
+terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+("BRCA?") and fuzzy matches ("alpha~").</p></dd>
 
 
 <dt>taxon</dt>
