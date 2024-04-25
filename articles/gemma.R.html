@@ -392,7 +392,7 @@ human
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># access human datasets that were annotated with the ontology term for the</span></span>
 <span><span class="co"># bipolar disorder</span></span>
-<span></span>
+<span><span class="co"># use search_annotations function to search for available annotation terms</span></span>
 <span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>taxa <span class="op">=</span><span class="st">'human'</span>, </span>
 <span>             uris <span class="op">=</span> <span class="st">'http://purl.obolibrary.org/obo/MONDO_0004985'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
@@ -500,125 +500,11 @@ human
 </tr>
 </tbody>
 </table>
-<p>Note that a single call of these functions will only return 20
-results by default and a 100 results maximum, controlled by the
-<code>limit</code> argument. In order to get all available results, use
-<code>get_all_pages</code> function on the output of the function</p>
+<p><code>get_dataset</code> function also includes a <code>filter</code>
+parameter that allows filtering for datasets with specific properties in
+a more structured manner. A list of the available properties can be
+accessed using <code>filter_properties</code></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="../reference/get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
-<span>           <span class="va">experiment.description</span>,<span class="va">taxon.name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">gemma_kable</span></span></code></pre></div>
-<table class="table table" style="margin-left: auto; margin-right: auto;">
-<thead><tr>
-<th style="text-align:left;">
-experiment.shortName
-</th>
-<th style="text-align:left;">
-experiment.name
-</th>
-<th style="text-align:left;">
-experiment.description
-</th>
-<th style="text-align:left;">
-taxon.name
-</th>
-</tr></thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-GSE2018
-</td>
-<td style="text-align:left;">
-Human Lung Transplant - BAL
-</td>
-<td style="text-align:left;">
-Bronchoalveolar lavage samp…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GSE4036
-</td>
-<td style="text-align:left;">
-perro-affy-human-186940
-</td>
-<td style="text-align:left;">
-Our laboratory has develope…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GSE3489
-</td>
-<td style="text-align:left;">
-Patterns of gene dysregulat…
-</td>
-<td style="text-align:left;">
-The neurodegenerative proce…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GSE1923
-</td>
-<td style="text-align:left;">
-Identification of PDGF-depe…
-</td>
-<td style="text-align:left;">
-Overall study: Identificati…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GSE361
-</td>
-<td style="text-align:left;">
-Mammary epithelial cell tra…
-</td>
-<td style="text-align:left;">
-Analysis of gene expression…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-GSE492
-</td>
-<td style="text-align:left;">
-Effect of prostaglandin ana…
-</td>
-<td style="text-align:left;">
-The purpose of this study i…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-</tbody>
-</table>
-<p>See <a href="#larger-queries">larger queries</a> section for more
-details. To keep this vignette simpler we will keep using the first 20
-results returned by default in examples below.</p>
-<p>The <code>filter</code> parameter of get_datasets allows filtering
-for datasets with specific properties. A list of such properties can be
-accessed using <code>filter_properties</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/filter_properties.html">filter_properties</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">dataset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -697,6 +583,115 @@ string
 </td>
 <td style="text-align:left;">
 NA
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># access human datasets that has bipolar disorder as an experimental factor</span></span>
+<span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="st">'human'</span>,</span>
+<span>             filter <span class="op">=</span> <span class="st">"experimentalDesign.experimentalFactors.factorValues.characteristics.valueUri = http://purl.obolibrary.org/obo/MONDO_0004985"</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
+<span>           <span class="va">experiment.description</span>,<span class="va">taxon.name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">gemma_kable</span></span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+experiment.shortName
+</th>
+<th style="text-align:left;">
+experiment.name
+</th>
+<th style="text-align:left;">
+experiment.description
+</th>
+<th style="text-align:left;">
+taxon.name
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+GSE5389
+</td>
+<td style="text-align:left;">
+Adult postmortem brain tiss…
+</td>
+<td style="text-align:left;">
+Bipolar affective disorder …
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE5388
+</td>
+<td style="text-align:left;">
+Adult postmortem brain tiss…
+</td>
+<td style="text-align:left;">
+Bipolar affective disorder …
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE7036
+</td>
+<td style="text-align:left;">
+Expression profiling in mon…
+</td>
+<td style="text-align:left;">
+To identify genes dysregula…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+McLean_PFC
+</td>
+<td style="text-align:left;">
+McLean_PFC
+</td>
+<td style="text-align:left;">
+Prefrontal cortex of schizo…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stanley_feinberg
+</td>
+<td style="text-align:left;">
+Stanley consortium collecti…
+</td>
+<td style="text-align:left;">
+50 samples of individuals f…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+stanley_kato
+</td>
+<td style="text-align:left;">
+Stanley array collection DL…
+</td>
+<td style="text-align:left;">
+102 samples of individuals …
+</td>
+<td style="text-align:left;">
+human
 </td>
 </tr>
 </tbody>
@@ -920,6 +915,121 @@ mouse
 </tr>
 </tbody>
 </table>
+<p>Note that a single call of these functions will only return 20
+results by default and a 100 results maximum, controlled by the
+<code>limit</code> argument. In order to get all available results, use
+<code>get_all_pages</code> function on the output of the function</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="../reference/get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
+<span>           <span class="va">experiment.description</span>,<span class="va">taxon.name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">gemma_kable</span></span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+experiment.shortName
+</th>
+<th style="text-align:left;">
+experiment.name
+</th>
+<th style="text-align:left;">
+experiment.description
+</th>
+<th style="text-align:left;">
+taxon.name
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+GSE2018
+</td>
+<td style="text-align:left;">
+Human Lung Transplant - BAL
+</td>
+<td style="text-align:left;">
+Bronchoalveolar lavage samp…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE4036
+</td>
+<td style="text-align:left;">
+perro-affy-human-186940
+</td>
+<td style="text-align:left;">
+Our laboratory has develope…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE3489
+</td>
+<td style="text-align:left;">
+Patterns of gene dysregulat…
+</td>
+<td style="text-align:left;">
+The neurodegenerative proce…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE1923
+</td>
+<td style="text-align:left;">
+Identification of PDGF-depe…
+</td>
+<td style="text-align:left;">
+Overall study: Identificati…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE361
+</td>
+<td style="text-align:left;">
+Mammary epithelial cell tra…
+</td>
+<td style="text-align:left;">
+Analysis of gene expression…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE492
+</td>
+<td style="text-align:left;">
+Effect of prostaglandin ana…
+</td>
+<td style="text-align:left;">
+The purpose of this study i…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="#larger-queries">larger queries</a> section for more
+details. To keep this vignette simpler we will keep using the first 20
+results returned by default in examples below.</p>
 <p>Dataset information provided by <code>get_datasets</code> also
 includes some quality information that can be used to determine the
 suitability of any given experiment. For instance
@@ -927,7 +1037,7 @@ suitability of any given experiment. For instance
 preprocessing has detected batch effects that were unable to be resolved
 by batch correction. More information about these and other fields can
 be found at the function documentation.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>taxa <span class="op">=</span> <span class="st">'human'</span>, filter <span class="op">=</span> <span class="st">'bioAssayCount &gt; 4'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experiment.batchEffect</span> <span class="op">!=</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
@@ -1040,7 +1150,7 @@ term URIs instead of free text to search can lead to more specific
 results. <a href="https://pavlidislab.github.io/gemma.R/reference/search_annotations.html" class="external-link"><code>search_annotations</code></a>
 function allows searching for annotation terms that might be relevant to
 your query.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">'bipolar'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -1109,6 +1219,20 @@ NA
 NA
 </td>
 <td style="text-align:left;">
+bipolar neuron
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
 bipolar affective disorder
 </td>
 <td style="text-align:left;">
@@ -1129,20 +1253,6 @@ bipolar disorder
 <a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/NBO_0000258
 </td>
 </tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-bipolar neuron
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -1155,7 +1265,7 @@ GSE46416 which includes samples taken from healthy donors along with
 manic/euthymic phase bipolar disorder patients.</p>
 <p>The data associated with specific experiments can be accessed by
 using <a href="https://pavlidislab.github.io/gemma.R/reference/get_datasets_by_ids.html" class="external-link"><code>get_datasets_by_ids</code></a></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_datasets_by_ids.html">get_datasets_by_ids</a></span><span class="op">(</span><span class="st">"GSE46416"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">experiment.shortName</span>, <span class="va">experiment.name</span>, </span>
 <span>           <span class="va">experiment.description</span>,<span class="va">taxon.name</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -1198,7 +1308,7 @@ objects that are compatible with other Bioconductor packages or a <a href="https
 long form tibble for downstream analyses. These include the expression
 matrix along with the experimental design, and ensure the sample names
 match between both when transforming/subsetting data.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_object.html">get_dataset_object</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,</span>
 <span>                          type <span class="op">=</span> <span class="st">'se'</span><span class="op">)</span> <span class="co"># SummarizedExperiment is the default output type</span></span></code></pre></div>
 <p>Note that the tidy format is less memory efficient but allows easy
@@ -1207,13 +1317,13 @@ of the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a>.
 <p>To show how subsetting works, we’ll keep the “manic phase” data and
 the <code>reference_subject_role</code>s, which refers to the control
 samples in Gemma datasets.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check the levels of the disease factor</span></span>
 <span><span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] "bipolar disorder has_modifier euthymic phase"
 [2] "reference subject role"                      
 [3] "bipolar disorder has_modifier manic phase"   </code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset patients during manic phase and controls</span></span>
 <span><span class="va">manic</span> <span class="op">&lt;-</span> <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"bipolar disorder,manic phase"</span> <span class="op">|</span> </span>
 <span>        <span class="va">dat</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">disease</span> <span class="op">==</span> <span class="st">"reference subject role"</span><span class="op">]</span></span>
@@ -1228,7 +1338,7 @@ colnames(10): Control, 15 Control, 8 ... Control, 1_DE50 Control,
   2_DE40
 colData names(3): factorValues disease block</code></pre>
 <p>Let’s take a look at sample to sample correlation in our subset.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
 <span><span class="va">manicExpr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/SummarizedExperiment/man/SummarizedExperiment-class.html" class="external-link">assay</a></span><span class="op">(</span><span class="va">manic</span>, <span class="st">"counts"</span><span class="op">)</span></span>
 <span></span>
@@ -1242,21 +1352,20 @@ Sample to sample correlations of bipolar patients during manic phase and
 controls.
 </p>
 </div>
-<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html" class="external-link"><code>get_dataset_expression</code></a>
+<p>You can also use <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_processed_expression.html" class="external-link"><code>get_dataset_processed_expression</code></a>
 to only get the expression matrix, <a href="https://pavlidislab.github.io/gemma.R/reference/get_dataset_samples.html" class="external-link"><code>get_dataset_samples</code></a>
-to get the metadata information. The output of this function can be
-simplified to match the version included in the output of
+to get the metadata information. The output of this function includes
+some additional details about a sample such as the original accession ID
+or whether or not it was determined to be an outlier but it can be
+simplified to match the design table included in the output of
 <code>get_dataset_object</code> by using <a href="https://pavlidislab.github.io/gemma.R/reference/make_design" class="external-link"><code>make_design</code></a>
 on the output.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_samples.html">get_dataset_samples</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/make_design.html">make_design</a></span><span class="op">(</span><span class="st">'text'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_samples.html">get_dataset_samples</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/make_design.html">make_design</a></span><span class="op">(</span><span class="st">'text'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">factorValues</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-factorValues
 </th>
 <th style="text-align:left;">
 disease
@@ -1271,9 +1380,6 @@ block
 Bipolar disorder patient euthymic phase, 17
 </td>
 <td style="text-align:left;">
-c(“disea….
-</td>
-<td style="text-align:left;">
 bipolar disorder has_modifi…
 </td>
 <td style="text-align:left;">
@@ -1283,9 +1389,6 @@ Batch_02_26/11/09
 <tr>
 <td style="text-align:left;">
 Bipolar disorder patient euthymic phase, 34
-</td>
-<td style="text-align:left;">
-c(“disea….
 </td>
 <td style="text-align:left;">
 bipolar disorder has_modifi…
@@ -1299,9 +1402,6 @@ Batch_04_02/12/09
 Control, 15
 </td>
 <td style="text-align:left;">
-c(“disea….
-</td>
-<td style="text-align:left;">
 reference subject role
 </td>
 <td style="text-align:left;">
@@ -1311,9 +1411,6 @@ Batch_02_26/11/09
 <tr>
 <td style="text-align:left;">
 Bipolar disorder patient euthymic phase, 32
-</td>
-<td style="text-align:left;">
-c(“disea….
 </td>
 <td style="text-align:left;">
 bipolar disorder has_modifi…
@@ -1327,9 +1424,6 @@ Batch_04_02/12/09
 Control, 8
 </td>
 <td style="text-align:left;">
-c(“disea….
-</td>
-<td style="text-align:left;">
 reference subject role
 </td>
 <td style="text-align:left;">
@@ -1339,9 +1433,6 @@ Batch_01_25/11/09
 <tr>
 <td style="text-align:left;">
 Bipolar disorder patient manic phase, 21
-</td>
-<td style="text-align:left;">
-c(“block….
 </td>
 <td style="text-align:left;">
 bipolar disorder has_modifi…
@@ -1362,7 +1453,7 @@ function, these annotations can be retrieved independently of the
 expression data, along with additional annotations such as Gene Ontology
 terms.</p>
 <p>Examples:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>     ProbeName   GeneSymbols                                     GeneNames
         &lt;char&gt;        &lt;char&gt;                                        &lt;char&gt;
@@ -1380,7 +1471,7 @@ terms.</p>
 4:                         
 5:         32964       1559
 6:        303717      55788</code></pre>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'Generic_human_ncbiIds'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ElementName  GeneSymbols
          &lt;int&gt;       &lt;char&gt;
@@ -1402,7 +1493,7 @@ terms.</p>
 platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>.
 Note that functions to search gene work best with unambigious
 identifiers rather than symbols.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># lists genes in gemma matching the symbol or identifier</span></span>
 <span><span class="fu"><a href="../reference/get_genes.html">get_genes</a></span><span class="op">(</span><span class="st">'Eno2'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -1561,7 +1652,7 @@ rn6
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ncbi id for human ENO2</span></span>
 <span><span class="va">probes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_gene_probes.html">get_gene_probes</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
 <span></span>
@@ -1896,7 +1987,7 @@ differentially-expressed genes</p>
 multiple differentials per study if a study has multiple factors to
 contrast. Since GSE46416 only has one extracting the first element of
 the returned list is all we need.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dif_exp</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
 <span><span class="va">dif_exp</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -2195,7 +2286,7 @@ analysis while the latter is easier to read in an interactive
 session.</p>
 <p><code>get_dataset_differential_expression_analyses</code> function
 returns structured metadata about the differentials.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrasts</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span></span>
 <span><span class="va">contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -2321,7 +2412,7 @@ the output of <code>get_differential_expression_values</code> while
 <code>result.ID</code> corresponds to the name of the differential in
 the output object. Using them together will let one to access
 differentially expressed gene counts for each condition contrast</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># using result.ID and contrast.ID of the output above, we can access specific</span></span>
 <span><span class="co"># results. Note that one study may have multiple contrast objects</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_len</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">contrasts</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
@@ -2394,7 +2485,7 @@ disease,….
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrasts</span><span class="op">$</span><span class="va">baseline.factorValue</span></span></code></pre></div>
 <pre><code>[[1]]
    category                         category.URI                  value
@@ -2423,7 +2514,7 @@ disease,….
                     factor.category.URI
                                  &lt;char&gt;
 1: http://www.ebi.ac.uk/efo/EFO_0000408</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">contrasts</span><span class="op">$</span><span class="va">experimental.factorValue</span></span></code></pre></div>
 <pre><code>[[1]]
    category                         category.URI            value
@@ -2460,7 +2551,7 @@ disease,….
 1:         disease http://www.ebi.ac.uk/efo/EFO_0000408</code></pre>
 <p>Alternatively we, since we are only looking at one dataset and one
 contrast manually, we can simply use <code>readableContrasts</code>.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">de</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span><span class="st">"GSE46416"</span>,readableContrasts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">de</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">gemma_kable</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -2748,7 +2839,7 @@ dishevelled associated acti…
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classify probes for plotting</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">&lt;-</span> <span class="st">"No"</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">`contrast_bipolar disorder has_modifier manic phase_logFoldChange`</span> <span class="op">&gt;</span> <span class="fl">1.0</span> <span class="op">&amp;</span> </span>
@@ -2919,7 +3010,7 @@ GPR15
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Downregulated probes</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">de</span>, <span class="va">diffexpr</span> <span class="op">==</span> <span class="st">"Down"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">`contrast_bipolar disorder has_modifier manic phase_pvalue`</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -3078,7 +3169,7 @@ RUNX1-IT1
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add gene symbols as labels to DE genes</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span> <span class="op">&lt;-</span> <span class="st">""</span></span>
 <span><span class="va">de</span><span class="op">$</span><span class="va">delabel</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">de</span><span class="op">$</span><span class="va">GeneSymbol</span><span class="op">[</span><span class="va">de</span><span class="op">$</span><span class="va">diffexpr</span> <span class="op">!=</span> <span class="st">"No"</span><span class="op">]</span></span>
@@ -3119,7 +3210,7 @@ call(s).</p>
 includes the <a href="https://pavlidislab.github.io/gemma.R/reference/get_all_pages.html" class="external-link"><code>get_all_pages</code></a>
 function which can use the output from one page to make all the follow
 up requests</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="../reference/get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
@@ -3417,13 +3508,13 @@ rn6
 many available results are there, you can look at the attributes of the
 output objects where additional information from the API response is
 appended.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
 <pre><code>[1] 637</code></pre>
 <p>After which you can use <code>offset</code> to access all available
 platforms.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>,<span class="va">platform_count</span>,<span class="fl">100</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">offset</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">100</span>, offset <span class="op">=</span> <span class="va">offset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">platform.ID</span>, <span class="va">platform.shortName</span>, <span class="va">taxon.name</span><span class="op">)</span></span>
@@ -3511,12 +3602,12 @@ rat
 </tbody>
 </table>
 <p>Many endpoints only support a single identifier:</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE46416"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>Error: Please specify one valid identifier for dataset.</code></pre>
 <p>In these cases, you will have to loop over all the identifiers you
 wish to query and send separate requests.</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"GSE35974"</span>, <span class="st">"GSE12649"</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="fu"><a href="../reference/get_dataset_annotations.html">get_dataset_annotations</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>        <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>experiment.shortName <span class="op">=</span> <span class="va">dataset</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -3670,7 +3761,7 @@ make it easier to work with inside of R. In the process, it drops some
 typically unused values. If you wish to fetch everything, use
 <code>raw = TRUE</code>. Instead of a data table, you’ll usually be
 served a list that represents the underlying JSON response.</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -3804,7 +3895,7 @@ mm10
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_gene_locations.html">get_gene_locations</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/pkg/listviewer/man/jsonedit.html" class="external-link">jsonedit</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="jsonedit html-widget html-fill-item" id="htmlwidget-ac96cb3ee4656e2e9ec3" style="width:700px;height:432.632880098888px;"></div>
 <script type="application/json" data-for="htmlwidget-ac96cb3ee4656e2e9ec3">{"x":{"data":[{"id":120910616,"nucleotide":33890705,"nucleotideLength":118714,"strand":"+","bin":105,"chromosome":"11","taxon":{"id":3,"scientificName":"Rattus norvegicus","commonName":"rat","ncbiId":10116,"externalDatabase":{"id":86,"name":"rn6","description":"RGSC Rnor_6.0","uri":"https://genome.ucsc.edu/cgi-bin/hgTracks?db=rn6","releaseVersion":[],"releaseUrl":[],"lastUpdated":[],"externalDatabases":[{"id":116,"name":"rn6 RNA-Seq annotations","description":"Annotations provided by NCBI Genome and used by the RNA-Seq pipeline for rat data.","uri":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001895.5/","releaseVersion":"106","releaseUrl":"https://ftp.ncbi.nlm.nih.gov/genomes/all/annotation_releases/10116/106/","lastUpdated":"2022-10-24T07:00:00.000+00:00","externalDatabases":[]},{"id":100,"name":"rn4 annotations","description":[],"uri":"https://hgdownload.cse.ucsc.edu/goldenpath/rn4/database/","releaseVersion":[],"releaseUrl":[],"lastUpdated":[],"externalDatabases":[]}]}}},{"id":120419022,"nucleotide":37365572,"nucleotideLength":160785,"strand":"+","bin":108,"chromosome":"21","taxon":{"id":1,"scientificName":"Homo sapiens","commonName":"human","ncbiId":9606,"externalDatabase":{"id":87,"name":"hg38","description":"Genome Reference Consortium Human GRCh38.p13 (GCA_000001405.28)","uri":"https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38","releaseVersion":"GRCh38.p13","releaseUrl":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_000001405.28/","lastUpdated":"2022-06-30T07:00:00.000+00:00","externalDatabases":[{"id":94,"name":"hg38 annotations","description":[],"uri":"https://hgdownload.cse.ucsc.edu/goldenpath/hg38/database/","releaseVersion":"GRCh38.p13","releaseUrl":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCA_000001405.28/","lastUpdated":"2022-06-30T07:00:00.000+00:00","externalDatabases":[]},{"id":124,"name":"hg38 RNA-Seq annotations","description":"Annotations provided by NCBI Genome and used by the RNA-Seq pipeline for human data.","uri":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/","releaseVersion":"110","releaseUrl":"https://ftp.ncbi.nlm.nih.gov/genomes/all/annotation_releases/9606/110/","lastUpdated":"2023-01-17T20:27:55.059+00:00","externalDatabases":[]}]}}},{"id":120734638,"nucleotide":94370769,"nucleotideLength":125608,"strand":"+","bin":20,"chromosome":"16","taxon":{"id":2,"scientificName":"Mus musculus","commonName":"mouse","ncbiId":10090,"externalDatabase":{"id":81,"name":"mm10","description":"Genome Reference Consortium GRCm38, which includes approximately 2.6 Gb of sequence, is considered to be \"essentially complete\". The assembly includes chromosomes 1-19, X, Y, M (mitochondrial DNA) and chr*_random (unlocalized) and chrUn_* (unplaced clone contigs).","uri":"https://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10","releaseVersion":"GCA_000001635.2","releaseUrl":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001635.2/","lastUpdated":"2022-06-30T07:00:00.000+00:00","externalDatabases":[{"id":97,"name":"mm10 annotations","description":[],"uri":"https://hgdownload.cse.ucsc.edu/goldenpath/mm10/database/","releaseVersion":"GCA_000001635.2","releaseUrl":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001635.2/","lastUpdated":"2022-06-30T07:00:00.000+00:00","externalDatabases":[]},{"id":115,"name":"mm10 RNA-Seq annotations","description":"Annotations provided by NCBI Genome and used by the RNA-Seq pipeline for mouse data.","uri":"https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001635.26/","releaseVersion":"108","releaseUrl":"https://www.ncbi.nlm.nih.gov/genome/annotation_euk/Mus_musculus/108/","lastUpdated":"2019-10-24T07:00:00.219+00:00","externalDatabases":[]}]}}}],"options":{"mode":"tree","modes":["text","tree","table"]}},"evals":[],"jsHooks":[]}</script>
@@ -3837,13 +3928,21 @@ allowed to overwrite an existing file by specifying the
 can proceed virtually instantly. This is enabled through the <a href="https://github.com/r-lib/memoise" class="external-link"><code>memoise</code></a>
 package. To enable memoisation, simply set <code>memoised = TRUE</code>
 in the function call whenever you want to refer to the cache, both to
-save data for future calls and use the saved data for repeated
-calls.</p>
-<p>By default this will create a cache in your local filesystem.</p>
-<p>You can see the path to your cache by using
-<code>rappdirs::user_cache_dir(appname = "gemmaR")</code>. If you want
-to use a different directory, use
-<code>options(gemma.cache = 'path')</code>.</p>
+save data for future calls and use the saved data for repeated calls. By
+default this will create a cache in your local filesystem.</p>
+<p>If you wish to change where the cache is stored or change the default
+behaviour to make sure you always use the cache without relying on the
+<code>memoised</code> argument, use <a href="https://pavlidislab.github.io/gemma.R/reference/gemma_memoised.html" class="external-link"><code>gemma_memoised</code></a>.</p>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># use memoisation by default using the default cache</span></span>
+<span><span class="fu">gemma_memoised</span><span class="op">(</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># set an altnernate cache path</span></span>
+<span><span class="fu">gemma_memoised</span><span class="op">(</span><span class="cn">TRUE</span>,<span class="st">"path/to/cache_directory"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># cache in memory of the R session</span></span>
+<span><span class="co"># this cache will not be preserved between sessions</span></span>
+<span><span class="fu">gemma_memoised</span><span class="op">(</span><span class="cn">TRUE</span>,<span class="st">"cache_in_memory"</span><span class="op">)</span></span></code></pre></div>
 <p>If you’re done with your fetching and want to ensure no space is
 being used for cached results, or if you just want to ensure you’re
 getting up-to-date data from Gemma, you can clear the cache using <a href="https://pavlidislab.github.io/gemma.R/reference/forget_gemma_memoised.html" class="external-link"><code>forget_gemma_memoised</code></a>.</p>
@@ -3857,8 +3956,8 @@ individual function calls. It’s possible that you want to always use the
 functions these ways without specifying the option every time. You can
 do this by simply changing the default, which is visible in the function
 definition. See below for examples.</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always refer to cache</span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.memoised <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always refer to cache. this is redundant with gemma_memoised function</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always overwrite when saving files</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>gemma.raw <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># always receive results as-is from Gemma</span></span></code></pre></div>
 </div>
@@ -3866,7 +3965,7 @@ definition. See below for examples.</p>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>R version 4.3.3 (2024-02-29)
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -3899,7 +3998,7 @@ other attached packages:
  [9] IRanges_2.36.0              S4Vectors_0.40.2           
 [11] BiocGenerics_0.48.1         MatrixGenerics_1.14.0      
 [13] matrixStats_1.3.0           ggrepel_0.9.5              
-[15] ggplot2_3.5.0               dplyr_1.1.4                
+[15] ggplot2_3.5.1               dplyr_1.1.4                
 [17] data.table_1.15.4           gemma.R_2.99.4             
 [19] BiocStyle_2.30.0           
 
