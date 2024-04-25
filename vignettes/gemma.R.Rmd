@@ -100,7 +100,7 @@ get_datasets(query = 'bipolar',taxa = 'human') %>%
 
 # access human datasets that were annotated with the ontology term for the
 # bipolar disorder
-
+# use search_annotations function to search for available annotation terms
 get_datasets(taxa ='human', 
              uris = 'http://purl.obolibrary.org/obo/MONDO_0004985') %>%
     select(experiment.shortName, experiment.name, 
@@ -108,29 +108,24 @@ get_datasets(taxa ='human',
     head %>% gemma_kable
 ```
 
-Note that a single call of these functions will only return 20 results by default
-and a 100 results maximum, controlled by the `limit` argument. In order to get
-all available results, use `get_all_pages` function on the output of the function
 
-```{r}
-get_datasets(taxa = 'human') %>% 
-    get_all_pages() %>% 
-    select(experiment.shortName, experiment.name, 
-           experiment.description,taxon.name) %>%
-    head %>% gemma_kable
-```
-
-
-
-See [larger queries](#larger-queries) section for more details. To keep this vignette
-simpler we will keep using the first 20 results returned by default in examples below.
-
-The `filter` parameter of get_datasets allows filtering for datasets with specific
-properties. A list of such properties can be accessed using `filter_properties`.
+`get_dataset` function also includes a `filter` parameter that allows filtering
+for datasets with specific properties in a more structured manner.  A list of the
+available properties can be accessed using `filter_properties`
 
 ```{r}
 filter_properties()$dataset %>% head %>% gemma_kable()
+
+# access human datasets that has bipolar disorder as an experimental factor
+get_datasets(taxa = 'human',
+             filter = "experimentalDesign.experimentalFactors.factorValues.characteristics.valueUri = http://purl.obolibrary.org/obo/MONDO_0004985")  %>%
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
+
 ```
+
+
 
 These properties can be used together to fine tune your results
 
@@ -149,6 +144,26 @@ get_datasets(filter = 'allCharacteristics.valueUri in (http://purl.obolibrary.or
            experiment.description,taxon.name) %>%
     head %>% gemma_kable
 ```
+
+
+
+Note that a single call of these functions will only return 20 results by default
+and a 100 results maximum, controlled by the `limit` argument. In order to get
+all available results, use `get_all_pages` function on the output of the function
+
+```{r}
+get_datasets(taxa = 'human') %>% 
+    get_all_pages() %>% 
+    select(experiment.shortName, experiment.name, 
+           experiment.description,taxon.name) %>%
+    head %>% gemma_kable
+```
+
+
+
+See [larger queries](#larger-queries) section for more details. To keep this vignette
+simpler we will keep using the first 20 results returned by default in examples below.
+
 
 Dataset information provided by `get_datasets` also includes some quality information
 that can be used to determine the suitability of any given experiment. For instance `experiment.batchEffect` column will be set to -1 if Gemma's
@@ -241,12 +256,12 @@ manicExpr %>%
 ```
 
 You can also use
-[`get_dataset_expression`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_expression.html)
-to only get the expression matrix, [`get_dataset_samples`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_samples.html) to get the metadata information. The output of this function can be simplified
-to match the version included in the output of `get_dataset_object`  by using [`make_design`](https://pavlidislab.github.io/gemma.R/reference/make_design) on the output.
+[`get_dataset_processed_expression`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_processed_expression.html)
+to only get the expression matrix, [`get_dataset_samples`](https://pavlidislab.github.io/gemma.R/reference/get_dataset_samples.html) to get the metadata information. The output of this function includes some additional details about a sample such as the original accession ID or whether or not it was determined to be an outlier but it can be simplified
+to match the design table included in the output of `get_dataset_object`  by using [`make_design`](https://pavlidislab.github.io/gemma.R/reference/make_design) on the output.
 
 ```{r}
-get_dataset_samples('GSE46416') %>% make_design('text') %>% head %>%
+get_dataset_samples('GSE46416') %>% make_design('text') %>% select(-factorValues) %>%  head %>%
     gemma_kable()
 ```
 
@@ -493,13 +508,26 @@ proceed virtually instantly. This is enabled through the
 [`memoise`](https://github.com/r-lib/memoise) package. To enable
 memoisation, simply set `memoised = TRUE` in the function call whenever
 you want to refer to the cache, both to save data for future calls and
-use the saved data for repeated calls.
+use the saved data for repeated calls. By default this will create a cache in your local filesystem.
 
-By default this will create a cache in your local filesystem.
+If you wish to change where the cache is stored or change the default behaviour
+to make sure you always use the cache without relying on the `memoised` argument,
+use [`gemma_memoised`](https://pavlidislab.github.io/gemma.R/reference/gemma_memoised.html).
 
-You can see the path to your cache by using
-`rappdirs::user_cache_dir(appname = "gemmaR")`. If you want to use a
-different directory, use `options(gemma.cache = 'path')`.
+```{r,eval=FALSE}
+# use memoisation by default using the default cache
+gemma_memoised(TRUE)
+
+# set an altnernate cache path
+gemma_memoised(TRUE,"path/to/cache_directory")
+
+# cache in memory of the R session
+# this cache will not be preserved between sessions
+gemma_memoised(TRUE,"cache_in_memory")
+
+
+```
+
 
 If you're done with your fetching and want to ensure no space is being
 used for cached results, or if you just want to ensure you're getting
@@ -515,7 +543,7 @@ option every time. You can do this by simply changing the default, which
 is visible in the function definition. See below for examples.
 
 ```{r defaults, eval = FALSE}
-options(gemma.memoised = TRUE) # always refer to cache
+options(gemma.memoised = TRUE) # always refer to cache. this is redundant with gemma_memoised function
 options(gemma.overwrite = TRUE) # always overwrite when saving files
 options(gemma.raw = TRUE) # always receive results as-is from Gemma
 ```
