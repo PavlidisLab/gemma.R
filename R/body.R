@@ -114,7 +114,7 @@ setGemmaPath <- function(path){
             }
         )
         envWhere$mData <- mData
-        if (raw || length(mData) == 0) {
+        if (raw) {
             mOut <- mData
         } else {
             mOut <- eval(quote(eval(preprocessor)(mData)), envir = envWhere)

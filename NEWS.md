@@ -1,5 +1,6 @@
 # gemma.R 3.0.0
 
+* Empty outputs now return data.tables with the corresponding column names with 0 rows instead of defaulting to lists of length 0
 * Column names for the outputs of many functions have changed in this release to be more standardized. Please refer to the function documentation. As a general rule names use camelCase separated by .s to indicate properties of a specific entity (eg. experiment.sampleCount) with the exception of acronyms which are always capitalized (experiment.ID)
 * update_results function added which allows re-creation of outputs of gemma.R functions without relying on the original code.
 * get_result_sets function added which allows accessing result sets directly, filtering them based on certain filterable properties (see filter_properties()$resultSet).

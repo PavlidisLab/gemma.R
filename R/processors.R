@@ -245,6 +245,25 @@ processDEA <- function(d) {
         }) %>% do.call(rbind,.)
         
     }) %>% do.call(rbind,.)
+    
+    if(is.null(result_factors)){
+        return(data.table(
+            result.ID = integer(0),
+            contrast.ID = integer(0),
+            experiment.ID = integer(0),
+            factor.category = character(0),
+            factor.category.URI = character(0),
+            factor.ID = character(0),
+            baseline.factors = list(),
+            experimental.factors = list(),
+            isSubset = logical(0),
+            subsetFactor = list(),
+            probes.analyzed = integer(0),
+            genes.analyzed = integer(0)
+        ))
+    } else{
+        return(result_factors)
+    }
 }
 
 
@@ -272,7 +291,7 @@ processDEA <- function(d) {
 #' 
 #' @keywords internal
 processDifferentialExpressionAnalysisResultSetValueObject = function(d){
-    d %>% lapply(function(x){
+    out <- d %>% lapply(function(x){
         experiment.ID <- ifelse(is.null(x$analysis$sourceExperiment),
                                 x$analysis$bioAssaySetId,
                                 x$analysis$sourceExperiment)
@@ -356,6 +375,24 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
         return(out)
         
     }) %>% do.call(rbind,.)
+    
+    if(is.null(out)){
+        return(data.table(
+            result.ID = integer(0),
+            contrast.ID =  integer(0),
+            experiment.ID = integer(0),
+            factor.category = character(0),
+            factor.category.URI = character(0),
+            factor.ID = character(0),
+            baseline.factors = list(),
+            experimental.factors = list(),
+            isSubset = logical(0),
+            subsetFactor = list()
+        ))
+        
+    } else{
+        return(out)
+    }
 }
 
 
@@ -497,7 +534,7 @@ processFile <- function(content) {
 #'
 #' @keywords internal
 processSamples <- function(d) {
-        data.table(
+    data.table(
         # bioMaterial.Name = checkBounds(d[["sample"]][["name"]]),
         sample.name = accessField(d,'name',NA_character_),
         sample.ID = d %>% purrr::map('sample') %>% accessField('id',NA_integer_),
@@ -520,7 +557,7 @@ processSamples <- function(d) {
             purrr::map(function(x){x %>% purrr::map(processFactorValueBasicValueObject)}) %>% 
             purrr::map(data.table::rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
-        )
+    )
 }
 
 
