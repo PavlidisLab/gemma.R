@@ -46,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.99.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.99.7</span>
       </span>
     </div>
 
@@ -3967,8 +3967,8 @@ definition. See below for examples.</p>
 </h2>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: x86_64-pc-linux-gnu (64-bit)
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
@@ -3976,12 +3976,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -3993,42 +3991,42 @@ attached base packages:
 other attached packages:
  [1] listviewer_4.0.0            viridis_0.6.5              
  [3] viridisLite_0.4.2           pheatmap_1.0.12            
- [5] SummarizedExperiment_1.32.0 Biobase_2.62.0             
- [7] GenomicRanges_1.54.1        GenomeInfoDb_1.38.8        
- [9] IRanges_2.36.0              S4Vectors_0.40.2           
-[11] BiocGenerics_0.48.1         MatrixGenerics_1.14.0      
+ [5] SummarizedExperiment_1.33.3 Biobase_2.63.1             
+ [7] GenomicRanges_1.55.4        GenomeInfoDb_1.39.14       
+ [9] IRanges_2.37.1              S4Vectors_0.41.7           
+[11] BiocGenerics_0.49.1         MatrixGenerics_1.15.1      
 [13] matrixStats_1.3.0           ggrepel_0.9.5              
 [15] ggplot2_3.5.1               dplyr_1.1.4                
-[17] data.table_1.15.4           gemma.R_2.99.6             
-[19] BiocStyle_2.30.0           
+[17] data.table_1.15.4           gemma.R_2.99.7             
+[19] BiocStyle_2.31.0           
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.1        farver_2.1.1            bitops_1.0-7           
- [4] fastmap_1.1.1           RCurl_1.98-1.14         digest_0.6.35          
- [7] timechange_0.3.0        lifecycle_1.0.4         magrittr_2.0.3         
-[10] compiler_4.3.3          rlang_1.1.3             sass_0.4.9             
-[13] tools_4.3.3             utf8_1.2.4              yaml_2.3.8             
-[16] knitr_1.46              labeling_0.4.3          S4Arrays_1.2.1         
-[19] htmlwidgets_1.6.4       bit_4.0.5               curl_5.2.1             
-[22] DelayedArray_0.28.0     xml2_1.3.6              RColorBrewer_1.1-3     
-[25] abind_1.4-5             withr_3.0.0             purrr_1.0.2            
-[28] desc_1.4.3              grid_4.3.3              fansi_1.0.6            
-[31] colorspace_2.1-0        scales_1.3.0            cli_3.6.2              
-[34] rmarkdown_2.26          crayon_1.5.2            ragg_1.3.0             
-[37] generics_0.1.3          rstudioapi_0.16.0       httr_1.4.7             
-[40] cachem_1.0.8            stringr_1.5.1           zlibbioc_1.48.2        
-[43] assertthat_0.2.1        BiocManager_1.30.22     XVector_0.42.0         
-[46] vctrs_0.6.5             Matrix_1.6-5            jsonlite_1.8.8         
-[49] bookdown_0.39           bit64_4.0.5             systemfonts_1.0.6      
-[52] jquerylib_0.1.4         glue_1.7.0              pkgdown_2.0.9          
-[55] lubridate_1.9.3         stringi_1.8.3           gtable_0.3.5           
-[58] munsell_0.5.1           tibble_3.2.1            pillar_1.9.0           
-[61] rappdirs_0.3.3          htmltools_0.5.8.1       GenomeInfoDbData_1.2.11
-[64] R6_2.5.1                textshaping_0.3.7       kableExtra_1.4.0       
-[67] evaluate_0.23           lattice_0.22-6          highr_0.10             
-[70] memoise_2.0.1           bslib_0.7.0             Rcpp_1.0.12            
-[73] svglite_2.1.3           gridExtra_2.3           SparseArray_1.2.4      
-[76] xfun_0.43               fs_1.6.3                pkgconfig_2.0.3        </code></pre>
+ [1] tidyselect_1.2.1        farver_2.1.1            fastmap_1.1.1          
+ [4] digest_0.6.35           timechange_0.3.0        lifecycle_1.0.4        
+ [7] magrittr_2.0.3          compiler_4.4.0          rlang_1.1.3            
+[10] sass_0.4.9              tools_4.4.0             utf8_1.2.4             
+[13] yaml_2.3.8              knitr_1.46              labeling_0.4.3         
+[16] S4Arrays_1.3.7          htmlwidgets_1.6.4       bit_4.0.5              
+[19] curl_5.2.1              DelayedArray_0.29.9     xml2_1.3.6             
+[22] RColorBrewer_1.1-3      abind_1.4-5             withr_3.0.0            
+[25] purrr_1.0.2             desc_1.4.3              grid_4.4.0             
+[28] fansi_1.0.6             colorspace_2.1-0        scales_1.3.0           
+[31] cli_3.6.2               rmarkdown_2.26          crayon_1.5.2           
+[34] ragg_1.3.0              generics_0.1.3          rstudioapi_0.16.0      
+[37] httr_1.4.7              cachem_1.0.8            stringr_1.5.1          
+[40] zlibbioc_1.49.3         assertthat_0.2.1        BiocManager_1.30.22    
+[43] XVector_0.43.1          vctrs_0.6.5             Matrix_1.7-0           
+[46] jsonlite_1.8.8          bookdown_0.39           bit64_4.0.5            
+[49] systemfonts_1.0.6       jquerylib_0.1.4         glue_1.7.0             
+[52] pkgdown_2.0.9           lubridate_1.9.3         stringi_1.8.3          
+[55] gtable_0.3.5            UCSC.utils_0.99.7       munsell_0.5.1          
+[58] tibble_3.2.1            pillar_1.9.0            rappdirs_0.3.3         
+[61] htmltools_0.5.8.1       GenomeInfoDbData_1.2.12 R6_2.5.1               
+[64] textshaping_0.3.7       kableExtra_1.4.0        evaluate_0.23          
+[67] lattice_0.22-6          highr_0.10              memoise_2.0.1          
+[70] bslib_0.7.0             Rcpp_1.0.12             svglite_2.1.3          
+[73] gridExtra_2.3           SparseArray_1.3.5       xfun_0.43              
+[76] fs_1.6.4                pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
 
