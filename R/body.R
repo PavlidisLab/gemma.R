@@ -84,7 +84,7 @@ setGemmaPath <- function(path){
 
     # if 429. wait a bit and re-try.
     i <- 0
-    while(i<3 && (is.null(response$status_code) || response$status_code == 429)){
+    while(i<3 && (is.null(response$status_code) || response$status_code  %in% c(429,500))){
         i <- i + 1
         Sys.sleep(5)
         response <- eval(requestExpr, envir = envWhere)
