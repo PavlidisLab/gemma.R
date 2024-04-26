@@ -881,7 +881,11 @@ filter_properties <- function(){
 #' @export
 get_child_terms <- function(terms){
     output <- get_datasets(uris = terms,limit = 1)
-    attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
+    out <- attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
+    if(length(out) == 0){
+        out = terms
+    }
+    return(out)
 }
 
 
