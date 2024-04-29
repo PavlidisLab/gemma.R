@@ -94,7 +94,8 @@
 
       
 
-      </header><div class="row">
+      </header><script src="metanalysis_files/kePrint-0.0.1/kePrint.js"></script><link href="metanalysis_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>A meta analysis on effects of Parkinson’s
@@ -128,18 +129,358 @@ the MONDO Disease Ontology term “MONDO:0005180” to search for datasets
 and samples annotated with the term to make sure we are accessing
 datasets relevant for our purposes with minimal effort.</p>
 <div class="section level2">
+<h2 id="identifying-what-to-search-for">Identifying what to search for<a class="anchor" aria-label="anchor" href="#identifying-what-to-search-for"></a>
+</h2>
+<p>Gemma allows searching for datasets using plain text queries. However
+for a structured analysis, it is usually more helpful to use ontology
+terms to make sure we are getting the right datasets. To identify
+potentially useful ontology terms, we can use search_annotations</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">annots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">"parkinson's"</span><span class="op">)</span></span>
+<span><span class="va">annots</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+category.name
+</th>
+<th style="text-align:left;">
+category.URI
+</th>
+<th style="text-align:left;">
+value.name
+</th>
+<th style="text-align:left;">
+value.URI
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+parkinson’s disease symptom…
+</td>
+<td style="text-align:left;">
+<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0600011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+parkinson’s disease
+</td>
+<td style="text-align:left;">
+<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0002508
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+establishing cancer cell line
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/OBI_0000867
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+wolff-parkinson-white syndrome
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0001716
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+abnormal communicative faci…
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_4000087
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+hemiballismus
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0100248
+</td>
+</tr>
+</tbody>
+</table>
+<p>This will return matching ontology terms within every ontology loaded
+to Gemma. To identify which ones are actually used to annotate our
+datasets, you can do</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">annot_counts</span> <span class="op">&lt;-</span> <span class="va">annots</span><span class="op">$</span><span class="va">value.URI</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>uris <span class="op">=</span> <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">annots</span><span class="op">$</span><span class="va">counts</span> <span class="op">=</span> <span class="va">annot_counts</span></span>
+<span></span>
+<span><span class="va">annots</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">counts</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">counts</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+category.name
+</th>
+<th style="text-align:left;">
+category.URI
+</th>
+<th style="text-align:left;">
+value.name
+</th>
+<th style="text-align:left;">
+value.URI
+</th>
+<th style="text-align:right;">
+counts
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+parkinson disease
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0005180
+</td>
+<td style="text-align:right;">
+205
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+late-onset parkinson disease
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0008199
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+young-onset parkinson disease
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0017279
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+amyotrophic lateral scleros…
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0007104
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+x-linked dystonia-parkinsonism
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0010747
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+autosomal dominant parkinso…
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0008200
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level2">
 <h2 id="querying-datasets-of-interest">Querying datasets of interest<a class="anchor" aria-label="anchor" href="#querying-datasets-of-interest"></a>
 </h2>
 <p>The <code>get_datasets</code> function can be used to find datasets
 of interest, either using ontology terms or plain text. Since
-Parkinson’s Disease has a unambiguous ontology term in the Disease
+Parkinson’s Disease has an unambiguous ontology term in the Disease
 Ontology, we will be using it to avoid acquiring datasets that
 tangentially mention the disease in their descriptions. Here we also
 limit our results to only include human samples since we are not
 interested in models from other species and samples that are explicitly
-from the brain using the ontology term for brain. See documentation for
-the function for a detailed explanation of available options</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+from the brain using the ontology term for brain. Here we will searching
+within “allCharacteristics” however other filter properties are
+available. You can use <code>filter_properties</code> to access all
+available properties for anything filterable in Gemma.</p>
+<p>Some noteable ones for our purposes would be “allCharacteristics”,
+which searches within every annotation on a dataset and its samples
+while we could have also used
+“experimentalDesign.experimentalFactors.factorValues.characteristics” to
+specifically look within experimental factors. Instead we will be
+showing how to limit for relevant contrasts in the next steps for this
+example.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/filter_properties.html">filter_properties</a></span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">dataset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">gemma_kable</span></span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
+<thead><tr>
+<th style="text-align:left;">
+properties
+</th>
+<th style="text-align:left;">
+type
+</th>
+<th style="text-align:left;">
+description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+accession.accession
+</td>
+<td style="text-align:left;">
+string
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accession.accessionVersion
+</td>
+<td style="text-align:left;">
+string
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accession.externalDatabase….
+</td>
+<td style="text-align:left;">
+string
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accession.externalDatabase.id
+</td>
+<td style="text-align:left;">
+integer
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accession.externalDatabase….
+</td>
+<td style="text-align:left;">
+string
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+accession.externalDatabase….
+</td>
+<td style="text-align:left;">
+string
+</td>
+<td style="text-align:left;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># getting all resulting datasets using limit and offset arguments</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_datasets.html">get_datasets</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="st">"allCharacteristics.valueUri = http://purl.obolibrary.org/obo/MONDO_0005180 and allCharacteristics.valueUri = http://purl.obolibrary.org/obo/UBERON_0000955"</span>,</span>
 <span>                       taxa <span class="op">=</span><span class="st">'human'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/get_all_pages.html">get_all_pages</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -180,7 +521,7 @@ column. As explained in the <code>get_datasets</code> documentation,
 this column will be set to -1 for datasets where batch confound is
 detected, 0 for datasets without available batch information and to 1 if
 the data is clear of batch confounds.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experiment.batchEffect</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p>We now want to ensure that the differential expressions we analyze
 compare control and Parkinson’s Disease patients. This information is
@@ -191,21 +532,18 @@ interested in are <code>baseline.factors</code> which typically records
 the control group of the differential expression analysis and
 <code>experimental.factors</code> which typically records the test
 case</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">experiment_contrasts</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">experiment.shortName</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="va">out</span> <span class="op">=</span> <span class="fu"><a href="../reference/get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>        <span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">rbind</span>,<span class="va">.</span><span class="op">)</span></span></code></pre></div>
-<p>The contrasts we are interested in should have a
-<code>factor.category</code> of “disease” and it should have “<a href="http://purl.obolibrary.org/obo/MONDO_0005180" class="external-link uri">http://purl.obolibrary.org/obo/MONDO_0005180</a>” in it’s
-experimental.factors column as the URI for a factor.</p>
 <p>The factor we are interested in is Parkinson’s Disease in
 <code>experimental.factorValue</code> or “<a href="http://purl.obolibrary.org/obo/MONDO_0005180" class="external-link uri">http://purl.obolibrary.org/obo/MONDO_0005180</a>” in
 <code>experimental.factors</code>’s <code>value.URI</code>. We also need
 to make sure that the baseline that the sample is compared against is a
 control experiment, samples annotated with “reference subject role” or
 “<a href="http://purl.obolibrary.org/obo/OBI_0000220" class="external-link uri">http://purl.obolibrary.org/obo/OBI_0000220</a>”</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parkin_contrasts</span> <span class="op">&lt;-</span> <span class="va">experiment_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">factor.category</span> <span class="op">==</span> <span class="st">'disease'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">experimental.factors</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
@@ -214,10 +552,90 @@ control experiment, samples annotated with “reference subject role” or
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">baseline.factors</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>               <span class="st">"http://purl.obolibrary.org/obo/OBI_0000220"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">x</span><span class="op">$</span><span class="va">value.URI</span></span>
 <span>               <span class="op">}</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Note that while this example attempts to show ways you can automate
+this process, you should take care to perform some manual examination of
+the data and determine how independent the contrasts you selected
+actually are. For instance in our selection, there are two contrasts
+from the same experiment where differential expression is performed on
+different brain regions.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dup_exp</span> <span class="op">&lt;-</span> <span class="va">parkin_contrasts</span><span class="op">$</span><span class="va">experiment.ID</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="va">table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="op">{</span><span class="va">.</span><span class="op">[</span><span class="va">.</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">names</span></span>
+<span></span>
+<span><span class="va">dup_exp</span></span></code></pre></div>
+<pre><code>[1] "23781"</code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parkin_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experiment.ID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span>  <span class="va">dup_exp</span><span class="op">)</span></span></code></pre></div>
+<pre><code>   result.ID contrast.ID experiment.ID factor.category
+       &lt;int&gt;      &lt;char&gt;         &lt;int&gt;          &lt;char&gt;
+1:    509633      200926         23781         disease
+2:    509632      200926         23781         disease
+                    factor.category.URI factor.ID   baseline.factors
+                                 &lt;char&gt;    &lt;char&gt;             &lt;list&gt;
+1: http://www.ebi.ac.uk/efo/EFO_0000408     41659 &lt;data.table[1x13]&gt;
+2: http://www.ebi.ac.uk/efo/EFO_0000408     41659 &lt;data.table[1x13]&gt;
+   experimental.factors isSubset       subsetFactor probes.analyzed
+                 &lt;list&gt;   &lt;lgcl&gt;             &lt;list&gt;           &lt;int&gt;
+1:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           11708
+2:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           12040
+   genes.analyzed
+            &lt;int&gt;
+1:          10298
+2:          10588</code></pre>
+<p>We should at least make sure that these two contrasts don’t share
+samples between them, one thing to check is the subsetFactor which might
+explain why these two separate contrasts exist</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parkin_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experiment.ID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span>  <span class="va">dup_exp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="op">{</span><span class="va">.</span><span class="op">$</span><span class="va">subsetFactor</span><span class="op">}</span></span></code></pre></div>
+<pre><code>[[1]]
+    category                         category.URI                        value
+      &lt;char&gt;                               &lt;char&gt;                       &lt;char&gt;
+1: cell type http://www.ebi.ac.uk/efo/EFO_0000324 midbrain dopaminergic neuron
+                                   value.URI    predicate
+                                      &lt;char&gt;       &lt;char&gt;
+1: http://purl.obolibrary.org/obo/CL_2000097 derives from
+                               predicate.URI                         object
+                                      &lt;char&gt;                         &lt;char&gt;
+1: http://purl.obolibrary.org/obo/RO_0001000 substantia nigra pars compacta
+                                      object.URI
+                                          &lt;char&gt;
+1: http://purl.obolibrary.org/obo/UBERON_0001965
+                                                                    summary
+                                                                     &lt;char&gt;
+1: midbrain dopaminergic neuron derives from substantia nigra pars compacta
+       ID factor.ID factor.category                  factor.category.URI
+    &lt;int&gt;     &lt;int&gt;          &lt;char&gt;                               &lt;char&gt;
+1: 200924     41658   organism part http://www.ebi.ac.uk/efo/EFO_0000635
+
+[[2]]
+    category                         category.URI                        value
+      &lt;char&gt;                               &lt;char&gt;                       &lt;char&gt;
+1: cell type http://www.ebi.ac.uk/efo/EFO_0000324 midbrain dopaminergic neuron
+                                   value.URI    predicate
+                                      &lt;char&gt;       &lt;char&gt;
+1: http://purl.obolibrary.org/obo/CL_2000097 derives from
+                               predicate.URI                 object
+                                      &lt;char&gt;                 &lt;char&gt;
+1: http://purl.obolibrary.org/obo/RO_0001000 ventral tegmental area
+                                      object.URI
+                                          &lt;char&gt;
+1: http://purl.obolibrary.org/obo/UBERON_0002691
+                                                            summary     ID
+                                                             &lt;char&gt;  &lt;int&gt;
+1: midbrain dopaminergic neuron derives from ventral tegmental area 200925
+   factor.ID factor.category factor.category.URI
+       &lt;int&gt;          &lt;char&gt;              &lt;char&gt;
+1:     41658            &lt;NA&gt;                &lt;NA&gt;</code></pre>
+<p>And we can see that these two contrasts are created to split the
+samples between different brain regions, therefore do not actually share
+samples between them.</p>
+<!-- 
+Expose some version of subset_factorValues to make this process more streamlined
+-->
 <p>In the next steps we will be downloading expression data in bulk. If
 you are here to just try the code out, you can speed the process a bit
 by limiting the number of experiments to deal with</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># arbitrarily select a few datasets</span></span>
 <span><span class="co"># not executed in this example</span></span>
 <span><span class="va">parkin_contrasts</span> <span class="op">&lt;-</span> <span class="va">parkin_contrasts</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span></span></code></pre></div>
@@ -240,7 +658,7 @@ by limiting the number of experiments to deal with</p>
 used to download differential expression fold change and p values,
 either using the experiment name/ids or more specifically using the
 result.IDs</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">differentials</span> <span class="op">&lt;-</span> <span class="va">parkin_contrasts</span><span class="op">$</span><span class="va">result.ID</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="co"># take the first and only element of the output. the function returns a list </span></span>
 <span>    <span class="co"># because single experiments may have multiple resultSets. Here we use the </span></span>
@@ -260,7 +678,7 @@ result.IDs</p>
 <p><code>differentials</code> is now a list of data frames containing
 the differential expression information. To run a simple meta-analysis,
 we need the p values for the genes from the relevant contrasts.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">condition_diffs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="va">differentials</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="co"># iterate over the differentials</span></span>
 <span>    <span class="va">diff</span> <span class="op">=</span> <span class="va">differentials</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span></span>
@@ -304,7 +722,7 @@ two-tailed) and is very sensitive to a single ‘outlier’ p-value, but for
 this demonstration we’ll go with it.</p>
 <p>The first step is to identify which genes are available in our
 results:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="va">condition_diffs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">x</span><span class="op">$</span><span class="va">genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unique</span></span>
 <span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unlist</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">table</span></span>
@@ -324,7 +742,7 @@ results:</p>
 <pre><code>[1] "A2M"   "AAAS"  "AACS"  "AAGAB" "AAK1"  "AAMP" </code></pre>
 <p>Now we can run the test on every gene, followed by a multiple testing
 correction.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">fisher_results</span> <span class="op">&lt;-</span> <span class="va">all_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>    <span class="va">p_vals</span> <span class="op">&lt;-</span> <span class="va">condition_diffs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">y</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="co"># we will resolve multiple probesets by taking the minimum p value for</span></span>
@@ -365,17 +783,17 @@ correction.</p>
 <span>    <span class="va">head</span></span></code></pre></div>
 <p>We end up with quite a few differentially expressed genes in the
 meta-analysis (Fisher’s method is very sensitive)</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">$</span><span class="va">Adjusted</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="co"># FDR&lt;0.05</span></span></code></pre></div>
 <pre><code>[1] 5316</code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span> <span class="co"># number of all genes</span></span></code></pre></div>
 <pre><code>[1] 6235</code></pre>
 <p>Next we look at markers of dopaminergic cell types and how they rank
 compared to other genes. Parkinson’s Disease is a neurodegenerative
 disorder, leading to death of dopaminergic cells. We should expect them
 to show up in our results.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># markers are taken from https://www.eneuro.org/content/4/6/ENEURO.0212-17.2017</span></span>
 <span><span class="va">dopa_markers</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ADCYAP1"</span>, <span class="st">"ATP2B2"</span>, <span class="st">"CACNA2D2"</span>, </span>
 <span><span class="st">"CADPS2"</span>, <span class="st">"CALB2"</span>, <span class="st">"CD200"</span>, <span class="st">"CDK5R2"</span>, <span class="st">"CELF4"</span>, <span class="st">"CHGA"</span>, <span class="st">"CHGB"</span>, </span>
@@ -393,7 +811,7 @@ to show up in our results.</p>
 <span>    <span class="op">{</span><span class="va">.</span><span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">dopa_markers</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="va">which</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html" class="external-link">hist</a></span><span class="op">(</span>breaks<span class="op">=</span><span class="fl">20</span>, main <span class="op">=</span> <span class="st">'Rank distribution of dopaminergic markers'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="metanalysis_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+<p><img src="metanalysis_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <p>In agreement with our hypothesis, we can see that the dopaminergic
 markers tend to have high ranks in our results.</p>
 </div>
@@ -413,7 +831,7 @@ to try it out.</p>
 </blockquote>
 <p>For starters, lets look at our top pick and the its p values in the
 individual datasets, on a log scale:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the top gene from our results</span></span>
 <span><span class="va">gene</span> <span class="op">&lt;-</span> <span class="va">fisher_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">Adjusted</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">.</span><span class="op">[</span><span class="fl">1</span>,<span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">rownames</span></span>
 <span></span>
@@ -436,7 +854,7 @@ individual datasets, on a log scale:</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span>y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log10</a></span><span class="op">(</span><span class="fl">0.05</span><span class="op">)</span>, x <span class="op">=</span> <span class="fl">0</span>, label <span class="op">=</span> <span class="st">'p &lt; 0.05'</span>,vjust <span class="op">=</span><span class="op">-</span><span class="fl">1</span>,hjust <span class="op">=</span> <span class="op">-</span><span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"P-values for top gene ("</span>, <span class="va">gene</span>, <span class="st">") in the data sets"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="metanalysis_files/figure-html/unnamed-chunk-14-1.png" width="700">
+<p><img src="metanalysis_files/figure-html/unnamed-chunk-19-1.png" width="700">
 This shows that the gene is nominally significant in some but not all of
 the data sets.</p>
 <p>To examine this further, our next step is to acquire gene expression
@@ -446,7 +864,7 @@ since some of the returned analysis are only performed on a subset of
 the data. Providing resultSet ids allows us to harmonize the
 differential expression results with expression data by returning the
 relevant subset.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># we need the NCBI id of the gene in question, lets get that from the original</span></span>
 <span><span class="co"># results</span></span>
 <span><span class="va">NCBIid</span> <span class="op">&lt;-</span> <span class="va">differentials</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">GeneSymbol</span> <span class="op">==</span> <span class="va">gene</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">.</span><span class="op">$</span><span class="va">NCBIid</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unique</span></span>
@@ -463,7 +881,7 @@ relevant subset.</p>
 <p>Finally, we’ll make a plot showing the expression of the gene of
 interest in all the data sets. This helps us see the extent to which
 there is evidence of consistent differential expression.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">expression_frame</span> <span class="op">&lt;-</span> <span class="va">expression_frame</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">expression</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="co"># add a column to represent the contrast </span></span>
@@ -494,15 +912,15 @@ there is evidence of consistent differential expression.</p>
 <span>                             <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>expression <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">expression</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>                             <span class="va">.</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">signif_contrasts</span>,<span class="va">.</span><span class="op">$</span><span class="va">contrasts</span><span class="op">)</span>,<span class="op">]</span><span class="op">)</span>,</span>
 <span>              x <span class="op">=</span> <span class="fl">1.5</span>, label <span class="op">=</span> <span class="st">'*'</span>,size<span class="op">=</span><span class="fl">5</span>,vjust<span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="metanalysis_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p><img src="metanalysis_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 </div>
 <div class="section level2">
 <h2 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h2>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.3.3 (2024-02-29)
-Platform: x86_64-pc-linux-gnu (64-bit)
+<pre><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.4 LTS
 
 Matrix products: default
@@ -510,12 +928,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -526,29 +942,31 @@ attached base packages:
 
 other attached packages:
 [1] stringr_1.5.1    ggplot2_3.5.1    poolr_1.1-1      dplyr_1.1.4     
-[5] gemma.R_2.99.7   BiocStyle_2.30.0
+[5] gemma.R_2.99.7   BiocStyle_2.31.0
 
 loaded via a namespace (and not attached):
  [1] tidyr_1.3.1         sass_0.4.9          utf8_1.2.4         
- [4] generics_0.1.3      stringi_1.8.3       digest_0.6.35      
- [7] magrittr_2.0.3      timechange_0.3.0    evaluate_0.23      
-[10] grid_4.3.3          bookdown_0.39       fastmap_1.1.1      
-[13] jsonlite_1.8.8      BiocManager_1.30.22 httr_1.4.7         
-[16] purrr_1.0.2         fansi_1.0.6         scales_1.3.0       
-[19] textshaping_0.3.7   jquerylib_0.1.4     cli_3.6.2          
-[22] rlang_1.1.3         bit64_4.0.5         munsell_0.5.1      
-[25] withr_3.0.0         cachem_1.0.8        yaml_2.3.8         
-[28] tools_4.3.3         memoise_2.0.1       colorspace_2.1-0   
-[31] mathjaxr_1.6-0      curl_5.2.1          assertthat_0.2.1   
-[34] vctrs_0.6.5         R6_2.5.1            lubridate_1.9.3    
-[37] lifecycle_1.0.4     fs_1.6.4            htmlwidgets_1.6.4  
-[40] bit_4.0.5           ragg_1.3.0          pkgconfig_2.0.3    
-[43] desc_1.4.3          pkgdown_2.0.9       pillar_1.9.0       
-[46] bslib_0.7.0         gtable_0.3.5        data.table_1.15.4  
-[49] glue_1.7.0          systemfonts_1.0.6   highr_0.10         
-[52] xfun_0.43           tibble_3.2.1        tidyselect_1.2.1   
-[55] knitr_1.46          farver_2.1.1        htmltools_0.5.8.1  
-[58] labeling_0.4.3      rmarkdown_2.26      compiler_4.3.3     </code></pre>
+ [4] generics_0.1.3      xml2_1.3.6          stringi_1.8.3      
+ [7] digest_0.6.35       magrittr_2.0.3      timechange_0.3.0   
+[10] evaluate_0.23       grid_4.4.0          bookdown_0.39      
+[13] fastmap_1.1.1       jsonlite_1.8.8      BiocManager_1.30.22
+[16] httr_1.4.7          purrr_1.0.2         fansi_1.0.6        
+[19] viridisLite_0.4.2   scales_1.3.0        textshaping_0.3.7  
+[22] jquerylib_0.1.4     cli_3.6.2           rlang_1.1.3        
+[25] bit64_4.0.5         munsell_0.5.1       withr_3.0.0        
+[28] cachem_1.0.8        yaml_2.3.8          tools_4.4.0        
+[31] memoise_2.0.1       colorspace_2.1-0    mathjaxr_1.6-0     
+[34] kableExtra_1.4.0    assertthat_0.2.1    curl_5.2.1         
+[37] vctrs_0.6.5         R6_2.5.1            lubridate_1.9.3    
+[40] lifecycle_1.0.4     fs_1.6.4            htmlwidgets_1.6.4  
+[43] bit_4.0.5           ragg_1.3.0          pkgconfig_2.0.3    
+[46] desc_1.4.3          pkgdown_2.0.9       pillar_1.9.0       
+[49] bslib_0.7.0         gtable_0.3.5        data.table_1.15.4  
+[52] glue_1.7.0          systemfonts_1.0.6   highr_0.10         
+[55] xfun_0.43           tibble_3.2.1        tidyselect_1.2.1   
+[58] rstudioapi_0.16.0   knitr_1.46          farver_2.1.1       
+[61] htmltools_0.5.8.1   labeling_0.4.3      svglite_2.1.3      
+[64] rmarkdown_2.26      compiler_4.4.0     </code></pre>
 </div>
   </div>
 
