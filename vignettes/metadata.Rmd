@@ -16,6 +16,7 @@ vignette: |
 library(gemma.R)
 library(dplyr)
 library(pheatmap)
+library(purrr)
 ```
 
 ```{r, include = FALSE}
@@ -23,6 +24,28 @@ options('gemma.memoised' = TRUE)
 ```
 
 
+```{r,include=FALSE,eval=FALSE}
+# finding a good example
+all_valid <- 
+    get_result_sets(filter = "analysis.subsetFactorValue.characteristics.size > 0") %>% 
+    get_all_pages() 
+
+# remove bugged ones, should be temporary until #50 is fixed
+contrasts_with_subsets <- all_valid[!all_valid$experimental.factors %>% sapply(is.null),]
+
+
+# find datasets where the experimental factor is marked by multiple statements
+contrasts_with_subsets <- contrasts_with_subsets[contrasts_with_subsets$experimental.factors %>% sapply(nrow) %>% {.>1},]
+
+# find datasets where experimental factor is marked by multiple statements belonging to the same factor
+
+contrasts_with_subsets$experimental.factors %>% sapply(function(x){
+    any(duplicated(x$ID))
+    }) %>% {contrasts_with_subsets[.,]} -> contrasts_with_subsets
+
+# interaction
+contrasts_with_subsets = contrasts_with_subsets[grepl("_",contrasts_with_subsets$contrast.ID),]
+```
 
 # Introduction 
 
@@ -34,15 +57,15 @@ The data in Gemma are manually annotated by curators with terms, often using an 
 
 - `get_dataset_differential_expression_analyses`: This function returns information about differential expression analyses automatically performed by Gemma for a given experiment. Each row of the output is a contrast where a specific property or an interaction of properties are described.
 
-In the examples below we will be referring to [GSE18728](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=2914) experiment, where
-drug resistant cancer patients and 
+In the examples below we will be referring to [GSE48962](https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=8972) experiment, where striatum and cerebral cortex samples from control mice and mice belonging
+to a Huntington model (R6/2) were taken from 8 week and 12 week old mice.
 
 # Dataset tags
 
 Terms returned via `get_dataset_annotations` are tags used to describe a dataset in general terms.
 
 ```{r}
-get_dataset_annotations('GSE18728') %>%
+get_dataset_annotations('GSE48962') %>%
     gemma_kable
 ```
 
@@ -65,8 +88,10 @@ can be accessed using `get_dataset_samples`. `sample.factorValues` column contai
 the relevant information
 
 ```{r}
-samples <- get_dataset_samples('GSE18728')
-samples$sample.factorValues[[1]] %>% 
+samples <- get_dataset_samples('GSE48962')
+samples$sample.factorValues[[
+    which(samples$sample.name == "TSM490")
+    ]] %>% 
     gemma_kable()
 ```
 
@@ -75,29 +100,39 @@ The example above shows a single factor value object for one sample. The rows of
 nested table is described. If a given field is filled by an ontology term, the corresponding
 URI column will contain the ontology URI for the field.
 
+```{r,include = FALSE}
+
+doubled_id <- samples$sample.factorValues[[
+    which(samples$sample.name == "TSM490")
+]] %>% filter(value == "HTT [human] huntingtin") %>% {.$ID} %>% unique
+
+```
 - `category`/`category.URI`: Category of the individual statement, such as treatment,
 phenotype or strain
 - `value`/`value.URI`: The subject of the statement.
 - `predicate`/`predicate.URI`: When a subject alone is not enough to describe all
 details, a statement can contain a predicate and an object. The predicate describes
 the relationship between the subject of the statement and the object. In the example
-above, these are used to represent resistance to cancer drugs.
+above, these are used to denote properties of the human HTT in the mouse models 
 - `object`/`object.URI`: The object of a statement is a property further describing
-it's value such as the dosage of a drug or a timepoint.
+it's value. In this example these describe the properties of the HTT gene in the mouse
+model, namely that it has CAG repeats and it is overexpressed. If the value was a 
+drug this could be dosage or timepoint.
 - `summary`: A plain text summary of the factorValue. Different statements will
 have the same summary if they are part of the same factor value
 - `ID`: An integer identifier for the specific factor value. In the example above,
-phenotype of the patient is defined as a single factor value made up of two statements
-stating that the patient is resistant to both capecitabine and docetaxel trihydrate. This
-factor value has the ID of `r samples$sample.factorValues[[1]] %>% filter(value == 'resistant to') %>% {.$ID} %>% unique`
-which is shared by both rows containing the statements describing it. 
-This ID will repeat for every other patient that has the same drug resistance
+the genotype of the mouse is defined as a single factor value made up of two statements
+stating the HTT gene has CAG repeats and that it is overexpressed. This factor value has the
+ID of `r doubled_id` which is shared by both rows containing the statements describing it. 
+This ID will repeat for every other patient that has the same genotype
 or differential expression results using that factor as a part of their contrast. For
 instance we can see which samples that was subjected to this condition using this ID
 instead of trying to match the other columns describing the statements
 ```{r}
-id <- samples$sample.factorValues[[1]] %>% 
-    filter(value == 'resistant to') %>% {.$ID} %>% unique
+id <- samples$sample.factorValues[[
+    which(samples$sample.name == "TSM490")
+]] %>% filter(value == "HTT [human] huntingtin") %>% {.$ID} %>% unique
+
 
 # count how many patients has this phenotype
 samples$sample.factorValues %>% sapply(\(x){
@@ -106,21 +141,20 @@ samples$sample.factorValues %>% sapply(\(x){
 
 ```
 - `factor.ID`: An integer identifier for the factor. A factor holds specific factor
-values. For the example above whether or not a patient has drug resistance is
-stored under the id `r samples$sample.factorValues[[1]] %>% filter(value == 'capecitabine') %>% {.$factor.ID}`
+values. For the example above whether or not the mouse is a wild type mouse or
+if it has a wild type genotype is stored under the id `r samples$sample.factorValues[[which(samples$sample.name == "TSM490")]] %>% filter(value == "HTT [human] huntingtin") %>% {.$factor.ID} %>% unique`
 
-We can use this to fetch all distinct phenotypes
+
+We can use this to fetch all distinct genotypes
 ```{r}
-id <- samples$sample.factorValues[[1]] %>% 
-    filter(value == 'resistant to') %>% {.$factor.ID} %>% unique
+id <- samples$sample.factorValues[[2]] %>% 
+    filter(value == "HTT [human] huntingtin") %>% {.$factor.ID} %>% unique
 
 samples$sample.factorValues %>% lapply(\(x){
     x %>% filter(factor.ID == id) %>% {.$summary}
 }) %>% unlist %>% unique
 ```
-This shows us the dataset has control patients and patients who are resistant to
-capecitabine and trihydrate.
-. This ID can be used to match the factor between samples and between samples
+This shows us the dataset has control mice and Huntington Disease model mice.. This ID can be used to match the factor between samples and between samples
 and differential expression experiments
 - `factor.category`/`factor.category.URI`: The category of the whole factor. Usually
 this is the same with the `category` of the statements making up the factor value.
@@ -140,7 +174,7 @@ design[,-1] %>% head %>%  # first column is just a copy of the original factor v
 Using this output, here we look at the sample sizes for different experimental groups.
 ```{r}
 design %>%
-    group_by(treatment,phenotype,`collection of material`) %>% 
+    group_by(`organism part`,timepoint,genotype) %>% 
     summarize(n= n()) %>% 
     arrange(desc(n)) %>% 
     gemma_kable()
@@ -157,7 +191,7 @@ belonging to the samples.
 # removing columns containing factor values and URIs for brevity
 remove_columns <- c('baseline.factors','experimental.factors','subsetFactor','factor.category.URI')
 
-dea <- get_dataset_differential_expression_analyses("GSE18728")
+dea <- get_dataset_differential_expression_analyses("GSE48962")
 
 dea[,.SD,.SDcols = !remove_columns] %>% 
     gemma_kable()
@@ -170,11 +204,15 @@ If we look at the `contrast.ID`
 we will see the factor value identifiers returned in the `ID` column of our 
 `sample.factorValues`. These represent which factor value is used as the 
 experimental factor. Note that some rows will have two IDs appended together. These
-represent the interaction effects of multiple factors. For simplicty, we will start
+represent the interaction effects of multiple factors. For simplicity, we will start
 from a contrast without an interaction.
 
 ```{r}
-contrast <- dea[1,]
+contrast <- dea %>% 
+    filter(
+        factor.category == "genotype" & 
+            subsetFactor %>% map_chr('value') %>% {.=='cerebral cortex'} # we will talk about subsets in a moment
+        )
 ```
 
 ```{r}
@@ -192,14 +230,18 @@ contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>%
      gemma_kable()
 ```
 
-Here, we can see the baseline is the non-resistant controls, being compared to drug resistant patients.
+Here, we can see the baseline is the wild type mouse, being compared to the Huntington Disease models 
 
 If we examine a factor with interaction, both baseline and experimental factor value columns will contain
 two factor values.
 
 
 ```{r}
-contrast <- dea[2,]
+contrast <- dea %>% 
+    filter(
+        factor.category == "genotype,timepoint" & 
+            subsetFactor %>% map_chr('value') %>% {.=='cerebral cortex'} # we're almost there!
+        )
 ```
 
 ```{r}
@@ -211,16 +253,14 @@ contrast$experimental.factors[[1]][,.SD,.SDcols = !uri_columns] %>%
 ```
 
 A third place that can contain factorValues is
-the `subsetFactor`. Certain differential expression analyses disclude certain samples
-based on a given factor. In this example we can see the curators added a specific
-factor to remove some samples from differential expression analyses
+the `subsetFactor`. Certain differential expression analyses exclude certain samples
+based on a given factor. In this example we can see that this analysis were only performed
+on samples from the cerebral cortex.
 
 ```{r}
 contrast$subsetFactor[[1]][,.SD,.SDcols = !uri_columns] %>%
      gemma_kable()
 ```
-
-Looking at the design table we made above, you can see that these were samples where treatment was not specified.
 
 
 The ids of the factor values included in `baseline.factors` and `experimental.factors` along
@@ -230,7 +270,7 @@ and expression data of an experiment in a single object, includes `resultSets` a
 argument which will return the data already composed of samples representing a particular contrast.
 
 ```{r}
-obj <-  get_dataset_object("GSE18728",resultSets = contrast$result.ID,contrasts = contrast$contrast.ID,type = 'list')
+obj <-  get_dataset_object("GSE48962",resultSets = contrast$result.ID,contrasts = contrast$contrast.ID,type = 'list')
 obj[[1]]$design[,-1] %>% 
     head %>% gemma_kable()
 ```
@@ -239,10 +279,10 @@ obj[[1]]$design[,-1] %>%
 We suggested that the `contrast.ID` of a contrast also corresponded to a column 
 in the differential expression results, acquired by `get_differential_expression_values`.
 We can use what we have learned to take a look at the expression of genes at the top of the
-phenotype, treatment interaction. Each result.ID returns its separate table when accessing diferential expression values.
+phenotype, treatment interaction. Each result.ID returns its separate table when accessing differential expression values.
 
 ```{r}
-dif_vals <- get_differential_expression_values('GSE18728')
+dif_vals <- get_differential_expression_values('GSE48962')
 dif_vals[[as.character(contrast$result.ID)]] %>% head %>%  
      gemma_kable()
 ```
@@ -259,6 +299,8 @@ top_genes %>% select(Probe,NCBIid,GeneSymbol) %>%
      gemma_kable()
 ```
 
+We can then use the expression data returned by `get_dataset_object` to
+examine the expression values for these genes.
 
 ```{r}
 exp_subset<- obj[[1]]$exp %>% 
@@ -266,14 +308,14 @@ exp_subset<- obj[[1]]$exp %>%
 genes <- top_genes$GeneSymbol
 
 # ordering design file
-design <- obj[[1]]$design %>% arrange(treatment,phenotype)
+design <- obj[[1]]$design %>% arrange(genotype,timepoint)
 
 # shorten the resistance label a bit
-design$phenotype[design$phenotype == "resistant to toward capecitabine, resistant to toward docetaxel trihydrate"] = "drug resistant"
+design$genotype[grepl('HTT',design$genotype)] = "Huntington Model"
 
 exp_subset[,.SD,.SDcols = rownames(design)] %>% t  %>% scale %>% t %>%
     pheatmap(cluster_rows = FALSE,cluster_cols = FALSE,labels_row = genes,
-             annotation_col =design %>% select(phenotype,treatment))
+             annotation_col =design %>% select(genotype,timepoint))
 
 ```
 
