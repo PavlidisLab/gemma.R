@@ -54,17 +54,50 @@ to annotate datasets when possible. This allows us to use the MONDO Disease Onto
 "MONDO:0005180" to search for datasets and samples annotated with the term to make sure
 we are accessing datasets relevant for our purposes with minimal effort.
 
+# Identifying what to search for
+
+Gemma allows searching for datasets using plain text queries. However for a
+structured analysis, it is usually more helpful to use ontology terms to 
+make sure we are getting the right datasets. To identify potentially useful ontology
+terms, we can use search_annotations
+
+```{r}
+annots <- search_annotations("parkinson's")
+annots %>% head %>% gemma_kable()
+```
+
+This will return matching ontology terms within every ontology loaded to Gemma.
+To identify which ones are actually used to annotate our datasets, you can do
+
+```{r}
+annot_counts <- annots$value.URI %>% sapply(\(x){
+    attributes(get_datasets(uris = x))$totalElements
+})
+
+annots$counts = annot_counts
+
+annots %>% filter(counts>0) %>%
+    arrange(desc(counts)) %>% gemma_kable()
+
+```
 
 # Querying datasets of interest
 
 The `get_datasets` function can be used to find datasets of interest,
-either using ontology terms or plain text. Since Parkinson's Disease has a unambiguous
+either using ontology terms or plain text. Since Parkinson's Disease has an unambiguous
 ontology term in the Disease Ontology, we will be using it to avoid acquiring
 datasets that tangentially mention the disease in their descriptions. Here we also
 limit our results to only include human samples since we are not interested in 
 models from other species and samples that are explicitly from the brain using the
-ontology term for brain. See documentation for the function for a detailed explanation
-of available options
+ontology term for brain. Here we will searching within "allCharacteristics" however other filter properties are available. You can use `filter_properties` to
+access all available properties for anything filterable in Gemma. 
+
+Some noteable ones for our purposes would be "allCharacteristics", which searches within every annotation on a dataset and its samples while we could have also used "experimentalDesign.experimentalFactors.factorValues.characteristics" to specifically look within experimental factors. Instead we will be showing how to
+limit for relevant contrasts in the next steps for this example.
+
+```{r}
+filter_properties()$dataset %>% head %>% gemma_kable
+```
 
 ```{r}
 # getting all resulting datasets using limit and offset arguments
@@ -115,9 +148,6 @@ experiment_contrasts <- results$experiment.shortName %>%
 
 ```
 
-The contrasts we are interested in should have a `factor.category` of "disease"
-and it should have "<http://purl.obolibrary.org/obo/MONDO_0005180>" in it's experimental.factors column as the URI for a factor.
-
 
 The factor we are interested in is Parkinson's Disease in
 `experimental.factorValue` or
@@ -137,6 +167,31 @@ parkin_contrasts <- experiment_contrasts %>%
 
 ```
 
+Note that while this example attempts to show ways you can automate this process, you should take care to perform some manual examination of the data and determine how independent the contrasts you selected actually are. For instance in our selection, there are two contrasts from the same experiment where differential expression is performed on different brain regions.
+
+
+```{r}
+dup_exp <- parkin_contrasts$experiment.ID %>% 
+    table %>% {.[.>1]} %>% names
+
+dup_exp
+
+
+parkin_contrasts %>% filter(experiment.ID %in%  dup_exp)
+```
+
+We should at least make sure that these two contrasts don't share samples between them, one thing to check is the subsetFactor which might explain why these two
+separate contrasts exist
+
+```{r}
+parkin_contrasts %>% filter(experiment.ID %in%  dup_exp) %>% {.$subsetFactor}
+```
+
+And we can see that these two contrasts are created to split the samples between different brain regions, therefore do not actually share samples between them.
+
+<!-- 
+Expose some version of subset_factorValues to make this process more streamlined
+-->
 
 In the next steps we will be downloading expression data in bulk. If you are here to just
 try the code out, you can speed the process a bit by limiting the number of experiments
@@ -180,7 +235,6 @@ differentials <- parkin_contrasts$result.ID %>% lapply(function(x){
 missing_contrasts <- differentials %>% sapply(nrow) %>% {.==0}
 differentials <- differentials[!missing_contrasts]
 parkin_contrasts <- parkin_contrasts[!missing_contrasts,]
-
 ```
 
 # Getting the p-values for the condition comparison
