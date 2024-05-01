@@ -115,7 +115,12 @@ available properties can be accessed using `filter_properties`
 
 ```{r}
 filter_properties()$dataset %>% head %>% gemma_kable()
+```
 
+These properties can be used together to fine tune your results
+
+
+```{r}
 # access human datasets that has bipolar disorder as an experimental factor
 get_datasets(taxa = 'human',
              filter = "experimentalDesign.experimentalFactors.factorValues.characteristics.valueUri = http://purl.obolibrary.org/obo/MONDO_0004985")  %>%
@@ -127,7 +132,6 @@ get_datasets(taxa = 'human',
 
 
 
-These properties can be used together to fine tune your results
 
 ```{r}
 # all datasets with more than 4 samples annotated for any disease
@@ -238,7 +242,7 @@ datasets.
 dat[[1]]$disease %>% unique()
 
 # Subset patients during manic phase and controls
-manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder,manic phase" | 
+manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder has_modifier manic phase" | 
         dat[[1]]$disease == "reference subject role"]
 manic
 ```
