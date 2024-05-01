@@ -7,7 +7,7 @@ package: gemma.R
 output:
   BiocStyle::html_document
 vignette: |
-  %\VignetteIndexEntry{A meta analysis on effects of Parkinson's Disease using Gemma.R}
+  %\VignetteIndexEntry{A guide to metadata for samples and differential expression analyses}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
