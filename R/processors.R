@@ -325,7 +325,17 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             names(ids) <- factor_ids
             
             
+            subsetFactor <-  x$analysis$subsetFactorValue %>%
+                processFactorValueValueObject() 
+            
             all_sets <- get_result_sets(datasets = experiment.ID,raw = TRUE)
+            
+            all_sets <- all_sets %>% sapply(function(y){
+                subset <- y$analysis$subsetFactorValue %>%
+                    processFactorValueValueObject()
+                all(subsetFactor$ID %in% subset$ID)
+            }) %>% {all_sets[.]}
+            
             baseline_ids <- all_sets %>% lapply(function(y){
                 y$baselineGroup$id
             }) %>% unlist
