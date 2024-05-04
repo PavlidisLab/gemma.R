@@ -134,32 +134,32 @@ object.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_gene_go_terms</span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         term.name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                                                                      nucleus</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                                             regulation of cell communication</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                regulation of cellular component organization</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4:                                         regulation of chromatin organization</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                                                anion binding</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 217:                                             peptidyl-amino acid modification</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 218:                                                                neurofilament</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 219: regulation of DNA damage response, signal transduction by p53 class mediator</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 220:                                                    primary metabolic process</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 221:                                                    ribonucleoprotein complex</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             term.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                                             response to stimulus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                            establishment of protein localization</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3:                                       cardiac muscle hypertrophy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:                                                        transport</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: negative regulation of signal transduction by p53 class mediator</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 263:                                      somatodendritic compartment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 264:                                              import into nucleus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 265:                                    purine ribonucleotide binding</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 266:                                           ribonucleotide binding</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 267:                                                     localization</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         term.ID                                  term.URI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;char&gt;                                    &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   1: GO:0005634 http://purl.obolibrary.org/obo/GO_0005634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   2: GO:0010646 http://purl.obolibrary.org/obo/GO_0010646</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   3: GO:0051128 http://purl.obolibrary.org/obo/GO_0051128</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   4: GO:1902275 http://purl.obolibrary.org/obo/GO_1902275</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   5: GO:0043168 http://purl.obolibrary.org/obo/GO_0043168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: GO:0050896 http://purl.obolibrary.org/obo/GO_0050896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: GO:0045184 http://purl.obolibrary.org/obo/GO_0045184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: GO:0003300 http://purl.obolibrary.org/obo/GO_0003300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: GO:0006810 http://purl.obolibrary.org/obo/GO_0006810</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: GO:1901797 http://purl.obolibrary.org/obo/GO_1901797</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 217: GO:0018193 http://purl.obolibrary.org/obo/GO_0018193</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 218: GO:0005883 http://purl.obolibrary.org/obo/GO_0005883</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 219: GO:0043516 http://purl.obolibrary.org/obo/GO_0043516</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 220: GO:0044238 http://purl.obolibrary.org/obo/GO_0044238</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 221: GO:1990904 http://purl.obolibrary.org/obo/GO_1990904</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 263: GO:0036477 http://purl.obolibrary.org/obo/GO_0036477</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 264: GO:0051170 http://purl.obolibrary.org/obo/GO_0051170</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 265: GO:0032555 http://purl.obolibrary.org/obo/GO_0032555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 266: GO:0032553 http://purl.obolibrary.org/obo/GO_0032553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 267: GO:0051179 http://purl.obolibrary.org/obo/GO_0051179</span>
 </code></pre></div>
     </div>
   </div>
