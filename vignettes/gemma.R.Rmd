@@ -366,9 +366,9 @@ contrasts <- data.table(result.ID = contrasts$result.ID,
 contrasts %>% gemma_kable()
 
 
-contrasts$baseline.factorValue
+contrasts$baseline.factors
 
-contrasts$experimental.factorValue
+contrasts$experimental.factors
 ```
 
 Alternatively we, since we are only looking at one dataset and one contrast manually,
