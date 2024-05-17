@@ -133,9 +133,33 @@ object.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_gene_go_terms</span><span class="op">(</span><span class="st">"DYRK1A"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .body(fname = fname, validators = validators, endpoint = endpoint,     envWhere = environment(), isFile = isFile, header = header,     raw = raw, overwrite = overwrite, file = file, attributes = TRUE,     open_api_name = open_api_name, .call = match.call()):</span> https://gemma.msl.ubc.ca/rest/v2/genes/DYRK1A/goTerms</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> HTTP code 400</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_gene_go_terms</span><span class="op">(</span><span class="fl">3091</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                term.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                   &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1:                                       sequence-specific DNA binding</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2:                                                body fluid secretion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: positive regulation of G protein-coupled receptor signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4:                    positive regulation of epithelial cell migration</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5:                                                 glucose homeostasis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 631:                                                      tube formation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 632:                        cellular response to monosaccharide stimulus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 633:                          cellular response to carbohydrate stimulus</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 634:                              regulation of T cell apoptotic process</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 635:                     negative regulation of T cell apoptotic process</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         term.ID                                  term.URI</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;char&gt;                                    &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   1: GO:0043565 http://purl.obolibrary.org/obo/GO_0043565</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   2: GO:0007589 http://purl.obolibrary.org/obo/GO_0007589</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   3: GO:0045745 http://purl.obolibrary.org/obo/GO_0045745</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   4: GO:0010634 http://purl.obolibrary.org/obo/GO_0010634</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   5: GO:0042593 http://purl.obolibrary.org/obo/GO_0042593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  ---                                                     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 631: GO:0035148 http://purl.obolibrary.org/obo/GO_0035148</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 632: GO:0071326 http://purl.obolibrary.org/obo/GO_0071326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 633: GO:0071322 http://purl.obolibrary.org/obo/GO_0071322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 634: GO:0070232 http://purl.obolibrary.org/obo/GO_0070232</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 635: GO:0070233 http://purl.obolibrary.org/obo/GO_0070233</span>
 </code></pre></div>
     </div>
   </div>
