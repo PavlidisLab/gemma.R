@@ -306,20 +306,6 @@ taxon.name
 <tbody>
 <tr>
 <td style="text-align:left;">
-GSE157509
-</td>
-<td style="text-align:left;">
-Increased IL-6 and altered …
-</td>
-<td style="text-align:left;">
-The goals of this study ar…
-</td>
-<td style="text-align:left;">
-human
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 McLean Hippocampus
 </td>
 <td style="text-align:left;">
@@ -382,6 +368,20 @@ RNA sequencing in human i…
 </td>
 <td style="text-align:left;">
 Valproate(VPA) has been us…
+</td>
+<td style="text-align:left;">
+human
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GSE179921.2
+</td>
+<td style="text-align:left;">
+Split part 2 of: TCF7L2 lnc…
+</td>
+<td style="text-align:left;">
+This experiment was created…
 </td>
 <td style="text-align:left;">
 human
@@ -879,7 +879,7 @@ GSE12685
 Expression of mRNAs Regulat…
 </td>
 <td style="text-align:left;">
-In Alzheimer&lt;e2&gt;&lt;80&gt;&lt;99&gt;s d…
+In Alzheimer’s disease (AD)…
 </td>
 <td style="text-align:left;">
 human
@@ -1177,6 +1177,20 @@ NA
 NA
 </td>
 <td style="text-align:left;">
+bipolar neuron
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
 bipolar i disorder
 </td>
 <td style="text-align:left;">
@@ -1219,24 +1233,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar affective disorder
+bipolar i disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-bipolar neuron
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0001866
 </td>
 </tr>
 <tr>
@@ -1247,10 +1247,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar disorder
+bipolar ii disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/NBO_0000258
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0000693
 </td>
 </tr>
 </tbody>
@@ -1553,7 +1553,7 @@ enolase 2
 HEL-S-27….
 </td>
 <td style="text-align:right;">
-0.8776245
+0.8776645
 </td>
 <td style="text-align:left;">
 human
@@ -1591,7 +1591,7 @@ enolase 2, gamma neuronal
 D6Ertd37….
 </td>
 <td style="text-align:right;">
-0.8794242
+0.8794051
 </td>
 <td style="text-align:left;">
 mouse
@@ -1629,7 +1629,7 @@ enolase 2
 NSE, RNEN3
 </td>
 <td style="text-align:right;">
-0.8201887
+0.8187614
 </td>
 <td style="text-align:left;">
 rat
@@ -3215,7 +3215,7 @@ The U133 set includes 2 ar…
 FALSE
 </td>
 <td style="text-align:right;">
-387
+389
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3256,7 +3256,7 @@ The GeneChip Rat Genome 23…
 FALSE
 </td>
 <td style="text-align:right;">
-294
+295
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3297,7 +3297,7 @@ All probe sets represented…
 FALSE
 </td>
 <td style="text-align:right;">
-1284
+1286
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3338,7 +3338,7 @@ Complete coverage of the H…
 FALSE
 </td>
 <td style="text-align:right;">
-1502
+1517
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3453,7 +3453,7 @@ appended.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 637</code></pre>
+<pre><code>[1] 636</code></pre>
 <p>After which you can use <code>offset</code> to access all available
 platforms.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -3918,7 +3918,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
-[1] C
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -3940,31 +3943,31 @@ other attached packages:
 [19] BiocStyle_2.32.0           
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.1        farver_2.1.1            fastmap_1.1.1          
+ [1] tidyselect_1.2.1        farver_2.1.2            fastmap_1.2.0          
  [4] digest_0.6.35           timechange_0.3.0        lifecycle_1.0.4        
  [7] magrittr_2.0.3          compiler_4.4.0          rlang_1.1.3            
 [10] sass_0.4.9              tools_4.4.0             utf8_1.2.4             
 [13] yaml_2.3.8              knitr_1.46              labeling_0.4.3         
 [16] S4Arrays_1.4.0          htmlwidgets_1.6.4       bit_4.0.5              
-[19] curl_5.2.1              DelayedArray_0.30.0     xml2_1.3.6             
+[19] curl_5.2.1              DelayedArray_0.30.1     xml2_1.3.6             
 [22] RColorBrewer_1.1-3      abind_1.4-5             withr_3.0.0            
 [25] purrr_1.0.2             desc_1.4.3              grid_4.4.0             
 [28] fansi_1.0.6             colorspace_2.1-0        scales_1.3.0           
 [31] cli_3.6.2               rmarkdown_2.26          crayon_1.5.2           
-[34] ragg_1.3.0              generics_0.1.3          rstudioapi_0.16.0      
+[34] ragg_1.3.2              generics_0.1.3          rstudioapi_0.16.0      
 [37] httr_1.4.7              cachem_1.0.8            stringr_1.5.1          
-[40] zlibbioc_1.50.0         assertthat_0.2.1        BiocManager_1.30.22    
+[40] zlibbioc_1.50.0         assertthat_0.2.1        BiocManager_1.30.23    
 [43] XVector_0.44.0          vctrs_0.6.5             Matrix_1.7-0           
 [46] jsonlite_1.8.8          bookdown_0.39           bit64_4.0.5            
-[49] systemfonts_1.0.6       jquerylib_0.1.4         glue_1.7.0             
-[52] pkgdown_2.0.9           lubridate_1.9.3         stringi_1.8.3          
+[49] systemfonts_1.1.0       jquerylib_0.1.4         glue_1.7.0             
+[52] pkgdown_2.0.9           lubridate_1.9.3         stringi_1.8.4          
 [55] gtable_0.3.5            UCSC.utils_1.0.0        munsell_0.5.1          
 [58] tibble_3.2.1            pillar_1.9.0            rappdirs_0.3.3         
 [61] htmltools_0.5.8.1       GenomeInfoDbData_1.2.12 R6_2.5.1               
 [64] textshaping_0.3.7       kableExtra_1.4.0        evaluate_0.23          
 [67] lattice_0.22-6          highr_0.10              memoise_2.0.1          
 [70] bslib_0.7.0             Rcpp_1.0.12             svglite_2.1.3          
-[73] gridExtra_2.3           SparseArray_1.4.0       xfun_0.43              
+[73] gridExtra_2.3           SparseArray_1.4.3       xfun_0.44              
 [76] fs_1.6.4                pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
