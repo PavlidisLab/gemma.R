@@ -45,7 +45,9 @@ names(overrides) = overrides %>% sapply(function(x){
     x$tags[[which(title)]]$val
 })
 
-download.file('https://gemma.msl.ubc.ca/rest/v2/openapi.json',destfile = 'inst/script/openapi.json')
+
+res = httr::GET('https://gemma.msl.ubc.ca/rest/v2/openapi.json')
+writeBin(res$content,con = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
