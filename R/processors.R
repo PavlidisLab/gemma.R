@@ -939,11 +939,22 @@ process_dataset_gene_expression <- function(d){
 
             cbind(gene_data,expression)
         }) %>% do.call(rbind,.)
-        samples = get_dataset_samples(x$datasetId)
-        data.table::setcolorder(dataset_exp,
-                                c(colnames(dataset_exp)[!colnames(dataset_exp) %in% samples$sample.name],
-                                  samples$sample.name))
-
+        
+        samples <- get_dataset_samples(x$datasetId)
+        
+        if(is.null(dataset_exp)){
+            gene_data <- data.table(Probe = character(0),
+                       GeneSymbol = character(0),
+                       NCBIid = integer(0))
+            
+            expression <- samples$sample.name %>% lapply(function(x){numeric(0)})
+            names(expression) = samples$sample.name
+            return(cbind(gene_data, do.call(data.table,expression)))
+        } else{
+            return(data.table::setcolorder(dataset_exp,
+                                    c(colnames(dataset_exp)[!colnames(dataset_exp) %in% samples$sample.name],
+                                      samples$sample.name)))
+        }
     })
 
     names(out) <- datasets
