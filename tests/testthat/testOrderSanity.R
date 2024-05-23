@@ -56,38 +56,38 @@ test_that('Multiple sanity checks for expression/differential expression values 
                                            c(213742,20592))
         
         expect_true(
-            max(assay(object[[1]],'counts')[rowData(object[[1]])$GeneSymbol=='Xist',
+            max(SummarizedExperiment::assay(object[[1]],'counts')[SummarizedExperiment::rowData(object[[1]])$GeneSymbol=='Xist',
                                             tolower(object[[1]]$`biological sex`) =='male', drop = FALSE] %>% 
                     colMeans(),na.rm=TRUE) < 
-                min(assay(object[[1]],'counts')[rowData(object[[1]])$GeneSymbol=='Xist',
+                min(SummarizedExperiment::assay(object[[1]],'counts')[SummarizedExperiment::rowData(object[[1]])$GeneSymbol=='Xist',
                                                 tolower(object[[1]]$`biological sex`) =='female', drop = FALSE] %>%
                         colMeans(),na.rm=TRUE)
         )
         
         expect_true(
-            max(assay(object[[1]],'counts')[rowData(object[[1]])$GeneSymbol=='Kdm5d',
+            max(SummarizedExperiment::assay(object[[1]],'counts')[SummarizedExperiment::rowData(object[[1]])$GeneSymbol=='Kdm5d',
                                             tolower(object[[1]]$`biological sex`) =='female',drop=FALSE] %>% 
                     colMeans(),na.rm=TRUE) < 
-                min(assay(object[[1]],'counts')[rowData(object[[1]])$GeneSymbol=='Kdm5d',
+                min(SummarizedExperiment::assay(object[[1]],'counts')[SummarizedExperiment::rowData(object[[1]])$GeneSymbol=='Kdm5d',
                                                 tolower(object[[1]]$`biological sex`) =='male',drop = FALSE] %>%
                         colMeans(),na.rm=TRUE)
         )
         
         
         expect_true(
-            max(assay(object_genes[[1]],'counts')[rowData(object_genes[[1]])$GeneSymbol=='Xist',
+            max(SummarizedExperiment::assay(object_genes[[1]],'counts')[SummarizedExperiment::rowData(object_genes[[1]])$GeneSymbol=='Xist',
                                                   tolower(object_genes[[1]]$`biological sex`) =='male', drop = FALSE] %>% 
                     colMeans(),na.rm=TRUE) < 
-                min(assay(object_genes[[1]],'counts')[rowData(object_genes[[1]])$GeneSymbol=='Xist',
+                min(SummarizedExperiment::assay(object_genes[[1]],'counts')[SummarizedExperiment::rowData(object_genes[[1]])$GeneSymbol=='Xist',
                                                       tolower(object_genes[[1]]$`biological sex`) =='female', drop = FALSE] %>%
                         colMeans(),na.rm=TRUE)
         )
         
         expect_true(
-            max(assay(object_genes[[1]],'counts')[rowData(object_genes[[1]])$GeneSymbol=='Kdm5d',
+            max(SummarizedExperiment::assay(object_genes[[1]],'counts')[SummarizedExperiment::rowData(object_genes[[1]])$GeneSymbol=='Kdm5d',
                                                   tolower(object_genes[[1]]$`biological sex`) =='female',drop=FALSE] %>% 
                     colMeans(),na.rm=TRUE) < 
-                min(assay(object_genes[[1]],'counts')[rowData(object_genes[[1]])$GeneSymbol=='Kdm5d',
+                min(SummarizedExperiment::assay(object_genes[[1]],'counts')[SummarizedExperiment::rowData(object_genes[[1]])$GeneSymbol=='Kdm5d',
                                                       tolower(object_genes[[1]]$`biological sex`) =='male',drop = FALSE] %>%
                         colMeans(),na.rm=TRUE)
         )
