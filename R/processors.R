@@ -567,7 +567,7 @@ processSamples <- function(d) {
             purrr::map(function(x){x %>% purrr::map(processFactorValueBasicValueObject)}) %>% 
             purrr::map(data.table::rbindlist)# ,
         # processGemmaArray(d[["arrayDesign"]]
-    )
+    ) %>% dplyr::arrange(sample.ID)
 }
 
 
@@ -809,10 +809,16 @@ processExpressionMatrix <- function(m) {
     m_cols <- make.names(colnames(m))
 
     dataset <- parent.frame(n=2)$dataset
-    samples <- get_dataset_samples(dataset, raw = TRUE)
-    sample_ids <- samples %>% purrr::map('sample') %>% purrr::map_chr('name')
-    sample_names <- samples %>% purrr::map_chr('name')
-    sample_matches <- sample_ids %>% gsub(' ','',.,fixed = TRUE) %>%
+    # we use the order returned by get_dataset_samples as authoritative which makes
+    # it a bit awkward when we need to access a property left out of the processed output
+    samples <- get_dataset_samples(dataset) 
+    raw_ids <- attributes(samples)$env$response %>% purrr::map('sample') %>% 
+        purrr::map_int('id')
+    sample_internal_names <- attributes(samples)$env$response %>% 
+        purrr::map('sample') %>% purrr::map_chr('name') %>%
+        {.[match(samples$sample.ID,raw_ids)]}
+    sample_names <- samples$sample.name
+    sample_matches <- sample_internal_names %>% gsub(' ','',.,fixed = TRUE) %>%
         make.names %>% purrr::map_int(function(x){
             o <- grep(paste0(x,'_'),m_cols, fixed = TRUE)
             if(length(o)==0){
