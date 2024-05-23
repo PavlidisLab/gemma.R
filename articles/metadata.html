@@ -628,7 +628,9 @@ stored under the id 20541</li>
 </ul>
 <p>We can use this to fetch all distinct genotypes</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="va">samples</span><span class="op">$</span><span class="va">sample.factorValues</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">id</span> <span class="op">&lt;-</span> <span class="va">samples</span><span class="op">$</span><span class="va">sample.factorValues</span><span class="op">[[</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">samples</span><span class="op">$</span><span class="va">sample.name</span> <span class="op">==</span> <span class="st">"TSM490"</span><span class="op">)</span></span>
+<span>    <span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">value</span> <span class="op">==</span> <span class="st">"HTT [human] huntingtin"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="op">{</span><span class="va">.</span><span class="op">$</span><span class="va">factor.ID</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">unique</span></span>
 <span></span>
 <span><span class="va">samples</span><span class="op">$</span><span class="va">sample.factorValues</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span>\<span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
@@ -673,36 +675,19 @@ genotype
 <tbody>
 <tr>
 <td style="text-align:left;">
-ESW183
+ESW176
 </td>
 <td style="text-align:left;">
 striatum
 </td>
 <td style="text-align:left;">
-Device=HWUSI-EAS1563_0072_F…
+Device=HWUSI-EAS1563_0071_F…
 </td>
 <td style="text-align:left;">
 8 weeks
 </td>
 <td style="text-align:left;">
 wild type genotype
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-TSM490
-</td>
-<td style="text-align:left;">
-striatum
-</td>
-<td style="text-align:left;">
-Device=HWUSI-EAS1563_0073_F…
-</td>
-<td style="text-align:left;">
-12 weeks
-</td>
-<td style="text-align:left;">
-HTT [human] huntingtin has_…
 </td>
 </tr>
 <tr>
@@ -724,13 +709,13 @@ wild type genotype
 </tr>
 <tr>
 <td style="text-align:left;">
-ESM184
+ECM175
 </td>
 <td style="text-align:left;">
-striatum
+cerebral cortex
 </td>
 <td style="text-align:left;">
-Device=HWUSI-EAS1563_0072_F…
+Device=HWUSI-EAS1563_0071_F…
 </td>
 <td style="text-align:left;">
 8 weeks
@@ -741,7 +726,7 @@ HTT [human] huntingtin has_…
 </tr>
 <tr>
 <td style="text-align:left;">
-ESW180
+ESW183
 </td>
 <td style="text-align:left;">
 striatum
@@ -758,7 +743,24 @@ wild type genotype
 </tr>
 <tr>
 <td style="text-align:left;">
-TSW478
+ECW178
+</td>
+<td style="text-align:left;">
+cerebral cortex
+</td>
+<td style="text-align:left;">
+Device=HWUSI-EAS1563_0071_F…
+</td>
+<td style="text-align:left;">
+8 weeks
+</td>
+<td style="text-align:left;">
+wild type genotype
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TSW479
 </td>
 <td style="text-align:left;">
 striatum
@@ -1600,24 +1602,7 @@ wild type genotype
 </tr>
 <tr>
 <td style="text-align:left;">
-TCM9450
-</td>
-<td style="text-align:left;">
-cerebral cortex
-</td>
-<td style="text-align:left;">
-Device=HWI-EAS413_0047:Lane=1
-</td>
-<td style="text-align:left;">
-12 weeks
-</td>
-<td style="text-align:left;">
-HTT [human] huntingtin has_…
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ECW176
+ECM175
 </td>
 <td style="text-align:left;">
 cerebral cortex
@@ -1629,7 +1614,7 @@ Device=HWUSI-EAS1563_0071_F…
 8 weeks
 </td>
 <td style="text-align:left;">
-wild type genotype
+HTT [human] huntingtin has_…
 </td>
 </tr>
 <tr>
@@ -1651,16 +1636,16 @@ wild type genotype
 </tr>
 <tr>
 <td style="text-align:left;">
-ECW180
+TCW9451
 </td>
 <td style="text-align:left;">
 cerebral cortex
 </td>
 <td style="text-align:left;">
-Device=HWUSI-EAS1563_0072_F…
+Device=HWI-EAS413_0047:Lane=2
 </td>
 <td style="text-align:left;">
-8 weeks
+12 weeks
 </td>
 <td style="text-align:left;">
 wild type genotype
@@ -1668,16 +1653,33 @@ wild type genotype
 </tr>
 <tr>
 <td style="text-align:left;">
-ECM175
+TCW9457
 </td>
 <td style="text-align:left;">
 cerebral cortex
 </td>
 <td style="text-align:left;">
-Device=HWUSI-EAS1563_0071_F…
+Device=HWUSI-EAS1563_0053:L…
 </td>
 <td style="text-align:left;">
-8 weeks
+12 weeks
+</td>
+<td style="text-align:left;">
+wild type genotype
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TCM9450
+</td>
+<td style="text-align:left;">
+cerebral cortex
+</td>
+<td style="text-align:left;">
+Device=HWI-EAS413_0047:Lane=1
+</td>
+<td style="text-align:left;">
+12 weeks
 </td>
 <td style="text-align:left;">
 HTT [human] huntingtin has_…
@@ -2090,12 +2092,10 @@ these genes.</p>
 <span><span class="co">## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## locale:</span></span>
-<span><span class="co">##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              </span></span>
-<span><span class="co">##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    </span></span>
-<span><span class="co">##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   </span></span>
-<span><span class="co">##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 </span></span>
-<span><span class="co">##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            </span></span>
-<span><span class="co">## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       </span></span>
+<span><span class="co">##  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       </span></span>
+<span><span class="co">##  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   </span></span>
+<span><span class="co">##  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          </span></span>
+<span><span class="co">## [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## time zone: UTC</span></span>
 <span><span class="co">## tzcode source: system (glibc)</span></span>

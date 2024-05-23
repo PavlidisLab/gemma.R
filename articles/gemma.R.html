@@ -1233,10 +1233,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar i disorder
+bipolar affective disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0001866
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
 </td>
 </tr>
 <tr>
@@ -1247,10 +1247,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar ii disorder
+bipolar disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0000693
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/NBO_0000258
 </td>
 </tr>
 </tbody>
@@ -1334,8 +1334,8 @@ metadata(8): title abstract ... gemmaSuitabilityScore taxon
 assays(1): counts
 rownames(18758): 2315430 2315554 ... 7385683 7385696
 rowData names(4): Probe GeneSymbol GeneName NCBIid
-colnames(21): Control, 15 Control, 8 ... Control, 2_DE40 Bipolar
-  disorder patient manic phase, 37
+colnames(21): Control, 12 Control, 1_DE50 ... Bipolar disorder patient
+  manic phase, 21 Bipolar disorder patient manic phase, 16
 colData names(3): factorValues disease block</code></pre>
 <p>Let’s take a look at sample to sample correlation in our subset.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
@@ -1377,6 +1377,17 @@ block
 <tbody>
 <tr>
 <td style="text-align:left;">
+Bipolar disorder patient euthymic phase, 11
+</td>
+<td style="text-align:left;">
+bipolar disorder has_modifi…
+</td>
+<td style="text-align:left;">
+Batch_02_26/11/09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 Bipolar disorder patient euthymic phase, 17
 </td>
 <td style="text-align:left;">
@@ -1388,18 +1399,7 @@ Batch_02_26/11/09
 </tr>
 <tr>
 <td style="text-align:left;">
-Bipolar disorder patient euthymic phase, 34
-</td>
-<td style="text-align:left;">
-bipolar disorder has_modifi…
-</td>
-<td style="text-align:left;">
-Batch_04_02/12/09
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Control, 15
+Control, 12
 </td>
 <td style="text-align:left;">
 reference subject role
@@ -1410,35 +1410,35 @@ Batch_02_26/11/09
 </tr>
 <tr>
 <td style="text-align:left;">
-Bipolar disorder patient euthymic phase, 32
-</td>
-<td style="text-align:left;">
-bipolar disorder has_modifi…
-</td>
-<td style="text-align:left;">
-Batch_04_02/12/09
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Control, 8
+Control, 1_DE50
 </td>
 <td style="text-align:left;">
 reference subject role
 </td>
 <td style="text-align:left;">
-Batch_01_25/11/09
+Batch_05_24/11/10
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Bipolar disorder patient manic phase, 21
+Bipolar disorder patient euthymic phase, 19
 </td>
 <td style="text-align:left;">
 bipolar disorder has_modifi…
 </td>
 <td style="text-align:left;">
 Batch_03_27/11/09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Control, 9
+</td>
+<td style="text-align:left;">
+reference subject role
+</td>
+<td style="text-align:left;">
+Batch_01_25/11/09
 </td>
 </tr>
 </tbody>
@@ -3215,7 +3215,7 @@ The U133 set includes 2 ar…
 FALSE
 </td>
 <td style="text-align:right;">
-389
+391
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3338,7 +3338,7 @@ Complete coverage of the H…
 FALSE
 </td>
 <td style="text-align:right;">
-1517
+1527
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3918,12 +3918,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
