@@ -34,6 +34,8 @@ test_that("datasetPlatforms queries work", {
 test_that("datasetSamples queries work", {
     dat <- get_dataset_samples(1)
     raw <- get_dataset_samples(1, raw = TRUE) %>% jsonlite:::simplify()
+    raw <- raw[match(dat$sample.ID,raw$id),]
+    
     expect_type(dat, "list")
     expect_type(raw, "list")
     expect_equal(
