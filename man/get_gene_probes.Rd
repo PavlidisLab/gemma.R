@@ -68,6 +68,6 @@ The fields of the output data.table are:
 Retrieve the probes associated to a genes across all platforms
 }
 \examples{
-get_gene_probes("DYRK1A")
+get_gene_probes(1859)
 }
 \keyword{gene}

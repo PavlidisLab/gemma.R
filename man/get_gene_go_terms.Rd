@@ -48,6 +48,6 @@ The fields of the output data.table are:
 Retrieve the GO terms associated to a gene
 }
 \examples{
-get_gene_go_terms("DYRK1A")
+get_gene_go_terms(3091)
 }
 \keyword{gene}

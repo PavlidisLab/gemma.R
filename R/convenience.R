@@ -441,10 +441,10 @@ get_dataset_object <- function(datasets,
                  dat =  dat %>% dplyr::filter(experiment.ID==dataset | experiment.shortName == dataset))
 
 
-
-        # reorders the expression to match the metadata
         gene_info <- colnames(packed_info$exp)[!colnames(packed_info$exp) %in% rownames(packed_info$design)]
-        data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
+        # reorders the expression to match the metadata
+        # no longer necesary
+        # data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
 
         if(!is.null(resultSets)){
             

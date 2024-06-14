@@ -54,5 +54,6 @@ Retrieve the physical locations of a given gene
 }
 \examples{
 get_gene_locations("DYRK1A")
+get_gene_locations(1859)
 }
 \keyword{gene}

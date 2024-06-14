@@ -147,7 +147,9 @@ if it has a wild type genotype is stored under the id `r samples$sample.factorVa
 
 We can use this to fetch all distinct genotypes
 ```{r}
-id <- samples$sample.factorValues[[2]] %>% 
+id <- samples$sample.factorValues[[
+    which(samples$sample.name == "TSM490")
+    ]] %>% 
     filter(value == "HTT [human] huntingtin") %>% {.$factor.ID} %>% unique
 
 samples$sample.factorValues %>% lapply(\(x){

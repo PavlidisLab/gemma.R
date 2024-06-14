@@ -591,7 +591,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 
 #' get_gene_go_terms
 #' @examples
-#' get_gene_go_terms("DYRK1A")
+#' get_gene_go_terms(3091)
 #'
 #' @inherit processGO return
 #'
@@ -613,6 +613,7 @@ registerEndpoint('genes/{gene}/goTerms',
 #' get_gene_locations
 #' @examples
 #' get_gene_locations("DYRK1A")
+#' get_gene_locations(1859)
 #'
 #' @inherit processGeneLocation return
 #'
@@ -633,7 +634,7 @@ registerEndpoint('genes/{gene}/locations',
 
 #' get_gene_probes
 #' @examples
-#' get_gene_probes("DYRK1A")
+#' get_gene_probes(1859)
 #'
 #' @inherit processElements return
 #'
