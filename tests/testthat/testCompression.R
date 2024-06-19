@@ -58,4 +58,7 @@ test_that("Compressed inputs work",{
     expect_true(attributes(uncompressed)$call != attributes(compressed)$call)
     expect_true(all(uncompressed$platform.ID %in% compressed$platform.ID))
     
+    
+    options('gemma.always.compress' = FALSE)
+    
 })
