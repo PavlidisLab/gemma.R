@@ -1,0 +1,37 @@
+---
+title: "posterExample"
+output: html_document
+date: "2024-06-13"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Searching for datasets of interest 
+
+
+:::: {style="display: flex;" align-content="stretch"}
+
+::: {.col data-latex="{0.46\textwidth}"}
+```{r,eval = FALSE}
+library(gemma.R)
+
+```
+:::
+
+::: {.col data-latex="{0.08\textwidth}"}
+\ 
+<!-- an empty Div (with a white space), serving as
+a column separator -->
+:::
+
+::: {.col data-latex="{0.46\textwidth}"}
+```{python}
+import gemmapy
+api = gemmapy.GemmaPy()
+
+```
+:::
+
+::::

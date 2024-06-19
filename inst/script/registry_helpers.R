@@ -67,6 +67,7 @@ registerEndpoint <- function(endpoint,
                              fname,
                              open_api_name = fname,
                              preprocessor,
+                             compressibles = NULL,
                              defaults = NULL,
                              validators = NULL,
                              logname = fname,
@@ -146,17 +147,10 @@ registerEndpoint <- function(endpoint,
         as.call()
 
     # Add our variables
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal","open_api_name")) {
-        if (is.character(get(i))) {
-            v <- glue::glue('"{get(i)}"')
-        } else if (is.list(get(i))) {
-            v <- get(i) %>%
-                {
-                    paste0("list(", paste0(names(.), " = ", ., collapse = ", "), ")")
-                }
-        } else {
-            v <- get(i)
-        }
+
+    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal","open_api_name","compressibles")) {
+        v <- paste0(glue::glue('{capture.output(dput(get(i)))}'),collapse = '\n')
+
 
         body(f) <- body(f) %>%
             as.list() %>%
