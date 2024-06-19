@@ -147,6 +147,7 @@ registerEndpoint(
     "resultSets?datasets={datasets}&filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "get_result_sets",open_api_name = 'get_result_sets',
     keyword = "misc",
+    compressibles = 'filter',
     defaults = list(
         datasets = NA_character_,
         resultSets = NA_character_, 
@@ -179,6 +180,7 @@ registerEndpoint("annotations/search?query={query}",
                  "search_annotations",
                  open_api_name = 'search_annotations',
                  keyword = "misc",
+                 compressibles = 'query',
                  defaults = list(query = bquote()),
                  validators = alist(query = validateQuery),
                  preprocessor = quote(processSearchAnnotations)
@@ -501,6 +503,7 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
                      limit = 20L,
                      sort = "+id"
                  ),
+                 compressibles = c('filter','query'),
                  validators = alist(
                      query = validateOptionalQuery,
                      filter = validateFilter,
@@ -529,24 +532,25 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
 NULL
 
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
-    "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
-    defaults = list(
-        datasets = NA_character_,
-        filter = NA_character_,
-        taxa = NA_character_,
-        uris = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
-    ),
-    validators = alist(
-        datasets = validateOptionalID,
-        filter = validateFilter,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
-    ),
-    preprocessor = quote(processDatasets)
+                 "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
+                 defaults = list(
+                     datasets = NA_character_,
+                     filter = NA_character_,
+                     taxa = NA_character_,
+                     uris = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     sort = "+id"
+                 ),
+                 compressibles = c('filter'),
+                 validators = alist(
+                     datasets = validateOptionalID,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
+                 ),
+                 preprocessor = quote(processDatasets)
 )
 
 
@@ -777,6 +781,7 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
                      limit = 20L,
                      sort = "+id"
                  ),
+                 compressibles = 'filter',
                  validators = alist(
                      platforms = validateOptionalID,
                      filter = validateFilter,
