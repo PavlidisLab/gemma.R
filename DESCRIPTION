@@ -44,7 +44,9 @@ Imports:
     rappdirs,
     bit64,
     assertthat,
-    digest
+    digest.
+    R.utils,
+    base64enc
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
