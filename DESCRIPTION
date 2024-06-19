@@ -44,7 +44,7 @@ Imports:
     rappdirs,
     bit64,
     assertthat,
-    digest.
+    digest,
     R.utils,
     base64enc
 Suggests: 
