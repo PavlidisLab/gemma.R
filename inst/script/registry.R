@@ -503,7 +503,7 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
                      limit = 20L,
                      sort = "+id"
                  ),
-                 compressibles = c('filter','query'),
+                 compressibles = 'filter',
                  validators = alist(
                      query = validateOptionalQuery,
                      filter = validateFilter,
@@ -542,7 +542,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
                      limit = 20L,
                      sort = "+id"
                  ),
-                 compressibles = c('filter'),
+                 compressibles = 'filter',
                  validators = alist(
                      datasets = validateOptionalID,
                      filter = validateFilter,
