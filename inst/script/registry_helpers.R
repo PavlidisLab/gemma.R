@@ -70,7 +70,6 @@ registerEndpoint <- function(endpoint,
                              compressibles = NULL,
                              defaults = NULL,
                              validators = NULL,
-                             logname = fname,
                              keyword = NULL,
                              internal = FALSE,
                              where = parent.env(environment()),
@@ -85,7 +84,7 @@ registerEndpoint <- function(endpoint,
         return(NULL)
     }
 
-    logEndpoint(fname, logname)
+    logEndpoint(fname, open_api_name)
 
     # Make sure arguments are URL encoded
     endpoint <- gsub("\\{([^\\}]+)\\}", "\\{encode\\(\\1\\)\\}", endpoint)
@@ -224,6 +223,14 @@ logEndpoint <- function(fname, logname) {
     options(gemmaAPI.logged = c(getOption("gemmaAPI.logged"), setNames(fname, logname)))
 }
 
+
+clearLog <- function(){
+    options(gemmaAPI.logged = c())
+}
+
+getLog <- function(){
+    getOption('gemmaAPI.logged')
+}
 
 #' Comment a function
 #'
