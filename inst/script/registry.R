@@ -45,7 +45,9 @@ names(overrides) = overrides %>% sapply(function(x){
     x$tags[[which(title)]]$val
 })
 
-download.file('https://gemma.msl.ubc.ca/rest/v2/openapi.json',destfile = 'inst/script/openapi.json')
+
+res = httr::GET('https://gemma.msl.ubc.ca/rest/v2/openapi.json')
+writeBin(res$content,con = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
 api_file_fun_names = api_file$paths %>% purrr::map('get') %>% purrr::map_chr('operationId') %>% snakecase::to_snake_case()
@@ -113,6 +115,11 @@ registerEndpoint(
 )
 
 
+# /resultSets/count ------
+# not implemented
+
+# /resultSets/{resultSet} ----
+# not implemented, redundant with result sets.
 
 # /resultSets, get_result_sets -----
 #' get_result_sets
@@ -140,6 +147,7 @@ registerEndpoint(
     "resultSets?datasets={datasets}&filter={filter}&offset={offset}&limit={limit}&sort={sort}",
     "get_result_sets",open_api_name = 'get_result_sets',
     keyword = "misc",
+    compressibles = 'filter',
     defaults = list(
         datasets = NA_character_,
         resultSets = NA_character_, 
@@ -172,56 +180,16 @@ registerEndpoint("annotations/search?query={query}",
                  "search_annotations",
                  open_api_name = 'search_annotations',
                  keyword = "misc",
+                 compressibles = 'query',
                  defaults = list(query = bquote()),
                  validators = alist(query = validateQuery),
                  preprocessor = quote(processSearchAnnotations)
 )
 
-# /annotations/{taxon}/search search_datasets/search_taxon_datasets ----
-# reduntant with other endpoints, deprecated, consider removing
-
-#' search_datasets
-#' @param taxon Can either be Taxon ID, Taxon NCBI ID, or one of its string identifiers: scientific name, common name.
-#' It is recommended to use Taxon ID for efficiency.
-#' Please note, that not all taxa have all the possible identifiers available.
-#' @param filter Filter results by matching expression. See details for an explanation
-#' of the syntax
-#' Use the \code{\link{get_taxa_by_ids}} function to retrieve the necessary information. For convenience, below is a list of officially supported taxa:
-#' \tabular{rllr}{
-#'     \strong{ID} \tab \strong{Comm.name} \tab \strong{Scient.name}    \tab \strong{NcbiID}\cr
-#'     1            \tab human               \tab Homo sapiens             \tab 9606            \cr
-#'    2            \tab mouse               \tab Mus musculus             \tab 10090           \cr
-#'    3            \tab rat                 \tab Rattus norvegicus        \tab 10116           \cr
-#'    11           \tab yeast               \tab Saccharomyces cerevisiae \tab 4932            \cr
-#'    12           \tab zebrafish           \tab Danio rerio              \tab 7955            \cr
-#'    13           \tab fly                 \tab Drosophila melanogaster  \tab 7227            \cr
-#'    14           \tab worm                \tab Caenorhabditis elegans   \tab 6239
-#'}
-#' @inherit processDatasets return
-#'
-#' @examples
-#' search_datasets('bipolar',taxon = 'human')
-NULL
 
 
-# registerEndpoint("annotations/{taxon}/search/datasets?query={query}&limit={limit}&offset={offset}&sort={sort}",
-#                  "search_datasets",
-#                  open_api_name = 'search_datasets',
-#                  keyword = "dataset",
-#                  defaults = list(query = bquote(),
-#                                  taxon = NA_character_,
-#                                  filter = NA_character_,
-#                                  offset = 0L,
-#                                  limit = 20L,
-#                                  sort = "+id"),
-#                  validators = alist(query = validateQuery,
-#                                     taxon = validateOptionalTaxon,
-#                                     filter = validateFilter,
-#                                     offset = validatePositiveInteger,
-#                                     limit = validateLimit,
-#                                     sort = validateSort),
-#                  preprocessor = quote(processDatasets)
-# )
+# /datasets/{dataset}/refresh ------------
+# not implemented
 
 # /datasets/{dataset}/annotations, get_dataset_annotations ----------
 
@@ -354,6 +322,11 @@ registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific=
                      consolidate = validateConsolidate
                  ),
                  preprocessor = quote(process_dataset_gene_expression))
+
+
+
+# /datasets/{datasets}/expressions/taxa/{taxa}/genes/{genes} ---------
+# currently unimplemented
 
 
 # datasets/{datasets}/expressions/pca -----
@@ -503,6 +476,8 @@ registerEndpoint('datasets/{dataset}/samples',
 # )
 
 
+# datasets/{dataset}/svd ------------
+# unimplemented
 # datasets, get_datasets ------
 
 #' get_datasets
@@ -529,6 +504,7 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
                      limit = 20L,
                      sort = "+id"
                  ),
+                 compressibles = 'filter',
                  validators = alist(
                      query = validateOptionalQuery,
                      filter = validateFilter,
@@ -557,24 +533,25 @@ registerEndpoint("datasets/?&offset={offset}&limit={limit}&sort={sort}&filter={f
 NULL
 
 registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}&filter={filter}",
-    "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
-    defaults = list(
-        datasets = NA_character_,
-        filter = NA_character_,
-        taxa = NA_character_,
-        uris = NA_character_,
-        offset = 0L,
-        limit = 20L,
-        sort = "+id"
-    ),
-    validators = alist(
-        datasets = validateOptionalID,
-        filter = validateFilter,
-        offset = validatePositiveInteger,
-        limit = validateLimit,
-        sort = validateSort
-    ),
-    preprocessor = quote(processDatasets)
+                 "get_datasets_by_ids",open_api_name = "get_datasets_by_ids", keyword = "dataset",
+                 defaults = list(
+                     datasets = NA_character_,
+                     filter = NA_character_,
+                     taxa = NA_character_,
+                     uris = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     sort = "+id"
+                 ),
+                 compressibles = 'filter',
+                 validators = alist(
+                     datasets = validateOptionalID,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     sort = validateSort
+                 ),
+                 preprocessor = quote(processDatasets)
 )
 
 
@@ -805,6 +782,7 @@ registerEndpoint("platforms/{platforms}?&offset={offset}&limit={limit}&sort={sor
                      limit = 20L,
                      sort = "+id"
                  ),
+                 compressibles = 'filter',
                  validators = alist(
                      platforms = validateOptionalID,
                      filter = validateFilter,
@@ -847,9 +825,6 @@ registerEndpoint('search?query={query}&taxon={taxon}&platform={platform}&limit={
                  preprocessor = quote(process_search)
 )
 
-
-# taxa/{taxon}/genes/{gene}/locations----
-# unimplemented, redundant with get_gene_locations
 
 # taxa ----
 # use get_taxa in conveninence instead, unimplemented
@@ -933,8 +908,19 @@ NULL
 # )
 
 
+
+# taxa/{taxon}/genes/{gene}/goTerms ----- 
+# unimplemented
+
+# taxa/{taxon}/genes/{gene}/locations----
+# unimplemented, redundant with get_gene_locations
+
+# taxa/{taxon}/genes/{gene}/probes --------
+
 # taxa/{taxon}/genes/{gene} ------
 # unimplemented, use get_genes with ncbi ids instead
+
+
 
 # taxa/{taxon}/chromosomes/{chromosome}/genes -----
 # unimplemented
@@ -961,9 +947,9 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
             memoise::forget(mem)
         }
     }', file = document, append = TRUE)
-
+    
     rm(list = ls(envir = globalenv(), all.names = TRUE), envir = globalenv())
-
+    
     styler::style_file("./R/allEndpoints.R", transformers = biocthis::bioc_style())
     devtools::document()
     devtools::build(vignettes = FALSE)

@@ -55,13 +55,29 @@ setGemmaPath <- function(path){
         }
     }
     # Generate request
-    call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
+    form_call <- function(){
+        call <- quote(paste0(gemmaPath(), gsub("/((NA)?/)", "/", gsub("\\?[^=]+=NA", "\\?", gsub("&[^=]+=NA", "", glue::glue(endpoint)))))) %>% eval(envir = envWhere)
+        # remove empty parameters
+        call<- call %>% stringr::str_split('&|\\?') %>% 
+            {.[[1]]} %>% {.[!grepl("\\=$",.)]} %>%
+            {if(length(.)>1){c(paste(.[1],.[2],sep = "?"),.[c(-1,-2)])}else{.}} %>%
+            paste0(collapse = '&')
+        return(call)
+    }
     
-    # remove empty parameters
-    call<- call %>% stringr::str_split('&|\\?') %>% 
-        {.[[1]]} %>% {.[!grepl("\\=$",.)]} %>%
-        {if(length(.)>1){c(paste(.[1],.[2],sep = "?"),.[c(-1,-2)])}else{.}} %>%
-        paste0(collapse = '&')
+    call <- form_call()
+    # decide if we want to compress some parameters.
+    if(nchar(call)>getOption('gemma.URL.limit',5000) || getOption('gemma.always.compress', FALSE)){
+        envWhere$compressibles %>% 
+            lapply(function(x){
+                compressed <- compress_arg(envWhere[[x]])
+                envWhere[[x]] <- ifelse(nchar(compressed) < nchar(envWhere[[x]]) || getOption('gemma.always.compress', FALSE),
+                                        compressed,
+                                        envWhere[[x]])
+            })
+        call <- form_call()
+    }
+    
 
     if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
         requestExpr <- quote(httr::GET(

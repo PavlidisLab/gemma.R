@@ -1,3 +1,13 @@
+compress_arg <- function(arg){
+    temp <- tempfile()
+    cat(arg,file = temp,sep = ',')
+    R.utils::gzip(temp)
+    compressed_arg <-  base64enc::base64encode(paste0(temp,'.gz'))
+    unlink(paste0(temp,'.gz'))
+    return(compressed_arg)
+}
+
+
 #' Validate identifiers (ie. gene ID, platform ID, etc.) that are homogeneous (either all numerics or all not)
 #'
 #' @param name The variable name
