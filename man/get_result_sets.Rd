@@ -18,7 +18,7 @@ get_result_sets(
 )
 }
 \arguments{
-\item{datasets}{A comma-delimited list of dataset IDs or short names. The value may be compressed with gzip and encoded with base64.}
+\item{datasets}{A vector of dataset IDs or short names}
 
 \item{resultSets}{A resultSet identifier. Note that result set identifiers
 are not static and can change when Gemma re-runs analyses internally. Whem

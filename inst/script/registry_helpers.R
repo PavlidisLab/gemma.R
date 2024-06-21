@@ -41,6 +41,8 @@ parse_open_api_params <- function(prm){
         out = prm$schema$oneOf %>% purrr::map_chr('description') %>%  
             gsub('.','',.,fixed=  TRUE) %>% paste(collapse = ' or ') %>% 
             snakecase::to_sentence_case()
+    } else if(!is.null(prm$schema$type)){
+        out = prm$schema$type
     } else{
         browser()
         stop('help me!')

@@ -96,7 +96,7 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' query across multiple datasets and being able to use the filter argument
 #' to search based on result set properties.
 #'
-#' @param datasets A comma-delimited list of dataset IDs or short names. The value may be compressed with gzip and encoded with base64.
+#' @param datasets A vector of dataset IDs or short names
 #' @param resultSets A resultSet identifier. Note that result set identifiers
 #' are not static and can change when Gemma re-runs analyses internally. Whem
 #' using these as inputs, try to make sure you access a currently existing
@@ -1399,6 +1399,148 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
     )
 }
 
+#' Retrieve the differential expression results for a given gene
+#'
+#'
+#'
+#' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
+#' @param query The search query. Queries can include plain text or ontology
+#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
+#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
+#' ("BRCA?") and fuzzy matches ("alpha~").
+#' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
+#' function to get a list of all available parameters. These properties can be
+#' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+#' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
+#' @param threshold number
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @return Varies
+#' @export
+#'
+#' @keywords gene
+#'
+#' @examples
+get_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
+    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    compressibles <- "filter"
+    open_api_name <- "get_datasets_differential_analysis_results_expression_for_gene"
+    internal <- FALSE
+    keyword <- "gene"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_gene_differential_expression_values"
+    preprocessor <- function(data) {
+        return(data)
+    }
+    validators <- list(gene = function(name, ...) {
+        ID <- unlist(list(...))
+        if (length(ID) > 1) {
+            stop(glue::glue("Please specify one valid identifier for {name}."),
+                call. = FALSE
+            )
+        }
+        validateID(name, ...)
+    }, query = function(name, ...) {
+        if (all(is.na(as.character(unlist(list(...)))))) {
+            ""
+        } else {
+            validateSingleQuery(name, ...)
+        }
+    }, filter = function(name, ...) {
+        filter <- unlist(list(...))
+        assertthat::assert_that(is.null(filter) || is.na(filter) ||
+            assertthat::is.string(filter), msg = "filter must be a string of length one")
+        if (is.null(filter) || is.na(filter)) {
+            filter <- ""
+        }
+        env <- parent.frame()
+        if (!(all(is.na(env$original_env$taxa)) || is.null(env$original_env$taxa))) {
+            filter <- addToFilter(
+                filter, "taxon.commonName",
+                env$original_env$taxa
+            )
+        }
+        if (!(all(is.na(env$original_env$uris)) || is.null(env$original_env$uris))) {
+            filter <- addToFilter(
+                filter, "allCharacteristics.valueUri",
+                env$original_env$uris
+            )
+        }
+        if (!(all(is.na(env$original_env$resultSets)) || is.null(env$original_env$resultSets)) &&
+            env$fname == "get_result_sets") {
+            filter <- addToFilter(filter, "id", env$original_env$resultSets)
+        }
+        return(filter)
+    }, threshold = function(name, ...) {
+        number <- unlist(list(...))
+        if (length(number) > 1 || typeof(number) != "double") {
+            stop(glue::glue("{name} must be a double of length one"))
+        }
+        return(number)
+    })
+    endpoint <- "datasets/analyses/differential/results/gene/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_gene_differential_expression_values",
+                gene = gene, query = query, filter = filter,
+                threshold = threshold, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
+            ))
+        } else {
+            out <- memget_gene_differential_expression_values(
+                gene = gene,
+                query = query, filter = filter, threshold = threshold,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_gene_differential_expression_values
+#'
+#' @noRd
+memget_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
+    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
+    mem_call <- memoise::memoise(get_gene_differential_expression_values,
+        cache = gemmaCache()
+    )
+    mem_call(
+        gene = gene, query = query, filter = filter, threshold = threshold,
+        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+    )
+}
+
 #' Retrieve the GO terms associated to a gene
 #'
 #'
@@ -1675,7 +1817,7 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
 #'
 #'
 #'
-#' @param genes A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols. The value may be compressed with gzip and encoded with base64.
+#' @param genes A vector of NCBI IDs, Ensembl IDs or gene symbols.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.

@@ -562,6 +562,29 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 # datasets/categories -----
 # currently unimplemented
 
+# datasets/analyses/differential/results/gene/{gene}
+
+
+registerEndpoint("datasets/analyses/differential/results/gene/{gene}?&query={query}&filter={filter}&threshold={threshold}",
+                 "get_gene_differential_expression_values",
+                 open_api_name = "get_datasets_differential_analysis_results_expression_for_gene",
+                 keyword = 'gene',
+                 defaults = list(
+                     gene = bquote(),
+                     query = NA_character_,
+                     filter = NA_character_,
+                     threshold = 1
+                 ),
+                 compressibles = c('filter'),
+                 validators = c(
+                     gene = validateSingleID,
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     threshold = validateNumber
+                 ),
+                 preprocessor = blank_processor)
+
+
 # datasets/taxa -----
 # currently unimplemented
 
