@@ -181,12 +181,18 @@ processDEA <- function(d) {
                 # if more than 2 factors are present take a look at the the other
                 # factor values to idenfity the baseline values
 
+                # order the factors based on their ids
+                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map_int('id')
+                factor_order <- order(factor_ids)
+                d[[i]]$resultSets[[j]]$experimentalFactors <- d[[i]]$resultSets[[j]]$experimentalFactors[factor_order]
+                factor_ids <- factor_ids[factor_order]
+                
+                
                 ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>%
                     purrr::map('values')  %>%
                     purrr::map(function(x){x %>% accessField('id')}) %>%
                     expand.grid()
 
-                factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map_int('id')
                 names(ids) <- factor_ids
                 
                 baseline_ids <- d[[i]]$resultSets %>% lapply(function(x){
@@ -317,11 +323,18 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
         } else{
             # if more than 2 factors are present take a look at the the other
             # factor values to idenfity the baseline values
+            
+            # order the factors based on their ids
+            factor_ids <- x$experimentalFactors %>% purrr::map_int('id')
+            factor_order <- order(factor_ids)
+            x$experimentalFactors <- x$experimentalFactors[factor_order]
+            factor_ids <- factor_ids[factor_order]
+            
+            
             ids <- x$experimentalFactors %>% purrr::map('values') %>% 
                 purrr::map(function(x){x %>% accessField('id')}) %>% 
                 expand.grid()
             
-            factor_ids <- x$experimentalFactors %>% purrr::map_int('id')
             names(ids) <- factor_ids
             
             
