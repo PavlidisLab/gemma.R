@@ -772,6 +772,7 @@ gemma_call <- function(call,...,json = TRUE){
 #' @keywords misc
 #' @export
 get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NULL, file = getOption("gemma.file", NA_character_),overwrite = getOption("gemma.overwrite", FALSE)){
+    
     current_env <-  rlang::env_clone(environment())
     current_env$query <- NULL
     attr <- attributes(query)
@@ -781,11 +782,13 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
     args_used <- attr$env %>% as.list() %>% {.[names(args)]}
     args_used$limit <- step_size
     args_used$overwrite <- overwrite
-
-    out <- lapply(seq(0,count,step_size),function(offset){
+    
+    out <- list()
+    offset <- 0
+    while (TRUE){
         step_args <- args_used
         step_args$offset <- offset
-
+        
         if(!is.null(directory)){
             step_args$file <- file.path(directory,offset)
         } else{
@@ -793,9 +796,33 @@ get_all_pages <- function(query, step_size = 100,binder = rbind,directory  = NUL
             # each call
             step_args$file <- NA_character_
         }
+        step_out <- do.call(attr$env$fname,step_args)
         
-        do.call(attr$env$fname,step_args)
-    }) %>% do.call(binder,.)
+        if(('data.frame' %in% class(step_out) && nrow(step_out) > 0) || ("list" %in% class(step_out) && length(step_out) > 0)){
+            out[[as.character(offset)]] = step_out
+            offset <- offset + step_size
+        } else{
+            break
+        }
+    }
+    
+    out <- do.call(binder, out)
+    
+
+    # out <- lapply(seq(0,count,step_size),function(offset){
+    #     step_args <- args_used
+    #     step_args$offset <- offset
+    # 
+    #     if(!is.null(directory)){
+    #         step_args$file <- file.path(directory,offset)
+    #     } else{
+    #         # file argument should not be preserved since it'll overwrite itself in
+    #         # each call
+    #         step_args$file <- NA_character_
+    #     }
+    #     
+    #     do.call(attr$env$fname,step_args)
+    # }) %>% do.call(binder,.)
     
     if(!is.null(file) && !is.na(file)){
         if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
