@@ -568,7 +568,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 #' 
 NULL
 
-registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}",
+registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
                  "get_gene_differential_expression_values",
                  open_api_name = "get_datasets_differential_analysis_results_expression_for_gene",
                  keyword = 'gene',
@@ -577,6 +577,8 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
                      gene = bquote(),
                      query = NA_character_,
                      filter = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
                      threshold = 1
                  ),
                  compressibles = c('filter'),
@@ -584,9 +586,11 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
                      gene = validateSingleID,
                      query = validateOptionalQuery,
                      filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
                      threshold = validateNumber
                  ),
-                 preprocessor = quote(blank_processor)
+                 preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject)
                  )
 
 

@@ -8,6 +8,8 @@ get_gene_differential_expression_values(
   gene,
   query = NA_character_,
   filter = NA_character_,
+  offset = 0L,
+  limit = 20L,
   threshold = 1,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
@@ -25,6 +27,11 @@ grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard character
 function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
+
+\item{limit}{Defaults to 20. Limits the result to specified amount
+of objects. Has a maximum value of 100. Use together with \code{offset} and
+the \code{totalElements} \link[base:attributes]{attribute} in the output to
+compile all data if needed.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are

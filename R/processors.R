@@ -1040,6 +1040,54 @@ processQuantitationTypeValueObject <- function(d){
     )
 }
 
+
+processDifferentialExpressionAnalysisResultByGeneValueObject <- function(d){
+    
+    result_set_ids <- d %>% purrr::map_int('resultSetId')
+    
+    result_sets <- get_result_sets(resultSets = result_set_ids) %>% 
+        get_all_pages()
+    
+    
+    d %>% lapply(function(result){
+        
+        ids <- result$contrasts %>% purrr::map('factorValue') %>% accessField('id')
+        factor_id <- result$contrasts %>% purrr::map('factorValue') %>% accessField('experimentalFactorId')
+        
+        second_ids <- result$contrasts %>% purrr::map('secondFactorValue') %>% accessField('id')
+        second_factor_id <- result$contrasts %>% purrr::map('secondFactorValue') %>% accessField('experimentalFactorId')
+        
+        if(!all(is.na(second_ids))){
+            ids <- cbind(ids,second_ids)
+            factor_id <- cbind(factor_id,second_factor_id)
+            
+            # a single result set should have the same factor ids
+            assertthat::assert_that(nrow(factor_id %>% unique) == 1)
+            factor_order <- factor_id %>% {.[1,]} %>% order
+            ids <- ids[,factor_order]
+            factor_id <- factor_id[1,factor_order] %>% paste(collapse = ',')
+            ids <- apply(ids,1,paste,collapse = "_")
+            
+        }
+        
+        assertthat::assert_that(all(ids %in% result_sets$contrast.ID))
+        
+        result_set_subset <- result_sets[match(ids,result_sets$contrast.ID),]
+        
+        
+        data.table(result_set_subset,
+                   result_corrected_pValue = result$correctedPvalue,
+                   result_rank = result$rank,
+                   pValue = result$contrasts %>% accessField('pvalue'),
+                   logFoldChange = result$contrasts %>% accessField('logFoldChange'),
+                   tstat = result$contrasts %>% accessField('tstat')
+        )
+        
+        
+    }) %>% do.call(rbind,.)
+    
+}
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()

@@ -1412,6 +1412,11 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 #' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
+#' @param offset
+#' @param limit Defaults to 20. Limits the result to specified amount
+#' of objects. Has a maximum value of 100. Use together with \code{offset} and
+#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
+#' compile all data if needed.
 #' @param threshold
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
@@ -1433,11 +1438,14 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #'
 #' @examples
 get_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+    offset = 0L, limit = 20L, threshold = 1, raw = getOption(
+        "gemma.raw",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    ), memoised = getOption("gemma.memoised", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     compressibles <- "filter"
     open_api_name <- "get_datasets_differential_analysis_results_expression_for_gene"
     internal <- FALSE
@@ -1445,7 +1453,7 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
     header <- ""
     isFile <- FALSE
     fname <- "get_gene_differential_expression_values"
-    preprocessor <- blank_processor
+    preprocessor <- processDifferentialExpressionAnalysisResultByGeneValueObject
     validators <- list(gene = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
@@ -1485,6 +1493,30 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
             filter <- addToFilter(filter, "id", env$original_env$resultSets)
         }
         return(filter)
+    }, offset = function(name, ...) {
+        args <- list(...)
+        if (length(unlist(args)) != 1 || any(is.na(unlist(args))) ||
+            !is.numeric(unlist(args)) || any(vapply(args, "%%",
+            1,
+            FUN.VALUE = numeric(1)
+        ) != 0) || any(vapply(args,
+            sign,
+            FUN.VALUE = numeric(1)
+        ) < 0)) {
+            stop(glue::glue("Please only specify positive integer values for {name}."),
+                call. = FALSE
+            )
+        }
+        unlist(args)
+    }, limit = function(name, ...) {
+        validatePositiveInteger(name, ...)
+        args <- list(...)
+        if (unlist(args) <= 0 || unlist(args) > 100) {
+            stop(glue::glue("Please specify a limit between 1 and 100 (inclusive)"),
+                call. = FALSE
+            )
+        }
+        unlist(args)
     }, threshold = function(name, ...) {
         number <- unlist(list(...))
         if (length(number) > 1 || typeof(number) != "double") {
@@ -1492,7 +1524,7 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
         }
         return(number)
     })
-    endpoint <- "datasets/analyses/differential/results/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}"
+    endpoint <- "datasets/analyses/differential/results/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}&offset={encode(offset)}&limit={encode(limit)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -1501,14 +1533,15 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
             "cache_in_memory") {
             return(mem_in_memory_cache("get_gene_differential_expression_values",
                 gene = gene, query = query, filter = filter,
-                threshold = threshold, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
+                offset = offset, limit = limit, threshold = threshold,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_gene_differential_expression_values(
                 gene = gene,
-                query = query, filter = filter, threshold = threshold,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                query = query, filter = filter, offset = offset,
+                limit = limit, threshold = threshold, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
@@ -1525,17 +1558,21 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
 #'
 #' @noRd
 memget_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
+    offset = 0L, limit = 20L, threshold = 1, raw = getOption(
+        "gemma.raw",
         FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
+    ), memoised = getOption("gemma.memoised", FALSE),
+    file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
     mem_call <- memoise::memoise(get_gene_differential_expression_values,
         cache = gemmaCache()
     )
     mem_call(
-        gene = gene, query = query, filter = filter, threshold = threshold,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+        gene = gene, query = query, filter = filter, offset = offset,
+        limit = limit, threshold = threshold, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
     )
 }
 
