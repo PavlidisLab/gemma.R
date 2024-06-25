@@ -1399,11 +1399,11 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
     )
 }
 
-#' Retrieve the differential expression results for a given gene
+#' get_gene_differential_expression_values
 #'
 #'
 #'
-#' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
+#' @param gene
 #' @param query The search query. Queries can include plain text or ontology
 #' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 #' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
@@ -1412,7 +1412,7 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 #' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
-#' @param threshold number
+#' @param threshold
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1445,9 +1445,7 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
     header <- ""
     isFile <- FALSE
     fname <- "get_gene_differential_expression_values"
-    preprocessor <- function(data) {
-        return(data)
-    }
+    preprocessor <- blank_processor
     validators <- list(gene = function(name, ...) {
         ID <- unlist(list(...))
         if (length(ID) > 1) {
@@ -1494,7 +1492,7 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
         }
         return(number)
     })
-    endpoint <- "datasets/analyses/differential/results/gene/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}"
+    endpoint <- "datasets/analyses/differential/results/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")

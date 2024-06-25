@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_differential_expression_values}
 \alias{get_gene_differential_expression_values}
-\title{Retrieve the differential expression results for a given gene}
+\title{get_gene_differential_expression_values}
 \usage{
 get_gene_differential_expression_values(
   gene,
@@ -16,8 +16,6 @@ get_gene_differential_expression_values(
 )
 }
 \arguments{
-\item{gene}{An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc}
-
 \item{query}{The search query. Queries can include plain text or ontology
 terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
@@ -27,8 +25,6 @@ grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard character
 function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
-
-\item{threshold}{number}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
@@ -50,6 +46,6 @@ filename.}
 Varies
 }
 \description{
-Retrieve the differential expression results for a given gene
+get_gene_differential_expression_values
 }
 \keyword{gene}
