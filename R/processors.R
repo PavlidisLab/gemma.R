@@ -1052,6 +1052,14 @@ processDifferentialExpressionAnalysisResultByGeneValueObject <- function(d){
     d %>% lapply(function(result){
         
         ids <- result$contrasts %>% purrr::map('factorValue') %>% accessField('id')
+        
+        # measurment factors will have their factorValues depopulated...
+        # for now, we remove them
+        if(all(is.na(ids))){
+            return(NULL)
+        }
+        
+        
         factor_id <- result$contrasts %>% purrr::map('factorValue') %>% accessField('experimentalFactorId')
         
         second_ids <- result$contrasts %>% purrr::map('secondFactorValue') %>% accessField('id')
@@ -1069,7 +1077,8 @@ processDifferentialExpressionAnalysisResultByGeneValueObject <- function(d){
             ids <- apply(ids,1,paste,collapse = "_")
             
         }
-        
+
+ 
         assertthat::assert_that(all(ids %in% result_sets$contrast.ID))
         
         result_set_subset <- result_sets[match(ids,result_sets$contrast.ID),]
