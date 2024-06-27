@@ -127,15 +127,13 @@ mem.getResultSets <- function(resultSet = NA_character_, raw = getOption(
 #' filename.
 #'
 #' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
-#' @export
-#'
-#' @keywords misc
+#' @keywords internal
 #'
 #' @examples
 #' get_result_sets(dataset = 1)
 #' # get all contrasts comparing disease states. use filter_properties to see avaialble options
 #' get_result_sets(filter = "baselineGroup.characteristics.value = disease")
-get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_,
+.get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_,
     filter = NA_character_, offset = 0, limit = 20, sort = "+id",
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
@@ -144,11 +142,11 @@ get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_
     overwrite = getOption("gemma.overwrite", FALSE)) {
     compressibles <- "filter"
     open_api_name <- "get_result_sets"
-    internal <- FALSE
+    internal <- TRUE
     keyword <- "misc"
     header <- ""
     isFile <- FALSE
-    fname <- "get_result_sets"
+    fname <- ".get_result_sets"
     preprocessor <- processDifferentialExpressionAnalysisResultSetValueObject
     validators <- list(
         datasets = validateOptionalID, resultSets = validateOptionalID,
@@ -162,14 +160,14 @@ get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_
         }
         if ("character" %in% class(gemmaCache()) && gemmaCache() ==
             "cache_in_memory") {
-            return(mem_in_memory_cache("get_result_sets",
+            return(mem_in_memory_cache(".get_result_sets",
                 datasets = datasets,
                 resultSets = resultSets, filter = filter, offset = offset,
                 limit = limit, sort = sort, raw = raw, memoised = FALSE,
                 file = file, overwrite = overwrite
             ))
         } else {
-            out <- memget_result_sets(
+            out <- mem.get_result_sets(
                 datasets = datasets, resultSets = resultSets,
                 filter = filter, offset = offset, limit = limit,
                 sort = sort, raw = raw, memoised = FALSE, file = file,
@@ -186,17 +184,17 @@ get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_
     )
 }
 
-#' Memoise get_result_sets
+#' Memoise .get_result_sets
 #'
 #' @noRd
-memget_result_sets <- function(datasets = NA_character_, resultSets = NA_character_,
+mem.get_result_sets <- function(datasets = NA_character_, resultSets = NA_character_,
     filter = NA_character_, offset = 0, limit = 20, sort = "+id",
     raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(get_result_sets, cache = gemmaCache())
+    mem_call <- memoise::memoise(.get_result_sets, cache = gemmaCache())
     mem_call(
         datasets = datasets, resultSets = resultSets, filter = filter,
         offset = offset, limit = limit, sort = sort, raw = raw,

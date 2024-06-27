@@ -971,3 +971,145 @@ update_result<- function(query){
         return(do.call(get_all_pages,pages_args_used))
     }
 }
+
+
+#' Retrieve all result sets matching the provided criteria
+#'
+#' Returns queried result set
+#'
+#' @details Output and usage of this function is mostly identical to \code{\link{get_dataset_differential_expression_analyses}}.
+#' The principal difference being the ability to restrict your result sets, being able to
+#' query across multiple datasets and being able to use the filter argument
+#' to search based on result set properties.
+#'
+#' @param datasets A vector of dataset IDs or short names
+#' @param resultSets A resultSet identifier. Note that result set identifiers
+#' are not static and can change when Gemma re-runs analyses internally. Whem
+#' using these as inputs, try to make sure you access a currently existing
+#' result set ID by basing them on result sets returned for a particular dataset or
+#' filter used in \code{\link{get_result_sets}}
+#' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
+#' function to get a list of all available parameters. These properties can be
+#' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
+#' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
+#' @param sort Order results by the given property and direction. The '+' sign
+#' indicate ascending order whereas the '-' indicate descending.
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
+#' @export
+#'
+#' @keywords misc
+#'
+#' @examples
+#' get_result_sets(dataset = 1)
+#' # get all contrasts comparing disease states. use filter_properties to see avaialble options
+#' get_result_sets(filter = "baselineGroup.characteristics.value = disease")
+get_result_sets <- function(datasets = NA_character_,
+                             resultSets = NA_character_,
+                             filter = NA_character_,
+                             sort = '+id',
+                             raw = getOption("gemma.raw", FALSE),
+                             memoised = getOption("gemma.memoised", FALSE),
+                             file = getOption("gemma.file", NA_character_),
+                             overwrite = getOption("gemma.overwrite", FALSE) ){
+    # GSE2178 (id 14) is a good example to test this with 78 values in output
+    
+    output <- .get_result_sets(datasets = datasets,
+                               resultSets = resultSets,
+                               filter = filter,
+                               sort = sort,
+                               raw = TRUE,limit = 100,
+                               offset = 0,
+                               memoised = memoised,
+                               file = NA_character_)
+    
+    needPages <- output %>% purrr::map('experimentalFactors') %>% 
+        purrr::map(\(x){x %>% purrr::map('values')}) %>%
+        unlist(recursive = FALSE) %>% unlist(recursive = FALSE) %>% length %>%
+        {.>=100}
+    
+    if(needPages){
+        all_pages <- output %>% get_all_pages(binder = list)
+        # merging last element of the previous page with the first element
+        # of the next
+        for(i in seq(2,length(all_pages))){
+            last_elem <- all_pages[[i-1]][[length(all_pages[[i-1]])]]
+            first_elem <- all_pages[[i]][[1]]
+            
+            # if this is the case the division was perfect
+            if(first_elem$id != last_elem$id){
+                next
+            }
+            
+            last_elem_ids <- last_elem$experimentalFactors %>% purrr::map_int('id')
+            first_elem_ids <- first_elem$experimentalFactors %>% purrr::map_int('id')
+            
+            common <- intersect(last_elem_ids,first_elem_ids)
+            uncommon <- first_elem_ids[!first_elem_ids %in% common]
+            
+            for(j in common){
+                factor_to_fix <- last_elem$experimentalFactors[[which(last_elem_ids == j)]]
+                factor_to_add <- first_elem$experimentalFactors[[which(first_elem_ids == j)]]
+                testthat::expect_identical(
+                    factor_to_fix[names(factor_to_fix)[!names(factor_to_fix) %in%  c('values','factorValues')]], 
+                    factor_to_add[names(factor_to_add)[!names(factor_to_add)%in%  c('values','factorValues')]])
+                # this output isn't very useful but for completion's sake...
+                # the overlap check below isn't included here. TODO
+                factor_to_fix$factorValues <- paste(factor_to_fix$factorValues,factor_to_add$factorValues,sep = ', ')
+                
+                factor_to_add_ids <- factor_to_add$values %>% purrr::map_int('id')
+                factor_to_fix_ids <- factor_to_fix$values %>% purrr::map_int('id')
+                
+                # if there is overlap, they must be identical. pagination is 
+                # supposed to prevent overlaps so ask guillaume
+                common_vals <- intersect(factor_to_add_ids,factor_to_fix_ids)
+                for(k in common_vals){
+                    common_in_add <- factor_to_add$values[[which(factor_to_add_ids == k)]]
+                    common_in_fix <- factor_to_fix$values[[which(factor_to_fix_ids == k)]]
+                    testthat::expect_identical(common_in_add,common_in_fix)
+                }
+                factor_to_add$values <- factor_to_add$values[!factor_to_add_ids %in% common_vals]
+                
+                factor_to_fix$values = c(factor_to_fix$values,factor_to_add$values)
+                # append the overlapping results to the first page, remove them from the second page
+                
+                last_elem$experimentalFactors[[which(last_elem_ids == j)]] = factor_to_fix
+                
+            }
+            
+            last_elem$experimentalFactors = c(last_elem$experimentalFactors,
+                                              first_elem$experimentalFactors[first_elem_ids %in% uncommon])
+            
+            all_pages[[i-1]][[length(all_pages[[i-1]])]] = last_elem
+            all_pages[[i]][[1]] = NULL
+        }
+        output <- do.call(c,all_pages)
+    }
+    
+    if(!raw){
+        output <- processDifferentialExpressionAnalysisResultSetValueObject(output)
+    }
+    
+    if (!is.null(file) && !is.na(file)) {
+        if (file.exists(file) && !overwrite && !file.info(file)$isdir) {
+            warning(file, " exists. Not overwriting.")
+        } else{
+            dir.create(dirname(file),showWarnings = FALSE,recursive = TRUE)
+            saveRDS(output, file)
+        }
+    }
+    
+    return(output)
+}
