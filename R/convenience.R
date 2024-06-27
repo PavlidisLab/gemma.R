@@ -349,7 +349,6 @@ get_dataset_object <- function(datasets,
     if (type != "eset" && type != "se" && type != 'tidy' && type != 'list') {
         stop("Please enter a valid type: 'se' for SummarizedExperiment, 'eset' for ExpressionSet, 'tidy' for a long form tibble, 'list' for an R list")
     }
-    
     unique_sets = unique(datasets)
 
     metadata <- unique_sets %>% lapply(function(dataset){
@@ -419,6 +418,7 @@ get_dataset_object <- function(datasets,
                                                        keepNonSpecific = keepNonSpecific,
                                                        consolidate = consolidate,
                                                        memoised = memoised)
+        names(expression) <-  unique_sets
     }
 
     # bit of a bottleneck
@@ -439,15 +439,27 @@ get_dataset_object <- function(datasets,
                  result_set = resultSets[i],
                  contrast = contrasts[i],
                  dat =  dat %>% dplyr::filter(experiment.ID==dataset | experiment.shortName == dataset))
+        
+        # create unique probe ids. needed for rownames and merging
+        # probe ids are usually unique but there are exceptions
+        unique_probes = packed_info$exp$Probe
+        append = integer(length(unique_probes))
+        dups = duplicated(unique_probes)
+        while(any(dups)){
+            append[dups] = append[dups]+1
+            dups = duplicated(paste0(unique_probes,append))
+        }
+        append[append==0] = ""
+        unique_probes = paste0(unique_probes,append)
+        packed_info$unique_probes = unique_probes
 
-
-        gene_info <- colnames(packed_info$exp)[!colnames(packed_info$exp) %in% rownames(packed_info$design)]
         # reorders the expression to match the metadata
         # no longer necesary
         # data.table::setcolorder(packed_info$exp,c(gene_info,rownames(packed_info$design)))
 
         if(!is.null(resultSets)){
             
+            gene_info <- colnames(packed_info$exp)[!colnames(packed_info$exp) %in% rownames(packed_info$design)]
             
             diff <- get_dataset_differential_expression_analyses(dataset,memoised = memoised)
             
@@ -475,14 +487,13 @@ get_dataset_object <- function(datasets,
         names(packed_data) <- packed_data %>% purrr::map('dat') %>% purrr::map_int('experiment.ID')
     }
 
-
     if (type == 'se'){
         out <- packed_data %>% lapply(function(data){
             exprM <- data$exp
             design <- data$design
-
-
-            rownames(exprM) <- exprM$Probe
+            rownames(exprM) <- data$unique_probes
+            
+            
             genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
@@ -518,8 +529,8 @@ get_dataset_object <- function(datasets,
             exprM <- data$exp
             design <- data$design
 
-
-            rownames(exprM) <- exprM$Probe
+            rownames(exprM) <- data$unique_probes
+            
             genes <- S4Vectors::DataFrame(exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]])
             exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
                 data.matrix()
@@ -556,23 +567,19 @@ get_dataset_object <- function(datasets,
         })
         names(out) <- datasets
     } else if(type == 'tidy'){
+       
         out <- packed_data %>% lapply(function(data){
-
             exprM <- data$exp
             design <- data$design
-
-            rownames(exprM) <- exprM$Probe
+            exprM$Probe = data$unique_probes
             genes <- exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]]
-            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
-                data.matrix()
+            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('GeneSymbol','GeneName','NCBIid')]]
 
-            exprM <- exprM[, match(rownames(design), colnames(exprM)),drop = FALSE]
+            exprM <- exprM[match(rownames(design), colnames(exprM)),drop = FALSE]
 
             design <- tibble::rownames_to_column(design, "Sample")
 
-
             frm <- exprM %>% as.data.frame %>%
-                tibble::rownames_to_column("Probe") %>%
                 tidyr::pivot_longer(-"Probe", names_to = "Sample", values_to = "expression") %>%
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
