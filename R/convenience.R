@@ -570,16 +570,19 @@ get_dataset_object <- function(datasets,
        
         out <- packed_data %>% lapply(function(data){
             exprM <- data$exp
-            design <- data$design
             exprM$Probe = data$unique_probes
+            design <- data$design
+            rownames(exprM) <- exprM$Probe
             genes <- exprM[,.SD,.SDcols = colnames(exprM)[colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]]
-            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('GeneSymbol','GeneName','NCBIid')]]
+            exprM <- exprM[,.SD,.SDcols = colnames(exprM)[!colnames(exprM) %in% c('Probe','GeneSymbol','GeneName','NCBIid')]] %>%
+                data.matrix()
 
-            exprM <- exprM[match(rownames(design), colnames(exprM)),drop = FALSE]
+            exprM <- exprM[,match(rownames(design), colnames(exprM)),drop = FALSE]
 
             design <- tibble::rownames_to_column(design, "Sample")
 
             frm <- exprM %>% as.data.frame %>%
+                tibble::rownames_to_column("Probe") %>% 
                 tidyr::pivot_longer(-"Probe", names_to = "Sample", values_to = "expression") %>%
                 dplyr::inner_join(genes, by ='Probe') %>%
                 dplyr::inner_join(design, by = "Sample") %>%
