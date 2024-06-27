@@ -24,7 +24,6 @@
 #'
 #' @author Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency
 #'
-#' @docType package
 #' @name gemma.R
 #'
 #' @import data.table
@@ -32,7 +31,8 @@
 #' @import digest
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
-NULL
+"_PACKAGE"
+
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if (getRversion() >= "2.15.1") utils::globalVariables(c("."))
