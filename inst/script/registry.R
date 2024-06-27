@@ -122,7 +122,7 @@ registerEndpoint(
 # not implemented, redundant with result sets.
 
 # /resultSets, get_result_sets -----
-#' get_result_sets
+#' .get_result_sets
 #' 
 #' Returns queried result set
 #' 
@@ -142,11 +142,38 @@ registerEndpoint(
 NULL
 
 
+# get_result_set output is paginated awkardly, it is downgraded to an internal function
+# with a high level processor with the same name
+# registerEndpoint(
+#     "resultSets?datasets={datasets}&filter={filter}&offset={offset}&limit={limit}&sort={sort}",
+#     "get_result_sets",open_api_name = 'get_result_sets',
+#     keyword = "misc",
+#     compressibles = 'filter',
+#     defaults = list(
+#         datasets = NA_character_,
+#         resultSets = NA_character_, 
+#         # database entires not supported for now.. not sure if there's a good use for them
+#         filter = NA_character_,
+#         offset = 0,
+#         limit = 20,
+#         sort = '+id'
+#     ),
+#     validators = alist(
+#         datasets = validateOptionalID,
+#         resultSets = validateOptionalID,
+#         filter = validateFilter,
+#         offset = validatePositiveInteger,
+#         limit = validateLimit,
+#         sort = validateSort
+#     ),
+#     preprocessor = quote(processDifferentialExpressionAnalysisResultSetValueObject)
+# )
 
 registerEndpoint(
     "resultSets?datasets={datasets}&filter={filter}&offset={offset}&limit={limit}&sort={sort}",
-    "get_result_sets",open_api_name = 'get_result_sets',
+    ".get_result_sets",open_api_name = 'get_result_sets',
     keyword = "misc",
+    internal = TRUE,
     compressibles = 'filter',
     defaults = list(
         datasets = NA_character_,
