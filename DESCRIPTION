@@ -46,9 +46,9 @@ Imports:
     assertthat,
     digest,
     R.utils,
-    base64enc,
-    testthat (>= 2.0.0)
+    base64enc
 Suggests: 
+    testthat (>= 2.0.0),
     rmarkdown,
     knitr,
     dplyr,
