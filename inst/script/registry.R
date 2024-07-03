@@ -46,7 +46,7 @@ names(overrides) = overrides %>% sapply(function(x){
 })
 
 
-res = httr::GET('https://gemma.msl.ubc.ca/rest/v2/openapi.json')
+res = httr::GET(paste0(gemmaPath(),'openapi.json'))
 writeBin(res$content,con = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
@@ -131,6 +131,7 @@ registerEndpoint(
 #' query across multiple datasets and being able to use the filter argument
 #' to search based on result set properties.
 #' 
+#' @param datasets A vector of dataset IDs or short names
 #'
 #' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
 #'
@@ -294,6 +295,9 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 # /datasets/{datasets}/expressions/genes/{genes}, get_dataset_expression_for_genes ------
 
 #' get_dataset_expression_for_genes
+#' 
+#' @param datasets A vector of dataset IDs or short names
+#' @param genes A vector of NCBI IDs, Ensembl IDs or gene symbols.
 #' @param consolidate An option for gene expression level consolidation. If empty,
 #' will return every probe for the genes. "pickmax" to
 #' pick the probe with the highest expression, "pickvar" to pick the prove with
@@ -635,6 +639,9 @@ registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
 # genes/{genes}, get_genes-------
 
 #' get_genes
+#'
+#'
+#' @param genes A vector of NCBI IDs, Ensembl IDs or gene symbols.
 #'
 #' @inherit processGenes return
 #'
