@@ -322,3 +322,13 @@ addToFilter <- function(filter,property,terms){
     filter <- glue::glue("{filter}{property} in ({paste(terms,collapse = ',')})")
     return(filter)
 }
+
+validateNumber = function(name,...){
+    number = unlist(list(...))
+    
+    if(length(number)>1 || typeof(number)!= 'double'){
+        stop(glue::glue("{name} must be a double of length one"))
+    }
+    
+    return(number)
+}

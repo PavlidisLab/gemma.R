@@ -17,9 +17,9 @@ get_dataset_object(
 )
 }
 \arguments{
-\item{datasets}{A numerical dataset identifier or a dataset short name}
+\item{datasets}{A vector of dataset IDs or short names}
 
-\item{genes}{An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc}
+\item{genes}{A vector of NCBI IDs, Ensembl IDs or gene symbols.}
 
 \item{keepNonSpecific}{logical. \code{FALSE} by default. If \code{TRUE}, results
 from probesets that are not specific to the gene will also be returned.}

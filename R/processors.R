@@ -1040,6 +1040,12 @@ processQuantitationTypeValueObject <- function(d){
     )
 }
 
+processDifferentialExpressionAnalysisResultByGeneValueObject <- function(data){
+    browser()
+    return(data)
+}
+
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()

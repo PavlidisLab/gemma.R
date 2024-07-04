@@ -311,7 +311,7 @@ NULL
 
 
 registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_datasets_expression_levels_for_genes',
                  keyword = 'dataset',
                  defaults = list(
                      datasets = bquote(),
@@ -561,6 +561,36 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 
 # datasets/categories -----
 # currently unimplemented
+
+# /datasets/analyses/differential/results/genes/gene
+registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
+                 "get_gene_differential_expression_values",
+                 open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
+                 keyword = 'gene',
+                 header = "text/tab-separated-values",
+                 defaults = list(
+                     gene = bquote(),
+                     query = NA_character_,
+                     filter = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     threshold = 1
+                 ),
+                 compressibles = c('filter'),
+                 validators = c(
+                     gene = validateSingleID,
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     threshold = validateNumber
+                 ),
+                 preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject)
+)
+
+
+# /datasets/analyses/differential/results/taxa/{taxon}/genes/gene
+# unimplemented along with other taxon specific endpoints
 
 # datasets/taxa -----
 # currently unimplemented
@@ -959,7 +989,7 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     
     styler::style_file("./R/allEndpoints.R", transformers = biocthis::bioc_style())
     devtools::document()
-    devtools::build(vignettes = FALSE)
+    # devtools::build(vignettes = FALSE)
 }
 
 doFinalize()
