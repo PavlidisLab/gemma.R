@@ -562,7 +562,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 # datasets/categories -----
 # currently unimplemented
 
-# /datasets/analyses/differential/results/genes/gene
+# /datasets/analyses/differential/results/genes/{gene} -----------
 registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
                  "get_gene_differential_expression_values",
                  open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
@@ -589,8 +589,37 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
 )
 
 
-# /datasets/analyses/differential/results/taxa/{taxon}/genes/gene
+# /datasets/analyses/differential/results/taxa/{taxon}/genes/gene ----
 # unimplemented along with other taxon specific endpoints
+
+# /datasets/expressions/genes/{gene} -------
+registerEndpoint("datasets/expressions/genes/{gene}?&query={query}&filter={filter}&offset={offset}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
+                 "get_gene_expression_levels",
+                 open_api_name = "get_datasets_expression_levels_for_gene",
+                 keyword = 'gene',
+                 # header = "text/tab-separated-values",
+                 defaults = list(
+                     gene = bquote(),
+                     query = NA_character_,
+                     filter = NA_character_,
+                     offset = 0L,
+                     limit = 20L,
+                     keepNonSpecific = FALSE,
+                     consolidate = NA_character_
+                 ),
+                 compressibles = c('filter'),
+                 validators = c(
+                     gene = validateSingleID,
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     offset = validatePositiveInteger,
+                     limit = validateLimit,
+                     keepNonSpecific = validateBoolean,
+                     consolidate = validateConsolidate),
+                 preprocessor = quote(processExperimentExpressionLevelsValueObject)
+)
+
+
 
 # datasets/taxa -----
 # currently unimplemented
