@@ -1040,11 +1040,76 @@ processQuantitationTypeValueObject <- function(d){
     )
 }
 
-processDifferentialExpressionAnalysisResultByGeneValueObject <- function(data){
-    browser()
-    return(data)
-}
+# processDifferentialExpressionAnalysisResultByGeneValueObject <- function(data){
+#     return(data)
+# }
 
+#' processDifferentialExpressionAnalysisResultByGeneValueObject_tsv
+#' 
+#' @return A data.table containing differential expression results. This table
+#' is stripped down some relevant information for speed of execution. Details about
+#' the contrasts can be accessesed via \code{\link{get_result_sets} function
+#' 
+#' The fields of the output data.table are:
+#'  
+#'  \itemize{
+#'     \item \code{result.ID}: Result set ID of the differential expression analysis.
+#'     May represent multiple factors in a single model.
+#'     \item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
+#'     they uniquely represent a given contrast.
+#'     \item \code{experiment.ID}: Id of the source experiment
+#'     \item \code{factor.coefficient}: Model coefficient calculated for the specific contrast factor
+#'     \item \code{factor.logfc}: Log 2 fold change calculated for the specific contrast factor
+#'     \item \code{factor.pvalue}: p values calculated for the specific contrast factor
+#'  }  
+processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(content){
+    attr <- attributes(content)
+    attributes(content)<- NULL
+    ret <- read_gzipped_tsv(content)
+    
+    contrast_data <- ret$contrasts %>% strsplit(' ')
+    
+    contrast_counts <- purrr::map_int(contrast_data,length)
+    
+    contrast.ID <- contrast_data %>% purrr::map(function(x){
+        stringr::str_extract(x,'factor=[0-9:]*') %>%
+            gsub('factor=',"",.) %>% strsplit(':') %>% purrr::map(sort) %>% 
+            purrr::map(paste,collapse='_') %>% unlist
+    }) %>% unlist
+    
+    factor_bit <- function(property){
+        extract <- glue::glue('{property}=-*[0-9.]*')
+        sub <- glue::glue('{property}=')
+        
+        contrast_data %>% purrr::map(function(x){
+            stringr::str_extract(x,extract) %>%
+                gsub(sub,"",.)
+        }) %>% unlist %>% as.numeric
+    }
+    
+    factor.coefficient <- factor_bit('coefficient')
+    factor.logfc <- factor_bit('log2fc')
+    factor.tstat <- factor_bit('tstat')
+    factor.pvalue <- factor_bit('pvalue')
+    
+    rep_indiv <- function (vc, n) {
+        assertthat::assert_that(length(vc) == length(n))
+        output<- seq_along(vc) %>% lapply(function(i){
+            rep(vc[i],n[i])
+        }) %>% do.call(c,.)
+        return(output)
+    }
+    
+    data.table(
+        result.ID = rep_indiv(ret$result_set_id,contrast_counts),
+        contrast.ID = contrast.ID,
+        experiment.ID = rep_indiv(ret$source_experiment_id,contrast_counts),
+        factor.coefficient = factor.coefficient,
+        factor.logfc = factor.logfc,
+        factor.pvalue = factor.pvalue
+    )
+    
+}
 
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix

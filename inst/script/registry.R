@@ -311,7 +311,7 @@ NULL
 
 
 registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'get_dataset_expression_for_genes', open_api_name = 'get_datasets_expression_levels_for_genes',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
                  keyword = 'dataset',
                  defaults = list(
                      datasets = bquote(),
@@ -563,29 +563,60 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 # currently unimplemented
 
 # /datasets/analyses/differential/results/genes/{gene} -----------
-registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
+
+#' get_gene_differential_expression_values
+#' 
+#' @inherit processDifferentialExpressionAnalysisResultByGeneValueObject_tsv return
+#' 
+#' 
+NULL
+
+# registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
+#                  "get_gene_differential_expression_values",
+#                  open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
+#                  keyword = 'gene',
+#                  # header = "text/tab-separated-values",
+#                  defaults = list(
+#                      gene = bquote(),
+#                      query = NA_character_,
+#                      filter = NA_character_,
+#                      offset = 0L,
+#                      limit = 20L,
+#                      threshold = 1
+#                  ),
+#                  compressibles = c('filter'),
+#                  validators = alist(
+#                      gene = validateSingleID,
+#                      query = validateOptionalQuery,
+#                      filter = validateFilter,
+#                      offset = validatePositiveInteger,
+#                      limit = validateLimit,
+#                      threshold = validateNumber
+#                  ),
+#                  preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject)
+# )
+
+
+registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}",
                  "get_gene_differential_expression_values",
                  open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
                  keyword = 'gene',
                  header = "text/tab-separated-values",
+                 isFile = TRUE,
                  defaults = list(
                      gene = bquote(),
                      query = NA_character_,
                      filter = NA_character_,
-                     offset = 0L,
-                     limit = 20L,
                      threshold = 1
                  ),
                  compressibles = c('filter'),
-                 validators = c(
+                 validators = alist(
                      gene = validateSingleID,
                      query = validateOptionalQuery,
                      filter = validateFilter,
-                     offset = validatePositiveInteger,
-                     limit = validateLimit,
                      threshold = validateNumber
                  ),
-                 preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject)
+                 preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject_tsv)
 )
 
 
@@ -593,31 +624,32 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
 # unimplemented along with other taxon specific endpoints
 
 # /datasets/expressions/genes/{gene} -------
-registerEndpoint("datasets/expressions/genes/{gene}?&query={query}&filter={filter}&offset={offset}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
-                 "get_gene_expression_levels",
-                 open_api_name = "get_datasets_expression_levels_for_gene",
-                 keyword = 'gene',
-                 # header = "text/tab-separated-values",
-                 defaults = list(
-                     gene = bquote(),
-                     query = NA_character_,
-                     filter = NA_character_,
-                     offset = 0L,
-                     limit = 20L,
-                     keepNonSpecific = FALSE,
-                     consolidate = NA_character_
-                 ),
-                 compressibles = c('filter'),
-                 validators = c(
-                     gene = validateSingleID,
-                     query = validateOptionalQuery,
-                     filter = validateFilter,
-                     offset = validatePositiveInteger,
-                     limit = validateLimit,
-                     keepNonSpecific = validateBoolean,
-                     consolidate = validateConsolidate),
-                 preprocessor = quote(processExperimentExpressionLevelsValueObject)
-)
+# not in prod yet
+# registerEndpoint("datasets/expressions/genes/{gene}?&query={query}&filter={filter}&offset={offset}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
+#                  "get_gene_expression_levels",
+#                  open_api_name = "get_dataset_expression_for_genes",
+#                  keyword = 'gene',
+#                  # header = "text/tab-separated-values",
+#                  defaults = list(
+#                      gene = bquote(),
+#                      query = NA_character_,
+#                      filter = NA_character_,
+#                      offset = 0L,
+#                      limit = 20L,
+#                      keepNonSpecific = FALSE,
+#                      consolidate = NA_character_
+#                  ),
+#                  compressibles = c('filter'),
+#                  validators = c(
+#                      gene = validateSingleID,
+#                      query = validateOptionalQuery,
+#                      filter = validateFilter,
+#                      offset = validatePositiveInteger,
+#                      limit = validateLimit,
+#                      keepNonSpecific = validateBoolean,
+#                      consolidate = validateConsolidate),
+#                  preprocessor = quote(processExperimentExpressionLevelsValueObject)
+# )
 
 
 

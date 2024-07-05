@@ -614,7 +614,7 @@ get_dataset_expression_for_genes <- function(datasets, genes, keepNonSpecific = 
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     compressibles <- NULL
-    open_api_name <- "get_datasets_expression_levels_for_genes"
+    open_api_name <- "get_dataset_expression_for_genes"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1399,7 +1399,7 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
     )
 }
 
-#' Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
+#' Retrieve the differential expression results for a given gene
 #'
 #'
 #'
@@ -1412,11 +1412,6 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 #' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
-#' @param offset The offset of the first retrieved result.
-#' @param limit Defaults to 20. Limits the result to specified amount
-#' of objects. Has a maximum value of 100. Use together with \code{offset} and
-#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
-#' compile all data if needed.
 #' @param threshold number
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
@@ -1431,100 +1426,31 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' @param overwrite Whether or not to overwrite if a file exists at the specified
 #' filename.
 #'
-#' @return Varies
+#' @inherit processDifferentialExpressionAnalysisResultByGeneValueObject_tsv return
 #' @export
 #'
 #' @keywords gene
 #'
 #' @examples
 get_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, threshold = 1, raw = getOption(
-        "gemma.raw",
+    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     compressibles <- "filter"
     open_api_name <- "get_datasets_differential_expression_analysis_results_for_gene"
     internal <- FALSE
     keyword <- "gene"
     header <- "text/tab-separated-values"
-    isFile <- FALSE
+    isFile <- TRUE
     fname <- "get_gene_differential_expression_values"
-    preprocessor <- processDifferentialExpressionAnalysisResultByGeneValueObject
-    validators <- list(gene = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    }, query = function(name, ...) {
-        if (all(is.na(as.character(unlist(list(...)))))) {
-            ""
-        } else {
-            validateSingleQuery(name, ...)
-        }
-    }, filter = function(name, ...) {
-        filter <- unlist(list(...))
-        assertthat::assert_that(is.null(filter) || is.na(filter) ||
-            assertthat::is.string(filter), msg = "filter must be a string of length one")
-        if (is.null(filter) || is.na(filter)) {
-            filter <- ""
-        }
-        env <- parent.frame()
-        if (!(all(is.na(env$original_env$taxa)) || is.null(env$original_env$taxa))) {
-            filter <- addToFilter(
-                filter, "taxon.commonName",
-                env$original_env$taxa
-            )
-        }
-        if (!(all(is.na(env$original_env$uris)) || is.null(env$original_env$uris))) {
-            filter <- addToFilter(
-                filter, "allCharacteristics.valueUri",
-                env$original_env$uris
-            )
-        }
-        if (!(all(is.na(env$original_env$resultSets)) || is.null(env$original_env$resultSets)) &&
-            env$fname == "get_result_sets") {
-            filter <- addToFilter(filter, "id", env$original_env$resultSets)
-        }
-        return(filter)
-    }, offset = function(name, ...) {
-        args <- list(...)
-        if (length(unlist(args)) != 1 || any(is.na(unlist(args))) ||
-            !is.numeric(unlist(args)) || any(vapply(args, "%%",
-            1,
-            FUN.VALUE = numeric(1)
-        ) != 0) || any(vapply(args,
-            sign,
-            FUN.VALUE = numeric(1)
-        ) < 0)) {
-            stop(glue::glue("Please only specify positive integer values for {name}."),
-                call. = FALSE
-            )
-        }
-        unlist(args)
-    }, limit = function(name, ...) {
-        validatePositiveInteger(name, ...)
-        args <- list(...)
-        if (unlist(args) <= 0 || unlist(args) > 100) {
-            stop(glue::glue("Please specify a limit between 1 and 100 (inclusive)"),
-                call. = FALSE
-            )
-        }
-        unlist(args)
-    }, threshold = function(name, ...) {
-        number <- unlist(list(...))
-        if (length(number) > 1 || typeof(number) != "double") {
-            stop(glue::glue("{name} must be a double of length one"))
-        }
-        return(number)
-    })
-    endpoint <- "datasets/analyses/differential/results/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}&offset={encode(offset)}&limit={encode(limit)}"
+    preprocessor <- processDifferentialExpressionAnalysisResultByGeneValueObject_tsv
+    validators <- list(
+        gene = validateSingleID, query = validateOptionalQuery,
+        filter = validateFilter, threshold = validateNumber
+    )
+    endpoint <- "datasets/analyses/differential/results/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&threshold={encode(threshold)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -1533,15 +1459,14 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
             "cache_in_memory") {
             return(mem_in_memory_cache("get_gene_differential_expression_values",
                 gene = gene, query = query, filter = filter,
-                offset = offset, limit = limit, threshold = threshold,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                threshold = threshold, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_gene_differential_expression_values(
                 gene = gene,
-                query = query, filter = filter, offset = offset,
-                limit = limit, threshold = threshold, raw = raw,
-                memoised = FALSE, file = file, overwrite = overwrite
+                query = query, filter = filter, threshold = threshold,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
@@ -1558,207 +1483,16 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
 #'
 #' @noRd
 memget_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, threshold = 1, raw = getOption(
-        "gemma.raw",
+    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
         FALSE
-    ), memoised = getOption("gemma.memoised", FALSE),
-    file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+    ), file = getOption("gemma.file", NA_character_),
+    overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_gene_differential_expression_values,
         cache = gemmaCache()
     )
     mem_call(
-        gene = gene, query = query, filter = filter, offset = offset,
-        limit = limit, threshold = threshold, raw = raw, memoised = FALSE,
-        file = file, overwrite = overwrite
-    )
-}
-
-#' Retrieve the expression levels of a gene among datasets matching the provided query and filter
-#'
-#'
-#'
-#' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
-#' @param query The search query. Queries can include plain text or ontology
-#' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
-#' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
-#' ("BRCA?") and fuzzy matches ("alpha~").
-#' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
-#' function to get a list of all available parameters. These properties can be
-#' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
-#' (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")
-#' @param offset The offset of the first retrieved result.
-#' @param limit Defaults to 20. Limits the result to specified amount
-#' of objects. Has a maximum value of 100. Use together with \code{offset} and
-#' the \code{totalElements} \link[base:attributes]{attribute} in the output to
-#' compile all data if needed.
-#' @param keepNonSpecific boolean
-#' @param consolidate An option for gene expression level consolidation.
-#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
-#' parsing. Raw results usually contain additional fields and flags that are
-#' omitted in the parsed results.
-#' @param memoised Whether or not to save to cache for future calls with the
-#' same inputs and use the result saved in cache if a result is already saved.
-#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
-#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
-#' @param file The name of a file to save the results to, or \code{NULL} to not write
-#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
-#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
-#' @param overwrite Whether or not to overwrite if a file exists at the specified
-#' filename.
-#'
-#' @return Varies
-#' @export
-#'
-#' @keywords gene
-#'
-#' @examples
-get_gene_expression_levels <- function(gene, query = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, keepNonSpecific = FALSE, consolidate = NA_character_,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    compressibles <- "filter"
-    open_api_name <- "get_datasets_expression_levels_for_gene"
-    internal <- FALSE
-    keyword <- "gene"
-    header <- ""
-    isFile <- FALSE
-    fname <- "get_gene_expression_levels"
-    preprocessor <- processExperimentExpressionLevelsValueObject
-    validators <- list(gene = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    }, query = function(name, ...) {
-        if (all(is.na(as.character(unlist(list(...)))))) {
-            ""
-        } else {
-            validateSingleQuery(name, ...)
-        }
-    }, filter = function(name, ...) {
-        filter <- unlist(list(...))
-        assertthat::assert_that(is.null(filter) || is.na(filter) ||
-            assertthat::is.string(filter), msg = "filter must be a string of length one")
-        if (is.null(filter) || is.na(filter)) {
-            filter <- ""
-        }
-        env <- parent.frame()
-        if (!(all(is.na(env$original_env$taxa)) || is.null(env$original_env$taxa))) {
-            filter <- addToFilter(
-                filter, "taxon.commonName",
-                env$original_env$taxa
-            )
-        }
-        if (!(all(is.na(env$original_env$uris)) || is.null(env$original_env$uris))) {
-            filter <- addToFilter(
-                filter, "allCharacteristics.valueUri",
-                env$original_env$uris
-            )
-        }
-        if (!(all(is.na(env$original_env$resultSets)) || is.null(env$original_env$resultSets)) &&
-            env$fname == "get_result_sets") {
-            filter <- addToFilter(filter, "id", env$original_env$resultSets)
-        }
-        return(filter)
-    }, offset = function(name, ...) {
-        args <- list(...)
-        if (length(unlist(args)) != 1 || any(is.na(unlist(args))) ||
-            !is.numeric(unlist(args)) || any(vapply(args, "%%",
-            1,
-            FUN.VALUE = numeric(1)
-        ) != 0) || any(vapply(args,
-            sign,
-            FUN.VALUE = numeric(1)
-        ) < 0)) {
-            stop(glue::glue("Please only specify positive integer values for {name}."),
-                call. = FALSE
-            )
-        }
-        unlist(args)
-    }, limit = function(name, ...) {
-        validatePositiveInteger(name, ...)
-        args <- list(...)
-        if (unlist(args) <= 0 || unlist(args) > 100) {
-            stop(glue::glue("Please specify a limit between 1 and 100 (inclusive)"),
-                call. = FALSE
-            )
-        }
-        unlist(args)
-    }, keepNonSpecific = function(name, ...) {
-        args <- unlist(list(...))
-        if (length(args) != 1 || !is.logical(args)) {
-            stop(glue::glue("Please only specify boolean values for {name}."),
-                call. = FALSE
-            )
-        }
-        tolower(as.character(args))
-    }, consolidate = function(name, ...) {
-        consolidate <- unlist(list(...))
-        if (length(consolidate) > 1 | (!consolidate %in% c(
-            NA_character_,
-            "pickmax", "pickvar", "average"
-        ))) {
-            stop("consolidate must be NA, \"pickmax\", \"pickmax\" or \"average\"")
-        }
-        return(consolidate)
-    })
-    endpoint <- "datasets/expressions/genes/{encode(gene)}?&query={encode(query)}&filter={encode(filter)}&offset={encode(offset)}&limit={encode(limit)}&keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
-    if (memoised) {
-        if (!is.na(file)) {
-            warning("Saving to files is not supported with memoisation.")
-        }
-        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
-            "cache_in_memory") {
-            return(mem_in_memory_cache("get_gene_expression_levels",
-                gene = gene, query = query, filter = filter,
-                offset = offset, limit = limit, keepNonSpecific = keepNonSpecific,
-                consolidate = consolidate, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
-            ))
-        } else {
-            out <- memget_gene_expression_levels(
-                gene = gene,
-                query = query, filter = filter, offset = offset,
-                limit = limit, keepNonSpecific = keepNonSpecific,
-                consolidate = consolidate, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
-            )
-            return(out)
-        }
-    }
-    .body(
-        fname = fname, validators = validators, endpoint = endpoint,
-        envWhere = environment(), isFile = isFile, header = header,
-        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
-    )
-}
-
-#' Memoise get_gene_expression_levels
-#'
-#' @noRd
-memget_gene_expression_levels <- function(gene, query = NA_character_, filter = NA_character_,
-    offset = 0L, limit = 20L, keepNonSpecific = FALSE, consolidate = NA_character_,
-    raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE)) {
-    mem_call <- memoise::memoise(get_gene_expression_levels,
-        cache = gemmaCache()
-    )
-    mem_call(
-        gene = gene, query = query, filter = filter, offset = offset,
-        limit = limit, keepNonSpecific = keepNonSpecific, consolidate = consolidate,
+        gene = gene, query = query, filter = filter, threshold = threshold,
         raw = raw, memoised = FALSE, file = file, overwrite = overwrite
     )
 }

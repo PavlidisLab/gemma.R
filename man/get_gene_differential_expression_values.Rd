@@ -2,14 +2,12 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_differential_expression_values}
 \alias{get_gene_differential_expression_values}
-\title{Retrieve the differential expression results for a given gene among datasets matching the provided query and filter}
+\title{Retrieve the differential expression results for a given gene}
 \usage{
 get_gene_differential_expression_values(
   gene,
   query = NA_character_,
   filter = NA_character_,
-  offset = 0L,
-  limit = 20L,
   threshold = 1,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
@@ -30,13 +28,6 @@ function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
-\item{offset}{The offset of the first retrieved result.}
-
-\item{limit}{Defaults to 20. Limits the result to specified amount
-of objects. Has a maximum value of 100. Use together with \code{offset} and
-the \code{totalElements} \link[base:attributes]{attribute} in the output to
-compile all data if needed.}
-
 \item{threshold}{number}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -56,9 +47,24 @@ API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.}
 filename.}
 }
 \value{
-Varies
+A data.table containing differential expression results. This table
+is stripped down some relevant information for speed of execution. Details about
+the contrasts can be accessesed via \code{\link{get_result_sets} function
+
+The fields of the output data.table are:
+
+\itemize{
+\item \code{result.ID}: Result set ID of the differential expression analysis.
+May represent multiple factors in a single model.
+\item \code{contrast.ID}: Id of the specific contrast factor. Together with the result.ID
+they uniquely represent a given contrast.
+\item \code{experiment.ID}: Id of the source experiment
+\item \code{factor.coefficient}: Model coefficient calculated for the specific contrast factor
+\item \code{factor.logfc}: Log 2 fold change calculated for the specific contrast factor
+\item \code{factor.pvalue}: p values calculated for the specific contrast factor
+}
 }
 \description{
-Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
+Retrieve the differential expression results for a given gene
 }
 \keyword{gene}
