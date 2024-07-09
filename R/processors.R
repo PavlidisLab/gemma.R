@@ -1072,7 +1072,7 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
     contrast_counts <- purrr::map_int(contrast_data,length)
     
     contrast.ID <- contrast_data %>% purrr::map(function(x){
-        stringr::str_extract(x,'factor=[0-9:]*') %>%
+        stringr::str_extract(x,'factor=[0-9:]*') %>% na.omit() %>% 
             gsub('factor=',"",.) %>% strsplit(':') %>% purrr::map(sort) %>% 
             purrr::map(paste,collapse='_') %>% unlist
     }) %>% unlist
@@ -1082,7 +1082,7 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
         sub <- glue::glue('{property}=')
         
         contrast_data %>% purrr::map(function(x){
-            stringr::str_extract(x,extract) %>%
+            stringr::str_extract(x,extract) %>% na.omit() %>% 
                 gsub(sub,"",.)
         }) %>% unlist %>% as.numeric
     }
