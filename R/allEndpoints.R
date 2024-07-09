@@ -1438,6 +1438,9 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' @keywords gene
 #'
 #' @examples
+#' # get all differential expression results for ENO2
+#' # from datasets marked with the ontology term for brain
+#' head(get_gene_differential_expression_values(2026, uris = "http://purl.obolibrary.org/obo/UBERON_0000955"))
 get_gene_differential_expression_values <- function(gene, query = NA_character_, taxa = NA_character_,
     uris = NA_character_, filter = NA_character_, threshold = 1,
     raw = getOption("gemma.raw", FALSE), memoised = getOption(

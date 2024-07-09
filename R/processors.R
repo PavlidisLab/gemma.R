@@ -1048,7 +1048,7 @@ processQuantitationTypeValueObject <- function(d){
 #' 
 #' @return A data.table containing differential expression results. This table
 #' is stripped down some relevant information for speed of execution. Details about
-#' the contrasts can be accessesed via \code{\link{get_result_sets} function
+#' the contrasts can be accessesed via \code{\link{get_result_sets}} function
 #' 
 #' The fields of the output data.table are:
 #'  
@@ -1061,7 +1061,8 @@ processQuantitationTypeValueObject <- function(d){
 #'     \item \code{factor.coefficient}: Model coefficient calculated for the specific contrast factor
 #'     \item \code{factor.logfc}: Log 2 fold change calculated for the specific contrast factor
 #'     \item \code{factor.pvalue}: p values calculated for the specific contrast factor
-#'  }  
+#'  } 
+#' @keywords internal
 processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(content){
     attr <- attributes(content)
     attributes(content)<- NULL

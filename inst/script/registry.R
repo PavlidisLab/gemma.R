@@ -568,7 +568,10 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 #' 
 #' @inherit processDifferentialExpressionAnalysisResultByGeneValueObject_tsv return
 #' 
-#' 
+#' @examples
+#' # get all differential expression results for ENO2
+#' # from datasets marked with the ontology term for brain
+#' head(get_gene_differential_expression_values(2026,uris = "http://purl.obolibrary.org/obo/UBERON_0000955"))
 NULL
 
 # registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",

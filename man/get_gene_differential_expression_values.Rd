@@ -59,7 +59,7 @@ filename.}
 \value{
 A data.table containing differential expression results. This table
 is stripped down some relevant information for speed of execution. Details about
-the contrasts can be accessesed via \code{\link{get_result_sets} function
+the contrasts can be accessesed via \code{\link{get_result_sets}} function
 
 The fields of the output data.table are:
 
@@ -76,5 +76,10 @@ they uniquely represent a given contrast.
 }
 \description{
 Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
+}
+\examples{
+# get all differential expression results for ENO2
+# from datasets marked with the ontology term for brain
+head(get_gene_differential_expression_values(2026, uris = "http://purl.obolibrary.org/obo/UBERON_0000955"))
 }
 \keyword{gene}

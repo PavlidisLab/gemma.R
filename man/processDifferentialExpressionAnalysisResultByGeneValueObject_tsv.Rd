@@ -9,7 +9,7 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv(content)
 \value{
 A data.table containing differential expression results. This table
 is stripped down some relevant information for speed of execution. Details about
-the contrasts can be accessesed via \code{\link{get_result_sets} function
+the contrasts can be accessesed via \code{\link{get_result_sets}} function
 
 The fields of the output data.table are:
 
@@ -27,3 +27,4 @@ they uniquely represent a given contrast.
 \description{
 processDifferentialExpressionAnalysisResultByGeneValueObject_tsv
 }
+\keyword{internal}
