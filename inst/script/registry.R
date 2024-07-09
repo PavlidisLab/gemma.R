@@ -311,7 +311,7 @@ NULL
 
 
 registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_datasets_expression_levels_for_genes',
                  keyword = 'dataset',
                  defaults = list(
                      datasets = bquote(),
@@ -606,6 +606,8 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
                  defaults = list(
                      gene = bquote(),
                      query = NA_character_,
+                     taxa = NA_character_,
+                     uris = NA_character_,
                      filter = NA_character_,
                      threshold = 1
                  ),

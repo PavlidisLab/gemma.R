@@ -614,7 +614,7 @@ get_dataset_expression_for_genes <- function(datasets, genes, keepNonSpecific = 
     ), file = getOption("gemma.file", NA_character_),
     overwrite = getOption("gemma.overwrite", FALSE)) {
     compressibles <- NULL
-    open_api_name <- "get_dataset_expression_for_genes"
+    open_api_name <- "get_datasets_expression_levels_for_genes"
     internal <- FALSE
     keyword <- "dataset"
     header <- ""
@@ -1399,7 +1399,7 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
     )
 }
 
-#' Retrieve the differential expression results for a given gene
+#' Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
 #'
 #'
 #'
@@ -1408,6 +1408,12 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 #' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
 #' ("BRCA?") and fuzzy matches ("alpha~").
+#' @param taxa A vector of taxon common names (e.g. human, mouse, rat). Providing multiple
+#' species will return results for all species. These are appended
+#' to the filter and equivalent to filtering for \code{taxon.commonName} property
+#' @param uris A vector of ontology term URIs. Providing multiple terms will
+#' return results containing any of the terms and their children. These are
+#' appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}
 #' @param filter Filter results by matching expression. Use \code{\link{filter_properties}}
 #' function to get a list of all available parameters. These properties can be
 #' combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
@@ -1432,8 +1438,9 @@ memget_datasets_by_ids <- function(datasets = NA_character_, filter = NA_charact
 #' @keywords gene
 #'
 #' @examples
-get_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+get_gene_differential_expression_values <- function(gene, query = NA_character_, taxa = NA_character_,
+    uris = NA_character_, filter = NA_character_, threshold = 1,
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
@@ -1458,15 +1465,16 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
         if ("character" %in% class(gemmaCache()) && gemmaCache() ==
             "cache_in_memory") {
             return(mem_in_memory_cache("get_gene_differential_expression_values",
-                gene = gene, query = query, filter = filter,
-                threshold = threshold, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
+                gene = gene, query = query, taxa = taxa, uris = uris,
+                filter = filter, threshold = threshold, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_gene_differential_expression_values(
                 gene = gene,
-                query = query, filter = filter, threshold = threshold,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                query = query, taxa = taxa, uris = uris, filter = filter,
+                threshold = threshold, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
             )
             return(out)
         }
@@ -1482,8 +1490,9 @@ get_gene_differential_expression_values <- function(gene, query = NA_character_,
 #' Memoise get_gene_differential_expression_values
 #'
 #' @noRd
-memget_gene_differential_expression_values <- function(gene, query = NA_character_, filter = NA_character_,
-    threshold = 1, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+memget_gene_differential_expression_values <- function(gene, query = NA_character_, taxa = NA_character_,
+    uris = NA_character_, filter = NA_character_, threshold = 1,
+    raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE
     ), file = getOption("gemma.file", NA_character_),
@@ -1492,8 +1501,9 @@ memget_gene_differential_expression_values <- function(gene, query = NA_characte
         cache = gemmaCache()
     )
     mem_call(
-        gene = gene, query = query, filter = filter, threshold = threshold,
-        raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+        gene = gene, query = query, taxa = taxa, uris = uris,
+        filter = filter, threshold = threshold, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
     )
 }
 

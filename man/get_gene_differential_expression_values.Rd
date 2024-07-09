@@ -2,11 +2,13 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_differential_expression_values}
 \alias{get_gene_differential_expression_values}
-\title{Retrieve the differential expression results for a given gene}
+\title{Retrieve the differential expression results for a given gene among datasets matching the provided query and filter}
 \usage{
 get_gene_differential_expression_values(
   gene,
   query = NA_character_,
+  taxa = NA_character_,
+  uris = NA_character_,
   filter = NA_character_,
   threshold = 1,
   raw = getOption("gemma.raw", FALSE),
@@ -22,6 +24,14 @@ get_gene_differential_expression_values(
 terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
 ("BRCA?") and fuzzy matches ("alpha~").}
+
+\item{taxa}{A vector of taxon common names (e.g. human, mouse, rat). Providing multiple
+species will return results for all species. These are appended
+to the filter and equivalent to filtering for \code{taxon.commonName} property}
+
+\item{uris}{A vector of ontology term URIs. Providing multiple terms will
+return results containing any of the terms and their children. These are
+appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
 \item{filter}{Filter results by matching expression. Use \code{\link{filter_properties}}
 function to get a list of all available parameters. These properties can be
@@ -65,6 +75,6 @@ they uniquely represent a given contrast.
 }
 }
 \description{
-Retrieve the differential expression results for a given gene
+Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
 }
 \keyword{gene}
