@@ -18,7 +18,7 @@ get_result_sets(
 )
 }
 \arguments{
-\item{datasets}{A numerical dataset identifier or a dataset short name}
+\item{datasets}{A vector of dataset IDs or short names}
 
 \item{resultSets}{A resultSet identifier. Note that result set identifiers
 are not static and can change when Gemma re-runs analyses internally. Whem

@@ -46,7 +46,7 @@ names(overrides) = overrides %>% sapply(function(x){
 })
 
 
-res = httr::GET('https://gemma.msl.ubc.ca/rest/v2/openapi.json')
+res = httr::GET(paste0(gemmaPath(),'openapi.json'))
 writeBin(res$content,con = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
@@ -131,6 +131,7 @@ registerEndpoint(
 #' query across multiple datasets and being able to use the filter argument
 #' to search based on result set properties.
 #' 
+#' @param datasets A vector of dataset IDs or short names
 #'
 #' @inherit processDifferentialExpressionAnalysisResultSetValueObject return
 #'
@@ -294,6 +295,9 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 # /datasets/{datasets}/expressions/genes/{genes}, get_dataset_expression_for_genes ------
 
 #' get_dataset_expression_for_genes
+#' 
+#' @param datasets A vector of dataset IDs or short names
+#' @param genes A vector of NCBI IDs, Ensembl IDs or gene symbols.
 #' @param consolidate An option for gene expression level consolidation. If empty,
 #' will return every probe for the genes. "pickmax" to
 #' pick the probe with the highest expression, "pickvar" to pick the prove with
@@ -307,7 +311,7 @@ NULL
 
 
 registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
-                 'get_dataset_expression_for_genes', open_api_name = 'get_dataset_expression_for_genes',
+                 'get_dataset_expression_for_genes', open_api_name = 'get_datasets_expression_levels_for_genes',
                  keyword = 'dataset',
                  defaults = list(
                      datasets = bquote(),
@@ -558,6 +562,102 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 # datasets/categories -----
 # currently unimplemented
 
+# /datasets/analyses/differential/results/genes/{gene} -----------
+
+#' get_gene_differential_expression_values
+#' 
+#' @inherit processDifferentialExpressionAnalysisResultByGeneValueObject_tsv return
+#' 
+#' @examples
+#' # get all differential expression results for ENO2
+#' # from datasets marked with the ontology term for brain
+#' head(get_gene_differential_expression_values(2026,uris = "http://purl.obolibrary.org/obo/UBERON_0000955"))
+NULL
+
+# registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}&offset={offset}&limit={limit}",
+#                  "get_gene_differential_expression_values",
+#                  open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
+#                  keyword = 'gene',
+#                  # header = "text/tab-separated-values",
+#                  defaults = list(
+#                      gene = bquote(),
+#                      query = NA_character_,
+#                      filter = NA_character_,
+#                      offset = 0L,
+#                      limit = 20L,
+#                      threshold = 1
+#                  ),
+#                  compressibles = c('filter'),
+#                  validators = alist(
+#                      gene = validateSingleID,
+#                      query = validateOptionalQuery,
+#                      filter = validateFilter,
+#                      offset = validatePositiveInteger,
+#                      limit = validateLimit,
+#                      threshold = validateNumber
+#                  ),
+#                  preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject)
+# )
+
+
+registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}",
+                 "get_gene_differential_expression_values",
+                 open_api_name = "get_datasets_differential_expression_analysis_results_for_gene",
+                 keyword = 'gene',
+                 header = "text/tab-separated-values",
+                 isFile = TRUE,
+                 defaults = list(
+                     gene = bquote(),
+                     query = NA_character_,
+                     taxa = NA_character_,
+                     uris = NA_character_,
+                     filter = NA_character_,
+                     threshold = 1
+                 ),
+                 compressibles = c('filter'),
+                 validators = alist(
+                     gene = validateSingleID,
+                     query = validateOptionalQuery,
+                     filter = validateFilter,
+                     threshold = validateNumber
+                 ),
+                 preprocessor = quote(processDifferentialExpressionAnalysisResultByGeneValueObject_tsv)
+)
+
+
+# /datasets/analyses/differential/results/taxa/{taxon}/genes/gene ----
+# unimplemented along with other taxon specific endpoints
+
+# /datasets/expressions/genes/{gene} -------
+# not in prod yet
+# registerEndpoint("datasets/expressions/genes/{gene}?&query={query}&filter={filter}&offset={offset}&limit={limit}&keepNonSpecific={keepNonSpecific}&consolidate={consolidate}",
+#                  "get_gene_expression_levels",
+#                  open_api_name = "get_dataset_expression_for_genes",
+#                  keyword = 'gene',
+#                  # header = "text/tab-separated-values",
+#                  defaults = list(
+#                      gene = bquote(),
+#                      query = NA_character_,
+#                      filter = NA_character_,
+#                      offset = 0L,
+#                      limit = 20L,
+#                      keepNonSpecific = FALSE,
+#                      consolidate = NA_character_
+#                  ),
+#                  compressibles = c('filter'),
+#                  validators = c(
+#                      gene = validateSingleID,
+#                      query = validateOptionalQuery,
+#                      filter = validateFilter,
+#                      offset = validatePositiveInteger,
+#                      limit = validateLimit,
+#                      keepNonSpecific = validateBoolean,
+#                      consolidate = validateConsolidate),
+#                  preprocessor = quote(processExperimentExpressionLevelsValueObject)
+# )
+
+
+
 # datasets/taxa -----
 # currently unimplemented
 
@@ -635,6 +735,9 @@ registerEndpoint("genes/{gene}/probes?offset={offset}&limit={limit}",
 # genes/{genes}, get_genes-------
 
 #' get_genes
+#'
+#'
+#' @param genes A vector of NCBI IDs, Ensembl IDs or gene symbols.
 #'
 #' @inherit processGenes return
 #'
@@ -952,7 +1055,7 @@ doFinalize <- function(document = getOption("gemmaAPI.document", "R/allEndpoints
     
     styler::style_file("./R/allEndpoints.R", transformers = biocthis::bioc_style())
     devtools::document()
-    devtools::build(vignettes = FALSE)
+    # devtools::build(vignettes = FALSE)
 }
 
 doFinalize()

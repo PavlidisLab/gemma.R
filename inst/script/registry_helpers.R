@@ -41,7 +41,9 @@ parse_open_api_params <- function(prm){
         out = prm$schema$oneOf %>% purrr::map_chr('description') %>%  
             gsub('.','',.,fixed=  TRUE) %>% paste(collapse = ' or ') %>% 
             snakecase::to_sentence_case()
-    } else{
+    } else if(!is.null(prm$schema$type)) {
+        out = prm$schema$type
+    }else{
         browser()
         stop('help me!')
     }
@@ -85,7 +87,7 @@ registerEndpoint <- function(endpoint,
         return(NULL)
     }
 
-    logEndpoint(fname, logname)
+    logEndpoint(fname, open_api_name)
 
     # Make sure arguments are URL encoded
     endpoint <- gsub("\\{([^\\}]+)\\}", "\\{encode\\(\\1\\)\\}", endpoint)
@@ -224,6 +226,13 @@ logEndpoint <- function(fname, logname) {
     options(gemmaAPI.logged = c(getOption("gemmaAPI.logged"), setNames(fname, logname)))
 }
 
+clearLog <- function(){
+    options(gemmaAPI.logged = c())
+}
+
+getLog <- function(){
+    getOption('gemmaAPI.logged')
+}
 
 #' Comment a function
 #'

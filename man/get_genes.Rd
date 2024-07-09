@@ -13,7 +13,7 @@ get_genes(
 )
 }
 \arguments{
-\item{genes}{An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc}
+\item{genes}{A vector of NCBI IDs, Ensembl IDs or gene symbols.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
