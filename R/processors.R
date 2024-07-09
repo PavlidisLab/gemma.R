@@ -1104,6 +1104,8 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
         result.ID = rep_indiv(ret$result_set_id,contrast_counts),
         contrast.ID = contrast.ID,
         experiment.ID = rep_indiv(ret$source_experiment_id,contrast_counts),
+        pvalue = rep_indiv(ret$pvalue,contrast_counts),
+        correctedPValue = rep_indiv(ret$corrected_pvalue,contrast_counts),
         factor.coefficient = factor.coefficient,
         factor.logfc = factor.logfc,
         factor.pvalue = factor.pvalue
