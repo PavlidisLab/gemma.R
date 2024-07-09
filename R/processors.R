@@ -1078,7 +1078,7 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
     }) %>% unlist
     
     factor_bit <- function(property){
-        extract <- glue::glue('{property}=-*[0-9.]*')
+        extract <- glue::glue('{property}=[0-9.E-]*')
         sub <- glue::glue('{property}=')
         
         contrast_data %>% purrr::map(function(x){
@@ -1106,9 +1106,11 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
         experiment.ID = rep_indiv(ret$source_experiment_id,contrast_counts),
         pvalue = rep_indiv(ret$pvalue,contrast_counts),
         correctedPValue = rep_indiv(ret$corrected_pvalue,contrast_counts),
+        rank = rep_indiv(ret$rank,contrast_counts),
         factor.coefficient = factor.coefficient,
         factor.logfc = factor.logfc,
-        factor.pvalue = factor.pvalue
+        factor.pvalue = factor.pvalue,
+        baseline.ID =  rep_indiv(ret$baseline,contrast_counts)
     )
     
 }
