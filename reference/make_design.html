@@ -10,7 +10,7 @@ a simplified design table, granting one column to each experimental variable"><m
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -35,7 +35,7 @@ a simplified design table, granting one column to each experimental variable"><m
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -54,20 +54,20 @@ a simplified design table, granting one column to each experimental variable"><m
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Make simplified design frames</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>make_design.Rd</code></div>
     </div>
 
@@ -82,58 +82,58 @@ a simplified design table, granting one column to each experimental variable</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>samples</dt>
+
+
+<dl><dt id="arg-samples">samples<a class="anchor" aria-label="anchor" href="#arg-samples"></a></dt>
 <dd><p>An output from get_dataset_samples. The output should not be raw</p></dd>
 
 
-<dt>metaType</dt>
+<dt id="arg-metatype">metaType<a class="anchor" aria-label="anchor" href="#arg-metatype"></a></dt>
 <dd><p>Type of metadata to include in the output. "text", "uri" or "both"</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A data.frame including the design table for the dataset</p>
+    <p>A data.frame including the design table for the dataset</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">samples</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_dataset_samples.html">get_dataset_samples</a></span><span class="op">(</span><span class="st">'GSE46416'</span><span class="op">)</span> </span></span>
 <span class="r-in"><span><span class="fu">make_design</span><span class="op">(</span><span class="va">samples</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             factorValues</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 11 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 17 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 12                                 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE50                             c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 19 c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 9                                  c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 29    c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 31    c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 18    c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 35    c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 15                                 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 5     c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 34 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 30 c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE40                             c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE23                             c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 33    c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 6  c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 24 c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 8                                  c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 3                                  c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 32 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 38 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 22 c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 23    c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 37    c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 36 c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 4                                  c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 10    c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE62                             c("disea....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 21    c("block....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 16    c("block....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             factorValues             block</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 11 c("block.... Batch_02_26/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 17 c("block.... Batch_02_26/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 12                                 c("disea.... Batch_02_26/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE50                             c("disea.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 19 c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 9                                  c("disea.... Batch_01_25/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 29    c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 31    c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 18    c("block.... Batch_02_26/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 35    c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 15                                 c("disea.... Batch_02_26/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 5     c("block.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 34 c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 30 c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE40                             c("disea.... Batch_01_25/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE23                             c("disea.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 33    c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 6  c("disea.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 24 c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 8                                  c("disea.... Batch_01_25/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 3                                  c("disea.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 32 c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 38 c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 22 c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 23    c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 37    c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 36 c("disea.... Batch_04_02/12/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 4                                  c("disea.... Batch_05_24/11/10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 10    c("block.... Batch_01_25/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE62                             c("disea.... Batch_01_25/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 21    c("block.... Batch_03_27/11/09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 16    c("block.... Batch_02_26/11/09</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                  disease</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 11 bipolar disorder has_modifier euthymic phase</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 17 bipolar disorder has_modifier euthymic phase</span>
@@ -167,39 +167,6 @@ a simplified design table, granting one column to each experimental variable</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE62                                                   reference subject role</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 21       bipolar disorder has_modifier manic phase</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 16       bipolar disorder has_modifier manic phase</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                         block</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 11 Batch_02_26/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 17 Batch_02_26/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 12                                 Batch_02_26/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE50                             Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 19 Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 9                                  Batch_01_25/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 29    Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 31    Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 18    Batch_02_26/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 35    Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 15                                 Batch_02_26/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 5     Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 34 Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 30 Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE40                             Batch_01_25/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 2_DE23                             Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 33    Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 6  Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 24 Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 8                                  Batch_01_25/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 3                                  Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 32 Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 38 Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 22 Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 23    Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 37    Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient euthymic phase, 36 Batch_04_02/12/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 4                                  Batch_05_24/11/10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 10    Batch_01_25/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Control, 1_DE62                             Batch_01_25/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 21    Batch_03_27/11/09</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Bipolar disorder patient manic phase, 16    Batch_02_26/11/09</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
@@ -215,15 +182,15 @@ a simplified design table, granting one column to each experimental variable</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

@@ -9,7 +9,7 @@
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,7 +34,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -53,20 +53,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieve the GO terms associated to a gene</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>get_gene_go_terms.Rd</code></div>
     </div>
 
@@ -86,46 +86,42 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>gene</dt>
+
+
+<dl><dt id="arg-gene">gene<a class="anchor" aria-label="anchor" href="#arg-gene"></a></dt>
 <dd><p>An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc</p></dd>
 
 
-<dt>raw</dt>
+<dt id="arg-raw">raw<a class="anchor" aria-label="anchor" href="#arg-raw"></a></dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that are
 omitted in the parsed results.</p></dd>
 
 
-<dt>memoised</dt>
+<dt id="arg-memoised">memoised<a class="anchor" aria-label="anchor" href="#arg-memoised"></a></dt>
 <dd><p>Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
 used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></code> to clear the cache.</p></dd>
 
 
-<dt>file</dt>
+<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be the raw endpoint from the
 API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.</p></dd>
 
 
-<dt>overwrite</dt>
+<dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified
 filename.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A data table with information about the GO terms assigned to the
+    <p>A data table with information about the GO terms assigned to the
 queried gene. A list if <code>raw = TRUE</code>. A <code>404 error</code> if the given identifier does not map to any
 object.</p>
-
-
 <p>The fields of the output data.table are:</p>
-
-
 <ul><li><p><code>term.name</code>: Name of the term</p></li>
 <li><p><code>term.ID</code>: ID of the term</p></li>
 <li><p><code>term.URI</code>: URI of the term</p></li>
@@ -174,15 +170,15 @@ object.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

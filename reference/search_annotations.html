@@ -9,7 +9,7 @@
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,7 +34,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -53,20 +53,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Search for annotation tags</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>search_annotations.Rd</code></div>
     </div>
 
@@ -86,48 +86,44 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>query</dt>
+
+
+<dl><dt id="arg-query">query<a class="anchor" aria-label="anchor" href="#arg-query"></a></dt>
 <dd><p>The search query. Queries can include plain text or ontology
 terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters
 ("BRCA?") and fuzzy matches ("alpha~").</p></dd>
 
 
-<dt>raw</dt>
+<dt id="arg-raw">raw<a class="anchor" aria-label="anchor" href="#arg-raw"></a></dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that are
 omitted in the parsed results.</p></dd>
 
 
-<dt>memoised</dt>
+<dt id="arg-memoised">memoised<a class="anchor" aria-label="anchor" href="#arg-memoised"></a></dt>
 <dd><p>Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
 used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></code> to clear the cache.</p></dd>
 
 
-<dt>file</dt>
+<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be the raw endpoint from the
 API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.</p></dd>
 
 
-<dt>overwrite</dt>
+<dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified
 filename.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A data table with annotations (annotation search result value objects)
+    <p>A data table with annotations (annotation search result value objects)
 matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 error</code> if required parameters are missing.</p>
-
-
 <p>The fields of the output data.table are:</p>
-
-
 <ul><li><p><code>category.name</code>: Category that the annotation belongs to</p></li>
 <li><p><code>category.URI</code>: URI for the category.name</p></li>
 <li><p><code>value.name</code>: Annotation term</p></li>
@@ -174,17 +170,17 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <span class="r-out co"><span class="r-pr">#&gt;</span>     category.name category.URI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                               value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                   &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                       traumatic diaphragmatic hernia</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                       traumatic acid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                       traumatic acid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                       traumatic diaphragmatic hernia</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                   traumatic glaucoma</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4:                               traumatic brain injury</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5:                         traumatic avascular necrosis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6:                        traumatic myositis ossificans</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7:                             traumatic encephalopathy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   post-traumatic stress disorder symptom measurement</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                     brain stem hemorrhage, traumatic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                       post-traumatic stress disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11: avoidance of stimuli associated with traumatic event</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: avoidance of stimuli associated with traumatic event</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   post-traumatic stress disorder symptom measurement</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                     brain stem hemorrhage, traumatic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                       post-traumatic stress disorder</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12:           secondary non-traumatic avascular necrosis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13:                              post-traumatic epilepsy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14:         iatrogenic or traumatic pituitary deficiency</span>
@@ -209,17 +205,17 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                               value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:         http://www.ebi.ac.uk/efo/EFO_1001861</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  http://purl.obolibrary.org/obo/CHEBI_545687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  http://purl.obolibrary.org/obo/CHEBI_545687</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:         http://www.ebi.ac.uk/efo/EFO_1001861</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3: http://purl.obolibrary.org/obo/MONDO_0001626</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://purl.obolibrary.org/obo/MONDO_0858950</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0018375</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://purl.obolibrary.org/obo/MONDO_0021929</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://purl.obolibrary.org/obo/MONDO_0043512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:         http://www.ebi.ac.uk/efo/EFO_0008535</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:         http://www.ebi.ac.uk/efo/EFO_1001276</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:         http://www.ebi.ac.uk/efo/EFO_0001358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:    http://purl.obolibrary.org/obo/HP_0032942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:    http://purl.obolibrary.org/obo/HP_0032942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:         http://www.ebi.ac.uk/efo/EFO_0008535</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:         http://www.ebi.ac.uk/efo/EFO_1001276</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:         http://www.ebi.ac.uk/efo/EFO_0001358</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12: http://purl.obolibrary.org/obo/MONDO_0018376</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13: http://purl.obolibrary.org/obo/MONDO_0043264</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14: http://purl.obolibrary.org/obo/MONDO_0019845</span>
@@ -256,15 +252,15 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

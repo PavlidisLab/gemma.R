@@ -18,8 +18,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Accessing curated gene expression data with gemma.R">
-<meta property="og:description" content="gemma.R">
-<meta property="og:image" content="/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -32,7 +30,7 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -58,7 +56,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
@@ -81,7 +79,7 @@
 <li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul>
@@ -92,7 +90,7 @@
 </div>
 <!--/.navbar -->
 
-      
+
 
       </header><script src="gemma.R_files/kePrint-0.0.1/kePrint.js"></script><link href="gemma.R_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <link href="gemma.R_files/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
@@ -115,7 +113,7 @@ Canada<br><h4 data-toc-skip class="author">B.
 Ogan Mancarci</h4>
             <address class="author_afil">
       Michael Smith Laboratories, University of British Columbia,
-Vancouver, Canada<br><small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/vignettes/gemma.R.Rmd" class="external-link"><code>vignettes/gemma.R.Rmd</code></a></small>
+Vancouver, Canada<br><small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/vignettes/gemma.R.Rmd" class="external-link"><code>vignettes/gemma.R.Rmd</code></a></small>
       <div class="hidden name"><code>gemma.R.Rmd</code></div>
 
     </address>
@@ -1336,7 +1334,7 @@ rownames(18758): 2315430 2315554 ... 7385683 7385696
 rowData names(4): Probe GeneSymbol GeneName NCBIid
 colnames(21): Control, 12 Control, 1_DE50 ... Bipolar disorder patient
   manic phase, 21 Bipolar disorder patient manic phase, 16
-colData names(3): factorValues disease block</code></pre>
+colData names(3): factorValues block disease</code></pre>
 <p>Let’s take a look at sample to sample correlation in our subset.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get Expression matrix</span></span>
@@ -1368,10 +1366,10 @@ on the output.</p>
 <th style="text-align:left;">
 </th>
 <th style="text-align:left;">
-disease
+block
 </th>
 <th style="text-align:left;">
-block
+disease
 </th>
 </tr></thead>
 <tbody>
@@ -1380,10 +1378,10 @@ block
 Bipolar disorder patient euthymic phase, 11
 </td>
 <td style="text-align:left;">
-bipolar disorder has_modifi…
+Batch_02_26/11/09
 </td>
 <td style="text-align:left;">
-Batch_02_26/11/09
+bipolar disorder has_modifi…
 </td>
 </tr>
 <tr>
@@ -1391,10 +1389,10 @@ Batch_02_26/11/09
 Bipolar disorder patient euthymic phase, 17
 </td>
 <td style="text-align:left;">
-bipolar disorder has_modifi…
+Batch_02_26/11/09
 </td>
 <td style="text-align:left;">
-Batch_02_26/11/09
+bipolar disorder has_modifi…
 </td>
 </tr>
 <tr>
@@ -1402,10 +1400,10 @@ Batch_02_26/11/09
 Control, 12
 </td>
 <td style="text-align:left;">
-reference subject role
+Batch_02_26/11/09
 </td>
 <td style="text-align:left;">
-Batch_02_26/11/09
+reference subject role
 </td>
 </tr>
 <tr>
@@ -1413,10 +1411,10 @@ Batch_02_26/11/09
 Control, 1_DE50
 </td>
 <td style="text-align:left;">
-reference subject role
+Batch_05_24/11/10
 </td>
 <td style="text-align:left;">
-Batch_05_24/11/10
+reference subject role
 </td>
 </tr>
 <tr>
@@ -1424,10 +1422,10 @@ Batch_05_24/11/10
 Bipolar disorder patient euthymic phase, 19
 </td>
 <td style="text-align:left;">
-bipolar disorder has_modifi…
+Batch_03_27/11/09
 </td>
 <td style="text-align:left;">
-Batch_03_27/11/09
+bipolar disorder has_modifi…
 </td>
 </tr>
 <tr>
@@ -1435,10 +1433,10 @@ Batch_03_27/11/09
 Control, 9
 </td>
 <td style="text-align:left;">
-reference subject role
+Batch_01_25/11/09
 </td>
 <td style="text-align:left;">
-Batch_01_25/11/09
+reference subject role
 </td>
 </tr>
 </tbody>
@@ -3421,7 +3419,7 @@ Complete coverage of the H…
 FALSE
 </td>
 <td style="text-align:right;">
-1538
+1539
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -4001,12 +3999,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -4020,7 +4016,7 @@ other attached packages:
  [3] viridisLite_0.4.2           pheatmap_1.0.12            
  [5] SummarizedExperiment_1.34.0 Biobase_2.64.0             
  [7] GenomicRanges_1.56.1        GenomeInfoDb_1.40.1        
- [9] IRanges_2.38.0              S4Vectors_0.42.0           
+ [9] IRanges_2.38.1              S4Vectors_0.42.1           
 [11] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
 [13] matrixStats_1.3.0           ggrepel_0.9.5              
 [15] ggplot2_3.5.1               dplyr_1.1.4                
@@ -4032,7 +4028,7 @@ loaded via a namespace (and not attached):
  [4] digest_0.6.36           timechange_0.3.0        lifecycle_1.0.4        
  [7] magrittr_2.0.3          compiler_4.4.1          rlang_1.1.4            
 [10] sass_0.4.9              tools_4.4.1             utf8_1.2.4             
-[13] yaml_2.3.8              knitr_1.47              labeling_0.4.3         
+[13] yaml_2.3.9              knitr_1.48              labeling_0.4.3         
 [16] S4Arrays_1.4.1          htmlwidgets_1.6.4       bit_4.0.5              
 [19] curl_5.2.1              DelayedArray_0.30.1     xml2_1.3.6             
 [22] RColorBrewer_1.1-3      abind_1.4-5             withr_3.0.0            
@@ -4045,11 +4041,11 @@ loaded via a namespace (and not attached):
 [43] XVector_0.44.0          vctrs_0.6.5             Matrix_1.7-0           
 [46] jsonlite_1.8.8          bookdown_0.40           bit64_4.0.5            
 [49] systemfonts_1.1.0       jquerylib_0.1.4         glue_1.7.0             
-[52] pkgdown_2.0.9           lubridate_1.9.3         stringi_1.8.4          
+[52] pkgdown_2.1.0           lubridate_1.9.3         stringi_1.8.4          
 [55] gtable_0.3.5            UCSC.utils_1.0.0        munsell_0.5.1          
 [58] tibble_3.2.1            pillar_1.9.0            rappdirs_0.3.3         
 [61] htmltools_0.5.8.1       GenomeInfoDbData_1.2.12 R6_2.5.1               
-[64] textshaping_0.4.0       kableExtra_1.4.0        evaluate_0.24.0        
+[64] textshaping_0.4.0       evaluate_0.24.0         kableExtra_1.4.0       
 [67] lattice_0.22-6          highr_0.11              memoise_2.0.1          
 [70] bslib_0.7.0             Rcpp_1.0.12             svglite_2.1.3          
 [73] gridExtra_2.3           SparseArray_1.4.8       xfun_0.45              
@@ -4059,9 +4055,7 @@ loaded via a namespace (and not attached):
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
@@ -4074,16 +4068,16 @@ loaded via a namespace (and not attached):
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer>
 </div>
 
-  
 
 
-  
+
+
 
   </body>
 </html>

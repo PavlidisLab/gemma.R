@@ -9,7 +9,7 @@
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -34,7 +34,7 @@
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -53,20 +53,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieve annotations and surface level stats for a dataset's differential analyses</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/allEndpoints.R" class="external-link"><code>R/allEndpoints.R</code></a></small>
     <div class="hidden name"><code>get_dataset_differential_expression_analyses.Rd</code></div>
     </div>
 
@@ -86,49 +86,43 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>dataset</dt>
+
+
+<dl><dt id="arg-dataset">dataset<a class="anchor" aria-label="anchor" href="#arg-dataset"></a></dt>
 <dd><p>A numerical dataset identifier or a dataset short name</p></dd>
 
 
-<dt>raw</dt>
+<dt id="arg-raw">raw<a class="anchor" aria-label="anchor" href="#arg-raw"></a></dt>
 <dd><p><code>TRUE</code> to receive results as-is from Gemma, or <code>FALSE</code> to enable
 parsing. Raw results usually contain additional fields and flags that are
 omitted in the parsed results.</p></dd>
 
 
-<dt>memoised</dt>
+<dt id="arg-memoised">memoised<a class="anchor" aria-label="anchor" href="#arg-memoised"></a></dt>
 <dd><p>Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
 used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></code> to clear the cache.</p></dd>
 
 
-<dt>file</dt>
+<dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
 <dd><p>The name of a file to save the results to, or <code>NULL</code> to not write
 results to a file. If <code>raw == TRUE</code>, the output will be the raw endpoint from the
 API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.</p></dd>
 
 
-<dt>overwrite</dt>
+<dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
 <dd><p>Whether or not to overwrite if a file exists at the specified
 filename.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A data table with information about the differential expression
+    <p>A data table with information about the differential expression
 analysis of the queried dataset. Note that this funciton does not return
-differential expression values themselves. Use <code><a href="get_differential_expression_values.html">get_differential_expression_values</a></code></p>
-
-
-<p>to get differential expression values (see examples).</p>
-
-
+differential expression values themselves. Use <code><a href="get_differential_expression_values.html">get_differential_expression_values</a></code>
+to get differential expression values (see examples).</p>
 <p>The fields of the output data.table are:</p>
-
-
 <ul><li><p><code>result.ID</code>: Result set ID of the differential expression analysis.
 May represent multiple factors in a single model.</p></li>
 <li><p><code>contrast.ID</code>: Id of the specific contrast factor. Together with the result.ID
@@ -152,56 +146,56 @@ they uniquely represent a given contrast.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`570867`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               Probe NCBIid GeneSymbol</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt; &lt;char&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   1375803_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   1388175_at  79430     Clcnkb</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   1398810_at  64527      Pdap1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   1378645_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 1389528_s_at  24516        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   1378645_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 1389528_s_at  24516        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   1374404_at  24516        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 1370315_a_at  79423      Stmn4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 1369788_s_at  24516        Jun</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:   1398433_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:   1396722_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:   1382794_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:   1372376_at                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:   1384589_at 498963    Spata2L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:   1372376_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:   1384589_at 498963    Spata2L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:   1375803_at                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:   1388175_at  79430     Clcnkb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:   1398810_at  64527      Pdap1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                     GeneName    pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       &lt;char&gt;     &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                              NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                     chloride voltage-gated channel Kb        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                            PDGFA associated protein 1        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                       9.030e-08</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5: Jun proto-oncogene, AP-1 transcription factor subunit 2.836e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                       9.030e-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: Jun proto-oncogene, AP-1 transcription factor subunit 2.836e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: Jun proto-oncogene, AP-1 transcription factor subunit 1.160e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                            stathmin 4 1.903e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: Jun proto-oncogene, AP-1 transcription factor subunit 4.101e-05</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 31069:                                                       9.999e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:                                                       9.999e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:                                                       9.998e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:                                                       9.999e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:                     spermatogenesis associated 2-like 1.000e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:                     spermatogenesis associated 2-like 1.000e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:                                                              NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:                     chloride voltage-gated channel Kb        NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:                            PDGFA associated protein 1        NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        corrected_pvalue      rank contrast_134441_coefficient</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;num&gt;     &lt;num&gt;                       &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:               NA 1.000e+00                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:               NA 1.000e+00                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:               NA 1.000e+00                          NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:           0.0028 3.218e-05                     -0.0097</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:           0.0441 6.436e-05                      1.2514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:           0.0028 3.218e-05                     -0.0097</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:           0.0441 6.436e-05                      1.2514</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:           0.1202 9.655e-05                      0.9971</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:           0.1478 1.000e-04                      0.5632</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:           0.2548 2.000e-04                      1.2275</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                       </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:           1.0000 9.998e-01                     -0.0114</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:           1.0000 9.998e-01                     -0.0171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:           1.0000 9.997e-01                     -0.0239</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:           1.0000 9.999e-01                      0.0513</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:           1.0000 9.999e-01                      0.1362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:           1.0000 9.999e-01                      0.0513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:           1.0000 9.999e-01                      0.1362</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:               NA 1.000e+00                          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:               NA 1.000e+00                          NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:               NA 1.000e+00                          NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_134441_log2fc contrast_134441_tstat contrast_134441_pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;num&gt;                 &lt;num&gt;                  &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                     NA                    NA                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                     NA                    NA                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                     NA                    NA                     NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                -0.0097               -0.1131                 0.9120</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                 1.2514                5.1513                 0.0003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                -0.0097               -0.1131                 0.9120</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                 1.2514                5.1513                 0.0003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                 0.9971                4.3160                 0.0012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                 0.5632                2.8673                 0.0151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                 1.2275                3.8705                 0.0025</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:                -0.0114               -0.0474                 0.9630</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:                -0.0171               -0.2055                 0.8409</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:                -0.0239               -0.1559                 0.8789</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:                 0.0513                0.2925                 0.7753</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:                 0.1362                0.6501                 0.5288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31069:                 0.0513                0.2925                 0.7753</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31070:                 0.1362                0.6501                 0.5288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31071:                     NA                    NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31072:                     NA                    NA                     NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31073:                     NA                    NA                     NA</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
@@ -217,15 +211,15 @@ they uniquely represent a given contrast.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

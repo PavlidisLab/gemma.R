@@ -1,303 +1,103 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/gemma.R.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/articles/metadata.html</loc>
-  </url>
-  <url>
-    <loc>/articles/metanalysis.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessField.html</loc>
-  </url>
-  <url>
-    <loc>/reference/blank_processor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/checkBounds.html</loc>
-  </url>
-  <url>
-    <loc>/reference/dot-getResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/encode.html</loc>
-  </url>
-  <url>
-    <loc>/reference/filter_properties.html</loc>
-  </url>
-  <url>
-    <loc>/reference/forget_gemma_memoised.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemma.R.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemmaCache.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemmaPath.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemma_call.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemma_kable.html</loc>
-  </url>
-  <url>
-    <loc>/reference/gemma_memoise.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_all_pages.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_child_terms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_annotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_design.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_differential_expression_analyses.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_expression.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_expression_for_genes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_object.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_platforms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_processed_expression.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_quantitation_types.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_raw_expression.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_dataset_samples.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_datasets_by_ids.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_differential_expression_values.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gene_differential_expression_values.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gene_expression_levels.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gene_go_terms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gene_locations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_gene_probes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_genes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_platform_annotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_platform_datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_platform_element_genes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_platforms_by_ids.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_result_sets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_taxa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_taxa_by_ids.html</loc>
-  </url>
-  <url>
-    <loc>/reference/get_taxon_datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/isEmpty.html</loc>
-  </url>
-  <url>
-    <loc>/reference/make_design.html</loc>
-  </url>
-  <url>
-    <loc>/reference/memoise.html</loc>
-  </url>
-  <url>
-    <loc>/reference/nullCheck.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processCharacteristicValueObject.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDEA.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDEMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDEcontrasts.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDatasetResultSets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDatasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDesignMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processDifferentialExpressionAnalysisResultSetValueObject.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processElements.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processExpressionMatrix.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processFile.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGO.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGemmaArray.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGeneLocation.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processGenes.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processPlatforms.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processQuantitationTypeValueObject.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processResultSetFactors.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processSamples.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processSearchAnnotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/processTaxon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/process_search.html</loc>
-  </url>
-  <url>
-    <loc>/reference/search_annotations.html</loc>
-  </url>
-  <url>
-    <loc>/reference/search_datasets.html</loc>
-  </url>
-  <url>
-    <loc>/reference/search_gemma.html</loc>
-  </url>
-  <url>
-    <loc>/reference/setGemmaPath.html</loc>
-  </url>
-  <url>
-    <loc>/reference/set_gemma_user.html</loc>
-  </url>
-  <url>
-    <loc>/reference/subset_factorValues.html</loc>
-  </url>
-  <url>
-    <loc>/reference/update_result.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateBoolean.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateID.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateLimit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateOptionalID.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateOptionalQuery.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateOptionalTaxon.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validatePositiveInteger.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateQuery.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateResultType.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateSingleID.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateSort.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateTaxa.html</loc>
-  </url>
-  <url>
-    <loc>/reference/validateTaxon.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/gemma.R.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/articles/metadata.html</loc></url>
+<url><loc>/articles/metanalysis.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/accessField.html</loc></url>
+<url><loc>/reference/blank_processor.html</loc></url>
+<url><loc>/reference/checkBounds.html</loc></url>
+<url><loc>/reference/dot-getResultSets.html</loc></url>
+<url><loc>/reference/encode.html</loc></url>
+<url><loc>/reference/filter_properties.html</loc></url>
+<url><loc>/reference/forget_gemma_memoised.html</loc></url>
+<url><loc>/reference/gemma.R.html</loc></url>
+<url><loc>/reference/gemmaCache.html</loc></url>
+<url><loc>/reference/gemmaPath.html</loc></url>
+<url><loc>/reference/gemma_call.html</loc></url>
+<url><loc>/reference/gemma_kable.html</loc></url>
+<url><loc>/reference/gemma_memoise.html</loc></url>
+<url><loc>/reference/get_all_pages.html</loc></url>
+<url><loc>/reference/get_child_terms.html</loc></url>
+<url><loc>/reference/get_dataset_annotations.html</loc></url>
+<url><loc>/reference/get_dataset_design.html</loc></url>
+<url><loc>/reference/get_dataset_differential_expression_analyses.html</loc></url>
+<url><loc>/reference/get_dataset_expression.html</loc></url>
+<url><loc>/reference/get_dataset_expression_for_genes.html</loc></url>
+<url><loc>/reference/get_dataset_object.html</loc></url>
+<url><loc>/reference/get_dataset_platforms.html</loc></url>
+<url><loc>/reference/get_dataset_processed_expression.html</loc></url>
+<url><loc>/reference/get_dataset_quantitation_types.html</loc></url>
+<url><loc>/reference/get_dataset_raw_expression.html</loc></url>
+<url><loc>/reference/get_dataset_samples.html</loc></url>
+<url><loc>/reference/get_datasets.html</loc></url>
+<url><loc>/reference/get_datasets_by_ids.html</loc></url>
+<url><loc>/reference/get_differential_expression_values.html</loc></url>
+<url><loc>/reference/get_gene_differential_expression_values.html</loc></url>
+<url><loc>/reference/get_gene_go_terms.html</loc></url>
+<url><loc>/reference/get_gene_locations.html</loc></url>
+<url><loc>/reference/get_gene_probes.html</loc></url>
+<url><loc>/reference/get_genes.html</loc></url>
+<url><loc>/reference/get_platform_annotations.html</loc></url>
+<url><loc>/reference/get_platform_datasets.html</loc></url>
+<url><loc>/reference/get_platform_element_genes.html</loc></url>
+<url><loc>/reference/get_platforms_by_ids.html</loc></url>
+<url><loc>/reference/get_result_sets.html</loc></url>
+<url><loc>/reference/get_taxa.html</loc></url>
+<url><loc>/reference/get_taxa_by_ids.html</loc></url>
+<url><loc>/reference/get_taxon_datasets.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/isEmpty.html</loc></url>
+<url><loc>/reference/make_design.html</loc></url>
+<url><loc>/reference/memoise.html</loc></url>
+<url><loc>/reference/nullCheck.html</loc></url>
+<url><loc>/reference/processAnnotations.html</loc></url>
+<url><loc>/reference/processCharacteristicValueObject.html</loc></url>
+<url><loc>/reference/processDEA.html</loc></url>
+<url><loc>/reference/processDEMatrix.html</loc></url>
+<url><loc>/reference/processDEcontrasts.html</loc></url>
+<url><loc>/reference/processDatasetResultSets.html</loc></url>
+<url><loc>/reference/processDatasets.html</loc></url>
+<url><loc>/reference/processDesignMatrix.html</loc></url>
+<url><loc>/reference/processDifferentialExpressionAnalysisResultByGeneValueObject_tsv.html</loc></url>
+<url><loc>/reference/processDifferentialExpressionAnalysisResultSetValueObject.html</loc></url>
+<url><loc>/reference/processElements.html</loc></url>
+<url><loc>/reference/processExpressionMatrix.html</loc></url>
+<url><loc>/reference/processFile.html</loc></url>
+<url><loc>/reference/processGO.html</loc></url>
+<url><loc>/reference/processGemmaArray.html</loc></url>
+<url><loc>/reference/processGeneLocation.html</loc></url>
+<url><loc>/reference/processGenes.html</loc></url>
+<url><loc>/reference/processPlatforms.html</loc></url>
+<url><loc>/reference/processQuantitationTypeValueObject.html</loc></url>
+<url><loc>/reference/processResultSetFactors.html</loc></url>
+<url><loc>/reference/processSamples.html</loc></url>
+<url><loc>/reference/processSearchAnnotations.html</loc></url>
+<url><loc>/reference/processTaxon.html</loc></url>
+<url><loc>/reference/process_search.html</loc></url>
+<url><loc>/reference/search_annotations.html</loc></url>
+<url><loc>/reference/search_datasets.html</loc></url>
+<url><loc>/reference/search_gemma.html</loc></url>
+<url><loc>/reference/setGemmaPath.html</loc></url>
+<url><loc>/reference/set_gemma_user.html</loc></url>
+<url><loc>/reference/subset_factorValues.html</loc></url>
+<url><loc>/reference/update_result.html</loc></url>
+<url><loc>/reference/validateBoolean.html</loc></url>
+<url><loc>/reference/validateID.html</loc></url>
+<url><loc>/reference/validateLimit.html</loc></url>
+<url><loc>/reference/validateOptionalID.html</loc></url>
+<url><loc>/reference/validateOptionalQuery.html</loc></url>
+<url><loc>/reference/validateOptionalTaxon.html</loc></url>
+<url><loc>/reference/validatePositiveInteger.html</loc></url>
+<url><loc>/reference/validateQuery.html</loc></url>
+<url><loc>/reference/validateResultType.html</loc></url>
+<url><loc>/reference/validateSingleID.html</loc></url>
+<url><loc>/reference/validateSort.html</loc></url>
+<url><loc>/reference/validateTaxa.html</loc></url>
+<url><loc>/reference/validateTaxon.html</loc></url>
 </urlset>
+

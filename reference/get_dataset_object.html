@@ -11,7 +11,7 @@ expression data and the experimental design."><meta property="og:image" content=
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,7 +36,7 @@ expression data and the experimental design."><meta property="og:image" content=
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -55,20 +55,20 @@ expression data and the experimental design."><meta property="og:image" content=
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compile gene expression data and metadata</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>get_dataset_object.Rd</code></div>
     </div>
 
@@ -94,42 +94,44 @@ expression data and the experimental design.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>datasets</dt>
+
+
+<dl><dt id="arg-datasets">datasets<a class="anchor" aria-label="anchor" href="#arg-datasets"></a></dt>
 <dd><p>A vector of dataset IDs or short names</p></dd>
 
 
-<dt>genes</dt>
+<dt id="arg-genes">genes<a class="anchor" aria-label="anchor" href="#arg-genes"></a></dt>
 <dd><p>A vector of NCBI IDs, Ensembl IDs or gene symbols.</p></dd>
 
 
-<dt>keepNonSpecific</dt>
+<dt id="arg-keepnonspecific">keepNonSpecific<a class="anchor" aria-label="anchor" href="#arg-keepnonspecific"></a></dt>
 <dd><p>logical. <code>FALSE</code> by default. If <code>TRUE</code>, results
 from probesets that are not specific to the gene will also be returned.</p></dd>
 
 
-<dt>consolidate</dt>
+<dt id="arg-consolidate">consolidate<a class="anchor" aria-label="anchor" href="#arg-consolidate"></a></dt>
 <dd><p>An option for gene expression level consolidation. If empty,
 will return every probe for the genes. "pickmax" to
 pick the probe with the highest expression, "pickvar" to pick the prove with
 the highest variance and "average" for returning the average expression</p></dd>
 
 
-<dt>resultSets</dt>
+<dt id="arg-resultsets">resultSets<a class="anchor" aria-label="anchor" href="#arg-resultsets"></a></dt>
 <dd><p>Result set IDs of the a differential expression analysis. Optional. If provided, the output will only include
 the samples from the subset used in the result set ID.
 Must be the same length as <code>datasets</code>.'</p></dd>
 
 
-<dt>contrasts</dt>
+<dt id="arg-contrasts">contrasts<a class="anchor" aria-label="anchor" href="#arg-contrasts"></a></dt>
 <dd><p>Contrast IDs of a differential expression contrast. Optional. Need resultSets to be defined to work. If provided, the
 output will only include samples relevant to the specific contrats.</p></dd>
 
 
-<dt>metaType</dt>
+<dt id="arg-metatype">metaType<a class="anchor" aria-label="anchor" href="#arg-metatype"></a></dt>
 <dd><p>How should the metadata information should be included. Can be "text", "uri" or "both". "text" and "uri" options</p></dd>
 
 
-<dt>type</dt>
+<dt id="arg-type">type<a class="anchor" aria-label="anchor" href="#arg-type"></a></dt>
 <dd><p>"se"for a SummarizedExperiment or "eset" for Expression Set. We recommend using
 SummarizedExperiments which are more recent. See the Summarized experiment
 <a href="https://bioconductor.org/packages/release/bioc/vignettes/SummarizedExperiment/inst/doc/SummarizedExperiment.html" class="external-link">vignette</a>
@@ -139,7 +141,7 @@ for more details. "tidy" for a long form data frame compatible with tidyverse fu
 design and the experiment.</p></dd>
 
 
-<dt>memoised</dt>
+<dt id="arg-memoised">memoised<a class="anchor" aria-label="anchor" href="#arg-memoised"></a></dt>
 <dd><p>Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
@@ -148,9 +150,7 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list of <code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a></code>s,
+    <p>A list of <code><a href="https://rdrr.io/pkg/SummarizedExperiment/man/RangedSummarizedExperiment-class.html" class="external-link">SummarizedExperiment</a></code>s,
 <code><a href="https://rdrr.io/pkg/Biobase/man/class.ExpressionSet.html" class="external-link">ExpressionSet</a></code>s or a tibble containing metadata and
 expression data for the queried datasets and genes. Metadata will be expanded to include
 a variable number of factors that annotates samples from a dataset but will
@@ -186,15 +186,15 @@ include all annotations for a given sample.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

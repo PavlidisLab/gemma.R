@@ -11,7 +11,7 @@ annotation terms associated them, use get_dataset_differential_expression_analys
 
   gtag('config', 'TODO');
 </script></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -36,7 +36,7 @@ annotation terms associated them, use get_dataset_differential_expression_analys
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
-     
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
@@ -55,20 +55,20 @@ annotation terms associated them, use get_dataset_differential_expression_analys
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/PavlidisLab/gemma.R/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Retrieve differential expression results</h1>
-    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/HEAD/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/PavlidisLab/gemma.R/blob/devel/R/convenience.R" class="external-link"><code>R/convenience.R</code></a></small>
     <div class="hidden name"><code>get_differential_expression_values.Rd</code></div>
     </div>
 
@@ -89,24 +89,26 @@ annotation terms associated them, use <code><a href="get_dataset_differential_ex
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>dataset</dt>
+
+
+<dl><dt id="arg-dataset">dataset<a class="anchor" aria-label="anchor" href="#arg-dataset"></a></dt>
 <dd><p>A dataset identifier.</p></dd>
 
 
-<dt>resultSets</dt>
+<dt id="arg-resultsets">resultSets<a class="anchor" aria-label="anchor" href="#arg-resultsets"></a></dt>
 <dd><p>resultSet identifiers. If a dataset is not provided, all
 result sets will be downloaded. If it is provided it will only be used
 to ensure all result sets belong to the dataset.</p></dd>
 
 
-<dt>readableContrasts</dt>
+<dt id="arg-readablecontrasts">readableContrasts<a class="anchor" aria-label="anchor" href="#arg-readablecontrasts"></a></dt>
 <dd><p>If <code>FALSE</code> (default), the returned columns will
 use internal constrasts IDs as names. Details about the contrasts can be accessed
 using <code><a href="get_dataset_differential_expression_analyses.html">get_dataset_differential_expression_analyses</a></code>. If TRUE IDs will
 be replaced with human readable contrast information.</p></dd>
 
 
-<dt>memoised</dt>
+<dt id="arg-memoised">memoised<a class="anchor" aria-label="anchor" href="#arg-memoised"></a></dt>
 <dd><p>Whether or not to save to cache for future calls with the
 same inputs and use the result saved in cache if a result is already saved.
 Doing <code>options(gemma.memoised = TRUE)</code> will ensure that the cache is always
@@ -115,9 +117,7 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>A list of data tables with differential expression
+    <p>A list of data tables with differential expression
 values per result set.</p>
     </div>
     <div id="details">
@@ -211,15 +211,15 @@ the subsets being determined by the levels of the confounding factor.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
