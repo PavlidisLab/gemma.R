@@ -25,7 +25,7 @@ annotation terms associated them, use get_dataset_differential_expression_analys
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.9</span>
       </span>
     </div>
 
@@ -82,6 +82,7 @@ annotation terms associated them, use <code><a href="get_dataset_differential_ex
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_differential_expression_values</span><span class="op">(</span></span>
 <span>  dataset <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
 <span>  resultSets <span class="op">=</span> <span class="cn">NA_integer_</span>,</span>
+<span>  keepNonSpecific <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  readableContrasts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  memoised <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"gemma.memoised"</span>, <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -99,6 +100,11 @@ annotation terms associated them, use <code><a href="get_dataset_differential_ex
 <dd><p>resultSet identifiers. If a dataset is not provided, all
 result sets will be downloaded. If it is provided it will only be used
 to ensure all result sets belong to the dataset.</p></dd>
+
+
+<dt id="arg-keepnonspecific">keepNonSpecific<a class="anchor" aria-label="anchor" href="#arg-keepnonspecific"></a></dt>
+<dd><p>logical. FALSE by default. If TRUE, results from probesets
+that are not specific to the gene will also be returned.</p></dd>
 
 
 <dt id="arg-readablecontrasts">readableContrasts<a class="anchor" aria-label="anchor" href="#arg-readablecontrasts"></a></dt>
