@@ -7,6 +7,7 @@
 get_differential_expression_values(
   dataset = NA_character_,
   resultSets = NA_integer_,
+  keepNonSpecific = FALSE,
   readableContrasts = FALSE,
   memoised = getOption("gemma.memoised", FALSE)
 )
@@ -17,6 +18,9 @@ get_differential_expression_values(
 \item{resultSets}{resultSet identifiers. If a dataset is not provided, all
 result sets will be downloaded. If it is provided it will only be used
 to ensure all result sets belong to the dataset.}
+
+\item{keepNonSpecific}{logical. FALSE by default. If TRUE, results from probesets
+that are not specific to the gene will also be returned.}
 
 \item{readableContrasts}{If \code{FALSE} (default), the returned columns will
 use internal constrasts IDs as names. Details about the contrasts can be accessed
