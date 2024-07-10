@@ -25,7 +25,7 @@ annotation terms associated them, use get_dataset_differential_expression_analys
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.8</span>
       </span>
     </div>
 
@@ -144,19 +144,19 @@ the subsets being determined by the levels of the confounding factor.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_differential_expression_values</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`573187`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe         NCBIid          GeneSymbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;         &lt;char&gt;              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   210279_at           2841               GPR18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 204529_s_at           9760                 TOX</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   202746_at           9452               ITM2A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   206761_at          10225                CD96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   204352_at           7188               TRAF5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:   222141_at                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22280: 203293_s_at           3998               LMAN1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:   212708_at         339287                MSL1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:   203889_at 6447|114118903 SCG5|ARHGAP11A-SCG5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22283: 201060_x_at           2040                STOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt; &lt;char&gt;     &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   210279_at   2841      GPR18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 204529_s_at   9760        TOX</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   202746_at   9452      ITM2A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   206761_at  10225       CD96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   204352_at   7188      TRAF5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011: 218682_s_at  22950   SLC4A1AP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012: 202853_s_at   6259        RYK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013: 203293_s_at   3998      LMAN1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:   212708_at 339287       MSL1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18015: 201060_x_at   2040       STOM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      GeneName    pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                        &lt;char&gt;     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                          G protein-coupled receptor 18 4.108e-15</span>
@@ -165,11 +165,11 @@ the subsets being determined by the levels of the confounding factor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                          CD96 molecule 9.116e-12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5:                       TNF receptor associated factor 5 1.156e-11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:                                                        9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:                              lectin, mannose binding 1 9.998e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:                                  MSL complex subunit 1 9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:             secretogranin V|ARHGAP11A-SCG5 readthrough 9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:                                               stomatin 9.999e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:       solute carrier family 4 member 1 adaptor protein 9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:                          receptor like tyrosine kinase 9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:                              lectin, mannose binding 1 9.998e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:                                  MSL complex subunit 1 9.997e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:                                               stomatin 9.999e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        corrected_pvalue      rank contrast_1_coefficient contrast_1_log2fc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;num&gt;     &lt;num&gt;                  &lt;num&gt;             &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:        9.153e-11 4.488e-05             9.6010e-01        9.6010e-01</span>
@@ -178,11 +178,11 @@ the subsets being determined by the levels of the confounding factor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4:        5.079e-08 2.000e-04             5.5470e-01        5.5470e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5:        5.152e-08 2.000e-04             9.8710e-01        9.8710e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:        9.998e-01 9.998e-01            -1.2290e-05       -1.2290e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:        9.998e-01 1.000e+00            -3.6000e-05       -3.6000e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:        9.998e-01 9.999e-01             2.9150e-05        2.9150e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:        9.998e-01 9.999e-01             2.5670e-05        2.5670e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:        9.999e-01 1.000e+00             6.6370e-06        6.6370e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:        9.998e-01 9.997e-01            -5.8720e-05       -5.8720e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:        9.998e-01 9.998e-01            -5.2710e-05       -5.2710e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:        9.998e-01 1.000e+00            -3.6000e-05       -3.6000e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:        9.998e-01 9.999e-01             2.9150e-05        2.9150e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:        9.999e-01 1.000e+00             6.6370e-06        6.6370e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_1_tstat contrast_1_pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;num&gt;             &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:      13.37250000         4.219e-15</span>
@@ -191,11 +191,11 @@ the subsets being determined by the levels of the confounding factor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4:      10.09150000         9.116e-12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5:       9.99860000         1.156e-11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:      -0.00040000         9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:      -0.00030000         9.998e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:       0.00040000         9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:       0.00040000         9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:       0.00007557         9.999e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:      -0.00060000         9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:      -0.00060000         9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:      -0.00030000         9.998e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:       0.00040000         9.997e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:       0.00007557         9.999e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
