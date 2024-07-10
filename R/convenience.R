@@ -650,6 +650,7 @@ get_dataset_object <- function(datasets,
 #' get_differential_expression_values("GSE2018")
 get_differential_expression_values <- function(dataset = NA_character_,
                                                resultSets = NA_integer_,
+                                               keepNonSpecific = FALSE,
                                                readableContrasts = FALSE,
                                                memoised = getOption("gemma.memoised", FALSE)) {
     if (is.na(dataset) == FALSE && !isEmpty(resultSets)){
@@ -677,6 +678,11 @@ get_differential_expression_values <- function(dataset = NA_character_,
             }
             warning(msg)
         }
+        
+        if(!keepNonSpecific){
+            out <- out[!(grepl("|",out$GeneSymbol,fixed = TRUE) | out$GeneSymbol == ""),]
+        }
+        
         if(readableContrasts){
             return(processDEcontrasts(out, x))
         } else{
