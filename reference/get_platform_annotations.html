@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.10</span>
       </span>
     </div>
 
@@ -118,8 +118,8 @@ used. Use <code><a href="forget_gemma_memoised.html">forget_gemma_memoised</a></
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A table of annotations</p><ul><li><p><code>ProbeName</code>: Probeset names provided by the platform.
-Gene symbols for generic annotations</p></li>
+    <p>A table of annotations</p><ul><li><p><code>ElementName</code>: Probeset names provided by the platform.
+Gene symbols for generic annotations typicall used for RNA-seq experiments.</p></li>
 <li><p><code>GeneSymbols</code>: Genes that were found to be aligned to
 the probe sequence. Note that it is possible for probes to be
 non-specific. Alignment to multiple genes are indicated with gene
@@ -133,7 +133,7 @@ argument can be used to choose which terms should be included.</p></li>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      ProbeName   GeneSymbols                                     GeneNames</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ElementName   GeneSymbols                                     GeneNames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;        &lt;char&gt;                                        &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:   216678_at                                                            </span>

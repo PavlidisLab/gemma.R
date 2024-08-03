@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.10</span>
       </span>
     </div>
 
@@ -1453,7 +1453,7 @@ terms.</p>
 <p>Examples:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>     ProbeName   GeneSymbols                                     GeneNames
+<pre><code>   ElementName   GeneSymbols                                     GeneNames
         &lt;char&gt;        &lt;char&gt;                                        &lt;char&gt;
 1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a
 2:   216678_at                                                            
@@ -3398,7 +3398,7 @@ All probe sets represented…
 FALSE
 </td>
 <td style="text-align:right;">
-1293
+1296
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3439,7 +3439,7 @@ Complete coverage of the H…
 FALSE
 </td>
 <td style="text-align:right;">
-1539
+1543
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -4019,12 +4019,10 @@ BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
 LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -4042,7 +4040,7 @@ other attached packages:
 [11] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
 [13] matrixStats_1.3.0           ggrepel_0.9.5              
 [15] ggplot2_3.5.1               dplyr_1.1.4                
-[17] data.table_1.15.4           gemma.R_3.1.9              
+[17] data.table_1.15.4           gemma.R_3.1.10             
 [19] BiocStyle_2.32.1           
 
 loaded via a namespace (and not attached):
@@ -4050,12 +4048,12 @@ loaded via a namespace (and not attached):
  [4] digest_0.6.36           timechange_0.3.0        lifecycle_1.0.4        
  [7] magrittr_2.0.3          compiler_4.4.1          rlang_1.1.4            
 [10] sass_0.4.9              tools_4.4.1             utf8_1.2.4             
-[13] yaml_2.3.9              knitr_1.48              labeling_0.4.3         
+[13] yaml_2.3.10             knitr_1.48              labeling_0.4.3         
 [16] S4Arrays_1.4.1          htmlwidgets_1.6.4       bit_4.0.5              
 [19] curl_5.2.1              DelayedArray_0.30.1     xml2_1.3.6             
-[22] RColorBrewer_1.1-3      abind_1.4-5             withr_3.0.0            
+[22] RColorBrewer_1.1-3      abind_1.4-5             withr_3.0.1            
 [25] purrr_1.0.2             desc_1.4.3              grid_4.4.1             
-[28] fansi_1.0.6             colorspace_2.1-0        scales_1.3.0           
+[28] fansi_1.0.6             colorspace_2.1-1        scales_1.3.0           
 [31] cli_3.6.3               rmarkdown_2.27          crayon_1.5.3           
 [34] ragg_1.3.2              generics_0.1.3          rstudioapi_0.16.0      
 [37] httr_1.4.7              cachem_1.1.0            stringr_1.5.1          
@@ -4069,8 +4067,8 @@ loaded via a namespace (and not attached):
 [61] htmltools_0.5.8.1       GenomeInfoDbData_1.2.12 R6_2.5.1               
 [64] textshaping_0.4.0       evaluate_0.24.0         kableExtra_1.4.0       
 [67] lattice_0.22-6          highr_0.11              memoise_2.0.1          
-[70] bslib_0.7.0             Rcpp_1.0.12             svglite_2.1.3          
-[73] gridExtra_2.3           SparseArray_1.4.8       xfun_0.45              
+[70] bslib_0.8.0             Rcpp_1.0.13             svglite_2.1.3          
+[73] gridExtra_2.3           SparseArray_1.4.8       xfun_0.46              
 [76] fs_1.6.4                pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
