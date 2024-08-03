@@ -32,8 +32,8 @@ used. Use \code{\link{forget_gemma_memoised}} to clear the cache.}
 \value{
 A table of annotations
 \itemize{
-\item \code{ProbeName}: Probeset names provided by the platform.
-Gene symbols for generic annotations
+\item \code{ElementName}: Probeset names provided by the platform.
+Gene symbols for generic annotations typicall used for RNA-seq experiments.
 \item \code{GeneSymbols}: Genes that were found to be aligned to
 the probe sequence. Note that it is possible for probes to be
 non-specific. Alignment to multiple genes are indicated with gene
