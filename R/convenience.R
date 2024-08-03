@@ -32,8 +32,8 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #'
 #' @return A table of annotations
 #' \itemize{
-#'     \item \code{ProbeName}: Probeset names provided by the platform.
-#'     Gene symbols for generic annotations
+#'     \item \code{ElementName}: Probeset names provided by the platform.
+#'     Gene symbols for generic annotations typicall used for RNA-seq experiments.
 #'     \item \code{GeneSymbols}: Genes that were found to be aligned to
 #'     the probe sequence. Note that it is possible for probes to be
 #'     non-specific. Alignment to multiple genes are indicated with gene
@@ -100,6 +100,7 @@ get_platform_annotations <- function(platform,
     } else {
         file <- paste0(tools::file_path_sans_ext(file), ".gz")
     }
+    
 
     doReadFile <- function(file) {
         if (file.exists(file)) {
@@ -128,22 +129,28 @@ get_platform_annotations <- function(platform,
             fread(tools::file_path_sans_ext(file))
         }
     }
-
-    if ((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite) {
+    
+    if((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite){
         warning(tools::file_path_sans_ext(file), " exists. Not overwriting.")
-        doReadFile(file)
     } else {
         response <- httr::GET(glue::glue(
             paste0(dirname(dirname(gemmaPath())),
-                "/arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
+                   "/arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
             httr::write_disk(file))
-        if (response$status_code==200){
-            return(doReadFile(file))
-        } else{
+        if (response$status_code!=200){
             warning(glue::glue("Unable to access annotation file for {platform}. Can get more information about the platform at https://gemma.msl.ubc.ca/arrays/showArrayDesign.html?id={platform}"))
             return(NULL)
         }
     }
+    
+    frame <- doReadFile(file)
+    
+    # currently Gemma includes files mixed with ElementName and ProbeName
+    # we just return ElementName
+    
+    names(frame)[names(frame) == 'ProbeName'] = 'ElementName'
+    
+    return(frame)
 }
 
 #' Memoise get_platform_annotations
