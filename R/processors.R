@@ -189,7 +189,6 @@ processDEA <- function(d) {
                 baseline.factors <- d[[i]]$resultSets[[j]]$baselineGroup %>% 
                     processFactorValueValueObject %>% list() %>% rep(size)
                 
-experimental.factors
             }else{
                 # if more than 2 factors are present take a look at the the other
                 # factor values to idenfity the baseline values
