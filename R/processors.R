@@ -153,7 +153,6 @@ processDEA <- function(d) {
                                d[[i]]$sourceExperiment)
         
         results <- seq_along(result_ids[[i]]) %>% lapply(function(j){
-
             # re-order experimental factors based on their IDs to ensure compatibility
             # with dif exp tables
             factor_ids <- d[[i]]$resultSets[[j]]$experimentalFactors %>% purrr::map_int('id')
@@ -173,10 +172,24 @@ processDEA <- function(d) {
                 experimental.factors <- non_control_factors %>% 
                     purrr::map(processFactorValueValueObject)
                 
+                factor.ID <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$id
+                factor.category <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$category
+                factor.category.URI <- d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$categoryUri
+                
+                experimental.factors <- experimental.factors %>% lapply(function(x){
+                    x$factor.ID <- factor.ID
+                    x$factor.category <- factor.category
+                    x$factor.category.URI <- factor.category.URI
+                    return(x)
+                })
+                
+                
+                
+                
                 baseline.factors <- d[[i]]$resultSets[[j]]$baselineGroup %>% 
                     processFactorValueValueObject %>% list() %>% rep(size)
                 
-
+experimental.factors
             }else{
                 # if more than 2 factors are present take a look at the the other
                 # factor values to idenfity the baseline values
@@ -207,7 +220,14 @@ processDEA <- function(d) {
                 colnames(relevant_ids) <-factor_ids
                 
                 all_factors <- d[[i]]$resultSets[[j]]$experimentalFactors %>% lapply(function(y){
-                    y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+                    factor.ID <- y$id
+                    factor.category <- y$category
+                    factor.category.URI <- y$categoryUri
+                    out <- y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+                    out$factor.ID <- factor.ID
+                    out$factor.category <- factor.category
+                    out$factor.category.URI <- factor.category.URI
+                    return(out)
                 }) %>% do.call(rbind,.)
                 
                 baseline_factors <- seq_along(baseline_ids) %>% lapply(function(i){
