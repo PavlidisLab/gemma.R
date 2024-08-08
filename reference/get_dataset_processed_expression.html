@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.1.10</span>
       </span>
     </div>
 
@@ -125,8 +125,123 @@ the queried dataset. If raw is TRUE, returns the binary file in raw form.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_dataset_processed_expression</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in .body(fname = fname, validators = validators, endpoint = endpoint,     envWhere = environment(), isFile = isFile, header = header,     raw = raw, overwrite = overwrite, file = file, attributes = TRUE,     open_api_name = open_api_name, .call = match.call()):</span> https://gemma.msl.ubc.ca/rest/v2/datasets/GSE2018/data/processed</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> HTTP code 429</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         Probe             GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        &lt;char&gt;                 &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:              1007_s_at                   DDR1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                1053_at                   RFC2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                 117_at            HSPA7|HSPA6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                 121_at                   PAX8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:              1255_g_at GUCA1ANB-GUCA1A|GUCA1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279: AFFX-r2-Hs28SrRNA-3_at                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280: AFFX-r2-Hs28SrRNA-5_at                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281: AFFX-r2-Hs28SrRNA-M_at                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:    AFFX-r2-P1-cre-3_at                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:    AFFX-r2-P1-cre-5_at                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                      GeneName</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                        &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:                                                            discoidin domain receptor tyrosine kinase 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:                                                                         replication factor C subunit 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: heat shock protein family A (Hsp70) member 7 (pseudogene)|heat shock protein family A (Hsp70) member 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                                                                           paired box 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:                                             GUCA1ANB-GUCA1A readthrough|guanylate cyclase activator 1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:                                                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                NCBIid BAL_47c_A0B1 BAL_47b_A0B1 BAL_47a_A0B0 BAL_46_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;char&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:            780       7.6721       7.5602       7.7570      7.7165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:           5982       6.8924       6.8371       6.5584      6.6655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      3311|3310       7.5564       7.8130       7.8905      7.9372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:           7849       9.1023       9.0188       9.0757      9.4814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5: 118142757|2978       3.9816       4.1360       3.9452      3.9185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:                      6.0573       6.6788       5.5698      6.8142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:                      4.4464       4.5392       4.3247      4.2114</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:                      5.5811       5.6101       5.3193      5.8082</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:                     12.3181      12.7032      12.4291     12.5889</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:                     12.3710      12.7371      12.5967     12.6001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_45b_A2B0 BAL_45a_A1B0 BAL_44b_A0B0 BAL_44a_A0B0 BAL_43_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;num&gt;        &lt;num&gt;        &lt;num&gt;        &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:       7.7217       7.4853       7.5389       7.7166      7.4546</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:       6.6493       6.7775       6.8723       6.9086      6.9020</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       7.9382       7.7160       7.6090       7.6796      7.6140</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       9.1434       9.2323       8.8174       9.2588      9.1342</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       3.9763       4.0628       3.9806       4.0291      3.9937</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:       5.8032       5.3838       5.0290       5.4162      6.0414</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:       4.2476       4.3461       4.4103       4.6214      4.3248</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:       5.4252       5.3784       5.4534       6.0406      5.6337</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:      12.0769      11.8487      12.0046      12.2680     12.7080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:      12.0967      11.9828      12.1745      12.3711     12.7085</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_42_A0B0 BAL_41_A1B0 BAL_40_A0B0 BAL_4_A0B0 BAL_39_A0B1 BAL_33_A0B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;num&gt;       &lt;num&gt;       &lt;num&gt;      &lt;num&gt;       &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      7.8968      7.8389      7.6959     7.5597      7.3643      7.4844</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      6.6162      6.5528      6.7033     6.9416      6.8158      7.0474</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      8.2502      8.0923      7.4063     7.6235      7.4394      7.6490</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      9.0405      9.3820      9.2632     9.2566      8.9355      8.9928</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      4.1257      4.1723      4.0604     4.0568      4.0417      4.0483</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:      5.6857      6.2910      5.7738     5.5462      5.6036      5.8302</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:      4.3131      4.4599      4.2906     4.4736      4.3762      4.3541</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:      5.7005      5.5984      5.5689     5.4175      5.6782      5.4919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:     12.5757     12.1585     12.5281    12.3581     12.6380     11.9772</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:     12.5472     12.1318     12.6254    12.5638     12.7395     11.9890</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_31_A0B1 BAL_3_A1B0 BAL_29_A1B0 BAL_27b_A2B1 BAL_27a_A0B0 BAL_26_A2B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;num&gt;      &lt;num&gt;       &lt;num&gt;        &lt;num&gt;        &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      7.4757     7.6154      7.8408       7.5376       7.8763      7.3875</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      6.9175     6.8842      6.5479       6.8936       6.8416      6.9261</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      7.5906     7.4748      7.8061       7.7496       7.7334      8.0984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      9.1201     8.9751      9.4695       8.9047       9.3388      8.8144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      4.0626     3.8952      4.0921       4.0868       4.0015      4.0082</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:      6.3791     5.8753      5.5061       5.0878       5.8953      5.5300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:      4.5338     4.4788      4.2469       4.0392       4.4491      4.2650</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:      5.9405     5.6130      5.7107       5.1224       5.5735      5.3966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:     12.7013    12.3744     12.5784      12.1495      12.3097     12.0778</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:     12.5966    12.5742     12.7121      12.1941      12.3234     12.1340</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_25_A0B0 BAL_21_A0B0 BAL_20b_A1B1 BAL_20a_A1B1 BAL_19_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;num&gt;       &lt;num&gt;        &lt;num&gt;       &lt;lgcl&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      7.5234      7.6638       7.6784           NA      7.6282</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      6.9205      6.7385       6.6880           NA      6.8080</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      7.4471      7.5918       7.8253           NA      7.8906</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      8.9383      9.1553       9.2515           NA      9.1685</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      3.9627      4.1046       4.0499           NA      4.0098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:      5.2302      6.2889       6.8727           NA      6.5142</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:      4.4187      4.5706       4.2569           NA      4.8138</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:      5.5780      5.9314       5.7742           NA      6.2741</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:     12.1750     12.2941      12.5257           NA     12.3542</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:     12.2041     12.4245      12.3887           NA     12.4245</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_18_A1B0 BAL_17_A0B0 BAL_13_A0B0 BAL_12_A1B0 BAL_1_A0B0 BAL_15b_A0B0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;num&gt;       &lt;num&gt;       &lt;num&gt;       &lt;num&gt;      &lt;num&gt;        &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      7.5057      7.3620      7.5897      7.5837     7.4623       7.6584</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      6.7586      6.9581      6.8889      7.0007     7.0674       6.7241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      7.7618      7.7964      7.7068      7.5155     7.8392       8.0925</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      9.2959      8.8983      9.0008      9.1463     9.1243       9.0725</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:      4.0721      4.0442      4.0622      4.1134     4.1629       3.9857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:      7.1344      5.8847      5.7437      6.2286     6.0442       5.6573</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:      4.5497      4.3300      4.2274      4.3363     4.3702       4.6204</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:      6.0937      5.7808      5.4054      5.6526     5.8420       5.8045</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:     12.6783     12.2767     12.6076     12.4795    12.4001      11.8423</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:     12.7071     12.2172     12.6159     12.5716    12.4956      12.0150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        BAL_15a_A0B1 BAL_37_A1B1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               &lt;num&gt;       &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:       7.5819      7.6151</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:       6.7558      6.7764</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:       7.5988      7.8420</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:       8.7984      9.0833</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       3.9986      4.0728</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22279:       5.5957      5.5831</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22280:       4.4584      4.2902</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22281:       5.6350      5.4597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22282:      12.4696     11.9554</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22283:      12.4656     12.0389</span>
 </code></pre></div>
     </div>
   </div>
