@@ -335,8 +335,22 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             contrast.ID <- contrast_id[!contrast_id %in% baseline_id]
             size <- length(contrast.ID)
             
+
             experimental.factors <- non_control_factors %>% 
                 purrr::map(processFactorValueValueObject)
+            
+            factor.ID <- x$experimentalFactors[[1]]$id
+            factor.category <-x$experimentalFactors[[1]]$category
+            factor.category.URI <-x$experimentalFactors[[1]]$categoryUri
+            
+            experimental.factors <- experimental.factors %>% lapply(function(x){
+                x$factor.ID <- factor.ID
+                x$factor.category <- factor.category
+                x$factor.category.URI <- factor.category.URI
+                return(x)
+            })
+            
+            
             baseline.factors <- x$baselineGroup %>% processFactorValueValueObject() %>% list() %>% rep(size)
             
         } else{
@@ -380,8 +394,16 @@ processDifferentialExpressionAnalysisResultSetValueObject = function(d){
             
             
             all_factors <- x$experimentalFactors %>% lapply(function(y){
-                y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+                factor.ID <- y$id
+                factor.category <- y$category
+                factor.category.URI <- y$categoryUri
+                out <- y$values %>% purrr::map(processFactorValueValueObject) %>% do.call(rbind,.)
+                out$factor.ID <- factor.ID
+                out$factor.category <- factor.category
+                out$factor.category.URI <- factor.category.URI
+                return(out)
             }) %>% do.call(rbind,.)
+            
             
             baseline_factors <- all_factors %>% dplyr::filter(ID %in% baseline_ids)
             
