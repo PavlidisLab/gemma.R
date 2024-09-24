@@ -136,7 +136,7 @@ get_platform_annotations <- function(platform,
         response <- httr::GET(glue::glue(
             paste0(dirname(dirname(gemmaPath())),
                    "/arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
-            httr::write_disk(file))
+            httr::write_disk(file),handle = httr::handle(""))
         if (response$status_code!=200){
             warning(glue::glue("Unable to access annotation file for {platform}. Can get more information about the platform at https://gemma.msl.ubc.ca/arrays/showArrayDesign.html?id={platform}"))
             return(NULL)
@@ -753,9 +753,11 @@ gemma_call <- function(call,...,json = TRUE){
         response <- httr::GET(
             glue::glue(paste0(gemmaPath(),call)),
             httr::authenticate(getOption('gemma.username'),
-                                 getOption("gemma.password")))
+                                 getOption("gemma.password")),
+            handle = httr::handle(""))
     } else{
-        response <- httr::GET(glue::glue(paste0(gemmaPath(),call),.envir = env))
+        response <- httr::GET(glue::glue(paste0(gemmaPath(),call),.envir = env),
+                              handle = httr::handle(""))
     }
 
     if (response$status_code == 200) {

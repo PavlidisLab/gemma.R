@@ -85,12 +85,14 @@ setGemmaPath <- function(path){
             c(httr::authenticate(getOption('gemma.username'),
                                  getOption("gemma.password")),
               httr::add_headers(header),
-              httr::user_agent(paste0('gemma.R/',packageVersion('gemma.R'))))))
+              httr::user_agent(paste0('gemma.R/',packageVersion('gemma.R')))),
+            handle = httr::handle("")))
     } else{
         requestExpr <- quote(httr::GET(
             call,
             c(httr::add_headers(header),
-              httr::user_agent(paste0('gemma.R/',packageVersion('gemma.R'))))))
+              httr::user_agent(paste0('gemma.R/',packageVersion('gemma.R')))),
+            handle = httr::handle("")))
     }
 
     envWhere$call <- call
