@@ -49,12 +49,12 @@ set_gemma_user <- function(username = NULL, password = NULL) {
 #' head(get_platform_annotations("GPL96"))
 #' head(get_platform_annotations('Generic_human_ncbiIds'))
 get_platform_annotations <- function(platform,
-    annotType = c("noParents","allParents","bioProcess"),
-    file = getOption("gemma.file", NA_character_),
-    overwrite = getOption("gemma.overwrite", FALSE),
-    memoised = getOption("gemma.memoise", FALSE),
-    unzip = FALSE){
-
+                                     annotType = c("noParents","allParents","bioProcess"),
+                                     file = getOption("gemma.file", NA_character_),
+                                     overwrite = getOption("gemma.overwrite", FALSE),
+                                     memoised = getOption("gemma.memoise", FALSE),
+                                     unzip = FALSE){
+    
     if (memoised){
         if (!is.na(file)){
             warning("Saving to files is not supported with memoisation.")
@@ -80,9 +80,9 @@ get_platform_annotations <- function(platform,
             )
             return(out)
         }
-
+        
     }
-
+    
     if (!is.numeric(platform)) {
         platforms <- get_platforms_by_ids(platform)
         if (!isTRUE(nrow(platforms) == 1)) {
@@ -90,60 +90,57 @@ get_platform_annotations <- function(platform,
         }
         platform <- platforms[, "platform.ID"]
     }
-
+    
     annotType <- match.arg(annotType)
-
-    is.tmp <- is.na(file)
-
-    if (is.na(file)) {
-        file <- tempfile(fileext = ".gz")
-    } else {
-        file <- paste0(tools::file_path_sans_ext(file), ".gz")
+    
+    
+    is.tmp = is.na(file) || unzip
+    
+    if (is.tmp) {
+        file_path <- tempfile(fileext = ".gz")
+    } else{
+        file_path <- file
     }
     
-
-    doReadFile <- function(file) {
-        if (file.exists(file)) {
-            tmp <- gzfile(file)
-            ret <- tmp %>%
-                readLines() %>%
-                .[which(!startsWith(., "#"))[1]:length(.)] %>%
-                # Strip comments
-                paste0(collapse = "\n") %>%
-                {
-                    fread(text = .)
-                }
-            close(tmp)
-
-            if (!is.tmp && unzip) {
-                utils::write.table(ret, tools::file_path_sans_ext(file),
-                    sep = "\t", quote = FALSE, row.names = FALSE)
+    
+    doReadFile <- function(file_path) {
+        tmp <- gzfile(file_path)
+        ret <- tmp %>%
+            readLines() %>%
+            .[which(!startsWith(., "#"))[1]:length(.)] %>%
+            # Strip comments
+            paste0(collapse = "\n") %>%
+            {
+                fread(text = .)
             }
-
-            if (is.tmp || unzip) {
-                unlink(file)
-            }
-
-            ret
-        } else {
-            fread(tools::file_path_sans_ext(file))
+        close(tmp)
+        
+        if (unzip && !is.na(file)) {
+            utils::write.table(ret, file,
+                               sep = "\t", quote = FALSE, row.names = FALSE)
         }
+        
+        if (is.tmp || unzip) {
+            unlink(file_path)
+        }
+        
+        ret
     }
     
-    if((file.exists(file) || file.exists(tools::file_path_sans_ext(file))) && !overwrite){
-        warning(tools::file_path_sans_ext(file), " exists. Not overwriting.")
+    if((file.exists(file)) && !overwrite){
+        warning(file, " exists. Not overwriting.")
     } else {
         response <- httr::GET(glue::glue(
             paste0(dirname(dirname(gemmaPath())),
                    "/arrays/downloadAnnotationFile.html?id={platform}&fileType={annotType}")),
-            httr::write_disk(file),handle = httr::handle(""))
+            httr::write_disk(file_path,overwrite = overwrite),handle = httr::handle(""))
         if (response$status_code!=200){
             warning(glue::glue("Unable to access annotation file for {platform}. Can get more information about the platform at https://gemma.msl.ubc.ca/arrays/showArrayDesign.html?id={platform}"))
             return(NULL)
         }
     }
     
-    frame <- doReadFile(file)
+    frame <- doReadFile(file_path)
     
     # currently Gemma includes files mixed with ElementName and ProbeName
     # we just return ElementName
