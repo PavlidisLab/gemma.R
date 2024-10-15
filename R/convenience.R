@@ -94,14 +94,13 @@ get_platform_annotations <- function(platform,
     annotType <- match.arg(annotType)
     
     
-    is.tmp = is.na(file) || unzip
+    is.tmp = is.null(file) || is.na(file) || unzip
     
     if (is.tmp) {
         file_path <- tempfile(fileext = ".gz")
     } else{
         file_path <- file
     }
-    
     
     doReadFile <- function(file_path) {
         tmp <- gzfile(file_path)
@@ -127,7 +126,7 @@ get_platform_annotations <- function(platform,
         ret
     }
     
-    if((file.exists(file)) && !overwrite){
+    if(!(is.null(file) || is.na(file)) && (file.exists(file) && !overwrite)){
         warning(file, " exists. Not overwriting.")
     } else {
         response <- httr::GET(glue::glue(
