@@ -385,10 +385,11 @@ get_dataset_object <- function(datasets,
                     dup_mean <- dup_subset[,.SD,.SDcols = meta$sample.name] %>% apply(2,mean)
                     probe <- paste0('Averaged from ',paste0(dup_subset$Probe, collapse = ' '))
                     dup_out <- data.frame(Probe = probe,
-                                          dup_subset[1,.SD,.SDcols = - c('Probe',meta$sample.Name)],
+                                          dup_subset[1,.SD,.SDcols = - c('Probe',meta$sample.name)],
                                           t(dup_mean),
                                           check.names = FALSE)
                 }) %>% do.call(rbind,.)
+
 
                 exp <- exp[!exp$GeneSymbol %in% dups,]
                 exp <- rbind(exp,dup_means)
