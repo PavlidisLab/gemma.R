@@ -50,6 +50,19 @@ test_that("get_dataset_object with multiple datasets and genes",{
     expect_true(tidy$NCBIid %>% unique %in% genes %>% all)
 })
 
+test_that('get_dataset_object with aggeration methods',{
+    av <- get_dataset_object(549,consolidate = 'average')
+    mx <- get_dataset_object(549,consolidate = 'pickmax')
+    vr <- get_dataset_object(549,consolidate = 'pickvar')
+    
+    
+    expect_identical(av$`549` %>% dim,mx$`549` %>% dim)
+    expect_identical(av$`549` %>% dim,vr$`549` %>% dim)
+    
+    expect_true(all(av$`549`@elementMetadata$GeneSymbol %in%  mx$`549`@elementMetadata$GeneSymbol))
+    expect_true(all(av$`549`@elementMetadata$GeneSymbol %in%  vr$`549`@elementMetadata$GeneSymbol))
+})
+
 
 test_that('get_dataset_object with resultSets',{
     dea <- get_dataset_differential_expression_analyses(442)
