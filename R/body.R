@@ -40,7 +40,7 @@ setGemmaPath <- function(path){
 #' @param .call The original function call
 #'
 #' @noRd
-.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE,open_api_name, .call) {
+.body <- function(fname, validators, endpoint, envWhere, isFile, header, raw, overwrite, file, attributes = TRUE, in_data, open_api_name, .call) {
     # Set header
     if (header == "text/tab-separated-values") {
         names(header) <- "Accept"
@@ -118,10 +118,14 @@ setGemmaPath <- function(path){
                     out
                 } else {
                     data <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
-                    out <- data$data
-                    if (attributes){
-                        attributes(out) <-
-                            c(attributes(out),data[!names(data) %in% 'data'],call=call)
+                    if(in_data){
+                        out <- data$data 
+                        if (attributes){
+                            attributes(out) <-
+                                c(attributes(out),data[!names(data) %in% 'data'],call=call)
+                        }
+                    } else{
+                        out <- data
                     }
                     out
                 }

@@ -65,6 +65,7 @@ parse_open_api_params <- function(prm){
 #' @param document A file to print information for pasting generating the package
 #' @param isFile Whether the endpoint is expected to return a gzipped file or not
 #' @param header Specific HTTP header for the request
+#' @param in_data TRUE if the relevant output is within the data section of the JSON, false otherwise
 registerEndpoint <- function(endpoint,
                              fname,
                              open_api_name = fname,
@@ -78,7 +79,8 @@ registerEndpoint <- function(endpoint,
                              where = parent.env(environment()),
                              document = getOption("gemmaAPI.document", "R/allEndpoints.R"),
                              isFile = FALSE,
-                             header = "") {
+                             header = "",
+                             in_data = TRUE) {
     if (missing(endpoint) || missing(fname) || missing(preprocessor)) {
         stop("Please specify an endpoint, function name and preprocessor.")
     }
@@ -116,6 +118,7 @@ registerEndpoint <- function(endpoint,
               overwrite = overwrite, 
               file = file, 
               attributes = TRUE,
+              in_data = in_data,
               open_api_name = open_api_name,
               .call = match.call())
     })
@@ -150,7 +153,7 @@ registerEndpoint <- function(endpoint,
 
     # Add our variables
 
-    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal","open_api_name","compressibles")) {
+    for (i in c("endpoint", "validators", "preprocessor", "fname", "isFile", "header", "keyword", "internal","open_api_name","compressibles","in_data")) {
         v <- paste0(glue::glue('{capture.output(dput(get(i)))}'),collapse = '\n')
 
 
