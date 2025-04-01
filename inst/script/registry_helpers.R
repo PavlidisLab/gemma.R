@@ -272,6 +272,15 @@ comment <- function(fname, open_api_name = fname, parameters, document = getOpti
         # mName <- endpoint$get$operationId %>% snakecase::to_sentence_case()
     }
     
+    overrides[[fname]]$tags %>% sapply(function(x){
+        'roxy_tag_section' %in% class(x) && grepl('title_override', x$val)
+    })->title_override
+    if(any(title_override)){
+        assertthat::assert_that(sum(title_override)==1)
+        mName<- overrides[[fname]]$tags[[which(title_override)]]$val %>% gsub('title_override:','',.) %>% trimws()
+    }
+    
+    
     overrides[[fname]]$tags %>% lapply(class) %>% sapply(function(x){
         any(x %in% 'roxy_tag_description')
     }) -> description_override
