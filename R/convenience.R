@@ -709,7 +709,7 @@ get_differential_expression_values <- function(dataset = NA_character_,
 #' @inheritParams memoise
 #' @return A data frame including the names, IDs and database information
 #' about the taxons
-#' @keywords misc
+#' @keywords taxon
 #' @export
 #' @examples
 #' get_taxa()

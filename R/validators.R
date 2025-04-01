@@ -8,6 +8,18 @@ compress_arg <- function(arg){
 }
 
 
+#' Validate string
+#' @keywords internal
+validateURI <- function(name,...){
+    string <- unlist(list(...))
+    assertthat::assert_that(assertthat::is.string(string),
+                            msg = glue::glue("{name} must be a single URI"))
+    return(string)
+    
+}
+
+
+
 #' Validate identifiers (ie. gene ID, platform ID, etc.) that are homogeneous (either all numerics or all not)
 #'
 #' @param name The variable name

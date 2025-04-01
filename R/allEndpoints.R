@@ -208,6 +208,208 @@ memget_result_sets <- function(
     )
 }
 
+#' Retrieve children of a given annotation
+#'
+#' Acquires child terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#'
+#' @param uri Term URI
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @inherit processSearchAnnotations return
+#' @export
+#'
+#' @keywords annotation
+#'
+#' @examples
+#' get_annotation_children("http://purl.obolibrary.org/obo/MONDO_0000408")
+get_annotation_children <- function(uri, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    in_data <- FALSE
+    compressibles <- NULL
+    open_api_name <- "get_annotations_children"
+    internal <- FALSE
+    keyword <- "annotation"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_annotation_children"
+    preprocessor <- function(d) {
+        data.table(category.name = accessField(
+            d, "category",
+            NA_character_
+        ), category.URI = accessField(
+            d, "categoryUri",
+            NA_character_
+        ), value.name = accessField(
+            d, "value",
+            NA_character_
+        ), value.URI = accessField(
+            d, "valueUri",
+            NA_character_
+        ))
+    }
+    validators <- list(uri = validateURI)
+    endpoint <- "annotations/children?uri={encode(uri)}"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_annotation_children",
+                uri = uri, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite
+            ))
+        } else {
+            out <- memget_annotation_children(
+                uri = uri, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_annotation_children
+#'
+#' @noRd
+memget_annotation_children <- function(uri, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(get_annotation_children, cache = gemmaCache())
+    mem_call(
+        uri = uri, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
+
+#' Retrieve parents of a given annotation
+#'
+#' Acquires parent terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#'
+#' @param uri Term URI
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @inherit processSearchAnnotations return
+#' @export
+#'
+#' @keywords annotation
+#'
+#' @examples
+#' get_annotation_parents("http://purl.obolibrary.org/obo/MONDO_0000408")
+get_annotation_parents <- function(uri, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    in_data <- FALSE
+    compressibles <- NULL
+    open_api_name <- "get_annotations_parents"
+    internal <- FALSE
+    keyword <- "annotation"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_annotation_parents"
+    preprocessor <- function(d) {
+        data.table(category.name = accessField(
+            d, "category",
+            NA_character_
+        ), category.URI = accessField(
+            d, "categoryUri",
+            NA_character_
+        ), value.name = accessField(
+            d, "value",
+            NA_character_
+        ), value.URI = accessField(
+            d, "valueUri",
+            NA_character_
+        ))
+    }
+    validators <- list(uri = validateURI)
+    endpoint <- "annotations/parents?uri={encode(uri)}"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_annotation_parents",
+                uri = uri, raw = raw, memoised = FALSE, file = file,
+                overwrite = overwrite
+            ))
+        } else {
+            out <- memget_annotation_parents(
+                uri = uri, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_annotation_parents
+#'
+#' @noRd
+memget_annotation_parents <- function(uri, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(get_annotation_parents, cache = gemmaCache())
+    mem_call(
+        uri = uri, raw = raw, memoised = FALSE, file = file,
+        overwrite = overwrite
+    )
+}
+
 #' Search for annotation tags
 #'
 #'
