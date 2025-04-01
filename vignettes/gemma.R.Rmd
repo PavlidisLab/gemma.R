@@ -242,7 +242,7 @@ datasets.
 dat[[1]]$disease %>% unique()
 
 # Subset patients during manic phase and controls
-manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder has_modifier manic phase" | 
+manic <- dat[[1]][, dat[[1]]$disease == "bipolar disorder with manic phase" | 
         dat[[1]]$disease == "reference subject role"]
 manic
 ```
@@ -381,23 +381,23 @@ de %>% head %>% gemma_kable
 
 # Classify probes for plotting
 de$diffexpr <- "No"
-de$diffexpr[de$`contrast_bipolar disorder has_modifier manic phase_logFoldChange` > 1.0 & 
-        de$`contrast_bipolar disorder has_modifier manic phase_pvalue` < 0.05] <- "Up"
-de$diffexpr[de$`contrast_bipolar disorder has_modifier manic phase_logFoldChange` < -1.0 & 
-        de$`contrast_bipolar disorder has_modifier manic phase_pvalue` < 0.05] <- "Down"
+de$diffexpr[de$`contrast_bipolar disorder with manic phase_logFoldChange` > 1.0 & 
+        de$`contrast_bipolar disorder with manic phase_pvalue` < 0.05] <- "Up"
+de$diffexpr[de$`contrast_bipolar disorder with manic phase_logFoldChange` < -1.0 & 
+        de$`contrast_bipolar disorder with manic phase_pvalue` < 0.05] <- "Down"
 
 # Upregulated probes
 filter(de, diffexpr == "Up") %>%
-    arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
-        `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
+    arrange(`contrast_bipolar disorder with manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder with manic phase_pvalue`, 
+        `contrast_bipolar disorder with manic phase_logFoldChange`) %>%
     head(10) %>% gemma_kable()
 
 # Downregulated probes
 filter(de, diffexpr == "Down") %>%
-    arrange(`contrast_bipolar disorder has_modifier manic phase_pvalue`) %>%
-    select(Probe, GeneSymbol, `contrast_bipolar disorder has_modifier manic phase_pvalue`, 
-        `contrast_bipolar disorder has_modifier manic phase_logFoldChange`) %>%
+    arrange(`contrast_bipolar disorder with manic phase_pvalue`) %>%
+    select(Probe, GeneSymbol, `contrast_bipolar disorder with manic phase_pvalue`, 
+        `contrast_bipolar disorder with manic phase_logFoldChange`) %>%
     head(10) %>% gemma_kable()
 
 # Add gene symbols as labels to DE genes
@@ -408,8 +408,8 @@ de$delabel[de$diffexpr != "No"] <- de$GeneSymbol[de$diffexpr != "No"]
 ggplot(
     data = de,
     aes(
-        x = `contrast_bipolar disorder has_modifier manic phase_logFoldChange`,
-        y = -log10(`contrast_bipolar disorder has_modifier manic phase_pvalue`),
+        x = `contrast_bipolar disorder with manic phase_logFoldChange`,
+        y = -log10(`contrast_bipolar disorder with manic phase_pvalue`),
         color = diffexpr,
         label = delabel
     )
