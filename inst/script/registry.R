@@ -172,7 +172,7 @@ registerEndpoint(
 #' get_annotation_children
 #' 
 #' Acquires child terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
-#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \href{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
 #' 
 #' @param uri Term URI
 #' @inherit processSearchAnnotations return
@@ -196,7 +196,7 @@ registerEndpoint("annotations/children?uri={uri}",
 #' get_annotation_parents
 #' 
 #' Acquires parent terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
-#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \href{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
 #' @section title_override: 
 #' Retrieve parents of a given annotation
 #' @param uri Term URI

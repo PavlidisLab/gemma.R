@@ -46,7 +46,7 @@ The fields of the output data.table are:
 }
 \description{
 Acquires child terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
-\href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+\href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \href{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
 }
 \examples{
 get_annotation_children("http://purl.obolibrary.org/obo/MONDO_0000408")

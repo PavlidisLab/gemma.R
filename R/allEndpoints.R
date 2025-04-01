@@ -211,7 +211,7 @@ memget_result_sets <- function(
 #' Retrieve children of a given annotation
 #'
 #' Acquires child terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
-#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \href{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
 #'
 #' @param uri Term URI
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -312,7 +312,7 @@ memget_annotation_children <- function(uri, raw = getOption("gemma.raw", FALSE),
 #' Retrieve parents of a given annotation
 #'
 #' Acquires parent terms of a given URI based on ontologies loaded into Gemma. Propagated relations are
-#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \url{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
+#' \href{https://www.w3.org/TR/2012/REC-owl2-syntax-20121211/#Subclass_Axioms}{subClassOf} and \href{http://purl.obolibrary.org/obo/BFO_0000051}{has_part}
 #'
 #' @param uri Term URI
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
