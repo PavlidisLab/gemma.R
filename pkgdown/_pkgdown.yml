@@ -19,6 +19,10 @@ reference:
   desc: Endpoints accessing taxons.
   contents:
   - has_keyword('taxon')
+- title: Annotation endpoints
+  desc: Endpoints accessing annotations.
+  contents:
+  - has_keyword('annotation')
 - title: Other functions
   desc: Remaining endpoints and helper functions.
   contents:
