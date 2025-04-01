@@ -22,4 +22,4 @@ Returns taxa and their versions used in Gemma
 \examples{
 get_taxa()
 }
-\keyword{misc}
+\keyword{taxon}

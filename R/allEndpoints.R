@@ -31,6 +31,7 @@
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_result_set"
     internal <- TRUE
@@ -63,7 +64,7 @@
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -143,6 +144,7 @@ get_result_sets <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_result_sets"
     internal <- FALSE
@@ -183,7 +185,7 @@ get_result_sets <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -230,7 +232,7 @@ memget_result_sets <- function(
 #' @inherit processSearchAnnotations return
 #' @export
 #'
-#' @keywords misc
+#' @keywords annotation
 #'
 #' @examples
 #' search_annotations("traumatic")
@@ -241,10 +243,11 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- "query"
     open_api_name <- "search_annotations"
     internal <- FALSE
-    keyword <- "misc"
+    keyword <- "annotation"
     header <- ""
     isFile <- FALSE
     fname <- "search_annotations"
@@ -273,7 +276,7 @@ search_annotations <- function(query, raw = getOption("gemma.raw", FALSE), memoi
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -326,6 +329,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_annotations"
     internal <- FALSE
@@ -366,7 +370,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -420,6 +424,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_design"
     internal <- FALSE
@@ -460,7 +465,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -514,6 +519,7 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_differential_expression_analyses"
     internal <- FALSE
@@ -554,7 +560,7 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -614,6 +620,7 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_datasets_expression_levels_for_genes"
     internal <- TRUE
@@ -686,7 +693,7 @@ memget_dataset_differential_expression_analyses <- function(dataset, raw = getOp
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -743,6 +750,7 @@ mem.get_dataset_expression_for_genes <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_datasets_expression_levels_for_genes_in_taxon"
     internal <- TRUE
@@ -840,7 +848,7 @@ mem.get_dataset_expression_for_genes <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -896,6 +904,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_platforms"
     internal <- FALSE
@@ -936,7 +945,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -990,6 +999,7 @@ get_dataset_processed_expression <- function(dataset, raw = getOption("gemma.raw
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_processed_expression"
     internal <- FALSE
@@ -1022,7 +1032,7 @@ get_dataset_processed_expression <- function(dataset, raw = getOption("gemma.raw
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1077,6 +1087,7 @@ get_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.raw",
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_quantitation_types"
     internal <- FALSE
@@ -1109,7 +1120,7 @@ get_dataset_quantitation_types <- function(dataset, raw = getOption("gemma.raw",
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1172,6 +1183,7 @@ get_dataset_raw_expression <- function(dataset, quantitationType, raw = getOptio
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_raw_expression"
     internal <- FALSE
@@ -1205,7 +1217,7 @@ get_dataset_raw_expression <- function(dataset, quantitationType, raw = getOptio
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1263,6 +1275,7 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_samples"
     internal <- FALSE
@@ -1303,7 +1316,7 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1381,6 +1394,7 @@ get_datasets <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_datasets"
     internal <- FALSE
@@ -1421,7 +1435,7 @@ get_datasets <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1496,6 +1510,7 @@ get_datasets_by_ids <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_datasets_by_ids"
     internal <- FALSE
@@ -1536,7 +1551,7 @@ get_datasets_by_ids <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1607,6 +1622,7 @@ memget_datasets_by_ids <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_datasets_differential_expression_analysis_results_for_gene"
     internal <- TRUE
@@ -1645,7 +1661,7 @@ memget_datasets_by_ids <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1713,6 +1729,7 @@ mem.get_gene_differential_expression_values <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_datasets_differential_expression_analysis_results_for_gene_in_taxon"
     internal <- TRUE
@@ -1751,7 +1768,7 @@ mem.get_gene_differential_expression_values <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1808,6 +1825,7 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_gene_go_terms"
     internal <- FALSE
@@ -1840,7 +1858,7 @@ get_gene_go_terms <- function(gene, raw = getOption("gemma.raw", FALSE), memoise
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1894,6 +1912,7 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_gene_locations"
     internal <- FALSE
@@ -1926,7 +1945,7 @@ get_gene_locations <- function(gene, raw = getOption("gemma.raw", FALSE), memois
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -1987,6 +2006,7 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_gene_probes"
     internal <- FALSE
@@ -2024,7 +2044,7 @@ get_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2081,6 +2101,7 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_genes"
     internal <- FALSE
@@ -2113,7 +2134,7 @@ get_genes <- function(genes, raw = getOption("gemma.raw", FALSE), memoised = get
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2174,6 +2195,7 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_platform_datasets"
     internal <- FALSE
@@ -2210,7 +2232,7 @@ get_platform_datasets <- function(platform, offset = 0L, limit = 20L, raw = getO
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2275,6 +2297,7 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_platform_element_genes"
     internal <- FALSE
@@ -2312,7 +2335,7 @@ get_platform_element_genes <- function(platform, probe, offset = 0L, limit = 20L
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2388,6 +2411,7 @@ get_platforms_by_ids <- function(
             FALSE
         ), file = getOption("gemma.file", NA_character_),
         overwrite = getOption("gemma.overwrite", FALSE)) {
+    in_data <- TRUE
     compressibles <- "filter"
     open_api_name <- "get_platforms_by_ids"
     internal <- FALSE
@@ -2427,7 +2451,7 @@ get_platforms_by_ids <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2496,6 +2520,7 @@ search_gemma <- function(
             "gemma.overwrite",
             FALSE
         )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "search"
     internal <- FALSE
@@ -2535,7 +2560,7 @@ search_gemma <- function(
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 
@@ -2610,6 +2635,7 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
         "gemma.overwrite",
         FALSE
     )) {
+    in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_taxa_by_ids"
     internal <- TRUE
@@ -2642,7 +2668,7 @@ get_taxa_by_ids <- function(taxa, raw = getOption("gemma.raw", FALSE), memoised 
         fname = fname, validators = validators, endpoint = endpoint,
         envWhere = environment(), isFile = isFile, header = header,
         raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
-        open_api_name = open_api_name, .call = match.call()
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
     )
 }
 

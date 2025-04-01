@@ -180,7 +180,7 @@ NULL
 registerEndpoint("annotations/search?query={query}",
                  "search_annotations",
                  open_api_name = 'search_annotations',
-                 keyword = "misc",
+                 keyword = "annotation",
                  compressibles = 'query',
                  defaults = list(query = bquote()),
                  validators = alist(query = validateQuery),

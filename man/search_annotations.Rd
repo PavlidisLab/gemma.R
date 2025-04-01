@@ -53,4 +53,4 @@ Search for annotation tags
 \examples{
 search_annotations("traumatic")
 }
-\keyword{misc}
+\keyword{annotation}
