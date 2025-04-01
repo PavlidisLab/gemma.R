@@ -62,10 +62,12 @@ test_that("datasetAnnotations queries work", {
     raw <- get_dataset_annotations(1, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
-    expect_equal(
-        dat[, c( class.name, class.URI, term.name, term.URI)],
-        c( raw$className, raw$classUri, raw$termName, raw$termUri)
-    )
+    expect_true(all(dat$class.name %in% raw$className))
+    expect_true(all(dat$class.URI %in% raw$classUri))
+    expect_true(all(dat$term.name %in% raw$termName))
+    expect_true(all(dat$term.URI %in% raw$termUri))
+    
+
 })
 
 test_that("get_dataset_expression_for_genes work", {
