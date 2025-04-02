@@ -259,6 +259,14 @@ registerEndpoint('datasets/{dataset}/annotations',
                  ),
                  preprocessor = quote(processAnnotations))
 
+
+# /datasets/{dataset}/cellLevelCharacteristics -----
+# currently doesn't seem to be working
+
+# /datasets/{dataset}/cellTypeAssignment ----
+# unclear
+
+
 # /datasets/{dataset}/design, get_dataset_design -----
 # this endpoint is not very useful since the names it comes with
 # is annoying to match names provided in the samples endpoint
@@ -275,6 +283,7 @@ NULL
 registerEndpoint('datasets/{dataset}/design',
                  'get_dataset_design', open_api_name = 'get_dataset_design',
                  isFile = TRUE,
+                 internal = TRUE,
                  keyword = 'dataset',
                  defaults = list(
                      dataset = bquote()
@@ -283,6 +292,9 @@ registerEndpoint('datasets/{dataset}/design',
                      dataset = validateSingleID
                  ),
                  preprocessor = quote(processFile))
+
+
+# 
 
 
 # /datasets/{datasets}/expressions/differential ------

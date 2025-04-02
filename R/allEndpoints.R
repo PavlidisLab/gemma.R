@@ -613,9 +613,7 @@ memget_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FAL
 #'
 #' @return A data table of the design matrix for the queried dataset.
 #' A \code{404 error} if the given identifier does not map to any object
-#' @export
-#'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
 #' head(get_dataset_design("GSE2018"))
@@ -629,7 +627,7 @@ get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), mem
     in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_design"
-    internal <- FALSE
+    internal <- TRUE
     keyword <- "dataset"
     header <- ""
     isFile <- TRUE

@@ -41,4 +41,4 @@ Retrieve the design of a dataset
 \examples{
 head(get_dataset_design("GSE2018"))
 }
-\keyword{dataset}
+\keyword{internal}
