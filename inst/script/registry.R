@@ -294,7 +294,7 @@ registerEndpoint('datasets/{dataset}/design',
                  preprocessor = quote(processFile))
 
 
-# 
+
 
 
 # /datasets/{datasets}/expressions/differential ------
@@ -347,6 +347,53 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
 #                  ),
 #                  preprocessor = quote(processFile)
 # )
+
+
+# datasets/{dataset}/platforms ------
+
+#' get_dataset_platforms
+#'
+#' @inherit processPlatforms return
+#'
+#' @examples
+#' get_dataset_platforms("GSE2018")
+NULL
+
+registerEndpoint('datasets/{dataset}/platforms',
+                 'get_dataset_platforms',
+                 open_api_name = 'get_dataset_platforms',
+                 keyword = 'dataset',
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = list(
+                     dataset = validateSingleID
+                 ),
+                 preprocessor = quote(processPlatforms))
+
+# datasets/{dataset}/data/processed ------
+# this should be the main way to get the expression data now
+# other one might be removed in next release
+
+#' get_dataset_processed_expression
+#' @return If raw is FALSE (default), a data table of the expression matrix for
+#' the queried dataset. If raw is TRUE, returns the binary file in raw form.
+#' @examples
+#' get_dataset_processed_expression("GSE2018")
+NULL
+
+
+registerEndpoint("datasets/{dataset}/data/processed",
+                 "get_dataset_processed_expression",open_api_name = 'get_dataset_processed_expression', keyword = "dataset",
+                 isFile = TRUE,
+                 defaults = list(
+                     dataset = bquote()
+                 ),
+                 validators = alist(
+                     dataset = validateID
+                 ),
+                 preprocessor = quote(processFile)
+)
 
 
 # /datasets/{datasets}/expressions/genes/{genes}, get_dataset_expression_for_genes ------
@@ -417,54 +464,9 @@ registerEndpoint('datasets/{datasets}/expressions/taxa/{taxon}/genes/{genes}?kee
 # unimplemented
 
 
-# datasets/{dataset}/platforms ------
-
-#' get_dataset_platforms
-#'
-#' @inherit processPlatforms return
-#'
-#' @examples
-#' get_dataset_platforms("GSE2018")
-NULL
-
-registerEndpoint('datasets/{dataset}/platforms',
-                 'get_dataset_platforms',
-                 open_api_name = 'get_dataset_platforms',
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processPlatforms))
 
 
 
-
-# datasets/{dataset}/data/processed ------
-# this should be the main way to get the expression data now
-# other one might be removed in next release
-
-#' get_dataset_processed_expression
-#' @return If raw is FALSE (default), a data table of the expression matrix for
-#' the queried dataset. If raw is TRUE, returns the binary file in raw form.
-#' @examples
-#' get_dataset_processed_expression("GSE2018")
-NULL
-
-
-registerEndpoint("datasets/{dataset}/data/processed",
-                 "get_dataset_processed_expression",open_api_name = 'get_dataset_processed_expression', keyword = "dataset",
-                 isFile = TRUE,
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = alist(
-                     dataset = validateID
-                 ),
-                 preprocessor = quote(processFile)
-)
 
 # datasets/{dataset}/quantitationTypes get_dataset_quantitation_types ----------
 
