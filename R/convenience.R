@@ -904,6 +904,7 @@ filter_properties <- function(){
 #' @keywords misc
 #' @export
 get_child_terms <- function(terms){
+    .Deprecated("get_annotation_children",package = 'gemma.R')
     output <- get_datasets(uris = terms,limit = 1)
     out <- attributes(output)$filter %>% stringr::str_extract_all('http.*?(?=,|\\))') %>% {.[[1]]}
     if(length(out) == 0){
