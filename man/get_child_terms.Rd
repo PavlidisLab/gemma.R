@@ -10,7 +10,7 @@ get_child_terms(terms)
 \item{terms}{An array of terms}
 }
 \value{
-An array containing descendends of the annotation terms, including
+An array containing descendants of the annotation terms, including
 the terms themselves
 }
 \description{

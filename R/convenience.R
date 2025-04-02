@@ -894,7 +894,7 @@ filter_properties <- function(){
 #' 
 #' @param terms An array of terms
 #' 
-#' @return An array containing descendends of the annotation terms, including
+#' @return An array containing descendants of the annotation terms, including
 #' the terms themselves
 #' 
 #' 
