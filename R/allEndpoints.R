@@ -1537,6 +1537,214 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
     )
 }
 
+#' Obtain all the subset groups of a dataset
+#'
+#'
+#'
+#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @return Varies
+#' @export
+#'
+#' @keywords dataset
+#'
+#' @examples
+get_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    in_data <- TRUE
+    compressibles <- NULL
+    open_api_name <- "get_dataset_sub_set_groups"
+    internal <- FALSE
+    keyword <- "dataset"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_dataset_subset_groups"
+    preprocessor <- blank_processor
+    validators <- list(dataset = function(name, ...) {
+        ID <- unlist(list(...))
+        isID <- grepl("^\\d+$", ID)
+        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
+            "")) {
+            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
+                call. = FALSE
+            )
+        }
+        paste0(ID, collapse = ",")
+    })
+    endpoint <- "datasets/{encode(dataset)}/subSetGroups"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_subset_groups",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
+            ))
+        } else {
+            out <- memget_dataset_subset_groups(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_dataset_subset_groups
+#'
+#' @noRd
+memget_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(get_dataset_subset_groups, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
+
+#' Obtain the samples of a specific subset of a dataset
+#'
+#'
+#'
+#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param subset
+#' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing \code{options(gemma.memoised = TRUE)} will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or \code{NULL} to not write
+#' results to a file. If \code{raw == TRUE}, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @return Varies
+#' @export
+#'
+#' @keywords dataset
+#'
+#' @examples
+get_dataset_subset_samples <- function(
+        dataset, subset, raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
+    in_data <- TRUE
+    compressibles <- NULL
+    open_api_name <- "get_dataset_sub_set_samples"
+    internal <- FALSE
+    keyword <- "dataset"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_dataset_subset_samples"
+    preprocessor <- blank_processor
+    validators <- list(dataset = function(name, ...) {
+        ID <- unlist(list(...))
+        isID <- grepl("^\\d+$", ID)
+        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
+            "")) {
+            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
+                call. = FALSE
+            )
+        }
+        paste0(ID, collapse = ",")
+    }, subset = function(name, ...) {
+        ID <- unlist(list(...))
+        isID <- grepl("^\\d+$", ID)
+        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
+            "")) {
+            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
+                call. = FALSE
+            )
+        }
+        paste0(ID, collapse = ",")
+    })
+    endpoint <- "datasets/{encode(dataset)}/subSets/{encode(subset)}/samples"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_subset_samples",
+                dataset = dataset, subset = subset, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
+            ))
+        } else {
+            out <- memget_dataset_subset_samples(
+                dataset = dataset,
+                subset = subset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_dataset_subset_samples
+#'
+#' @noRd
+memget_dataset_subset_samples <- function(
+        dataset, subset, raw = getOption("gemma.raw", FALSE),
+        memoised = getOption("gemma.memoised", FALSE), file = getOption(
+            "gemma.file",
+            NA_character_
+        ), overwrite = getOption(
+            "gemma.overwrite",
+            FALSE
+        )) {
+    mem_call <- memoise::memoise(get_dataset_subset_samples,
+        cache = gemmaCache()
+    )
+    mem_call(
+        dataset = dataset, subset = subset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
+
 #' Retrieve all datasets
 #'
 #'

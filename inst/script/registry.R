@@ -562,6 +562,35 @@ registerEndpoint('datasets/{dataset}/samples',
 # )
 
 
+
+# datasets/{dataset}/subSets/{subSet} -----
+
+# datasets/{dataset}/subSetGroups/{subSetGroup} -----
+
+# dataset/{dataset}/subsetGroups -------
+
+registerEndpoint('datasets/{dataset}/subSetGroups',
+                 "get_dataset_subset_groups",
+                 open_api_name = "get_dataset_sub_set_groups",
+                 keyword = 'dataset',
+                 defaults = list(dataset = bquote()),
+                 validators = list(dataset = validateID),
+                 preprocessor = quote(blank_processor))
+
+# dataset/{dataset}/subSets/{subSet}/samples -------
+
+registerEndpoint('datasets/{dataset}/subSets/{subset}/samples',
+                 "get_dataset_subset_samples",
+                 open_api_name = "get_dataset_sub_set_samples",
+                 keyword = 'dataset',
+                 defaults = list(dataset = bquote(),
+                                 subset = bquote()),
+                 validators = list(dataset = validateID,
+                                   subset = validateID),
+                 preprocessor = quote(blank_processor))
+
+# dataset/{dataset}/subSets ----------
+
 # datasets/{dataset}/svd ------------
 # unimplemented
 # datasets, get_datasets ------
