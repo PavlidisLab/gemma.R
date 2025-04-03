@@ -1537,11 +1537,11 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
     )
 }
 
-#' Obtain all the subset groups of a dataset
+#' get_dataset_subset_groups
 #'
 #'
 #'
-#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param dataset
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1556,9 +1556,7 @@ memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE),
 #' filename.
 #'
 #' @return Varies
-#' @export
-#'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
 get_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
@@ -1571,7 +1569,7 @@ get_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", FALS
     in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_sub_set_groups"
-    internal <- FALSE
+    internal <- TRUE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -1632,11 +1630,11 @@ memget_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", F
     )
 }
 
-#' Obtain the samples of a specific subset of a dataset
+#' get_dataset_subset_samples
 #'
 #'
 #'
-#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param dataset
 #' @param subset integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}).
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
@@ -1652,9 +1650,7 @@ memget_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", F
 #' filename.
 #'
 #' @return Varies
-#' @export
-#'
-#' @keywords dataset
+#' @keywords internal
 #'
 #' @examples
 get_dataset_subset_samples <- function(
@@ -1669,7 +1665,7 @@ get_dataset_subset_samples <- function(
     in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_sub_set_samples"
-    internal <- FALSE
+    internal <- TRUE
     keyword <- "dataset"
     header <- ""
     isFile <- FALSE
@@ -2476,7 +2472,7 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     )
 }
 
-#' Retrieve all genes
+#' Retrieve genes matching gene identifiers
 #'
 #'
 #'
