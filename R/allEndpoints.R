@@ -616,7 +616,7 @@ memget_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FAL
 #' @keywords internal
 #'
 #' @examples
-#' head(get_dataset_design("GSE2018"))
+#' head(gemma.R:::get_dataset_design("GSE2018"))
 get_dataset_design <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
         "gemma.memoised",
         FALSE

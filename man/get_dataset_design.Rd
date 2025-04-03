@@ -39,6 +39,6 @@ A \code{404 error} if the given identifier does not map to any object
 Retrieve the design of a dataset
 }
 \examples{
-head(get_dataset_design("GSE2018"))
+head(gemma.R:::get_dataset_design("GSE2018"))
 }
 \keyword{internal}
