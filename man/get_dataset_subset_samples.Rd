@@ -16,6 +16,8 @@ get_dataset_subset_samples(
 \arguments{
 \item{dataset}{A numerical dataset identifier or a dataset short name}
 
+\item{subset}{integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}).}
+
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
 omitted in the parsed results.}

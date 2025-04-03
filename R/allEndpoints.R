@@ -1637,7 +1637,7 @@ memget_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", F
 #'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
-#' @param subset
+#' @param subset integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}).
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1674,7 +1674,7 @@ get_dataset_subset_samples <- function(
     header <- ""
     isFile <- FALSE
     fname <- "get_dataset_subset_samples"
-    preprocessor <- blank_processor
+    preprocessor <- processSamples
     validators <- list(dataset = function(name, ...) {
         ID <- unlist(list(...))
         isID <- grepl("^\\d+$", ID)

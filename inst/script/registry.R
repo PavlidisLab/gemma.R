@@ -579,6 +579,8 @@ registerEndpoint('datasets/{dataset}/subSetGroups',
 
 # dataset/{dataset}/subSets/{subSet}/samples -------
 
+#' get_dataset_subset_samples
+#' @param subset integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}). 
 registerEndpoint('datasets/{dataset}/subSets/{subset}/samples',
                  "get_dataset_subset_samples",
                  open_api_name = "get_dataset_sub_set_samples",
@@ -587,7 +589,7 @@ registerEndpoint('datasets/{dataset}/subSets/{subset}/samples',
                                  subset = bquote()),
                  validators = list(dataset = validateID,
                                    subset = validateID),
-                 preprocessor = quote(blank_processor))
+                 preprocessor = quote(processSamples))
 
 # dataset/{dataset}/subSets ----------
 
