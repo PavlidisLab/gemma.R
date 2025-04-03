@@ -40,6 +40,8 @@
 <url><loc>/reference/get_dataset_quantitation_types.html</loc></url>
 <url><loc>/reference/get_dataset_raw_expression.html</loc></url>
 <url><loc>/reference/get_dataset_samples.html</loc></url>
+<url><loc>/reference/get_dataset_subset_groups.html</loc></url>
+<url><loc>/reference/get_dataset_subset_samples.html</loc></url>
 <url><loc>/reference/get_datasets.html</loc></url>
 <url><loc>/reference/get_datasets_by_ids.html</loc></url>
 <url><loc>/reference/get_differential_expression_values.html</loc></url>
