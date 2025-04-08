@@ -1,3 +1,8 @@
+# gemma.R 4.0.0
+
+* get_annotation_children and get_annotation_parents are added. get_child_terms is
+deprecated in favor of get_annotation_children
+
 # gemma.R 3.0.0
 
 * Empty outputs now return data.tables with the corresponding column names with 0 rows instead of defaulting to lists of length 0
