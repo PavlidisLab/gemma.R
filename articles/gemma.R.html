@@ -6,12 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Accessing curated gene expression data with gemma.R • gemma.R</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
+<!-- favicons --><link rel="icon" type="image/png" sizes="48x48" href="../favicon-48x48.png">
+<link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="icon" sizes="any" href="../favicon.ico">
+<link rel="manifest" href="../site.webmanifest">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -3675,10 +3674,10 @@ term.name
 GSE35974
 </td>
 <td style="text-align:left;">
-assay
+organism part
 </td>
 <td style="text-align:left;">
-transcription profiling by …
+cerebellum
 </td>
 </tr>
 <tr>
@@ -3686,10 +3685,10 @@ transcription profiling by …
 GSE35974
 </td>
 <td style="text-align:left;">
-organism part
+assay
 </td>
 <td style="text-align:left;">
-cerebellum
+transcription profiling by …
 </td>
 </tr>
 <tr>
@@ -4022,21 +4021,19 @@ definition. See below for examples.</p>
 </h2>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.4.1 (2024-06-14)
+<pre><code>R version 4.5.0 (2025-04-11)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 22.04.4 LTS
+Running under: Ubuntu 24.04.2 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
-LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
+LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
 
 locale:
- [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
- [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
- [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
- [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
- [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+ [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+ [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+[10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
 
 time zone: UTC
 tzcode source: system (glibc)
@@ -4048,41 +4045,40 @@ attached base packages:
 other attached packages:
  [1] listviewer_4.0.0            viridis_0.6.5              
  [3] viridisLite_0.4.2           pheatmap_1.0.12            
- [5] SummarizedExperiment_1.34.0 Biobase_2.64.0             
- [7] GenomicRanges_1.56.2        GenomeInfoDb_1.40.1        
- [9] IRanges_2.38.1              S4Vectors_0.42.1           
-[11] BiocGenerics_0.50.0         MatrixGenerics_1.16.0      
-[13] matrixStats_1.5.0           ggrepel_0.9.6              
-[15] ggplot2_3.5.1               dplyr_1.1.4                
-[17] data.table_1.17.0           gemma.R_3.3.3              
-[19] BiocStyle_2.32.1           
+ [5] SummarizedExperiment_1.38.1 Biobase_2.68.0             
+ [7] GenomicRanges_1.60.0        GenomeInfoDb_1.44.0        
+ [9] IRanges_2.42.0              S4Vectors_0.46.0           
+[11] BiocGenerics_0.54.0         generics_0.1.3             
+[13] MatrixGenerics_1.20.0       matrixStats_1.5.0          
+[15] ggrepel_0.9.6               ggplot2_3.5.2              
+[17] dplyr_1.1.4                 data.table_1.17.0          
+[19] gemma.R_3.3.3               BiocStyle_2.36.0           
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.1        farver_2.1.2            fastmap_1.2.0          
  [4] digest_0.6.37           timechange_0.3.0        lifecycle_1.0.4        
- [7] magrittr_2.0.3          compiler_4.4.1          rlang_1.1.5            
-[10] sass_0.4.9              tools_4.4.1             yaml_2.3.10            
-[13] knitr_1.50              labeling_0.4.3          S4Arrays_1.4.1         
+ [7] magrittr_2.0.3          compiler_4.5.0          rlang_1.1.6            
+[10] sass_0.4.10             tools_4.5.0             yaml_2.3.10            
+[13] knitr_1.50              labeling_0.4.3          S4Arrays_1.8.0         
 [16] htmlwidgets_1.6.4       bit_4.6.0               curl_6.2.2             
-[19] DelayedArray_0.30.1     xml2_1.3.8              RColorBrewer_1.1-3     
+[19] DelayedArray_0.34.1     xml2_1.3.8              RColorBrewer_1.1-3     
 [22] abind_1.4-8             withr_3.0.2             purrr_1.0.4            
-[25] desc_1.4.3              grid_4.4.1              colorspace_2.1-1       
-[28] scales_1.3.0            cli_3.6.4               rmarkdown_2.29         
-[31] crayon_1.5.3            ragg_1.3.3              generics_0.1.3         
-[34] rstudioapi_0.17.1       httr_1.4.7              cachem_1.1.0           
-[37] stringr_1.5.1           zlibbioc_1.50.0         assertthat_0.2.1       
-[40] BiocManager_1.30.25     XVector_0.44.0          vctrs_0.6.5            
-[43] Matrix_1.7-3            jsonlite_2.0.0          bookdown_0.42          
-[46] bit64_4.6.0-1           systemfonts_1.2.2       jquerylib_0.1.4        
-[49] glue_1.8.0              pkgdown_2.1.1           lubridate_1.9.4        
-[52] stringi_1.8.7           gtable_0.3.6            UCSC.utils_1.0.0       
-[55] munsell_0.5.1           tibble_3.2.1            pillar_1.10.2          
-[58] rappdirs_0.3.3          htmltools_0.5.8.1       GenomeInfoDbData_1.2.12
-[61] R6_2.6.1                textshaping_1.0.0       evaluate_1.0.3         
-[64] kableExtra_1.4.0        lattice_0.22-7          memoise_2.0.1          
-[67] bslib_0.9.0             Rcpp_1.0.14             svglite_2.1.3          
-[70] gridExtra_2.3           SparseArray_1.4.8       xfun_0.52              
-[73] fs_1.6.5                pkgconfig_2.0.3        </code></pre>
+[25] desc_1.4.3              grid_4.5.0              scales_1.4.0           
+[28] cli_3.6.5               rmarkdown_2.29          crayon_1.5.3           
+[31] ragg_1.4.0              rstudioapi_0.17.1       httr_1.4.7             
+[34] cachem_1.1.0            stringr_1.5.1           assertthat_0.2.1       
+[37] BiocManager_1.30.25     XVector_0.48.0          vctrs_0.6.5            
+[40] Matrix_1.7-3            jsonlite_2.0.0          bookdown_0.43          
+[43] bit64_4.6.0-1           systemfonts_1.2.3       jquerylib_0.1.4        
+[46] glue_1.8.0              pkgdown_2.1.2           lubridate_1.9.4        
+[49] stringi_1.8.7           gtable_0.3.6            UCSC.utils_1.4.0       
+[52] tibble_3.2.1            pillar_1.10.2           rappdirs_0.3.3         
+[55] htmltools_0.5.8.1       GenomeInfoDbData_1.2.14 R6_2.6.1               
+[58] textshaping_1.0.1       evaluate_1.0.3          kableExtra_1.4.0       
+[61] lattice_0.22-6          memoise_2.0.1           bslib_0.9.0            
+[64] Rcpp_1.0.14             svglite_2.1.3           gridExtra_2.3          
+[67] SparseArray_1.8.0       xfun_0.52               fs_1.6.6               
+[70] pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
 
@@ -4101,7 +4097,7 @@ loaded via a namespace (and not attached):
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
       </footer>
