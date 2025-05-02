@@ -183,7 +183,14 @@ processDEA <- function(d) {
                     return(x)
                 })
                 
-                
+                if(d[[i]]$resultSets[[j]]$experimentalFactors[[1]]$type == 'continuous'){
+                    experimental.factors <- experimental.factors[1]
+                    experimental.factors[[1]]$value <- NA_character_
+                    experimental.factors[[1]]$summary <- NA_character_
+                    experimental.factors[[1]]$ID <- NA_integer_
+                    contrast.ID <- NA_integer_
+                    size <- 1
+                } 
                 
                 
                 baseline.factors <- d[[i]]$resultSets[[j]]$baselineGroup %>% 
