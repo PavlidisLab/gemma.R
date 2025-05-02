@@ -162,7 +162,7 @@ processFactorValueBasicValueObject <- function(d){
             predicate.URI = NA_character_,
             object = NA_character_,
             object.URI = NA_character_,
-            summary = NA_character_,
+            summary = d$summary %>% nullCheck(NA_character_),
             ID = d$id %>% nullCheck(NA_integer_),
             factor.ID = d$experimentalFactorId %>% nullCheck(NA_integer_),
             factor.category = d$experimentalFactorCategory$category %>% nullCheck(NA_character_),
