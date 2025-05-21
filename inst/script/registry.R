@@ -278,20 +278,20 @@ registerEndpoint('datasets/{dataset}/annotations',
 #' head(gemma.R:::get_dataset_design("GSE2018"))
 #' @return A data table of the design matrix for the queried dataset.
 #' A \code{404 error} if the given identifier does not map to any object
+NULL
 
-
-registerEndpoint('datasets/{dataset}/design',
-                 'get_dataset_design', open_api_name = 'get_dataset_design',
-                 isFile = TRUE,
-                 internal = TRUE,
-                 keyword = 'dataset',
-                 defaults = list(
-                     dataset = bquote()
-                 ),
-                 validators = list(
-                     dataset = validateSingleID
-                 ),
-                 preprocessor = quote(processFile))
+# registerEndpoint('datasets/{dataset}/design',
+#                  'get_dataset_design', open_api_name = 'get_dataset_design',
+#                  isFile = TRUE,
+#                  internal = TRUE,
+#                  keyword = 'dataset',
+#                  defaults = list(
+#                      dataset = bquote()
+#                  ),
+#                  validators = list(
+#                      dataset = validateSingleID
+#                  ),
+#                  preprocessor = quote(processFile))
 
 
 
