@@ -89,9 +89,4 @@ test_that("getDatasetExpression queries work", {
     dat <- expect_type(get_dataset_processed_expression(1), "list")
 })
 
-test_that("datasetDesign queries work", {
-    expect_type(get_dataset_design("GSE2018"), "list")
-    expect_type(get_dataset_design("GSE2018", raw = TRUE), "raw") %>% jsonlite:::simplify()
-})
-
 

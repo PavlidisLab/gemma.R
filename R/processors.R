@@ -577,8 +577,6 @@ processFile <- function(content) {
         ret <- processExpressionMatrix(ret)
     } else if (colnames(ret)[1] == "id") {
         ret <- processDEMatrix(ret)
-    } else {
-        ret <- processDesignMatrix(ret)
     }
     attributes(ret) <- c(attributes(ret),attr)
     return(ret)
@@ -842,18 +840,6 @@ processGO <- function(d) {
     )
 }
 
-#' Processes design matrix
-#'
-#' @param m The design matrix to process
-#'
-#' @return A processed matrix
-#'
-#' @keywords internal
-processDesignMatrix <- function(m) {
-    # Remove redundant strings from sample names, unnecessary columns
-    data.frame(m, row.names = stringr::str_extract(m$Bioassay, "(?<=Name=).*")) %>%
-        dplyr::select(-c("ExternalID", "Bioassay"))
-}
 
 #' Processes expression matrix
 #'
