@@ -1448,6 +1448,13 @@ memget_dataset_raw_expression <- function(dataset, quantitationType, raw = getOp
 #'
 #'
 #' @param dataset A numerical dataset identifier or a dataset short name
+#' @param useProcessedQuantitationType If TRUE, returns the samples according to
+#' the processed quantitation type. This is set to TRUE by default to ensure output of this
+#' function always matches with \code{\link{get_dataset_processed_expression}}, otherwise
+#' for single cell experiments in particular, the output will not include cell types.
+#' @param quantitationType If provided, returns the samples based on a given
+#' quantitation type. Using \code{useProcessedQuantitationType} instead should cover
+#' most use cases.
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1468,13 +1475,13 @@ memget_dataset_raw_expression <- function(dataset, quantitationType, raw = getOp
 #'
 #' @examples
 #' head(get_dataset_samples("GSE2018"))
-get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+get_dataset_samples <- function(
+        dataset, useProcessedQuantitationType = TRUE, quantitationType = NA_character_,
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     in_data <- TRUE
     compressibles <- NULL
     open_api_name <- "get_dataset_samples"
@@ -1492,8 +1499,21 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
             )
         }
         validateID(name, ...)
+    }, quantitationType = function(name, ...) {
+        if (all(is.na(as.character(unlist(list(...)))))) {
+            ""
+        } else {
+            validateID(name, ...)
+        }
+    }, useProcessedQuantitationType = function(name, ...) {
+        args <- unlist(list(...))
+        if (all(is.na(as.character(unlist(list(...)))))) {
+            ""
+        } else {
+            validateBoolean(name, ...)
+        }
     })
-    endpoint <- "datasets/{encode(dataset)}/samples"
+    endpoint <- "datasets/{encode(dataset)}/samples?quantitationType={encode(quantitationType)}&useProcessedQuantitationType={encode(useProcessedQuantitationType)}"
     if (memoised) {
         if (!is.na(file)) {
             warning("Saving to files is not supported with memoisation.")
@@ -1501,13 +1521,16 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
         if ("character" %in% class(gemmaCache()) && gemmaCache() ==
             "cache_in_memory") {
             return(mem_in_memory_cache("get_dataset_samples",
-                dataset = dataset, raw = raw, memoised = FALSE,
-                file = file, overwrite = overwrite
+                dataset = dataset, useProcessedQuantitationType = useProcessedQuantitationType,
+                quantitationType = quantitationType, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
             ))
         } else {
             out <- memget_dataset_samples(
                 dataset = dataset,
-                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+                useProcessedQuantitationType = useProcessedQuantitationType,
+                quantitationType = quantitationType, raw = raw,
+                memoised = FALSE, file = file, overwrite = overwrite
             )
             return(out)
         }
@@ -1523,25 +1546,26 @@ get_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), me
 #' Memoise get_dataset_samples
 #'
 #' @noRd
-memget_dataset_samples <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
-        "gemma.memoised",
-        FALSE
-    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
-        "gemma.overwrite",
-        FALSE
-    )) {
+memget_dataset_samples <- function(
+        dataset, useProcessedQuantitationType = TRUE, quantitationType = NA_character_,
+        raw = getOption("gemma.raw", FALSE), memoised = getOption(
+            "gemma.memoised",
+            FALSE
+        ), file = getOption("gemma.file", NA_character_),
+        overwrite = getOption("gemma.overwrite", FALSE)) {
     mem_call <- memoise::memoise(get_dataset_samples, cache = gemmaCache())
     mem_call(
-        dataset = dataset, raw = raw, memoised = FALSE,
+        dataset = dataset, useProcessedQuantitationType = useProcessedQuantitationType,
+        quantitationType = quantitationType, raw = raw, memoised = FALSE,
         file = file, overwrite = overwrite
     )
 }
 
-#' get_dataset_subset_groups
+#' Obtain all the subset groups of a dataset
 #'
 #'
 #'
-#' @param dataset
+#' @param dataset A numerical dataset identifier or a dataset short name
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
 #' omitted in the parsed results.
@@ -1630,11 +1654,11 @@ memget_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", F
     )
 }
 
-#' get_dataset_subset_samples
+#' Obtain the samples of a specific subset of a dataset
 #'
 #'
 #'
-#' @param dataset
+#' @param dataset A numerical dataset identifier or a dataset short name
 #' @param subset integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}).
 #' @param raw \code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 #' parsing. Raw results usually contain additional fields and flags that are
@@ -2472,7 +2496,7 @@ memget_gene_probes <- function(gene, offset = 0L, limit = 20L, raw = getOption(
     )
 }
 
-#' Retrieve genes matching gene identifiers
+#' Retrieve all genes
 #'
 #'
 #'

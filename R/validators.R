@@ -248,6 +248,16 @@ validateBoolean <- function(name, ...) {
     tolower(as.character(args))
 }
 
+validateOptionalBoolean <- function(name,...){
+    args <- unlist(list(...))
+    if (all(is.na(as.character(unlist(list(...)))))) {
+        ""
+    } else {
+        validateBoolean(name, ...)
+    }
+    
+}
+
 #' Validate a sort argument
 #'
 #' @param name The variable name

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_subset_groups}
 \alias{get_dataset_subset_groups}
-\title{get_dataset_subset_groups}
+\title{Obtain all the subset groups of a dataset}
 \usage{
 get_dataset_subset_groups(
   dataset,
@@ -13,6 +13,8 @@ get_dataset_subset_groups(
 )
 }
 \arguments{
+\item{dataset}{A numerical dataset identifier or a dataset short name}
+
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are
 omitted in the parsed results.}
@@ -33,6 +35,6 @@ filename.}
 Varies
 }
 \description{
-get_dataset_subset_groups
+Obtain all the subset groups of a dataset
 }
 \keyword{internal}

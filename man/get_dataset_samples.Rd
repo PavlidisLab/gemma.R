@@ -6,6 +6,8 @@
 \usage{
 get_dataset_samples(
   dataset,
+  useProcessedQuantitationType = TRUE,
+  quantitationType = NA_character_,
   raw = getOption("gemma.raw", FALSE),
   memoised = getOption("gemma.memoised", FALSE),
   file = getOption("gemma.file", NA_character_),
@@ -14,6 +16,15 @@ get_dataset_samples(
 }
 \arguments{
 \item{dataset}{A numerical dataset identifier or a dataset short name}
+
+\item{useProcessedQuantitationType}{If TRUE, returns the samples according to
+the processed quantitation type. This is set to TRUE by default to ensure output of this
+function always matches with \code{\link{get_dataset_processed_expression}}, otherwise
+for single cell experiments in particular, the output will not include cell types.}
+
+\item{quantitationType}{If provided, returns the samples based on a given
+quantitation type. Using \code{useProcessedQuantitationType} instead should cover
+most use cases.}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
 parsing. Raw results usually contain additional fields and flags that are

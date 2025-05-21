@@ -530,20 +530,31 @@ registerEndpoint("datasets/{dataset}/data/raw?quantitationType={quantitationType
 
 #' get_dataset_samples
 #'
+#' @param quantitationType If provided, returns the samples based on a given
+#' quantitation type. Using \code{useProcessedQuantitationType} instead should cover
+#' most use cases.
+#' @param useProcessedQuantitationType If TRUE, returns the samples according to
+#' the processed quantitation type. This is set to TRUE by default to ensure output of this
+#' function always matches with \code{\link{get_dataset_processed_expression}}, otherwise
+#' for single cell experiments in particular, the output will not include cell types.
 #' @inherit processSamples return
 #'
 #' @examples
 #' head(get_dataset_samples("GSE2018"))
 NULL
 
-registerEndpoint('datasets/{dataset}/samples',
+registerEndpoint('datasets/{dataset}/samples?quantitationType={quantitationType}&useProcessedQuantitationType={useProcessedQuantitationType}',
                  'get_dataset_samples', open_api_name = 'get_dataset_samples',
                  keyword = 'dataset',
                  defaults = list(
-                     dataset = bquote()
+                     dataset = bquote(),
+                     useProcessedQuantitationType = TRUE,
+                     quantitationType = NA_character_
                  ),
                  validators = list(
-                     dataset = validateSingleID
+                     dataset = validateSingleID,
+                     quantitationType = validateOptionalID,
+                     useProcessedQuantitationType = validateOptionalBoolean
                  ),
                  preprocessor = quote(processSamples))
 
