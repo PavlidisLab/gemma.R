@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_subset_samples}
 \alias{get_dataset_subset_samples}
-\title{get_dataset_subset_samples}
+\title{Obtain the samples of a specific subset of a dataset}
 \usage{
 get_dataset_subset_samples(
   dataset,
@@ -14,6 +14,8 @@ get_dataset_subset_samples(
 )
 }
 \arguments{
+\item{dataset}{A numerical dataset identifier or a dataset short name}
+
 \item{subset}{integer ID of the subset (eg. as returned by \code{\link{get_dataset_subset_groups}}).}
 
 \item{raw}{\code{TRUE} to receive results as-is from Gemma, or \code{FALSE} to enable
@@ -36,6 +38,6 @@ filename.}
 Varies
 }
 \description{
-get_dataset_subset_samples
+Obtain the samples of a specific subset of a dataset
 }
 \keyword{internal}
