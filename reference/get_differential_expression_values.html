@@ -150,19 +150,19 @@ the subsets being determined by the levels of the confounding factor.</p>
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_differential_expression_values</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`573187`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid GeneSymbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt; &lt;char&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   210279_at   2841      GPR18</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 204529_s_at   9760        TOX</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   202746_at   9452      ITM2A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   206761_at  10225       CD96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   204352_at   7188      TRAF5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18011: 218682_s_at  22950   SLC4A1AP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18012: 202853_s_at   6259        RYK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18013: 203293_s_at   3998      LMAN1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:   212708_at 339287       MSL1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18015: 201060_x_at   2040       STOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid gene_ensembl_id GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt; &lt;char&gt;          &lt;char&gt;     &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:   210279_at   2841 ENSG00000125245      GPR18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2: 204529_s_at   9760 ENSG00000198846        TOX</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:   202746_at   9452 ENSG00000078596      ITM2A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:   206761_at  10225 ENSG00000153283       CD96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   204352_at   7188 ENSG00000082512      TRAF5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011: 218682_s_at  22950 ENSG00000163798   SLC4A1AP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012: 202853_s_at   6259 ENSG00000163785        RYK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013: 203293_s_at   3998 ENSG00000074695      LMAN1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:   212708_at 339287 ENSG00000188895       MSL1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18015: 201060_x_at   2040 ENSG00000148175       STOM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      GeneName    pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                        &lt;char&gt;     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                          G protein-coupled receptor 18 4.108e-15</span>

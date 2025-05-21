@@ -144,19 +144,19 @@ they uniquely represent a given contrast.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">get_dataset_differential_expression_analyses</span><span class="op">(</span><span class="st">"GSE2872"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="get_differential_expression_values.html">get_differential_expression_values</a></span><span class="op">(</span>resultSet <span class="op">=</span> <span class="va">result</span><span class="op">$</span><span class="va">result.ID</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`570867`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>               Probe NCBIid GeneSymbol</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt; &lt;char&gt;     &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 1389528_s_at  24516        Jun</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   1374404_at  24516        Jun</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 1370315_a_at  79423      Stmn4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 1369788_s_at  24516        Jun</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   1379606_at 308821      Rab30</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15566:   1387552_at 116681     Dlgap2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15567:   1367675_at  81823       Cib1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15568:   1384589_at 498963    Spata2L</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15569:   1388175_at  79430     Clcnkb</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15570:   1398810_at  64527      Pdap1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Probe NCBIid    gene_ensembl_id GeneSymbol</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              &lt;char&gt; &lt;char&gt;             &lt;char&gt;     &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1: 1389528_s_at  24516 ENSRNOG00000026293        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:   1374404_at  24516 ENSRNOG00000026293        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3: 1370315_a_at  79423 ENSRNOG00000053334      Stmn4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4: 1369788_s_at  24516 ENSRNOG00000026293        Jun</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:   1379606_at 308821 ENSRNOG00000010224      Rab30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15566:   1387552_at 116681 ENSRNOG00000012573     Dlgap2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15567:   1367675_at  81823 ENSRNOG00000033498       Cib1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15568:   1384589_at 498963 ENSRNOG00000016167    Spata2L</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15569:   1388175_at  79430 ENSRNOG00000009897     Clcnkb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15570:   1398810_at  64527 ENSRNOG00000000990      Pdap1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                     GeneName    pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                       &lt;char&gt;     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1: Jun proto-oncogene, AP-1 transcription factor subunit 2.836e-06</span>
