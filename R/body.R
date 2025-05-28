@@ -118,6 +118,10 @@ setGemmaPath <- function(path){
                     out
                 } else {
                     data <- jsonlite::fromJSON(rawToChar(response$content),simplifyVector = FALSE)
+                    # in_data argument will not be needed after fix in API
+                    if ('data' %in% names(data)){
+                        in_data = TRUE
+                    }
                     if(in_data){
                         out <- data$data 
                         if (attributes){
