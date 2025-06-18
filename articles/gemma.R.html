@@ -1453,22 +1453,30 @@ terms.</p>
 <p>Examples:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   ElementName   GeneSymbols                                     GeneNames
-        &lt;char&gt;        &lt;char&gt;                                        &lt;char&gt;
-1: 211750_x_at TUBA1C|TUBA1A             tubulin alpha 1c|tubulin alpha 1a
-2:   216678_at                                                            
-3:   216345_at        ZSWIM8            zinc finger SWIM-type containing 8
-4:   207273_at                                                            
-5: 216025_x_at        CYP2C9 cytochrome P450 family 2 subfamily C member 9
-6: 218191_s_at        LMBRD1                     LMBR1 domain containing 1
-        GemmaIDs    NCBIids
-          &lt;char&gt;     &lt;char&gt;
-1: 360802|172797 84790|7846
-2:                         
-3:        235733      23053
-4:                         
-5:         32964       1559
-6:        303717      55788</code></pre>
+<pre><code>   ElementName GeneSymbols
+        &lt;char&gt;      &lt;char&gt;
+1: 202619_s_at       PLOD2
+2: 219952_s_at      MCOLN1
+3:   205192_at     MAP3K14
+4:   212724_at        RND3
+5:   207373_at      HOXD10
+6: 204991_s_at         NF2
+                                                  GeneNames GemmaIDs NCBIids
+                                                     &lt;char&gt;   &lt;char&gt;  &lt;char&gt;
+1:        procollagen-lysine,2-oxoglutarate 5-dioxygenase 2   127276    5352
+2:                           mucolipin TRP cation channel 1   313978   57192
+3:        mitogen-activated protein kinase kinase kinase 14   188876    9020
+4:                                      Rho family GTPase 3     9353     390
+5:                                             homeobox D10    72301    3236
+6: NF2, moesin-ezrin-radixin like (MERLIN) tumor suppressor   116071    4771
+        EnsemblIds
+            &lt;char&gt;
+1: ENSG00000152952
+2: ENSG00000090674
+3: ENSG00000006062
+4: ENSG00000115963
+5: ENSG00000128710
+6: ENSG00000186575</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'Generic_human_ncbiIds'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   ElementName  GeneSymbols
@@ -3596,7 +3604,7 @@ appended.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 641</code></pre>
+<pre><code>[1] 649</code></pre>
 <p>After which you can use <code>offset</code> to access all available
 platforms.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -4063,7 +4071,7 @@ definition. See below for examples.</p>
 </h2>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.5.0 (2025-04-11)
+<pre><code>R version 4.5.1 (2025-06-13)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 24.04.2 LTS
 
@@ -4086,38 +4094,38 @@ attached base packages:
 
 other attached packages:
  [1] listviewer_4.0.0            viridis_0.6.5              
- [3] viridisLite_0.4.2           pheatmap_1.0.12            
+ [3] viridisLite_0.4.2           pheatmap_1.0.13            
  [5] SummarizedExperiment_1.38.1 Biobase_2.68.0             
  [7] GenomicRanges_1.60.0        GenomeInfoDb_1.44.0        
  [9] IRanges_2.42.0              S4Vectors_0.46.0           
 [11] BiocGenerics_0.54.0         generics_0.1.4             
 [13] MatrixGenerics_1.20.0       matrixStats_1.5.0          
 [15] ggrepel_0.9.6               ggplot2_3.5.2              
-[17] dplyr_1.1.4                 data.table_1.17.4          
+[17] dplyr_1.1.4                 data.table_1.17.6          
 [19] gemma.R_3.5.3               BiocStyle_2.36.0           
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.1        farver_2.1.2            fastmap_1.2.0          
  [4] digest_0.6.37           timechange_0.3.0        lifecycle_1.0.4        
- [7] magrittr_2.0.3          compiler_4.5.0          rlang_1.1.6            
-[10] sass_0.4.10             tools_4.5.0             yaml_2.3.10            
-[13] knitr_1.50              labeling_0.4.3          S4Arrays_1.8.0         
-[16] htmlwidgets_1.6.4       bit_4.6.0               curl_6.2.3             
+ [7] magrittr_2.0.3          compiler_4.5.1          rlang_1.1.6            
+[10] sass_0.4.10             tools_4.5.1             yaml_2.3.10            
+[13] knitr_1.50              labeling_0.4.3          S4Arrays_1.8.1         
+[16] htmlwidgets_1.6.4       bit_4.6.0               curl_6.3.0             
 [19] DelayedArray_0.34.1     xml2_1.3.8              RColorBrewer_1.1-3     
 [22] abind_1.4-8             withr_3.0.2             purrr_1.0.4            
-[25] desc_1.4.3              grid_4.5.0              scales_1.4.0           
+[25] desc_1.4.3              grid_4.5.1              scales_1.4.0           
 [28] cli_3.6.5               rmarkdown_2.29          crayon_1.5.3           
 [31] ragg_1.4.0              rstudioapi_0.17.1       httr_1.4.7             
 [34] cachem_1.1.0            stringr_1.5.1           assertthat_0.2.1       
-[37] BiocManager_1.30.25     XVector_0.48.0          vctrs_0.6.5            
+[37] BiocManager_1.30.26     XVector_0.48.0          vctrs_0.6.5            
 [40] Matrix_1.7-3            jsonlite_2.0.0          bookdown_0.43          
 [43] bit64_4.6.0-1           systemfonts_1.2.3       jquerylib_0.1.4        
 [46] glue_1.8.0              pkgdown_2.1.3           lubridate_1.9.4        
 [49] stringi_1.8.7           gtable_0.3.6            UCSC.utils_1.4.0       
-[52] tibble_3.2.1            pillar_1.10.2           rappdirs_0.3.3         
+[52] tibble_3.3.0            pillar_1.10.2           rappdirs_0.3.3         
 [55] htmltools_0.5.8.1       GenomeInfoDbData_1.2.14 R6_2.6.1               
 [58] textshaping_1.0.1       evaluate_1.0.3          kableExtra_1.4.0       
-[61] lattice_0.22-6          memoise_2.0.1           bslib_0.9.0            
+[61] lattice_0.22-7          memoise_2.0.1           bslib_0.9.0            
 [64] Rcpp_1.0.14             svglite_2.2.1           gridExtra_2.3          
 [67] SparseArray_1.8.0       xfun_0.52               fs_1.6.6               
 [70] pkgconfig_2.0.3        </code></pre>
