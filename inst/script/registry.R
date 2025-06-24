@@ -186,7 +186,7 @@ NULL
 registerEndpoint("annotations/children?uri={uri}",
                  "get_annotation_children",
                  open_api_name = 'get_annotations_children',
-                 keyword = 'annotation',in_data = FALSE,
+                 keyword = 'annotation',
                  defaults = list(uri = bquote()),
                  validators = alist(uri = validateURI),
                  preprocessor = processSearchAnnotations)
@@ -209,7 +209,7 @@ NULL
 registerEndpoint("annotations/parents?uri={uri}",
                  "get_annotation_parents",
                  open_api_name = 'get_annotations_parents',
-                 keyword = 'annotation',in_data = FALSE,
+                 keyword = 'annotation',
                  defaults = list(uri = bquote()),
                  validators = alist(uri = validateURI),
                  preprocessor = processSearchAnnotations)
