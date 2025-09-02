@@ -104,7 +104,8 @@ URI column will contain the ontology URI for the field.
 
 doubled_id <- samples$sample.factorValues[[
     which(samples$sample.name == "TSM490")
-]] %>% filter(value == "HTT [human] huntingtin") %>% {.$ID} %>% unique
+]] %>% filter(value == "R6/2") %>% # R6/2 is the mouse strain that contains the human HTT gene
+    {.$ID} %>% unique
 
 ```
 - `category`/`category.URI`: Category of the individual statement, such as treatment,
@@ -131,7 +132,7 @@ instead of trying to match the other columns describing the statements
 ```{r}
 id <- samples$sample.factorValues[[
     which(samples$sample.name == "TSM490")
-]] %>% filter(value == "HTT [human] huntingtin") %>% {.$ID} %>% unique
+]] %>% filter(value == "R6/2") %>% {.$ID} %>% unique
 
 
 # count how many patients has this phenotype
@@ -150,7 +151,7 @@ We can use this to fetch all distinct genotypes
 id <- samples$sample.factorValues[[
     which(samples$sample.name == "TSM490")
     ]] %>% 
-    filter(value == "HTT [human] huntingtin") %>% {.$factor.ID} %>% unique
+    filter(value == "R6/2") %>% {.$factor.ID} %>% unique
 
 samples$sample.factorValues %>% lapply(\(x){
     x %>% filter(factor.ID == id) %>% {.$summary}
@@ -176,7 +177,7 @@ design[,-1] %>% head %>%  # first column is just a copy of the original factor v
 Using this output, here we look at the sample sizes for different experimental groups.
 ```{r}
 design %>%
-    group_by(`organism part`,timepoint,genotype) %>% 
+    group_by(`organism part`,`developmental stage`,strain) %>% 
     summarize(n= n()) %>% 
     arrange(desc(n)) %>% 
     gemma_kable()
@@ -212,7 +213,7 @@ from a contrast without an interaction.
 ```{r}
 contrast <- dea %>% 
     filter(
-        factor.category == "genotype" & 
+        factor.category == "strain" & 
             subsetFactor %>% map_chr('value') %>% {.=='cerebral cortex'} # we will talk about subsets in a moment
         )
 ```
@@ -241,7 +242,7 @@ two factor values.
 ```{r}
 contrast <- dea %>% 
     filter(
-        factor.category == "genotype,timepoint" & 
+        factor.category == "developmental stage,strain" & 
             subsetFactor %>% map_chr('value') %>% {.=='cerebral cortex'} # we're almost there!
         )
 ```
@@ -310,14 +311,14 @@ exp_subset<- obj[[1]]$exp %>%
 genes <- top_genes$GeneSymbol
 
 # ordering design file
-design <- obj[[1]]$design %>% arrange(genotype,timepoint)
+design <- obj[[1]]$design %>% arrange(strain,`developmental stage`)
 
 # shorten the resistance label a bit
-design$genotype[grepl('HTT',design$genotype)] = "Huntington Model"
+design$strain[grepl('R6/2',design$strain)] = "Huntington Model"
 
 exp_subset[,.SD,.SDcols = rownames(design)] %>% t  %>% scale %>% t %>%
     pheatmap(cluster_rows = FALSE,cluster_cols = FALSE,labels_row = genes,
-             annotation_col =design %>% select(genotype,timepoint))
+             annotation_col =design %>% select(strain,`developmental stage`))
 
 ```
 
