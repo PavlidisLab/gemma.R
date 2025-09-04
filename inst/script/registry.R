@@ -232,6 +232,24 @@ registerEndpoint("annotations/search?query={query}",
                  preprocessor = quote(processSearchAnnotations)
 )
 
+# /datasets/{dataset}/publications
+
+#' get_dataset_publications
+#' 
+#' @inherit processBibliographicReferenceValueObject return
+#' @examples
+#' get_dataset_publications(1)
+NULL
+
+registerEndpoint("datasets/{dataset}/publications",
+                 "get_dataset_publications",
+                 open_api_name = 'get_dataset_all_publications',
+                 keyword = "dataset",
+                 defaults = list(dataset = bquote()),
+                 validators = alist(dataset = quote(validateSingleID)),
+                 preprocessor = quote(processBibliographicReferenceValueObject)
+)
+
 
 
 # /datasets/{dataset}/refresh ------------

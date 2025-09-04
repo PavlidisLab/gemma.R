@@ -499,6 +499,92 @@ memsearch_annotations <- function(query, raw = getOption("gemma.raw", FALSE), me
     )
 }
 
+#' Retrieve all publications associated with a dataset
+#'
+#'
+#'
+#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param raw `TRUE` to receive results as-is from Gemma, or `FALSE` to enable
+#' parsing. Raw results usually contain additional fields and flags that are
+#' omitted in the parsed results.
+#' @param memoised Whether or not to save to cache for future calls with the
+#' same inputs and use the result saved in cache if a result is already saved.
+#' Doing `options(gemma.memoised = TRUE)` will ensure that the cache is always
+#' used. Use \code{\link{forget_gemma_memoised}} to clear the cache.
+#' @param file The name of a file to save the results to, or `NULL` to not write
+#' results to a file. If `raw == TRUE`, the output will be the raw endpoint from the
+#' API, likely a JSON or a gzip file. Otherwise, it will be a RDS file.
+#' @param overwrite Whether or not to overwrite if a file exists at the specified
+#' filename.
+#'
+#' @inherit processBibliographicReferenceValueObject return
+#' @export
+#'
+#' @keywords dataset
+#'
+#' @examples
+#' get_dataset_publications(1)
+get_dataset_publications <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    in_data <- TRUE
+    compressibles <- NULL
+    open_api_name <- "get_dataset_all_publications"
+    internal <- FALSE
+    keyword <- "dataset"
+    header <- ""
+    isFile <- FALSE
+    fname <- "get_dataset_publications"
+    preprocessor <- processBibliographicReferenceValueObject
+    validators <- list(dataset = quote(validateSingleID))
+    endpoint <- "datasets/{encode(dataset)}/publications"
+    if (memoised) {
+        if (!is.na(file)) {
+            warning("Saving to files is not supported with memoisation.")
+        }
+        if ("character" %in% class(gemmaCache()) && gemmaCache() ==
+            "cache_in_memory") {
+            return(mem_in_memory_cache("get_dataset_publications",
+                dataset = dataset, raw = raw, memoised = FALSE,
+                file = file, overwrite = overwrite
+            ))
+        } else {
+            out <- memget_dataset_publications(
+                dataset = dataset,
+                raw = raw, memoised = FALSE, file = file, overwrite = overwrite
+            )
+            return(out)
+        }
+    }
+    .body(
+        fname = fname, validators = validators, endpoint = endpoint,
+        envWhere = environment(), isFile = isFile, header = header,
+        raw = raw, overwrite = overwrite, file = file, attributes = TRUE,
+        in_data = in_data, open_api_name = open_api_name, .call = match.call()
+    )
+}
+
+#' Memoise get_dataset_publications
+#'
+#' @noRd
+memget_dataset_publications <- function(dataset, raw = getOption("gemma.raw", FALSE), memoised = getOption(
+        "gemma.memoised",
+        FALSE
+    ), file = getOption("gemma.file", NA_character_), overwrite = getOption(
+        "gemma.overwrite",
+        FALSE
+    )) {
+    mem_call <- memoise::memoise(get_dataset_publications, cache = gemmaCache())
+    mem_call(
+        dataset = dataset, raw = raw, memoised = FALSE,
+        file = file, overwrite = overwrite
+    )
+}
+
 #' Retrieve the annotations of a dataset
 #'
 #'

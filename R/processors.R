@@ -1150,6 +1150,27 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
     
 }
 
+
+#' processBibliographicReferenceValueObject
+#' 
+#' @return A data.table containing references.
+#' The fields of the output data.table are:
+#' 
+#'  \itemize{
+#'     \item \code{title}: Title of the paper
+#'     \item \code{authors}: List of authors
+#'     \item \code{citation}: Citation string for the paper
+#'     \item \code{pmid}: PMID of the paper
+#'     \item \code{url}: Pubmed URL of the paper
+#'  }  
+processBibliographicReferenceValueObject <- function(d){
+    data.table(title = d %>% accessField("title",NA_character_),
+               authors = d %>% accessField("authorList",NA_character_),
+               citation = d %>% purrr::map('citation') %>% accessField('citation'),
+               pmid = d %>% purrr::map('citation') %>% accessField('pubmedAccession'),
+               url = d %>% purrr::map('citation') %>% accessField('pubmedURL'))
+}
+
 # processSVD <- function(d){
 #     d$vMatrix$rawMatrix
 #     browser()
