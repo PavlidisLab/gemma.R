@@ -1217,10 +1217,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar neuron
+bipolar affective disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
 </td>
 </tr>
 <tr>
@@ -1231,10 +1231,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar affective disorder
+bipolar neuron
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
 </td>
 </tr>
 <tr>
@@ -3407,7 +3407,7 @@ The GeneChip Rat Genome 23…
 FALSE
 </td>
 <td style="text-align:right;">
-298
+297
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3448,7 +3448,7 @@ All probe sets represented…
 FALSE
 </td>
 <td style="text-align:right;">
-1320
+1322
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3489,7 +3489,7 @@ Complete coverage of the H…
 FALSE
 </td>
 <td style="text-align:right;">
-1560
+1562
 </td>
 <td style="text-align:left;">
 ONECOLOR
@@ -3604,7 +3604,7 @@ appended.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">platform_count</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platforms_by_ids.html">get_platforms_by_ids</a></span><span class="op">(</span>limit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">$</span><span class="va">totalElements</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">platform_count</span><span class="op">)</span></span></code></pre></div>
-<pre><code>[1] 658</code></pre>
+<pre><code>[1] 659</code></pre>
 <p>After which you can use <code>offset</code> to access all available
 platforms.</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
@@ -4096,39 +4096,39 @@ other attached packages:
  [1] listviewer_4.0.0            viridis_0.6.5              
  [3] viridisLite_0.4.2           pheatmap_1.0.13            
  [5] SummarizedExperiment_1.38.1 Biobase_2.68.0             
- [7] GenomicRanges_1.60.0        GenomeInfoDb_1.44.2        
+ [7] GenomicRanges_1.60.0        GenomeInfoDb_1.44.3        
  [9] IRanges_2.42.0              S4Vectors_0.46.0           
 [11] BiocGenerics_0.54.0         generics_0.1.4             
 [13] MatrixGenerics_1.20.0       matrixStats_1.5.0          
-[15] ggrepel_0.9.6               ggplot2_3.5.2              
+[15] ggrepel_0.9.6               ggplot2_4.0.0              
 [17] dplyr_1.1.4                 data.table_1.17.8          
 [19] gemma.R_3.5.6               BiocStyle_2.36.0           
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.1        farver_2.1.2            fastmap_1.2.0          
- [4] digest_0.6.37           timechange_0.3.0        lifecycle_1.0.4        
- [7] magrittr_2.0.3          compiler_4.5.1          rlang_1.1.6            
-[10] sass_0.4.10             tools_4.5.1             yaml_2.3.10            
-[13] knitr_1.50              labeling_0.4.3          S4Arrays_1.8.1         
-[16] htmlwidgets_1.6.4       bit_4.6.0               curl_7.0.0             
-[19] DelayedArray_0.34.1     xml2_1.4.0              RColorBrewer_1.1-3     
-[22] abind_1.4-8             withr_3.0.2             purrr_1.1.0            
-[25] desc_1.4.3              grid_4.5.1              scales_1.4.0           
-[28] cli_3.6.5               rmarkdown_2.29          crayon_1.5.3           
-[31] ragg_1.5.0              rstudioapi_0.17.1       httr_1.4.7             
-[34] cachem_1.1.0            stringr_1.5.1           assertthat_0.2.1       
-[37] BiocManager_1.30.26     XVector_0.48.0          vctrs_0.6.5            
-[40] Matrix_1.7-3            jsonlite_2.0.0          bookdown_0.44          
-[43] bit64_4.6.0-1           systemfonts_1.2.3       jquerylib_0.1.4        
-[46] glue_1.8.0              pkgdown_2.1.3           lubridate_1.9.4        
-[49] stringi_1.8.7           gtable_0.3.6            UCSC.utils_1.4.0       
-[52] tibble_3.3.0            pillar_1.11.0           rappdirs_0.3.3         
-[55] htmltools_0.5.8.1       GenomeInfoDbData_1.2.14 R6_2.6.1               
-[58] textshaping_1.0.3       evaluate_1.0.5          kableExtra_1.4.0       
-[61] lattice_0.22-7          memoise_2.0.1           bslib_0.9.0            
-[64] Rcpp_1.1.0              svglite_2.2.1           gridExtra_2.3          
-[67] SparseArray_1.8.1       xfun_0.53               fs_1.6.6               
-[70] pkgconfig_2.0.3        </code></pre>
+ [1] tidyselect_1.2.1        farver_2.1.2            S7_0.2.0               
+ [4] fastmap_1.2.0           digest_0.6.37           timechange_0.3.0       
+ [7] lifecycle_1.0.4         magrittr_2.0.4          compiler_4.5.1         
+[10] rlang_1.1.6             sass_0.4.10             tools_4.5.1            
+[13] yaml_2.3.10             knitr_1.50              labeling_0.4.3         
+[16] S4Arrays_1.8.1          htmlwidgets_1.6.4       bit_4.6.0              
+[19] curl_7.0.0              DelayedArray_0.34.1     xml2_1.4.0             
+[22] RColorBrewer_1.1-3      abind_1.4-8             withr_3.0.2            
+[25] purrr_1.1.0             desc_1.4.3              grid_4.5.1             
+[28] scales_1.4.0            cli_3.6.5               rmarkdown_2.30         
+[31] crayon_1.5.3            ragg_1.5.0              rstudioapi_0.17.1      
+[34] httr_1.4.7              cachem_1.1.0            stringr_1.5.2          
+[37] assertthat_0.2.1        BiocManager_1.30.26     XVector_0.48.0         
+[40] vctrs_0.6.5             Matrix_1.7-3            jsonlite_2.0.0         
+[43] bookdown_0.44           bit64_4.6.0-1           systemfonts_1.3.0      
+[46] jquerylib_0.1.4         glue_1.8.0              pkgdown_2.1.3          
+[49] lubridate_1.9.4         stringi_1.8.7           gtable_0.3.6           
+[52] UCSC.utils_1.4.0        tibble_3.3.0            pillar_1.11.1          
+[55] rappdirs_0.3.3          htmltools_0.5.8.1       GenomeInfoDbData_1.2.14
+[58] R6_2.6.1                textshaping_1.0.3       evaluate_1.0.5         
+[61] kableExtra_1.4.0        lattice_0.22-7          memoise_2.0.1          
+[64] bslib_0.9.0             Rcpp_1.1.0              svglite_2.2.1          
+[67] gridExtra_2.3           SparseArray_1.8.1       xfun_0.53              
+[70] fs_1.6.6                pkgconfig_2.0.3        </code></pre>
 </div>
   </div>
 
