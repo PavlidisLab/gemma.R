@@ -21,3 +21,4 @@ The fields of the output data.table are:
 \description{
 processBibliographicReferenceValueObject
 }
+\keyword{internal}

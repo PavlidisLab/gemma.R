@@ -1163,6 +1163,7 @@ processDifferentialExpressionAnalysisResultByGeneValueObject_tsv <- function(con
 #'     \item \code{pmid}: PMID of the paper
 #'     \item \code{url}: Pubmed URL of the paper
 #'  }  
+#' @keywords internal
 processBibliographicReferenceValueObject <- function(d){
     data.table(title = d %>% accessField("title",NA_character_),
                authors = d %>% accessField("authorList",NA_character_),
