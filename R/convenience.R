@@ -745,12 +745,24 @@ gemma_call <- function(call,...,json = TRUE){
     lapply(names(args),function(x){
         assign(x,args[[x]],envir = env)
     })
+    
+    username = ifelse(!is.null(getOption('gemma.username')),
+                      getOption('gemma.username'),
+                      ifelse(Sys.getenv('GEMMA_USERNAME')!= "",
+                             Sys.getenv('GEMMA_USERNAME'),
+                             NA))
+    
+    password = ifelse(!is.null(getOption('gemma.password')),
+                      getOption('gemma.password'),
+                      ifelse(Sys.getenv('GEMMA_PASSWORD')!= "",
+                             Sys.getenv('GEMMA_PASSWORD'),
+                             NA))
 
-    if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
+    if (!is.na(username) && !is.na(password)){
         response <- httr::GET(
             glue::glue(paste0(gemmaPath(),call)),
-            httr::authenticate(getOption('gemma.username'),
-                                 getOption("gemma.password")),
+            httr::authenticate(username,
+                               password),
             handle = httr::handle(""))
     } else{
         response <- httr::GET(glue::glue(paste0(gemmaPath(),call),.envir = env),
