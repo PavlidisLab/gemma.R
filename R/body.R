@@ -77,13 +77,28 @@ setGemmaPath <- function(path){
             })
         call <- form_call()
     }
+    envWhere$call <- call
     
+    
+    username = ifelse(!is.null(getOption('gemma.username')),
+                      getOption('gemma.username'),
+                      ifelse(Sys.getenv('GEMMA_USERNAME')!= "",
+                             Sys.getenv('GEMMA_USERNAME'),
+                             NA))
+    
+    password = ifelse(!is.null(getOption('gemma.password')),
+                      getOption('gemma.password'),
+                      ifelse(Sys.getenv('GEMMA_PASSWORD')!= "",
+                             Sys.getenv('GEMMA_PASSWORD'),
+                             NA))
 
-    if (!is.null(getOption('gemma.username')) && !is.null(getOption('gemma.password'))){
+    header = envWhere$header
+
+    if (!is.na(username) && !is.na(password)){
         requestExpr <- quote(httr::GET(
             call,
-            c(httr::authenticate(getOption('gemma.username'),
-                                 getOption("gemma.password")),
+            c(httr::authenticate(username,
+                                 password),
               httr::add_headers(header),
               httr::user_agent(paste0('gemma.R/',packageVersion('gemma.R')))),
             handle = httr::handle("")))
@@ -95,8 +110,7 @@ setGemmaPath <- function(path){
             handle = httr::handle("")))
     }
 
-    envWhere$call <- call
-    response <- eval(requestExpr, envir = envWhere)
+    response <- eval(requestExpr)
     ## Uncomment for debugging
     # print(response$url)
 
@@ -105,7 +119,7 @@ setGemmaPath <- function(path){
     while(i<3 && (is.null(response$status_code) || response$status_code  %in% c(429,500))){
         i <- i + 1
         Sys.sleep(5)
-        response <- eval(requestExpr, envir = envWhere)
+        response <- eval(requestExpr)
     }
 
 
