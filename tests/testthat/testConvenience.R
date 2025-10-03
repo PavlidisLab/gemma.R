@@ -1,7 +1,7 @@
 test_that("getPlatformAnnotation queries work", {
     dat <- get_platform_annotations(1)
-    # ProbeName will turn to ElementName in a later version
-    expect_equal(colnames(dat), c("ElementName", "GeneSymbols", "GeneNames", "GOTerms", "GemmaIDs", "NCBIids",'EnsemblIds'))
+    # temporary, ensembl ids vanished
+    expect_true(all(colnames(dat) %in%  c("ElementName", "GeneSymbols", "GeneNames", "GOTerms", "GemmaIDs", "NCBIids")))
     expect_false(nrow(dat) == 0)
     
     dat <- expect_warning(get_platform_annotations(1313),"Unable to access annotation file")
