@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.5.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.5.12</span>
       </span>
     </div>
 
@@ -1217,10 +1217,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar affective disorder
+bipolar neuron
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
 </td>
 </tr>
 <tr>
@@ -1231,10 +1231,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-bipolar neuron
+bipolar affective disorder
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/CL_0000103
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0007302
 </td>
 </tr>
 <tr>
@@ -1453,14 +1453,14 @@ terms.</p>
 <p>Examples:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'GPL96'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   java.io.OutputStreamWriter@5b760059ElementName GeneSymbols
-                                           &lt;char&gt;      &lt;char&gt;
-1:                                    202619_s_at       PLOD2
-2:                                    219952_s_at      MCOLN1
-3:                                      205192_at     MAP3K14
-4:                                      212724_at        RND3
-5:                                      207373_at      HOXD10
-6:                                    204991_s_at         NF2
+<pre><code>   ElementName GeneSymbols
+        &lt;char&gt;      &lt;char&gt;
+1: 202619_s_at       PLOD2
+2: 219952_s_at      MCOLN1
+3:   205192_at     MAP3K14
+4:   212724_at        RND3
+5:   207373_at      HOXD10
+6: 204991_s_at         NF2
                                                   GeneNames GemmaIDs NCBIids
                                                      &lt;char&gt;   &lt;char&gt;  &lt;char&gt;
 1:        procollagen-lysine,2-oxoglutarate 5-dioxygenase 2   127276    5352
@@ -1479,22 +1479,22 @@ terms.</p>
 6: ENSG00000186575</code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_platform_annotations.html">get_platform_annotations</a></span><span class="op">(</span><span class="st">'Generic_human_ncbiIds'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">GOTerms</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code>   ElementName  GeneSymbols
-         &lt;int&gt;       &lt;char&gt;
-1:       55236         UBA6
-2:       79664         ICE2
-3:   100126270     FMR1-AS1
-4:   105373684    LINC01818
-5:   124900245 LOC124900245
-6:   102725051 LOC102725051
-                                               GeneNames GemmaIDs   NCBIids
-                                                  &lt;char&gt;    &lt;int&gt;     &lt;int&gt;
-1:           ubiquitin like modifier activating enzyme 6   295849     55236
-2: interactor of little elongation complex ELL subunit 2   336840     79664
-3:                                  FMR1 antisense RNA 1  3157248 100126270
-4:           long intergenic non-protein coding RNA 1818  9235895 105373684
-5:                           small nucleolar RNA SNORA40 10578422 124900245
-6:                          uncharacterized LOC102725051  9008981 102725051</code></pre>
+<pre><code>   ElementName  GeneSymbols                              GeneNames GemmaIDs
+         &lt;int&gt;       &lt;char&gt;                                 &lt;char&gt;    &lt;int&gt;
+1:   105373804 LOC105373804           uncharacterized LOC105373804  9236458
+2:      285540  SEPSECS-AS1 SEPSECS antisense RNA 1 (head to head)   421333
+3:   105373805    STAT4-AS1                  STAT4 antisense RNA 1  9236463
+4:   107985219 LOC107985219           uncharacterized LOC107985219  9667149
+5:   105373802                                                           NA
+6:   107985216 LOC107985216           uncharacterized LOC107985216  9667148
+     NCBIids      EnsemblIds
+       &lt;int&gt;          &lt;char&gt;
+1: 105373804                
+2:    285540                
+3: 105373805 ENSG00000231858
+4: 107985219                
+5:        NA                
+6: 107985216                </code></pre>
 <p>If you are interested in a particular gene, you can see which
 platforms include it using <a href="https://pavlidislab.github.io/gemma.R/reference/get_gene_probes.html" class="external-link"><code>get_gene_probes</code></a>.
 Note that functions to search gene work best with unambigious
@@ -4102,7 +4102,7 @@ other attached packages:
 [13] MatrixGenerics_1.20.0       matrixStats_1.5.0          
 [15] ggrepel_0.9.6               ggplot2_4.0.0              
 [17] dplyr_1.1.4                 data.table_1.17.8          
-[19] gemma.R_3.5.11              BiocStyle_2.36.0           
+[19] gemma.R_3.5.12              BiocStyle_2.36.0           
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.1        farver_2.1.2            S7_0.2.0               
@@ -4119,7 +4119,7 @@ loaded via a namespace (and not attached):
 [34] httr_1.4.7              cachem_1.1.0            stringr_1.5.2          
 [37] assertthat_0.2.1        BiocManager_1.30.26     XVector_0.48.0         
 [40] vctrs_0.6.5             Matrix_1.7-3            jsonlite_2.0.0         
-[43] bookdown_0.44           bit64_4.6.0-1           systemfonts_1.3.1      
+[43] bookdown_0.45           bit64_4.6.0-1           systemfonts_1.3.1      
 [46] jquerylib_0.1.4         glue_1.8.0              pkgdown_2.1.3          
 [49] lubridate_1.9.4         stringi_1.8.7           gtable_0.3.6           
 [52] UCSC.utils_1.4.0        tibble_3.3.0            pillar_1.11.1          

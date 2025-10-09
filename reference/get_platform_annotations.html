@@ -23,7 +23,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gemma.R</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.5.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">3.5.12</span>
       </span>
     </div>
 
@@ -133,14 +133,14 @@ argument can be used to choose which terms should be included.</p></li>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">"GPL96"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    java.io.OutputStreamWriter@5b760059ElementName GeneSymbols</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                            &lt;char&gt;      &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                    202619_s_at       PLOD2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                    219952_s_at      MCOLN1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                      205192_at     MAP3K14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                      212724_at        RND3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                      207373_at      HOXD10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                    204991_s_at         NF2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ElementName GeneSymbols</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;      &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 202619_s_at       PLOD2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 219952_s_at      MCOLN1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   205192_at     MAP3K14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   212724_at        RND3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   207373_at      HOXD10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6: 204991_s_at         NF2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                   GeneNames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:        procollagen-lysine,2-oxoglutarate 5-dioxygenase 2</span>
@@ -166,38 +166,22 @@ argument can be used to choose which terms should be included.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:    72301    3236 ENSG00000128710</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:   116071    4771 ENSG00000186575</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_platform_annotations</span><span class="op">(</span><span class="st">'Generic_human_ncbiIds'</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ElementName  GeneSymbols</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;       &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:       55236         UBA6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:       79664         ICE2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   100126270     FMR1-AS1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   105373684    LINC01818</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   124900245 LOC124900245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   102725051 LOC102725051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                GeneNames</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                   &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:           ubiquitin like modifier activating enzyme 6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: interactor of little elongation complex ELL subunit 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                  FMR1 antisense RNA 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:           long intergenic non-protein coding RNA 1818</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                           small nucleolar RNA SNORA40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                          uncharacterized LOC102725051</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                            GOTerms</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                                                                                                                             &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: GO:0005515|GO:0006511|GO:0032446|GO:0021766|GO:0019780|GO:0004792|GO:0007612|GO:0016567|GO:0005737|GO:0060996|GO:0005829|GO:0007626|GO:0005524|GO:0004839|GO:0016779|GO:0021764</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                                        GO:0016604|GO:0005515|GO:0008023|GO:0005654|GO:0000791|GO:0045945|GO:0042795|GO:0005829|GO:0042796|GO:0015030|GO:0035363</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                                                                                                                                      GO:0043066</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                                                                                                                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                                                                                                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                                                                                                                                                                </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    GemmaIDs   NCBIids</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   295849     55236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   336840     79664</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  3157248 100126270</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  9235895 105373684</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: 10578422 124900245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:  9008981 102725051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ElementName  GeneSymbols                              GeneNames GOTerms</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;int&gt;       &lt;char&gt;                                 &lt;char&gt;  &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   105373804 LOC105373804           uncharacterized LOC105373804        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      285540  SEPSECS-AS1 SEPSECS antisense RNA 1 (head to head)        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   105373805    STAT4-AS1                  STAT4 antisense RNA 1        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:   107985219 LOC107985219           uncharacterized LOC107985219        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:   105373802                                                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:   107985216 LOC107985216           uncharacterized LOC107985216        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    GemmaIDs   NCBIids      EnsemblIds</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       &lt;int&gt;     &lt;int&gt;          &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:  9236458 105373804                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   421333    285540                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:  9236463 105373805 ENSG00000231858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  9667149 107985219                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:       NA        NA                </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:  9667148 107985216                </span>
 </code></pre></div>
     </div>
   </div>
