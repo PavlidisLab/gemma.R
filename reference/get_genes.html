@@ -143,21 +143,26 @@ A list if <code>raw = TRUE</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:      DYRK1A    ENSG00000157540      1859</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2:      Dyrk1a ENSMUSG00000022897     13548</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3:      Dyrk1a ENSRNOG00000001662     25255</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        gene.name gene.aliases</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                           &lt;char&gt;       &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: dual specificity tyrosine phosphorylation regulated kinase 1A DYRK, DY....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: dual-specificity tyrosine phosphorylation regulated kinase 1a 2310043O....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: dual specificity tyrosine phosphorylation regulated kinase 1A  Dyrk, PSK47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.MFX.rank taxon.name  taxon.scientific taxon.ID taxon.NCBI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;     &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.9658868      human      Homo sapiens        1       9606</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     0.9685388      mouse      Mus musculus        2      10090</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     0.9535178        rat Rattus norvegicus        3      10116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.name taxon.database.ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;             &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                hg38                87</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                mm10                81</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                 rn6                86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        gene.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: dual specificity tyrosine phosphorylation regulated kinase 1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: dual-specificity tyrosine phosphorylation regulated kinase 1a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: dual specificity tyrosine phosphorylation regulated kinase 1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      gene.aliases gene.MFX.rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            &lt;list&gt;         &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                  DYRK,DYRK1,HP86,MNB,MNBH,MRD7     0.9658868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: 2310043O08Rik,D16Ertd272e,D16Ertd493e,Dyrk,Gm10783,Mnbh,...[8]     0.9685388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                                                     Dyrk,PSK47     0.9535178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.name  taxon.scientific taxon.ID taxon.NCBI taxon.database.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;              &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      human      Homo sapiens        1       9606                hg38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      mouse      Mus musculus        2      10090                mm10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:        rat Rattus norvegicus        3      10116                 rn6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                86</span>
 <span class="r-in"><span><span class="fu">get_genes</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"DYRK1A"</span>, <span class="st">"PTEN"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    gene.symbol       gene.ensembl gene.NCBI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         &lt;char&gt;             &lt;char&gt;     &lt;int&gt;</span>
@@ -167,30 +172,38 @@ A list if <code>raw = TRUE</code>.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:        Pten ENSMUSG00000013663     19211</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:      Dyrk1a ENSRNOG00000001662     25255</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:        Pten ENSRNOG00000020723     50557</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        gene.name gene.aliases</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                           &lt;char&gt;       &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: dual specificity tyrosine phosphorylation regulated kinase 1A DYRK, DY....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                phosphatase and tensin homolog 10q23del....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: dual-specificity tyrosine phosphorylation regulated kinase 1a 2310043O....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                phosphatase and tensin homolog 2310035O....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5: dual specificity tyrosine phosphorylation regulated kinase 1A  Dyrk, PSK47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                phosphatase and tensin homolog MMAC1, M....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    gene.MFX.rank taxon.name  taxon.scientific taxon.ID taxon.NCBI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;     &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0.9658868      human      Homo sapiens        1       9606</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:     0.9971606      human      Homo sapiens        1       9606</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:     0.9685388      mouse      Mus musculus        2      10090</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:     0.9992364      mouse      Mus musculus        2      10090</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:     0.9535178        rat Rattus norvegicus        3      10116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:     0.9982868        rat Rattus norvegicus        3      10116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.name taxon.database.ID</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;             &lt;int&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                hg38                87</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                hg38                87</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                mm10                81</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                mm10                81</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                 rn6                86</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                 rn6                86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        gene.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: dual specificity tyrosine phosphorylation regulated kinase 1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                                phosphatase and tensin homolog</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: dual-specificity tyrosine phosphorylation regulated kinase 1a</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                                phosphatase and tensin homolog</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5: dual specificity tyrosine phosphorylation regulated kinase 1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                phosphatase and tensin homolog</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                      gene.aliases gene.MFX.rank</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            &lt;list&gt;         &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                                  DYRK,DYRK1,HP86,MNB,MNBH,MRD7     0.9658868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                        10q23del,BZS,CWS1,DEC,GLM2,MHAM,...[10]     0.9971606</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: 2310043O08Rik,D16Ertd272e,D16Ertd493e,Dyrk,Gm10783,Mnbh,...[8]     0.9685388</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:  2310035O07Rik,A130070J02Rik,B430203M17Rik,MMAC1,PTENbeta,TEP1     0.9992364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                                                     Dyrk,PSK47     0.9535178</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                                                MMAC1,Mmac,TEP1     0.9982868</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.name  taxon.scientific taxon.ID taxon.NCBI taxon.database.name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;char&gt;            &lt;char&gt;    &lt;int&gt;      &lt;int&gt;              &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      human      Homo sapiens        1       9606                hg38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:      human      Homo sapiens        1       9606                hg38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:      mouse      Mus musculus        2      10090                mm10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:      mouse      Mus musculus        2      10090                mm10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:        rat Rattus norvegicus        3      10116                 rn6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:        rat Rattus norvegicus        3      10116                 rn6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    taxon.database.ID</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:                87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:                81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4:                81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5:                86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6:                86</span>
 </code></pre></div>
     </div>
   </div>
@@ -201,11 +214,11 @@ A list if <code>raw = TRUE</code>.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>

@@ -184,29 +184,29 @@ to search based on result set properties.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    result.ID contrast.ID experiment.ID factor.category</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;       &lt;int&gt;         &lt;int&gt;          &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1:    573187           1             1         disease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     factor.category.URI factor.ID baseline.factors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;    &lt;char&gt;           &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ebi.ac.uk/efo/EFO_0000408         1     disease,....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    experimental.factors isSubset subsetFactor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;list&gt;   &lt;lgcl&gt;       &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         disease,....    FALSE logical(....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     factor.category.URI factor.ID   baseline.factors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;    &lt;char&gt;             &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ebi.ac.uk/efo/EFO_0000408         1 &lt;data.table[1x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    experimental.factors isSubset       subsetFactor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;list&gt;   &lt;lgcl&gt;             &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   &lt;data.table[1x13]&gt;    FALSE &lt;data.table[0x13]&gt;</span>
 <span class="r-in"><span><span class="co"># get all contrasts comparing disease states. use filter_properties to see avaialble options</span></span></span>
 <span class="r-in"><span><span class="fu">get_result_sets</span><span class="op">(</span>filter <span class="op">=</span> <span class="st">"baselineGroup.characteristics.value = disease"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    result.ID contrast.ID experiment.ID factor.category</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        &lt;int&gt;       &lt;int&gt;         &lt;int&gt;          &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    576360      255896         34545       phenotype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    576360      255897         34545       phenotype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    576360      255895         34545       phenotype</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     factor.category.URI factor.ID baseline.factors</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;    &lt;char&gt;           &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ebi.ac.uk/efo/EFO_0000651     54513     phenotyp....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2: http://www.ebi.ac.uk/efo/EFO_0000651     54513     phenotyp....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3: http://www.ebi.ac.uk/efo/EFO_0000651     54513     phenotyp....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    experimental.factors isSubset subsetFactor</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;list&gt;   &lt;lgcl&gt;       &lt;list&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:         phenotyp....    FALSE logical(....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:         phenotyp....    FALSE logical(....</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:         phenotyp....    FALSE logical(....</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:    576360      255897         34545       phenotype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:    576360      255895         34545       phenotype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:    576360      255896         34545       phenotype</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     factor.category.URI factor.ID   baseline.factors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                  &lt;char&gt;    &lt;char&gt;             &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: http://www.ebi.ac.uk/efo/EFO_0000651     54513 &lt;data.table[1x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2: http://www.ebi.ac.uk/efo/EFO_0000651     54513 &lt;data.table[1x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3: http://www.ebi.ac.uk/efo/EFO_0000651     54513 &lt;data.table[1x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    experimental.factors isSubset       subsetFactor</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                  &lt;list&gt;   &lt;lgcl&gt;             &lt;list&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:   &lt;data.table[1x13]&gt;    FALSE &lt;data.table[0x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2:   &lt;data.table[1x13]&gt;    FALSE &lt;data.table[0x13]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3:   &lt;data.table[1x13]&gt;    FALSE &lt;data.table[0x13]&gt;</span>
 </code></pre></div>
     </div>
   </div>
@@ -217,11 +217,11 @@ to search based on result set properties.</p>
 
 
       <footer><div class="copyright">
-  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency.</p>
+  <p></p><p>Developed by Javier Castillo-Arnemann, Jordan Sicherman, Ogan Mancarci, Guillaume Poirier-Morency, Paul Pavlidis.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer></div>
