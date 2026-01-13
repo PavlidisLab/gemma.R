@@ -9,11 +9,14 @@ Authors@R:
              role = c("aut"), email = "jordan.sicherman@msl.ubc.ca",
              comment = c(ORCID = "0000-0001-8160-4567")),
       person(given = "Ogan", family = "Mancarci", 
-             role = c("cre", "aut"), email = "ogan.mancarci@gmail.com",
+             role = c("aut"), email = "ogan.mancarci@gmail.com",
              comment = c(ORCID = "0000-0002-1452-0889")),
       person(give = "Guillaume", family = "Poirier-Morency",
              role = c("aut"), email = "poirigui@msl.ubc.ca",
-             comment = c(ORCID = "0000-0002-6554-0441")))
+             comment = c(ORCID = "0000-0002-6554-0441")),
+      person(give='Paul',family = 'Pavlidis',
+             role=c("aut","cre"),email = "paul@msl.ubc.ca",
+             comment = c(ORCID = "0000-0002-0426-5028")))
 Description: Low- and high-level wrappers for Gemma's RESTful API. They enable 
     access to curated expression and differential expression data from over 
     10,000 published studies. Gemma is a web site, database and a set of tools for the 
