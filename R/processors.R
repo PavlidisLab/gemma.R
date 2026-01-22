@@ -853,7 +853,7 @@ processExpressionMatrix <- function(m) {
     m <- m[,!colnames(m) %in% c('Sequence','GemmaId'),with = FALSE]
     # here we standardize the output column names so that they fit output
     # from other endpoints
-    m_cols <- make.names(colnames(m))
+    m_cols <- make.names(colnames(m)) %>%  gsub('.','',.,fixed = TRUE)
 
     dataset <- parent.frame(n=2)$dataset
     # we use the order returned by get_dataset_samples as authoritative which makes
@@ -865,8 +865,9 @@ processExpressionMatrix <- function(m) {
         purrr::map('sample') %>% purrr::map_chr('name') %>%
         {.[match(samples$sample.ID,raw_ids)]}
     sample_names <- samples$sample.name
+    
     sample_matches <- sample_internal_names %>% gsub(' ','',.,fixed = TRUE) %>%
-        make.names %>% purrr::map_int(function(x){
+        make.names %>% gsub('.','',.,fixed= TRUE) %>% purrr::map_int(function(x){
             o <- grep(paste0(x,'_'),m_cols, fixed = TRUE)
             if(length(o)==0){
                 return(NA_integer_)
