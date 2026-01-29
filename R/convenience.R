@@ -1188,8 +1188,8 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
             subset_expression <- expression[match(dev$Probe,genes$Probe),rownames(subset_meta)]
             subset_genes <- genes[match(dev$Probe,genes$Probe),]
             
-            rownames(subset_expression) <- paste0(subset_genes$GeneSymbol,'   \t',dev$corrected_pvalue)
-            
+            # rownames(subset_expression) <- paste0(subset_genes$GeneSymbol,'   \t',dev$corrected_pvalue)
+            rownames(subset_expression) <- subset_genes$GeneSymbol
             fc_col <- as.data.frame(dev)[,which(grepl('log2fc',colnames(dev)))[1]]
             
             subset_expression <- subset_expression[order(fc_col),]
