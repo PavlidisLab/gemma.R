@@ -50,7 +50,8 @@ Imports:
     digest,
     R.utils,
     kableExtra,
-    base64enc
+    base64enc,
+    pheatmap
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
@@ -63,7 +64,6 @@ Suggests:
     microbenchmark,
     magick,
     purrr,
-    pheatmap,
     viridis,
     poolr,
     listviewer,

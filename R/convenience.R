@@ -513,6 +513,7 @@ get_dataset_object <- function(datasets,
                 url = paste0("https://gemma.msl.ubc.ca/expressionExperiment/showExpressionExperiment.html?id=", data$dat$experiment.ID),
                 database = data$dat$experiment.database,
                 accesion = data$dat$experiment.accession,
+                gemmaID = data$dat$experiment.ID,
                 gemmaQualityScore = data$dat$geeq.qScore,
                 gemmaSuitabilityScore = data$dat$geeq.sScore,
                 taxon = data$dat$taxon.Name
@@ -1127,3 +1128,83 @@ get_dataset_expression_for_genes <- function(
     
     
 }
+
+
+#' Quick differential expression visualization
+#' 
+#' @param dataset Name or id of a dataset or a SummarizedExperiment as returned by \code{\link{get_dataset_object}}
+#' @param genes An optional list of gene symbols or identifiers
+#' @param adj_p_filter P value threshold to filter genes
+#' @param rank_filter Positive integer or a ratio.
+#' @param ... passed to /code{/link{get_dataset_object}} if dataset is a name
+#' 
+#' @return A list of pheatmap plots for every differential expression contrast of an experiment.
+#' Each plot will be subsetted to exclusively include the relevant subset for the contrast.
+#' 
+#' @export
+visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filter = Inf, ...){
+    if('character' %in% class(dataset)){
+        dataset <- get_dataset_object(dataset, genes = genes, ...)[[1]]
+        # dataset <- get_dataset_object(dataset, genes = genes)[[1]]
+    }
+    
+    if('SummarizedExperiment' %in% class(dataset)){
+        expression <- dataset@assays@data$counts
+        genes <- dataset@elementMetadata
+        metadata <- dataset@colData
+        
+        id <- dataset@metadata$gemmaID
+        
+        dif_exp <- get_dataset_differential_expression_analyses(id)
+        dif_exp_vals <- get_differential_expression_values(id)
+        
+        dif_exp_vals <- dif_exp_vals %>% lapply(\(x){
+            out <- x %>% dplyr::filter(corrected_pvalue<= adj_p_filter)
+            
+            if(rank_filter>1 && is.finite(rank_filter)){
+                out<- out %>% dplyr::filter(order(rank)<= rank_filter)
+            }else if(rank<1){
+                out<- out %>% dplyr::filter(rank<=rank_filter)
+            }
+            return(out)
+        })
+        
+        
+        dif_exp_vals <- dif_exp_vals[sapply(dif_exp_vals,\(x){nrow(x)})>0]
+        dif_exp_vals <- dif_exp_vals[sapply(dif_exp_vals,\(x){sum(x$Probe %in% genes$Probe)})>0]
+        
+        
+        
+        plots <- lapply(names(dif_exp_vals),\(x){
+            de <- dif_exp[[x]]
+            dev <- dif_exp_vals[[x]]
+            
+            subset <- subset_factorValues(metadata$factorValues,
+                                differential_expressions = dif_exp,
+                                resultSet = x)
+            
+            subset_meta <- metadata[subset,] %>% data.frame(check.names = FALSE)
+            dev <- dev[dev$Probe %in% genes$Probe,]
+            subset_expression <- expression[match(dev$Probe,genes$Probe),rownames(subset_meta)]
+            subset_genes <- genes[match(dev$Probe,genes$Probe),]
+            
+            rownames(subset_expression) <- paste0(subset_genes$GeneSymbol,'   \t',dev$corrected_pvalue)
+            
+            fc_col <- as.data.frame(dev)[,which(grepl('log2fc',colnames(dev)))[1]]
+            
+            subset_expression <- subset_expression[order(fc_col),]
+            
+            
+            # subset_expression <- rbind(NA,subset_expression)
+            pheatmap::pheatmap(subset_expression,
+                               annotation_col = subset_meta[,!colnames(subset_meta) %in% 'factorValues',drop= FALSE],
+                               cluster_cols = FALSE,
+                               cluster_rows = FALSE,
+                               show_colnames = FALSE,scale = 'row',na_col = 'white')
+        })
+        names(plots) <- names(dif_exp_vals)
+        return(plots)
+        
+    }
+}
+
