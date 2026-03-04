@@ -17,6 +17,8 @@ setGemmaPath <- function(path){
         path <- "https://gemma.msl.ubc.ca/rest/v2/"
     } else if(path == 'staging'){
         path <- "https://staging-gemma.msl.ubc.ca/rest/v2/"
+    } else if(path == "local"){
+        path <- "http://localhost:8080/rest/v2/"
     }
     options(gemma.API = path)
     gemmaPath()
