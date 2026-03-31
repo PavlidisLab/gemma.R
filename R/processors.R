@@ -217,7 +217,10 @@ processDEA <- function(d) {
                 baseline_ids <- d[[i]]$resultSets %>% lapply(function(x){
                     x$baselineGroup$id
                 }) %>% unlist
-
+                
+                baseline_ids <- baseline_ids %>% sapply(\(x){
+                    (ids == x) %>% apply(.,2,any) %>% which
+                }) %>% {baseline_ids[.]}
 
                 relevant_ids <- ids[
                     apply(ids,1, function(x){
