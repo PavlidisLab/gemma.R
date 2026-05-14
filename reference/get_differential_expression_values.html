@@ -149,7 +149,7 @@ the subsets being determined by the levels of the confounding factor.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">get_differential_expression_values</span><span class="op">(</span><span class="st">"GSE2018"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> $`573187`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`642380`</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              Probe NCBIid gene_ensembl_id GeneSymbol</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt; &lt;char&gt;          &lt;char&gt;     &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:   210279_at   2841 ENSG00000125245      GPR18</span>
@@ -158,50 +158,50 @@ the subsets being determined by the levels of the confounding factor.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4:   206761_at  10225 ENSG00000153283       CD96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5:   204352_at   7188 ENSG00000082512      TRAF5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18011: 218682_s_at  22950 ENSG00000163798   SLC4A1AP</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18012: 202853_s_at   6259 ENSG00000163785        RYK</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18013: 203293_s_at   3998 ENSG00000074695      LMAN1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:   212708_at 339287 ENSG00000188895       MSL1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18015: 201060_x_at   2040 ENSG00000148175       STOM</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18009:   204001_at   6619 ENSG00000164975     SNAPC3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18010: 202853_s_at   6259 ENSG00000163785        RYK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011: 203293_s_at   3998 ENSG00000074695      LMAN1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:   212708_at 339287 ENSG00000188895       MSL1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013: 201060_x_at   2040 ENSG00000148175       STOM</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                      GeneName    pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                        &lt;char&gt;     &lt;num&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     1:                          G protein-coupled receptor 18 4.108e-15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     2: thymocyte selection associated high mobility group box 1.243e-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                           integral membrane protein 2A 5.784e-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                          CD96 molecule 9.116e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:                           integral membrane protein 2A 5.781e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:                                          CD96 molecule 9.118e-12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     5:                       TNF receptor associated factor 5 1.156e-11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:       solute carrier family 4 member 1 adaptor protein 9.995e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:                          receptor like tyrosine kinase 9.995e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:                              lectin, mannose binding 1 9.998e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:                                  MSL complex subunit 1 9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:                                               stomatin 9.999e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18009:     small nuclear RNA activating complex polypeptide 3 9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18010:                          receptor like tyrosine kinase 9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:                              lectin, mannose binding 1 9.998e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:                                  MSL complex subunit 1 9.997e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:                                               stomatin 9.999e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        corrected_pvalue      rank contrast_1_coefficient contrast_1_log2fc</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;num&gt;     &lt;num&gt;                  &lt;num&gt;             &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:        9.153e-11 4.488e-05             9.6010e-01        9.6010e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:        1.385e-10 8.975e-05             6.4080e-01        6.4080e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:        4.296e-08 1.000e-04             1.7128e+00        1.7128e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:        9.152e-11 4.489e-05             9.6010e-01        9.6010e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:        1.385e-10 8.977e-05             6.4080e-01        6.4080e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:        4.293e-08 1.000e-04             1.7128e+00        1.7128e+00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     4:        5.079e-08 2.000e-04             5.5470e-01        5.5470e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:        5.152e-08 2.000e-04             9.8710e-01        9.8710e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:        5.149e-08 2.000e-04             9.8710e-01        9.8710e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:        9.998e-01 9.997e-01            -5.8720e-05       -5.8720e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:        9.998e-01 9.998e-01            -5.2710e-05       -5.2710e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:        9.998e-01 1.000e+00            -3.6000e-05       -3.6000e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:        9.998e-01 9.999e-01             2.9150e-05        2.9150e-05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:        9.999e-01 1.000e+00             6.6370e-06        6.6370e-06</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18009:        9.998e-01 9.997e-01             4.9050e-05        4.9050e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18010:        9.998e-01 9.998e-01            -5.2710e-05       -5.2710e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:        9.998e-01 1.000e+00            -3.6000e-05       -3.6000e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:        9.998e-01 9.999e-01             2.9150e-05        2.9150e-05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:        9.999e-01 1.000e+00             6.6370e-06        6.6370e-06</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>        contrast_1_tstat contrast_1_pvalue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                   &lt;num&gt;             &lt;num&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      13.37250000         4.219e-15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      12.86830000         1.243e-14</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      10.27070000         5.784e-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      10.09150000         9.116e-12</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       9.99860000         1.156e-11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     1:      13.37240000         4.219e-15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     2:      12.86800000         1.243e-14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     3:      10.27080000         5.781e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     4:      10.09130000         9.118e-12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     5:       9.99870000         1.156e-11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    ---                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:      -0.00060000         9.995e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:      -0.00060000         9.995e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:      -0.00030000         9.998e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18014:       0.00040000         9.997e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18015:       0.00007557         9.999e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18009:       0.00070000         9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18010:      -0.00060000         9.995e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18011:      -0.00030000         9.998e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18012:       0.00040000         9.997e-01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18013:       0.00007557         9.999e-01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
