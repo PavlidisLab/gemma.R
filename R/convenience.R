@@ -739,7 +739,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' # get singular value decomposition for the dataset
 #' gemma_call('datasets/{dataset}/svd',dataset = 1)
 #' @export
-gemma_call <- function(call,...,json = TRUE){
+gemma_call <- function(call,...,json = TRUE,header = ""){
     args <- unlist(list(...))
     args <- args %>% lapply(as.character) %>% lapply(utils::URLencode)
     env = environment()
@@ -762,11 +762,13 @@ gemma_call <- function(call,...,json = TRUE){
     if (!is.na(username) && !is.na(password)){
         response <- httr::GET(
             glue::glue(paste0(gemmaPath(),call)),
-            httr::authenticate(username,
+            c(httr::authenticate(username,
                                password),
+              httr::add_headers(header)),
             handle = httr::handle(""))
     } else{
         response <- httr::GET(glue::glue(paste0(gemmaPath(),call),.envir = env),
+                              httr::add_headers(header),
                               handle = httr::handle(""))
     }
 
