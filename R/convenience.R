@@ -1202,7 +1202,7 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
             out <- pheatmap::pheatmap(subset_expression,
                                annotation_col = subset_meta[,!colnames(subset_meta) %in% 'factorValues',drop= FALSE],
                                cluster_cols = FALSE,
-                               cluster_rows = FALSE,
+                               cluster_rows = FALSE,color = viridis::viridis(20),
                                show_colnames = FALSE,scale = 'row',na_col = 'white')
             class(out) = c(class(out),'listable_pheatmap')
             return(out)
