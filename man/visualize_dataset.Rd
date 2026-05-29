@@ -30,3 +30,4 @@ Each plot will be subsetted to exclusively include the relevant subset for the c
 \description{
 Quick differential expression visualization
 }
+\keyword{dataset}

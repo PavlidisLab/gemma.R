@@ -1143,6 +1143,8 @@ get_dataset_expression_for_genes <- function(
 #' @return A list of pheatmap plots for every differential expression contrast of an experiment.
 #' Each plot will be subsetted to exclusively include the relevant subset for the contrast.
 #' 
+#' @keywords dataset
+#' 
 #' @export
 visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filter = Inf, ...){
     if('character' %in% class(dataset)){
