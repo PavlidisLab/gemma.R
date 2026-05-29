@@ -11,18 +11,20 @@ read_gzipped_tsv <- function(content){
 
     tmp <- tempfile() # Make a temp file
     writeBin(content, tmp) # Save to that file
-    tmp2 <- gzfile(tmp)
-    ret <- tmp2 %>%
+    con <- gzfile(tmp)
+    
+    lines <- con %>%
         readLines() %>%
-        .[which(!startsWith(., "#"))[1]:length(.)] %>%
-        # Strip comments
-        paste0(collapse = "\n") %>%
-        paste0('\n') %>%
-        {
-            fread(text = .)
-        }
-    close(tmp2)
+        .[which(!startsWith(., "#"))[1]:length(.)]
+    close(con)
+    
+    tmp2 <- tempfile()
+    writeLines(lines,tmp2)
+    
+    ret <- fread(file = tmp2)
+    
     unlink(tmp)
+    unlink(tmp2)
     
     return(ret)
 }
