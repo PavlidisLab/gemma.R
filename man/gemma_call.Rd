@@ -4,7 +4,7 @@
 \alias{gemma_call}
 \title{Custom gemma call}
 \usage{
-gemma_call(call, ..., json = TRUE)
+gemma_call(call, ..., json = TRUE, header = "")
 }
 \arguments{
 \item{call}{Gemma API endpoint.}
