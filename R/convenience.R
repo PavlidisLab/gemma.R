@@ -733,6 +733,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @param call Gemma API endpoint.
 #' @param ... parameters included in the call
 #' @param json If `TRUE` will parse the content as a list
+#' @param header headers to pass to \code{\link[httr]{add_headers}}
 #' @keywords misc
 #' @return A list if `json = TRUE` and an httr response if `FALSE`
 #' @examples
