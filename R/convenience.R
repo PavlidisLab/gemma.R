@@ -1218,8 +1218,8 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
 }
 
 #' @export
-print.listable_pheatmap <- function(heatmap){
+print.listable_pheatmap <- function(heatmap, ...){
     dev.off()
-    heatmap
+    print(heatmap,...)
 }
 
