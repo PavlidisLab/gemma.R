@@ -21,7 +21,7 @@ visualize_dataset(
 
 \item{rank_filter}{Positive integer or a ratio.}
 
-\item{...}{passed to /code{/link{get_dataset_object}} if dataset is a name}
+\item{...}{passed to \code{\link{get_dataset_object}} if dataset is a name}
 }
 \value{
 A list of pheatmap plots for every differential expression contrast of an experiment.

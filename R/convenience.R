@@ -1139,7 +1139,7 @@ get_dataset_expression_for_genes <- function(
 #' @param genes An optional list of gene symbols or identifiers
 #' @param adj_p_filter P value threshold to filter genes
 #' @param rank_filter Positive integer or a ratio.
-#' @param ... passed to /code{/link{get_dataset_object}} if dataset is a name
+#' @param ... passed to \code{\link{get_dataset_object}} if dataset is a name
 #' 
 #' @return A list of pheatmap plots for every differential expression contrast of an experiment.
 #' Each plot will be subsetted to exclusively include the relevant subset for the contrast.
@@ -1218,8 +1218,8 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
 }
 
 #' @export
-print.listable_pheatmap <- function(heatmap, ...){
-    dev.off()
-    print(heatmap,...)
+print.listable_pheatmap <- function(x, ...){
+    grDevices::dev.off()
+    print(x,...)
 }
 
