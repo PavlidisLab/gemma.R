@@ -871,7 +871,7 @@ processExpressionMatrix <- function(m) {
     
     sample_matches <- sample_internal_names %>% gsub(' ','',.,fixed = TRUE) %>%
         make.names %>% gsub('.','',.,fixed= TRUE) %>% purrr::map_int(function(x){
-            o <- grep(paste0(x,'_'),m_cols, fixed = TRUE)
+            o <- grep(paste0("(?<![A-Za-z])\\Q",x,'\\E_'),m_cols,perl =  TRUE)
             if(length(o)==0){
                 return(NA_integer_)
             } else{
