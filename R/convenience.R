@@ -733,6 +733,7 @@ get_taxa <- function(memoised = getOption("gemma.memoised", FALSE)){
 #' @param call Gemma API endpoint.
 #' @param ... parameters included in the call
 #' @param json If `TRUE` will parse the content as a list
+#' @param header headers to pass to \code{\link[httr]{add_headers}}
 #' @keywords misc
 #' @return A list if `json = TRUE` and an httr response if `FALSE`
 #' @examples
@@ -1138,10 +1139,12 @@ get_dataset_expression_for_genes <- function(
 #' @param genes An optional list of gene symbols or identifiers
 #' @param adj_p_filter P value threshold to filter genes
 #' @param rank_filter Positive integer or a ratio.
-#' @param ... passed to /code{/link{get_dataset_object}} if dataset is a name
+#' @param ... passed to \code{\link{get_dataset_object}} if dataset is a name
 #' 
 #' @return A list of pheatmap plots for every differential expression contrast of an experiment.
 #' Each plot will be subsetted to exclusively include the relevant subset for the contrast.
+#' 
+#' @keywords dataset
 #' 
 #' @export
 visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filter = Inf, ...){
@@ -1202,7 +1205,7 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
             out <- pheatmap::pheatmap(subset_expression,
                                annotation_col = subset_meta[,!colnames(subset_meta) %in% 'factorValues',drop= FALSE],
                                cluster_cols = FALSE,
-                               cluster_rows = FALSE,
+                               cluster_rows = FALSE,color = viridis::viridis(20),
                                show_colnames = FALSE,scale = 'row',na_col = 'white')
             class(out) = c(class(out),'listable_pheatmap')
             return(out)
@@ -1215,8 +1218,8 @@ visualize_dataset <- function(dataset,genes = NULL, adj_p_filter = 1, rank_filte
 }
 
 #' @export
-print.listable_pheatmap <- function(heatmap){
-    dev.off()
-    heatmap
+print.listable_pheatmap <- function(x, ...){
+    grDevices::dev.off()
+    print(x,...)
 }
 

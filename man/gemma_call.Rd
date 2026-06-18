@@ -4,7 +4,7 @@
 \alias{gemma_call}
 \title{Custom gemma call}
 \usage{
-gemma_call(call, ..., json = TRUE)
+gemma_call(call, ..., json = TRUE, header = "")
 }
 \arguments{
 \item{call}{Gemma API endpoint.}
@@ -12,6 +12,8 @@ gemma_call(call, ..., json = TRUE)
 \item{...}{parameters included in the call}
 
 \item{json}{If \code{TRUE} will parse the content as a list}
+
+\item{header}{headers to pass to \code{\link[httr]{add_headers}}}
 }
 \value{
 A list if \code{json = TRUE} and an httr response if \code{FALSE}

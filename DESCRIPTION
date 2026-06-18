@@ -1,6 +1,6 @@
 Package: gemma.R
 Title: A wrapper for Gemma's Restful API to access curated gene expression data and differential expression analyses
-Version: 3.7.3
+Version: 3.9.2
 Authors@R: 
     c(person(given = "Javier", family = "Castillo-Arnemann", 
              role = c("aut"), email = "javiercastilloar@gmail.com",
@@ -26,7 +26,6 @@ URL: https://pavlidislab.github.io/gemma.R/, https://github.com/PavlidisLab/gemm
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 BugReports: https://github.com/PavlidisLab/gemma.R/issues
 Depends:
     R (>= 4.1.0)
@@ -53,7 +52,8 @@ Imports:
     R.utils,
     kableExtra,
     base64enc,
-    pheatmap
+    pheatmap,
+    grDevices
 Suggests: 
     testthat (>= 2.0.0),
     rmarkdown,
@@ -86,3 +86,4 @@ biocViews:
     Normalization,
     BatchEffect,
     Preprocessing
+Config/roxygen2/version: 8.0.0
