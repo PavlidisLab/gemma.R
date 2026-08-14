@@ -946,8 +946,41 @@ registerEndpoint('genes/{(genes)}/',
 # platforms/count -----
 # unimplemented
 
-# platforms/{platform}/annotations -----
-# unimplemented
+# platforms/{platform}/annotations, get_platform_annotations -----
+# replaces the hand written convenience function that used to download the
+# annotation file from the web interface (arrays/downloadAnnotationFile.html).
+# note that the REST endpoint has no equivalent of the old annotType argument;
+# the file it serves corresponds to the old "noParents" flavour.
+
+#' get_platform_annotations
+#'
+#' Gets Gemma's platform annotations including mappings of microarray probes to genes.
+#'
+#' @section title_override:
+#' Retrieve Platform Annotations by Gemma
+#'
+#' @param platform A platform numerical identifier or a platform short name
+#' @inherit processAnnotationFile return
+#'
+#' @examples
+#' head(get_platform_annotations("GPL96"))
+#' head(get_platform_annotations("Generic_human_ncbiIds"))
+NULL
+
+registerEndpoint("platforms/{platform}/annotations",
+                 "get_platform_annotations",
+                 open_api_name = 'get_platform_annotations',
+                 keyword = "platform",
+                 isFile = TRUE,
+                 header = "text/tab-separated-values",
+                 defaults = list(
+                     platform = bquote()
+                 ),
+                 validators = alist(
+                     platform = validateSingleID
+                 ),
+                 preprocessor = quote(processAnnotationFile)
+)
 
 
 # platform/{platform}/datasets, get_platform_datasets ----
