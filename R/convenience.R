@@ -475,7 +475,7 @@ get_dataset_object <- function(datasets,
 #'
 #' Retrieves the differential expression result set(s) associated with the dataset.
 #' To get more information about the contrasts in individual resultSets and
-#' annotation terms associated them, use [get_dataset_differential_expression_analyses()]
+#' annotation terms associated them, use \code{\link{get_dataset_differential_expression_analyses}}
 #'
 #' In Gemma each result set corresponds to
 #' the estimated effects associated with a single factor in the design, and each can have multiple contrasts (for each level compared to baseline).
