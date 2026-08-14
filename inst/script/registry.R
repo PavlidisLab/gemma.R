@@ -463,7 +463,14 @@ registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific=
 
 
 # /datasets/{datasets}/expressions/taxa/{taxon}/genes/{genes} ---------
-# currently unimplemented
+#' .get_dataset_expression_for_genes_in_taxon
+#' @param datasets A comma-delimited list of dataset IDs or short names.
+#' @param genes A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols.
+#' @param keepNonSpecific logical. \code{FALSE} by default. If \code{TRUE}, results from probesets that are not specific to the gene will also be returned.
+#' @param consolidate An option for gene expression level consolidation. If empty,
+#' will return every probe for the genes. "pickmax" to
+#' pick the probe with the highest expression, "pickvar" to pick the prove with
+#' the highest variance and "average" for returning the average expression
 registerEndpoint('datasets/{datasets}/expressions/taxa/{taxon}/genes/{genes}?keepNonSpecific={keepNonSpecific}&consolidate={consolidate}',
                  '.get_dataset_expression_for_genes_in_taxon', open_api_name = 'get_datasets_expression_levels_for_genes_in_taxon',
                  keyword = 'dataset',
@@ -721,6 +728,7 @@ registerEndpoint("datasets/{datasets}?&offset={offset}&limit={limit}&sort={sort}
 #' .get_gene_differential_expression_values
 #' 
 #' @inherit processDifferentialExpressionAnalysisResultByGeneValueObject_tsv return
+#' @param threshold number
 #' 
 #' @examples
 #' # get all differential expression results for ENO2
@@ -781,8 +789,10 @@ registerEndpoint("datasets/analyses/differential/results/genes/{gene}?&query={qu
 
 
 # /datasets/analyses/differential/results/taxa/{taxon}/genes/{gene} ----
-# unimplemented along with other taxon specific endpoints
 
+#' .get_gene_differential_expression_values_in_taxon
+#' 
+#' @param threshold number
 registerEndpoint("datasets/analyses/differential/results/taxa/{taxon}/genes/{gene}?&query={query}&filter={filter}&threshold={threshold}",
                  ".get_gene_differential_expression_values_in_taxon",
                  open_api_name = "get_datasets_differential_expression_analysis_results_for_gene_in_taxon",
@@ -1281,6 +1291,13 @@ doFinalize()
 
 
 #' generic_params
+#' 
+#' @param platform A platform numerical identifier or a platform short name
+#' @param gene An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc
+#' @param taxon A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name
+#' @param dataset A numerical dataset identifier or a dataset short name
+#' @param offset The offset of the first retrieved result
+#' @param resultSet An expression analysis result set numerical identifier.
 #' @param query The search query. Queries can include plain text or ontology 
 #' terms They also support conjunctions ("alpha AND beta"), disjunctions ("alpha OR beta")
 #' grouping ("(alpha OR beta) AND gamma"), prefixing ("alpha*"), wildcard characters 
