@@ -585,6 +585,37 @@ processFile <- function(content) {
     return(ret)
 }
 
+#' Processes a platform annotation file
+#'
+#' @param content The content from an `http_get` request
+#'
+#' @return A table of annotations
+#' \itemize{
+#'     \item \code{ElementName}: Probeset names provided by the platform.
+#'     Gene symbols for generic annotations typically used for RNA-seq experiments.
+#'     \item \code{GeneSymbols}: Genes that were found to be aligned to
+#'     the probe sequence. Note that it is possible for probes to be
+#'     non-specific. Alignment to multiple genes are indicated with gene
+#'     symbols separated by "|"s
+#'     \item \code{GeneNames}: Name of the gene
+#'     \item \code{GOTerms}: GO Terms associated with the genes.
+#'     \item \code{GemmaIDs} and \code{NCBIids}: respective IDs for the genes.
+#' }
+#'
+#' @keywords internal
+processAnnotationFile <- function(content) {
+    attr <- attributes(content)
+    attributes(content) <- NULL
+    ret <- read_gzipped_tsv(content)
+
+    # older annotation files use ProbeName instead of ElementName. we always
+    # return ElementName
+    names(ret)[names(ret) == "ProbeName"] <- "ElementName"
+
+    attributes(ret) <- c(attributes(ret), attr)
+    return(ret)
+}
+
 #' Processes JSON as a vector of samples
 #'
 #' @param d The JSON to process
