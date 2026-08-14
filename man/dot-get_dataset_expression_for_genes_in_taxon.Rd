@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.get_dataset_expression_for_genes_in_taxon}
 \alias{.get_dataset_expression_for_genes_in_taxon}
-\title{Retrieve the expression data matrix of a set of datasets and genes}
+\title{.get_dataset_expression_for_genes_in_taxon}
 \usage{
 .get_dataset_expression_for_genes_in_taxon(
   datasets,
@@ -17,13 +17,16 @@
 )
 }
 \arguments{
-\item{datasets}{A comma-delimited list of dataset IDs or short names. The value may be compressed with gzip and encoded with base64.}
+\item{datasets}{A comma-delimited list of dataset IDs or short names.}
 
-\item{genes}{A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols. The value may be compressed with gzip and encoded with base64.}
+\item{genes}{A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols.}
 
-\item{keepNonSpecific}{boolean}
+\item{keepNonSpecific}{logical. \code{FALSE} by default. If \code{TRUE}, results from probesets that are not specific to the gene will also be returned.}
 
-\item{consolidate}{An option for gene expression level consolidation.}
+\item{consolidate}{An option for gene expression level consolidation. If empty,
+will return every probe for the genes. "pickmax" to
+pick the probe with the highest expression, "pickvar" to pick the prove with
+the highest variance and "average" for returning the average expression}
 
 \item{taxon}{A numerical taxon identifier or an ncbi taxon identifier or a taxon identifier that matches either its scientific or common name}
 
@@ -47,6 +50,6 @@ filename.}
 Varies
 }
 \description{
-Retrieve the expression data matrix of a set of datasets and genes
+.get_dataset_expression_for_genes_in_taxon
 }
 \keyword{internal}

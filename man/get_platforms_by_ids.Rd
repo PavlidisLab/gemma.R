@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platforms_by_ids}
 \alias{get_platforms_by_ids}
-\title{Retrieve all platforms matching a set of platform identifiers}
+\title{get_platforms_by_ids}
 \usage{
 get_platforms_by_ids(
   platforms = NA_character_,
@@ -30,7 +30,7 @@ combined using "and" "or" clauses and may contain common operators such as "=", 
 species will return results for all species. These are appended
 to the filter and equivalent to filtering for \code{taxon.commonName} property}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -78,7 +78,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve all platforms matching a set of platform identifiers
+get_platforms_by_ids
 }
 \examples{
 get_platforms_by_ids("GPL1355")

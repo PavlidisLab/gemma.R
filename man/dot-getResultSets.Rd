@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.getResultSets}
 \alias{.getResultSets}
-\title{Retrieve a single analysis result set by its identifier}
+\title{.getResultSets}
 \usage{
 .getResultSets(
   resultSet = NA_character_,
@@ -35,7 +35,7 @@ filename.}
 Varies
 }
 \description{
-Retrieve a single analysis result set by its identifier
+.getResultSets
 }
 \examples{
 # gemma.R:::.getResultSets(523099)

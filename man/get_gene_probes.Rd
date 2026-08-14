@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_probes}
 \alias{get_gene_probes}
-\title{Retrieve the probes associated to a genes across all platforms}
+\title{get_gene_probes}
 \usage{
 get_gene_probes(
   gene,
@@ -17,7 +17,7 @@ get_gene_probes(
 \arguments{
 \item{gene}{An ensembl gene identifier which typically starts with ensg or an ncbi gene identifier or an official gene symbol approved by hgnc}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -65,7 +65,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the probes associated to a genes across all platforms
+get_gene_probes
 }
 \examples{
 get_gene_probes(1859)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_platforms}
 \alias{get_dataset_platforms}
-\title{Retrieve the platforms of a dataset}
+\title{get_dataset_platforms}
 \usage{
 get_dataset_platforms(
   dataset,
@@ -53,7 +53,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the platforms of a dataset
+get_dataset_platforms
 }
 \examples{
 get_dataset_platforms("GSE2018")

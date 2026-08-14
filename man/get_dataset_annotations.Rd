@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_annotations}
 \alias{get_dataset_annotations}
-\title{Retrieve the annotations of a dataset}
+\title{get_dataset_annotations}
 \usage{
 get_dataset_annotations(
   dataset,
@@ -47,7 +47,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the annotations of a dataset
+get_dataset_annotations
 }
 \examples{
 get_dataset_annotations("GSE2018")

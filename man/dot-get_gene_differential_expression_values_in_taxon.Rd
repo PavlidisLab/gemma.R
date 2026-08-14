@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.get_gene_differential_expression_values_in_taxon}
 \alias{.get_gene_differential_expression_values_in_taxon}
-\title{Retrieve the differential expression results for a given gene and taxa among datasets matching the provided query and filter}
+\title{.get_gene_differential_expression_values_in_taxon}
 \usage{
 .get_gene_differential_expression_values_in_taxon(
   gene,
@@ -58,6 +58,6 @@ filename.}
 Varies
 }
 \description{
-Retrieve the differential expression results for a given gene and taxa among datasets matching the provided query and filter
+.get_gene_differential_expression_values_in_taxon
 }
 \keyword{internal}

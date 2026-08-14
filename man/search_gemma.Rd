@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{search_gemma}
 \alias{search_gemma}
-\title{Search everything in Gemma}
+\title{search_gemma}
 \usage{
 search_gemma(
   query,
@@ -54,7 +54,7 @@ a data.table containing the search results. If it is any other type, a list
 of results. A list with additional details about the search if \code{raw = TRUE}
 }
 \description{
-Search everything in Gemma
+search_gemma
 }
 \examples{
 search_gemma("bipolar")

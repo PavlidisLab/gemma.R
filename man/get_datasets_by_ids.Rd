@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_datasets_by_ids}
 \alias{get_datasets_by_ids}
-\title{Retrieve datasets by their identifiers}
+\title{get_datasets_by_ids}
 \usage{
 get_datasets_by_ids(
   datasets = NA_character_,
@@ -35,7 +35,7 @@ to the filter and equivalent to filtering for \code{taxon.commonName} property}
 return results containing any of the terms and their children. These are
 appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -93,7 +93,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve datasets by their identifiers
+get_datasets_by_ids
 }
 \examples{
 get_datasets_by_ids("GSE2018")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_datasets}
 \alias{get_datasets}
-\title{Retrieve all datasets}
+\title{get_datasets}
 \usage{
 get_datasets(
   query = NA_character_,
@@ -37,7 +37,7 @@ to the filter and equivalent to filtering for \code{taxon.commonName} property}
 return results containing any of the terms and their children. These are
 appended to the filter and equivalent to filtering for \code{allCharacteristics.valueUri}}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -95,7 +95,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve all datasets
+get_datasets
 }
 \examples{
 get_datasets()

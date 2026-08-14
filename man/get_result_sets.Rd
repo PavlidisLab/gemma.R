@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_result_sets}
 \alias{get_result_sets}
-\title{Retrieve all result sets matching the provided criteria}
+\title{get_result_sets}
 \usage{
 get_result_sets(
   datasets = NA_character_,
@@ -31,7 +31,7 @@ function to get a list of all available parameters. These properties can be
 combined using "and" "or" clauses and may contain common operators such as "=", "<" or "in".
 (e.g. "taxon.commonName = human", "taxon.commonName in (human,mouse), "id < 1000")}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and

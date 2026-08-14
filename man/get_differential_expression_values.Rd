@@ -39,7 +39,7 @@ values per result set.
 \description{
 Retrieves the differential expression result set(s) associated with the dataset.
 To get more information about the contrasts in individual resultSets and
-annotation terms associated them, use \code{\link[=get_dataset_differential_expression_analyses]{get_dataset_differential_expression_analyses()}}
+annotation terms associated them, use \code{\link{get_dataset_differential_expression_analyses}}
 }
 \details{
 In Gemma each result set corresponds to

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_subset_samples}
 \alias{get_dataset_subset_samples}
-\title{Obtain the samples of a specific subset of a dataset}
+\title{get_dataset_subset_samples}
 \usage{
 get_dataset_subset_samples(
   dataset,
@@ -38,6 +38,6 @@ filename.}
 Varies
 }
 \description{
-Obtain the samples of a specific subset of a dataset
+get_dataset_subset_samples
 }
 \keyword{internal}

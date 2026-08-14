@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_element_genes}
 \alias{get_platform_element_genes}
-\title{Retrieve the genes associated to a probe in a given platform}
+\title{get_platform_element_genes}
 \usage{
 get_platform_element_genes(
   platform,
@@ -20,7 +20,7 @@ get_platform_element_genes(
 
 \item{probe}{A probe name or it's numerical identifier}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -65,7 +65,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the genes associated to a probe in a given platform
+get_platform_element_genes
 }
 \examples{
 get_platform_element_genes("GPL1355", "AFFX_Rat_beta-actin_M_at")

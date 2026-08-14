@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_taxa_by_ids}
 \alias{get_taxa_by_ids}
-\title{Retrieve taxa by their identifiers}
+\title{get_taxa_by_ids}
 \usage{
 get_taxa_by_ids(
   taxa,
@@ -55,7 +55,7 @@ filename.}
 A data table with the queried taxa's details.
 }
 \description{
-Retrieve taxa by their identifiers
+get_taxa_by_ids
 }
 \examples{
 gemma.R:::get_taxa_by_ids(c("mouse", "human"))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_samples}
 \alias{get_dataset_samples}
-\title{Retrieve the samples of a dataset}
+\title{get_dataset_samples}
 \usage{
 get_dataset_samples(
   dataset,
@@ -59,7 +59,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve the samples of a dataset
+get_dataset_samples
 }
 \examples{
 head(get_dataset_samples("GSE2018"))

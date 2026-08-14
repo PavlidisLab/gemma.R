@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_datasets}
 \alias{get_platform_datasets}
-\title{Retrieve all experiments using a given platform}
+\title{get_platform_datasets}
 \usage{
 get_platform_datasets(
   platform,
@@ -17,7 +17,7 @@ get_platform_datasets(
 \arguments{
 \item{platform}{A platform numerical identifier or a platform short name}
 
-\item{offset}{The offset of the first retrieved result.}
+\item{offset}{The offset of the first retrieved result}
 
 \item{limit}{Defaults to 20. Limits the result to specified amount
 of objects. Has a maximum value of 100. Use together with \code{offset} and
@@ -72,7 +72,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Retrieve all experiments using a given platform
+get_platform_datasets
 }
 \examples{
 head(get_platform_datasets("GPL1355"))

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{search_annotations}
 \alias{search_annotations}
-\title{Search for annotation tags}
+\title{search_annotations}
 \usage{
 search_annotations(
   query,
@@ -48,7 +48,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-Search for annotation tags
+search_annotations
 }
 \examples{
 search_annotations("traumatic")

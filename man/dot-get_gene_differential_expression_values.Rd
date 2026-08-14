@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.get_gene_differential_expression_values}
 \alias{.get_gene_differential_expression_values}
-\title{Retrieve the differential expression results for a given gene among datasets matching the provided query and filter}
+\title{.get_gene_differential_expression_values}
 \usage{
 .get_gene_differential_expression_values(
   gene,
@@ -75,7 +75,7 @@ they uniquely represent a given contrast.
 }
 }
 \description{
-Retrieve the differential expression results for a given gene among datasets matching the provided query and filter
+.get_gene_differential_expression_values
 }
 \examples{
 # get all differential expression results for ENO2
