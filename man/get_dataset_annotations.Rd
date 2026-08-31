@@ -45,6 +45,13 @@ The fields of the output data.table are:
 \item \code{term.URI}: URI for the annotation term
 \item \code{object.class}: Class of object that the term originated from.
 }
+
+Against Gemma 2.0, \code{term.name} on a row originating from a factor value
+is the label of the annotated term. Older Gemma versions returned a composed
+sentence there instead (e.g. "wild type genotype has background APP/PS1"
+rather than "wild type genotype"). Rows originating from plain tags, subset
+tags and sample characteristics are unaffected; they carry the term label on
+either version.
 }
 \description{
 get_dataset_annotations

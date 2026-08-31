@@ -71,6 +71,37 @@ accessField <- function(d, field, natype = NA){
     return(field)
 }
 
+#' Access a field that Gemma has renamed
+#'
+#' Reads \code{field}, falling back to \code{legacy} when no element of the
+#' payload carries \code{field}. Gemma 2.0 renamed the annotation fields
+#' \code{className}/\code{classUri}/\code{termName}/\code{termUri} to
+#' \code{category}/\code{categoryUri}/\code{value}/\code{valueUri} with no
+#' aliases, while \code{gemmaPath} still defaults to a Gemma 1.x server, so both
+#' spellings have to be readable. The two spellings are mutually exclusive on a
+#' given server, so the choice is made once per payload rather than per element.
+#'
+#' Drop this helper and read \code{field} directly once gemma.R no longer
+#' supports Gemma 1.x.
+#'
+#' @param d Input data list
+#' @param field Field name used by current Gemma versions
+#' @param legacy Field name used by older Gemma versions
+#' @param natype What to fill in when neither field is available
+#' @return A vector of elements
+#' @keywords internal
+accessRenamedField <- function(d, field, legacy, natype = NA){
+    hasField <- vapply(d, function(e){
+        is.list(e) && field %in% names(e)
+    }, logical(1))
+
+    if(any(hasField)){
+        accessField(d, field, natype)
+    } else{
+        accessField(d, legacy, natype)
+    }
+}
+
 #' Avoid NULLS as data.table columns
 #'
 #' @param x A value that might be null

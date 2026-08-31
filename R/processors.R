@@ -550,16 +550,23 @@ processDatasetResultSets <- function(d) {
 #'     \item \code{object.class}: Class of object that the term originated from.
 #' }
 #'
-#'
+#' Against Gemma 2.0, \code{term.name} on a row originating from a factor value
+#' is the label of the annotated term. Older Gemma versions returned a composed
+#' sentence there instead (e.g. "wild type genotype has background APP/PS1"
+#' rather than "wild type genotype"). Rows originating from plain tags, subset
+#' tags and sample characteristics are unaffected; they carry the term label on
+#' either version.
 #'
 #' @keywords internal
 processAnnotations <- function(d) {
 
     data.table(
-        class.name = accessField(d,"className",NA_character_),
-        class.URI = accessField(d,"classUri",NA_character_),
-        term.name = accessField(d,"termName",NA_character_),
-        term.URI = accessField(d,"termUri",NA_character_),
+        # Gemma 2.0 renamed these; accessRenamedField reads the old spelling
+        # from Gemma 1.x servers. See accessRenamedField.
+        class.name = accessRenamedField(d,"category","className",NA_character_),
+        class.URI = accessRenamedField(d,"categoryUri","classUri",NA_character_),
+        term.name = accessRenamedField(d,"value","termName",NA_character_),
+        term.URI = accessRenamedField(d,"valueUri","termUri",NA_character_),
         object.class = accessField(d,'objectClass',NA_character_)
     )
 }

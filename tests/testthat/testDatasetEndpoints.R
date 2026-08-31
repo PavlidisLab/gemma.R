@@ -62,11 +62,22 @@ test_that("datasetAnnotations queries work", {
     raw <- get_dataset_annotations(1, raw = TRUE) %>% jsonlite:::simplify()
     expect_type(dat, "list")
     expect_type(raw, "list")
-    expect_true(all(dat$class.name %in% raw$className))
-    expect_true(all(dat$class.URI %in% raw$classUri))
-    expect_true(all(dat$term.name %in% raw$termName))
-    expect_true(all(dat$term.URI %in% raw$termUri))
-    
+    # Gemma 2.0 serves category/categoryUri/value/valueUri where Gemma 1.x
+    # served className/classUri/termName/termUri. Read whichever spelling this
+    # server used so the test passes against both.
+    rawField <- function(field, legacy){
+        if(!is.null(raw[[field]])) raw[[field]] else raw[[legacy]]
+    }
+    expect_true(all(dat$class.name %in% rawField("category", "className")))
+    expect_true(all(dat$class.URI %in% rawField("categoryUri", "classUri")))
+    expect_true(all(dat$term.name %in% rawField("value", "termName")))
+    expect_true(all(dat$term.URI %in% rawField("valueUri", "termUri")))
+
+    # the columns must actually be populated: reading a field the server does
+    # not serve yields an all-NA column rather than an error
+    expect_gt(nrow(dat), 0)
+    expect_false(all(is.na(dat$class.name)))
+    expect_false(all(is.na(dat$term.name)))
 
 })
 
