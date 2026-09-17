@@ -116,11 +116,25 @@ setGemmaPath <- function(path){
     ## Uncomment for debugging
     # print(response$url)
 
-    # if 429. wait a bit and re-try.
+    # if 429, 500 or 503. wait a bit and re-try. a 503 that tells us when to come
+    # back is server-directed, so it doesn't count towards the retry limit
     i <- 0
-    while(i<3 && (is.null(response$status_code) || response$status_code  %in% c(429,500))){
-        i <- i + 1
-        Sys.sleep(5)
+    while(is.null(response$status_code) || response$status_code %in% c(429,500,503)){
+        directed <- if(isTRUE(response$status_code == 503)) retryAfter(response) else NULL
+        if(is.null(directed)){
+            if(i >= 3) break
+            i <- i + 1
+        }
+        wait <- if(is.null(directed)) 5 else directed
+        if(!is.null(directed)){
+            message('High traffic in Gemma. Retrying in ', wait, ' seconds.')
+        } else{
+            message('No valid response from Gemma',
+             if(is.null(response$status_code)) '' else paste0(' (',response$status_code ,')'),
+             '. Retrying in ',
+              wait, ' seconds.')
+        }
+        Sys.sleep(wait)
         response <- eval(requestExpr)
     }
 
@@ -207,6 +221,30 @@ setGemmaPath <- function(path){
         }
         stop(call, '\n', "HTTP code ", response$status_code,": ",message)
     }
+}
+
+#' Seconds the server asked us to wait before re-trying
+#'
+#' Reads the \code{Retry-After} response header, accepting both the delay in
+#' seconds and the HTTP-date forms. The delay is rounded to whole seconds and
+#' floored at one so a server-directed re-try can't spin.
+#'
+#' @param response An httr response object
+#' @return Number of seconds to wait, or NULL if the header is absent or unusable
+#' @keywords internal
+retryAfter <- function(response){
+    header <- tryCatch(httr::headers(response)[['retry-after']], error = function(e) NULL)
+    if(is.null(header)){
+        return(NULL)
+    }
+    seconds <- suppressWarnings(as.numeric(header))
+    if(is.na(seconds)){
+        seconds <- as.numeric(difftime(httr::parse_http_date(header), Sys.time(), units = 'secs'))
+    }
+    if(is.na(seconds)){
+        return(NULL)
+    }
+    max(round(seconds), 1)
 }
 
 #' URL encode a string safely
