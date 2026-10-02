@@ -244,10 +244,21 @@ getLog <- function(){
 #' @param parameters The parameters that the function accepts
 #' @param document A file to print information for pasting generating the package
 comment <- function(fname, open_api_name = fname, parameters, document = getOption("gemmaAPI.document", "R/allEndpoints.R")) {
+    # RSTUDIO_PANDOC is only set inside RStudio. fall back to pandoc on the PATH
+    # so that the script can also be sourced from Rscript / R CMD
+    pandoc_bin <- if (nzchar(Sys.getenv("RSTUDIO_PANDOC"))) {
+        file.path(Sys.getenv("RSTUDIO_PANDOC"), "pandoc")
+    } else {
+        Sys.which("pandoc")
+    }
+    if (!nzchar(pandoc_bin)) {
+        stop("pandoc not found. install pandoc or set RSTUDIO_PANDOC")
+    }
+
     pandoc <- function(text) {
         tmp <- tempfile()
         write(text, tmp)
-        ret <- system2(paste0(Sys.getenv("RSTUDIO_PANDOC"), "/pandoc"), c("-f html", "-t markdown", tmp), stdout = TRUE)
+        ret <- system2(pandoc_bin, c("-f html", "-t markdown", tmp), stdout = TRUE)
         unlink(tmp)
         gsub("\n#' \n#' ", "\n#' ", gsub("\n", "\n#' ", paste0(ret, collapse = "\n"), fixed = TRUE), fixed = TRUE) %>%
             {

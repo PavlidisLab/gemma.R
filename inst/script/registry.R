@@ -50,15 +50,16 @@ res = httr::GET(paste0(gemmaPath(),'openapi.json'))
 writeBin(res$content,con = 'inst/script/openapi.json')
 api_file = jsonlite::fromJSON(readLines('inst/script/openapi.json'),simplifyVector = FALSE)
 
+# only GET endpoints are code generated. drop the rest from the spec so that
+# api_file$paths stays index aligned with api_file_fun_names
 path_filter = api_file$paths %>% 
     purrr::map('get') %>% 
     {!sapply(.,is.null)} 
 
-api_file = api_file[!path_filter]
+api_file$paths = api_file$paths[path_filter]
 
 api_file_fun_names = api_file$paths %>% 
     purrr::map('get') %>% 
-    {.[!sapply(.,is.null)]} %>%
     purrr::map_chr('operationId') %>%
     snakecase::to_snake_case()
 
