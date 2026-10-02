@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_subset_groups}
 \alias{get_dataset_subset_groups}
-\title{get_dataset_subset_groups}
+\title{Obtain all the subset groups of a dataset}
 \usage{
 get_dataset_subset_groups(
   dataset,
@@ -35,6 +35,6 @@ filename.}
 Varies
 }
 \description{
-get_dataset_subset_groups
+Obtain all the subset groups of a dataset
 }
 \keyword{internal}

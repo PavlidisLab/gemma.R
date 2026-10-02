@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_locations}
 \alias{get_gene_locations}
-\title{get_gene_locations}
+\title{Retrieve the physical locations of a given gene}
 \usage{
 get_gene_locations(
   gene,
@@ -50,7 +50,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_gene_locations
+Retrieve the physical locations of a given gene
 }
 \examples{
 get_gene_locations("DYRK1A")

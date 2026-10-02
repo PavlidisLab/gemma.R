@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_datasets}
 \alias{get_platform_datasets}
-\title{get_platform_datasets}
+\title{Retrieve all experiments using a given platform}
 \usage{
 get_platform_datasets(
   platform,
@@ -72,7 +72,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_platform_datasets
+Retrieve all experiments using a given platform
 }
 \examples{
 head(get_platform_datasets("GPL1355"))

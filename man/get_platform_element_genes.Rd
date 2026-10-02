@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_platform_element_genes}
 \alias{get_platform_element_genes}
-\title{get_platform_element_genes}
+\title{Retrieve the genes associated to a probe in a given platform}
 \usage{
 get_platform_element_genes(
   platform,
@@ -65,7 +65,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_platform_element_genes
+Retrieve the genes associated to a probe in a given platform
 }
 \examples{
 get_platform_element_genes("GPL1355", "AFFX_Rat_beta-actin_M_at")

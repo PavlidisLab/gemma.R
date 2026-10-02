@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_publications}
 \alias{get_dataset_publications}
-\title{get_dataset_publications}
+\title{Retrieve all publications associated with a dataset}
 \usage{
 get_dataset_publications(
   dataset,
@@ -44,7 +44,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_dataset_publications
+Retrieve all publications associated with a dataset
 }
 \examples{
 get_dataset_publications(1)

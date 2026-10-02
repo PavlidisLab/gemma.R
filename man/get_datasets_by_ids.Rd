@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_datasets_by_ids}
 \alias{get_datasets_by_ids}
-\title{get_datasets_by_ids}
+\title{Retrieve datasets by their identifiers}
 \usage{
 get_datasets_by_ids(
   datasets = NA_character_,
@@ -93,7 +93,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_datasets_by_ids
+Retrieve datasets by their identifiers
 }
 \examples{
 get_datasets_by_ids("GSE2018")

@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_gene_go_terms}
 \alias{get_gene_go_terms}
-\title{get_gene_go_terms}
+\title{Retrieve the GO terms associated to a gene}
 \usage{
 get_gene_go_terms(
   gene,
@@ -45,7 +45,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_gene_go_terms
+Retrieve the GO terms associated to a gene
 }
 \examples{
 get_gene_go_terms(3091)

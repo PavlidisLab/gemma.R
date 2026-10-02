@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.get_dataset_expression_for_genes}
 \alias{.get_dataset_expression_for_genes}
-\title{.get_dataset_expression_for_genes}
+\title{Retrieve the expression data matrix of a set of datasets and genes}
 \usage{
 .get_dataset_expression_for_genes(
   datasets,
@@ -48,7 +48,7 @@ filename.}
 A list of data frames
 }
 \description{
-.get_dataset_expression_for_genes
+Retrieve the expression data matrix of a set of datasets and genes
 }
 \examples{
 get_dataset_expression_for_genes("GSE2018", genes = c(10225, 2841))

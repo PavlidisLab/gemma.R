@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_processed_expression}
 \alias{get_dataset_processed_expression}
-\title{get_dataset_processed_expression}
+\title{Retrieve processed expression data of a dataset}
 \usage{
 get_dataset_processed_expression(
   dataset,
@@ -36,7 +36,7 @@ If raw is FALSE (default), a data table of the expression matrix for
 the queried dataset. If raw is TRUE, returns the binary file in raw form.
 }
 \description{
-get_dataset_processed_expression
+Retrieve processed expression data of a dataset
 }
 \examples{
 get_dataset_processed_expression("GSE2018")

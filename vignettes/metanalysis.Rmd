@@ -62,7 +62,7 @@ make sure we are getting the right datasets. To identify potentially useful onto
 terms, we can use search_annotations
 
 ```{r}
-annots <- search_annotations("parkinson's")
+annots <- search_annotations("parkinson")
 annots %>% head %>% gemma_kable()
 ```
 

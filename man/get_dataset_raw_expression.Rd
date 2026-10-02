@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_raw_expression}
 \alias{get_dataset_raw_expression}
-\title{get_dataset_raw_expression}
+\title{Retrieve raw expression data of a dataset}
 \usage{
 get_dataset_raw_expression(
   dataset,
@@ -41,7 +41,7 @@ If raw is FALSE (default), a data table of the expression matrix for
 the queried dataset. If raw is TRUE, returns the binary file in raw form.
 }
 \description{
-get_dataset_raw_expression
+Retrieve raw expression data of a dataset
 }
 \examples{
 q_types <- get_dataset_quantitation_types("GSE59918")

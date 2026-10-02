@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_quantitation_types}
 \alias{get_dataset_quantitation_types}
-\title{get_dataset_quantitation_types}
+\title{Retrieve quantitation types of a dataset}
 \usage{
 get_dataset_quantitation_types(
   dataset,
@@ -54,7 +54,7 @@ recomputing raw data files Gemma had access to.
 }
 }
 \description{
-get_dataset_quantitation_types
+Retrieve quantitation types of a dataset
 }
 \examples{
 get_dataset_quantitation_types("GSE59918")

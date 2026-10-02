@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{.get_dataset_expression_for_genes_in_taxon}
 \alias{.get_dataset_expression_for_genes_in_taxon}
-\title{.get_dataset_expression_for_genes_in_taxon}
+\title{Retrieve the expression data matrix of a set of datasets and genes}
 \usage{
 .get_dataset_expression_for_genes_in_taxon(
   datasets,
@@ -50,6 +50,6 @@ filename.}
 Varies
 }
 \description{
-.get_dataset_expression_for_genes_in_taxon
+Retrieve the expression data matrix of a set of datasets and genes
 }
 \keyword{internal}

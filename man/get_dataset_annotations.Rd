@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_dataset_annotations}
 \alias{get_dataset_annotations}
-\title{get_dataset_annotations}
+\title{Retrieve the annotations of a dataset}
 \usage{
 get_dataset_annotations(
   dataset,
@@ -54,7 +54,7 @@ tags and sample characteristics are unaffected; they carry the term label on
 either version.
 }
 \description{
-get_dataset_annotations
+Retrieve the annotations of a dataset
 }
 \examples{
 get_dataset_annotations("GSE2018")

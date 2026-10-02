@@ -2,7 +2,7 @@
 % Please edit documentation in R/allEndpoints.R
 \name{get_datasets}
 \alias{get_datasets}
-\title{get_datasets}
+\title{Retrieve all datasets}
 \usage{
 get_datasets(
   query = NA_character_,
@@ -95,7 +95,7 @@ The fields of the output data.table are:
 }
 }
 \description{
-get_datasets
+Retrieve all datasets
 }
 \examples{
 get_datasets()
