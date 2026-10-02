@@ -97,7 +97,13 @@ identifier does not map to any object.</p>
 <li><p><code>term.name</code>: Name of the annotation term (e.g. lung)</p></li>
 <li><p><code>term.URI</code>: URI for the annotation term</p></li>
 <li><p><code>object.class</code>: Class of object that the term originated from.</p></li>
-</ul></div>
+</ul><p>Against Gemma 2.0, <code>term.name</code> on a row originating from a factor value
+is the label of the annotated term. Older Gemma versions returned a composed
+sentence there instead (e.g. "wild type genotype has background APP/PS1"
+rather than "wild type genotype"). Rows originating from plain tags, subset
+tags and sample characteristics are unaffected; they carry the term label on
+either version.</p>
+    </div>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -111,7 +117,7 @@ identifier does not map to any object.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>

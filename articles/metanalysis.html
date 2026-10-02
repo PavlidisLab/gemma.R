@@ -133,7 +133,7 @@ for a structured analysis, it is usually more helpful to use ontology
 terms to make sure we are getting the right datasets. To identify
 potentially useful ontology terms, we can use search_annotations</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">annots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">"parkinson's"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">annots</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/search_annotations.html">search_annotations</a></span><span class="op">(</span><span class="st">"parkinson"</span><span class="op">)</span></span>
 <span><span class="va">annots</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/gemma_kable.html">gemma_kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
@@ -159,52 +159,10 @@ NA
 NA
 </td>
 <td style="text-align:left;">
-parkinson’s disease symptom…
+parkinsonism
 </td>
 <td style="text-align:left;">
-<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0600011
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-parkinson disease 6
-</td>
-<td style="text-align:left;">
-<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0022988
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-parkinson disease, dominant
-</td>
-<td style="text-align:left;">
-<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0022609
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-wolff-parkinson-white syndrome
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0001716
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0001300
 </td>
 </tr>
 <tr>
@@ -223,16 +181,58 @@ parkinsonism with favorable…
 </tr>
 <tr>
 <td style="text-align:left;">
+disease
+</td>
+<td style="text-align:left;">
+<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0000408
+</td>
+<td style="text-align:left;">
+Parkinson disease
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0005180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+parkinsonian-pyramidal synd…
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0009830
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
 NA
 </td>
 <td style="text-align:left;">
-parkinsonism
+parkinson disease 12
 </td>
 <td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/HP_0001300
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0010360
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+parkinson disease, mitochon…
+</td>
+<td style="text-align:left;">
+<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0010796
 </td>
 </tr>
 </tbody>
@@ -267,144 +267,23 @@ value.URI
 counts
 </th>
 </tr></thead>
-<tbody>
-<tr>
+<tbody><tr>
 <td style="text-align:left;">
-NA
+disease
 </td>
 <td style="text-align:left;">
-NA
+<a href="http://www.ebi" class="external-link uri">http://www.ebi</a>…/EFO_0000408
 </td>
 <td style="text-align:left;">
-parkinson disease
+Parkinson disease
 </td>
 <td style="text-align:left;">
 <a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0005180
 </td>
 <td style="text-align:right;">
-217
+212
 </td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-late-onset parkinson disease
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0008199
-</td>
-<td style="text-align:right;">
-3
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-autosomal dominant parkinso…
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0011764
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-amyotrophic lateral scleros…
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0007104
-</td>
-<td style="text-align:right;">
-2
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-young-onset parkinson disease
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0017279
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-autosomal dominant parkinso…
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0008200
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-autosomal recessive juvenil…
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0010820
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:left;">
-x-linked dystonia-parkinsonism
-</td>
-<td style="text-align:left;">
-<a href="http://purl.obolibrary" class="external-link uri">http://purl.obolibrary</a>…/MONDO_0010747
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 <div class="section level2">
@@ -478,10 +357,10 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-accession.externalDatabase.id
+accession.externalDatabase….
 </td>
 <td style="text-align:left;">
-integer
+string
 </td>
 <td style="text-align:left;">
 NA
@@ -489,10 +368,10 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-accession.externalDatabase….
+accession.externalDatabase.id
 </td>
 <td style="text-align:left;">
-string
+integer
 </td>
 <td style="text-align:left;">
 NA
@@ -594,7 +473,7 @@ different brain regions.</p>
 <span>    <span class="va">table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="op">{</span><span class="va">.</span><span class="op">[</span><span class="va">.</span><span class="op">&gt;</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">names</span></span>
 <span></span>
 <span><span class="va">dup_exp</span></span></code></pre></div>
-<pre><code>[1] "873"   "23781"</code></pre>
+<pre><code>[1] "873"</code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">parkin_contrasts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">experiment.ID</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span>  <span class="va">dup_exp</span><span class="op">)</span></span></code></pre></div>
 <pre><code>   result.ID contrast.ID experiment.ID factor.category
@@ -602,29 +481,21 @@ different brain regions.</p>
 1:    583617       17505           873         disease
 2:    583618       17505           873         disease
 3:    583619       17505           873         disease
-4:    509632      200926         23781         disease
-5:    509633      200926         23781         disease
                     factor.category.URI factor.ID   baseline.factors
                                  &lt;char&gt;    &lt;char&gt;             &lt;list&gt;
 1: http://www.ebi.ac.uk/efo/EFO_0000408      2093 &lt;data.table[1x13]&gt;
 2: http://www.ebi.ac.uk/efo/EFO_0000408      2093 &lt;data.table[1x13]&gt;
 3: http://www.ebi.ac.uk/efo/EFO_0000408      2093 &lt;data.table[1x13]&gt;
-4: http://www.ebi.ac.uk/efo/EFO_0000408     41659 &lt;data.table[1x13]&gt;
-5: http://www.ebi.ac.uk/efo/EFO_0000408     41659 &lt;data.table[1x13]&gt;
    experimental.factors isSubset       subsetFactor probes.analyzed
                  &lt;list&gt;   &lt;lgcl&gt;             &lt;list&gt;           &lt;int&gt;
 1:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           22282
 2:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           22282
 3:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           22283
-4:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           12040
-5:   &lt;data.table[1x13]&gt;     TRUE &lt;data.table[1x13]&gt;           11708
    genes.analyzed
             &lt;int&gt;
 1:          13327
 2:          13327
-3:          13327
-4:          10588
-5:          10298</code></pre>
+3:          13327</code></pre>
 <p>We should at least make sure that these two contrasts don’t share
 samples between them, one thing to check is the subsetFactor which might
 explain why these two separate contrasts exist</p>
@@ -638,14 +509,14 @@ explain why these two separate contrasts exist</p>
                              &lt;char&gt;
 1: substantia nigra pars reticulata
                                        value.URI predicate predicate.URI object
-                                          &lt;char&gt;    &lt;lgcl&gt;        &lt;lgcl&gt; &lt;lgcl&gt;
-1: http://purl.obolibrary.org/obo/UBERON_0001966        NA            NA     NA
+                                          &lt;char&gt;    &lt;char&gt;        &lt;char&gt; &lt;char&gt;
+1: http://purl.obolibrary.org/obo/UBERON_0001966      &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
    object.URI                          summary    ID factor.ID factor.category
-       &lt;lgcl&gt;                           &lt;char&gt; &lt;int&gt;     &lt;int&gt;          &lt;char&gt;
-1:         NA substantia nigra pars reticulata 17506      2094   organism part
-                    factor.category.URI
-                                 &lt;char&gt;
-1: http://www.ebi.ac.uk/efo/EFO_0000635
+       &lt;char&gt;                           &lt;char&gt; &lt;int&gt;     &lt;int&gt;          &lt;char&gt;
+1:       &lt;NA&gt; substantia nigra pars reticulata 17506      2094            &lt;NA&gt;
+   factor.category.URI
+                &lt;char&gt;
+1:                &lt;NA&gt;
 
 [[2]]
         category                         category.URI
@@ -655,8 +526,8 @@ explain why these two separate contrasts exist</p>
                            &lt;char&gt;                                        &lt;char&gt;
 1: substantia nigra pars compacta http://purl.obolibrary.org/obo/UBERON_0001965
    predicate predicate.URI object object.URI                        summary
-      &lt;lgcl&gt;        &lt;lgcl&gt; &lt;lgcl&gt;     &lt;lgcl&gt;                         &lt;char&gt;
-1:        NA            NA     NA         NA substantia nigra pars compacta
+      &lt;char&gt;        &lt;char&gt; &lt;char&gt;     &lt;char&gt;                         &lt;char&gt;
+1:      &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;       &lt;NA&gt; substantia nigra pars compacta
       ID factor.ID factor.category                  factor.category.URI
    &lt;int&gt;     &lt;int&gt;          &lt;char&gt;                               &lt;char&gt;
 1: 17507      2094   organism part http://www.ebi.ac.uk/efo/EFO_0000635
@@ -666,54 +537,14 @@ explain why these two separate contrasts exist</p>
           &lt;char&gt;                               &lt;char&gt;                 &lt;char&gt;
 1: organism part http://www.ebi.ac.uk/efo/EFO_0000635 superior frontal gyrus
                                        value.URI predicate predicate.URI object
-                                          &lt;char&gt;    &lt;lgcl&gt;        &lt;lgcl&gt; &lt;lgcl&gt;
-1: http://purl.obolibrary.org/obo/UBERON_0002661        NA            NA     NA
+                                          &lt;char&gt;    &lt;char&gt;        &lt;char&gt; &lt;char&gt;
+1: http://purl.obolibrary.org/obo/UBERON_0002661      &lt;NA&gt;          &lt;NA&gt;   &lt;NA&gt;
    object.URI                summary    ID factor.ID factor.category
-       &lt;lgcl&gt;                 &lt;char&gt; &lt;int&gt;     &lt;int&gt;          &lt;char&gt;
-1:         NA superior frontal gyrus 17508      2094   organism part
+       &lt;char&gt;                 &lt;char&gt; &lt;int&gt;     &lt;int&gt;          &lt;char&gt;
+1:       &lt;NA&gt; superior frontal gyrus 17508      2094   organism part
                     factor.category.URI
                                  &lt;char&gt;
-1: http://www.ebi.ac.uk/efo/EFO_0000635
-
-[[4]]
-    category                         category.URI                        value
-      &lt;char&gt;                               &lt;char&gt;                       &lt;char&gt;
-1: cell type http://www.ebi.ac.uk/efo/EFO_0000324 midbrain dopaminergic neuron
-                                   value.URI    predicate
-                                      &lt;char&gt;       &lt;char&gt;
-1: http://purl.obolibrary.org/obo/CL_2000097 derives from
-                               predicate.URI                 object
-                                      &lt;char&gt;                 &lt;char&gt;
-1: http://purl.obolibrary.org/obo/RO_0001000 ventral tegmental area
-                                      object.URI
-                                          &lt;char&gt;
-1: http://purl.obolibrary.org/obo/UBERON_0002691
-                                                            summary     ID
-                                                             &lt;char&gt;  &lt;int&gt;
-1: midbrain dopaminergic neuron derived from ventral tegmental area 200925
-   factor.ID factor.category                  factor.category.URI
-       &lt;int&gt;          &lt;char&gt;                               &lt;char&gt;
-1:     41658   organism part http://www.ebi.ac.uk/efo/EFO_0000635
-
-[[5]]
-    category                         category.URI                        value
-      &lt;char&gt;                               &lt;char&gt;                       &lt;char&gt;
-1: cell type http://www.ebi.ac.uk/efo/EFO_0000324 midbrain dopaminergic neuron
-                                   value.URI    predicate
-                                      &lt;char&gt;       &lt;char&gt;
-1: http://purl.obolibrary.org/obo/CL_2000097 derives from
-                               predicate.URI                         object
-                                      &lt;char&gt;                         &lt;char&gt;
-1: http://purl.obolibrary.org/obo/RO_0001000 substantia nigra pars compacta
-                                      object.URI
-                                          &lt;char&gt;
-1: http://purl.obolibrary.org/obo/UBERON_0001965
-                                                                    summary
-                                                                     &lt;char&gt;
-1: midbrain dopaminergic neuron derived from substantia nigra pars compacta
-       ID factor.ID factor.category                  factor.category.URI
-    &lt;int&gt;     &lt;int&gt;          &lt;char&gt;                               &lt;char&gt;
-1: 200924     41658   organism part http://www.ebi.ac.uk/efo/EFO_0000635</code></pre>
+1: http://www.ebi.ac.uk/efo/EFO_0000635</code></pre>
 <p>And we can see that these two contrasts are created to split the
 samples between different brain regions, therefore do not actually share
 samples between them.</p>
@@ -827,7 +658,7 @@ results:</p>
 <span><span class="co"># remove the "". This comes from probesets not aligned to any genes</span></span>
 <span><span class="va">all_genes</span> <span class="op">&lt;-</span> <span class="va">all_genes</span><span class="op">[</span><span class="va">all_genes</span> <span class="op">!=</span> <span class="st">""</span><span class="op">]</span></span>
 <span><span class="va">all_genes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="va">head</span></span></code></pre></div>
-<pre><code>[1] "A2M"   "AAAS"  "AACS"  "AAGAB" "AAK1"  "AAMP" </code></pre>
+<pre><code>[1] "A1CF"  "A2M"   "AAAS"  "AACS"  "AAGAB" "AAK1" </code></pre>
 <p>Now we can run the test on every gene, followed by a multiple testing
 correction.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
@@ -873,10 +704,10 @@ correction.</p>
 meta-analysis (Fisher’s method is very sensitive)</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">$</span><span class="va">Adjusted</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span> <span class="co"># FDR&lt;0.05</span></span></code></pre></div>
-<pre><code>[1] 5346</code></pre>
+<pre><code>[1] 7411</code></pre>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span> <span class="co"># number of all genes</span></span></code></pre></div>
-<pre><code>[1] 6252</code></pre>
+<pre><code>[1] 8556</code></pre>
 <p>Next we look at markers of dopaminergic cell types and how they rank
 compared to other genes. Parkinson’s Disease is a neurodegenerative
 disorder, leading to death of dopaminergic cells. We should expect them
@@ -1007,9 +838,9 @@ there is evidence of consistent differential expression.</p>
 </h2>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>R version 4.6.0 (2026-04-24)
+<pre><code>R version 4.6.1 (2026-06-24)
 Platform: x86_64-pc-linux-gnu
-Running under: Ubuntu 24.04.4 LTS
+Running under: Ubuntu 24.04.5 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
@@ -1034,26 +865,26 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] tidyr_1.3.2         sass_0.4.10         generics_0.1.4     
- [4] xml2_1.5.2          stringi_1.8.7       digest_0.6.39      
+ [4] xml2_1.6.0          stringi_1.8.9       digest_0.6.39      
  [7] magrittr_2.0.5      timechange_0.4.0    evaluate_1.0.5     
-[10] grid_4.6.0          RColorBrewer_1.1-3  bookdown_0.47      
+[10] grid_4.6.1          RColorBrewer_1.1-3  bookdown_0.48      
 [13] fastmap_1.2.0       jsonlite_2.0.0      BiocManager_1.30.27
-[16] httr_1.4.8          purrr_1.2.2         viridisLite_0.4.3  
+[16] httr_1.4.9          purrr_1.2.2         viridisLite_0.4.3  
 [19] scales_1.4.0        textshaping_1.0.5   jquerylib_0.1.4    
-[22] cli_3.6.6           rlang_1.2.0         bit64_4.8.2        
-[25] withr_3.0.2         cachem_1.1.0        yaml_2.3.12        
-[28] otel_0.2.0          tools_4.6.0         mathjaxr_2.0-0     
-[31] kableExtra_1.4.0    assertthat_0.2.1    curl_7.1.0         
+[22] cli_3.6.6           rlang_1.3.0         bit64_4.8.6        
+[25] withr_3.0.3         cachem_1.1.0        yaml_2.3.12        
+[28] otel_0.2.0          tools_4.6.1         mathjaxr_2.0-0     
+[31] kableExtra_1.4.1    assertthat_0.2.1    curl_8.0.0         
 [34] vctrs_0.7.3         R6_2.6.1            lubridate_1.9.5    
 [37] lifecycle_1.0.5     fs_2.1.0            htmlwidgets_1.6.4  
 [40] bit_4.6.0           ragg_1.5.2          pkgconfig_2.0.3    
-[43] desc_1.4.3          pkgdown_2.2.0       pillar_1.11.1      
-[46] bslib_0.11.0        gtable_0.3.6        data.table_1.18.4  
-[49] glue_1.8.1          systemfonts_1.3.2   xfun_0.58          
+[43] desc_1.4.3          pkgdown_2.2.1       pillar_1.11.1      
+[46] bslib_0.12.0        gtable_0.3.6        data.table_1.18.6.1
+[49] glue_1.8.1          systemfonts_1.3.2   xfun_0.61          
 [52] tibble_3.3.1        tidyselect_1.2.1    rstudioapi_0.19.0  
-[55] knitr_1.51          farver_2.1.2        htmltools_0.5.9    
-[58] labeling_0.4.3      svglite_2.2.2       rmarkdown_2.31     
-[61] compiler_4.6.0      S7_0.2.2           </code></pre>
+[55] knitr_1.52          farver_2.1.2        htmltools_0.5.9    
+[58] labeling_0.4.3      svglite_2.2.2       rmarkdown_2.32     
+[61] compiler_4.6.1      S7_0.2.2           </code></pre>
 </div>
   </div>
 
@@ -1072,7 +903,7 @@ loaded via a namespace (and not attached):
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer>

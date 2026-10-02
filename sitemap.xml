@@ -9,6 +9,7 @@
 <url><loc>/index.html</loc></url>
 <url><loc>/news/index.html</loc></url>
 <url><loc>/reference/accessField.html</loc></url>
+<url><loc>/reference/accessRenamedField.html</loc></url>
 <url><loc>/reference/blank_processor.html</loc></url>
 <url><loc>/reference/checkBounds.html</loc></url>
 <url><loc>/reference/dot-getResultSets.html</loc></url>
@@ -63,6 +64,7 @@
 <url><loc>/reference/make_design.html</loc></url>
 <url><loc>/reference/memoise.html</loc></url>
 <url><loc>/reference/nullCheck.html</loc></url>
+<url><loc>/reference/processAnnotationFile.html</loc></url>
 <url><loc>/reference/processAnnotations.html</loc></url>
 <url><loc>/reference/processBibliographicReferenceValueObject.html</loc></url>
 <url><loc>/reference/processCharacteristicValueObject.html</loc></url>
@@ -87,6 +89,7 @@
 <url><loc>/reference/processSearchAnnotations.html</loc></url>
 <url><loc>/reference/processTaxon.html</loc></url>
 <url><loc>/reference/process_search.html</loc></url>
+<url><loc>/reference/retryAfter.html</loc></url>
 <url><loc>/reference/search_annotations.html</loc></url>
 <url><loc>/reference/search_datasets.html</loc></url>
 <url><loc>/reference/search_gemma.html</loc></url>

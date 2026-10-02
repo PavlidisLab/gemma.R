@@ -93,19 +93,22 @@
 
 
 <dl><dt id="arg-datasets">datasets<a class="anchor" aria-label="anchor" href="#arg-datasets"></a></dt>
-<dd><p>A comma-delimited list of dataset IDs or short names. The value may be compressed with gzip and encoded with base64.</p></dd>
+<dd><p>A comma-delimited list of dataset IDs or short names.</p></dd>
 
 
 <dt id="arg-genes">genes<a class="anchor" aria-label="anchor" href="#arg-genes"></a></dt>
-<dd><p>A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols. The value may be compressed with gzip and encoded with base64.</p></dd>
+<dd><p>A comma-delimited list of NCBI IDs, Ensembl IDs or gene symbols.</p></dd>
 
 
 <dt id="arg-keepnonspecific">keepNonSpecific<a class="anchor" aria-label="anchor" href="#arg-keepnonspecific"></a></dt>
-<dd><p>boolean</p></dd>
+<dd><p>logical. <code>FALSE</code> by default. If <code>TRUE</code>, results from probesets that are not specific to the gene will also be returned.</p></dd>
 
 
 <dt id="arg-consolidate">consolidate<a class="anchor" aria-label="anchor" href="#arg-consolidate"></a></dt>
-<dd><p>An option for gene expression level consolidation.</p></dd>
+<dd><p>An option for gene expression level consolidation. If empty,
+will return every probe for the genes. "pickmax" to
+pick the probe with the highest expression, "pickvar" to pick the prove with
+the highest variance and "average" for returning the average expression</p></dd>
 
 
 <dt id="arg-taxon">taxon<a class="anchor" aria-label="anchor" href="#arg-taxon"></a></dt>
@@ -153,7 +156,7 @@ filename.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
       </footer></div>
