@@ -251,21 +251,7 @@ get_annotation_children <- function(uri, raw = getOption("gemma.raw", FALSE), me
     header <- ""
     isFile <- FALSE
     fname <- "get_annotation_children"
-    preprocessor <- function(d) {
-        data.table(category.name = accessField(
-            d, "category",
-            NA_character_
-        ), category.URI = accessField(
-            d, "categoryUri",
-            NA_character_
-        ), value.name = accessField(
-            d, "value",
-            NA_character_
-        ), value.URI = accessField(
-            d, "valueUri",
-            NA_character_
-        ))
-    }
+    preprocessor <- processSearchAnnotations
     validators <- list(uri = validateURI)
     endpoint <- "annotations/children?uri={encode(uri)}"
     if (memoised) {
@@ -352,21 +338,7 @@ get_annotation_parents <- function(uri, raw = getOption("gemma.raw", FALSE), mem
     header <- ""
     isFile <- FALSE
     fname <- "get_annotation_parents"
-    preprocessor <- function(d) {
-        data.table(category.name = accessField(
-            d, "category",
-            NA_character_
-        ), category.URI = accessField(
-            d, "categoryUri",
-            NA_character_
-        ), value.name = accessField(
-            d, "value",
-            NA_character_
-        ), value.URI = accessField(
-            d, "valueUri",
-            NA_character_
-        ))
-    }
+    preprocessor <- processSearchAnnotations
     validators <- list(uri = validateURI)
     endpoint <- "annotations/parents?uri={encode(uri)}"
     if (memoised) {
@@ -628,15 +600,7 @@ get_dataset_annotations <- function(dataset, raw = getOption("gemma.raw", FALSE)
     isFile <- FALSE
     fname <- "get_dataset_annotations"
     preprocessor <- processAnnotations
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    })
+    validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/annotations"
     if (memoised) {
         if (!is.na(file)) {
@@ -723,15 +687,7 @@ get_dataset_differential_expression_analyses <- function(dataset, raw = getOptio
     isFile <- FALSE
     fname <- "get_dataset_differential_expression_analyses"
     preprocessor <- processDEA
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    })
+    validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/analyses/differential"
     if (memoised) {
         if (!is.na(file)) {
@@ -819,15 +775,7 @@ get_dataset_platforms <- function(dataset, raw = getOption("gemma.raw", FALSE), 
     isFile <- FALSE
     fname <- "get_dataset_platforms"
     preprocessor <- processPlatforms
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    })
+    validators <- list(dataset = validateSingleID)
     endpoint <- "datasets/{encode(dataset)}/platforms"
     if (memoised) {
         if (!is.na(file)) {
@@ -1008,44 +956,10 @@ memget_dataset_processed_expression <- function(dataset, raw = getOption("gemma.
     isFile <- FALSE
     fname <- ".get_dataset_expression_for_genes"
     preprocessor <- process_dataset_gene_expression
-    validators <- list(datasets = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    }, genes = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    }, keepNonSpecific = function(name, ...) {
-        args <- unlist(list(...))
-        if (length(args) != 1 || !is.logical(args)) {
-            stop(glue::glue("Please only specify boolean values for {name}."),
-                call. = FALSE
-            )
-        }
-        tolower(as.character(args))
-    }, consolidate = function(name, ...) {
-        consolidate <- unlist(list(...))
-        if (length(consolidate) > 1 | (!consolidate %in% c(
-            NA_character_,
-            "pickmax", "pickvar", "average"
-        ))) {
-            stop("consolidate must be NA, \"pickmax\", \"pickmax\" or \"average\"")
-        }
-        return(consolidate)
-    })
+    validators <- list(
+        datasets = validateID, genes = validateID,
+        keepNonSpecific = validateBoolean, consolidate = validateConsolidate
+    )
     endpoint <- "datasets/{encode(datasets)}/expressions/genes/{encode(genes)}?keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     if (memoised) {
         if (!is.na(file)) {
@@ -1143,69 +1057,11 @@ mem.get_dataset_expression_for_genes <- function(
     isFile <- FALSE
     fname <- ".get_dataset_expression_for_genes_in_taxon"
     preprocessor <- process_dataset_gene_expression
-    validators <- list(datasets = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    }, genes = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    }, keepNonSpecific = function(name, ...) {
-        args <- unlist(list(...))
-        if (length(args) != 1 || !is.logical(args)) {
-            stop(glue::glue("Please only specify boolean values for {name}."),
-                call. = FALSE
-            )
-        }
-        tolower(as.character(args))
-    }, consolidate = function(name, ...) {
-        consolidate <- unlist(list(...))
-        if (length(consolidate) > 1 | (!consolidate %in% c(
-            NA_character_,
-            "pickmax", "pickvar", "average"
-        ))) {
-            stop("consolidate must be NA, \"pickmax\", \"pickmax\" or \"average\"")
-        }
-        return(consolidate)
-    }, taxon = function(name, ...) {
-        taxa <- as.character(unlist(list(...)))
-        if (length(taxa) > 1) {
-            stop("Please specify only one taxon.", call. = FALSE)
-        }
-        LOOKUP_TABLE <- data.table(
-            id = c(
-                1, 2, 3, 11, 12, 13,
-                14
-            ), name = c(
-                "human", "mouse", "rat", "yeast", "zebrafish",
-                "fly", "worm"
-            ), scientific = c(
-                "Homo sapiens", "Mus musculus",
-                "Rattus norvegicus", "Saccharomyces cerevisiae",
-                "Danio rerio", "Drosophila melanogaster", "Caenorhabditis elegans"
-            ),
-            ncbi = c(9606, 10090, 10116, 4932, 7955, 7227, 6239)
-        )
-        if (!all(taxa %in% c("", unlist(LOOKUP_TABLE)))) {
-            stop("You must specify a valid taxon. The available taxa are:\n            human, mouse, rat, yeast, zebrafish, fly and worm.",
-                call. = FALSE
-            )
-        }
-        paste0(taxa, collapse = ",")
-    })
+    validators <- list(
+        datasets = validateID, genes = validateID,
+        keepNonSpecific = validateBoolean, consolidate = validateConsolidate,
+        taxon = validateTaxon
+    )
     endpoint <- "datasets/{encode(datasets)}/expressions/taxa/{encode(taxon)}/genes/{encode(genes)}?keepNonSpecific={encode(keepNonSpecific)}&consolidate={encode(consolidate)}"
     if (memoised) {
         if (!is.na(file)) {
@@ -1494,28 +1350,10 @@ get_dataset_samples <- function(
     isFile <- FALSE
     fname <- "get_dataset_samples"
     preprocessor <- processSamples
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        if (length(ID) > 1) {
-            stop(glue::glue("Please specify one valid identifier for {name}."),
-                call. = FALSE
-            )
-        }
-        validateID(name, ...)
-    }, quantitationType = function(name, ...) {
-        if (all(is.na(as.character(unlist(list(...)))))) {
-            ""
-        } else {
-            validateID(name, ...)
-        }
-    }, useProcessedQuantitationType = function(name, ...) {
-        args <- unlist(list(...))
-        if (all(is.na(as.character(unlist(list(...)))))) {
-            ""
-        } else {
-            validateBoolean(name, ...)
-        }
-    })
+    validators <- list(
+        dataset = validateSingleID, quantitationType = validateOptionalID,
+        useProcessedQuantitationType = validateOptionalBoolean
+    )
     endpoint <- "datasets/{encode(dataset)}/samples?quantitationType={encode(quantitationType)}&useProcessedQuantitationType={encode(useProcessedQuantitationType)}"
     if (memoised) {
         if (!is.na(file)) {
@@ -1603,17 +1441,7 @@ get_dataset_subset_groups <- function(dataset, raw = getOption("gemma.raw", FALS
     isFile <- FALSE
     fname <- "get_dataset_subset_groups"
     preprocessor <- blank_processor
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    })
+    validators <- list(dataset = validateID)
     endpoint <- "datasets/{encode(dataset)}/subSetGroups"
     if (memoised) {
         if (!is.na(file)) {
@@ -1700,27 +1528,7 @@ get_dataset_subset_samples <- function(
     isFile <- FALSE
     fname <- "get_dataset_subset_samples"
     preprocessor <- processSamples
-    validators <- list(dataset = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    }, subset = function(name, ...) {
-        ID <- unlist(list(...))
-        isID <- grepl("^\\d+$", ID)
-        if (any(is.na(ID)) || (any(isID) && !all(isID)) || any(ID ==
-            "")) {
-            stop(glue::glue("Please specify valid identifiers for {name} and do not combine different types of identifiers."),
-                call. = FALSE
-            )
-        }
-        paste0(ID, collapse = ",")
-    })
+    validators <- list(dataset = validateID, subset = validateID)
     endpoint <- "datasets/{encode(dataset)}/subSets/{encode(subset)}/samples"
     if (memoised) {
         if (!is.na(file)) {

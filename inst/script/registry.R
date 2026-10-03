@@ -200,7 +200,7 @@ registerEndpoint("annotations/children?uri={uri}",
                  keyword = 'annotation',
                  defaults = list(uri = bquote()),
                  validators = alist(uri = validateURI),
-                 preprocessor = processSearchAnnotations)
+                 preprocessor = quote(processSearchAnnotations))
 
 # /annotation/parents ------
 
@@ -223,7 +223,7 @@ registerEndpoint("annotations/parents?uri={uri}",
                  keyword = 'annotation',
                  defaults = list(uri = bquote()),
                  validators = alist(uri = validateURI),
-                 preprocessor = processSearchAnnotations)
+                 preprocessor = quote(processSearchAnnotations))
 
 # /annotations/search, search_annotations --------
 
@@ -283,7 +283,7 @@ registerEndpoint('datasets/{dataset}/annotations',
                  defaults = list(
                      dataset = bquote()
                  ),
-                 validators = list(
+                 validators = alist(
                      dataset = validateSingleID
                  ),
                  preprocessor = quote(processAnnotations))
@@ -349,7 +349,7 @@ registerEndpoint('datasets/{dataset}/analyses/differential',
                  defaults = list(
                      dataset = bquote()
                  ),
-                 validators = list(
+                 validators = alist(
                      dataset = validateSingleID
                  ),
                  preprocessor = quote(processDEA))
@@ -395,7 +395,7 @@ registerEndpoint('datasets/{dataset}/platforms',
                  defaults = list(
                      dataset = bquote()
                  ),
-                 validators = list(
+                 validators = alist(
                      dataset = validateSingleID
                  ),
                  preprocessor = quote(processPlatforms))
@@ -453,7 +453,7 @@ registerEndpoint('datasets/{datasets}/expressions/genes/{genes}?keepNonSpecific=
                      keepNonSpecific = FALSE,
                      consolidate = NA_character_
                  ),
-                 validators = list(
+                 validators = alist(
                      datasets = validateID,
                      genes = validateID,
                      keepNonSpecific = validateBoolean,
@@ -483,7 +483,7 @@ registerEndpoint('datasets/{datasets}/expressions/taxa/{taxon}/genes/{genes}?kee
                      consolidate = NA_character_,
                      taxon = bquote()
                  ),
-                 validators = list(
+                 validators = alist(
                      datasets = validateID,
                      genes = validateID,
                      keepNonSpecific = validateBoolean,
@@ -587,7 +587,7 @@ registerEndpoint('datasets/{dataset}/samples?quantitationType={quantitationType}
                      useProcessedQuantitationType = TRUE,
                      quantitationType = NA_character_
                  ),
-                 validators = list(
+                 validators = alist(
                      dataset = validateSingleID,
                      quantitationType = validateOptionalID,
                      useProcessedQuantitationType = validateOptionalBoolean
@@ -622,7 +622,7 @@ registerEndpoint('datasets/{dataset}/subSetGroups',
                  keyword = 'dataset',
                  internal= TRUE,
                  defaults = list(dataset = bquote()),
-                 validators = list(dataset = validateID),
+                 validators = alist(dataset = validateID),
                  preprocessor = quote(blank_processor))
 
 # dataset/{dataset}/subSets/{subSet}/samples -------
@@ -636,7 +636,7 @@ registerEndpoint('datasets/{dataset}/subSets/{subset}/samples',
                  internal = TRUE,
                  defaults = list(dataset = bquote(),
                                  subset = bquote()),
-                 validators = list(dataset = validateID,
+                 validators = alist(dataset = validateID,
                                    subset = validateID),
                  preprocessor = quote(processSamples))
 
