@@ -35,7 +35,8 @@ test_that("getGeneProbes queries work", {
 test_that('searchAnnotations work',{
     annots = search_annotations("traumatic")
     expect_s3_class(annots,'data.table')
-    expect_true(all(names(annots) %in% c("category.name", "category.URI", "value.name", "value.URI")))
+    expect_true(all(names(annots) %in% c("category.name", "category.URI", "value.name", "value.URI", "usageCount")))
+    expect_false(is.unsorted(rev(annots$usageCount), na.rm = TRUE))
 })
 
 #test_that("getGeneGO queries work", {

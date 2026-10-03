@@ -47,4 +47,4 @@ utils::globalVariables(c("platform.ID", "analysis.ID", "analysis.Threshold", "ba
                          "subsetFactor.factorValueURI", "valueUri", "category", 
                          "categoryURI", "experimental.factorValue","value",
                          "contrast.ID","%$%",'baseline.factors',"ID","sample.ID","filter_genes","print.listable_pheatmap",
-                         "corrected_pvalue"))
+                         "corrected_pvalue","usageCount"))

@@ -95,16 +95,20 @@ processDatasets <- function(d) {
 #'     \item \code{category.URI}: URI for the category.name
 #'     \item \code{value.name}: Annotation term
 #'     \item \code{value.URI}: URI for the value.name
+#'     \item \code{usageCount}: Number of times the annotation is used in Gemma.
+#'     Results are sorted by this field in decreasing order.
 #' }
 #'
 #' @keywords internal
 processSearchAnnotations <- function(d) {
-    data.table(
+    out <- data.table(
         category.name = accessField(d,'category',NA_character_),
         category.URI = accessField(d,"categoryUri",NA_character_),
         value.name = accessField(d,"value",NA_character_),
-        value.URI = accessField(d,"valueUri",NA_character_)
+        value.URI = accessField(d,"valueUri",NA_character_),
+        usageCount = accessField(d,"usageCount",NA_integer_)
     )
+    out[order(usageCount, decreasing = TRUE, na.last = TRUE)]
 }
 
 

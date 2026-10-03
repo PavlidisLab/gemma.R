@@ -14,8 +14,6 @@ subset_factorValues(
 }
 \arguments{
 \item{factorValue}{unimplemented}
-
-\item{differential_expressions}{}
 }
 \value{
 a boolean vector, samples representing the resultSet and/or the contrast

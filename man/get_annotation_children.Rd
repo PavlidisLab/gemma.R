@@ -42,6 +42,8 @@ The fields of the output data.table are:
 \item \code{category.URI}: URI for the category.name
 \item \code{value.name}: Annotation term
 \item \code{value.URI}: URI for the value.name
+\item \code{usageCount}: Number of times the annotation is used in Gemma.
+Results are sorted by this field in decreasing order.
 }
 }
 \description{
