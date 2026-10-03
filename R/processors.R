@@ -111,6 +111,28 @@ processSearchAnnotations <- function(d) {
     out[order(usageCount, decreasing = TRUE, na.last = TRUE)]
 }
 
+#' Processes JSON as related annotation terms
+#'
+#' @param d The JSON to process
+#'
+#' @return A data table with the annotation terms related to the queried term.
+#' A list if \code{raw = TRUE}. A \code{400 error} if required parameters are missing.
+#'
+#' The fields of the output data.table are:
+#'
+#' \itemize{
+#'     \item \code{value.name}: Annotation term
+#'     \item \code{value.URI}: URI for the value.name
+#' }
+#'
+#' @keywords internal
+processAnnotationTerms <- function(d) {
+    data.table(
+        value.name = accessField(d,"value",NA_character_),
+        value.URI = accessField(d,"valueUri",NA_character_)
+    )
+}
+
 
 # good test cases 442 (subsets), 448, 200 (interaction), 174
 # 200 also has statements, 548 double statements

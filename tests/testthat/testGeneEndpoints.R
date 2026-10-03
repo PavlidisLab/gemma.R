@@ -39,6 +39,16 @@ test_that('searchAnnotations work',{
     expect_false(is.unsorted(rev(annots$usageCount), na.rm = TRUE))
 })
 
+test_that('annotation children and parents work',{
+    uri = "http://purl.obolibrary.org/obo/MONDO_0000408"
+    children = get_annotation_children(uri)
+    parents = get_annotation_parents(uri)
+    expect_named(children, c("value.name", "value.URI"))
+    expect_named(parents, c("value.name", "value.URI"))
+    expect_gt(nrow(children), 0)
+    expect_gt(nrow(parents), 0)
+})
+
 #test_that("getGeneGO queries work", {
     # dat <- get_gene_go_terms(1859)
     # raw <- get_gene_go_terms(1859, raw = TRUE) %>% jsonlite:::simplify()
