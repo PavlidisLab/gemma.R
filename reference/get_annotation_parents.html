@@ -127,6 +127,8 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <li><p><code>category.URI</code>: URI for the category.name</p></li>
 <li><p><code>value.name</code>: Annotation term</p></li>
 <li><p><code>value.URI</code>: URI for the value.name</p></li>
+<li><p><code>usageCount</code>: Number of times the annotation is used in Gemma.
+Results are sorted by this field in decreasing order.</p></li>
 </ul></div>
 
     <div id="ref-examples">
@@ -159,54 +161,54 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;char&gt;       &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                            value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                     human disease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                   alcohol-induced mental disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                              psychiatric disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                    brain disorder</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:                   central nervous system disorder</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                           disease</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                              psychiatric disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                    characteristic</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                           nervous system disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                                            entity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                        continuant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                 specifically dependent continuant</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                       disposition</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                         alcohol-related disorders</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                                 realizable entity</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                         alcohol-induced disorders</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15:           developmental disorder of mental health</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                        substance-related disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17:                                    brain disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18:                   specific developmental disorder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                                   mental disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                         alcohol-related disorders</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                   mental disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                     human disease</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8:                   alcohol-induced mental disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:                                    characteristic</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10:                           nervous system disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:                                            entity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:                                        continuant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:                 specifically dependent continuant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:                                       disposition</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:                                 realizable entity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16:                         alcohol-induced disorders</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17:           developmental disorder of mental health</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18:                        substance-related disorder</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19:                   specific developmental disorder</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20: disease by developmental or physiological process</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 21:               disease by body system or component</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                            value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://purl.obolibrary.org/obo/MONDO_0700096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://purl.obolibrary.org/obo/MONDO_0002326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: http://purl.obolibrary.org/obo/MONDO_0002602</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://purl.obolibrary.org/obo/MONDO_0000001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0002025</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:   http://purl.obolibrary.org/obo/COB_0000502</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://purl.obolibrary.org/obo/MONDO_0005071</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8:   http://purl.obolibrary.org/obo/BFO_0000001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   http://purl.obolibrary.org/obo/BFO_0000002</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10:   http://purl.obolibrary.org/obo/BFO_0000020</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   http://purl.obolibrary.org/obo/BFO_0000016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: http://purl.obolibrary.org/obo/MONDO_0021698</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   http://purl.obolibrary.org/obo/BFO_0000017</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: http://purl.obolibrary.org/obo/MONDO_0021699</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: http://purl.obolibrary.org/obo/MONDO_0005503</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: http://purl.obolibrary.org/obo/MONDO_0002494</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: http://purl.obolibrary.org/obo/MONDO_0005560</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18: http://purl.obolibrary.org/obo/MONDO_0000592</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19: http://purl.obolibrary.org/obo/MONDO_0005084</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20: http://purl.obolibrary.org/obo/MONDO_7770007</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21: http://purl.obolibrary.org/obo/MONDO_7770006</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI usageCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;      &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://purl.obolibrary.org/obo/MONDO_0002025          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://purl.obolibrary.org/obo/MONDO_0005560          2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: http://purl.obolibrary.org/obo/MONDO_0002602          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://purl.obolibrary.org/obo/MONDO_0000001          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0021698          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://purl.obolibrary.org/obo/MONDO_0005084          1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://purl.obolibrary.org/obo/MONDO_0700096          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: http://purl.obolibrary.org/obo/MONDO_0002326          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9:   http://purl.obolibrary.org/obo/COB_0000502          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: http://purl.obolibrary.org/obo/MONDO_0005071          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11:   http://purl.obolibrary.org/obo/BFO_0000001          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12:   http://purl.obolibrary.org/obo/BFO_0000002          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13:   http://purl.obolibrary.org/obo/BFO_0000020          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14:   http://purl.obolibrary.org/obo/BFO_0000016          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15:   http://purl.obolibrary.org/obo/BFO_0000017          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: http://purl.obolibrary.org/obo/MONDO_0021699          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: http://purl.obolibrary.org/obo/MONDO_0005503          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: http://purl.obolibrary.org/obo/MONDO_0002494          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: http://purl.obolibrary.org/obo/MONDO_0000592          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20: http://purl.obolibrary.org/obo/MONDO_7770007          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21: http://purl.obolibrary.org/obo/MONDO_7770006          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI usageCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;      &lt;int&gt;</span>
 </code></pre></div>
     </div>
   </div>

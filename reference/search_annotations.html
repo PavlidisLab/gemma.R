@@ -128,6 +128,8 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <li><p><code>category.URI</code>: URI for the category.name</p></li>
 <li><p><code>value.name</code>: Annotation term</p></li>
 <li><p><code>value.URI</code>: URI for the value.name</p></li>
+<li><p><code>usageCount</code>: Number of times the annotation is used in Gemma.
+Results are sorted by this field in decreasing order.</p></li>
 </ul></div>
 
     <div id="ref-examples">
@@ -135,13 +137,13 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">search_annotations</span><span class="op">(</span><span class="st">"traumatic"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     category.name                            category.URI</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;char&gt;                                  &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:          &lt;NA&gt;                                    &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: disease model http://gemma.msl.ubc.ca/ont/TGEMO_00101</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  2:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  3:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  4:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  5:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  6:          &lt;NA&gt;                                    &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: disease model http://gemma.msl.ubc.ca/ont/TGEMO_00101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  8:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9:          &lt;NA&gt;                                    &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:          &lt;NA&gt;                                    &lt;NA&gt;</span>
@@ -159,13 +161,13 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;char&gt;                                  &lt;char&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                               value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                   &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                                       traumatic acid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                                   traumatic glaucoma</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                         traumatic avascular necrosis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                        traumatic myositis ossificans</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                             traumatic encephalopathy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                                 traumatic neuropathy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                               traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1:                               traumatic brain injury</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:                             traumatic encephalopathy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:                                       traumatic acid</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4:                                   traumatic glaucoma</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:                         traumatic avascular necrosis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:                        traumatic myositis ossificans</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7:                                 traumatic neuropathy</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  8:             traumatic brain injury, non-human animal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  9:       traumatic ear canal avulsion, non-human animal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10:           traumatic hemoperitoneum, non-human animal</span>
@@ -181,30 +183,30 @@ matching the given identifiers. A list if <code>raw = TRUE</code>. A <code>400 e
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20: traumatic nasolacrimal duct injury, non-human animal</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                               value.name</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                   &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1:  http://purl.obolibrary.org/obo/CHEBI_545687</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://purl.obolibrary.org/obo/MONDO_0001626</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: http://purl.obolibrary.org/obo/MONDO_0018375</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://purl.obolibrary.org/obo/MONDO_0021929</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0043512</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://purl.obolibrary.org/obo/MONDO_0100634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://purl.obolibrary.org/obo/MONDO_0858950</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: http://purl.obolibrary.org/obo/MONDO_1013018</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: http://purl.obolibrary.org/obo/MONDO_1013810</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: http://purl.obolibrary.org/obo/MONDO_1013844</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11: http://purl.obolibrary.org/obo/MONDO_1013869</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12: http://purl.obolibrary.org/obo/MONDO_1013962</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13: http://purl.obolibrary.org/obo/MONDO_1014296</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14: http://purl.obolibrary.org/obo/MONDO_1014363</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15: http://purl.obolibrary.org/obo/MONDO_1014372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16: http://purl.obolibrary.org/obo/MONDO_1014698</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17: http://purl.obolibrary.org/obo/MONDO_1015354</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18: http://purl.obolibrary.org/obo/MONDO_1015837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19: http://purl.obolibrary.org/obo/MONDO_1016429</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20: http://purl.obolibrary.org/obo/MONDO_1016444</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI usageCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;      &lt;int&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: http://purl.obolibrary.org/obo/MONDO_0858950         48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2: http://purl.obolibrary.org/obo/MONDO_0043512          3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3:  http://purl.obolibrary.org/obo/CHEBI_545687          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: http://purl.obolibrary.org/obo/MONDO_0001626          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5: http://purl.obolibrary.org/obo/MONDO_0018375          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6: http://purl.obolibrary.org/obo/MONDO_0021929          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: http://purl.obolibrary.org/obo/MONDO_0100634          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: http://purl.obolibrary.org/obo/MONDO_1013018          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: http://purl.obolibrary.org/obo/MONDO_1013810          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: http://purl.obolibrary.org/obo/MONDO_1013844          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11: http://purl.obolibrary.org/obo/MONDO_1013869          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12: http://purl.obolibrary.org/obo/MONDO_1013962          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13: http://purl.obolibrary.org/obo/MONDO_1014296          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14: http://purl.obolibrary.org/obo/MONDO_1014363          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15: http://purl.obolibrary.org/obo/MONDO_1014372          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16: http://purl.obolibrary.org/obo/MONDO_1014698          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17: http://purl.obolibrary.org/obo/MONDO_1015354          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18: http://purl.obolibrary.org/obo/MONDO_1015837          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19: http://purl.obolibrary.org/obo/MONDO_1016429          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20: http://purl.obolibrary.org/obo/MONDO_1016444          0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                        value.URI usageCount</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           &lt;char&gt;      &lt;int&gt;</span>
 </code></pre></div>
     </div>
   </div>
